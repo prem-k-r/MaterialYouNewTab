@@ -8,46 +8,46 @@
 
 // --------------------------------- Proxy ---------------------------------
 let proxyurl;
-document.addEventListener("DOMContentLoaded", () => {
-    const userProxyInput = document.getElementById("userproxy");
-    const saveProxyButton = document.getElementById("saveproxy");
-    const savedProxy = localStorage.getItem("proxy");
 
-    const defaultProxyURL = "https://mynt-proxy.rhythmcorehq.com/proxy?url="; //Default proxy url
+const userProxyInput = document.getElementById("userproxy");
+const saveProxyButton = document.getElementById("saveproxy");
+const savedProxy = localStorage.getItem("proxy");
 
-    if (savedProxy && savedProxy !== defaultProxyURL) {
-        userProxyInput.value = savedProxy;
+const defaultProxyURL = "https://mynt-proxy.rhythmcorehq.com/proxy?url="; //Default proxy url
+const fallbackProxyURL = "https://mynt-cors-proxy.onrender.com/proxy?url=";
+
+if (savedProxy && savedProxy !== defaultProxyURL) {
+    userProxyInput.value = savedProxy;
+}
+
+// Allow pressing Enter to save the proxy
+userProxyInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        saveProxyButton.click();
     }
-
-    // Allow pressing Enter to save the proxy
-    userProxyInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-            saveProxyButton.click();
-        }
-    });
-
-    // Save the proxy to localStorage
-    saveProxyButton.addEventListener("click", () => {
-        proxyurl = userProxyInput.value.trim();
-
-        // If the input is empty, use the default proxy.
-        if (proxyurl === "") {
-            proxyurl = defaultProxyURL;
-        } else {
-            // Validate if input starts with "http://" or "https://"
-            if (!(proxyurl.startsWith("http://") || proxyurl.startsWith("https://"))) {
-                proxyurl = "https://" + proxyurl;
-            }
-        }
-        // Set the proxy in localStorage, clear the input, and reload the page
-        localStorage.setItem("proxy", proxyurl);
-        userProxyInput.value = "";
-        location.reload();
-    });
-
-    // Determine which proxy URL to use
-    proxyurl = savedProxy || defaultProxyURL;
 });
+
+// Save the proxy to localStorage
+saveProxyButton.addEventListener("click", () => {
+    proxyurl = userProxyInput.value.trim();
+
+    // If the input is empty, use the default proxy.
+    if (proxyurl === "") {
+        proxyurl = defaultProxyURL;
+    } else {
+        // Validate if input starts with "http://" or "https://"
+        if (!(proxyurl.startsWith("http://") || proxyurl.startsWith("https://"))) {
+            proxyurl = "https://" + proxyurl;
+        }
+    }
+    // Set the proxy in localStorage, clear the input, and reload the page
+    localStorage.setItem("proxy", proxyurl);
+    userProxyInput.value = "";
+    location.reload();
+});
+
+// Determine which proxy URL to use
+proxyurl = savedProxy || defaultProxyURL;
 
 // ---------------------------- Search Suggestions ----------------------------
 
@@ -238,8 +238,24 @@ async function getAutocompleteSuggestions(query) {
     }
 
     try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+        let response;
+        let data;
+        try {
+            response = await fetch(apiUrl);
+            data = await response.json();
+        } catch (error) {
+            // If a proxy was used and it failed, try fallback proxy
+            if (useproxyCheckbox.checked && selectedOption !== "engine7") {
+                try {
+                    apiUrl = fallbackProxyURL + encodeURIComponent(searchEnginesapi[selectedOption] || searchEnginesapi["engine1"]);
+                    response = await fetch(apiUrl);
+                    data = await response.json();
+                } catch (error) {
+                    console.error("Error fetching autocomplete suggestions with fallback proxy:", error);
+                    return [];
+                }
+            }
+        }
 
         if (selectedOption === "engine4") {
             const suggestions = data[1].map(item => {
