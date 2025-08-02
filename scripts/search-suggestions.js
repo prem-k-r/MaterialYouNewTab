@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ---------------------------- Search Suggestions ----------------------------
 
 let lastInteractionBy = null;
+let originalSearchText = ""; // Store the original search text
 const resultBox = document.getElementById("resultBox");
 
 // Show the result box
@@ -69,23 +70,13 @@ function hideResultBox() {
 showResultBox();
 hideResultBox();
 
-const languageCode = (localStorage.getItem("selectedLanguage") || "en").slice(0, 2);
-document.getElementById("searchQ").addEventListener("input", async function () {
+searchInput.addEventListener("input", async function () {
     const searchsuggestionscheckbox = document.getElementById("searchsuggestionscheckbox");
     if (searchsuggestionscheckbox.checked) {
-        var selectedOption = document.querySelector("input[name='search-engine']:checked").value;
-        var searchEngines = {
-            engine1: "https://www.google.com/search?q=",
-            engine2: "https://duckduckgo.com/?q=",
-            engine3: "https://bing.com/?q=",
-            engine4: "https://search.brave.com/search?q=",
-            engine5: "https://www.youtube.com/results?search_query=",
-            engine6: "https://www.google.com/search?tbm=isch&q=",
-            engine7: "https://www.reddit.com/search/?q=",
-            engine8: `https://${languageCode}.wikipedia.org/wiki/Special:Search?search=`,
-            engine9: "https://www.quora.com/search?q="
-        };
         const query = this.value;
+
+        // Store original text when user starts typing
+        originalSearchText = query;
 
         if (query.length > 0) {
             try {
@@ -106,21 +97,7 @@ document.getElementById("searchQ").addEventListener("input", async function () {
                         resultItem.setAttribute("data-index", index);
 
                         resultItem.onclick = () => {
-                            if (selectedOption === "engine0") {
-                                try {
-                                    if (isFirefox) {
-                                        browser.search.query({ text: suggestion });
-                                    } else {
-                                        chrome.search.query({ text: suggestion });
-                                    }
-                                } catch (error) {
-                                    var fallbackUrl = searchEngines.engine1 + encodeURIComponent(suggestion);
-                                    window.location.href = fallbackUrl;
-                                }
-                            } else {
-                                var resultlink = searchEngines[selectedOption] + encodeURIComponent(suggestion);
-                                window.location.href = resultlink;
-                            }
+                            performSearch(suggestion);
                         };
 
                         resultItem.addEventListener("mouseenter", () => {
@@ -153,50 +130,65 @@ document.getElementById("searchQ").addEventListener("input", async function () {
     }
 });
 
-document.getElementById("searchQ").addEventListener("keydown", function (e) {
-
-    lastInteractionBy = "keyboard";
+searchInput.addEventListener("keydown", function (e) {
     const activeItem = resultBox.querySelector(".active");
     let currentIndex = activeItem ? parseInt(activeItem.getAttribute("data-index")) : -1;
 
-    if (resultBox.children.length > 0) {
-        if (e.key === "ArrowDown") {
+    if (resultBox.children.length > 0 && resultBox.classList.contains("show")) {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
             e.preventDefault();
+            lastInteractionBy = "keyboard";
+
             if (activeItem) {
                 activeItem.classList.remove("active");
             }
-            currentIndex = (currentIndex + 1) % resultBox.children.length;
+
+            // Calculate new index based on direction
+            if (e.key === "ArrowDown") {
+                currentIndex = (currentIndex + 1) % resultBox.children.length;
+            } else { // ArrowUp
+                currentIndex = (currentIndex - 1 + resultBox.children.length) % resultBox.children.length;
+            }
+
             resultBox.children[currentIndex].classList.add("active");
 
             // Ensure the active item is visible within the result box
             const activeElement = resultBox.children[currentIndex];
             activeElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
 
-        } else if (e.key === "ArrowUp") {
-            e.preventDefault();
-            if (activeItem) {
-                activeItem.classList.remove("active");
-            }
-            currentIndex = (currentIndex - 1 + resultBox.children.length) % resultBox.children.length;
-            resultBox.children[currentIndex].classList.add("active");
+            // Auto-complete the search input with selected suggestion
+            const suggestionText = activeElement.textContent;
+            this.value = suggestionText;
 
-            // Ensure the active item is visible within the result box
-            const activeElement = resultBox.children[currentIndex];
-            activeElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
-
-        } else if ((e.key === "ArrowRight" || e.key === "Tab") && activeItem) {
+        } else if ((e.key === "ArrowRight" || e.key === "Tab") && activeItem && lastInteractionBy === "mouse") {
             e.preventDefault();
             const suggestionText = activeItem.textContent;
             this.value = suggestionText;
 
         } else if (e.key === "Enter") {
-            const selected = resultBox.querySelector(".active");
-            if (selected) {
-                e.preventDefault();
-                lastInteractionBy = "keyboard";
-                selected.click();
+            e.preventDefault();
+            if (activeItem) {
+                // Selected suggestion + Enter = search
+                activeItem.click();
+
+            } else {
+                // No selection, search with current input value
+                performSearch(this.value);
+            }
+
+        } else if (e.key === "Escape") {
+            e.preventDefault();
+            // Restore original search text
+            this.value = originalSearchText;
+            // Remove any active highlights
+            if (activeItem) {
+                activeItem.classList.remove("active");
             }
         }
+    } else if (e.key === "Enter") {
+        // No suggestions available, search with current input
+        e.preventDefault();
+        performSearch(this.value);
     }
 });
 
@@ -224,7 +216,7 @@ async function getAutocompleteSuggestions(query) {
         lastRedditRequestTime = now;
     }
 
-    var searchEnginesapi = {
+    const searchEnginesAPI = {
         engine0: `https://duckduckgo.com/ac/?q=${encodeURIComponent(query)}&type=list`,
         engine1: `https://www.google.com/complete/search?client=${clientParam}&q=${encodeURIComponent(query)}`,
         engine2: `https://duckduckgo.com/ac/?q=${encodeURIComponent(query)}&type=list`,
@@ -235,7 +227,7 @@ async function getAutocompleteSuggestions(query) {
     };
 
     const useproxyCheckbox = document.getElementById("useproxyCheckbox");
-    let apiUrl = searchEnginesapi[selectedOption] || searchEnginesapi["engine1"];
+    let apiUrl = searchEnginesAPI[selectedOption] || searchEnginesAPI["engine1"];
     if (useproxyCheckbox.checked && selectedOption !== "engine7") {
         apiUrl = proxyurl + encodeURIComponent(apiUrl);
     }
@@ -253,6 +245,7 @@ async function getAutocompleteSuggestions(query) {
                 }
             });
             return suggestions;
+
         } else if (selectedOption === "engine7") {
             const suggestions = [];
             if (data && data.data && data.data.children) {
@@ -264,8 +257,8 @@ async function getAutocompleteSuggestions(query) {
                 });
             }
             return suggestions;
-        } else {
 
+        } else {
             return data[1];
         }
     } catch (error) {
