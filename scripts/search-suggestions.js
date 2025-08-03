@@ -216,7 +216,7 @@ async function getAutocompleteSuggestions(query) {
         lastRedditRequestTime = now;
     }
 
-    const searchEnginesAPI = {
+    const searchSuggestionsAPI = {
         engine0: `https://duckduckgo.com/ac/?q=${encodeURIComponent(query)}&type=list`,
         engine1: `https://www.google.com/complete/search?client=${clientParam}&q=${encodeURIComponent(query)}`,
         engine2: `https://duckduckgo.com/ac/?q=${encodeURIComponent(query)}&type=list`,
@@ -227,7 +227,7 @@ async function getAutocompleteSuggestions(query) {
     };
 
     const useproxyCheckbox = document.getElementById("useproxyCheckbox");
-    let apiUrl = searchEnginesAPI[selectedOption] || searchEnginesAPI["engine1"];
+    let apiUrl = searchSuggestionsAPI[selectedOption] || searchSuggestionsAPI["engine1"];
     if (useproxyCheckbox.checked && selectedOption !== "engine7") {
         apiUrl = proxyurl + encodeURIComponent(apiUrl);
     }
