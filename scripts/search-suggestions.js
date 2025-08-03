@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ---------------------------- Search Suggestions ----------------------------
 
 let lastInteractionBy = null;
+let originalSearchText = ""; // Store the original search text
 const resultBox = document.getElementById("resultBox");
 
 // Show the result box
@@ -69,23 +70,13 @@ function hideResultBox() {
 showResultBox();
 hideResultBox();
 
-const languageCode = (localStorage.getItem("selectedLanguage") || "en").slice(0, 2);
-document.getElementById("searchQ").addEventListener("input", async function () {
+searchInput.addEventListener("input", async function () {
     const searchsuggestionscheckbox = document.getElementById("searchsuggestionscheckbox");
     if (searchsuggestionscheckbox.checked) {
-        var selectedOption = document.querySelector("input[name='search-engine']:checked").value;
-        var searchEngines = {
-            engine1: "https://www.google.com/search?q=",
-            engine2: "https://duckduckgo.com/?q=",
-            engine3: "https://bing.com/?q=",
-            engine4: "https://search.brave.com/search?q=",
-            engine5: "https://www.youtube.com/results?search_query=",
-            engine6: "https://www.google.com/search?tbm=isch&q=",
-            engine7: "https://www.reddit.com/search/?q=",
-            engine8: `https://${languageCode}.wikipedia.org/wiki/Special:Search?search=`,
-            engine9: "https://www.quora.com/search?q="
-        };
         const query = this.value;
+
+        // Store original text when user starts typing
+        originalSearchText = query;
 
         if (query.length > 0) {
             try {
@@ -106,21 +97,7 @@ document.getElementById("searchQ").addEventListener("input", async function () {
                         resultItem.setAttribute("data-index", index);
 
                         resultItem.onclick = () => {
-                            if (selectedOption === "engine0") {
-                                try {
-                                    if (isFirefox) {
-                                        browser.search.query({ text: suggestion });
-                                    } else {
-                                        chrome.search.query({ text: suggestion });
-                                    }
-                                } catch (error) {
-                                    var fallbackUrl = searchEngines.engine1 + encodeURIComponent(suggestion);
-                                    window.location.href = fallbackUrl;
-                                }
-                            } else {
-                                var resultlink = searchEngines[selectedOption] + encodeURIComponent(suggestion);
-                                window.location.href = resultlink;
-                            }
+                            performSearch(suggestion);
                         };
 
                         resultItem.addEventListener("mouseenter", () => {
@@ -153,76 +130,65 @@ document.getElementById("searchQ").addEventListener("input", async function () {
     }
 });
 
-const searchInputElem = document.getElementById("searchQ");
-let lastTypedValue = "";
-let lastSuggestionValue = "";
-let suggestionActiveIndex = -1;
+searchInput.addEventListener("keydown", function (e) {
+    const activeItem = resultBox.querySelector(".active");
+    let currentIndex = activeItem ? parseInt(activeItem.getAttribute("data-index")) : -1;
 
-searchInputElem.addEventListener("keydown", function (e) {
-    lastInteractionBy = "keyboard";
-    const suggestions = Array.from(resultBox.children);
-    const hasSuggestions = suggestions.length > 0;
-    const isArrowDown = e.key === "ArrowDown";
-    const isArrowUp = e.key === "ArrowUp";
-    const isTab = e.key === "Tab";
-    const isEnter = e.key === "Enter";
-    const isArrowRight = e.key === "ArrowRight";
-
-    if (hasSuggestions && (isArrowDown || isArrowUp)) {
-        e.preventDefault();
-        // Remove previous highlight
-        if (suggestionActiveIndex >= 0 && suggestionActiveIndex < suggestions.length) {
-            suggestions[suggestionActiveIndex].classList.remove("active");
-        }
-        // On first arrow, save the current input value
-        if (suggestionActiveIndex === -1) {
-            lastTypedValue = this.value;
-        }
-        // Move index
-        if (isArrowDown) {
-            suggestionActiveIndex = (suggestionActiveIndex + 1) % suggestions.length;
-        } else if (isArrowUp) {
-            suggestionActiveIndex = (suggestionActiveIndex - 1 + suggestions.length) % suggestions.length;
-        }
-        // Highlight new suggestion
-        const activeSuggestion = suggestions[suggestionActiveIndex];
-        activeSuggestion.classList.add("active");
-        activeSuggestion.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        // Write suggestion text into input (like Chrome)
-        lastSuggestionValue = activeSuggestion.textContent;
-        this.value = lastSuggestionValue;
-        // Move cursor to end
-        this.setSelectionRange(this.value.length, this.value.length);
-    } else if (hasSuggestions && (isTab || isArrowRight)) {
-        const activeSuggestion = suggestions[suggestionActiveIndex];
-        if (activeSuggestion) {
-            e.preventDefault();
-            this.value = activeSuggestion.textContent;
-            this.setSelectionRange(this.value.length, this.value.length);
-        }
-    } else if (hasSuggestions && isEnter) {
-        const activeSuggestion = suggestions[suggestionActiveIndex];
-        if (activeSuggestion) {
+    if (resultBox.children.length > 0 && resultBox.classList.contains("show")) {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
             e.preventDefault();
             lastInteractionBy = "keyboard";
-            activeSuggestion.click();
-        }
-    } else if (!hasSuggestions && (isArrowDown || isArrowUp)) {
-        suggestionActiveIndex = -1;
-    }
-});
 
-// Restore input value if user types or presses Backspace/Escape
-searchInputElem.addEventListener("input", function () {
-    suggestionActiveIndex = -1;
-});
-searchInputElem.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-        suggestionActiveIndex = -1;
-        this.value = lastTypedValue || this.value;
-        hideResultBox();
-    } else if (!["ArrowDown", "ArrowUp", "Tab", "Enter", "ArrowRight"].includes(e.key)) {
-        suggestionActiveIndex = -1;
+            if (activeItem) {
+                activeItem.classList.remove("active");
+            }
+
+            // Calculate new index based on direction
+            if (e.key === "ArrowDown") {
+                currentIndex = (currentIndex + 1) % resultBox.children.length;
+            } else { // ArrowUp
+                currentIndex = (currentIndex - 1 + resultBox.children.length) % resultBox.children.length;
+            }
+
+            resultBox.children[currentIndex].classList.add("active");
+
+            // Ensure the active item is visible within the result box
+            const activeElement = resultBox.children[currentIndex];
+            activeElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+            // Auto-complete the search input with selected suggestion
+            const suggestionText = activeElement.textContent;
+            this.value = suggestionText;
+
+        } else if ((e.key === "ArrowRight" || e.key === "Tab") && activeItem && lastInteractionBy === "mouse") {
+            e.preventDefault();
+            const suggestionText = activeItem.textContent;
+            this.value = suggestionText;
+
+        } else if (e.key === "Enter") {
+            e.preventDefault();
+            if (activeItem) {
+                // Selected suggestion + Enter = search
+                activeItem.click();
+
+            } else {
+                // No selection, search with current input value
+                performSearch(this.value);
+            }
+
+        } else if (e.key === "Escape") {
+            e.preventDefault();
+            // Restore original search text
+            this.value = originalSearchText;
+            // Remove any active highlights
+            if (activeItem) {
+                activeItem.classList.remove("active");
+            }
+        }
+    } else if (e.key === "Enter") {
+        // No suggestions available, search with current input
+        e.preventDefault();
+        performSearch(this.value);
     }
 });
 
@@ -250,7 +216,7 @@ async function getAutocompleteSuggestions(query) {
         lastRedditRequestTime = now;
     }
 
-    var searchEnginesapi = {
+    const searchEnginesAPI = {
         engine0: `https://duckduckgo.com/ac/?q=${encodeURIComponent(query)}&type=list`,
         engine1: `https://www.google.com/complete/search?client=${clientParam}&q=${encodeURIComponent(query)}`,
         engine2: `https://duckduckgo.com/ac/?q=${encodeURIComponent(query)}&type=list`,
@@ -261,7 +227,7 @@ async function getAutocompleteSuggestions(query) {
     };
 
     const useproxyCheckbox = document.getElementById("useproxyCheckbox");
-    let apiUrl = searchEnginesapi[selectedOption] || searchEnginesapi["engine1"];
+    let apiUrl = searchEnginesAPI[selectedOption] || searchEnginesAPI["engine1"];
     if (useproxyCheckbox.checked && selectedOption !== "engine7") {
         apiUrl = proxyurl + encodeURIComponent(apiUrl);
     }
@@ -279,6 +245,7 @@ async function getAutocompleteSuggestions(query) {
                 }
             });
             return suggestions;
+
         } else if (selectedOption === "engine7") {
             const suggestions = [];
             if (data && data.data && data.data.children) {
@@ -290,8 +257,8 @@ async function getAutocompleteSuggestions(query) {
                 });
             }
             return suggestions;
-        } else {
 
+        } else {
             return data[1];
         }
     } catch (error) {
