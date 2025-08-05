@@ -253,7 +253,7 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 
 Check the [Translation Status Page](https://prem-k-r.github.io/MaterialYouNewTab/tools/languagesAnalysis.html) for an overview of completed languages and missing strings analysis.
 
-If you'd like to contribute quotes in any of the languages used in MYNT, check out [multilingual-quotes-api](https://github.com/prem-k-r/multilingual-quotes-api).
+If you'd like to contribute quotes in any of the languages used in MYNT, check out [Multilingual Quotes](https://github.com/prem-k-r/multilingual-quotes-api).
 
 ## 🤝 Contributing
 

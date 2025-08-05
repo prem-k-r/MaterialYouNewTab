@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/prem-k-r/materialYouNewTab/compare/v3.2...main)
 
+### Improved
+
+- Updated search suggestion behavior to autocomplete the current search term upon selection via keyboard ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here)) ([#33](https://github.com/prem-k-r/materialYouNewTab/pull/33))
+
 ### Other
 
 - Docs: Added dark mode to privacy policy page ([@itz-rj-here](https://github.com/itz-rj-here)) ([#32](https://github.com/prem-k-r/materialYouNewTab/pull/32))
