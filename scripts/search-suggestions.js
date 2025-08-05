@@ -161,9 +161,14 @@ searchInput.addEventListener("keydown", function (e) {
             this.value = suggestionText;
 
         } else if ((e.key === "ArrowRight" || e.key === "Tab") && activeItem && lastInteractionBy === "mouse") {
-            e.preventDefault();
-            const suggestionText = activeItem.textContent;
-            this.value = suggestionText;
+            // Check if cursor is at end
+            const cursorAtEnd = this.selectionStart === this.value.length;
+
+            if (cursorAtEnd) {
+                e.preventDefault();
+                const suggestionText = activeItem.textContent;
+                this.value = suggestionText;
+            }
 
         } else if (e.key === "Enter") {
             e.preventDefault();
