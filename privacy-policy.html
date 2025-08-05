@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy for MYNT</title>
+    <link href="favicon/icon128.png" rel="icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -14,6 +15,7 @@
             margin: 0;
             padding: 20px;
             line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
         }
 
         .container {
@@ -23,6 +25,7 @@
             padding: 20px 30px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s, color 0.3s;
         }
 
         h1 {
@@ -70,12 +73,68 @@
             max-width: 100%;
             vertical-align: middle;
         }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #181a20;
+            color: #e0e0e0;
+        }
+
+        .container.dark-mode {
+            background: #23262f;
+            color: #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode a {
+            color: #bb86fc;
+        }
+
+        body.dark-mode code {
+            background-color: #23262f;
+            color: #bb86fc;
+        }
+
+        .dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            color: #333;
+            border: none;
+            border-radius: 16px;
+            padding: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, color 0.3s;
+            z-index: 10;
+        }
+
+        .dark-mode-toggle:hover svg {
+            transform: scale(1.02);
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: #23262f;
+            color: #e0e0e0;
+            border: 1px solid #444;
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
+    <button class="dark-mode-toggle" id="darkModeToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path id="iconPath" d="" fill="currentColor" />
+        </svg>
+    </button>
+
+    <div class="container" id="mainContainer">
         <h1>Privacy Policy for MYNT: Material You New Tab</h1>
 
         <h2>Introduction</h2>
@@ -87,7 +146,8 @@
         <h2>Community Contributions</h2>
         <p>Since its release, talented developers from the community have contributed to improving the extension through
             GitHub. These contributors have added new features and fixed bugs, making the extension even better. Each
-            pull request is carefully reviewed, tested, and verified to ensure it meets our standards before merging.
+            pull request is carefully reviewed, tested, and verified to ensure it meets our standards before being
+            merged.
         </p>
 
         <h2>Data Collection and Permissions</h2>
@@ -102,24 +162,24 @@
             breakdown of the permissions used and what they are for:</p>
 
         <ul>
-            <li><strong>search:</strong> Enables integration with the browser’s default search engine.</li>
-            <li><strong>bookmarks</strong> (optional): If granted, allows optional display of your bookmarks directly on
+            <li><strong>Search:</strong> Enables integration with the browser’s default search engine.</li>
+            <li><strong>Bookmarks</strong> (optional): If granted, allows optional display of your bookmarks directly on
                 the new tab page.</li>
-            <li><strong>favicon</strong> (optional): Used to retrieve bookmark favicons from the browser cache. It only
+            <li><strong>Favicon</strong> (optional): Used to retrieve bookmark favicons from the browser cache. It only
                 returns icons the browser already has cached and does not expose browsing history or page content.</li>
         </ul>
 
         <h3>Browser APIs</h3>
         <ul>
-            <li><strong>SpeechRecognition (Web Speech API):</strong> Enables voice search. Microphone access is
-                triggered only when the mic icon is clicked and handled entirely by your browser. No voice data is
+            <li><strong>Speech Recognition (Web Speech API):</strong> Enables voice search. Microphone access is
+                triggered only when the mic icon is clicked and is handled entirely by your browser. No voice data is
                 collected or stored.</li>
-            <li><strong>Geolocation:</strong> Used to improve weather accuracy. Access is browser-managed and not
+            <li><strong>Geolocation:</strong> Used to improve weather accuracy. Access is browser-managed and is not
                 tracked or shared.</li>
         </ul>
 
         <h3>External APIs</h3>
-        <p>We use the following external services to improve user experience:</p>
+        <p>We use the following external services to improve the user experience:</p>
         <ul>
             <li><strong>Search Suggestions:</strong>
                 <ul>
@@ -129,7 +189,7 @@
                     <li>Wikipedia: <code>https://*.wikipedia.org/w/api.php?action=opensearch&search=*</code></li>
                 </ul>
                 <p>These are used to provide auto-complete suggestions while typing in the search bar. You can control
-                    which sites the extension can access from browser settings.</p>
+                    which sites the extension can access from your browser settings.</p>
             </li>
 
             <li><strong>Location Detection (<a href="https://ipinfo.io/" target="_blank">IPinfo</a>):</strong>
@@ -190,15 +250,48 @@
         <h2>Transparency and Security</h2>
         <p>While we strive to keep our code secure, we acknowledge that no project is entirely immune to potential
             issues. In rare cases, unintended code or errors could be introduced through contributions. We encourage
-            users to review the source code directly on GitHub for peace of mind. Use this extension only when you are
-            fully comfortable with its contents.</p>
+            users to review the source code directly on GitHub for peace of mind. Please use this extension only when
+            you are fully comfortable with its contents.</p>
 
         <h2>Thank You</h2>
-        <p>Thank you for your trust in the MYNT: Material You New Tab extension, and we hope it enhances your browsing
+        <p>Thank you for your trust in the MYNT: Material You New Tab extension. We hope it enhances your browsing
             experience with every new tab you open!</p>
 
     </div>
 
+
+    <script>
+        // Dark mode toggle logic
+        const toggleBtn = document.getElementById('darkModeToggle');
+        const container = document.getElementById('mainContainer');
+        const iconPath = document.getElementById('iconPath');
+        let isDark = localStorage.getItem('mynt-dark-mode');
+
+        // SVG paths
+        const moonPath = "M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z";
+        const sunPath = "M11 4V1h2v3zm0 19v-3h2v3zm9-10v-2h3v2zM1 13v-2h3v2zm17.7-6.3l-1.4-1.4l1.75-1.8l1.45 1.45zM4.95 20.5L3.5 19.05l1.8-1.75l1.4 1.4zm14.1 0l-1.75-1.8l1.4-1.4l1.8 1.75zM5.3 6.7L3.5 4.95L4.95 3.5L6.7 5.3zM12 18q-2.5 0-4.25-1.75T6 12t1.75-4.25T12 6t4.25 1.75T18 12t-1.75 4.25T12 18";
+
+        function setDarkMode(isDark) {
+            document.body.classList.toggle('dark-mode', isDark);
+            container.classList.toggle('dark-mode', isDark);
+            iconPath.setAttribute('d', isDark ? sunPath : moonPath);
+            localStorage.setItem('mynt-dark-mode', isDark);
+        }
+
+        // Determine initial state
+        if (isDark === null) {
+            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        } else {
+            isDark = isDark === 'true';
+        }
+
+        setDarkMode(isDark);
+
+        toggleBtn.addEventListener('click', () => {
+            const newDarkState = !document.body.classList.contains('dark-mode');
+            setDarkMode(newDarkState);
+        });
+    </script>
 </body>
 
 </html>

@@ -173,7 +173,7 @@ const de = {
     "braveThemeInfo": 'Besuchen Sie <a href="https://chromewebstore.google.com/category/themes/" target="_blank">Chrome Theme Store</a>, laden Sie das zur Erweiterung passende Theme herunter und wenden Sie es an.',
     "firefoxThemeInfo": 'Besuchen Sie <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">Firefox Themes</a>, laden Sie das zur Erweiterung passende Theme herunter und wenden Sie es an.',
     "updateFirefoxHomepage": "Homepage aktualisieren",
-    "updateFirefoxHomepageInfo": "Um Ihre Homepage wie auch den neuen Tab zu ändern, besuchen Sie <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">diesen Link</a> und folgen Sie den Anweisungen.",
+    "updateFirefoxHomepageInfo": "Um Ihre Homepage wie auch den neuen Tab zu ändern, besuchen Sie <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">diesen Link</a> und folgen Sie den Anweisungen.",
     "dontShowTips": "Nicht mehr anzeigen",
 
     // Dialog boxes (alerts)

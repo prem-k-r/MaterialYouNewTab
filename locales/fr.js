@@ -176,7 +176,7 @@ const fr = {
     "braveThemeInfo": 'Visitez <a href="https://chromewebstore.google.com/category/themes/" target="_blank">Chrome Theme Store</a>, telecharger et appliquer le thème qui correspond au thème de l\'extension.',
     "firefoxThemeInfo": 'Visitez <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">Firefox Themes</a>, telecharger et appliquer le thème qui correspond au thème de l\'extension.',
     "updateFirefoxHomepage": "Mettre à jour la page d'accueil",
-    "updateFirefoxHomepageInfo": "Pour changer votre page d'accueil comme le nouvel onglet, visitez <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">ce lien</a> et suivez les instructions.",
+    "updateFirefoxHomepageInfo": "Pour changer votre page d'accueil comme le nouvel onglet, visitez <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">ce lien</a> et suivez les instructions.",
     "dontShowTips": "Ne plus afficher",
 
     // Dialog boxes (alerts)

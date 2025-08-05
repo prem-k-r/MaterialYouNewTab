@@ -173,7 +173,7 @@ const ta = {
     "braveThemeInfo": '<a href="https://chromewebstore.google.com/category/themes/" target="_blank">நிறமி கருப்பொருள் கடையைப்</a> பார்வையிடவும், நீட்டிப்புடன் பொருந்தக்கூடிய கருப்பொருளைப் பதிவிறக்கிப் பயன்படுத்தவும்.',
     "firefoxThemeInfo": '<a href="https://addons.mozilla.org/firefox/themes/" target="_blank">தீநரி கருப்பொருள்களைப்</a> பார்வையிடவும், நீட்டிப்புடன் பொருந்தக்கூடிய கருப்பொருளைப் பதிவிறக்கிப் பயன்படுத்தவும்.',
     "updateFirefoxHomepage": "முகப்புப் பக்கத்தைப் புதுப்பி",
-    "updateFirefoxHomepageInfo": "புதிய தாவலைப் போல உங்கள் முகப்புப் பக்கத்தையும் மாற்ற, <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">இந்த இணைப்பைப்</a> பார்வையிட்டு வழிமுறைகளைப் பின்பற்றவும்.",
+    "updateFirefoxHomepageInfo": "புதிய தாவலைப் போல உங்கள் முகப்புப் பக்கத்தையும் மாற்ற, <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">இந்த இணைப்பைப்</a> பார்வையிட்டு வழிமுறைகளைப் பின்பற்றவும்.",
     "dontShowTips": "மீண்டும் காட்ட வேண்டாம்",
 
     // Dialog boxes (alerts)

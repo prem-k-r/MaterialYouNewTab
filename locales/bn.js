@@ -175,7 +175,7 @@ const bn = {
     "braveThemeInfo": '<a href="https://chromewebstore.google.com/category/themes/" target="_blank">ক্রোম থিম স্টোর</a> এ যান, থিম ডাউনলোড করুন এবং এক্সটেনশনের থিমের সাথে মিলিয়ে একটি রঙ নির্বাচন করুন।',
     "firefoxThemeInfo": '<a href="https://addons.mozilla.org/firefox/themes/" target="_blank">ফায়ারফক্স থিম</a> এ যান, থিম ডাউনলোড করুন এবং এক্সটেনশনের থিমের সাথে মিলিয়ে একটি রঙ নির্বাচন করুন।',
     "updateFirefoxHomepage": "হোমপেজ আপডেট করুন",
-    "updateFirefoxHomepageInfo": "আপনার হোমপেজকে নতুন ট্যাবের মতো পরিবর্তন করতে, <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">এই লিংকে</a> যান এবং নির্দেশিকা অনুসরণ করুন।",
+    "updateFirefoxHomepageInfo": "আপনার হোমপেজকে নতুন ট্যাবের মতো পরিবর্তন করতে, <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">এই লিংকে</a> যান এবং নির্দেশিকা অনুসরণ করুন।",
     "dontShowTips": "এটি আর দেখাবেন না",
 
     // Dialog boxes (alerts)

@@ -175,7 +175,7 @@ const hi = {
     "braveThemeInfo": ' <a href="https://chromewebstore.google.com/category/themes/" target="_blank">क्रोम थीम स्टोर</a> पर जाएं, उपयुक्त थीम डाउनलोड करें और लागू करें।',
     "firefoxThemeInfo": '<a href="https://addons.mozilla.org/firefox/themes/" target="_blank">फ़ायरफ़ॉक्स थीम्स</a> पर जाएँ, अपनी पसंद की थीम डाउनलोड करें और उसे लागू करें।',
     "updateFirefoxHomepage": "होमपेज अपडेट करें",
-    "updateFirefoxHomepageInfo": 'अपने होमपेज को भी नए टैब की तरह बदलने के लिए, <a href="https://github.com/prem-k-r/materialYouNewTab#-firefox\" target="_blank">इस लिंक</a> पर जाएं और दिए गए निर्देशों का पालन करें।',
+    "updateFirefoxHomepageInfo": 'अपने होमपेज को भी नए टैब की तरह बदलने के लिए, <a href="https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target="_blank">इस लिंक</a> पर जाएं और दिए गए निर्देशों का पालन करें।',
     "dontShowTips": "इसे फिर से न दिखाएँ",
 
     // Dialog boxes (alerts)

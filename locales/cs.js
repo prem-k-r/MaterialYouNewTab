@@ -173,7 +173,7 @@ const cs = {
     "braveThemeInfo": 'Navštivte <a href="https://chromewebstore.google.com/category/themes/" target="_blank">Obchod s motivy pro Chrome</a>, stáhněte a aktivujte motiv, který sedí k rozšíření.',
     "firefoxThemeInfo": 'Navštivte <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">Motivy vzhledu Firefox</a>, stáhněte a aktivujte motiv, který sedí k rozšíření.',
     "updateFirefoxHomepage": "Aktualizace domovské stránky",
-    "updateFirefoxHomepageInfo": "Pro změnu domovské stránky, stejně jako nové karty, navštivte <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">tento odkaz</a> a následujte instrukce (anglicky).",
+    "updateFirefoxHomepageInfo": "Pro změnu domovské stránky, stejně jako nové karty, navštivte <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">tento odkaz</a> a následujte instrukce (anglicky).",
     "dontShowTips": "Již nezobrazovat",
 
     // Dialog boxes (alerts)

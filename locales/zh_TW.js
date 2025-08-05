@@ -171,7 +171,7 @@ const zh_TW = {
     "braveThemeInfo": '造訪 <a href="https://chromewebstore.google.com/category/themes/" target="_blank">Chrome 主題商店</a>，下載並套用與擴充套件相符的主題。',
     "firefoxThemeInfo": '造訪 <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">Firefox 主題</a>，下載並套用與擴充套件相符的主題。',
     "updateFirefoxHomepage": "更新首頁",
-    "updateFirefoxHomepageInfo": "若要將首頁更改為與新分頁相同，請造訪 <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">此連結</a> 並按照指示操作。",
+    "updateFirefoxHomepageInfo": "若要將首頁更改為與新分頁相同，請造訪 <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">此連結</a> 並按照指示操作。",
     "dontShowTips": "不要再顯示此提示",
 
     // Dialog boxes (alerts)

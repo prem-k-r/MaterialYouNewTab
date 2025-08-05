@@ -171,7 +171,7 @@ const pt = {
     "braveThemeInfo": 'Visite <a href="https://chromewebstore.google.com/category/themes/" target="_blank">Chrome Theme Store</a>, Baixe e aplique o tema que corresponde ao tema da extensão.',
     "firefoxThemeInfo": 'Visite <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">Firefox Themes</a>, Baixe e aplique o tema que corresponde ao tema da extensão.',
     "updateFirefoxHomepage": "Atualizar Pagina Inicial",
-    "updateFirefoxHomepageInfo": "Para mudar sua página inicial como o NewTab, visite <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">este link</a> e siga as instruções.",
+    "updateFirefoxHomepageInfo": "Para mudar sua página inicial como o NewTab, visite <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">este link</a> e siga as instruções.",
     "dontShowTips": "Não mostrar novamente",
 
     // Dialog boxes (alerts)

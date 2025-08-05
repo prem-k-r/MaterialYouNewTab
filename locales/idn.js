@@ -173,7 +173,7 @@ const idn = {
     "braveThemeInfo": 'Kunjungi <a href="https://chromewebstore.google.com/category/themes/" target="_blank">Chrome Theme Store</a>, unduh dan terapkan tema yang cocok dengan ekstensi.',
     "firefoxThemeInfo": 'Kunjungi <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">Firefox Themes</a>, unduh dan terapkan tema yang cocok dengan ekstensi.',
     "updateFirefoxHomepage": "Perbarui Beranda",
-    "updateFirefoxHomepageInfo": "Untuk mengubah beranda Anda seperti tab baru juga, kunjungi <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">tautan ini</a> dan ikuti intruksi-nya.",
+    "updateFirefoxHomepageInfo": "Untuk mengubah beranda Anda seperti tab baru juga, kunjungi <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">tautan ini</a> dan ikuti intruksi-nya.",
     "dontShowTips": "Jangan tampilkan lagi",
 
     // Dialog boxes (alerts)

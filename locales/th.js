@@ -172,7 +172,7 @@ const th = {
     "braveThemeInfo": 'ไปที่ <a href="https://chromewebstore.google.com/category/themes/" target="_blank">Chrome Theme Store</a> ดาวน์โหลดและใช้ธีมที่ตรงกับส่วนขยาย',
     "firefoxThemeInfo": 'ไปที่ <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">Firefox Themes</a> ดาวน์โหลดและใช้ธีมที่ตรงกับส่วนขยาย',
     "updateFirefoxHomepage": "อัปเดตหน้าแรก",
-    "updateFirefoxHomepageInfo": "หากต้องการเปลี่ยนหน้าแรกให้เหมือนแท็บใหม่ ดูที่ <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">this link</a> และทำตามคำแนะนำ",
+    "updateFirefoxHomepageInfo": "หากต้องการเปลี่ยนหน้าแรกให้เหมือนแท็บใหม่ ดูที่ <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">this link</a> และทำตามคำแนะนำ",
     "dontShowTips": "ไม่ต้องแสดงอีก",
 
     // Dialog boxes (alerts)

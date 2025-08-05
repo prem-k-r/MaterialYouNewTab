@@ -187,6 +187,6 @@ const ja = {
     "braveThemeInfo": "<a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome テーマストア</a>でテーマをダウンロードして適用",
     "firefoxThemeInfo": "<a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Firefox テーマ</a>でテーマをダウンロードして適用",
     "updateFirefoxHomepage": "ホームページを更新",
-    "updateFirefoxHomepageInfo": "新しいタブと同じようにホームページも変更するには<a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">このリンク</a>を見て手順に従ってください",
+    "updateFirefoxHomepageInfo": "新しいタブと同じようにホームページも変更するには<a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">このリンク</a>を見て手順に従ってください",
     "dontShowTips": "今後表示しない",
 };

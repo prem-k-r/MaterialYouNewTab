@@ -52,7 +52,7 @@
 <br>
 
 7. **Subscribe to Translation Updates for Contributors** (Optional)
-   - Join the [discussion channel](https://github.com/XengShi/materialYouNewTab/discussions/195) or mailing list to receive notifications about new lines being added to translations.
+   - Join the [discussion channel](https://github.com/prem-k-r/MaterialYouNewTab/discussions/39) or mailing list to receive notifications about new lines being added to translations.
 
 <br>
 

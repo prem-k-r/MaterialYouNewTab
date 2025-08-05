@@ -171,7 +171,7 @@ const ru = {
     "braveThemeInfo": 'Посетите <a href="https://chromewebstore.google.com/category/themes/" target="_blank">Chrome Theme Store</a>, загрузите и примените тему, соответствующую расширению.',
     "firefoxThemeInfo": 'Посетите <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">Firefox Themes</a>, загрузите и примените тему, соответствующую расширению.',
     "updateFirefoxHomepage": "Обновить домашнюю страницу",
-    "updateFirefoxHomepageInfo": "Чтобы изменить свою домашнюю страницу на новую вкладку, посетите <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">this link</a> и следуйте инструкциям.",
+    "updateFirefoxHomepageInfo": "Чтобы изменить свою домашнюю страницу на новую вкладку, посетите <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">this link</a> и следуйте инструкциям.",
     "dontShowTips": "Не показывать снова",
 
     // Dialog boxes (alerts)

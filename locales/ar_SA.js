@@ -192,7 +192,7 @@ const ar_SA = {
         'قم بزيارة <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">سمات Firefox</a>، قم بتنزيل وتطبيق سمة تتناسب مع الإضافة.',
     updateFirefoxHomepage: "تحديث الصفحة الرئيسية",
     updateFirefoxHomepageInfo:
-        'لتغيير صفحتك الرئيسية لتكون مثل علامة تبويب جديدة، قم بزيارة <a href="https://github.com/prem-k-r/materialYouNewTab#-firefox" target="_blank">هذا الرابط</a> واتبع التعليمات.',
+        'لتغيير صفحتك الرئيسية لتكون مثل علامة تبويب جديدة، قم بزيارة <a href="https://github.com/prem-k-r/MaterialYouNewTab#-firefox" target="_blank">هذا الرابط</a> واتبع التعليمات.',
     dontShowTips: "لا تظهر النصائح مرة أخرى",
 
     // Dialog boxes (alerts)

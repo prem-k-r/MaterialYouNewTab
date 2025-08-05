@@ -164,7 +164,7 @@ const it = {
     "braveThemeInfo": "Visita <a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome Theme Store</a>, scarica e applica il tema che corrisponde all'estensione.",
     "firefoxThemeInfo": "Visita <a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Temi di Firefox</a>, scarica e applica il tema che corrisponde all'estensione.",
     "updateFirefoxHomepage": "Aggiorna Homepage",
-    "updateFirefoxHomepageInfo": "Per cambiare la tua homepage come la nuova scheda, visita <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">questo link</a> e segui le istruzioni.",
+    "updateFirefoxHomepageInfo": "Per cambiare la tua homepage come la nuova scheda, visita <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">questo link</a> e segui le istruzioni.",
     "dontShowTips": "Non mostrarlo di nuovo",
 
     // Dialog boxes (alerts)

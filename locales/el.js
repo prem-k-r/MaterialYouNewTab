@@ -173,7 +173,7 @@ const el = {
     "braveThemeInfo": 'Επισκεφθείτε το <a href="https://chromewebstore.google.com/category/themes/" target="_blank">Chrome Theme Store</a>, κατεβάστε και εφαρμόστε το θέμα που ταιριάζει με την επέκταση.',
     "firefoxThemeInfo": 'Επισκεφθείτε τα <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">Θέματα του Firefox</a>, κατεβάστε και εφαρμόστε το θέμα που ταιριάζει με την επέκταση.',
     "updateFirefoxHomepage": "Ενημέρωση Αρχικής Σελίδας",
-    "updateFirefoxHomepageInfo": "Για να αλλάξετε και την αρχική σας σελίδα όπως τη νέα καρτέλα, επισκεφθείτε <a href=\"https://github.com/prem-k-r/materialYouNewTab#-firefox\" target=\"_blank\">αυτόν τον σύνδεσμο</a> και ακολουθήστε τις οδηγίες.",
+    "updateFirefoxHomepageInfo": "Για να αλλάξετε και την αρχική σας σελίδα όπως τη νέα καρτέλα, επισκεφθείτε <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">αυτόν τον σύνδεσμο</a> και ακολουθήστε τις οδηγίες.",
     "dontShowTips": "Να μην εμφανιστεί ξανά",
 
     // Παράθυρα διαλόγου (ειδοποιήσεις)

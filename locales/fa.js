@@ -194,7 +194,7 @@ const fa = {
         'از <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">پوسته‌های Firefox</a> بازدید کنید، پوسته‌ای را که با افزونه مطابقت دارد دانلود و اعمال کنید.',
     updateFirefoxHomepage: "به‌روزرسانی صفحه اصلی",
     updateFirefoxHomepageInfo:
-        'برای تغییر صفحه اصلی خود مانند برگه جدید، از <a href="https://github.com/prem-k-r/materialYouNewTab#-firefox" target="_blank">این پیوند</a> بازدید کرده و دستورالعمل‌ها را دنبال کنید.',
+        'برای تغییر صفحه اصلی خود مانند برگه جدید، از <a href="https://github.com/prem-k-r/MaterialYouNewTab#-firefox" target="_blank">این پیوند</a> بازدید کرده و دستورالعمل‌ها را دنبال کنید.',
     dontShowTips: "دیگر نمایش نده",
 
     // Dialog boxes (alerts)
