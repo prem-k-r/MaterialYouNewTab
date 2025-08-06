@@ -18,6 +18,7 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: var(--main-font-family);
+	-webkit-user-select: none;
 	user-select: none;
 }
 
@@ -171,7 +172,7 @@ body[data-bg="wallpaper"] .bgLightTint:not(.notTargeted) {
 		var(--accentLightTint-blue) var(--transparency),
 		transparent
 	);
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) var(--transparency),
 		transparent
@@ -224,12 +225,12 @@ body {
 html:has(body[data-bg="color"] .menuBar #enableDarkModeCheckbox:checked):not(
 		:has(#darkTheme:checked)
 	) {
-	filter: invert(1) hue-rotate(180deg);
-	-webkit-filter: invert(1) hue-rotate(180deg);
+		-webkit-filter: invert(1) hue-rotate(180deg);
+		filter: invert(1) hue-rotate(180deg);
 	& #darkTheme,
 	& .favicon {
-		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
+		filter: invert(1) hue-rotate(180deg);
 	}
 	& .menuBar,
 	& #prompt-modal-blur {
@@ -246,12 +247,12 @@ body[data-bg="wallpaper"]:has(.menuBar #enableDarkModeCheckbox:checked):not(
 		:has(#darkTheme:checked)
 	)
 	:is(.menuCont, .bookmark-sidebar) {
-	filter: invert(1) hue-rotate(180deg);
-	-webkit-filter: invert(1) hue-rotate(180deg);
+		-webkit-filter: invert(1) hue-rotate(180deg);
+		filter: invert(1) hue-rotate(180deg);
 	& #darkTheme,
 	& .favicon {
-		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
+		filter: invert(1) hue-rotate(180deg);
 	}
 	--whitishColor-blue: #f2f2f2;
 }
@@ -273,6 +274,7 @@ body[data-bg="wallpaper"]:has(.menuBar #enableDarkModeCheckbox:checked):not(
 	transform: translateY(-70px);
 	transition: opacity 0.5s ease, transform 0.5s ease, z-index 0.5s ease;
 	pointer-events: none;
+	-webkit-backdrop-filter: blur(4px);
 	backdrop-filter: blur(4px);
 }
 
@@ -352,11 +354,12 @@ body[data-bg="wallpaper"]:has(.menuBar #enableDarkModeCheckbox:checked):not(
 }
 
 body[data-bg="wallpaper"] .dot-icon {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) calc(var(--transparency) * 2),
 		transparent
 	);
+	-webkit-backdrop-filter: blur(4px);
 	backdrop-filter: blur(4px);
 }
 
@@ -393,7 +396,7 @@ body[data-bg="wallpaper"] .dot-icon {
 }
 
 body[data-bg="wallpaper"] .tooltip-text {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--darkColor-blue) calc(var(--transparency) * 2),
 		transparent
@@ -434,11 +437,12 @@ body[data-bg="wallpaper"] .tooltip-text {
 	gap: 10px;
 	padding: 20px 10px;
 	background-color: var(--accentLightTint-blue);
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) 80%,
 		transparent
 	);
+	-webkit-backdrop-filter: blur(10px);
 	backdrop-filter: blur(10px);
 	border-radius: 30px;
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -512,7 +516,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 /* Hover Effect for Icon Item */
 .icon-item:hover {
 	background-color: var(--bg-color-blue);
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--bg-color-blue) var(--transparency),
 		transparent
@@ -568,6 +572,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 /* ----------------- Start of Bookmark System ----------------- */
 #bookmarksContainer {
 	background-color: #0000004f;
+	-webkit-backdrop-filter: blur(15px) saturate(160%);
 	backdrop-filter: blur(15px) saturate(160%);
 	position: fixed;
 	width: 100%;
@@ -602,11 +607,12 @@ body[data-bg="wallpaper"] .tooltip-text {
 }
 
 body[data-bg="wallpaper"] .bookmark-button {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) calc(var(--transparency) * 2),
 		transparent
 	);
+	-webkit-backdrop-filter: blur(4px);
 	backdrop-filter: blur(4px);
 }
 
@@ -1140,11 +1146,12 @@ body #bookmarkButton.bookmark-button.rotate {
 	gap: 10px;
 	padding: 12px 6px 6px 6px;
 	background-color: var(--accentLightTint-blue);
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) 80%,
 		transparent
 	);
+	-webkit-backdrop-filter: blur(2px);
 	backdrop-filter: blur(2px);
 	border-radius: 30px;
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
@@ -1196,7 +1203,7 @@ body #bookmarkButton.bookmark-button.rotate {
 
 .todo-container .addTaskCont {
 	background: white;
-	background-color: color-mix(in srgb, var(--accentLightTint-blue) 10%, white);
+	background: color-mix(in srgb, var(--accentLightTint-blue) 10%, white);
 	padding: 0;
 	margin-bottom: 4px;
 	border-radius: 20px;
@@ -1285,6 +1292,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	padding-block: 12px;
 	padding-inline-start: 36px;
 	padding-inline-end: 88px;
+	-webkit-user-select: none;
 	user-select: none;
 	cursor: pointer;
 	position: relative;
@@ -1303,6 +1311,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	transform: translateY(-50%);
 	inset-inline-start: 8px;
 	transition: all 0.3s ease;
+	-webkit-user-select: none;
 	user-select: none;
 }
 
@@ -1351,6 +1360,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	color: var(--bg-color-blue);
 	text-align: center;
 	transition: all 0.3s ease;
+	-webkit-user-select: none;
 	user-select: none;
 }
 
@@ -1533,7 +1543,7 @@ body #bookmarkButton.bookmark-button.rotate {
 
 /* When wallpaper is active */
 body[data-bg="wallpaper"] #userText {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) var(--transparency),
 		transparent
@@ -1554,7 +1564,7 @@ body[data-bg="wallpaper"] #userText {
 
 /* When wallpaper is active */
 body[data-bg="wallpaper"] #date {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) var(--transparency),
 		transparent
@@ -1815,7 +1825,7 @@ html[lang="ja"] body[data-bg="wallpaper"] .opacityBarControl {
 }
 
 body[data-bg="wallpaper"] .humidityBar .thinLine {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--whitishColor-blue) calc(var(--transparency) * 2),
 		transparent
@@ -1934,7 +1944,7 @@ html[lang="ta"] #temp {
 }
 
 body[data-bg="wallpaper"] .searchbar {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) calc(var(--transparency) + 10%),
 		transparent
@@ -2012,7 +2022,7 @@ body[data-bg="wallpaper"] #searchQ::placeholder {
 }
 
 body[data-bg="wallpaper"] .micIcon {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--whitishColor-blue) calc(var(--transparency) * 2),
 		transparent
@@ -2123,7 +2133,7 @@ body[data-bg="wallpaper"] .micIcon {
 }
 
 body[data-bg="wallpaper"] .searchWithCont .hint:hover {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--darkColor-blue) var(--transparency),
 		transparent
@@ -2281,7 +2291,7 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 }
 
 body[data-bg="wallpaper"] .quotesContainer {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) var(--transparency),
 		transparent
@@ -2294,7 +2304,7 @@ body[data-bg="wallpaper"] .quotesContainer {
 }
 
 body[data-bg="wallpaper"] .authorName {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--bg-color-blue) calc(var(--transparency) * 1.5),
 		transparent
@@ -2436,7 +2446,7 @@ html[lang="ur"] .qtRounder2 {
 }
 
 body[data-bg="wallpaper"] .shortcuts .shortcut-name {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) var(--transparency),
 		transparent
@@ -2534,7 +2544,7 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 }
 
 body[data-bg="wallpaper"] .aiToolsCont .hangno {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) calc(var(--transparency) * 1.75),
 		transparent
@@ -2577,7 +2587,7 @@ body[data-bg="wallpaper"] .aiToolsCont .hangno {
 }
 
 body[data-bg="wallpaper"] .aiToolsCont .toolsCont::before {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) calc(var(--transparency) * 1.5),
 		transparent
@@ -2607,7 +2617,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont::before {
 }
 
 body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) var(--transparency),
 		transparent
@@ -2816,7 +2826,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 		transform: scale(1);
 	}
 	50% {
-		background-color: color-mix(
+		background: color-mix(
 			in srgb,
 			var(--darkColor-blue) 20%,
 			var(--accentLightTint-blue)
@@ -2829,6 +2839,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 /* ---------------Menu-bar-css---------------- */
 .menuBar {
 	background-color: #0000004f;
+	-webkit-backdrop-filter: blur(15px) saturate(160%);
 	backdrop-filter: blur(15px) saturate(160%);
 	position: fixed;
 	width: 100%;
@@ -3462,11 +3473,11 @@ input:checked + .toggle:before {
 	color: var(--textColorDark-blue);
 	/* padding-inline-end: 0px; */
 	border-radius: 26px;
-	appearance: none;
 	/* Remove default browser styles */
 	-webkit-appearance: none;
 	/* For Safari */
 	-moz-appearance: none;
+	appearance: none;
 	/* For Firefox */
 	cursor: pointer;
 	padding-inline-start: 14px;
@@ -3912,11 +3923,12 @@ input:checked + .toggle:before {
 }
 
 body[data-bg="wallpaper"] .dropdown-content {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--accentLightTint-blue) var(--transparency),
 		transparent
 	);
+	-webkit-backdrop-filter: blur(2px);
 	backdrop-filter: blur(2px);
 }
 
@@ -4105,6 +4117,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 		width: 100%;
 		max-width: none;
 		overflow-x: scroll;
+		-webkit-overflow-y: clip;
 		overflow-y: clip;
 	}
 	.shortcutsContainer {
@@ -4648,7 +4661,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .dark-theme body[data-bg="wallpaper"] .micIcon {
-	background-color: color-mix(
+	background: color-mix(
 		in srgb,
 		var(--whitishColor-dark) calc(var(--transparency) * 2),
 		transparent
