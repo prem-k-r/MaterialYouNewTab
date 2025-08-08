@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Improved
 
 - Updated search suggestion behavior to autocomplete the current search term upon selection via keyboard ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here)) ([#33](https://github.com/prem-k-r/materialYouNewTab/pull/33))
+- Refactor AI tools settings and UI logic ([@itz-rj-here](https://github.com/itz-rj-here)) ([#331](https://github.com/prem-k-r/materialYouNewTab/pull/34))
 
 ### Other
 
