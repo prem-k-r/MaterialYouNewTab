@@ -214,10 +214,10 @@ async function getAutocompleteSuggestions(query) {
 
     // 🔒 Throttle Reddit API calls
     const now = Date.now();
-    if (selectedOption === "engine7" && now - lastRedditRequestTime < 1000) {
-        return []; // skip call if within 1 second
-    }
     if (selectedOption === "engine7") {
+        if (now - lastRedditRequestTime < 1000) {
+            return []; // skip call if within 1 second
+        }
         lastRedditRequestTime = now;
     }
 
