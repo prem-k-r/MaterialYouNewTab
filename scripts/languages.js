@@ -37,6 +37,7 @@ const translations = {
     el: el, // Greek
     ta: ta, // தமிழ்
     th: th, // Thai
+    pl: pl, // Polish
 };
 
 // Define the width of the menu container for each language
