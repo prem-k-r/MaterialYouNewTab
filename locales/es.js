@@ -69,7 +69,7 @@ const es = {
     "HostproxyButton": "Aloja tu propio proxy",
 
     // Location
-    "useGPS": "Usar GPS", 
+    "useGPS": "Usar GPS",
     "useGPSInfo": "Habilitar GPS para actualizaciones de ubicación",
     "UserLocText": "Ingresa tu ubicación",
     "UserLocSubtext": "Si la ubicación del clima es incorrecta",
@@ -155,7 +155,7 @@ const es = {
     // Wallpaper and settings
     "uploadWallpaperText": "Subir Wallpaper",
     "rangColor": "Elegir color",
-    "opactityTitle": "Opacidad",
+    "opacityTitle": "Opacidad",
     "adjustOpacityDesc": "Ajustar transparencia de interfaz",
     "backupText": "Copia de seguridad",
     "restoreText": "Restablecer",

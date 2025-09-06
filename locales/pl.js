@@ -21,12 +21,12 @@ const pl = {
     "aiToolsSettingsInfo": "Zarządzaj skrótami do narzędzi AI",
     "googleAppsMenuText": "Aplikacje Google",
     "googleAppsMenuInfo": "Pokaż skróty do aplikacji Google",
-    "googleAppsHover": "Aplikacje Google",    // Zachowaj krótsze
+    "googleAppsHover": "Aplikacje Google",
 
     // To-do List
     "todoListText": "Lista zadań",
     "todoListInfo": "Pokaż codzienną listę zadań",
-    "todoListHover": "Lista zadań",    // Zachowaj krótkie
+    "todoListHover": "Lista zadań",
     "todoPlaceholder": "Dodaj zadanie...",
 
     // Clock
@@ -46,7 +46,7 @@ const pl = {
     "fahrenheitCelsiusText": "Odśwież stronę, aby zastosować zmiany",
     "hideWeatherTitle": "Ukryj pogodę",
     "hideWeatherInfo": "Wyłącz widżety pogodowe",
-    "hideWeatherBox": "Ukryj kartę pogody",    // Przełącznik tylko dla urządzeń mobilnych
+    "hideWeatherBox": "Ukryj kartę pogody",
     "hideWeatherBoxInfo": "Pokaż tylko kapsułę temperatury",
     "minMaxTempText": "Min-Maks temperatura",
     "minMaxTempSubText": "Zastąp 'Odczuwalna' minimalną i maksymalną temperaturą",
@@ -77,7 +77,7 @@ const pl = {
     "PrivacyPolicy": "Polityka prywatności",
 
     // Weather
-    "WeatherApiText": "Wprowadź swój klucz WeatherAPI",    // Dla 'WeatherAPI' tylko transliteracja
+    "WeatherApiText": "Wprowadź swój klucz WeatherAPI",
     "WeatherApiSubtext": "Jeśli funkcja pogody nie działa",
     "userAPI": "Twój klucz WeatherAPI",
     "LearnMoreButton": "Dowiedz się więcej",
@@ -94,8 +94,8 @@ const pl = {
     "sortAlphabetical": "A-Z",
     "sortTimeAdded": "Stare-Nowe",
     "bookmarkViewAs": "Wyświetl jako",
-    "bookmarkViewGrid": "Siatka",    // Zachowaj krótsze
-    "bookmarkViewList": "Lista",    // Zachowaj krótsze
+    "bookmarkViewGrid": "Siatka",
+    "bookmarkViewList": "Lista",
     "bookmarkSearch": "Szukaj zakładki",
     "editBookmarkHeading": "Edytuj zakładkę",
     "editBookmarkName": "Nazwa zakładki",
@@ -124,11 +124,11 @@ const pl = {
     // Search Engines
     "defaultEngine": "Domyślna",
     "googleEngine": "Google",
-    "duckEngine": "Duck",    // DuckDuckGo
+    "duckEngine": "Duck",
     "bingEngine": "Bing",
     "braveEngine": "Brave",
     "youtubeEngine": "YouTube",
-    "gImagesEngine": "Obrazy",  // Google Images, https://www.google.com/search?q=check&hl=bn
+    "gImagesEngine": "Obrazy",
     "redditEngine": "Reddit",
     "wikipediaEngine": "Wikipedia",
     "quoraEngine": "Quora",
@@ -153,9 +153,9 @@ const pl = {
     "enableDarkModeInfo": "Włącz motywy ciemne",
 
     // Wallpaper and settings
-    "uploadWallpaperText": "Prześlij tapetę",    // Zachowaj krótkie
-    "rangColor": "Wybierz kolor",    // Zachowaj krótkie
-    "opactityTitle": "Przezroczystość",
+    "uploadWallpaperText": "Prześlij tapetę",
+    "rangColor": "Wybierz kolor",
+    "opacityTitle": "Przezroczystość",
     "adjustOpacityDesc": "Dostosuj przezroczystość interfejsu",
     "backupText": "Kopia zapasowa",
     "restoreText": "Przywróć",
@@ -170,10 +170,10 @@ const pl = {
     "changeBrowserTheme": "Zmień motyw przeglądarki",
     "chromeThemeInfo": "Kliknij trzy kropki (⋮) > Więcej narzędzi > Dostosuj Chrome, a następnie wybierz kolor pasujący do motywu rozszerzenia.",
     "edgeThemeInfo": "Przejdź do Ustawienia > Wygląd, a następnie wybierz kolor pasujący do motywu rozszerzenia.",
-    "braveThemeInfo": "Odwiedź <a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome Theme Store</a>, download and apply the theme that matches the extension.",
-    "firefoxThemeInfo": "Odwiedź <a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Firefox Themes</a>, download and apply the theme that matches the extension.",
+    "braveThemeInfo": "Odwiedź <a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome Theme Store</a>, pobierz i zastosuj motyw pasujący do rozszerzenia.",
+    "firefoxThemeInfo": "Odwiedź <a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Firefox Themes</a>, pobierz i zastosuj motyw pasujący do rozszerzenia.",
     "updateFirefoxHomepage": "Zaktualizuj stronę główną",
-    "updateFirefoxHomepageInfo": "Aby zmienić stronę główną również na nową kartę, odwiedź <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">this link</a> and follow the instructions.",
+    "updateFirefoxHomepageInfo": "Aby zmienić stronę główną również na nową kartę, odwiedź <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">ten link</a> i postępuj zgodnie z instrukcjami.",
     "dontShowTips": "Nie pokazuj tego ponownie",
 
     // Dialog boxes (alerts)
@@ -186,13 +186,13 @@ const pl = {
     "confirmRestore": "Czy na pewno chcesz zresetować ustawienia? Tej akcji nie można cofnąć.",
     "Nobackgroundset": "Obecnie nie ustawiono obrazu tła.",
     "clearbackgroundimage": "Czy na pewno chcesz usunąć obraz tła?",
-    "ProxyDisclaimer": "Wszystkie funkcje proxy są domyślnie wyłączone.\n\nJeśli włączysz sugestie wyszukiwania i proxy CORS bypass, zdecydowanie zaleca się hostowanie własnego proxy dla lepszej prywatności.\n\nDomyślnie proxy będzie ustawione na https://mynt-proxy.rhythmcorehq.com, meaning all your data will go through this service, which may pose privacy concerns.",
+    "ProxyDisclaimer": "Wszystkie funkcje proxy są domyślnie wyłączone.\n\nJeśli włączysz sugestie wyszukiwania i proxy CORS bypass, zdecydowanie zaleca się hostowanie własnego proxy dla lepszej prywatności.\n\nDomyślnie proxy będzie ustawione na https://mynt-proxy.rhythmcorehq.com, co oznacza, że wszystkie Twoje dane będą przechodzić przez tę usługę, co może stanowić zagrożenie dla prywatności.",
     "GPSDisclaimer": "Twoje dane lokalizacyjne są używane wyłącznie do dostarczania dokładnych aktualizacji pogody. Są tymczasowo przechowywane w przeglądarce i nie są ani udostępniane usługom trzecim, ani dostępne dla nas.\n\nWłączając GPS, wyrażasz zgodę na udostępnienie swojej lokalizacji rozszerzeniu lokalnie.",
     "failedbackup": "Błąd tworzenia kopii zapasowej: ",
     "restorecompleted": "Przywracanie zakończone pomyślnie!",
     "restorefailed": "Błąd przywracania: ",
     "invalidBackup": "Wybrano nieprawidłowy plik kopii zapasowej.",
-    "deleteBookmark": "Czy na pewno chcesz usunąć zakładkę \"{title}\"?",  // Nie tłumaczyć {title}
+    "deleteBookmark": "Czy na pewno chcesz usunąć zakładkę \"{title}\"?",
     "UnsupportedBrowser": "Zakładki nie są obsługiwane w twojej przeglądarce.",
     "resetShortcutsPrompt": "Wszystkie zapisane skróty zostaną usunięte i zresetowane do wartości domyślnych. Czy chcesz kontynuować?"
 };

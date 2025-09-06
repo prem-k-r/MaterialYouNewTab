@@ -66,6 +66,7 @@ const menuWidths = {
     ar_SA: "440px",
     el: "455px",
     th: "455px",
+    pl: "455px",
     // Add more languages and widths as needed
 };
 
@@ -210,7 +211,7 @@ function applyLanguage(lang) {
         "dontShowTips",
         "aiSettingsIntro",
         "resetAISettingsBtn",
-        "opactityTitle",
+        "opacityTitle",
         "adjustOpacityDesc"
     ];
 

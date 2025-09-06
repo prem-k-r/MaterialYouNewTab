@@ -155,7 +155,7 @@ const cs = {
     // Wallpaper and settings
     "uploadWallpaperText": "Nahrát tapetu",
     "rangColor": "Vybrat barvu",
-    "opactityTitle": "Průhlednost",
+    "opacityTitle": "Průhlednost",
     "adjustOpacityDesc": "Upraví průhlednost uživatelského rozhraní",
     "backupText": "Zálohovat",
     "restoreText": "Obnovit",

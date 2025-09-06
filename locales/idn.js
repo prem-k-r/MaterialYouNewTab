@@ -155,7 +155,7 @@ const idn = {
     // Wallpaper and settings
     "uploadWallpaperText": "Unggah Wallpaper",
     "rangColor": "Pilih warna",
-    "opactityTitle": "Opasitas",
+    "opacityTitle": "Opasitas",
     "adjustOpacityDesc": "Mengatur transparansi antarmuka",
     "backupText": "Cadangkan",
     "restoreText": "Pulihkan",
