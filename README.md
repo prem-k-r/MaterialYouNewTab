@@ -24,6 +24,8 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 ![GitHub stars](https://img.shields.io/github/stars/prem-k-r/materialYouNewTab)
 ![GitHub forks](https://img.shields.io/github/forks/prem-k-r/materialYouNewTab)
 
+[![](https://img.shields.io/chrome-web-store/v/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) [![](https://img.shields.io/chrome-web-store/rating/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) [![](https://img.shields.io/chrome-web-store/users/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) ‾ [![](https://img.shields.io/amo/v/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) [![](https://img.shields.io/amo/rating/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) [![](https://img.shields.io/amo/users/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/)
+
 </div>
 
 <p align="center">
