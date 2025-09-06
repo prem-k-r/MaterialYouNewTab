@@ -5,44 +5,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="shortcut icon" href="../favicon/icon48.png" type="image/png">
-    <title>Language Key Analysis</title>
+    <title>Language Key Analysis Tool | MYNT</title>
     <style>
         :root {
-            --md-sys-color-primary: #1b3041;
+            --md-sys-color-primary: #4382ec;
             --md-sys-color-on-primary: #ffffff;
-            --md-sys-color-primary-container: #c7e4c7;
-            --md-sys-color-secondary: #5d4037;
+            --md-sys-color-primary-container: #e3f2fd;
+            --md-sys-color-secondary: #00bfa5;
             --md-sys-color-on-secondary: #ffffff;
-            --md-sys-color-secondary-container: #efebe9;
-            --md-sys-color-on-secondary-container: #211a16;
-            --md-sys-color-error: #860000;
+            --md-sys-color-secondary-container: #b2dfdb;
+            --md-sys-color-on-secondary-container: #004d40;
+            --md-sys-color-error: #d32f2f;
             --md-sys-color-error-container: #ffcdd2;
-            --md-sys-color-outline: #757575;
-            --md-sys-color-background: #fafafa;
-            --md-sys-color-on-background: #004d43;
+            --md-sys-color-outline: #90a4ae;
+            --md-sys-color-background: #f5f7fa;
+            --md-sys-color-on-background: #263238;
             --md-sys-color-surface: #ffffff;
             --md-sys-color-on-surface: #212121;
-            --md-sys-color-on-surface-variant: #424242;
-            --md-sys-color-outline-variant: #c0b2a5;
+            --md-sys-color-on-surface-variant: #607d8b;
+            --md-sys-color-outline-variant: #cfd8dc;
         }
 
-        :root .dark-mode {
-            --md-sys-color-primary: #3c3c4c;
-            --md-sys-color-on-primary: #ffffff;
-            --md-sys-color-primary-container: #004d4377;
-            --md-sys-color-secondary: #8d6e63;
-            --md-sys-color-on-secondary: #322926;
-            --md-sys-color-secondary-container: #594a44;
-            --md-sys-color-on-secondary-container: #ebe1dd;
+        body.dark-mode {
+            --md-sys-color-primary: #4a88f3;
+            --md-sys-color-on-primary: #212121;
+            --md-sys-color-primary-container: #263238;
+            --md-sys-color-secondary: #80cbc4;
+            --md-sys-color-on-secondary: #212121;
+            --md-sys-color-secondary-container: #263238;
+            --md-sys-color-on-secondary-container: #b2dfdb;
             --md-sys-color-error: #ef9a9a;
-            --md-sys-color-error-container: #86000077;
-            --md-sys-color-outline: #bdbdbd;
-            --md-sys-color-background: #151627;
-            --md-sys-color-on-background: #c7e4c7;
-            --md-sys-color-surface: #212131;
+            --md-sys-color-error-container: #b71c1c;
+            --md-sys-color-outline: #78909c;
+            --md-sys-color-background: #121212;
+            --md-sys-color-on-background: #e3f2fd;
+            --md-sys-color-surface: #1e1e1e;
             --md-sys-color-on-surface: #e0e0e0;
             --md-sys-color-on-surface-variant: #bdbdbd;
-            --md-sys-color-outline-variant: #3c3c4c;
+            --md-sys-color-outline-variant: #263238;
         }
 
         body {
@@ -147,7 +147,7 @@
             gap: 0.5rem;
         }
 
-        nav button {
+        nav button, .github-btn {
             cursor: pointer;
             text-decoration: none;
             color: var(--md-sys-color-on-primary);
@@ -156,13 +156,17 @@
             background-color: var(--md-sys-color-secondary);
             border-radius: 6px;
             border: none;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
             font-size: 0.9rem;
+            margin-left: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
-        nav button:hover {
-            background-color: var(--md-sys-color-secondary-container);
-            color: var(--md-sys-color-on-secondary-container);
+        nav button:hover, .github-btn:hover {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
         }
 
         p {
@@ -173,7 +177,7 @@
             font-size: 0.9rem;
         }
 
-        /* Estilos para o checkbox */
+        /* Checkbox styles */
         input[type="checkbox"] {
             appearance: none;
             -webkit-appearance: none;
@@ -217,7 +221,7 @@
             cursor: pointer;
             user-select: none;
             justify-content: space-between;
-            /* Alinha o texto à esquerda e o contador à direita */
+            /* Aligns text left and counter right */
         }
 
         .language-group h3::before {
@@ -243,27 +247,38 @@
         #theme-toggle {
             position: relative;
             width: 40px;
-            height: 20px;
+            height: 24px;
             border-radius: 15px;
-            background-color: #ccc;
+            background-color: var(--md-sys-color-outline-variant);
             border: none;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        #theme-toggle::before {
-            content: "";
+        #theme-toggle .toggle-icon {
             position: absolute;
-            top: 2px;
-            left: 2px;
+            left: 4px;
+            top: 4px;
             width: 16px;
             height: 16px;
-            background-color: var(--md-sys-color-primary);
             border-radius: 50%;
-            transition: left 0.3s ease;
+            background-color: var(--md-sys-color-primary);
+            transition: left 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        body.dark-mode #theme-toggle::before {
-            left: 22px;
+        body.dark-mode #theme-toggle .toggle-icon {
+            left: 20px;
+            background-color: var(--md-sys-color-secondary);
+        }
+
+        #theme-toggle .toggle-icon svg {
+            width: 16px;
+            height: 16px;
         }
 
         /* Animação suave */
@@ -289,7 +304,7 @@
             border-radius: 8px;
             display: block;
             animation: fadeIn 0.3s ease-in-out;
-            /* Adicionando animação */
+            /* Adding fade-in animation */
         }
 
         #extra-keys-message {
@@ -335,7 +350,7 @@
             border-radius: 3px;
         }
     </style>
-    <!-- SCRIPTS -->
+    <!-- Language files for analysis -->
     <script src="../locales/pt.js"></script>
     <script src="../locales/en.js"></script>
     <script src="../locales/es.js"></script>
@@ -367,50 +382,74 @@
     <script src="../locales/th.js"></script>
 </head>
 
-<body class="light-mode">
-    <div class="material-banner">
-        <span>🌟</span>
-        <strong>Language Key Analysis Tool</strong>
-        <nav>
-            <button id="theme-toggle"></button>
-        </nav>
+<body class="light-mode" style="display:flex;flex-direction:column;min-height:100vh;">
+<div class="material-banner" style="position:sticky;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;">
+    <a href="https://github.com/prem-k-r/MaterialYouNewTab" target="_blank" style="display:flex;align-items:center;gap:0.4rem;text-decoration:none;color:var(--md-sys-color-on-primary);font-weight:bold;font-size:1.05rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.36 6.84 9.71.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.17-1.1-1.48-1.1-1.48-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.38 9.38 0 0 1 2.5-.34c.85 0 1.71.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.89 0 1.37-.01 2.47-.01 2.81 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2z" fill="#fff"/></svg>
+        <span>Material You New Tab <span style="opacity:0.7;font-size:0.92rem;">(MYNT)</span></span>
+    </a>
+    <div style="flex:1;display:flex;justify-content:center;align-items:center;">
+        <strong style="font-size:1.18rem;letter-spacing:0.03em;">Language Key Analysis Tool</strong>
     </div>
+    <nav style="display:flex;align-items:center;">
+        <button id="theme-toggle" title="Toggle dark mode">
+            <span class="toggle-icon">
+                <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="6" fill="#fff"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="#1565c0" stroke-width="2"/></svg>
+            </span>
+        </button>
+    </nav>
+</div>
     <main>
         <div id="complete"></div>
         <h2>Language Key Analysis Results</h2>
         <p>
-            This page is a tool designed to analyze language keys in the project. English serves as the reference
-            language for
-            comparison. The tool identifies missing or extra keys in other languages and highlights the complete ones.
+            Welcome to the Language Key Analysis Tool! This tool helps you analyze translation keys for all supported languages in the project. English is used as the reference language for comparison.<br>
+            <br>
+            <strong>What does this tool do?</strong><br>
+            <ul>
+                <li>Shows which languages are missing translation keys compared to English.</li>
+                <li>Highlights languages that have extra keys not present in English (for consistency, consider removing them).</li>
+                <li>Celebrates languages that are fully complete and consistent!</li>
+            </ul>
+            <br>
+            <strong>How to use:</strong> Expand each language group to see missing or extra keys. Check off missing keys as you add them to your translation files.
         </p>
         <div id="incomplete-message" style="display: none">
             The following languages have missing translations compared to English.
         </div>
         <div id="extra-keys-message" style="display: none">
-            Some of the following languages have extra keys not present in English. Consider removing them for
-            consistency.
+            Some languages have extra keys not present in English. Consider removing them for consistency.
         </div>
         <div id="results"></div>
     </main>
+    <footer style="background:var(--md-sys-color-primary-container);color:var(--md-sys-color-on-background);text-align:center;padding:1.2rem 0;margin-top:2rem;font-size:0.95rem;border-top:1px solid var(--md-sys-color-outline-variant);">
+        <div>
+            <strong>MYNT: Material You New Tab</strong> – Language Analysis Tool<br>
+            Developed & maintained by the MYNT team.<br>
+        </div>
+    </footer>
+
     <script>
+        // --- Language objects loaded from external scripts ---
         const languages = { ar_SA, az, bn, cs, de, el, en, es, fa, fr, hi, hu, idn, it, ja, ko, mr, np, pt, ru, sl, ta, th, tr, ur, uz, vi, zh, zh_TW };
+        // --- DOM elements ---
         const resultsDiv = document.getElementById("results");
         const completeDiv = document.getElementById("complete");
         const themeToggle = document.getElementById("theme-toggle");
         const incompleteMessage = document.getElementById("incomplete-message");
         const extraKeysMessage = document.getElementById("extra-keys-message");
+        const githubBtn = document.getElementById("github-btn");
 
+        // --- Compare language keys ---
+        // Returns an object with missing/extra keys and completeness for each language
         function compareLanguageKeys(referenceLang, languages) {
             const analysis = {};
-
             for (const lang in languages) {
                 if (lang !== referenceLang) {
                     const refKeys = Object.keys(languages[referenceLang]);
                     const langKeys = Object.keys(languages[lang]);
-
                     const missing = refKeys.filter((key) => !langKeys.includes(key));
                     const extra = langKeys.filter((key) => !refKeys.includes(key));
-
                     analysis[lang] = {
                         missingKeys: missing,
                         extraKeys: extra,
@@ -420,18 +459,22 @@
             }
             return analysis;
         }
+
+        // --- Render results to the page ---
         const languageAnalysis = compareLanguageKeys("en", languages);
         const ulResults = document.createElement("ul");
         const ulComplete = document.createElement("ul");
 
+        // Add complete languages to the list
         for (const lang in languageAnalysis) {
             if (languageAnalysis[lang].isComplete) {
                 const li = document.createElement("li");
-                li.innerHTML = `<strong>Congratulations!</strong> The language <strong>${lang}</strong> is complete!`;
+                li.innerHTML = `<strong>🎉 Congratulations!</strong> The language <strong>${lang}</strong> is complete and consistent!`;
                 ulComplete.appendChild(li);
             }
         }
 
+        // Add missing/extra keys for each language
         const languageGroups = {};
         let hasMissingKeys = false;
         let hasExtraKeys = false;
@@ -441,7 +484,6 @@
             if (missingKeys.length > 0 || extraKeys.length > 0) {
                 hasMissingKeys = hasMissingKeys || missingKeys.length > 0;
                 hasExtraKeys = hasExtraKeys || extraKeys.length > 0;
-
                 languageGroups[lang] = document.createElement("div");
                 languageGroups[lang].classList.add("language-group", "collapsed");
                 const h3 = document.createElement("h3");
@@ -451,38 +493,36 @@
                 `;
                 languageGroups[lang].appendChild(h3);
                 languageGroups[lang].appendChild(document.createElement("ul"));
-
                 const ul = languageGroups[lang].querySelector("ul");
+                // List missing keys with checkboxes
                 missingKeys.forEach((key) => {
                     const li = document.createElement("li");
                     li.classList.add("missing");
                     li.innerHTML = `
                         <input type="checkbox" id="checkbox-missing-${lang}-${key}" data-lang="${lang}" data-key="${key}">
-                       <span>Missing: ${key}</span>
+                        <span>Missing: <code>${key}</code></span>
                     `;
                     ul.appendChild(li);
                 });
-
+                // List extra keys
                 extraKeys.forEach((key) => {
                     const li = document.createElement("li");
                     li.classList.add("extra");
                     li.innerHTML = `
-                        <span>Extra: ${key}</span>
+                        <span>Extra: <code>${key}</code></span>
                     `;
                     ul.appendChild(li);
                 });
             }
         }
 
+        // Add language groups to results
         for (const langGroup in languageGroups) {
             ulResults.appendChild(languageGroups[langGroup]);
         }
 
-        if (
-            Object.keys(languageAnalysis).filter(
-                (lang) => languageAnalysis[lang].isComplete
-            ).length > 0
-        ) {
+        // Show complete languages
+        if (Object.keys(languageAnalysis).filter((lang) => languageAnalysis[lang].isComplete).length > 0) {
             completeDiv.appendChild(ulComplete);
         } else {
             const li = document.createElement("li");
@@ -491,18 +531,18 @@
             completeDiv.appendChild(ulComplete);
         }
 
+        // Show missing/extra key messages
         if (hasMissingKeys) {
             incompleteMessage.style.display = "block";
         }
-
         if (hasExtraKeys) {
             extraKeysMessage.style.display = "block";
         }
-
         if (hasMissingKeys || hasExtraKeys) {
             resultsDiv.appendChild(ulResults);
         }
 
+        // --- Checkbox strike-through for missing keys ---
         resultsDiv.addEventListener("change", (event) => {
             if (event.target.type === "checkbox") {
                 const checkbox = event.target;
@@ -515,6 +555,7 @@
             }
         });
 
+        // --- Expand/collapse language groups ---
         resultsDiv.addEventListener("click", (event) => {
             if (event.target.closest(".language-group h3")) {
                 const group = event.target.closest(".language-group");
@@ -522,8 +563,16 @@
             }
         });
 
+        // --- Theme toggle logic ---
         themeToggle.addEventListener("click", () => {
             document.body.classList.toggle("dark-mode");
+            // Change icon for dark/light mode
+            const themeIcon = document.getElementById("theme-icon");
+            if (document.body.classList.contains("dark-mode")) {
+                themeIcon.innerHTML = '<path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" fill="#80cbc4"/><path d="M12 6a6 6 0 0 0 0 12V6z" fill="#212121"/>';
+            } else {
+                themeIcon.innerHTML = '<circle cx="12" cy="12" r="6" fill="#fff"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="#1565c0" stroke-width="2"/>';
+            }
         });
     </script>
 </body>
