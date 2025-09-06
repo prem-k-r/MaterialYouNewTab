@@ -155,7 +155,7 @@ const en = {
     // Wallpaper and settings
     "uploadWallpaperText": "Upload Wallpaper",    // Keep this short
     "rangColor": "Pick color",    // Keep this short
-    "opactityTitle": "Opacity",
+    "opacityTitle": "Opacity",
     "adjustOpacityDesc": "Adjust interface transparency",
     "backupText": "Backup",
     "restoreText": "Restore",

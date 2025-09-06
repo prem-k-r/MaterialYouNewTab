@@ -155,7 +155,7 @@ const ru = {
     // Wallpaper and settings
     "uploadWallpaperText": "Загрузить обои",
     "rangColor": "Выбрать цвет",
-    "opactityTitle": "Прозрачночть",
+    "opacityTitle": "Прозрачночть",
     "adjustOpacityDesc": "Настройка прозрачости интерфейса",
     "backupText": "Экспорт",
     "restoreText": "Восстановить",

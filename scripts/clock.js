@@ -154,13 +154,14 @@ async function initializeClock() {
                 bn: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
                 mr: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
                 np: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
-                zh: `${month+1}月${dayOfMonth}日，${dayName}`,
-                zh_TW: `${month+1}月${dayOfMonth}日，${dayName}`,
+                zh: `${month + 1}月${dayOfMonth}日，${dayName}`,
+                zh_TW: `${month + 1}月${dayOfMonth}日，${dayName}`,
                 cs: `${dayName}, ${dayOfMonth}. ${monthName}`,
                 hi: `${dayName}, ${dayOfMonth} ${monthName}`,
                 it: `${dayName.substring(0, 3)} ${dayOfMonth} ${monthName.substring(0, 3)}`,
                 ja: `${monthName} ${dayOfMonth}日(${dayName.substring(0, 1)})`,
                 ko: `${monthName} ${dayOfMonth}일(${dayName.substring(0, 1)})`,
+                pl: `${dayName}, ${dayOfMonth}. ${monthName}`,
                 pt: `${dayName.substring(0, 3)}, ${dayOfMonth} ${monthName.substring(0, 3)}`,
                 ru: `${dayName.substring(0, 2)}, ${dayOfMonth} ${monthName.substring(0, 4)}.`,
                 es: `${dayName.substring(0, 3)}, ${dayOfMonth} ${monthName.substring(0, 3)}`,
@@ -295,6 +296,7 @@ async function initializeClock() {
             hi: `${dayName}, ${dayOfMonth}`,
             ja: `${dayOfMonth}日 (${dayName[0]})`,
             ko: `${dayOfMonth}일 (${dayName[0]})`,
+            pl: `${dayName}, ${dayOfMonth}`,
             pt: `${dayName}, ${dayOfMonth}`,
             ru: `${dayOfMonth} ${dayName.substring(0, 2)}`,
             ta: `${localizedDayOfMonth} ${dayName.substring(0, 2)}`,
@@ -558,3 +560,4 @@ async function initializeClock() {
         loadActiveStatus("greetingField", greetingField);
     });
 }
+

@@ -37,6 +37,7 @@ const translations = {
     el: el, // Greek
     ta: ta, // தமிழ்
     th: th, // Thai
+    pl: pl, // Polish
 };
 
 // Define the width of the menu container for each language
@@ -65,6 +66,7 @@ const menuWidths = {
     ar_SA: "440px",
     el: "455px",
     th: "455px",
+    pl: "455px",
     // Add more languages and widths as needed
 };
 
@@ -209,7 +211,7 @@ function applyLanguage(lang) {
         "dontShowTips",
         "aiSettingsIntro",
         "resetAISettingsBtn",
-        "opactityTitle",
+        "opacityTitle",
         "adjustOpacityDesc"
     ];
 
