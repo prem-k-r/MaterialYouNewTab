@@ -324,7 +324,7 @@ body[data-bg="wallpaper"]:has(.menuBar #enableDarkModeCheckbox:checked):not(
 	color: var(--whitishColor-blue);
 }
 
-/* ----------------- Google App Menu CSS Setup ----------------- */
+/* ----------------- Google App Menu ----------------- */
 /* Dot Icon Container Styling */
 .googleAppsCont {
 	position: fixed;
@@ -439,7 +439,6 @@ body[data-bg="wallpaper"] .tooltip-text {
 		var(--accentLightTint-blue) 80%,
 		transparent
 	);
-	backdrop-filter: blur(10px);
 	border-radius: 30px;
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 	border: 8px solid var(--bg-color-blue);
@@ -458,6 +457,15 @@ body[data-bg="wallpaper"] .tooltip-text {
 	scroll-behavior: smooth;
 	box-sizing: border-box;
 	z-index: 3; /* This should be higher that z-index of [.googleAppsCont] */
+}
+
+/* When wallpaper is active */
+body[data-bg="wallpaper"] .icon-container {
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) var(--transparency),
+		transparent
+	);
 }
 
 /* Individual Icon Item Styling */
@@ -607,7 +615,6 @@ body[data-bg="wallpaper"] .bookmark-button {
 		var(--accentLightTint-blue) calc(var(--transparency) * 2),
 		transparent
 	);
-	backdrop-filter: blur(4px);
 }
 
 .bookmark-button:has(~ .googleAppsCont[style="display: flex;"]) {
@@ -1145,7 +1152,6 @@ body #bookmarkButton.bookmark-button.rotate {
 		var(--accentLightTint-blue) 80%,
 		transparent
 	);
-	backdrop-filter: blur(2px);
 	border-radius: 30px;
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
 	border: 8px solid var(--bg-color-blue);
@@ -1159,6 +1165,15 @@ body #bookmarkButton.bookmark-button.rotate {
 	scroll-behavior: smooth;
 	box-sizing: border-box;
 	z-index: 3;
+}
+
+/* When wallpaper is active */
+body[data-bg="wallpaper"] .todo-container {
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) var(--transparency),
+		transparent
+	);
 }
 
 .todo-container::-webkit-scrollbar {
@@ -1713,6 +1728,8 @@ html[lang="ta"] .digiclock {
 	unicode-bidi: isolate;
 }
 
+/* ____________Humidity and Opacity Bars_____________________---- */
+
 .opacityBarControl {
 	opacity: 0;
 	transform: translateY(20px);
@@ -1839,7 +1856,7 @@ body[data-bg="wallpaper"] .humidityBar .thinLine {
 	font-size: 1rem;
 }
 
-/* End of _____________________- */
+/* End of Humidity and Opacity Bars */
 
 /* ------------Weather Pill------------- */
 .rightDiv .topDiv .rAndakar {
@@ -1919,8 +1936,6 @@ html[lang="ta"] #temp {
 
 /* ------------End of Weather Pill------------- */
 
-/* ________________________________________________________ */
-
 /* _____________Searchbar___________________ */
 .searchbar {
 	margin-top: var(--gap);
@@ -1939,6 +1954,7 @@ body[data-bg="wallpaper"] .searchbar {
 		var(--accentLightTint-blue) calc(var(--transparency) + 10%),
 		transparent
 	);
+	backdrop-filter: blur(4px);
 }
 
 .searchbar.active {
