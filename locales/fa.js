@@ -170,7 +170,7 @@ const fa = {
     // Wallpaper and settings
     uploadWallpaperText: "آپلود تصویر زمینه",
     rangColor: "انتخاب رنگ",
-    opactityTitle: "شفافیت",
+    opacityTitle: "شفافیت",
     adjustOpacityDesc: "تنظیم شفافیت رابط کاربری",
     backupText: "پشتیبان‌گیری",
     restoreText: "بازیابی",

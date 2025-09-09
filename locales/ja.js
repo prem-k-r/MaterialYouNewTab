@@ -155,7 +155,7 @@ const ja = {
     "rangColor": "色を選択",
     "enableDarkMode": "ダークモード（実験的）",
     "enableDarkModeInfo": "ダークモードテーマを有効化",
-    "opactityTitle": "不透明度",
+    "opacityTitle": "不透明度",
     "adjustOpacityDesc": "インターフェースの透明度を調整",
 
     // Dialog boxes (alerts)

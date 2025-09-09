@@ -24,13 +24,15 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 ![GitHub stars](https://img.shields.io/github/stars/prem-k-r/materialYouNewTab)
 ![GitHub forks](https://img.shields.io/github/forks/prem-k-r/materialYouNewTab)
 
+[![](https://img.shields.io/chrome-web-store/v/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) [![](https://img.shields.io/chrome-web-store/rating/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) [![](https://img.shields.io/chrome-web-store/users/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) ‾ [![](https://img.shields.io/amo/v/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) [![](https://img.shields.io/amo/rating/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) [![](https://img.shields.io/amo/users/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/)
+
 </div>
 
 <p align="center">
   <a href="#-features">Features</a> •
   <a href="#-installation-guide">Installation Guide</a> •
   <a href="#download">Download</a> •
-  <a href="#-currently-supported-languages-29">Currently Supported Languages</a>
+  <a href="#-currently-supported-languages-30">Currently Supported Languages</a>
 <br>
   <a href="#-contributing">Contributing</a> •
   <a href="#-star-history">Star History</a> •
@@ -217,7 +219,7 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 
 [![Watch the video](https://img.youtube.com/vi/P4ryQPixfw8/0.jpg)](https://youtu.be/P4ryQPixfw8)
 
-## 🌐 Currently Supported Languages (29)
+## 🌐 Currently Supported Languages (30)
 
 | Language                                                                                     | Code  | Translator(s)                                                                         |
 | -------------------------------------------------------------------------------------------- | :---: | ------------------------------------------------------------------------------------- |
@@ -240,10 +242,11 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 | <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Marathi** - मराठी                   |  mr   | [Prem](https://github.com/prem-k-r/), [Pratik Lokhande](https://github.com/konprtk)   |
 | <img src='https://flagcdn.com/np.svg' width=20> &nbsp; **Nepali** - नेपाली                    |  np   | [Bikash Shresha](https://github.com/sthaB-kash/)                                      |
 | <img src='https://flagcdn.com/ir.svg' width=20> &nbsp; **Persian** - فارسی                    |  fa   | [AMIRHOSSEIN](https://github.com/AMIRHOSSEIN-AHMADI-IR)                               |
+| <img src='https://flagcdn.com/pl.svg' width=20> &nbsp; **Polish** - Polski                  | pl | [Dawid Warkowski](https://github.com/dawid9707/)                                         |
 | <img src='https://flagcdn.com/br.svg' width=20> &nbsp; **Portuguese** - Português            | pt-BR | [Maycon Vitor Correa](https://github.com/MestreWalla/)                                |
 | <img src='https://flagcdn.com/ru.svg' width=20> &nbsp; **Russian** - Русский                 |  ru   | [giwi](https://github.com/giwih/)                                                     |
 | <img src='https://flagcdn.com/si.svg' width=20> &nbsp; **Slovenian** - Slovenščina           | sl-SI | [Linux-Alex](https://github.com/Linux-Alex/)                                          |
-| <img src='https://flagcdn.com/es.svg' width=20> &nbsp; **Spanish** - Español                 | es-ES | [XengShi](https://github.com/XengShi/)                                                |
+| <img src='https://flagcdn.com/es.svg' width=20> &nbsp; **Spanish** - Español                 | es-ES | [XengShi](https://github.com/XengShi/), [Isaac Vergara](https://github.com/zRaidev)                        |
 | <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Tamil** - தமிழ்                 | ta | [தமிழ்நேரம்](https://TamilNeram.github.io/)                                                |
 | <img src='https://flagcdn.com/th.svg' width=20> &nbsp; **Thai** - ภาษาไทย                 | th | [Prin](https://github.com/prinsasina)                                                |
 | <img src='https://flagcdn.com/tr.svg' width=20> &nbsp; **Turkish** - Türkçe                  |  tr   | [Nobody](https://github.com/Nobody9512), [Kerim Ölçer](https://github.com/kerimlcr)   |
