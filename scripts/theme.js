@@ -1,8 +1,9 @@
-/*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
- * Licensed under the GNU General Public License v3.0 (GPL-3.0)
- */
+/* (complete JS — same as I provided before) */
+ /*
+  * Material You NewTab
+  * Copyright (c) 2023-2025 XengShi
+  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
+  */
 
 const themeStorageKey = "selectedTheme";
 const customThemeStorageKey = "customThemeColor";
@@ -15,34 +16,32 @@ const colorPickerLabel = document.getElementById("rangColor");
 document.addEventListener("DOMContentLoaded", () => {
     // Forced Dark Mode
     const enableDarkModeCheckbox = document.getElementById("enableDarkModeCheckbox");
-    enableDarkModeCheckbox.addEventListener("change", function () {
-        saveCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
-    });
-    loadCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
+    if (enableDarkModeCheckbox) {
+        enableDarkModeCheckbox.addEventListener("change", function () {
+            saveCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
+        });
+        loadCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
+    }
 
     // Check for custom color
-    const storedCustomColor = localStorage.getItem(customThemeStorageKey);
     if (storedCustomColor) {
         applyCustomTheme(storedCustomColor);
-        // Uncheck all radio buttons
-        radioButtons.forEach(radio => {
-            radio.checked = false;
-        });
-    }
-    // Check for regular theme
-    else {
-        const storedTheme = localStorage.getItem(themeStorageKey);
+        radioButtons.forEach(radio => (radio.checked = false));
+    } else {
         if (storedTheme) {
-            applySelectedTheme(storedTheme);
-            const selectedRadioButton = document.querySelector(`.colorPlate[value="${storedTheme}"]`);
-            if (selectedRadioButton) {
-                selectedRadioButton.checked = true;
+            if (storedTheme === "auto") {
+                applyAutoTheme();
+            } else {
+                applySelectedTheme(storedTheme);
             }
+            const selectedRadioButton = document.querySelector(`.colorPlate[value="${storedTheme}"]`);
+            if (selectedRadioButton) selectedRadioButton.checked = true;
         }
     }
 
     // Remove Loading Screen when the DOM and the theme has loaded
-    document.getElementById("LoadingScreen").style.display = "none";
+    const loadingEl = document.getElementById("LoadingScreen");
+    if (loadingEl) loadingEl.style.display = "none";
 
     // Stop blinking of some elements when the page is reloaded
     setTimeout(() => {
@@ -57,34 +56,25 @@ function ApplyLoadingColor() {
 }
 
 const resetDarkTheme = () => {
-    // Remove the dark theme class
     document.documentElement.classList.remove("dark-theme");
-
-    // Reset inline styles that were applied specifically for dark mode
     const resetElements = ["searchQ", "searchIconDark", "darkFeelsLikeIcon", "menuButton", "menuCloseButton", "closeBtnX"];
 
     resetElements.forEach((id) => {
         const element = document.getElementById(id);
-        if (element) {
-            element.removeAttribute("style");
-        }
+        if (element) element.removeAttribute("style");
     });
 
-    // Reset fill color for elements with the class "accentColor"
     const accentElements = document.querySelectorAll(".accentColor");
     accentElements.forEach((element) => {
-        element.style.fill = ""; // Reset fill color
+        element.style.fill = "";
     });
 };
 
 // Function to apply the selected theme
 const applySelectedTheme = (colorValue) => {
     const isDarkMode = colorValue === "dark";
-
-    // Reset dark theme if not in dark mode
     if (!isDarkMode) resetDarkTheme();
 
-    // Set CSS variables based on the selected color theme
     if (colorValue === "blue") {
         document.documentElement.style.setProperty("--bg-color-blue", "#BBD6FD");
         document.documentElement.style.setProperty("--accentLightTint-blue", "#E2EEFF");
@@ -99,13 +89,11 @@ const applySelectedTheme = (colorValue) => {
         document.documentElement.style.setProperty("--darkerColor-blue", `var(--darkerColor-${prefix})`);
         document.documentElement.style.setProperty("--darkColor-blue", `var(--darkColor-${prefix})`);
         document.documentElement.style.setProperty("--textColorDark-blue", `var(--textColorDark-${prefix})`);
-
         if (!isDarkMode) {
             document.documentElement.style.setProperty("--whitishColor-blue", `var(--whitishColor-${colorValue})`);
         }
     }
 
-    // Handle dark mode specific changes
     if (isDarkMode) {
         document.documentElement.classList.add("dark-theme");
         document.querySelectorAll(".accentColor").forEach(el => {
@@ -117,11 +105,40 @@ const applySelectedTheme = (colorValue) => {
     ApplyLoadingColor();
 };
 
+// Auto Theme (system-based)
+function applyAutoTheme() {
+    
+    const prefersDarkMq = window.matchMedia("(prefers-color-scheme: dark)");
+
+    // Apply immediate
+    if (prefersDarkMq.matches) {
+        applySelectedTheme("dark");
+    } else {
+        applySelectedTheme("blue"); // default light theme
+    }
+
+    // Listen for system theme change (modern)
+    const onPrefChange = (e) => {
+        if (localStorage.getItem(themeStorageKey) === "auto") {
+            if (e.matches) {
+                applySelectedTheme("dark");
+            } else {
+                applySelectedTheme("blue");
+            }
+        }
+    };
+
+    if (typeof prefersDarkMq.addEventListener === "function") {
+        prefersDarkMq.addEventListener("change", onPrefChange);
+    } else if (typeof prefersDarkMq.addListener === "function") {
+        // fallback for older browsers
+        prefersDarkMq.addListener(onPrefChange);
+    }
+}
+
 function changeFaviconColor() {
-    // Fetch colors from CSS variables
     const rootStyles = getComputedStyle(document.documentElement);
     const darkColor = rootStyles.getPropertyValue("--darkColor-blue");
-    //const bgColor = rootStyles.getPropertyValue("--bg-color-blue");
 
     const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -131,17 +148,17 @@ function changeFaviconColor() {
     `;
     const encodedSvg = 'data:image/svg+xml,' + encodeURIComponent(svg);
     const favicon = document.getElementById("favicon");
-    favicon.href = encodedSvg;
-    favicon.setAttribute('type', 'image/svg+xml');
+    if (favicon) {
+        favicon.href = encodedSvg;
+        favicon.setAttribute('type', 'image/svg+xml');
+    }
 }
 changeFaviconColor();
 
 // --------------------- Color Picker ---------------------
 function adjustHexColor(hex, factor, isLighten = true) {
     hex = hex.replace("#", "");
-    if (hex.length === 3) {
-        hex = hex.split("").map(c => c + c).join("");
-    }
+    if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
     let r = parseInt(hex.substring(0, 2), 16);
     let g = parseInt(hex.substring(2, 4), 16);
     let b = parseInt(hex.substring(4, 6), 16);
@@ -179,41 +196,43 @@ const applyCustomTheme = (color) => {
     document.documentElement.style.setProperty("--darkColor-blue", adjustedColor);
     document.documentElement.style.setProperty("--textColorDark-blue", darkTextColor);
     document.documentElement.style.setProperty("--whitishColor-blue", "#ffffff");
-    colorPickerLabel.style.borderColor = color;
-    document.getElementById("dfChecked").checked = false;
+    if (colorPickerLabel) colorPickerLabel.style.borderColor = color;
+    const df = document.getElementById("dfChecked");
+    if (df) df.checked = false;
 
     changeFaviconColor();
     ApplyLoadingColor();
 };
 
-// Handle radio button changes
+// Handle theme change
 const handleThemeChange = function () {
     if (this.checked) {
         const colorValue = this.value;
         localStorage.setItem(themeStorageKey, colorValue);
-        localStorage.removeItem(customThemeStorageKey); // Clear custom theme
-        applySelectedTheme(colorValue);
+        localStorage.removeItem(customThemeStorageKey);
+
+        if (colorValue === "auto") {
+            applyAutoTheme();
+        } else {
+            applySelectedTheme(colorValue);
+        }
     }
 };
 
-// Remove any previously attached listeners and add only one
 radioButtons.forEach(radioButton => {
-    radioButton.removeEventListener("change", handleThemeChange); // Remove if already attached
-    radioButton.addEventListener("change", handleThemeChange);    // Add fresh listener
+    radioButton.removeEventListener("change", handleThemeChange);
+    radioButton.addEventListener("change", handleThemeChange);
 });
 
 // Handle color picker changes
 const handleColorPickerChange = function (event) {
     const selectedColor = event.target.value;
-    resetDarkTheme(); // Clear dark theme if active
-    localStorage.setItem(customThemeStorageKey, selectedColor); // Save custom color
-    localStorage.removeItem(themeStorageKey); // Clear predefined theme
+    resetDarkTheme();
+    localStorage.setItem(customThemeStorageKey, selectedColor);
+    localStorage.removeItem(themeStorageKey);
     applyCustomTheme(selectedColor);
 
-    // Uncheck all radio buttons
-    radioButtons.forEach(radio => {
-        radio.checked = false;
-    });
+    radioButtons.forEach(radio => (radio.checked = false));
 };
 
 // Throttle for performance optimization
@@ -236,6 +255,7 @@ const throttle = (func, limit) => {
     };
 };
 
-// Add listeners for color picker
-colorPicker.removeEventListener("input", handleColorPickerChange); // Ensure no duplicate listeners
-colorPicker.addEventListener("input", throttle(handleColorPickerChange, 10));
+if (colorPicker) {
+    colorPicker.removeEventListener("input", handleColorPickerChange);
+    colorPicker.addEventListener("input", throttle(handleColorPickerChange, 10));
+}
