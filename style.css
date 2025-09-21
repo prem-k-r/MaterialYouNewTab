@@ -607,7 +607,6 @@ body[data-bg="wallpaper"] .bookmark-button {
 		var(--accentLightTint-blue) calc(var(--transparency) * 2),
 		transparent
 	);
-	backdrop-filter: blur(4px);
 }
 
 .bookmark-button:has(~ .googleAppsCont[style="display: flex;"]) {
