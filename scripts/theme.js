@@ -154,6 +154,62 @@ function changeFaviconColor() {
     }
 }
 changeFaviconColor();
+// Keys for storage
+const followSystemKey = "followSystemTheme";
+
+// Grab elements
+const darkModeCheckbox = document.getElementById("enableDarkModeCheckbox");
+const followSystemThemeCheckbox = document.getElementById("followSystemThemeCheckbox");
+
+// Apply auto theme if enabled
+function handleFollowSystemTheme() {
+    if (followSystemThemeCheckbox.checked) {
+        localStorage.setItem(themeStorageKey, "auto");
+        localStorage.setItem(followSystemKey, "true");
+
+        applyAutoTheme();
+
+        // Disable manual dark mode toggle when auto is active
+        darkModeCheckbox.checked = false;
+        darkModeCheckbox.disabled = true;
+    } else {
+        localStorage.removeItem(followSystemKey);
+
+        // Re-enable manual dark mode
+        darkModeCheckbox.disabled = false;
+
+        if (darkModeCheckbox.checked) {
+            applySelectedTheme("dark");
+            localStorage.setItem(themeStorageKey, "dark");
+        } else {
+            applySelectedTheme("blue"); // default light
+            localStorage.setItem(themeStorageKey, "blue");
+        }
+    }
+}
+
+// Listen for changes
+followSystemThemeCheckbox.addEventListener("change", handleFollowSystemTheme);
+
+// Restore state on page load
+window.addEventListener("DOMContentLoaded", () => {
+    const followSystem = localStorage.getItem(followSystemKey) === "true";
+
+    if (followSystem) {
+        followSystemThemeCheckbox.checked = true;
+        handleFollowSystemTheme();
+    } else {
+        // Restore manual mode
+        const savedTheme = localStorage.getItem(themeStorageKey);
+        if (savedTheme === "dark") {
+            darkModeCheckbox.checked = true;
+            applySelectedTheme("dark");
+        } else {
+            darkModeCheckbox.checked = false;
+            applySelectedTheme("blue");
+        }
+    }
+});
 
 // --------------------- Color Picker ---------------------
 function adjustHexColor(hex, factor, isLighten = true) {
