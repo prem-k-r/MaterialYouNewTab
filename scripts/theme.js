@@ -12,6 +12,8 @@ const storedCustomColor = localStorage.getItem(customThemeStorageKey);
 const radioButtons = document.querySelectorAll(".colorPlate");
 const colorPicker = document.getElementById("colorPicker");
 const colorPickerLabel = document.getElementById("rangColor");
+const lastManualThemeKey = "lastManualTheme"; // <-- NEW
+
 
 document.addEventListener("DOMContentLoaded", () => {
     // Forced Dark Mode
@@ -19,6 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (enableDarkModeCheckbox) {
         enableDarkModeCheckbox.addEventListener("change", function () {
             saveCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
+            if (enableDarkModeCheckbox.checked) {
+        localStorage.setItem(lastManualThemeKey, "dark"); // NEW
+            } else {
+             localStorage.setItem(lastManualThemeKey, "blue"); // NEW
+            }
         });
         loadCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
     }
@@ -178,13 +185,27 @@ function handleFollowSystemTheme() {
         // Re-enable manual dark mode
         darkModeCheckbox.disabled = false;
 
-        if (darkModeCheckbox.checked) {
-            applySelectedTheme("dark");
-            localStorage.setItem(themeStorageKey, "dark");
-        } else {
-            applySelectedTheme("blue"); // default light
-            localStorage.setItem(themeStorageKey, "blue");
-        }
+        // Restore last manual theme instead of forcing blue
+        // Restore last manual theme (any color)
+const lastManual = localStorage.getItem(lastManualThemeKey);
+
+if (lastManual) {
+    applySelectedTheme(lastManual);
+    localStorage.setItem(themeStorageKey, lastManual);
+
+    // keep dark mode checkbox in sync
+    if (lastManual === "dark") {
+        darkModeCheckbox.checked = true;
+    } else {
+        darkModeCheckbox.checked = false;
+    }
+} else {
+    // fallback if nothing stored
+    applySelectedTheme("blue");
+    localStorage.setItem(themeStorageKey, "blue");
+    darkModeCheckbox.checked = false;
+}
+
     }
 }
 
@@ -261,6 +282,7 @@ const applyCustomTheme = (color) => {
 };
 
 // Handle theme change
+// Handle theme change
 const handleThemeChange = function () {
     if (this.checked) {
         const colorValue = this.value;
@@ -271,9 +293,11 @@ const handleThemeChange = function () {
             applyAutoTheme();
         } else {
             applySelectedTheme(colorValue);
+            localStorage.setItem(lastManualThemeKey, colorValue); // NEW
         }
     }
 };
+
 
 radioButtons.forEach(radioButton => {
     radioButton.removeEventListener("change", handleThemeChange);
