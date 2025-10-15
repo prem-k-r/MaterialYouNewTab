@@ -330,7 +330,7 @@ async function initializeClock() {
         // Force the "en-US" format for numeral-localized languages, otherwise, it will be localized twice, resulting in NaN
 
         // Set time options and determine locale based on the current language
-        const timeOptions = { hour: "2-digit", minute: "2-digit", hour12: hourformat };
+        const timeOptions = { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: hourformat };
         const locale = specialLanguages.includes(currentLanguage) || localizedLanguages.includes(currentLanguage) ? "en-US" : currentLanguage;
         timeString = now.toLocaleTimeString(locale, timeOptions);
 
@@ -340,7 +340,7 @@ async function initializeClock() {
         }
 
         // Split the hours and minutes from the localized time string
-        let [hours, minutes] = timeString.split(":");
+        let [hours, minutes, seconds] = timeString.split(":");
 
         // Remove leading zero from hours in 12-hour format
         if (hourformat) {
@@ -350,11 +350,13 @@ async function initializeClock() {
         // Localize hours and minutes for the selected language
         const localizedHours = localizeNumbers(hours, currentLanguage);
         const localizedMinutes = localizeNumbers(minutes, currentLanguage);
+        const localizedSeconds = localizeNumbers(seconds, currentLanguage);
 
         // Update the hour, colon, and minute text elements
         document.getElementById("digihours").textContent = localizedHours;
         document.getElementById("digicolon").textContent = ":";
         document.getElementById("digiminutes").textContent = localizedMinutes;
+        document.getElementById("digiseconds").textContent = localizedSeconds;
 
         if (isFirefoxAll)
             document.getElementById("digicolon").classList.add("no-blink");
