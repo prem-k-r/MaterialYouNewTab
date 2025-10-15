@@ -249,7 +249,9 @@ function submitPostSearch(config, searchTerm) {
 
     document.body.appendChild(form);
     form.submit();
-    document.body.removeChild(form);
+    setTimeout(() => {
+        document.body.removeChild(form);
+    }, 0);
 }
 
 // Event listeners
