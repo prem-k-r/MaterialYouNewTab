@@ -1412,6 +1412,8 @@ body #bookmarkButton.bookmark-button.rotate {
 	height: 300px;
 	border-radius: 100%;
 	position: relative;
+	padding: 20px;
+	box-sizing: border-box;
 }
 
 #analogClock {

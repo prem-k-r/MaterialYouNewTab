@@ -375,7 +375,6 @@ async function initializeClock() {
                     period = "யாமம்"
                 } else if (realHours < 6) {
                     period = "வைகறை"
-                } else if (realHours < 10) {
                     period = "காலை"
                 } else if (realHours < 14) {
                     period = "நண்பகல்"

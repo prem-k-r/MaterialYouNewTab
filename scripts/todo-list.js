@@ -275,3 +275,15 @@ document.addEventListener("DOMContentLoaded", function () {
     loadCheckboxState("todoListCheckboxState", todoListCheckbox);
     loadDisplayStatus("todoListDisplayStatus", todoListCont);
 });
+
+
+//ADDED BY ME..
+
+function saveCheckboxState(key, checkbox) {
+    localStorage.setItem(key, checkbox.checked);
+}
+
+function loadCheckboxState(key, checkbox) {
+    const savedState = localStorage.getItem(key);
+    checkbox.checked = savedState === "true";
+}
