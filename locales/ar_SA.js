@@ -52,6 +52,8 @@ const ar_SA = {
     hideWeatherBoxInfo: "إظهار مؤشر درجة الحرارة فقط",
     minMaxTempText: "درجة الحرارة الأقل - الأعلى",
     minMaxTempSubText: "استبدال 'درجة الحرارة المحسوسة' بدرجة الحرارة الأقل والأعلى",
+    opacityTitle: "العتامة",
+    adjustOpacityDesc: "ضبط عتامة الواجهة",
 
     // Search
     micIconTitle: "إخفاء أيقونة الميكروفون",
