@@ -1579,7 +1579,7 @@ body[data-bg="wallpaper"] #date {
 	margin: auto;
 	width: fit-content;
 	direction: ltr;
-	padding: 10px;
+	padding: 20px;
 	unicode-bidi: isolate;
 }
 
