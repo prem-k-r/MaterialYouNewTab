@@ -1404,15 +1404,16 @@ body #bookmarkButton.bookmark-button.rotate {
 	/* background-color: #17a638; */
 	/* always leave enough space for the shortcuts bar at the bottom */
 	padding-bottom: calc(var(--shortcut-size) + var(--gap) * 2);
+	place-items: center;
 }
 
 /* ____________Clock_____________________---- */
 #digitalClock {
-	width: 300px;
+	width: 400px;
 	height: 300px;
 	border-radius: 100%;
 	position: relative;
-	padding: 20px;
+	padding: 10px;
 	box-sizing: border-box;
 }
 
@@ -1578,6 +1579,7 @@ body[data-bg="wallpaper"] #date {
 	margin: auto;
 	width: fit-content;
 	direction: ltr;
+	padding: 10px;
 	unicode-bidi: isolate;
 }
 
@@ -1614,10 +1616,15 @@ html[lang="ta"] .digiclock {
 
 /* __________end of clock___________________ */
 .leftDiv {
-	/* padding-inline-end: 100px; */
 	transform: translateX(-100px);
-	/* background-color: rgba(102, 51, 153, 0.404); */
-	/* height: fit-content; */
+	height: fit-content;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin: auto;
 }
 
 :dir(rtl) .leftDiv {
@@ -4910,3 +4917,79 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 /* ------------ End of Tips---------- */
+
+/* Calendar Widget Styles */
+.calendarWidget {
+  width: 100%;
+  max-width: 350px;
+  padding: 20px;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.calendarHeader {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.calendarHeader h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--accentColor);
+}
+
+.calendarTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendarTable thead th {
+  font-weight: 600;
+  font-size: 13px;
+  padding: 10px 5px;
+  text-align: center;
+  color: var(--accentColor);
+  border-bottom: 2px solid var(--accentColor);
+}
+
+/* Make Saturday and Sunday headers red */
+.calendarTable thead th.weekend {
+  color: #e53935;
+}
+
+.calendarTable tbody td {
+  text-align: center;
+  padding: 8px 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.calendarTable tbody td:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+
+/* Make Saturday and Sunday dates red */
+.calendarTable tbody td.weekend {
+  color: #e53935;
+}
+
+.calendarTable tbody td.today {
+  background: var(--accentColor);
+  color: green;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid var(--accentColor);
+}
+
+.calendarTable tbody td.empty {
+  background: transparent;
+  cursor: default;
+  border: none;
+}
+
+.calendarTable tbody td.empty:hover {
+  background: transparent;
+}
