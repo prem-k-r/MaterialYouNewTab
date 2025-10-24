@@ -58,6 +58,8 @@ const es = {
     "hideSearchWithInfo": "Cambiar entre motores de búsqueda haciendo click en \"Buscar con\"",
     "motivationalQuotesText": "Citas motivacionales",
     "motivationalQuotesInfo": "Mostrar citas debajo de barra de búsqueda",
+    "disableAnimationsText": "Desactivar animaciones",
+    "disableAnimationsInfo": "Desactivar animaciones al abrir una nueva pestaña",
     "search_suggestions_button": "Sugerencias de búsqueda",
     "search_suggestions_text": "Habilitar sugerencias de búsqueda",
 

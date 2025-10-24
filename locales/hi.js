@@ -58,6 +58,8 @@ const hi = {
     "hideSearchWithInfo": "आइकन पर क्लिक करके सर्च इंजन बदलें",
     "motivationalQuotesText": "प्रेरणादायक उद्धरण",
     "motivationalQuotesInfo": "खोज बार के नीचे उद्धरण दिखाएँ",
+    "disableAnimationsText": "एनिमेशन अक्षम करें",
+    "disableAnimationsInfo": "नया टैब खोलते समय एनिमेशन बंद करें",
     "search_suggestions_button": "खोज सुझाव",
     "search_suggestions_text": "खोज सुझाव सक्षम करें",
 

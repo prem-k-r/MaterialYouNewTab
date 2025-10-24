@@ -58,6 +58,8 @@ const pt = {
     "hideSearchWithInfo": "Alternar entre os motores de busca clicando no ícone",
     "motivationalQuotesText": "Frases Motivacionais",
     "motivationalQuotesInfo": "Mostrar frases motivacionais abaixo do texto personalizado",
+    "disableAnimationsText": "Desativar animações",
+    "disableAnimationsInfo": "Desligar animações ao abrir nova aba",
     "search_suggestions_button": "Sugestões de Pesquisa",
     "search_suggestions_text": "Ativar sugestões de pesquisa",
 

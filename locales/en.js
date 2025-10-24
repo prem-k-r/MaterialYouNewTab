@@ -58,6 +58,8 @@ const en = {
     "hideSearchWithInfo": "Switch between search engines by clicking its icon",
     "motivationalQuotesText": "Motivational Quotes",
     "motivationalQuotesInfo": "Show quotes below the searchbar",
+    "disableAnimationsText": "Disable Animations",
+    "disableAnimationsInfo": "Turn off animations when opening new tab",
     "search_suggestions_button": "Search Suggestions",
     "search_suggestions_text": "Enable search suggestions",
 

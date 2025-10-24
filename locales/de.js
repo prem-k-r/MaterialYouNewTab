@@ -58,6 +58,8 @@ const de = {
     "hideSearchWithInfo": "Wechseln Sie zwischen Suchmaschinen, indem Sie auf das Symbol klicken",
     "motivationalQuotesText": "Motivationszitate",
     "motivationalQuotesInfo": "Zitate unterhalb der Suchleiste anzeigen",
+    "disableAnimationsText": "Animationen deaktivieren",
+    "disableAnimationsInfo": "Animationen beim Öffnen eines neuen Tabs deaktivieren",
     "search_suggestions_button": "Suchvorschläge",
     "search_suggestions_text": "Suchvorschläge aktivieren",
 
