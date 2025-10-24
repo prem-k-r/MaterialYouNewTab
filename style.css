@@ -5025,3 +5025,14 @@ body[data-bg="wallpaper"] .dropdown-content {
 .calendarTable tbody td.empty:hover {
   background: transparent;
 }
+
+/* Holiday styling */
+.calendarTable tbody td.holiday {
+  color: #e53935;
+  font-weight: 600;
+}
+
+.calendarTable tbody td.today.holiday {
+  background: #e53935;
+  color: white;
+}
