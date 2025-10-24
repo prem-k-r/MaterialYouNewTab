@@ -1618,7 +1618,6 @@ html[lang="ta"] .digiclock {
 .leftDiv {
 	transform: translateX(-100px);
 	height: fit-content;
-	padding: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -4919,13 +4918,12 @@ body[data-bg="wallpaper"] .dropdown-content {
 /* ------------ End of Tips---------- */
 
 /* Calendar Widget Styles */
-/* Calendar Widget Styles */
 .calendarWidget {
   width: 100%;
   max-width: 350px;
   padding: 20px;
   border-radius: 20px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .calendarHeader {
