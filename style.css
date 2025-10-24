@@ -4911,31 +4911,18 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 /* ------------ Disable Animations Feature ------------ */
 /* When user toggles off animations, disable all animations and transitions */
-body.no-animations *,
-body.no-animations *::before,
-body.no-animations *::after {
+html.no-animations,
+html.no-animations *,
+html.no-animations *::before,
+html.no-animations *::after {
+	animation: none !important;
 	animation-duration: 0s !important;
 	animation-delay: 0s !important;
+	animation-iteration-count: 1 !important;
+	transition: none !important;
 	transition-duration: 0s !important;
 	transition-delay: 0s !important;
-}
-
-body.no-animations #clock svg {
-	animation: none !important;
-}
-
-body.no-animations .rightDiv .topDiv .rAndakar {
-	animation: none !important;
-}
-
-body.no-animations .searchEnginesContainer.show {
-	animation: none !important;
-}
-
-body.no-animations #hour,
-body.no-animations #minute,
-body.no-animations #second {
-	transition: none !important;
+	transition-property: none !important;
 }
 
 /* ------------ End of Disable Animations ------------ */
