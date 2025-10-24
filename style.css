@@ -5010,7 +5010,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 .calendarTable tbody td.today {
   background: var(--accentColor);
-  color: green;
+  color: rgb(13, 13, 224);
   font-weight: 600;
   border-radius: 8px;
   border: 1px solid var(--accentColor);
