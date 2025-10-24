@@ -4919,6 +4919,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 /* ------------ End of Tips---------- */
 
 /* Calendar Widget Styles */
+/* Calendar Widget Styles */
 .calendarWidget {
   width: 100%;
   max-width: 350px;
@@ -4928,7 +4929,9 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .calendarHeader {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
 }
 
@@ -4937,6 +4940,34 @@ body[data-bg="wallpaper"] .dropdown-content {
   font-weight: 500;
   margin: 0;
   color: var(--accentColor);
+  flex: 1;
+  text-align: center;
+}
+
+.calendarNav {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accentColor);
+}
+
+.calendarNav:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+.calendarNav:active {
+  transform: scale(0.95);
+}
+
+.calendarNav svg {
+  display: block;
 }
 
 .calendarTable {
@@ -4962,6 +4993,7 @@ body[data-bg="wallpaper"] .dropdown-content {
   text-align: center;
   padding: 8px 5px;
   font-size: 14px;
+  /* border: 1px solid rgba(0, 0, 0, 0.05); */
   cursor: pointer;
   transition: all 0.2s;
 }
