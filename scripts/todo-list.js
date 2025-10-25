@@ -275,3 +275,5 @@ document.addEventListener("DOMContentLoaded", function () {
     loadCheckboxState("todoListCheckboxState", todoListCheckbox);
     loadDisplayStatus("todoListDisplayStatus", todoListCont);
 });
+
+// ----------------------- End of To Do List Toggle -----------------------
