@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Preset Data
     const presets = [
         {
-            name: "Youtube",
+            name: "YouTube",
             url: "youtube.com",
             domains: ["youtube.com", "m.youtube.com", "youtu.be"],
             svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" class="accentColor shorcutDarkColor"/><g style="transform: scale(0.6); transform-origin: center;"><path class="bgLightTint" id="darkLightTint" fill-rule="evenodd"
