@@ -62,6 +62,8 @@ const fr = {
     "hideSearchWithInfo": "Passez d'un moteur de recherche à l'autre en cliquant sur son icône",
     "motivationalQuotesText": "Citations de motivation",
     "motivationalQuotesInfo": "Afficher les citations sous la barre de recherche",
+    "disableAnimationsText": "Désactiver les animations",
+    "disableAnimationsInfo": "Désactiver les animations lors de l'ouverture d'un nouvel onglet",
     "search_suggestions_button": "Suggestions de Recherche",
     "search_suggestions_text": "Activer les suggestions de recherche",
 

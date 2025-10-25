@@ -4908,3 +4908,21 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 /* ------------ End of Tips---------- */
+
+/* ------------ Disable Animations Feature ------------ */
+/* When user toggles off animations, disable all animations and transitions */
+html.no-animations,
+html.no-animations *,
+html.no-animations *::before,
+html.no-animations *::after {
+	animation: none !important;
+	animation-duration: 0s !important;
+	animation-delay: 0s !important;
+	animation-iteration-count: 1 !important;
+	transition: none !important;
+	transition-duration: 0s !important;
+	transition-delay: 0s !important;
+	transition-property: none !important;
+}
+
+/* ------------ End of Disable Animations ------------ */

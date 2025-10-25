@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...main)
 
+### Added
+
+- Added "Disable Animations" toggle in settings to turn off animations when opening new tab ([@harshwardhan-singh-bais](https://github.com/harshwardhan-singh-bais)) ([#52](https://github.com/prem-k-r/MaterialYouNewTab/issues/52))
+
 ### Improved
 
 - Updated search suggestion behavior to autocomplete the current search term upon selection via keyboard ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here)) ([#33](https://github.com/prem-k-r/MaterialYouNewTab/pull/33))

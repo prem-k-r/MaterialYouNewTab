@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Disable Animations</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .test-box {
+            width: 100px;
+            height: 100px;
+            background: blue;
+            animation: spin 2s linear infinite;
+            margin: 20px;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Disable animations */
+        html.no-animations,
+        html.no-animations *,
+        html.no-animations *::before,
+        html.no-animations *::after {
+            animation: none !important;
+            animation-duration: 0s !important;
+            transition: none !important;
+            transition-duration: 0s !important;
+        }
+        
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        .status { margin: 20px 0; padding: 10px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Animation Test</h1>
+    
+    <div class="status">
+        <strong>Status:</strong> <span id="status">Animations ON</span><br>
+        <strong>Class Applied:</strong> <span id="classStatus">false</span><br>
+        <strong>LocalStorage:</strong> <span id="storageStatus">not set</span>
+    </div>
+    
+    <button onclick="toggleAnimations()">Toggle Animations</button>
+    <button onclick="checkStatus()">Check Status</button>
+    
+    <div class="test-box">Spinning Box</div>
+    
+    <script>
+        function toggleAnimations() {
+            const html = document.documentElement;
+            const isDisabled = html.classList.contains('no-animations');
+            
+            if (isDisabled) {
+                html.classList.remove('no-animations');
+                localStorage.setItem('disableAnimations', 'false');
+            } else {
+                html.classList.add('no-animations');
+                localStorage.setItem('disableAnimations', 'true');
+            }
+            
+            checkStatus();
+        }
+        
+        function checkStatus() {
+            const hasClass = document.documentElement.classList.contains('no-animations');
+            const storage = localStorage.getItem('disableAnimations');
+            
+            document.getElementById('status').textContent = hasClass ? 'Animations OFF ✅' : 'Animations ON 🔄';
+            document.getElementById('classStatus').textContent = hasClass;
+            document.getElementById('storageStatus').textContent = storage || 'not set';
+            
+            console.log('Has no-animations class:', hasClass);
+            console.log('LocalStorage:', storage);
+        }
+        
+        // Load initial state
+        window.onload = function() {
+            const savedState = localStorage.getItem('disableAnimations') === 'true';
+            if (savedState) {
+                document.documentElement.classList.add('no-animations');
+            }
+            checkStatus();
+        };
+    </script>
+</body>
+</html>
