@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Translation updated for:
   - Russian ([@giwih](https://github.com/giwih))
   - Spanish ([@zRaidev](https://github.com/zRaidev))
+  - Arabic ([@heshamoomar](http://github.com/heshamoomar))
   
 ### Other
 
