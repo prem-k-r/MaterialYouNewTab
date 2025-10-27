@@ -38,7 +38,8 @@ function initializeCalendar() {
     },
     // May
     4: {
-      1: "Labour Day"
+      1: "Labour Day",
+      22: "My Birthday"
     },
     // June
     5: {
