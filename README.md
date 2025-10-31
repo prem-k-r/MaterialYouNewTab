@@ -1,4 +1,4 @@
-> This extension is no longer maintained by its original creator, XengShi [(_Learn more_)](https://github.com/prem-k-r/materialYouNewTab/discussions/28#discussioncomment-13837571).  
+> This extension is the continuation of XengShi's Material You NewTab [(_Learn more_)](https://github.com/prem-k-r/materialYouNewTab/discussions/28#discussioncomment-13837571).  
 > It is now maintained by [Prem](https://github.com/prem-k-r) and [It'z RJ](https://github.com/itz-rj-here).  
 > You can create a backup from the old extension’s settings and restore it into this new version.
 
@@ -231,14 +231,14 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 | <img src='https://flagcdn.com/tw.svg' width=20> &nbsp; **Chinese** (Traditional) - 繁體中文   | zh-TW | [C. Y. Tseng](https://github.com/Eddie40802)                                          |
 | <img src='https://flagcdn.com/cz.svg' width=20> &nbsp; **Czech** - Čeština                   |  cz   | [Michal Šmahel](https://github.com/ceskyDJ/)                                          |
 | <img src='https://flagcdn.com/fr.svg' width=20> &nbsp; **French** - Français                 |  fr   | [422.io](https://github.com/iamwinner422)                                             |
-| <img src='https://flagcdn.com/de.svg' width=20> &nbsp; **German** - Deutsch                  |  de   | [Prem](https://github.com/prem-k-r/)(MTL)                                             |
+| <img src='https://flagcdn.com/de.svg' width=20> &nbsp; **German** - Deutsch                  |  de   | [Prem](https://github.com/prem-k-r/)                                                  |
 | <img src='https://flagcdn.com/gr.svg' width=20> &nbsp; **Greek** - Ελληνικά                  |  el   | [Lefteris T.](https://github.com/trlef19)                                             |
 | <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Hindi** - हिंदी                       |  hi   | [XengShi](https://github.com/XengShi/), [Prem](https://github.com/prem-k-r/)          |
 | <img src='https://flagcdn.com/hu.svg' width=20> &nbsp; **Hungarian** - Magyar                |  hu   | [Zan1456](https://github.com/Zan1456/)                                                |
 | <img src='https://flagcdn.com/id.svg' width=20> &nbsp; **Indonesian** - Bahasa Indonesia     |  idn  | [Ayyas-RF](https://github.com/Ayyas-RF/)                                              |
 | <img src='https://flagcdn.com/it.svg' width=20> &nbsp; **Italian** - Italiano                |  it   | [Claudio Di Maio](https://github.com/ZiClaud/)                                        |
 | <img src='https://flagcdn.com/jp.svg' width=20> &nbsp; **Japanese** - 日本語                 |  ja   | [XengShi](https://github.com/XengShi/), [S-H-Y-A](https://github.com/S-H-Y-A/), [Konsento](http://github.com/kons10) |
-| <img src='https://flagcdn.com/kr.svg' width=20> &nbsp; **Korean** - 한국어                   |  ko   | [XengShi](https://github.com/XengShi/)                                                |
+| <img src='https://flagcdn.com/kr.svg' width=20> &nbsp; **Korean** - 한국어                   |  ko   | [XengShi](https://github.com/XengShi/), [codemaster0524](https://github.com/codemaster0524/) |
 | <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Marathi** - मराठी                   |  mr   | [Prem](https://github.com/prem-k-r/), [Pratik Lokhande](https://github.com/konprtk)   |
 | <img src='https://flagcdn.com/np.svg' width=20> &nbsp; **Nepali** - नेपाली                    |  np   | [Bikash Shresha](https://github.com/sthaB-kash/)                                      |
 | <img src='https://flagcdn.com/ir.svg' width=20> &nbsp; **Persian** - فارسی                    |  fa   | [AMIRHOSSEIN](https://github.com/AMIRHOSSEIN-AHMADI-IR)                               |
@@ -293,5 +293,7 @@ MYNT: Material You New Tab prioritizes your privacy and is focused solely on pro
 ## 📜 License
 
 Copyright (C) 2023-2025 XengShi
+
+Copyright (C) 2024-2025 Prem Kumar
 
 This project is licensed under the GNU General Public License v3.0 (GPL-3.0). This means you must **not** distribute this software, whether original or modified, to any platform **without** its source code or the reference to its original source code. See the [LICENSE](https://github.com/prem-k-r/materialYouNewTab/blob/main/LICENSE) file for details.
