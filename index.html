@@ -1787,7 +1787,91 @@
     <!-- ------end of Menu-bar----------- -->
     <div id="menuButton"></div>
     <!-- ending-of-body -->
-
+    <!-- YouTube Mini Player -->
+        <div id="yt-mini-player" style="display:none; position:fixed; bottom:20px; right:20px; width:340px; background:#222; color:#fff; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.2); padding:16px; z-index:9999;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-weight:600;">YouTube Mini Player</span>
+                <button id="yt-mini-close" style="background:none; border:none; color:#fff; font-size:18px; cursor:pointer;">&times;</button>
+            </div>
+            <div style="margin:12px 0 8px 0; text-align:center;">
+                <input id="yt-link-input" type="text" placeholder="Paste YouTube video or playlist link" style="width:80%; padding:6px; border-radius:6px; border:none; font-size:15px; margin-bottom:8px;">
+                <button id="yt-load-btn" style="background:#e53935; color:#fff; border:none; border-radius:6px; padding:6px 14px; font-size:15px; cursor:pointer; margin-left:4px;">Load</button>
+            </div>
+            <div id="yt-player-container" style="width:100%; aspect-ratio:16/9; background:#111; border-radius:8px; overflow:hidden; display:none; margin-bottom:8px;"></div>
+            <div id="yt-mini-info" style="font-size:13px; color:#bbb; text-align:center;">Paste a YouTube video or playlist link to play here.</div>
+        </div>
+        <button id="yt-mini-open" title="Open YouTube Mini Player" style="position:fixed; bottom:20px; right:370px; z-index:9999; background:#e53935; color:#fff; border:none; border-radius:50%; width:48px; height:48px; font-size:24px; box-shadow:0 2px 8px rgba(0,0,0,0.15); cursor:pointer;">▶️</button>
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <script>
+        let ytPlayer = null;
+        const ytMiniOpen = document.getElementById('yt-mini-open');
+        const ytMiniPlayer = document.getElementById('yt-mini-player');
+        const ytMiniClose = document.getElementById('yt-mini-close');
+        const ytLinkInput = document.getElementById('yt-link-input');
+        const ytLoadBtn = document.getElementById('yt-load-btn');
+        const ytPlayerContainer = document.getElementById('yt-player-container');
+        const ytMiniInfo = document.getElementById('yt-mini-info');
+        ytMiniOpen.addEventListener('click', () => {
+            ytMiniPlayer.style.display = 'block';
+            ytMiniOpen.style.display = 'none';
+        });
+        ytMiniClose.addEventListener('click', () => {
+            ytMiniPlayer.style.display = 'none';
+            ytMiniOpen.style.display = 'block';
+        });
+        function extractYouTubeId(url) {
+            let videoMatch = url.match(/[?&]v=([\w-]{11})/);
+            let shortMatch = url.match(/youtu\.be\/([\w-]{11})/);
+            let playlistMatch = url.match(/[?&]list=([\w-]+)/);
+            if (playlistMatch) {
+                return {type: 'playlist', id: playlistMatch[1]};
+            } else if (videoMatch) {
+                return {type: 'video', id: videoMatch[1]};
+            } else if (shortMatch) {
+                return {type: 'video', id: shortMatch[1]};
+            }
+            return null;
+        }
+        function loadYouTubePlayer(link) {
+            const info = extractYouTubeId(link);
+            if (!info) {
+                ytMiniInfo.textContent = 'Invalid YouTube link.';
+                ytPlayerContainer.style.display = 'none';
+                return;
+            }
+            ytMiniInfo.textContent = '';
+            ytPlayerContainer.style.display = 'block';
+            if (ytPlayer) {
+                ytPlayer.destroy();
+                ytPlayer = null;
+            }
+            ytPlayerContainer.innerHTML = '';
+            const newDiv = document.createElement('div');
+            newDiv.id = 'yt-iframe-player';
+            ytPlayerContainer.appendChild(newDiv);
+            ytPlayer = new YT.Player('yt-iframe-player', {
+                height: '200',
+                width: '100%',
+                videoId: info.type === 'video' ? info.id : undefined,
+                playerVars: info.type === 'playlist' ? { listType: 'playlist', list: info.id } : {},
+                events: {
+                    onReady: (event) => { event.target.playVideo(); },
+                    onError: () => { ytMiniInfo.textContent = 'Failed to load video/playlist.'; }
+                }
+            });
+        }
+        ytLoadBtn.addEventListener('click', () => {
+            const link = ytLinkInput.value.trim();
+            if (link) {
+                loadYouTubePlayer(link);
+            }
+        });
+        ytLinkInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                ytLoadBtn.click();
+            }
+        });
+        </script>
 </body>
 
 </html>
