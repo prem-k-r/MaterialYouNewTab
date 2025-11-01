@@ -12,13 +12,46 @@ const radioButtons = document.querySelectorAll(".colorPlate");
 const colorPicker = document.getElementById("colorPicker");
 const colorPickerLabel = document.getElementById("rangColor");
 
+// MediaQueryList for system theme preference
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)'); 
+
+const syncThemeChange = (MediaQuery) => {
+   document.body.setAttribute("sysTheme", MediaQuery.matches ? "systemDark" : "systemLight");
+}
+
+// Listen for system theme changes
+systemTheme.addEventListener('change', syncThemeChange);
+
 document.addEventListener("DOMContentLoaded", () => {
-    // Forced Dark Mode
     const enableDarkModeCheckbox = document.getElementById("enableDarkModeCheckbox");
-    enableDarkModeCheckbox.addEventListener("change", function () {
+    const followSystemThemeCheckbox = document.getElementById("followSystemThemeCheckbox");
+    
+    // Forced Dark Mode
+    enableDarkModeCheckbox.addEventListener("change", function () 
+    {
+        followSystemThemeCheckbox.checked = false; // Uncheck Follow System Theme when Dark Mode is enabled
+
+        // Save both checkbox states
+        saveCheckboxState("followSystemThemeCheckboxState", followSystemThemeCheckbox);
         saveCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
     });
     loadCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
+
+    // Follow System Theme (if checked, overrides Dark Mode setting)
+    followSystemThemeCheckbox.addEventListener("change", function () 
+    {
+        enableDarkModeCheckbox.checked = false; // Uncheck Dark Mode when following system theme
+
+        // Save both checkbox states
+        saveCheckboxState("followSystemThemeCheckboxState", followSystemThemeCheckbox);
+        saveCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
+
+        followSystemThemeCheckbox.checked ? syncThemeChange(systemTheme) : null;
+    });
+    loadCheckboxState("followSystemThemeCheckboxState", followSystemThemeCheckbox);
+
+    // Detect system theme on every page load 
+    followSystemThemeCheckbox.checked ? syncThemeChange(systemTheme) : null;
 
     // Check for custom color
     const storedCustomColor = localStorage.getItem(customThemeStorageKey);

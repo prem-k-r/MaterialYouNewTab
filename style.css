@@ -256,6 +256,41 @@ body[data-bg="wallpaper"]:has(.menuBar #enableDarkModeCheckbox:checked):not(
 	--whitishColor-blue: #f2f2f2;
 }
 
+html:has(body[data-bg="color"] .menuBar #followSystemThemeCheckbox:checked):has(body[sysTheme="systemDark"]):not(:has(#darkTheme:checked)) {
+	filter: invert(1) hue-rotate(180deg);
+	-webkit-filter: invert(1) hue-rotate(180deg);
+	& #darkTheme,
+	& .favicon {
+		filter: invert(1) hue-rotate(180deg);
+		-webkit-filter: invert(1) hue-rotate(180deg);
+	}
+	& .menuBar,
+	& #prompt-modal-blur {
+		background-color: #0000001f;
+	}
+	--whitishColor-blue: #f2f2f2;
+}
+
+html:has(body[data-bg="wallpaper"] .menuBar #followSystemThemeCheckbox:checked):has(body[sysTheme="systemDark"]):not(:has(#darkTheme:checked)) 
+	> *:not(.menuBar, #bookmarksContainer)
+	
+{
+	filter: invert(1) hue-rotate(180deg);
+	-webkit-filter: invert(1) hue-rotate(180deg);
+	& #darkTheme,
+	& .favicon {
+		filter: invert(1) hue-rotate(180deg);
+		-webkit-filter: invert(1) hue-rotate(180deg);
+	}
+	& .menuBar,
+	& #prompt-modal-blur {
+		background-color: #0000001f;
+	}
+	--whitishColor-blue: #f2f2f2;
+}
+
+
+
 /* Search suggestions box */
 .resultBox {
 	max-height: 222px;
