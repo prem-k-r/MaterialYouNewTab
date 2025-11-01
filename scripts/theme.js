@@ -12,13 +12,34 @@ const radioButtons = document.querySelectorAll(".colorPlate");
 const colorPicker = document.getElementById("colorPicker");
 const colorPickerLabel = document.getElementById("rangColor");
 
+// MediaQuery for system theme detection
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)'); 
+
+const syncThemeChange = (MediaQuery) => {
+   document.body.setAttribute("sysTheme", MediaQuery.matches ? "systemDark" : "systemLight");
+}
+
+// Listen for system theme changes
+systemTheme.addEventListener('change', syncThemeChange);
+
 document.addEventListener("DOMContentLoaded", () => {
-    // Forced Dark Mode
-    const enableDarkModeCheckbox = document.getElementById("enableDarkModeCheckbox");
-    enableDarkModeCheckbox.addEventListener("change", function () {
-        saveCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
+
+    // Dark Mode Selector
+    const darkModeDropdown = document.getElementById("darkModeSelector");
+
+    // Listen for change event
+    darkModeDropdown.addEventListener("change", function () {
+        localStorage.setItem("darkModeOption", this.value);
     });
-    loadCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
+    
+    // Load saved option on every page load
+    const savedOption = localStorage.getItem("darkModeOption");
+    if (savedOption) {
+        darkModeDropdown.value = savedOption;
+    }
+
+    // Sync theme MediaQuery when "Follow System setting" is selected
+    darkModeDropdown.value === "system" ? syncThemeChange(systemTheme) : null;
 
     // Check for custom color
     const storedCustomColor = localStorage.getItem(customThemeStorageKey);
