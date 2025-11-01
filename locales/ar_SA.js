@@ -174,6 +174,8 @@ const ar_SA = {
     restoreText: "استعادة",
     resetsettings: "إعادة تعيين الإعدادات",
     menuCloseText: "إغلاق",
+    opacityTitle: "العتامة",
+    adjustOpacityDesc: "ضبط عتامة الواجهة",
 
     // Tips
     switchSearchModes: "تبديل أوضاع البحث",
