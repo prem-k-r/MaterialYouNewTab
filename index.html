@@ -1513,9 +1513,32 @@
                                 <button class="savebtn" id="saveAPI">Save</button>
                             </div>
                         </div>
+                        
+                        <div class="divider" id="divider2"></div>
+                        <br>
+                    </div>
+
                         <!-- ---🟡--- -->
-                        <div class="ttcont">
-                            <div class="texts">
+                        
+                        <div class="sysThemeSection">
+                            <div class="sysThemeIcon">
+                                <svg height="100%" width="40px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="sysThemeSelectorIconSvg" class="accentColor">
+                                    <path d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,20.5 L12,3.5 C16.6944204,3.5 20.5,7.30557963 20.5,12 C20.5,16.6944204 16.6944204,20.5 12,20.5 Z" ></path>
+
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <select class="sysThemeSelector" id="sysThemeSelector"> 
+                            <option value="">Disabled</option>
+                            <option value="">Auto</option>
+                            <option value="">System</option>
+                            </select>
+
+                        </div>
+                            
+                        <div class="texts">
                                 <div class="bigText" id="enableDarkMode">Dark Mode</div>
                                 <div class="infoText" id="enableDarkModeInfo">
                                     Enable dark mode themes
@@ -1525,13 +1548,12 @@
                                 <input id="enableDarkModeCheckbox" type="checkbox">
                                 <span class="toggle"></span>
                             </label>
-                        </div>
 
-                        <div class="ttcont">
+                        <div class="dark-mode-section">
                             <div class="texts">
                                 <div class="bigText" id="followSystemTheme">Follow system theme</div>
                                 <div class="infoText" id="followSystemThemeInfo">
-                                    Your theme will automatically switch based on your device settings
+                                    
                                 </div>
                             </div>
                             <label class="switch">
@@ -1541,9 +1563,6 @@
                         </div>
                         <!-- ---🟡--- -->
 
-                    </div>
-                    <br>
-                    <div class="divider" id="divider2"></div>
                     <!-- start of languageSelector -->
                     <div class="languageSection">
                         <div class="languageIcon">
