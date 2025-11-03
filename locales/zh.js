@@ -151,6 +151,10 @@ const zh = {
     // Theme
     "enableDarkMode": "深色模式（实验性）",
     "enableDarkModeInfo": "启用深色主题",
+    "autoDarkModeText": "自动深色模式",
+    "autoDarkModeInfo": "自动切换深色模式",
+    "darkModeTimeRangeText": "深色模式时间",
+    "darkModeTimeRangeInfo": "设置深色模式的生效时间",
 
     // Wallpaper and settings
     "uploadWallpaperText": "上传壁纸",

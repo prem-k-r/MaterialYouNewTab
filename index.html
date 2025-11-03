@@ -1528,6 +1528,39 @@
                         </div>
                         <!-- ---🟡--- -->
 
+                        <!-- Auto Dark Mode Switch -->
+                        <div class="ttcont">
+                            <div class="texts">
+                                <div class="bigText" id="autoDarkModeText">Auto Dark Mode</div>
+                                <div class="infoText" id="autoDarkModeInfo">
+                                    Automatically switch to dark mode
+                                </div>
+                            </div>
+                            <select id="autoDarkModeSelect" class="languageSelector" style="width: auto; min-width: 150px;">
+                                <option value="off">Off</option>
+                                <option value="system">Follow System</option>
+                                <option value="time">Time Range</option>
+                            </select>
+                        </div>
+
+                        <!-- Time Range Settings (hidden by default) -->
+                        <div class="ttcont" id="darkModeTimeRange" style="display: none;">
+                            <div class="texts">
+                                <div class="bigText" id="darkModeTimeRangeText">Dark Mode Time</div>
+                                <div class="infoText" id="darkModeTimeRangeInfo">
+                                    Set when dark mode should be active
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <input id="darkModeStartTime" type="time" value="18:00"
+                                       style="padding: 8px; border-radius: 8px; border: 1px solid #ccc;">
+                                <span>to</span>
+                                <input id="darkModeEndTime" type="time" value="06:00"
+                                       style="padding: 8px; border-radius: 8px; border: 1px solid #ccc;">
+                            </div>
+                        </div>
+                        <!-- ---🟡--- -->
+
                     </div>
                     <br>
                     <div class="divider" id="divider2"></div>

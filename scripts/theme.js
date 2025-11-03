@@ -6,11 +6,18 @@
 
 const themeStorageKey = "selectedTheme";
 const customThemeStorageKey = "customThemeColor";
+const autoDarkModeKey = "autoDarkMode";
+const darkModeStartTimeKey = "darkModeStartTime";
+const darkModeEndTimeKey = "darkModeEndTime";
 const storedTheme = localStorage.getItem(themeStorageKey);
 const storedCustomColor = localStorage.getItem(customThemeStorageKey);
 const radioButtons = document.querySelectorAll(".colorPlate");
 const colorPicker = document.getElementById("colorPicker");
 const colorPickerLabel = document.getElementById("rangColor");
+
+// Auto dark mode variables
+let autoDarkModeInterval = null;
+let systemThemeMediaQuery = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     // Forced Dark Mode
@@ -19,6 +26,53 @@ document.addEventListener("DOMContentLoaded", () => {
         saveCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
     });
     loadCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
+
+    // Auto Dark Mode Setup
+    const autoDarkModeSelect = document.getElementById("autoDarkModeSelect");
+    const darkModeTimeRange = document.getElementById("darkModeTimeRange");
+    const darkModeStartTime = document.getElementById("darkModeStartTime");
+    const darkModeEndTime = document.getElementById("darkModeEndTime");
+
+    // Load saved auto dark mode settings
+    const savedAutoMode = localStorage.getItem(autoDarkModeKey) || "off";
+    const savedStartTime = localStorage.getItem(darkModeStartTimeKey) || "18:00";
+    const savedEndTime = localStorage.getItem(darkModeEndTimeKey) || "06:00";
+
+    autoDarkModeSelect.value = savedAutoMode;
+    darkModeStartTime.value = savedStartTime;
+    darkModeEndTime.value = savedEndTime;
+
+    // Show/hide time range settings
+    if (savedAutoMode === "time") {
+        darkModeTimeRange.style.display = "flex";
+    }
+
+    // Handle auto dark mode select change
+    autoDarkModeSelect.addEventListener("change", function() {
+        const mode = this.value;
+        localStorage.setItem(autoDarkModeKey, mode);
+
+        // Show/hide time range settings
+        darkModeTimeRange.style.display = mode === "time" ? "flex" : "none";
+
+        // Initialize the selected mode
+        initializeAutoDarkMode(mode);
+    });
+
+    // Handle time range changes
+    darkModeStartTime.addEventListener("change", function() {
+        localStorage.setItem(darkModeStartTimeKey, this.value);
+        if (autoDarkModeSelect.value === "time") {
+            checkTimeBasedDarkMode();
+        }
+    });
+
+    darkModeEndTime.addEventListener("change", function() {
+        localStorage.setItem(darkModeEndTimeKey, this.value);
+        if (autoDarkModeSelect.value === "time") {
+            checkTimeBasedDarkMode();
+        }
+    });
 
     // Check for custom color
     const storedCustomColor = localStorage.getItem(customThemeStorageKey);
@@ -40,6 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
+
+    // Initialize auto dark mode based on saved settings
+    initializeAutoDarkMode(savedAutoMode);
 
     // Remove Loading Screen when the DOM and the theme has loaded
     document.getElementById("LoadingScreen").style.display = "none";
@@ -239,3 +296,146 @@ const throttle = (func, limit) => {
 // Add listeners for color picker
 colorPicker.removeEventListener("input", handleColorPickerChange); // Ensure no duplicate listeners
 colorPicker.addEventListener("input", throttle(handleColorPickerChange, 10));
+
+// ===================== AUTO DARK MODE FUNCTIONS =====================
+
+/**
+ * Initialize auto dark mode based on the selected mode
+ * @param {string} mode - 'off', 'system', or 'time'
+ */
+function initializeAutoDarkMode(mode) {
+    // Clean up any existing listeners/intervals
+    cleanupAutoDarkMode();
+
+    switch(mode) {
+        case 'system':
+            setupSystemThemeListener();
+            break;
+        case 'time':
+            setupTimeBasedDarkMode();
+            break;
+        case 'off':
+        default:
+            // No auto switching, do nothing
+            break;
+    }
+}
+
+/**
+ * Set up system theme listener using prefers-color-scheme
+ */
+function setupSystemThemeListener() {
+    if (!window.matchMedia) {
+        console.warn('matchMedia not supported');
+        return;
+    }
+
+    systemThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Apply initial system theme
+    applyAutoDarkMode(systemThemeMediaQuery.matches);
+
+    // Listen for system theme changes
+    const handleSystemThemeChange = (e) => {
+        applyAutoDarkMode(e.matches);
+    };
+
+    // Use addEventListener if available (modern browsers)
+    if (systemThemeMediaQuery.addEventListener) {
+        systemThemeMediaQuery.addEventListener('change', handleSystemThemeChange);
+    } else if (systemThemeMediaQuery.addListener) {
+        // Fallback for older browsers
+        systemThemeMediaQuery.addListener(handleSystemThemeChange);
+    }
+
+    // Store the handler for cleanup
+    systemThemeMediaQuery._handler = handleSystemThemeChange;
+}
+
+/**
+ * Set up time-based dark mode checking
+ */
+function setupTimeBasedDarkMode() {
+    // Check immediately
+    checkTimeBasedDarkMode();
+
+    // Check every minute
+    autoDarkModeInterval = setInterval(() => {
+        checkTimeBasedDarkMode();
+    }, 60000); // 60 seconds
+}
+
+/**
+ * Check if current time is within dark mode time range
+ */
+function checkTimeBasedDarkMode() {
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+    const startTime = localStorage.getItem(darkModeStartTimeKey) || "18:00";
+    const endTime = localStorage.getItem(darkModeEndTimeKey) || "06:00";
+
+    const [startHour, startMin] = startTime.split(':').map(Number);
+    const [endHour, endMin] = endTime.split(':').map(Number);
+
+    const startMinutes = startHour * 60 + startMin;
+    const endMinutes = endHour * 60 + endMin;
+
+    let shouldBeDark;
+
+    if (startMinutes < endMinutes) {
+        // Same day range (e.g., 08:00 to 18:00)
+        shouldBeDark = currentMinutes >= startMinutes && currentMinutes < endMinutes;
+    } else {
+        // Overnight range (e.g., 18:00 to 06:00)
+        shouldBeDark = currentMinutes >= startMinutes || currentMinutes < endMinutes;
+    }
+
+    applyAutoDarkMode(shouldBeDark);
+}
+
+/**
+ * Apply or remove dark mode based on auto mode decision
+ * @param {boolean} shouldBeDark - Whether dark mode should be active
+ */
+function applyAutoDarkMode(shouldBeDark) {
+    const enableDarkModeCheckbox = document.getElementById("enableDarkModeCheckbox");
+
+    // Update checkbox state
+    enableDarkModeCheckbox.checked = shouldBeDark;
+    saveCheckboxState("enableDarkModeCheckboxState", enableDarkModeCheckbox);
+
+    // Apply dark theme if needed
+    if (shouldBeDark) {
+        // Apply dark theme while preserving other theme settings
+        document.documentElement.classList.add("dark-theme");
+        document.querySelectorAll(".accentColor").forEach(el => {
+            el.style.fill = "#212121";
+        });
+    } else {
+        // Remove dark theme
+        resetDarkTheme();
+    }
+}
+
+/**
+ * Clean up auto dark mode listeners and intervals
+ */
+function cleanupAutoDarkMode() {
+    // Clear interval if exists
+    if (autoDarkModeInterval) {
+        clearInterval(autoDarkModeInterval);
+        autoDarkModeInterval = null;
+    }
+
+    // Remove system theme listener if exists
+    if (systemThemeMediaQuery && systemThemeMediaQuery._handler) {
+        if (systemThemeMediaQuery.removeEventListener) {
+            systemThemeMediaQuery.removeEventListener('change', systemThemeMediaQuery._handler);
+        } else if (systemThemeMediaQuery.removeListener) {
+            // Fallback for older browsers
+            systemThemeMediaQuery.removeListener(systemThemeMediaQuery._handler);
+        }
+        systemThemeMediaQuery = null;
+    }
+}
