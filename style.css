@@ -221,48 +221,10 @@ body {
 	margin: 0; /* Remove margin to avoid unwanted spacing */
 }
 
-	/* Apply dark mode when Dark Mode is enabled */
-html:has(body[data-bg="color"] .menuBar select option[value="dark"]:checked):not(
-		:has(#darkTheme:checked)
-	) {
-	filter: invert(1) hue-rotate(180deg);
-	-webkit-filter: invert(1) hue-rotate(180deg);
-	& #darkTheme,
-	& .favicon {
-		filter: invert(1) hue-rotate(180deg);
-		-webkit-filter: invert(1) hue-rotate(180deg);
-	}
-	& .menuBar,
-	& #prompt-modal-blur {
-		background-color: #0000001f;
-	}
-	--whitishColor-blue: #f2f2f2;
-}
-
-	
-body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
-		:has(#darkTheme:checked)
-	)
-	> *:not(.menuBar, #bookmarksContainer),
-body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
-		:has(#darkTheme:checked)
-	)
-	:is(.menuCont, .bookmark-sidebar) {
-	filter: invert(1) hue-rotate(180deg);
-	-webkit-filter: invert(1) hue-rotate(180deg);
-	& #darkTheme,
-	& .favicon {
-		filter: invert(1) hue-rotate(180deg);
-		-webkit-filter: invert(1) hue-rotate(180deg);
-	}
-	--whitishColor-blue: #f2f2f2;
-}
-	/* -------------------------------------- */
-
-	/* Apply dark mode when System Theme is Dark and "Follow System setting" is enabled */
+/* Apply dark mode when Dark Mode is enabled */
 html:has(
-	body[data-bg="color"][sysTheme="systemDark"] .menuBar select option[value="system"]:checked
-):not(:has(#darkTheme:checked)) {
+		body[data-bg="color"] .menuBar select option[value="dark"]:checked
+	):not(:has(#darkTheme:checked)) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
 	& #darkTheme,
@@ -277,11 +239,11 @@ html:has(
 	--whitishColor-blue: #f2f2f2;
 }
 
-body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.menuBar select option[value="system"]:checked):not(
+body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
 		:has(#darkTheme:checked)
 	)
 	> *:not(.menuBar, #bookmarksContainer),
-body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.menuBar select option[value="system"]:checked):not(
+body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
 		:has(#darkTheme:checked)
 	)
 	:is(.menuCont, .bookmark-sidebar) {
@@ -294,8 +256,48 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.menuBar select option[valu
 	}
 	--whitishColor-blue: #f2f2f2;
 }
+/* -------------------------------------- */
 
-	/* -------------------------------------- */
+/* Apply dark mode when System Theme is Dark and "Follow System setting" is enabled */
+html:has(
+		body[data-bg="color"][sysTheme="systemDark"]
+			.menuBar
+			select
+			option[value="system"]:checked
+	):not(:has(#darkTheme:checked)) {
+	filter: invert(1) hue-rotate(180deg);
+	-webkit-filter: invert(1) hue-rotate(180deg);
+	& #darkTheme,
+	& .favicon {
+		filter: invert(1) hue-rotate(180deg);
+		-webkit-filter: invert(1) hue-rotate(180deg);
+	}
+	& .menuBar,
+	& #prompt-modal-blur {
+		background-color: #0000001f;
+	}
+	--whitishColor-blue: #f2f2f2;
+}
+
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.menuBar select option[value="system"]:checked
+	):not(:has(#darkTheme:checked))
+	> *:not(.menuBar, #bookmarksContainer),
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.menuBar select option[value="system"]:checked
+	):not(:has(#darkTheme:checked))
+	:is(.menuCont, .bookmark-sidebar) {
+	filter: invert(1) hue-rotate(180deg);
+	-webkit-filter: invert(1) hue-rotate(180deg);
+	& #darkTheme,
+	& .favicon {
+		filter: invert(1) hue-rotate(180deg);
+		-webkit-filter: invert(1) hue-rotate(180deg);
+	}
+	--whitishColor-blue: #f2f2f2;
+}
+
+/* -------------------------------------- */
 
 /* Search suggestions box */
 .resultBox {
@@ -3030,7 +3032,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 }
 
 #divider2 {
-	margin-top: 0px;
+	margin-top: 30px;
 }
 
 #shortcutEditButton,
@@ -3480,7 +3482,8 @@ input:checked + .toggle:before {
 /* ---------------Menu-bar-css---------------- */
 
 /* --------------Language & Dark Mode Selection-------------- */
-.languageSection, .darkModeSection {
+.languageSection,
+.darkModeSection {
 	width: 100%;
 	height: 50px;
 	display: flex;
@@ -3489,7 +3492,12 @@ input:checked + .toggle:before {
 	margin-top: 30px;
 }
 
-.languageSelector, .darkModeSelector {
+.darkModeSection {
+	margin-bottom: 20px;
+}
+
+.languageSelector,
+.darkModeSelector {
 	background-color: var(--whitishColor-blue);
 	align-items: center;
 	justify-content: center;
@@ -3650,7 +3658,8 @@ input:checked + .toggle:before {
 	z-index: 2;
 }
 
-.languageIcon, .darkModeIcon {
+.languageIcon,
+.darkModeIcon {
 	background-color: var(--whitishColor-blue);
 	height: 100%;
 	aspect-ratio: 1/1;
@@ -4471,7 +4480,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 .dark-theme #themeIconSvg,
 .dark-theme #languageSelectorIconSvg,
-.dark-theme #darkModeIconSvg {
+.dark-theme #darkModeSelectorIconSvg {
 	fill: #cdcdcd !important;
 }
 
