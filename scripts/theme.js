@@ -11,6 +11,7 @@ const storedCustomColor = localStorage.getItem(customThemeStorageKey);
 const radioButtons = document.querySelectorAll(".colorPlate");
 const colorPicker = document.getElementById("colorPicker");
 const colorPickerLabel = document.getElementById("rangColor");
+const darkModeDropdown = document.getElementById("darkModeSelector");
 
 // MediaQuery for system theme detection
 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)'); 
@@ -19,27 +20,30 @@ const syncThemeChange = (MediaQuery) => {
    document.body.setAttribute("sysTheme", MediaQuery.matches ? "systemDark" : "systemLight");
 }
 
-// Listen for system theme changes
+// Listen for device theme changes
 systemTheme.addEventListener('change', syncThemeChange);
 
+// Listen for darkMode dropdown changes and save to localStorage
+darkModeDropdown.addEventListener("change", function () {
+    localStorage.setItem("Preferred-theme", this.value);
+});
+
+// Get saved theme preference
+const savedTheme = localStorage.getItem("Preferred-theme");
+
+// Load saved theme on page load, if no saved option, default to light (first time users)
+darkModeDropdown.value = savedTheme ? savedTheme : "light";
+
+// Sync theme MediaQuery
+syncThemeChange(systemTheme);
+
 document.addEventListener("DOMContentLoaded", () => {
-
-    // Dark Mode Selector
-    const darkModeDropdown = document.getElementById("darkModeSelector");
-
-    // Listen for change event
-    darkModeDropdown.addEventListener("change", function () {
-        localStorage.setItem("darkModeOption", this.value);
-    });
     
-    // Load saved option on every page load
-    const savedOption = localStorage.getItem("darkModeOption");
-    if (savedOption) {
-        darkModeDropdown.value = savedOption;
-    }
+    // Load saved theme on page load
+    darkModeDropdown.value = savedTheme ? savedTheme : "light";
 
-    // Sync theme MediaQuery when "Follow System setting" is selected
-    darkModeDropdown.value === "system" ? syncThemeChange(systemTheme) : null;
+    // Sync theme MediaQuery
+    syncThemeChange(systemTheme);
 
     // Check for custom color
     const storedCustomColor = localStorage.getItem(customThemeStorageKey);
