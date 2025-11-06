@@ -6,6 +6,7 @@
 
 const themeStorageKey = "selectedTheme";
 const customThemeStorageKey = "customThemeColor";
+const darkModeCheckboxKey = "enableDarkModeCheckboxState";
 const storedTheme = localStorage.getItem(themeStorageKey);
 const storedCustomColor = localStorage.getItem(customThemeStorageKey);
 const radioButtons = document.querySelectorAll(".colorPlate");
@@ -14,10 +15,10 @@ const colorPickerLabel = document.getElementById("rangColor");
 const darkModeDropdown = document.getElementById("darkModeSelector");
 
 // MediaQuery for system theme detection
-const systemTheme = window.matchMedia('(prefers-color-scheme: dark)'); 
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
 
 const syncThemeChange = (MediaQuery) => {
-   document.body.setAttribute("sysTheme", MediaQuery.matches ? "systemDark" : "systemLight");
+    document.body.setAttribute("sysTheme", MediaQuery.matches ? "systemDark" : "systemLight");
 }
 
 // Listen for device theme changes
@@ -25,26 +26,27 @@ systemTheme.addEventListener('change', syncThemeChange);
 
 // Listen for darkMode dropdown changes and save to localStorage
 darkModeDropdown.addEventListener("change", function () {
-    localStorage.setItem("Preferred-theme", this.value);
+    localStorage.setItem("preferredTheme", this.value);
 });
 
 // Get saved theme preference
-const savedTheme = localStorage.getItem("Preferred-theme");
+const savedTheme = localStorage.getItem("preferredTheme");
+const darkModeCheckboxState = localStorage.getItem(darkModeCheckboxKey);
 
-// Load saved theme on page load, if no saved option, default to light (first time users)
-darkModeDropdown.value = savedTheme ? savedTheme : "light";
+// Load saved theme on page load
+if (darkModeCheckboxState === "checked") {
+    // Old dark mode checkbox setting overrides initial dropdown
+    darkModeDropdown.value = "dark";
+    localStorage.removeItem(darkModeCheckboxKey);
+} else {
+    // Otherwise use saved theme or fallback to "light" (first time users)
+    darkModeDropdown.value = savedTheme || "light";
+}
 
 // Sync theme MediaQuery
 syncThemeChange(systemTheme);
 
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // Load saved theme on page load
-    darkModeDropdown.value = savedTheme ? savedTheme : "light";
-
-    // Sync theme MediaQuery
-    syncThemeChange(systemTheme);
-
     // Check for custom color
     const storedCustomColor = localStorage.getItem(customThemeStorageKey);
     if (storedCustomColor) {

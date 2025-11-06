@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...main)
 
+### Added
+
+- Added “Follow System Theme” option to the theme dropdown, allowing automatic switching between Light and Dark themes based on the system’s current appearance ([@heshamoomar](http://github.com/heshamoomar)) ([#78](https://github.com/prem-k-r/MaterialYouNewTab/pull/78))
+
 ### Improved
 
 - Updated search suggestion behavior to autocomplete the current search term upon selection via keyboard ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here)) ([#33](https://github.com/prem-k-r/MaterialYouNewTab/pull/33))

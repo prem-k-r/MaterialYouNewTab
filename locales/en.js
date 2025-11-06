@@ -149,8 +149,9 @@ const en = {
     "resetAISettingsBtn": "Reset",
 
     // Theme
-    "enableDarkMode": "Dark Mode (Experimental)",
-    "enableDarkModeInfo": "Enable dark mode themes",
+    "lightThemed": "Default (Light Theme)",
+    "darkThemed": "Dark Theme",
+    "systemThemed": "Follow System Theme",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Upload Wallpaper",    // Keep this short

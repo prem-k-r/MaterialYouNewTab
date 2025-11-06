@@ -218,47 +218,13 @@ body {
 	background-position: center;
 	background-attachment: fixed;
 	height: 100%; /* Ensure the image fits the viewport height */
-	margin: 0; /* Remove margin to avoid unwanted spacing */
+	margin: 0;
 }
 
-/* Apply dark mode when Dark Mode is enabled */
+/* Apply dark mode when: Dark Mode is selected manually, OR System Theme is selected */
 html:has(
 		body[data-bg="color"] .menuBar select option[value="dark"]:checked
-	):not(:has(#darkTheme:checked)) {
-	filter: invert(1) hue-rotate(180deg);
-	-webkit-filter: invert(1) hue-rotate(180deg);
-	& #darkTheme,
-	& .favicon {
-		filter: invert(1) hue-rotate(180deg);
-		-webkit-filter: invert(1) hue-rotate(180deg);
-	}
-	& .menuBar,
-	& #prompt-modal-blur {
-		background-color: #0000001f;
-	}
-	--whitishColor-blue: #f2f2f2;
-}
-
-body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
-		:has(#darkTheme:checked)
-	)
-	> *:not(.menuBar, #bookmarksContainer),
-body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
-		:has(#darkTheme:checked)
-	)
-	:is(.menuCont, .bookmark-sidebar) {
-	filter: invert(1) hue-rotate(180deg);
-	-webkit-filter: invert(1) hue-rotate(180deg);
-	& #darkTheme,
-	& .favicon {
-		filter: invert(1) hue-rotate(180deg);
-		-webkit-filter: invert(1) hue-rotate(180deg);
-	}
-	--whitishColor-blue: #f2f2f2;
-}
-/* -------------------------------------- */
-
-/* Apply dark mode when System Theme is Dark and "Follow System setting" is enabled */
+	):not(:has(#darkTheme:checked)),
 html:has(
 		body[data-bg="color"][sysTheme="systemDark"]
 			.menuBar
@@ -267,18 +233,29 @@ html:has(
 	):not(:has(#darkTheme:checked)) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
+
 	& #darkTheme,
 	& .favicon {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
+
 	& .menuBar,
 	& #prompt-modal-blur {
-		background-color: #0000001f;
+		background-color: #0000000f;
 	}
+
 	--whitishColor-blue: #f2f2f2;
 }
 
+body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
+		:has(#darkTheme:checked)
+	)
+	> *:not(.menuBar, #bookmarksContainer),
+body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
+		:has(#darkTheme:checked)
+	)
+	:is(.menuCont, .bookmark-sidebar),
 body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 		.menuBar select option[value="system"]:checked
 	):not(:has(#darkTheme:checked))
@@ -289,11 +266,13 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	:is(.menuCont, .bookmark-sidebar) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
+
 	& #darkTheme,
 	& .favicon {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
+
 	--whitishColor-blue: #f2f2f2;
 }
 
@@ -3492,10 +3471,6 @@ input:checked + .toggle:before {
 	margin-top: 30px;
 }
 
-.darkModeSection {
-	margin-bottom: 20px;
-}
-
 .languageSelector,
 .darkModeSelector {
 	background-color: var(--whitishColor-blue);
@@ -3527,18 +3502,15 @@ input:checked + .toggle:before {
 }
 
 /* Scrollbar styles for Chrome, Edge, Safari */
-.languageSelector::-webkit-scrollbar,
-.darkModeSelector::-webkit-scrollbar {
+.languageSelector::-webkit-scrollbar {
 	width: 6px;
 }
 
-.languageSelector::-webkit-scrollbar-track,
-.darkModeSelector::-webkit-scrollbar-track {
+.languageSelector::-webkit-scrollbar-track {
 	background-color: transparent;
 }
 
-.languageSelector::-webkit-scrollbar-thumb,
-.darkModeSelector::-webkit-scrollbar-thumb {
+.languageSelector::-webkit-scrollbar-thumb {
 	background-color: var(--bg-color-blue);
 	border-radius: 3px;
 }
@@ -3553,7 +3525,7 @@ input:checked + .toggle:before {
 
 /* --------------Theming stuff------------------ */
 .themingStuff {
-	margin-top: 11px;
+	margin-top: 27px;
 	position: relative;
 	width: 100%;
 	height: 50px;
@@ -4493,9 +4465,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .dark-theme .languageSelector::-webkit-scrollbar-thumb,
-.dark-theme .languageSelector::-webkit-scrollbar-thumb:hover,
-.dark-theme .darkModeSelector::-webkit-scrollbar-thumb,
-.dark-theme .darkModeSelector::-webkit-scrollbar-thumb:hover {
+.dark-theme .languageSelector::-webkit-scrollbar-thumb:hover {
 	background-color: var(--darkerColor-blue);
 }
 
