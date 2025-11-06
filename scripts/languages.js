@@ -76,9 +76,11 @@ const numberMappings = {
     "mr": { "0": "०", "1": "१", "2": "२", "3": "३", "4": "४", "5": "५", "6": "६", "7": "७", "8": "८", "9": "९" },
     "np": { "0": "०", "1": "१", "2": "२", "3": "३", "4": "४", "5": "५", "6": "६", "7": "७", "8": "८", "9": "९" },
     "fa": { 0: "۰", 1: "۱", 2: "۲", 3: "۳", 4: "۴", 5: "۵", 6: "۶", 7: "۷", 8: "۸", 9: "۹" },
-    "ar_SA": { "0": "٠", "1": "١", "2": "٢", "3": "٣", "4": "٤", "5": "٥", "6": "٦", "7": "٧", "8": "٨", "9": "٩" }
+    "ar_SA": { 0: "۰", 1: "۱", 2: "۲", 3: "۳", 4: "٤", 5: "٥", 6: "٦", 7: "۷", 8: "۸", 9: "۹" }
     // Add more languages as needed, Ensure it is supported in the fonts
 };
+
+const LRM = "\u200E"; // Left-to-Right Mark
 
 function localizeNumbers(text, language) {
     const map = numberMappings[language]; // Get the numeral map for the current language
@@ -94,6 +96,13 @@ function localizeNumbers(text, language) {
     if (map) {
         text = text.replace(/\d/g, (digit) => map[digit] || digit);
     }
+
+    // LRM marks, for RTL languages to ensure correct display
+    const rtlFlipLanguages = ["ar_SA"];
+    if (rtlFlipLanguages.includes(language)) {
+        text = `${LRM}${text}${LRM}`;
+    }
+
     return text; // Return the localized text
 }
 
