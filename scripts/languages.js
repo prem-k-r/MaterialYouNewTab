@@ -98,8 +98,10 @@ function localizeNumbers(text, language) {
     }
 
     // LRM marks, for RTL languages to ensure correct display
-    // Add for your RTL languages as needed
-    language === "ar_SA" ? text = LRM + text + LRM : null;
+    const rtlFlipLanguages = ["ar_SA"];
+    if (rtlFlipLanguages.includes(language)) {
+        text = `${LRM}${text}${LRM}`;
+    }
 
     return text; // Return the localized text
 }
