@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Adjusted Chinese date formatting ([@quantumfallout](https://github.com/quantumfallout)) ([#43](https://github.com/prem-k-r/MaterialYouNewTab/pull/43))
 - Added support for Polish ([@dawid9707](https://github.com/dawid9707)) ([#55](https://github.com/prem-k-r/MaterialYouNewTab/pull/55))
-- Corrected display of Arabic numerals in the digital clock and opacity slider ([@heshamoomar](http://github.com/heshamoomar))
+- Corrected display of Arabic numerals in the digital clock and opacity slider ([@heshamoomar](http://github.com/heshamoomar)) ([#78](https://github.com/prem-k-r/MaterialYouNewTab/pull/78))
 - Translation updated for:
   - Russian ([@giwih](https://github.com/giwih))
   - Spanish ([@zRaidev](https://github.com/zRaidev))
