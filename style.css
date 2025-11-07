@@ -137,10 +137,10 @@
 
 	/* standard: Smooth start and end */
 	--md-motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
-	/* entering: Fast start, slow end (Snappy opening, glides to stop)
+	/* entering: Fast start, slow end (Snappy opening, glides to stop) */
 	--md-motion-decelerate: cubic-bezier(0, 0, 0.2, 1);
-	exiting: Slow start, fast end (Pushes out quickly at the end)
-	--md-motion-accelerate: cubic-bezier(0.4, 0, 1, 1); */
+	/* exiting: Slow start, fast end (Pushes out quickly at the end) */
+	--md-motion-accelerate: cubic-bezier(0.4, 0, 1, 1);
 }
 
 /* Theme */
@@ -3900,7 +3900,6 @@ input:checked + .toggle:before {
 .dropdown-content {
 	background: var(--accentLightTint-blue);
 	border-radius: 16px;
-	display: none;
 	position: absolute;
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -3908,7 +3907,17 @@ input:checked + .toggle:before {
 	top: 50px;
 	inset-inline-start: -15px;
 	overflow-y: auto;
+	max-height: 0;
+	opacity: 0;
+	transition: max-height 0.21s var(--md-motion-accelerate),
+		opacity 0.2s var(--md-motion-accelerate);
+}
+
+.dropdown-content.show {
 	max-height: 192px;
+	opacity: 1;
+	transition: max-height 0.32s var(--md-motion-decelerate),
+		opacity 0.12s var(--md-motion-decelerate);
 }
 
 .dropdown-content::-webkit-scrollbar {
