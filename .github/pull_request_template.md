@@ -15,9 +15,9 @@
 
 <!-- Tip: To mark a checklist item as complete, replace [ ] with [x] -->
 
-- [ ] I have read and followed the [Contributing Guidelines](https://github.com/prem-k-r/materialYouNewTab/blob/main/CONTRIBUTING.md).
+- [ ] I have read and followed the [Contributing Guidelines](https://github.com/prem-k-r/MaterialYouNewTab/blob/main/CONTRIBUTING.md).
 - [ ] My code follows the project's coding style and conventions.
 - [ ] I have tested my changes thoroughly to ensure expected behavior.
 - [ ] I have verified compatibility across Chrome and Firefox (additional browsers if applicable).
 - [ ] I have attached relevant visual evidence (screenshots/videos) if applicable.
-- [ ] I have updated the [CHANGELOG.md](https://github.com/prem-k-r/materialYouNewTab/blob/main/CHANGELOG.md) under the appropriate categories with all my changes in this PR.
+- [ ] I have updated the [CHANGELOG.md](https://github.com/prem-k-r/MaterialYouNewTab/blob/main/CHANGELOG.md) under the appropriate categories with all my changes in this PR.

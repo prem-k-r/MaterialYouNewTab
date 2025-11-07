@@ -1,4 +1,4 @@
-> This extension is the continuation of XengShi's Material You NewTab [(_Learn more_)](https://github.com/prem-k-r/materialYouNewTab/discussions/28#discussioncomment-13837571).  
+> This extension is the continuation of XengShi's Material You NewTab [(_Learn more_)](https://github.com/prem-k-r/MaterialYouNewTab/discussions/28#discussioncomment-13837571).  
 > It is now maintained by [Prem](https://github.com/prem-k-r) and [It'z RJ](https://github.com/itz-rj-here).  
 > You can create a backup from the old extension’s settings and restore it into this new version.
 
@@ -18,11 +18,11 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 
 <div align="center">
 
-![License](https://img.shields.io/github/license/prem-k-r/materialYouNewTab)
-![Last Commit](https://img.shields.io/github/last-commit/prem-k-r/materialYouNewTab)
-![GitHub contributors](https://img.shields.io/github/contributors/prem-k-r/materialYouNewTab)
-![GitHub stars](https://img.shields.io/github/stars/prem-k-r/materialYouNewTab)
-![GitHub forks](https://img.shields.io/github/forks/prem-k-r/materialYouNewTab)
+![License](https://img.shields.io/github/license/prem-k-r/MaterialYouNewTab)
+![Last Commit](https://img.shields.io/github/last-commit/prem-k-r/MaterialYouNewTab)
+![GitHub contributors](https://img.shields.io/github/contributors/prem-k-r/MaterialYouNewTab)
+![GitHub stars](https://img.shields.io/github/stars/prem-k-r/MaterialYouNewTab)
+![GitHub forks](https://img.shields.io/github/forks/prem-k-r/MaterialYouNewTab)
 
 [![](https://img.shields.io/chrome-web-store/v/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) [![](https://img.shields.io/chrome-web-store/rating/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) [![](https://img.shields.io/chrome-web-store/users/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) ‾ [![](https://img.shields.io/amo/v/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) [![](https://img.shields.io/amo/rating/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) [![](https://img.shields.io/amo/users/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/)
 
@@ -72,19 +72,19 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
       Use the following command to clone the repository:
 
        ```bash
-       git clone https://github.com/prem-k-r/materialYouNewTab.git
+       git clone https://github.com/prem-k-r/MaterialYouNewTab.git
        ```
 
     - Alternatively, download the latest version as a ZIP file by clicking below:
 
-      [![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue.svg)](https://github.com/prem-k-r/materialYouNewTab/archive/refs/heads/main.zip)
+      [![Download ZIP](https://img.shields.io/badge/Download-ZIP-blue.svg)](https://github.com/prem-k-r/MaterialYouNewTab/archive/refs/heads/main.zip)
 
     - You can also download the ZIP file by clicking on the Code button. On the repository page, look for a green button labeled **Code**. Click on the **Code** button, and in the dropdown menu, select **Download ZIP**.
 
 2. **Stable Release** (v3.2)
 
 <p align="center">
-    <a href="https://github.com/prem-k-r/materialYouNewTab/releases/latest"><img src="https://github.com/user-attachments/assets/51048d6d-0b35-4f62-8351-4a3ea52d2213" alt="Download from GitHub" height="48" /></a>
+    <a href="https://github.com/prem-k-r/MaterialYouNewTab/releases/latest"><img src="https://github.com/user-attachments/assets/51048d6d-0b35-4f62-8351-4a3ea52d2213" alt="Download from GitHub" height="48" /></a>
     <a href="https://chromewebstore.google.com/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl"><img src="https://github.com/user-attachments/assets/7a829ba4-dcd0-452b-922a-5efacbfda498" alt="Download from Chrome Web Store" height="48" /></a>
     <a href="https://addons.mozilla.org/en-US/firefox/addon/mynt/"><img src="https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg" alt="Download from Mozilla Add-ons" height="48" /></a>
 </p>
@@ -273,17 +273,17 @@ Contributions are welcome! If you’d like to contribute:
 
 Here is the star history chart for the **MYNT: Material You New Tab** repository. It shows the growth of stars over time, reflecting the increasing interest and support for the project.
 
-<a href="https://star-history.com/#prem-k-r/materialYouNewTab&Date">
+<a href="https://star-history.com/#prem-k-r/MaterialYouNewTab&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=prem-k-r/materialYouNewTab&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=prem-k-r/materialYouNewTab&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=prem-k-r/materialYouNewTab&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=prem-k-r/MaterialYouNewTab&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=prem-k-r/MaterialYouNewTab&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=prem-k-r/MaterialYouNewTab&type=Date" />
  </picture>
 </a>
 
 ## ❓ Issues and Support
 
-- If you encounter any issues or bugs, feel free to open an issue on [GitHub](https://github.com/prem-k-r/materialYouNewTab/issues).
+- If you encounter any issues or bugs, feel free to open an issue on [GitHub](https://github.com/prem-k-r/MaterialYouNewTab/issues).
 - For general questions or support, you can contact the repository maintainers through the **Telegram group**: [Join here](https://t.me/Material_You_NewTab).
 
 ## 🛡 Privacy Policy
@@ -296,4 +296,4 @@ Copyright (C) 2023-2025 XengShi
 
 Copyright (C) 2024-2025 Prem Kumar
 
-This project is licensed under the GNU General Public License v3.0 (GPL-3.0). This means you must **not** distribute this software, whether original or modified, to any platform **without** its source code or the reference to its original source code. See the [LICENSE](https://github.com/prem-k-r/materialYouNewTab/blob/main/LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 (GPL-3.0). This means you must **not** distribute this software, whether original or modified, to any platform **without** its source code or the reference to its original source code. See the [LICENSE](https://github.com/prem-k-r/MaterialYouNewTab/blob/main/LICENSE) file for details.

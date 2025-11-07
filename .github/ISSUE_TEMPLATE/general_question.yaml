@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reaching out! Please check our [FAQs](https://github.com/XengShi/materialYouNewTab/wiki) and [existing issues](https://github.com/XengShi/materialYouNewTab/issues) first. For quicker support, join our [Telegram group](https://t.me/+i-ekvlM7yoU1Yjc1).
+        Thanks for reaching out! Please check our [README](https://github.com/prem-k-r/MaterialYouNewTab/blob/main/README.md) and [existing issues](https://github.com/prem-k-r/MaterialYouNewTab/issues) first. For quicker support, join our [Telegram group](https://t.me/Material_You_NewTab).
 
   - type: input
     id: contact
@@ -96,5 +96,5 @@ body:
       options:
         - label: I have searched the FAQs and existing issues before submitting.
           required: true
-        - label: I agree to follow this project's [Code of Conduct](https://github.com/XengShi/materialYouNewTab/blob/main/CODE_OF_CONDUCT.md).
+        - label: I agree to follow this project's [Code of Conduct](https://github.com/prem-k-r/MaterialYouNewTab/blob/main/CODE_OF_CONDUCT.md).
           required: true
