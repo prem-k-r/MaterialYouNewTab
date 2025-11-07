@@ -151,8 +151,9 @@ const bn = {
     "resetAISettingsBtn": "রিসেট করুন",
 
     // Theme
-    "enableDarkMode": "ডার্ক মোড (পরীক্ষামূলক)",
-    "enableDarkModeInfo": "ডার্ক মোড থিম সক্রিয় করুন",
+    "lightThemed": "ডিফল্ট (লাইট থিম)",
+    "darkThemed": "ডার্ক থিম",
+    "systemThemed": "সিস্টেম থিম অনুসরণ করুন",
 
     // Wallpaper and settings
     "uploadWallpaperText": "ওয়ালপেপার দিন",

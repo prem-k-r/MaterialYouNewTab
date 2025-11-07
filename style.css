@@ -218,43 +218,65 @@ body {
 	background-position: center;
 	background-attachment: fixed;
 	height: 100%; /* Ensure the image fits the viewport height */
-	margin: 0; /* Remove margin to avoid unwanted spacing */
+	margin: 0;
 }
 
-html:has(body[data-bg="color"] .menuBar #enableDarkModeCheckbox:checked):not(
-		:has(#darkTheme:checked)
-	) {
+/* Apply dark mode when: Dark Mode is selected manually, OR System Theme is selected */
+html:has(
+		body[data-bg="color"] .menuBar select option[value="dark"]:checked
+	):not(:has(#darkTheme:checked)),
+html:has(
+		body[data-bg="color"][sysTheme="systemDark"]
+			.menuBar
+			select
+			option[value="system"]:checked
+	):not(:has(#darkTheme:checked)) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
+
 	& #darkTheme,
 	& .favicon {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
+
 	& .menuBar,
 	& #prompt-modal-blur {
-		background-color: #0000001f;
+		background-color: #0000000f;
 	}
+
 	--whitishColor-blue: #f2f2f2;
 }
 
-body[data-bg="wallpaper"]:has(.menuBar #enableDarkModeCheckbox:checked):not(
+body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
 		:has(#darkTheme:checked)
 	)
 	> *:not(.menuBar, #bookmarksContainer),
-body[data-bg="wallpaper"]:has(.menuBar #enableDarkModeCheckbox:checked):not(
+body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
 		:has(#darkTheme:checked)
 	)
+	:is(.menuCont, .bookmark-sidebar),
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.menuBar select option[value="system"]:checked
+	):not(:has(#darkTheme:checked))
+	> *:not(.menuBar, #bookmarksContainer),
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.menuBar select option[value="system"]:checked
+	):not(:has(#darkTheme:checked))
 	:is(.menuCont, .bookmark-sidebar) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
+
 	& #darkTheme,
 	& .favicon {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
+
 	--whitishColor-blue: #f2f2f2;
 }
+
+/* -------------------------------------- */
 
 /* Search suggestions box */
 .resultBox {
@@ -2991,7 +3013,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 }
 
 #divider2 {
-	margin-top: 0px;
+	margin-top: 30px;
 }
 
 #shortcutEditButton,
@@ -3440,8 +3462,9 @@ input:checked + .toggle:before {
 
 /* ---------------Menu-bar-css---------------- */
 
-/* --------------Language Selection-------------- */
-.languageSection {
+/* --------------Language & Dark Mode Selection-------------- */
+.languageSection,
+.darkModeSection {
 	width: 100%;
 	height: 50px;
 	display: flex;
@@ -3450,7 +3473,8 @@ input:checked + .toggle:before {
 	margin-top: 30px;
 }
 
-.languageSelector {
+.languageSelector,
+.darkModeSelector {
 	background-color: var(--whitishColor-blue);
 	align-items: center;
 	justify-content: center;
@@ -3493,7 +3517,8 @@ input:checked + .toggle:before {
 	border-radius: 3px;
 }
 
-.languageSelector:focus {
+.languageSelector:focus,
+.darkModeSelector:focus {
 	border: 2px solid var(--darkColor-blue);
 	/* color matching border on focus */
 	outline: none;
@@ -3502,7 +3527,7 @@ input:checked + .toggle:before {
 
 /* --------------Theming stuff------------------ */
 .themingStuff {
-	margin-top: 11px;
+	margin-top: 27px;
 	position: relative;
 	width: 100%;
 	height: 50px;
@@ -3607,7 +3632,8 @@ input:checked + .toggle:before {
 	z-index: 2;
 }
 
-.languageIcon {
+.languageIcon,
+.darkModeIcon {
 	background-color: var(--whitishColor-blue);
 	height: 100%;
 	aspect-ratio: 1/1;
@@ -4427,12 +4453,15 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .dark-theme #themeIconSvg,
-.dark-theme #languageSelectorIconSvg {
+.dark-theme #languageSelectorIconSvg,
+.dark-theme #darkModeSelectorIconSvg {
 	fill: #cdcdcd !important;
 }
 
 .dark-theme .languageIcon,
-.dark-theme .languageSelector {
+.dark-theme .languageSelector,
+.dark-theme .darkModeIcon,
+.dark-theme .darkModeSelector {
 	background-color: var(--darkColor-dark);
 	scrollbar-color: var(--darkerColor-blue) transparent;
 }

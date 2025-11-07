@@ -9,8 +9,8 @@ body:
     attributes:
       value: |
         Thanks for taking the time to suggest a feature for **Material You NewTab**! 
-        Before submitting, please ensure that your feature isn’t already requested in the [issues list](https://github.com/XengShi/materialYouNewTab/issues).
-        If you need further discussion, feel free to join our [Telegram support group](https://t.me/+i-ekvlM7yoU1Yjc1).
+        Before submitting, please ensure that your feature isn’t already requested in the [issues list](https://github.com/prem-k-r/MaterialYouNewTab/issues).
+        If you need further discussion, feel free to join our [Telegram support group](https://t.me/Material_You_NewTab).
 
   - type: input
     id: contact
@@ -74,7 +74,7 @@ body:
     id: agreement
     attributes:
       label: Agreement
-      description: By submitting this issue, you agree to follow the project's [Code of Conduct](https://github.com/XengShi/materialYouNewTab/blob/main/CODE_OF_CONDUCT.md).
+      description: By submitting this issue, you agree to follow the project's [Code of Conduct](https://github.com/prem-k-r/MaterialYouNewTab/blob/main/CODE_OF_CONDUCT.md).
       options:
         - label: I have searched for existing issues and checked the FAQs before submitting this.
           required: true

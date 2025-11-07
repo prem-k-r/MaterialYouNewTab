@@ -150,9 +150,10 @@ const hi = {
     "aiSettingsIntro": "चुनें की कौन से AI शॉर्टकट्स रखने हैं",
     "resetAISettingsBtn": "रीसेट करें",
 
-    // Theme - delete later
-    "enableDarkMode": "डार्क मोड",
-    "enableDarkModeInfo": "डार्क मोड की थीम सक्षम करें (प्रायोगिक)",
+    // Theme
+    "lightThemed": "डिफ़ॉल्ट (लाइट थीम)",
+    "darkThemed": "डार्क थीम",
+    "systemThemed": "सिस्टम थीम का पालन करें",
 
     // Wallpaper and settings
     "uploadWallpaperText": "वॉलपेपर सेट करें",
