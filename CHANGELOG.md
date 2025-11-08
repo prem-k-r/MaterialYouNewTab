@@ -23,6 +23,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated search suggestion behavior to autocomplete the current search term upon selection via keyboard ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here)) ([#33](https://github.com/prem-k-r/MaterialYouNewTab/pull/33))
 - Added minimum width constraint to the custom text input box ([@anugrahrk](https://github.com/anugrahrk)) ([#70](https://github.com/prem-k-r/MaterialYouNewTab/pull/70))
+- Smoothed opening and closing animation for search dropdown ([@prem-k-r](https://github.com/prem-k-r)) ([#83](https://github.com/prem-k-r/MaterialYouNewTab/pull/83))
+
+### Fixed
+
+- Search dropdown no longer throws an error when Enter is pressed without a selected item ([@prem-k-r](https://github.com/prem-k-r)) ([#83](https://github.com/prem-k-r/MaterialYouNewTab/pull/83))
 
 ### Localized
 

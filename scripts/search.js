@@ -87,19 +87,20 @@ function toggleSearchEngines(category) {
 const dropdown = document.querySelector(".dropdown-content");
 
 dropdown.addEventListener("click", (event) => {
-    if (dropdown.style.display === "block") {
+    if (dropdown.classList.contains("show")) {
         event.stopPropagation();
-        dropdown.style.display = "none";
+        dropdown.classList.remove("show");
         searchInput.focus();
     }
-})
+});
 
 document.addEventListener("click", (event) => {
-    if (dropdown.style.display === "block") {
+    if (dropdown.classList.contains("show")) {
         event.stopPropagation();
-        dropdown.style.display = "none";
+        dropdown.classList.remove("show");
     }
-})
+});
+
 
 document.querySelector(".dropdown-btn").addEventListener("click", function () {
     const resultBox = document.getElementById("resultBox");
@@ -109,7 +110,8 @@ document.querySelector(".dropdown-btn").addEventListener("click", function () {
     dropdownItems.forEach(item => item.classList.remove("selected"));
     selectedIndex = -1;
 
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    dropdown.classList.toggle("show");
+
 });
 
 const enterBTN = document.getElementById("enterBtn");
@@ -281,7 +283,7 @@ function updateSelection() {
 
 // Event listener for keydown events to navigate up/down
 document.querySelector(".dropdown").addEventListener("keydown", function (event) {
-    if (dropdown.style.display === "block") {
+    if (dropdown.classList.contains("show")) {
         if (event.key === "ArrowDown") {
             event.preventDefault();  // Prevent the page from scrolling
             selectedIndex = (selectedIndex + 1) % dropdownItems.length; // Move down, loop around
@@ -298,9 +300,10 @@ document.querySelector(".dropdown").addEventListener("keydown", function (event)
             activeElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
         } else if (event.key === "Enter") {
             const selectedItem = document.querySelector(".dropdown-content .selected");
+            if (!selectedItem) return;
+
             const engine = selectedItem.getAttribute("data-engine");
             const radioButton = document.querySelector(`input[type="radio"][value="engine${engine}"]`);
-
             radioButton.checked = true;
 
             // Swap the dropdown and sort them
@@ -310,7 +313,7 @@ document.querySelector(".dropdown").addEventListener("keydown", function (event)
             localStorage.setItem("selectedSearchEngine", radioButton.value);
 
             // Close the dropdown after selection
-            dropdown.style.display = "none";
+            dropdown.classList.remove("show");
             searchInput.focus();
         }
         updateSelection();
