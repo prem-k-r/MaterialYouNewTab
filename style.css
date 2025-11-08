@@ -241,8 +241,13 @@ html:has(
 	}
 
 	& .menuBar,
-	& #prompt-modal-blur {
+	& #bookmarksContainer {
 		background-color: #0000000f;
+	}
+
+	& #prompt-modal-blur,
+	& .ai-modal-overlay {
+		background-color: #ffffff5f;
 	}
 
 	--whitishColor-blue: #f2f2f2;
