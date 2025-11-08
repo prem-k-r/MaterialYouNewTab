@@ -1997,6 +1997,7 @@ body[data-bg="wallpaper"] .searchbar {
 	margin-inline: 20px auto;
 	outline: none;
 	border: none;
+	color: #000;
 	background-color: #00000000;
 	padding: 0 2px;
 	margin-inline-start: 58px;
