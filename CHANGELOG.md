@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Spanish ([@zRaidev](https://github.com/zRaidev))
   - Arabic ([@heshamoomar](http://github.com/heshamoomar))
   - Korean ([@codemaster0524](https://github.com/codemaster0524))
+  - Japanese ([@kons10](http://github.com/kons10))
   
 ### Other
 
