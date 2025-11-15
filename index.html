@@ -42,6 +42,7 @@
     <script defer src="scripts/google-apps.js"></script>
     <script defer src="scripts/voice-search.js"></script>
     <script defer src="scripts/backup-restore.js"></script>
+    <script defer src="scripts/calendar.js"></script>
 
     <!-- LANGUAGES SCRIPTS -->
     <script src="locales/pt.js"></script>
@@ -613,7 +614,37 @@
 
             <div class="ttteexxtt">
                 <div id="userText" contenteditable="true" spellcheck="false">Click here to edit</div>
-                <div id="date"></div>
+
+                <div class="date-card" id="openCalendar"></div>
+                <div class="calendar-popup" id="calendarPopup">
+                    <div class="popup-inner">
+                        <div class="calendar-header">
+                            <button id="prevMonth" class="ripple-btn">
+                                <svg width="18" height="18" viewBox="0 0 24 24">
+                                    <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                                </svg>
+                            </button>
+                            <div id="calMonth" class="cal-month-select">
+                                <span id="calMonthText"></span>
+                                <select id="monthSelect" class="hidden"></select>
+                                <select id="yearSelect" class="hidden"></select>
+                            </div>
+                            <button id="nextMonth" class="ripple-btn">
+                                <svg width="18" height="18" viewBox="0 0 24 24">
+                                    <path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="calendar-weekdays"></div>
+                        <div id="calendarGrid" class="calendar-grid"></div>
+                        <div class="calendar-footer">
+                            <button id="todayBtn" class="ripple-btn">Today</button>
+                            <button class="close-btn ripple-btn" id="closeCalendar">Close</button>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
         <!-- ---------end of leftDiv--------------- -->
@@ -1790,5 +1821,6 @@
     <!-- ending-of-body -->
 
 </body>
+
 
 </html>
