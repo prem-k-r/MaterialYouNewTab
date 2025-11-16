@@ -149,8 +149,9 @@ const idn = {
     "resetAISettingsBtn": "Atur Ulang",
 
     // Theme
-    "enableDarkMode": "Mode Gelap (Eksperimental)",
-    "enableDarkModeInfo": "Mengaktifkan tema mode gelap",
+    "lightThemed": "Default (Mode Terang)",
+    "darkThemed": "Mode Gelap",
+    "systemThemed": "Mengikuti Mode Sistem",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Unggah Wallpaper",
