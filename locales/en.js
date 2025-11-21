@@ -177,6 +177,10 @@ const en = {
     "updateFirefoxHomepageInfo": "To change your homepage like the new tab as well, visit <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">this link</a> and follow the instructions.",
     "dontShowTips": "Don't show it again",
 
+    // Footer Toast
+    "footerToastTitle": "Seeing a banner at the bottom?",
+    "footerToastMessage": "To hide it, right-click it and select 'Hide Footer on New Tab Page'.",
+
     // Dialog boxes (alerts)
     "okText": "OK",
     "yesText": "Yes",

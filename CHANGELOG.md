@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added “Follow System Theme” option to the theme dropdown, allowing automatic switching between Light and Dark themes based on the system’s current appearance ([@heshamoomar](http://github.com/heshamoomar)) ([#78](https://github.com/prem-k-r/MaterialYouNewTab/pull/78))
+- Added toast notification to hide the footer for Chromium users ([@prem-k-r](https://github.com/prem-k-r)) ([#89](https://github.com/prem-k-r/MaterialYouNewTab/pull/89))
 
 ### Improved
 
