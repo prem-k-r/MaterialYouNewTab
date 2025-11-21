@@ -176,6 +176,10 @@ const idn = {
     "updateFirefoxHomepage": "Perbarui Beranda",
     "updateFirefoxHomepageInfo": "Untuk mengubah beranda Anda seperti tab baru juga, kunjungi <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">tautan ini</a> dan ikuti intruksi-nya.",
     "dontShowTips": "Jangan tampilkan lagi",
+    
+    // Footer Toast
+    "footerToastTitle": "Melihat banner di bawah?",
+    "footerToastMessage": "Untuk menyembunyikannya, klik kanan padanya dan pilih 'Sembunyikan Footer Pada Halaman Tab Baru'.",
 
     // Dialog boxes (alerts)
     "okText": "OK",
