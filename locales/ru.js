@@ -149,8 +149,9 @@ const ru = {
     "resetAISettingsBtn": "Сбросить",
 
     // Theme
-    "enableDarkMode": "Чёрная тема (Эксперимент)",
-    "enableDarkModeInfo": "Включить чёрную тему",
+    "lightThemed": "По умолчанию (Светлая Тема)",
+    "darkThemed": "Чёрная Тема",
+    "systemThemed": "Следовать Системной Теме",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Загрузить обои",
@@ -175,6 +176,10 @@ const ru = {
     "updateFirefoxHomepage": "Обновить домашнюю страницу",
     "updateFirefoxHomepageInfo": "Чтобы изменить свою домашнюю страницу на новую вкладку, посетите <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">this link</a> и следуйте инструкциям.",
     "dontShowTips": "Не показывать снова",
+    
+    // Footer Toast
+    "footerToastTitle": "Видите Баннер Внизу?",
+    "footerToastMessage": "Чтобы скрыть его, нажмите на него правой кнопкой мыши и выберите 'Скрыть Нижний Колонтитул на Странице Новой Вкладки'.",
 
     // Dialog boxes (alerts)
     "okText": "OK",
