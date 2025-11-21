@@ -153,8 +153,9 @@ const fr = {
     "resetAISettingsBtn": "Réinitialiser",
 
     // Theme
-    "enableDarkMode": "Mode Sombre",
-    "enableDarkModeInfo": "Activer le mode sombre des thèmes",
+    "lightThemed": "Par défaut (Thème Clair)",
+    "darkThemed": "Thème Sombre",
+    "systemThemed": "Appliquer le thème du système",
 
 
     // Wallpaper and misc
