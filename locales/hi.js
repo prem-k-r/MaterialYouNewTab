@@ -179,6 +179,10 @@ const hi = {
     "updateFirefoxHomepageInfo": 'अपने होमपेज को भी नए टैब की तरह बदलने के लिए, <a href="https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target="_blank">इस लिंक</a> पर जाएं और दिए गए निर्देशों का पालन करें।',
     "dontShowTips": "इसे फिर से न दिखाएँ",
 
+    // Footer Toast
+    "footerToastTitle": "नीचे एक बैनर दिखाई दे रहा है?",
+    "footerToastMessage": "इसे छिपाने के लिए, उस पर राइट-क्लिक करें और 'नए टैब पेज पर फुटर छिपाएँ' चुनें।",
+
     // Dialog boxes (alerts)
     "okText": "ठीक है",
     "yesText": "हाँ",

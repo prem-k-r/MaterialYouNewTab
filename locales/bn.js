@@ -179,6 +179,10 @@ const bn = {
     "updateFirefoxHomepageInfo": "আপনার হোমপেজকে নতুন ট্যাবের মতো পরিবর্তন করতে, <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">এই লিংকে</a> যান এবং নির্দেশিকা অনুসরণ করুন।",
     "dontShowTips": "এটি আর দেখাবেন না",
 
+    // Footer Toast
+    "footerToastTitle": "নীচে কোনো ব্যানার দেখাচ্ছে?",
+    "footerToastMessage": "এটি লুকাতে, এর উপর রাইট-ক্লিক করুন এবং 'নিউ ট্যাব পেজে ফুটার লুকান' নির্বাচন করুন।",
+
     // Dialog boxes (alerts)
     "okText": "ঠিক আছে",
     "yesText": "হ্যাঁ",

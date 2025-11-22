@@ -13,11 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Localized` - for updates related to translations, localization, or internationalization.
 - `Other` - for technical updates.
 
-## [Unreleased](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...main)
+<!-- ## [Unreleased](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.3...main) -->
+
+## [v3.3](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...v3.3) - Nov 23, 2025
 
 ### Added
 
 - Added “Follow System Theme” option to the theme dropdown, allowing automatic switching between Light and Dark themes based on the system’s current appearance ([@heshamoomar](http://github.com/heshamoomar)) ([#78](https://github.com/prem-k-r/MaterialYouNewTab/pull/78))
+- Added toast notification to hide the footer for Chromium users ([@prem-k-r](https://github.com/prem-k-r)) ([#89](https://github.com/prem-k-r/MaterialYouNewTab/pull/89))
 
 ### Improved
 
@@ -42,6 +45,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Japanese ([@kons10](http://github.com/kons10))
   - Czech ([@ceskyDJ](https://github.com/ceskyDJ))
   - Indonesian ([@Ayyas-RF](https://github.com/Ayyas-RF))
+  - Hindi ([@prem-k-r](https://github.com/prem-k-r))
+  - Bengali ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here))
 
 ### Other
 

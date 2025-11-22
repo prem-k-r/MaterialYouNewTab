@@ -55,3 +55,64 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("hideTips", "true"); // Save preference
     });
 });
+
+
+// ------------------------------- Footer Toast -------------------------------
+(function () {
+    if (isFirefoxAll || !isDesktop) return; // Don't show on Firefox or mobile
+
+    const TOAST_DURATION = 30 * 1000; // 30 seconds
+    const STORAGE_KEY = 'chrome-footer-toast-shown';
+
+    const toast = document.getElementById('chromeFooterToast');
+    const progressBar = document.getElementById('toastProgressBar');
+    const closeBtn = document.getElementById('toastClose');
+
+    let progressInterval;
+
+    function showToast() {
+        // Check if toast has been shown before
+        const hasShown = localStorage.getItem(STORAGE_KEY);
+
+        if (hasShown) {
+            return; // Don't show if already shown
+        }
+
+        // Mark as shown
+        localStorage.setItem(STORAGE_KEY, 'true');
+
+        // Show toast after brief delay
+        setTimeout(() => {
+            toast.classList.add('show');
+            startProgress();
+        }, 1500);
+    }
+
+    function hideToast() {
+        toast.classList.remove('show');
+        if (progressInterval) {
+            clearInterval(progressInterval);
+        }
+    }
+
+    function startProgress() {
+        const startTime = Date.now();
+
+        progressInterval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const remaining = Math.max(0, 100 - (elapsed / TOAST_DURATION) * 100);
+
+            progressBar.style.width = remaining + '%';
+
+            if (remaining === 0) {
+                hideToast();
+            }
+        }, 50);
+    }
+
+    // Close button handler
+    closeBtn.addEventListener('click', hideToast);
+
+    // Initialize toast
+    showToast();
+})();

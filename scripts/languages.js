@@ -222,7 +222,9 @@ function applyLanguage(lang) {
         "aiSettingsIntro",
         "resetAISettingsBtn",
         "opacityTitle",
-        "adjustOpacityDesc"
+        "adjustOpacityDesc",
+        "footerToastTitle",
+        "footerToastMessage"
     ];
 
     // Specific mapping for placeholders
