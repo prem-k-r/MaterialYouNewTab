@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             toast.classList.add('show');
             startProgress();
-        }, 2000);
+        }, 1500);
     }
 
     function hideToast() {
