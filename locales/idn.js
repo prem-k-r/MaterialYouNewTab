@@ -149,8 +149,9 @@ const idn = {
     "resetAISettingsBtn": "Atur Ulang",
 
     // Theme
-    "enableDarkMode": "Mode Gelap (Eksperimental)",
-    "enableDarkModeInfo": "Mengaktifkan tema mode gelap",
+    "lightThemed": "Default (Mode Terang)",
+    "darkThemed": "Mode Gelap",
+    "systemThemed": "Mengikuti Mode Sistem",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Unggah Wallpaper",
@@ -175,6 +176,10 @@ const idn = {
     "updateFirefoxHomepage": "Perbarui Beranda",
     "updateFirefoxHomepageInfo": "Untuk mengubah beranda Anda seperti tab baru juga, kunjungi <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">tautan ini</a> dan ikuti intruksi-nya.",
     "dontShowTips": "Jangan tampilkan lagi",
+    
+    // Footer Toast
+    "footerToastTitle": "Melihat banner di bawah?",
+    "footerToastMessage": "Untuk menyembunyikannya, klik kanan padanya dan pilih 'Sembunyikan Footer Pada Halaman Tab Baru'.",
 
     // Dialog boxes (alerts)
     "okText": "OK",

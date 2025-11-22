@@ -36,11 +36,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added support for Polish ([@dawid9707](https://github.com/dawid9707)) ([#55](https://github.com/prem-k-r/MaterialYouNewTab/pull/55))
 - Corrected display of Arabic numerals in the digital clock and opacity slider ([@heshamoomar](http://github.com/heshamoomar)) ([#78](https://github.com/prem-k-r/MaterialYouNewTab/pull/78))
 - Translation updated for:
-  - Russian ([@giwih](https://github.com/giwih))
+  - Russian ([@giwih](https://github.com/giwih)), ([@Ayyas-RF](https://github.com/Ayyas-RF))
   - Spanish ([@zRaidev](https://github.com/zRaidev))
   - Arabic ([@heshamoomar](http://github.com/heshamoomar))
   - Korean ([@codemaster0524](https://github.com/codemaster0524))
-  
+  - Japanese ([@kons10](http://github.com/kons10))
+  - Czech ([@ceskyDJ](https://github.com/ceskyDJ))
+  - Indonesian ([@Ayyas-RF](https://github.com/Ayyas-RF))
+
 ### Other
 
 - Docs: Added dark mode to privacy policy page ([@itz-rj-here](https://github.com/itz-rj-here)) ([#32](https://github.com/prem-k-r/MaterialYouNewTab/pull/32))
