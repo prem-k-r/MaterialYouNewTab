@@ -177,6 +177,10 @@ const cs = {
     "updateFirefoxHomepageInfo": "Pro změnu domovské stránky, stejně jako nové karty, navštivte <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">tento odkaz</a> a následujte instrukce (anglicky).",
     "dontShowTips": "Již nezobrazovat",
 
+    // Footer Toast
+    "footerToastTitle": "Vidíte baner ve spodní části obrazovky?",
+    "footerToastMessage": "Skryjete ho tak, že na něho klepnete pravým tlačítkem a zvolíte „Skrýt zápatí na stránce Nová karta“.",
+
     // Dialog boxes (alerts)
     "okText": "Budiž",
     "yesText": "Ano",
