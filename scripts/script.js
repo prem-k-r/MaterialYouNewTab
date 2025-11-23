@@ -69,14 +69,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeBtn = document.getElementById('toastClose');
 
     let progressInterval;
+    let elapsedTime = 0;
+    let lastTick = 0;
+    let isPaused = false;
 
     function showToast() {
         // Check if toast has been shown before
         const hasShown = localStorage.getItem(STORAGE_KEY);
-
-        if (hasShown) {
-            return; // Don't show if already shown
-        }
+        if (hasShown) return;
 
         // Mark as shown
         localStorage.setItem(STORAGE_KEY, 'true');
@@ -90,29 +90,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function hideToast() {
         toast.classList.remove('show');
-        if (progressInterval) {
-            clearInterval(progressInterval);
-        }
+        clearInterval(progressInterval);
     }
 
     function startProgress() {
-        const startTime = Date.now();
+        lastTick = Date.now();
 
         progressInterval = setInterval(() => {
-            const elapsed = Date.now() - startTime;
-            const remaining = Math.max(0, 100 - (elapsed / TOAST_DURATION) * 100);
+            if (isPaused) return;
+
+            const now = Date.now();
+            elapsedTime += now - lastTick;
+            lastTick = now;
+
+            const remaining = Math.max(0, 100 - (elapsedTime / TOAST_DURATION) * 100);
 
             progressBar.style.width = remaining + '%';
 
-            if (remaining === 0) {
+            if (elapsedTime >= TOAST_DURATION) {
                 hideToast();
             }
         }, 50);
     }
 
-    // Close button handler
+    // Hover pause
+    toast.addEventListener('mouseenter', () => {
+        isPaused = true;
+    });
+
+    toast.addEventListener('mouseleave', () => {
+        isPaused = false;
+        lastTick = Date.now();
+    });
+
     closeBtn.addEventListener('click', hideToast);
 
-    // Initialize toast
     showToast();
 })();
