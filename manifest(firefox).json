@@ -25,5 +25,13 @@
 	"chrome_url_overrides": {
 		"newtab": "index.html"
 	},
-	"incognito": "spanning"
+	"incognito": "spanning",
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "{c30c387e-cd01-42b4-b5c7-6af2d820535b}",
+			"data_collection_permissions": {
+      			"required": ["none"]
+			}
+		}
+	}
 }

@@ -19,14 +19,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added “Follow System Theme” option to the theme dropdown, allowing automatic switching between Light and Dark themes based on the system’s current appearance ([@heshamoomar](http://github.com/heshamoomar)) ([#78](https://github.com/prem-k-r/MaterialYouNewTab/pull/78))
+- Added “Follow System Theme” option to the theme dropdown, allowing automatic switching between Light and Dark themes based on the system’s current appearance ([@heshamoomar](https://github.com/heshamoomar)) ([#78](https://github.com/prem-k-r/MaterialYouNewTab/pull/78))
 - Added toast notification to hide the footer for Chromium users ([@prem-k-r](https://github.com/prem-k-r)) ([#89](https://github.com/prem-k-r/MaterialYouNewTab/pull/89))
 
 ### Improved
 
 - Updated search suggestion behavior to autocomplete the current search term upon selection via keyboard ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here)) ([#33](https://github.com/prem-k-r/MaterialYouNewTab/pull/33))
 - Added minimum width constraint to the custom text input box ([@anugrahrk](https://github.com/anugrahrk)) ([#70](https://github.com/prem-k-r/MaterialYouNewTab/pull/70))
-- Smoothed opening and closing animation for search dropdown ([@prem-k-r](https://github.com/prem-k-r)) ([#83](https://github.com/prem-k-r/MaterialYouNewTab/pull/83))
+- Smoothed the opening and closing animation for search dropdown ([@prem-k-r](https://github.com/prem-k-r)) ([#83](https://github.com/prem-k-r/MaterialYouNewTab/pull/83))
 
 ### Fixed
 
@@ -36,13 +36,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Adjusted Chinese date formatting ([@quantumfallout](https://github.com/quantumfallout)) ([#43](https://github.com/prem-k-r/MaterialYouNewTab/pull/43))
 - Added support for Polish ([@dawid9707](https://github.com/dawid9707)) ([#55](https://github.com/prem-k-r/MaterialYouNewTab/pull/55))
-- Corrected display of Arabic numerals in the digital clock and opacity slider ([@heshamoomar](http://github.com/heshamoomar)) ([#78](https://github.com/prem-k-r/MaterialYouNewTab/pull/78))
+- Corrected the display of Arabic numerals in the digital clock and opacity slider ([@heshamoomar](https://github.com/heshamoomar)) ([#78](https://github.com/prem-k-r/MaterialYouNewTab/pull/78))
 - Translation updated for:
   - Russian ([@giwih](https://github.com/giwih)), ([@Ayyas-RF](https://github.com/Ayyas-RF))
   - Spanish ([@zRaidev](https://github.com/zRaidev))
-  - Arabic ([@heshamoomar](http://github.com/heshamoomar))
+  - Arabic ([@heshamoomar](https://github.com/heshamoomar))
   - Korean ([@codemaster0524](https://github.com/codemaster0524))
-  - Japanese ([@kons10](http://github.com/kons10))
+  - Japanese ([@kons10](https://github.com/kons10))
   - Czech ([@ceskyDJ](https://github.com/ceskyDJ))
   - Indonesian ([@Ayyas-RF](https://github.com/Ayyas-RF))
   - Hindi ([@prem-k-r](https://github.com/prem-k-r))
@@ -169,8 +169,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Turkish ([@kerimlcr](https://github.com/kerimlcr))
   - Portuguese (Brazil) ([@MestreWalla](https://github.com/MestreWalla))
   - Russian ([@giwih](https://github.com/giwih))
-  - Japanese ([@kons10](http://github.com/kons10))
-  - Simplified Chinese ([@kons10](http://github.com/kons10))
+  - Japanese ([@kons10](https://github.com/kons10))
+  - Simplified Chinese ([@kons10](https://github.com/kons10))
 
 ### Other
 
