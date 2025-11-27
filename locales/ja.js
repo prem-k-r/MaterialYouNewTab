@@ -177,6 +177,10 @@ const ja = {
     "updateFirefoxHomepageInfo": "新しいタブと同じようにホームページも変更するには<a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">このリンク</a>を見て手順に従ってください",
     "dontShowTips": "今後表示しない",
 
+    // Footer Toast
+    "footerToastTitle": "下部にバナーが表示されていますか?",
+    "footerToastMessage": "バナーを非表示にするには、右クリックして「新しいタブページでフッターを非表示にする」を選択してください。",
+
     // Dialog boxes (alerts)
     "okText": "OK",
     "yesText": "はい",
