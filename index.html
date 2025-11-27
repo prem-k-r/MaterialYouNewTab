@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="google-site-verification" content="4jEGf9HYdwygIX_jyzhYalnJBF5UYZaKJucDwlLqq8E" />
+    <meta name="google-site-verification" content="j8K161R-W9yVVDoylaoPd2twGbjToAC3EzAFfZU1YOY" />
     <title>New Tab</title>
     <link href="style.css" rel="stylesheet">
     <link href="./favicon/icon48.png" id="favicon" rel="icon" type="image/png">
@@ -1145,7 +1145,53 @@
 
     <!-- Modal Overlay (hidden by default) -->
     <div id="aiToolsSettingsOverlay" class="ai-modal-overlay" style="display: none;"></div>
-    <!-- -----------end of AI-Tools------------------ -->
+    <!-- ------------ end of AI-Tools------------------ -->
+
+    <!-- -------------- Footer Toast ------------------ -->
+    <div id="chromeFooterToast" class="liquidGlass-toast">
+
+        <!-- Horizontal timer bar -->
+        <div class="toast-timer">
+            <div class="toast-timer-bar" id="toastProgressBar"></div>
+        </div>
+
+        <div class="liquidGlass-wrapper">
+
+            <!-- Liquid Glass Layers -->
+            <div class="liquidGlass-effect"></div>
+            <div class="liquidGlass-tint"></div>
+            <div class="liquidGlass-shine"></div>
+
+            <!-- Content -->
+            <div class="toast-content">
+                <!-- Vertical Bar -->
+                <div class="toast-bar-vertical"></div>
+
+                <div class="toast-body">
+                    <div class="toast-title" id="footerToastTitle">Seeing a banner at the bottom?</div>
+                    <div class="toast-message" id="footerToastMessage">To hide it, right-click it and select 'Hide
+                        Footer on New Tab Page'.
+                    </div>
+                </div>
+            </div>
+
+            <button class="toast-close" id="toastClose">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.33" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="20" y1="4" x2="4" y2="20"></line>
+                    <line x1="4" y1="4" x2="20" y2="20"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Liquid Distortion Filter -->
+    <svg width="0" height="0">
+        <filter id="glass-distortion">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" />
+        </filter>
+    </svg>
 
     <!-- ------Menu-bar----------- -->
     <div class="menuBar" id="menuBar" style="display: none;">

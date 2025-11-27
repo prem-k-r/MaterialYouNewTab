@@ -55,3 +55,75 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("hideTips", "true"); // Save preference
     });
 });
+
+
+// ------------------------------- Footer Toast -------------------------------
+(function () {
+    if (isFirefoxAll || !isDesktop) return; // Don't show on Firefox or mobile
+
+    const TOAST_DURATION = 30 * 1000; // 30 seconds
+    const STORAGE_KEY = 'chrome-footer-toast-shown';
+
+    const toast = document.getElementById('chromeFooterToast');
+    const progressBar = document.getElementById('toastProgressBar');
+    const closeBtn = document.getElementById('toastClose');
+
+    let progressInterval;
+    let elapsedTime = 0;
+    let lastTick = 0;
+    let isPaused = false;
+
+    function showToast() {
+        // Check if toast has been shown before
+        const hasShown = localStorage.getItem(STORAGE_KEY);
+        if (hasShown) return;
+
+        // Mark as shown
+        localStorage.setItem(STORAGE_KEY, 'true');
+
+        // Show toast after brief delay
+        setTimeout(() => {
+            toast.classList.add('show');
+            startProgress();
+        }, 1500);
+    }
+
+    function hideToast() {
+        toast.classList.remove('show');
+        clearInterval(progressInterval);
+    }
+
+    function startProgress() {
+        lastTick = Date.now();
+
+        progressInterval = setInterval(() => {
+            if (isPaused) return;
+
+            const now = Date.now();
+            elapsedTime += now - lastTick;
+            lastTick = now;
+
+            const remaining = Math.max(0, 100 - (elapsedTime / TOAST_DURATION) * 100);
+
+            progressBar.style.width = remaining + '%';
+
+            if (elapsedTime >= TOAST_DURATION) {
+                hideToast();
+            }
+        }, 50);
+    }
+
+    // Hover pause
+    toast.addEventListener('mouseenter', () => {
+        isPaused = true;
+    });
+
+    toast.addEventListener('mouseleave', () => {
+        isPaused = false;
+        lastTick = Date.now();
+    });
+
+    closeBtn.addEventListener('click', hideToast);
+
+    showToast();
+})();
