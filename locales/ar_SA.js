@@ -198,6 +198,10 @@ const ar_SA = {
         'لتغيير صفحتك الرئيسية لتكون مثل علامة تبويب جديدة، قم بزيارة <a href="https://github.com/prem-k-r/MaterialYouNewTab#-firefox" target="_blank">هذا الرابط</a> واتبع التعليمات.',
     dontShowTips: "لا تظهر النصائح مرة أخرى",
 
+    // Footer Toast
+    "footerToastTitle": "هل ترى لافتة في الأسفل؟",
+    "footerToastMessage": "لإخفائها، انقر عليها بزر الماوس الأيمن واختر 'إخفاء التذييل في صفحة علامة التبويب الجديدة'.",
+
     // Dialog boxes (alerts)
     okText: "موافق",
     yesText: "نعم",
