@@ -355,7 +355,7 @@ function applyLanguage(lang) {
     const isRTL = rtlLanguages.includes(lang);
     const rtlSelectors = [".topDiv", ".searchbar", ".searchWithCont", ".resultBox", ".quotesCont",
         ".leftDiv", ".shortcutsContainer", ".page", "#prompt-modal-box", ".todo-container",
-        ".bookmark-search-container", ".bookmark-controls-container", "#editBookmarkModal"]
+        ".bookmark-search-container", ".bookmark-controls-container", "#editBookmarkModal", ".liquidGlass-toast"];
 
     rtlSelectors.forEach(selector => {
         document.querySelectorAll(selector).forEach(el => {
