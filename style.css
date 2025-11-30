@@ -5042,7 +5042,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	gap: 14px;
 	align-items: flex-start;
 	width: 100%;
-	padding-left: 34px;
+	padding-inline-start: 34px;
 	padding-block: 10px;
 }
 
@@ -5082,7 +5082,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 .toast-close {
 	position: absolute;
 	top: 12px;
-	right: 12px;
+	inset-inline-end: 12px;
 	width: 24px;
 	height: 24px;
 	border: none;
@@ -5102,12 +5102,12 @@ body[data-bg="wallpaper"] .dropdown-content {
 .toast-close svg {
 	width: 100%;
 	height: 100%;
-        padding: 4px;
+    padding: 4px;
 	color: var(--textColorDark-blue);
-        opacity: 0.85;
+    opacity: 0.85;
 }
 
 .dark-theme .toast-close svg{
-        color: var(--darkColor-dark)
+    color: var(--darkColor-dark)
 }
 /* ------------ End of Toast---------- */
