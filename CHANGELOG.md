@@ -20,10 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Translation updated for:
   - Japanese ([@kons10](https://github.com/kons10))
   - Arabic ([@heshamoomar](https://github.com/heshamoomar))
-  
+
 ### Improved
-- Improved favicon loading reliability by switching to modern Google favicon endpoint.
-- Enhanced offline icon display logic for shortcuts.
+ Improved favicon loading reliability by switching away from the legacy Google favicon endpoint to a more reliable favicon resolution service (unavatar.io).
+ Enhanced offline icon display logic for shortcuts.
 
 ## [v3.3](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...v3.3) - Nov 23, 2025
 
