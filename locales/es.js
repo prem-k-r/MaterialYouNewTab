@@ -149,8 +149,9 @@ const es = {
     "resetAISettingsBtn": "Restablecer",
 
     // Theme
-    "enableDarkMode": "Modo Oscuro (Experimental)",
-    "enableDarkModeInfo": "Habilitar temas de Modo Oscuro",
+    "lightThemed": "Por defecto (Modo Claro)",
+    "darkThemed": "Modo Oscuro",
+    "systemThemed": "Modo del Sistema",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Subir Wallpaper",
@@ -175,6 +176,10 @@ const es = {
     "updateFirefoxHomepage": "Actualizar página de inicio",
     "updateFirefoxHomepageInfo": "Para cambiar tu página de inicio y también la nueva pestaña, visita <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">este enlace</a> y sigue las instrucciones.",
     "dontShowTips": "No volver a mostrar",
+
+    // Footer Toast
+    "footerToastTitle": "¿Ver un banner en la parte inferior?",
+    "footerToastMessage": "Para ocultarlo, haz click sobre él y selecciona 'Ocultar el pie de página en la página de pestaña nueva'.",
 
     // Dialog boxes (alerts)
     "okText": "Aceptar",
