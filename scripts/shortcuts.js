@@ -255,9 +255,15 @@ document.addEventListener("DOMContentLoaded", function () {
             return preset.svg;
         }
 
-        // Fetch favicon from Google 
-        return `<img src="https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256" 
-                onerror="this.src='./svgs/offline.svg'" alt="">`;
+        const faviconUrl = `https://unavatar.io/${hostname}?fallback=false`;
+
+        return `
+    <img src="${faviconUrl}"
+        alt=""
+        class="favicon-img" 
+        onerror="this.src='./svgs/offline.svg'; this.onerror=null;"
+    >
+`;
     }
 
     // Attaches event listeners to shortcut input fields
