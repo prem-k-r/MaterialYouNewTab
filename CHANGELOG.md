@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- New setting to hide the search section allowing completely hiding the search bar and searh engines section
+- New setting to hide the search section, allowing you to completely hide the search bar and search engines section.
 
 ## [v3.3](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...v3.3) - Nov 23, 2025
 
