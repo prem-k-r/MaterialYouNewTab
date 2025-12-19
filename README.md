@@ -221,38 +221,39 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 
 ## 🌐 Currently Supported Languages (30)
 
-| Language                                                                                     | Code  | Translator(s)                                                                         |
-| -------------------------------------------------------------------------------------------- | :---: | ------------------------------------------------------------------------------------- |
-| <img src='https://flagcdn.com/us.svg' width=20> &nbsp; **English**                           |  en   | [XengShi](https://github.com/XengShi/), [Prem](https://github.com/prem-k-r/)          |
-| <img src='https://flagcdn.com/sa.svg' width=20> &nbsp; **Arabic** - العربية                     | ar-SA | [Mazen](https://github.com/Mazen3Alharbi)                                             |
-| <img src='https://flagcdn.com/az.svg' width=20> &nbsp; **Azerbaijani** - Azərbaycanca        |  az   | [Hasan Bakhtiar](https://github.com/hasanbakhtiar/)                                   |
-| <img src='https://flagcdn.com/bd.svg' width=20> &nbsp; **Bangla** - বাংলা                     |  bn   | [It'z RJ](https://github.com/itz-rj-here/), [Prem](https://github.com/prem-k-r/)      |
-| <img src='https://flagcdn.com/cn.svg' width=20> &nbsp; **Chinese** (Simplified) - 简体中文    | zh-CN | [Guy Berryman](https://github.com/Guy-Berryman), [Tianli](https://github.com/TIANLI0), [Konsento](http://github.com/kons10) |
-| <img src='https://flagcdn.com/tw.svg' width=20> &nbsp; **Chinese** (Traditional) - 繁體中文   | zh-TW | [C. Y. Tseng](https://github.com/Eddie40802)                                          |
-| <img src='https://flagcdn.com/cz.svg' width=20> &nbsp; **Czech** - Čeština                   |  cz   | [Michal Šmahel](https://github.com/ceskyDJ/)                                          |
-| <img src='https://flagcdn.com/fr.svg' width=20> &nbsp; **French** - Français                 |  fr   | [422.io](https://github.com/iamwinner422)                                             |
-| <img src='https://flagcdn.com/de.svg' width=20> &nbsp; **German** - Deutsch                  |  de   | [Prem](https://github.com/prem-k-r/)                                                  |
-| <img src='https://flagcdn.com/gr.svg' width=20> &nbsp; **Greek** - Ελληνικά                  |  el   | [Lefteris T.](https://github.com/trlef19)                                             |
-| <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Hindi** - हिंदी                       |  hi   | [XengShi](https://github.com/XengShi/), [Prem](https://github.com/prem-k-r/)          |
-| <img src='https://flagcdn.com/hu.svg' width=20> &nbsp; **Hungarian** - Magyar                |  hu   | [Zan1456](https://github.com/Zan1456/)                                                |
-| <img src='https://flagcdn.com/id.svg' width=20> &nbsp; **Indonesian** - Bahasa Indonesia     |  idn  | [Ayyas-RF](https://github.com/Ayyas-RF/)                                              |
-| <img src='https://flagcdn.com/it.svg' width=20> &nbsp; **Italian** - Italiano                |  it   | [Claudio Di Maio](https://github.com/ZiClaud/)                                        |
-| <img src='https://flagcdn.com/jp.svg' width=20> &nbsp; **Japanese** - 日本語                 |  ja   | [XengShi](https://github.com/XengShi/), [S-H-Y-A](https://github.com/S-H-Y-A/), [Konsento](http://github.com/kons10) |
-| <img src='https://flagcdn.com/kr.svg' width=20> &nbsp; **Korean** - 한국어                   |  ko   | [XengShi](https://github.com/XengShi/), [codemaster0524](https://github.com/codemaster0524/) |
-| <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Marathi** - मराठी                   |  mr   | [Prem](https://github.com/prem-k-r/), [Pratik Lokhande](https://github.com/konprtk)   |
-| <img src='https://flagcdn.com/np.svg' width=20> &nbsp; **Nepali** - नेपाली                    |  np   | [Bikash Shresha](https://github.com/sthaB-kash/)                                      |
-| <img src='https://flagcdn.com/ir.svg' width=20> &nbsp; **Persian** - فارسی                    |  fa   | [AMIRHOSSEIN](https://github.com/AMIRHOSSEIN-AHMADI-IR)                               |
-| <img src='https://flagcdn.com/pl.svg' width=20> &nbsp; **Polish** - Polski                  | pl | [Dawid Warkowski](https://github.com/dawid9707/)                                         |
-| <img src='https://flagcdn.com/br.svg' width=20> &nbsp; **Portuguese** - Português            | pt-BR | [Maycon Vitor Correa](https://github.com/MestreWalla/)                                |
-| <img src='https://flagcdn.com/ru.svg' width=20> &nbsp; **Russian** - Русский                 |  ru   | [giwi](https://github.com/giwih/)                                                     |
-| <img src='https://flagcdn.com/si.svg' width=20> &nbsp; **Slovenian** - Slovenščina           | sl-SI | [Linux-Alex](https://github.com/Linux-Alex/)                                          |
-| <img src='https://flagcdn.com/es.svg' width=20> &nbsp; **Spanish** - Español                 | es-ES | [XengShi](https://github.com/XengShi/), [Isaac Vergara](https://github.com/zRaidev)                        |
-| <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Tamil** - தமிழ்                 | ta | [தமிழ்நேரம்](https://TamilNeram.github.io/)                                                |
-| <img src='https://flagcdn.com/th.svg' width=20> &nbsp; **Thai** - ภาษาไทย                 | th | [Prin](https://github.com/prinsasina)                                                |
-| <img src='https://flagcdn.com/tr.svg' width=20> &nbsp; **Turkish** - Türkçe                  |  tr   | [Nobody](https://github.com/Nobody9512), [Kerim Ölçer](https://github.com/kerimlcr)   |
-| <img src='https://flagcdn.com/pk.svg' width=20> &nbsp; **Urdu** - اردو                        |  ur   | [Asfandiyar Khan](https://github.com/asfand-dev)                                      |
-| <img src='https://flagcdn.com/uz.svg' width=20> &nbsp; **Uzbek** - O'zbek                    |  uz   | [Firdavs](https://github.com/Firdavs9512/)                                            |
-| <img src='https://flagcdn.com/vn.svg' width=20> &nbsp; **Vietnamese** - Tiếng Việt           |  vn   | [Diep](https://github.com/diepdo1810/), [Tuan](https://github.com/Tuan1-2-3)          |
+| Language                                                                                 | Code  | Translator(s)                                                                       |
+|------------------------------------------------------------------------------------------|:-----:| ----------------------------------------------------------------------------------- |
+| <img src='https://flagcdn.com/us.svg' width=20> &nbsp; **English**                       |  en   | [XengShi](https://github.com/XengShi/), [Prem](https://github.com/prem-k-r/)        |
+| <img src='https://flagcdn.com/sa.svg' width=20> &nbsp; **Arabic** - العربية              | ar-SA | [Mazen](https://github.com/Mazen3Alharbi)                                           |
+| <img src='https://flagcdn.com/az.svg' width=20> &nbsp; **Azerbaijani** - Azərbaycanca    |  az   | [Hasan Bakhtiar](https://github.com/hasanbakhtiar/)                                 |
+| <img src='https://flagcdn.com/bd.svg' width=20> &nbsp; **Bangla** - বাংলা                |  bn   | [It'z RJ](https://github.com/itz-rj-here/), [Prem](https://github.com/prem-k-r/)    |
+| <img src='https://flagcdn.com/cn.svg' width=20> &nbsp; **Chinese** (Simplified) - 简体中文   | zh-CN | [Guy Berryman](https://github.com/Guy-Berryman), [Tianli](https://github.com/TIANLI0), [Konsento](http://github.com/kons10) |
+| <img src='https://flagcdn.com/tw.svg' width=20> &nbsp; **Chinese** (Traditional) - 繁體中文  | zh-TW | [C. Y. Tseng](https://github.com/Eddie40802)                                        |
+| <img src='https://flagcdn.com/cz.svg' width=20> &nbsp; **Czech** - Čeština               |  cz   | [Michal Šmahel](https://github.com/ceskyDJ/)                                        |
+| <img src='https://flagcdn.com/fr.svg' width=20> &nbsp; **French** - Français             |  fr   | [422.io](https://github.com/iamwinner422)                                           |
+| <img src='https://flagcdn.com/de.svg' width=20> &nbsp; **German** - Deutsch              |  de   | [Prem](https://github.com/prem-k-r/)                                                |
+| <img src='https://flagcdn.com/gr.svg' width=20> &nbsp; **Greek** - Ελληνικά              |  el   | [Lefteris T.](https://github.com/trlef19)                                           |
+| <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Hindi** - हिंदी                 |  hi   | [XengShi](https://github.com/XengShi/), [Prem](https://github.com/prem-k-r/)        |
+| <img src='https://flagcdn.com/hu.svg' width=20> &nbsp; **Hungarian** - Magyar            |  hu   | [Zan1456](https://github.com/Zan1456/)                                              |
+| <img src='https://flagcdn.com/id.svg' width=20> &nbsp; **Indonesian** - Bahasa Indonesia |  idn  | [Ayyas-RF](https://github.com/Ayyas-RF/)                                            |
+| <img src='https://flagcdn.com/it.svg' width=20> &nbsp; **Italian** - Italiano            |  it   | [Claudio Di Maio](https://github.com/ZiClaud/)                                      |
+| <img src='https://flagcdn.com/jp.svg' width=20> &nbsp; **Japanese** - 日本語                |  ja   | [XengShi](https://github.com/XengShi/), [S-H-Y-A](https://github.com/S-H-Y-A/), [Konsento](http://github.com/kons10) |
+| <img src='https://flagcdn.com/kr.svg' width=20> &nbsp; **Korean** - 한국어                  |  ko   | [XengShi](https://github.com/XengShi/), [codemaster0524](https://github.com/codemaster0524/) |
+| <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Marathi** - मराठी               |  mr   | [Prem](https://github.com/prem-k-r/), [Pratik Lokhande](https://github.com/konprtk) |
+| <img src='https://flagcdn.com/np.svg' width=20> &nbsp; **Nepali** - नेपाली               |  np   | [Bikash Shresha](https://github.com/sthaB-kash/)                                    |
+| <img src='https://flagcdn.com/ir.svg' width=20> &nbsp; **Persian** - فارسی               |  fa   | [AMIRHOSSEIN](https://github.com/AMIRHOSSEIN-AHMADI-IR)                             |
+| <img src='https://flagcdn.com/pl.svg' width=20> &nbsp; **Polish** - Polski               |  pl   | [Dawid Warkowski](https://github.com/dawid9707/)                                       |
+| <img src='https://flagcdn.com/br.svg' width=20> &nbsp; **Portuguese** - Português        | pt-BR | [Maycon Vitor Correa](https://github.com/MestreWalla/)                              |
+| <img src='https://flagcdn.com/ru.svg' width=20> &nbsp; **Russian** - Русский             |  ru   | [giwi](https://github.com/giwih/)                                                   |
+| <img src='https://flagcdn.com/si.svg' width=20> &nbsp; **Slovenian** - Slovenščina       | sl-SI | [Linux-Alex](https://github.com/Linux-Alex/)                                        |
+| <img src='https://flagcdn.com/es.svg' width=20> &nbsp; **Spanish** - Español             | es-ES | [XengShi](https://github.com/XengShi/), [Isaac Vergara](https://github.com/zRaidev)                      |
+| <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Tamil** - தமிழ்                 |  ta   | [தமிழ்நேரம்](https://TamilNeram.github.io/)                                              |
+| <img src='https://flagcdn.com/th.svg' width=20> &nbsp; **Thai** - ภาษาไทย                |  th   | [Prin](https://github.com/prinsasina)                                              |
+| <img src='https://flagcdn.com/tr.svg' width=20> &nbsp; **Turkish** - Türkçe              |  tr   | [Nobody](https://github.com/Nobody9512), [Kerim Ölçer](https://github.com/kerimlcr) |
+| <img src='https://flagcdn.com/ua.svg' width=20> &nbsp; **Ukrainian** - Українська        |  uk   | [Serhii Lozytskyi](https://github.com/lozik4)  |
+| <img src='https://flagcdn.com/pk.svg' width=20> &nbsp; **Urdu** - اردو                   |  ur   | [Asfandiyar Khan](https://github.com/asfand-dev)                                    |
+| <img src='https://flagcdn.com/uz.svg' width=20> &nbsp; **Uzbek** - O'zbek                |  uz   | [Firdavs](https://github.com/Firdavs9512/)                                          |
+| <img src='https://flagcdn.com/vn.svg' width=20> &nbsp; **Vietnamese** - Tiếng Việt       |  vn   | [Diep](https://github.com/diepdo1810/), [Tuan](https://github.com/Tuan1-2-3)        |
 
 Check the [Translation Status Page](https://prem-k-r.github.io/MaterialYouNewTab/tools/languagesAnalysis.html) for an overview of completed languages and missing strings analysis.
 
