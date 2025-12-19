@@ -1,4 +1,4 @@
-// English (Default)
+// Ukrainian
 const uk = {
     // Menu Items
     "github": "GitHub",
@@ -183,7 +183,7 @@ const uk = {
 
     // Dialog boxes (alerts)
     "okText": "OK",
-    "yesText": "Тек",
+    "yesText": "Так",
     "noText": "Ні",
     "agreeText": "Я згоден",
     "cancelText": "Відмінити",
