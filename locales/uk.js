@@ -171,10 +171,10 @@ const uk = {
     "changeBrowserTheme": "Змінити тему браузера",
     "chromeThemeInfo": "Натисніть три крапки (⋮) > Більше інструментів > Налаштувати Chrome, а потім виберіть колір, який відповідає темі розширення.",
     "edgeThemeInfo": "Перейдіть до Налаштування > Зовнішній вигляд, а потім виберіть колір, який відповідає темі розширення.",
-    "braveThemeInfo": "Відвідати <a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome Theme Store</a>, завантажте та застосуйте тему, яка відповідає розширенню.",
-    "firefoxThemeInfo": "Відвідати <a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Firefox Themes</a>, завантажте та застосуйте тему, яка відповідає розширенню.",
+    "braveThemeInfo": "Відвідати <a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\" rel=\"noopener noreferrer\">Chrome Theme Store</a>, завантажте та застосуйте тему, яка відповідає розширенню.",
+    "firefoxThemeInfo": "Відвідати <a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\" rel=\"noopener noreferrer\">Firefox Themes</a>, завантажте та застосуйте тему, яка відповідає розширенню.",
     "updateFirefoxHomepage": "Оновити стартову сторінку",
-    "updateFirefoxHomepageInfo": "Щоб змінити свою домашню сторінку, як і нову вкладку, відвідайте <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">це посилання</a> і дотримуйтесь інструкцій.",
+    "updateFirefoxHomepageInfo": "Щоб змінити свою домашню сторінку, як і нову вкладку, відвідайте <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\" rel=\"noopener noreferrer\">це посилання</a> і дотримуйтесь інструкцій.",
     "dontShowTips": "Не показувати знову",
 
     // Footer Toast
