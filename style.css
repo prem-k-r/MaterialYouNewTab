@@ -1899,6 +1899,18 @@ body.dark-theme.glass-enabled .bgLightTint {
 	background-color: rgba(0,0,0,calc(var(--glass-alpha) - 0.12));
 }
 
+/* Disabled state for controls (used when glass is off) */
+.opacityBarControl.disabled {
+	opacity: 0.55;
+	pointer-events: none;
+	filter: grayscale(0.18);
+}
+
+/* Small helper for slider when aria-disabled is true */
+.opacityBar .opacitySlider[aria-disabled="true"] {
+	opacity: 0.6;
+}
+
 /* End of _____________________- */
 
 /* ------------Weather Pill------------- */

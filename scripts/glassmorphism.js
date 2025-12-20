@@ -20,12 +20,19 @@ function setGlassBlur(px) {
 }
 
 function setGlassEnabled(enabled) {
+    const control = document.getElementById('glassBlurControl');
     if (enabled) {
         document.documentElement.classList.add('glass-enabled');
         localStorage.setItem('glassEnabled', '1');
+        if (control) control.classList.remove('disabled');
+        if (glassSlider) glassSlider.setAttribute('aria-disabled', 'false');
+        if (glassCheckbox) glassCheckbox.setAttribute('aria-checked', 'true');
     } else {
         document.documentElement.classList.remove('glass-enabled');
         localStorage.setItem('glassEnabled', '0');
+        if (control) control.classList.add('disabled');
+        if (glassSlider) glassSlider.setAttribute('aria-disabled', 'true');
+        if (glassCheckbox) glassCheckbox.setAttribute('aria-checked', 'false');
     }
 }
 
@@ -68,9 +75,18 @@ if (glassCheckbox) glassCheckbox.checked = savedGlassEnabled;
 
 // Wire up the checkbox
 if (glassCheckbox) {
+    glassCheckbox.setAttribute('role', 'switch');
+    glassCheckbox.setAttribute('aria-label', 'Toggle glassmorphism');
     glassCheckbox.addEventListener('change', () => {
         setGlassEnabled(glassCheckbox.checked);
     });
+}
+
+// Initialize disabled state for the control if needed
+const glassBlurControl = document.getElementById('glassBlurControl');
+if (glassBlurControl) {
+    // reflect current enabled state
+    if (!savedGlassEnabled) glassBlurControl.classList.add('disabled');
 }
 
 // Expose a small API for other scripts if needed
