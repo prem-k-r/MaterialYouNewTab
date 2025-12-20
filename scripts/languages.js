@@ -221,6 +221,13 @@ function applyLanguage(lang) {
         "dontShowTips",
         "aiSettingsIntro",
         "resetAISettingsBtn",
+
+        /* Glassmorphism */
+        "glassmorphismText",
+        "glassmorphismInfo",
+        "glassBlurTitle",
+        "glassBlurDesc",
+
         "opacityTitle",
         "adjustOpacityDesc",
         "footerToastTitle",

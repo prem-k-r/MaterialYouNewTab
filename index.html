@@ -28,6 +28,7 @@
     <script defer src="scripts/alert-modal.js"></script>
     <script defer src="scripts/wallpaper.js"></script>
     <script defer src="scripts/widgets-transparency.js"></script>
+    <script defer src="scripts/glassmorphism.js"></script>
     <script defer src="scripts/clock.js"></script>
     <script defer src="scripts/weather.js"></script>
     <script defer src="scripts/custom-text.js"></script>
@@ -1715,6 +1716,35 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Glassmorphism Control -->
+                    <div class="ttcont unflex" id="glassControl">
+                        <div class="texts">
+                            <div class="bigText" id="glassmorphismText">Glassmorphism</div>
+                            <div class="infoText" id="glassmorphismInfo">Enable frosted glass (backdrop blur)</div>
+                        </div>
+                        <label class="switch">
+                            <input id="glassCheckbox" type="checkbox">
+                            <span class="toggle"></span>
+                        </label>
+                    </div>
+
+                    <div id="glassBlurControl" class="opacityBarControl">
+                        <div class="spacer"></div>
+                        <div class="ttcont">
+                            <div class="texts">
+                                <div class="bigText" id="glassBlurTitle">Blur Intensity</div>
+                                <div class="infoText" id="glassBlurDesc">Adjust backdrop blur</div>
+                            </div>
+                        </div>
+                        <div class="opacityBar">
+                            <div class="thinLine"></div>
+                            <div class="opacitySlider" id="glassSlider">
+                                <div id="glassBlurLevel">8px</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- End of opacity Bar Control -->
 
                     <!-- end of themingStuff -->
