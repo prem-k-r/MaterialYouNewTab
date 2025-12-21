@@ -1897,14 +1897,33 @@ html.dark-theme.glass-enabled .bgLightTint {
 	background-color: rgba(0,0,0,calc(var(--glass-alpha) - 0.12));
 }
 
-.bgLightTint,
-.searchbar,
-.tiles,
-.lrectangle,
-.modal-content,
-.ai-modal-content {
-	background-color: rgba(255, 255, 255, 0.7);
+/* =========================
+   Glassmorphism backgrounds
+   (applied only when enabled)
+========================= */
+
+html.glass-enabled .bgLightTint,
+html.glass-enabled .searchbar,
+html.glass-enabled .tiles,
+html.glass-enabled .lrectangle,
+html.glass-enabled .modal-content,
+html.glass-enabled .ai-modal-content {
+    background-color: rgba(255, 255, 255, var(--glass-alpha));
 }
+html.dark-theme.glass-enabled .bgLightTint,
+html.dark-theme.glass-enabled .searchbar,
+html.dark-theme.glass-enabled .tiles,
+html.dark-theme.glass-enabled .lrectangle,
+html.dark-theme.glass-enabled .modal-content,
+html.dark-theme.glass-enabled .ai-modal-content {
+    background-color: rgba(
+        0,
+        0,
+        0,
+        calc(var(--glass-alpha) - 0.12)
+    );
+}
+
 
 /* Disabled state for controls (used when glass is off) */
 .opacityBarControl.disabled {
