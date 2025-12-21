@@ -240,7 +240,7 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 | <img src='https://flagcdn.com/ir.svg' width=20> &nbsp; **Persian** - فارسی                    |  fa   | [AMIRHOSSEIN](https://github.com/AMIRHOSSEIN-AHMADI-IR)                               |
 | <img src='https://flagcdn.com/pl.svg' width=20> &nbsp; **Polish** - Polski                  | pl | [Dawid Warkowski](https://github.com/dawid9707/)                                         |
 | <img src='https://flagcdn.com/br.svg' width=20> &nbsp; **Portuguese** - Português            | pt-BR | [Maycon Vitor Correa](https://github.com/MestreWalla/)                                |
-| <img src='https://flagcdn.com/ru.svg' width=20> &nbsp; **Russian** - Русский                 |  ru   | [giwi](https://github.com/giwih/)                                                     |
+| <img src='https://flagcdn.com/ru.svg' width=20> &nbsp; **Russian** - Русский                 |  ru   | [giwi](https://github.com/giwih/), [CodWiz](https://github.com/C0dwiz/)               |
 | <img src='https://flagcdn.com/si.svg' width=20> &nbsp; **Slovenian** - Slovenščina           | sl-SI | [Linux-Alex](https://github.com/Linux-Alex/)                                          |
 | <img src='https://flagcdn.com/es.svg' width=20> &nbsp; **Spanish** - Español                 | es-ES | [XengShi](https://github.com/XengShi/), [Isaac Vergara](https://github.com/zRaidev), [Saúl Palacios](https://github.com/palacios22c)  |
 | <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Tamil** - தமிழ்                 | ta | [தமிழ்நேரம்](https://TamilNeram.github.io/)                                                |

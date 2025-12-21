@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Japanese ([@kons10](https://github.com/kons10))
   - Arabic ([@heshamoomar](https://github.com/heshamoomar))
   - Spanish ([@palacios22c](https://github.com/palacios22c))
+  - Russian ([@C0dwiz](https://github.com/C0dwiz))
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 
 ## [v3.3](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...v3.3) - Nov 23, 2025
