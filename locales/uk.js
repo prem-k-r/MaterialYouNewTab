@@ -21,12 +21,12 @@ const uk = {
     "aiToolsSettingsInfo": "Керування ярликами AI інструментів",
     "googleAppsMenuText": "Google Apps",
     "googleAppsMenuInfo": "Показати ярлики для Google Apps",
-    "googleAppsHover": "Google Apps",    // Keep this shorter
+    "googleAppsHover": "Google Apps",
 
     // To-do List
     "todoListText": "Список справ",
     "todoListInfo": "Показати щоденний список справ",
-    "todoListHover": "Список справ",    // Keep this short
+    "todoListHover": "Список справ",
     "todoPlaceholder": "Додати задачу...",
 
     // Clock
@@ -128,7 +128,7 @@ const uk = {
     "bingEngine": "Bing",
     "braveEngine": "Brave",
     "youtubeEngine": "YouTube",
-    "gImagesEngine": "Images",  // Google Images, https://www.google.com/search?q=check&hl=bn
+    "gImagesEngine": "Зображення",
     "redditEngine": "Reddit",
     "wikipediaEngine": "Wikipedia",
     "quoraEngine": "Quora",

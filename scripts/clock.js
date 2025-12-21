@@ -180,8 +180,7 @@ async function initializeClock() {
                 ar_SA: `${dayName}, ${localizedDayOfMonth} ${monthName}`,	// e.g., الجمعة, 31 مايو
                 el: `${dayName.substring(0, 3)} ${dayOfMonth} ${monthName}`, // Κυρ 22 Δεκ
                 th: `วัน${dayName}ที่ ${dayOfMonth} ${monthName}`, // วันอาทิตย์ที่ 22 ธันวาคม
-                // uk: `${dayName.substring(0, 2)}, ${dayOfMonth} ${monthName.substring(0, 4)}.`,
-                uk: `${dayName}, ${localizedDayOfMonth} ${monthName.substring(0, 4)}.`,
+                uk: `${dayName}, ${dayOfMonth} ${monthName.substring(0, 4)}`,
                 default: `${dayName.substring(0, 3)}, ${monthName.substring(0, 3)} ${dayOfMonth}`	// Sun, Dec 22
             };
 
