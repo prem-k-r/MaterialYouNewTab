@@ -3496,7 +3496,7 @@ input:checked + .toggle:before {
 	appearance: none;
 	-moz-appearance: none;
 	cursor: pointer;
-	padding-inline-start: 14px;
+	padding-inline-start: 18px;
 	font-size: 0.82rem;
 	@-moz-document url-prefix() {
 		/* Scrollbar styles for Firefox */
