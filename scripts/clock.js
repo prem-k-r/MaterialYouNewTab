@@ -163,7 +163,7 @@ async function initializeClock() {
                 ko: `${monthName} ${dayOfMonth}일(${dayName.substring(0, 1)})`,
                 pl: `${dayName}, ${dayOfMonth}. ${monthName}`,
                 pt: `${dayName.substring(0, 3)}, ${dayOfMonth} ${monthName.substring(0, 3)}`,
-                ru: `${dayName.substring(0, 2)}, ${dayOfMonth} ${monthName.substring(0, 4)}.`,
+                ru: `${dayName}, ${dayOfMonth} ${monthName}`,
                 es: `${dayName.substring(0, 3)}, ${dayOfMonth} ${monthName.substring(0, 3)}`,
                 tr: `${dayName.substring(0, 3)}, ${dayOfMonth} ${monthName}`,
                 uz: `${dayName.substring(0, 3)}, ${dayOfMonth}-${monthName}`,
@@ -180,6 +180,7 @@ async function initializeClock() {
                 ar_SA: `${dayName}, ${localizedDayOfMonth} ${monthName}`,	// e.g., الجمعة, 31 مايو
                 el: `${dayName.substring(0, 3)} ${dayOfMonth} ${monthName}`, // Κυρ 22 Δεκ
                 th: `วัน${dayName}ที่ ${dayOfMonth} ${monthName}`, // วันอาทิตย์ที่ 22 ธันวาคม
+                uk: `${dayName}, ${dayOfMonth} ${monthName.substring(0, 4)}`,
                 default: `${dayName.substring(0, 3)}, ${monthName.substring(0, 3)} ${dayOfMonth}`	// Sun, Dec 22
             };
 
@@ -298,7 +299,7 @@ async function initializeClock() {
             ko: `${dayOfMonth}일 (${dayName[0]})`,
             pl: `${dayName}, ${dayOfMonth}`,
             pt: `${dayName}, ${dayOfMonth}`,
-            ru: `${dayOfMonth} ${dayName.substring(0, 2)}`,
+            ru: `${dayOfMonth} ${dayName}`,
             ta: `${localizedDayOfMonth} ${dayName.substring(0, 2)}`,
             vi: `${dayOfMonth} ${dayName}`,
             idn: `${dayOfMonth} ${dayName}`,
@@ -310,6 +311,7 @@ async function initializeClock() {
             ar_SA: `${dayName}, ${localizedDayOfMonth}`,	// e.g., الجمعة, 31
             el: `${dayName.substring(0, 3)} ${dayOfMonth}`, // Κυρ 22
             th: `${dayName}ที่ ${dayOfMonth}`,
+            uk: `${dayOfMonth} ${dayName}`,
             default: `${dayOfMonth} ${dayName.substring(0, 3)}`,	// 24 Thu
         };
 

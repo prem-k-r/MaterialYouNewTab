@@ -3485,20 +3485,16 @@ input:checked + .toggle:before {
 	align-items: center;
 	justify-content: center;
 	height: fit-content;
-	width: 240px;
+	min-width: 240px;
+	width: 100%;
 	border: 2px solid transparent;
 	/* adding transparent border on focus it will be turned to theme color*/
 	display: grid;
 	padding: 12px;
 	color: var(--textColorDark-blue);
-	/* padding-inline-end: 0px; */
 	border-radius: 26px;
 	appearance: none;
-	/* Remove default browser styles */
-	-webkit-appearance: none;
-	/* For Safari */
 	-moz-appearance: none;
-	/* For Firefox */
 	cursor: pointer;
 	padding-inline-start: 14px;
 	font-size: 0.82rem;
@@ -3555,7 +3551,6 @@ input:checked + .toggle:before {
 	grid-auto-rows: auto;
 	grid-gap: 10px;
 	padding: 10px;
-	/* padding-inline-end: 0px; */
 	border-radius: 26px;
 }
 
@@ -5102,12 +5097,12 @@ body[data-bg="wallpaper"] .dropdown-content {
 .toast-close svg {
 	width: 100%;
 	height: 100%;
-    padding: 4px;
+	padding: 4px;
 	color: var(--textColorDark-blue);
-    opacity: 0.85;
+	opacity: 0.85;
 }
 
-.dark-theme .toast-close svg{
-    color: var(--darkColor-dark)
+.dark-theme .toast-close svg {
+	color: var(--darkColor-dark);
 }
 /* ------------ End of Toast---------- */
