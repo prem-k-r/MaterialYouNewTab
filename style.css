@@ -1902,14 +1902,7 @@ html.dark-theme.glass-enabled .bgLightTint {
    (applied only when enabled)
 ========================= */
 
-html.glass-enabled .bgLightTint,
-html.glass-enabled .searchbar,
-html.glass-enabled .tiles,
-html.glass-enabled .lrectangle,
-html.glass-enabled .modal-content,
-html.glass-enabled .ai-modal-content {
-    background-color: rgba(255, 255, 255, var(--glass-alpha));
-}
+
 html.dark-theme.glass-enabled .bgLightTint,
 html.dark-theme.glass-enabled .searchbar,
 html.dark-theme.glass-enabled .tiles,
