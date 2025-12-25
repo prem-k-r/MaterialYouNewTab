@@ -3248,6 +3248,9 @@ input:checked + .toggle:before {
 	);
 	border-radius: 25px;
 	padding: 7px;
+
+	transition: border-radius 0.25s var(--md-motion-ease),
+		background-color 0.25s var(--md-motion-ease);
 }
 
 .sectionOuter:hover {
@@ -3281,7 +3284,7 @@ input:checked + .toggle:before {
 	border-right: 3px solid var(--textColorDark-blue);
 	border-bottom: 3px solid var(--textColorDark-blue);
 	transform: rotate(45deg) translate(-3px, -2px);
-	transition: transform 0.25s ease;
+	transition: transform 0.25s var(--md-motion-ease);
 }
 
 /* Expanded state */
@@ -3296,6 +3299,12 @@ input:checked + .toggle:before {
 	border-radius: 22px;
 	padding: 6px 14px;
 	margin-top: 10px;
+
+	overflow: hidden;
+	max-height: 1000px; /* large enough */
+	opacity: 1;
+	transition: max-height 0.28s cubic-bezier(0.2, 0, 0, 1),
+		opacity 0.18s var(--md-motion-ease), margin-top 0.18s var(--md-motion-ease);
 }
 
 /* Rows */
@@ -3314,7 +3323,14 @@ input:checked + .toggle:before {
 }
 
 .section:not(.expanded) .sectionInner {
-	display: none;
+	max-height: 0;
+	opacity: 0;
+	margin-top: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+
+	transition: max-height 0.28s cubic-bezier(0.2, 0, 0, 1),
+		opacity 0.18s var(--md-motion-ease), margin-top 0.18s var(--md-motion-ease);
 }
 
 .dark-theme .sectionOuter {
