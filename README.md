@@ -295,3 +295,5 @@ MYNT: Material You New Tab prioritizes your privacy and is focused solely on pro
 Copyright (C) 2023-2025 XengShi
 
 This project is licensed under the GNU General Public License v3.0 (GPL-3.0). This means you must **not** distribute this software, whether original or modified, to any platform **without** its source code or the reference to its original source code. See the [LICENSE](https://github.com/prem-k-r/materialYouNewTab/blob/main/LICENSE) file for details.
+
+This is intended to my repository.
