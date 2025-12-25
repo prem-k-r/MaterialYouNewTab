@@ -3017,8 +3017,8 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 
 .divider {
 	height: 6px;
-	width: 140px;
-	background-color: var(--whitishColor-blue);
+	width: 37%;
+	background-color: #ffffffcc;
 	border-radius: 3px;
 	margin: 20px auto;
 }
@@ -3235,7 +3235,7 @@ input:checked + .toggle:before {
 
 /* ===== Unified Section ===== */
 .section {
-	margin-bottom: 16px;
+	margin-bottom: 18px;
 }
 
 /* OUTER container */
@@ -3598,6 +3598,10 @@ input:checked + .toggle:before {
 	margin-top: 19px;
 }
 
+.languageSection {
+	gap: 20px;
+}
+
 .languageSelector,
 .darkModeSelector {
 	background-color: var(--whitishColor-blue);
@@ -3615,7 +3619,7 @@ input:checked + .toggle:before {
 	appearance: none;
 	-moz-appearance: none;
 	cursor: pointer;
-	padding-inline-start: 18px;
+	padding-inline-start: 20px;
 	font-size: 0.82rem;
 	@-moz-document url-prefix() {
 		/* Scrollbar styles for Firefox */
@@ -3763,6 +3767,10 @@ input:checked + .toggle:before {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.languageIcon svg {
+	padding: 2px;
 }
 
 /* --------- Styling for Upload/Random/Clear Buttons --------- */
@@ -5043,6 +5051,11 @@ body[data-bg="wallpaper"] .dropdown-content {
 	display: grid;
 	gap: 12px;
 	background-color: var(--bg-color-blue);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 40%,
+		var(--bg-color-blue)
+	);
 	padding: 18px 20px;
 	border-radius: 20px;
 }

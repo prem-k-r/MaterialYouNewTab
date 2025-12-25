@@ -4,7 +4,7 @@ const en = {
     "github": "GitHub",
     "feedback": "Feedback",
 
-    // Setions titles
+    // Section titles
     "personalizationSectionTitle": "Personalization",
     "clockSectionTitle": "Clock",
     "searchSectionTitle": "Search",
