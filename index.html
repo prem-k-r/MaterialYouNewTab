@@ -1642,7 +1642,7 @@
 
                     <div class="divider"></div>
 
-                    <div class="section expanded">
+                    <div class="section expanded appearanceSection">
                         <div class="sectionOuter">
                             <div class="sectionHeader" role="button">
                                 <span class="sectionTitle" id="appearanceSectionTitle">Appearance</span>
@@ -1650,116 +1650,120 @@
                             </div>
 
                             <div class="sectionInner">
-                                <div class="darkModeSection">
-                                    <div class="darkModeIcon">
-                                        <svg height="100%" width="100%" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g id="darkModeSelectorIconSvg" class="accentColor">
-                                                <path
-                                                    d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16m0-1.2V5.2a6.8 6.8 0 0 1 0 13.6" />
-                                            </g>
-                                        </svg>
+                                <div class="innerSurface">
+                                    <div class="darkModeSection">
+                                        <div class="darkModeIcon">
+                                            <svg height="100%" width="100%" viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="darkModeSelectorIconSvg" class="accentColor">
+                                                    <path
+                                                        d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16m0-1.2V5.2a6.8 6.8 0 0 1 0 13.6" />
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <select class="darkModeSelector" id="darkModeSelector">
+                                            <option value="light" id="lightThemed">Light Theme</option>
+                                            <option value="dark" id="darkThemed">Dark Theme</option>
+                                            <option value="system" id="systemThemed">Follow System Theme</option>
+                                        </select>
                                     </div>
-                                    <select class="darkModeSelector" id="darkModeSelector">
-                                        <option value="light" id="lightThemed">Light Theme</option>
-                                        <option value="dark" id="darkThemed">Dark Theme</option>
-                                        <option value="system" id="systemThemed">Follow System Theme</option>
-                                    </select>
-                                </div>
-                                <!-- ---🟡--- -->
+                                    <!-- ---🟡--- -->
 
-                                <div class="themingStuff">
-                                    <!-- ⚫🟣🔵🔴🟡🟢🟠⚪ -->
-                                    <div class="btn" id="themeButton">
-                                        <svg fill="none" height="100%" viewBox="0 0 20 20" width="100%"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path id="themeIconSvg" class="accentColor"
-                                                d="M14.2778 10a1.1668 1.1668 0 0 1-.825-1.9916 1.1668 1.1668 0 0 1 1.9916.825A1.1666 1.1666 0 0 1 14.2778 10Zm-2.3334-3.1111a1.1666 1.1666 0 1 1 0-2.3332 1.1666 1.1666 0 0 1 0 2.3332Zm-3.8888 0a1.1667 1.1667 0 1 1 0-2.3334 1.1667 1.1667 0 0 1 0 2.3334ZM5.7222 10a1.1667 1.1667 0 1 1 0-2.3334 1.1667 1.1667 0 0 1 0 2.3334ZM10 3a7 7 0 0 0 0 14 1.1668 1.1668 0 0 0 1.1667-1.1667c0-.3033-.1167-.5755-.3034-.7777-.1789-.21-.2955-.4823-.2955-.7778a1.1668 1.1668 0 0 1 1.1666-1.1667h1.3767A3.889 3.889 0 0 0 17 9.2222C17 5.7844 13.8656 3 10 3Z" />
-                                        </svg>
-                                    </div>
-                                    <!-- -------- -->
-                                    <div class="colorsContainer" id="colorsContainer">
-                                        <input class="colorPlate" name="color" type="radio" value="red">
-                                        <input class="colorPlate" name="color" type="radio" value="yellow">
-                                        <input class="colorPlate" name="color" type="radio" value="green">
-                                        <input class="colorPlate" name="color" type="radio" value="cyan">
-                                        <input id="dfChecked" class="colorPlate" name="color" type="radio" checked
-                                            value="blue">
-
+                                    <div class="themingStuff">
+                                        <!-- ⚫🟣🔵🔴🟡🟢🟠⚪ -->
+                                        <div class="btn" id="themeButton">
+                                            <svg fill="none" height="100%" viewBox="0 0 20 20" width="100%"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path id="themeIconSvg" class="accentColor"
+                                                    d="M14.2778 10a1.1668 1.1668 0 0 1-.825-1.9916 1.1668 1.1668 0 0 1 1.9916.825A1.1666 1.1666 0 0 1 14.2778 10Zm-2.3334-3.1111a1.1666 1.1666 0 1 1 0-2.3332 1.1666 1.1666 0 0 1 0 2.3332Zm-3.8888 0a1.1667 1.1667 0 1 1 0-2.3334 1.1667 1.1667 0 0 1 0 2.3334ZM5.7222 10a1.1667 1.1667 0 1 1 0-2.3334 1.1667 1.1667 0 0 1 0 2.3334ZM10 3a7 7 0 0 0 0 14 1.1668 1.1668 0 0 0 1.1667-1.1667c0-.3033-.1167-.5755-.3034-.7777-.1789-.21-.2955-.4823-.2955-.7778a1.1668 1.1668 0 0 1 1.1666-1.1667h1.3767A3.889 3.889 0 0 0 17 9.2222C17 5.7844 13.8656 3 10 3Z" />
+                                            </svg>
+                                        </div>
                                         <!-- -------- -->
-                                        <input class="colorPlate" name="color" type="radio" value="pink">
-                                        <input class="colorPlate" name="color" type="radio" value="purple">
-                                        <input class="colorPlate" name="color" type="radio" value="orange">
-                                        <input class="colorPlate" name="color" type="radio" value="brown">
-                                        <input class="colorPlate" name="color" type="radio" value="silver">
+                                        <div class="colorsContainer" id="colorsContainer">
+                                            <input class="colorPlate" name="color" type="radio" value="red">
+                                            <input class="colorPlate" name="color" type="radio" value="yellow">
+                                            <input class="colorPlate" name="color" type="radio" value="green">
+                                            <input class="colorPlate" name="color" type="radio" value="cyan">
+                                            <input id="dfChecked" class="colorPlate" name="color" type="radio" checked
+                                                value="blue">
 
-                                        <!-- -------- -->
+                                            <!-- -------- -->
+                                            <input class="colorPlate" name="color" type="radio" value="pink">
+                                            <input class="colorPlate" name="color" type="radio" value="purple">
+                                            <input class="colorPlate" name="color" type="radio" value="orange">
+                                            <input class="colorPlate" name="color" type="radio" value="brown">
+                                            <input class="colorPlate" name="color" type="radio" value="silver">
 
-                                        <input class="colorPlate" name="color" type="radio" value="peach">
-                                        <input class="colorPlate" id="darkTheme" name="color" type="radio" value="dark">
+                                            <!-- -------- -->
 
-                                        <!-- ----Color Picker || ColorPicker---- -->
-                                        <label id="rangColor" class="colorPlate colorPickerLabel" for="colorPicker">Pick
-                                            color</label>
-                                        <input type="color" id="colorPicker" autocomplete="off" value="#EA1010" />
-                                        <!-- ----End of Color Picker || ColorPicker---- -->
+                                            <input class="colorPlate" name="color" type="radio" value="peach">
+                                            <input class="colorPlate" id="darkTheme" name="color" type="radio"
+                                                value="dark">
+
+                                            <!-- ----Color Picker || ColorPicker---- -->
+                                            <label id="rangColor" class="colorPlate colorPickerLabel"
+                                                for="colorPicker">Pick color</label>
+                                            <input type="color" id="colorPicker" autocomplete="off" value="#EA1010" />
+                                            <!-- ----End of Color Picker || ColorPicker---- -->
+                                        </div>
                                     </div>
-
                                 </div>
 
-                                <!-- ----Custom Wallpaper uploading thingsss------------- -->
-                                <div class="uploadClearContainer">
-                                    <!-- Upload Wallpaper Button -->
-                                    <button class="uploadButton" id="uploadTrigger">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <path fill="currentColor"
-                                                d="m11.558 13.646l-.084.071l-6.927 6.8a3.23 3.23 0 0 0 1.703.481h4.914l.356-1.423c.162-.648.497-1.24.97-1.712l2.11-2.11l-2.075-2.036l-.094-.078a.75.75 0 0 0-.873.007m4.945-5.394a.752.752 0 1 0-1.504 0a.752.752 0 0 0 1.504 0m-.843 6.441l-2.085-2.046l-.128-.117a2.25 2.25 0 0 0-2.888-.006l-.136.123l-6.938 6.81A3.23 3.23 0 0 1 3 17.75V6.25A3.25 3.25 0 0 1 6.25 3h11.499a3.25 3.25 0 0 1 3.25 3.25v4.762a3.28 3.28 0 0 0-2.608.95zM13.5 8.252a2.252 2.252 0 1 0 4.503 0a2.252 2.252 0 0 0-4.504 0m5.598 4.417l-5.901 5.901a2.7 2.7 0 0 0-.707 1.248l-.457 1.83c-.2.797.522 1.518 1.318 1.319l1.83-.458a2.7 2.7 0 0 0 1.248-.706L22.33 15.9a2.286 2.286 0 0 0-3.233-3.232" />
-                                        </svg>
-                                        <span id="uploadWallpaperText">Upload Wallpaper</span>
-                                    </button>
+                                <!-- ----Custom Wallpaper uploading things------------- -->
+                                <div class="innerSurface">
+                                    <div class="uploadClearContainer">
+                                        <!-- Upload Wallpaper Button -->
+                                        <button class="uploadButton" id="uploadTrigger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                    d="m11.558 13.646l-.084.071l-6.927 6.8a3.23 3.23 0 0 0 1.703.481h4.914l.356-1.423c.162-.648.497-1.24.97-1.712l2.11-2.11l-2.075-2.036l-.094-.078a.75.75 0 0 0-.873.007m4.945-5.394a.752.752 0 1 0-1.504 0a.752.752 0 0 0 1.504 0m-.843 6.441l-2.085-2.046l-.128-.117a2.25 2.25 0 0 0-2.888-.006l-.136.123l-6.938 6.81A3.23 3.23 0 0 1 3 17.75V6.25A3.25 3.25 0 0 1 6.25 3h11.499a3.25 3.25 0 0 1 3.25 3.25v4.762a3.28 3.28 0 0 0-2.608.95zM13.5 8.252a2.252 2.252 0 1 0 4.503 0a2.252 2.252 0 0 0-4.504 0m5.598 4.417l-5.901 5.901a2.7 2.7 0 0 0-.707 1.248l-.457 1.83c-.2.797.522 1.518 1.318 1.319l1.83-.458a2.7 2.7 0 0 0 1.248-.706L22.33 15.9a2.286 2.286 0 0 0-3.233-3.232" />
+                                            </svg>
+                                            <span id="uploadWallpaperText">Upload Wallpaper</span>
+                                        </button>
 
-                                    <!-- Random Wallpaper Button -->
-                                    <button class="randomButton" id="randomImageTrigger">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <path fill="currentColor"
-                                                style="transform: scale(0.9); transform-origin: center;"
-                                                d="M8.92 7.3c-.537.82-1.148 2.04-1.836 3.655-.723-1.48-1.584-3.24-3.656-3.24h-3A.41.41 0 0 1 0 7.284v-2.57a.41.41 0 0 1 .429-.429h3c2.231 0 4.062 1.004 5.49 3.013m14.96 11.009-4.286 4.285c-.26.26-.737.077-.737-.308v-2.571c-.056 0-2.52.03-3.2.007-1.604-.054-3.816-.29-5.706-3.02.527-.83 1.134-2.05 1.822-3.656.726 1.485 1.588 3.24 3.656 3.24h3.428v-2.57c0-.367.4-.587.75-.295l4.272 4.272a.45.45 0 0 1 0 .616zm0-12-4.286 4.286c-.256.256-.737.08-.737-.308V7.714h-3.428c-1.99 0-2.882 1.312-4.42 4.956-1.38 3.14-3.098 7.044-7.58 7.044h-3A.41.41 0 0 1 0 19.285v-2.571a.41.41 0 0 1 .429-.429h3c3.675 0 3.907-5.574 6.662-9.187.804-1.055 2.353-2.812 5.337-2.812h3.428V1.715c0-.371.404-.583.75-.295l4.272 4.272a.45.45 0 0 1 0 .616z" />
-                                        </svg>
-                                    </button>
+                                        <!-- Random Wallpaper Button -->
+                                        <button class="randomButton" id="randomImageTrigger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                    style="transform: scale(0.9); transform-origin: center;"
+                                                    d="M8.92 7.3c-.537.82-1.148 2.04-1.836 3.655-.723-1.48-1.584-3.24-3.656-3.24h-3A.41.41 0 0 1 0 7.284v-2.57a.41.41 0 0 1 .429-.429h3c2.231 0 4.062 1.004 5.49 3.013m14.96 11.009-4.286 4.285c-.26.26-.737.077-.737-.308v-2.571c-.056 0-2.52.03-3.2.007-1.604-.054-3.816-.29-5.706-3.02.527-.83 1.134-2.05 1.822-3.656.726 1.485 1.588 3.24 3.656 3.24h3.428v-2.57c0-.367.4-.587.75-.295l4.272 4.272a.45.45 0 0 1 0 .616zm0-12-4.286 4.286c-.256.256-.737.08-.737-.308V7.714h-3.428c-1.99 0-2.882 1.312-4.42 4.956-1.38 3.14-3.098 7.044-7.58 7.044h-3A.41.41 0 0 1 0 19.285v-2.571a.41.41 0 0 1 .429-.429h3c3.675 0 3.907-5.574 6.662-9.187.804-1.055 2.353-2.812 5.337-2.812h3.428V1.715c0-.371.404-.583.75-.295l4.272 4.272a.45.45 0 0 1 0 .616z" />
+                                            </svg>
+                                        </button>
 
-                                    <!-- Clear Background Button -->
-                                    <button class="clearButton" id="clearImage">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <path fill="currentColor"
-                                                d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
-                                        </svg>
-                                    </button>
+                                        <!-- Clear Background Button -->
+                                        <button class="clearButton" id="clearImage">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                    d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
+                                            </svg>
+                                        </button>
 
-                                    <!-- Hidden File Input -->
-                                    <input type="file" id="imageUpload" accept="image/*" />
-                                </div>
-                                <!-- ----End of Custom Wallpaper uploading thingsss------------- -->
+                                        <!-- Hidden File Input -->
+                                        <input type="file" id="imageUpload" accept="image/*" />
+                                    </div>
+                                    <!-- ----End of Custom Wallpaper uploading thingsss------------- -->
 
-                                <!-- Opacity Bar Control  -->
-                                <div id="opacityBarControl" class="opacityBarControl">
-                                    <div class="ttcont" id="opacityTextContainer">
-                                        <div class="texts">
-                                            <div class="bigText" id="opacityTitle">Opacity</div>
-                                            <div class="infoText" id="adjustOpacityDesc">Adjust interface transparency
+                                    <!-- Opacity Bar Control  -->
+                                    <div id="opacityBarControl" class="opacityBarControl">
+                                        <div class="ttcont" id="opacityTextContainer">
+                                            <div class="texts">
+                                                <div class="bigText" id="opacityTitle">Opacity</div>
+                                                <div class="infoText" id="adjustOpacityDesc">Adjust interface
+                                                    transparency</div>
+                                            </div>
+                                        </div>
+                                        <div class="opacityBar">
+                                            <div class="thinLine"></div>
+                                            <div class="opacitySlider" id="opacitySlider">
+                                                <div id="opacityLevel">90%</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="opacityBar">
-                                        <div class="thinLine"></div>
-                                        <div class="opacitySlider" id="opacitySlider">
-                                            <div id="opacityLevel">90%</div>
-                                        </div>
-                                    </div>
+                                    <!-- End of opacity Bar Control -->
                                 </div>
-                                <!-- End of opacity Bar Control -->
                             </div>
                         </div>
                     </div>

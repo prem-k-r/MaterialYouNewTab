@@ -1756,24 +1756,27 @@ body[data-bg="wallpaper"] .opacityBarControl {
 	opacity: 1;
 	transform: translateY(0);
 	pointer-events: auto;
-	max-height: 125px;
+	max-height: 112px;
+	padding-bottom: 18px;
+	margin-top: 20px;
+	border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 /* Max-height for specific languages with different font */
 html[lang="vi"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 117px;
+	max-height: 102px;
 }
 
 html[lang="ur"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 146px;
+	max-height: 131px;
 }
 
 html[lang="fa"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 127px;
+	max-height: 113px;
 }
 
 html[lang="ja"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 128px;
+	max-height: 114px;
 }
 
 .humidityBar,
@@ -3333,20 +3336,45 @@ input:checked + .toggle:before {
 		opacity 0.18s var(--md-motion-ease), margin-top 0.18s var(--md-motion-ease);
 }
 
-.dark-theme .sectionOuter {
+.appearanceSection .sectionInner {
+	background-color: transparent;
+	border-radius: 0;
+	padding: 0;
+}
+
+.appearanceSection .innerSurface {
+	background-color: color-mix(in srgb, var(--accentLightTint-blue) 55%, white);
+	border-radius: 22px;
+	padding: 22px 14px;
+	margin-bottom: 7px;
+}
+
+.appearanceSection .innerSurface:last-child {
+	padding: 18px 14px;
+	margin-bottom: 0;
+}
+
+.dark-theme .sectionOuter,
+.dark-theme .appearanceSection .sectionInner {
 	background-color: #222222;
 }
 
-.dark-theme .sectionOuter:hover {
+.dark-theme .sectionOuter:hover,
+.dark-theme .appearanceSection .sectionInner:hover {
 	background-color: #1e1e1e;
 }
 
-.dark-theme .sectionInner {
+.dark-theme .sectionInner,
+.dark-theme .appearanceSection .innerSurface {
 	background-color: #333333;
 }
 
 .dark-theme .sectionInner .ttcont:not(:last-child) {
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 1px solid #ffffff1a;
+}
+
+.dark-theme body[data-bg="wallpaper"] .opacityBarControl {
+	border-top: 1px solid #ffffff1a;
 }
 /* ----------- End of section ------------ */
 
@@ -3595,10 +3623,10 @@ input:checked + .toggle:before {
 	display: flex;
 	justify-content: space-between;
 	gap: var(--gap);
-	margin-top: 19px;
 }
 
 .languageSection {
+	margin-top: 19px;
 	gap: 20px;
 }
 
@@ -3652,7 +3680,7 @@ input:checked + .toggle:before {
 
 /* --------------Theming stuff------------------ */
 .themingStuff {
-	margin-top: 20px;
+	margin: 20px auto 100px;
 	position: relative;
 	width: 100%;
 	height: 50px;
@@ -3777,8 +3805,6 @@ input:checked + .toggle:before {
 /* Upload/Clear Buttons */
 .uploadClearContainer {
 	display: flex;
-	margin-top: 125px;
-	margin-bottom: 16px;
 	justify-content: space-between;
 	gap: 10px;
 }
