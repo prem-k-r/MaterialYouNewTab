@@ -34,6 +34,12 @@
 	--textColorDark-blue: #1b3041;
 	--whitishColor-blue: #ffffff;
 
+	/* Glassmorphism variables */
+	--glass-blur: 0px; /* applied when glass mode is enabled */
+	--glass-saturation: 160%;
+	--glass-alpha: 0.6;
+	--glass-max-blur: 30px;
+
 	/* 🔴🔴🔴 */
 	--bg-color-red: #fdbdbd;
 	--accentLightTint-red: #ffe7e7;
@@ -1865,6 +1871,68 @@ body[data-bg="wallpaper"] .humidityBar .thinLine {
 	inset-inline-start: 20px;
 	height: fit-content;
 	font-size: 1rem;
+}
+
+html.glass-enabled .bgLightTint,
+html.glass-enabled .searchbar,
+html.glass-enabled .tiles,
+html.glass-enabled .lrectangle,
+html.glass-enabled .modal-content,
+html.glass-enabled .ai-tools-list,
+html.glass-enabled .bookmark-sidebar,
+html.glass-enabled .liquidGlass-wrapper,
+html.glass-enabled .menuBar,
+html.glass-enabled .ai-modal-content 
+{
+	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+	backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+	transition: background-color 200ms ease, backdrop-filter 200ms ease;
+}
+
+html.glass-enabled:not(.dark-theme) .bgLightTint {
+	background-color: rgba(255,255,255,var(--glass-alpha));
+}
+
+html.dark-theme.glass-enabled .bgLightTint {
+	background-color: rgba(0,0,0,calc(var(--glass-alpha) - 0.12));
+}
+
+/* =========================
+   Glassmorphism backgrounds
+   (applied only when enabled)
+========================= */
+
+
+html.dark-theme.glass-enabled .bgLightTint,
+html.dark-theme.glass-enabled .searchbar,
+html.dark-theme.glass-enabled .tiles,
+html.dark-theme.glass-enabled .lrectangle,
+html.dark-theme.glass-enabled .modal-content,
+html.dark-theme.glass-enabled .ai-modal-content {
+    background-color: rgba(
+        0,
+        0,
+        0,
+        calc(var(--glass-alpha) - 0.12)
+    );
+}
+
+
+/* Disabled state for controls (used when glass is off) */
+.opacityBarControl.disabled {
+	opacity: 0.55;
+	pointer-events: none;
+	filter: grayscale(0.18);
+}
+#glassBlurControl.disabled {
+	opacity: 0.55;
+	pointer-events: none;
+	filter: grayscale(0.18);
+}
+
+/* Small helper for slider when aria-disabled is true */
+.opacityBar .opacitySlider[aria-disabled="true"] {
+	opacity: 0.6;
 }
 
 /* End of _____________________- */
