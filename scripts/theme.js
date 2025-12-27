@@ -158,6 +158,9 @@ const applySelectedTheme = (colorValue) => {
     // Reset dark theme if not in dark mode
     if (!isDarkMode) resetDarkTheme();
 
+    // Reset color picker label border when switching to predefined theme
+    colorPickerLabel.style.borderColor = "";
+
     // Set CSS variables based on the selected color theme
     if (colorValue === "blue") {
         document.documentElement.style.setProperty("--bg-color-blue", "#BBD6FD");
