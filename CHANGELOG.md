@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.3...main)
 
+### Improved
+
+- Introduced collapsible sections for settings menu options ([@prem-k-r](https://github.com/prem-k-r)) ([#109](https://github.com/prem-k-r/MaterialYouNewTab/pull/109))
+
 ### Localized
 
 - Translation updated for:
