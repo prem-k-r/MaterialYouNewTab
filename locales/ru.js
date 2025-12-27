@@ -4,6 +4,14 @@ const ru = {
     "github": "GitHub",
     "feedback": "Отзывы",
 
+    // Section titles
+    "personalizationSectionTitle": "Персонализация",
+    "clockSectionTitle": "Часы",
+    "searchSectionTitle": "Поиск",
+    "weatherSectionTitle": "Погода",
+    "appearanceSectionTitle": "Оформление",
+    "settingsSectionTitle": "Настройки",
+
     // Shortcuts
     "shortcutsText": "Ярлыки",
     "enableShortcutsText": "Включить/Отключить ярлыки",
