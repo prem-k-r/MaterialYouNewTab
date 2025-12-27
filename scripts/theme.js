@@ -12,7 +12,6 @@ const storedCustomColor = localStorage.getItem(customThemeStorageKey);
 const radioButtons = document.querySelectorAll(".colorPlate");
 const colorPicker = document.getElementById("colorPicker");
 const colorPickerLabel = document.getElementById("rangColor");
-const darkModeDropdown = document.getElementById("darkModeSelector");
 
 // MediaQuery for system theme detection
 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
@@ -24,27 +23,75 @@ const syncThemeChange = (MediaQuery) => {
 // Listen for device theme changes
 systemTheme.addEventListener('change', syncThemeChange);
 
-// Listen for darkMode dropdown changes and save to localStorage
-darkModeDropdown.addEventListener("change", function () {
-    localStorage.setItem("preferredTheme", this.value);
-});
-
-// Get saved theme preference
-const savedTheme = localStorage.getItem("preferredTheme");
-const darkModeCheckboxState = localStorage.getItem(darkModeCheckboxKey);
-
-// Load saved theme on page load
-if (darkModeCheckboxState === "checked") {
-    // Old dark mode checkbox setting overrides initial dropdown
-    darkModeDropdown.value = "dark";
-    localStorage.removeItem(darkModeCheckboxKey);
-} else {
-    // Otherwise use saved theme or fallback to "light" (first time users)
-    darkModeDropdown.value = savedTheme || "light";
-}
-
 // Sync theme MediaQuery
 syncThemeChange(systemTheme);
+
+// ===== Segmented Control for Dark Mode =====
+(function () {
+    const preferredThemeKey = "preferredTheme";
+    const segment = document.getElementById("themeSegment");
+    const indicator = segment.querySelector(".themeIndicator");
+    const buttons = segment.querySelectorAll(".themeSegBtn");
+    const systemThemeLocal = window.matchMedia("(prefers-color-scheme: dark)");
+
+    // Move indicator to correct position
+    function moveIndicator(theme) {
+        const index = theme === "light" ? 0 : theme === "dark" ? 1 : 2;
+        indicator.style.transform = `translateX(${index * 100}%)`;
+    }
+
+    // Apply theme mode (light/dark/system)
+    function applyThemeMode(theme) {
+        localStorage.setItem(preferredThemeKey, theme);
+        segment.dataset.active = theme;
+        moveIndicator(theme);
+
+        // Update sysTheme attribute when system mode is selected
+        if (theme === "system") {
+            syncThemeChange(systemThemeLocal);
+        }
+    }
+
+    // Button click handlers
+    buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            applyThemeMode(btn.dataset.theme);
+        });
+    });
+
+    // System theme change listener
+    systemThemeLocal.addEventListener("change", (e) => {
+        if (localStorage.getItem(preferredThemeKey) === "system") {
+            // Update the sysTheme attribute so CSS can react
+            syncThemeChange(e);
+        }
+    });
+
+    function initializeThemeMode() {
+        const darkModeCheckboxState = localStorage.getItem(darkModeCheckboxKey);
+        const savedPreferredTheme = localStorage.getItem(preferredThemeKey);
+
+        let initialTheme;
+
+        if (darkModeCheckboxState === "checked") {
+            // Migrate old checkbox users to "dark" mode
+            initialTheme = "dark";
+            localStorage.removeItem(darkModeCheckboxKey);
+            localStorage.setItem(preferredThemeKey, "dark");
+        } else if (savedPreferredTheme) {
+            // Use saved preference
+            initialTheme = savedPreferredTheme;
+        } else {
+            // First time user - default to light
+            initialTheme = "light";
+        }
+
+        applyThemeMode(initialTheme);
+    }
+
+    // Initialize
+    initializeThemeMode();
+})();
 
 document.addEventListener("DOMContentLoaded", () => {
     // Check for custom color
@@ -85,7 +132,7 @@ function ApplyLoadingColor() {
 
 const resetDarkTheme = () => {
     // Remove the dark theme class
-    document.documentElement.classList.remove("dark-theme");
+    document.documentElement.classList.remove("black-theme");
 
     // Reset inline styles that were applied specifically for dark mode
     const resetElements = ["searchQ", "searchIconDark", "darkFeelsLikeIcon", "menuButton", "menuCloseButton", "closeBtnX"];
@@ -134,7 +181,7 @@ const applySelectedTheme = (colorValue) => {
 
     // Handle dark mode specific changes
     if (isDarkMode) {
-        document.documentElement.classList.add("dark-theme");
+        document.documentElement.classList.add("black-theme");
         document.querySelectorAll(".accentColor").forEach(el => {
             el.style.fill = "#212121";
         });

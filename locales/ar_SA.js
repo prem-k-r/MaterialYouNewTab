@@ -164,9 +164,9 @@ const ar_SA = {
     resetAISettingsBtn: "إعادة تعيين",
 
     // Theme
-    "lightThemed": "الوضع الفاتح (الافتراضي)",
-    "darkThemed": "الوضع الداكن",
-    "systemThemed": "اتبع نظام الجهاز",
+    "lightThemed": "فاتح",
+    "darkThemed": "داكن",
+    "systemThemed": "النظام",
 
     // Wallpaper and settings
     uploadWallpaperText: "تحميل خلفية",

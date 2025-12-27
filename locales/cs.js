@@ -149,9 +149,9 @@ const cs = {
     "resetAISettingsBtn": "Resetovat",
 
     // Theme
-    "lightThemed": "Výchozí (světlý režim)",
-    "darkThemed": "Temný režim",
-    "systemThemed": "Podle režimu systému",
+    "lightThemed": "Světlý",
+    "darkThemed": "Tmavý",
+    "systemThemed": "Systém",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Nahrát tapetu",

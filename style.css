@@ -222,14 +222,13 @@ body {
 }
 
 /* Apply dark mode when: Dark Mode is selected manually, OR System Theme is selected */
-html:has(
-		body[data-bg="color"] .menuBar select option[value="dark"]:checked
-	):not(:has(#darkTheme:checked)),
+html:has(body[data-bg="color"] .menuBar .themeSegment[data-active="dark"]):not(
+		:has(#darkTheme:checked)
+	),
 html:has(
 		body[data-bg="color"][sysTheme="systemDark"]
 			.menuBar
-			select
-			option[value="system"]:checked
+			.themeSegment[data-active="system"]
 	):not(:has(#darkTheme:checked)) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
@@ -253,20 +252,20 @@ html:has(
 	--whitishColor-blue: #f2f2f2;
 }
 
-body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
+body[data-bg="wallpaper"]:has(.menuBar .themeSegment[data-active="dark"]):not(
 		:has(#darkTheme:checked)
 	)
 	> *:not(.menuBar, #bookmarksContainer),
-body[data-bg="wallpaper"]:has(.menuBar select option[value="dark"]:checked):not(
+body[data-bg="wallpaper"]:has(.menuBar .themeSegment[data-active="dark"]):not(
 		:has(#darkTheme:checked)
 	)
 	:is(.menuCont, .bookmark-sidebar),
 body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
-		.menuBar select option[value="system"]:checked
+		.menuBar .themeSegment[data-active="system"]
 	):not(:has(#darkTheme:checked))
 	> *:not(.menuBar, #bookmarksContainer),
 body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
-		.menuBar select option[value="system"]:checked
+		.menuBar .themeSegment[data-active="system"]
 	):not(:has(#darkTheme:checked))
 	:is(.menuCont, .bookmark-sidebar) {
 	filter: invert(1) hue-rotate(180deg);
@@ -1237,11 +1236,11 @@ body #bookmarkButton.bookmark-button.rotate {
 	outline: 1px solid var(--darkColor-blue);
 }
 
-.dark-theme .addTaskCont {
+.black-theme .addTaskCont {
 	background-color: #5f5f5f;
 }
 
-.dark-theme .addTaskCont:focus-within {
+.black-theme .addTaskCont:focus-within {
 	outline: 1px solid var(--accentLightTint-dark);
 }
 
@@ -1281,7 +1280,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	font-size: 1rem;
 }
 
-.dark-theme #todoInput {
+.black-theme #todoInput {
 	color: var(--whitishColor-blue);
 }
 
@@ -2325,7 +2324,7 @@ body[data-bg="wallpaper"] .quotesContainer {
 	text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
-.dark-theme body[data-bg="wallpaper"] .quotesContainer {
+.black-theme body[data-bg="wallpaper"] .quotesContainer {
 	text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 }
 
@@ -3356,26 +3355,26 @@ input:checked + .toggle:before {
 	margin-bottom: 0;
 }
 
-.dark-theme .sectionOuter,
-.dark-theme .appearanceSection .sectionInner {
+.black-theme .sectionOuter,
+.black-theme .appearanceSection .sectionInner {
 	background-color: #222222;
 }
 
-.dark-theme .sectionOuter:hover,
-.dark-theme .appearanceSection .sectionInner:hover {
+.black-theme .sectionOuter:hover,
+.black-theme .appearanceSection .sectionInner:hover {
 	background-color: #1e1e1e;
 }
 
-.dark-theme .sectionInner,
-.dark-theme .appearanceSection .innerSurface {
+.black-theme .sectionInner,
+.black-theme .appearanceSection .innerSurface {
 	background-color: #333333;
 }
 
-.dark-theme .sectionInner .ttcont:not(:last-child) {
+.black-theme .sectionInner .ttcont:not(:last-child) {
 	border-bottom: 1px solid #ffffff1a;
 }
 
-.dark-theme body[data-bg="wallpaper"] .opacityBarControl {
+.black-theme body[data-bg="wallpaper"] .opacityBarControl {
 	border-top: 1px solid #ffffff1a;
 }
 /* ----------- End of section ------------ */
@@ -3617,22 +3616,16 @@ input:checked + .toggle:before {
 /* ---------------Menu-bar-css---------------- */
 
 /* --------------Language & Dark Mode Selection-------------- */
-.languageSection,
-.darkModeSection {
+.languageSection {
 	width: 100%;
 	height: 50px;
 	display: flex;
 	justify-content: space-between;
-	gap: var(--gap);
-}
-
-.languageSection {
 	margin-top: 19px;
 	gap: 20px;
 }
 
-.languageSelector,
-.darkModeSelector {
+.languageSelector {
 	background-color: var(--whitishColor-blue);
 	align-items: center;
 	justify-content: center;
@@ -3671,8 +3664,7 @@ input:checked + .toggle:before {
 	border-radius: 3px;
 }
 
-.languageSelector:focus,
-.darkModeSelector:focus {
+.languageSelector:focus {
 	border: 2px solid var(--darkColor-blue);
 	/* color matching border on focus */
 	outline: none;
@@ -3680,8 +3672,87 @@ input:checked + .toggle:before {
 }
 
 /* --------------Theming stuff------------------ */
+.themeSegment {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	padding: 4px;
+	border-radius: 30px;
+	background: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 60%,
+		var(--bg-color-blue)
+	);
+	transition: background 0.25s var(--md-motion-ease);
+}
+
+/* Sliding pill indicator */
+.themeIndicator {
+	position: absolute;
+	top: 4px;
+	bottom: 4px;
+	left: 4px;
+	width: calc((100% - 8px) / 3);
+	background: #ffffffe6;
+	border-radius: 30px;
+	transition: transform 0.32s var(--md-motion-decelerate);
+	z-index: 0;
+}
+
+.black-theme .themeIndicator {
+	background: #1e1e1e;
+}
+
+/* Segment buttons */
+.themeSegBtn {
+	position: relative;
+	z-index: 1;
+	background: none;
+	border: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 34px;
+	font-size: 0.86rem;
+	line-height: 1;
+	cursor: pointer;
+	color: inherit;
+	padding: 0;
+}
+
+/* Divider on Dark button */
+.themeSegBtn[data-theme="dark"]::after {
+	content: "";
+	position: absolute;
+	top: 6px;
+	bottom: 6px;
+	width: 1px;
+	background: #ffffffe6;
+	opacity: 0;
+	transition: opacity 0.2s var(--md-motion-ease);
+}
+
+/* Light selected → divider on RIGHT of Dark */
+.themeSegment[data-active="light"] .themeSegBtn[data-theme="dark"]::after {
+	right: -2px;
+	opacity: 1;
+}
+
+/* System selected → divider on LEFT of Dark */
+.themeSegment[data-active="system"] .themeSegBtn[data-theme="dark"]::after {
+	left: -2px;
+	opacity: 1;
+}
+
+/* Dark selected → no divider */
+.themeSegment[data-active="dark"] .themeSegBtn[data-theme="dark"]::after {
+	opacity: 0;
+}
+/* Segmented Control ended */
+
 .themingStuff {
-	margin: 20px auto 100px;
+	margin: 22px auto 100px;
 	position: relative;
 	width: 100%;
 	height: 50px;
@@ -3785,8 +3856,7 @@ input:checked + .toggle:before {
 	z-index: 2;
 }
 
-.languageIcon,
-.darkModeIcon {
+.languageIcon {
 	background-color: var(--whitishColor-blue);
 	height: 100%;
 	aspect-ratio: 1/1;
@@ -4599,250 +4669,247 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 /* ------------------- Dark(Black) theme ------------------- */
-.dark-theme .search-engine input[type="radio"]:checked {
+.black-theme .search-engine input[type="radio"]:checked {
 	background-color: #2a2a2a;
 	border: 2px solid #919191;
 }
 
-.dark-theme .search-engine input[type="radio"] {
+.black-theme .search-engine input[type="radio"] {
 	background-color: #9d9d9d;
 	border: 0px solid #000000;
 }
 
-.dark-theme .colorsContainer {
+.black-theme .colorsContainer {
 	background-color: var(--darkColor-dark);
 }
 
-.dark-theme #themeButton {
+.black-theme #themeButton {
 	background-color: var(--darkColor-dark);
 }
 
-.dark-theme #themeIconSvg,
-.dark-theme #languageSelectorIconSvg,
-.dark-theme #darkModeSelectorIconSvg {
+.black-theme #themeIconSvg,
+.black-theme #languageSelectorIconSvg {
 	fill: #cdcdcd !important;
 }
 
-.dark-theme .languageIcon,
-.dark-theme .languageSelector,
-.dark-theme .darkModeIcon,
-.dark-theme .darkModeSelector {
+.black-theme .languageIcon,
+.black-theme .languageSelector {
 	background-color: var(--darkColor-dark);
 	scrollbar-color: var(--darkerColor-blue) transparent;
 }
 
-.dark-theme .languageSelector::-webkit-scrollbar-thumb,
-.dark-theme .languageSelector::-webkit-scrollbar-thumb:hover {
+.black-theme .languageSelector::-webkit-scrollbar-thumb,
+.black-theme .languageSelector::-webkit-scrollbar-thumb:hover {
 	background-color: var(--darkerColor-blue);
 }
 
-.dark-theme .bottom a {
+.black-theme .bottom a {
 	color: #a1a1a1;
 }
 
-.dark-theme .ttcont input {
+.black-theme .ttcont input {
 	background-color: var(--darkColor-dark) !important;
 }
 
-.dark-theme input:checked + .toggle {
+.black-theme input:checked + .toggle {
 	background-color: #aaaaaa;
 }
 
-.dark-theme .tilesCont .tiles {
+.black-theme .tilesCont .tiles {
 	color: #e8e8e8;
 }
 
-.dark-theme .resetbtn:hover {
+.black-theme .resetbtn:hover {
 	background-color: var(--bg-color-dark);
 }
 
-.dark-theme .resetbtn:active {
+.black-theme .resetbtn:active {
 	background-color: #4e4e4e;
 }
 
-.dark-theme .savebtn:hover {
+.black-theme .savebtn:hover {
 	background-color: var(--bg-color-dark);
 }
 
-.dark-theme .tiles:hover {
+.black-theme .tiles:hover {
 	background-color: var(--bg-color-dark);
 }
 
-.dark-theme .bottom a:hover {
+.black-theme .bottom a:hover {
 	color: var(--darkerColor-blue);
 }
 
-.dark-theme #searchQ {
+.black-theme #searchQ {
 	color: #fff;
 }
 
-.dark-theme #enterBtn:hover {
+.black-theme #enterBtn:hover {
 	background-color: #0e0e0e !important;
 }
 
-.dark-theme .searchbar.active {
+.black-theme .searchbar.active {
 	outline: 2px solid #696969;
 }
 
-.dark-theme #searchIconDark {
+.black-theme #searchIconDark {
 	fill: #bbb !important;
 }
 
-.dark-theme .dropdown-item.selected:not(*[data-default]):before {
+.black-theme .dropdown-item.selected:not(*[data-default]):before {
 	background-color: #707070;
 }
 
-.dark-theme .tilesContainer .tiles {
+.black-theme .tilesContainer .tiles {
 	background-color: var(--darkColor-dark) !important;
 }
 
-.dark-theme #darkFeelsLikeIcon {
+.black-theme #darkFeelsLikeIcon {
 	fill: #fff !important;
 }
 
-.dark-theme .humidityBar .slider {
+.black-theme .humidityBar .slider {
 	background-color: var(--darkColor-dark) !important;
 }
 
-.dark-theme .humidityBar .thinLine,
-.dark-theme .opacityBar .timeline {
+.black-theme .humidityBar .thinLine,
+.black-theme .opacityBar .timeline {
 	background-color: #aaaaaa;
 }
 
-.dark-theme .search-engine .search-engine-icon,
-.dark-theme .aiDarkIcons {
+.black-theme .search-engine .search-engine-icon,
+.black-theme .aiDarkIcons {
 	fill: #bbbbbb !important;
 }
 
-.dark-theme .divider {
+.black-theme .divider {
 	background-color: #cdcdcd;
 }
 
-.dark-theme .shorcutDarkColor {
+.black-theme .shorcutDarkColor {
 	fill: var(--accentLightTint-dark) !important;
 }
 
-.dark-theme #darkLightTint {
+.black-theme #darkLightTint {
 	fill: #bfbfbf !important;
 }
 
-.dark-theme .shortcutsContainer .shortcuts .shortcutLogoContainer {
+.black-theme .shortcutsContainer .shortcuts .shortcutLogoContainer {
 	background: radial-gradient(circle, #bfbfbf 66%, transparent 66%);
 	&:not(:has(svg)) {
 		background: var(--accentLightTint-blue);
 	}
 }
 
-.dark-theme .digiclock {
+.black-theme .digiclock {
 	fill: #909090;
 }
 
-.dark-theme .uploadButton,
-.dark-theme .randomButton {
+.black-theme .uploadButton,
+.black-theme .randomButton {
 	background-color: var(--darkColor-blue);
 	color: var(--whitishColor-dark);
 }
 
-.dark-theme .clearButton {
+.black-theme .clearButton {
 	color: var(--textColorDark-dark);
 }
 
-.dark-theme .clearButton:hover {
+.black-theme .clearButton:hover {
 	background-color: var(--whitishColor-dark);
 	color: var(--darkColor-dark);
 }
 
-.dark-theme .clearButton:active {
+.black-theme .clearButton:active {
 	color: #000000;
 }
 
-.dark-theme .backupRestoreBtn {
+.black-theme .backupRestoreBtn {
 	background-color: var(--darkColor-dark);
 }
 
-.dark-theme .backupRestoreBtn:hover,
-.dark-theme .uploadButton:hover,
-.dark-theme .randomButton:hover,
-.dark-theme #todoAdd:hover {
+.black-theme .backupRestoreBtn:hover,
+.black-theme .uploadButton:hover,
+.black-theme .randomButton:hover,
+.black-theme #todoAdd:hover {
 	background-color: var(--bg-color-dark);
 }
 
-.dark-theme .uploadButton:active,
-.dark-theme .randomButton:active,
-.dark-theme .backupRestoreBtn:active,
-.dark-theme .resetbtn:active {
+.black-theme .uploadButton:active,
+.black-theme .randomButton:active,
+.black-theme .backupRestoreBtn:active,
+.black-theme .resetbtn:active {
 	background-color: #0e0e0e;
 }
 
-.dark-theme .todolistitem .todoremovebtn {
+.black-theme .todolistitem .todoremovebtn {
 	color: #616161;
 }
 
-.dark-theme .todolistitem .todoremovebtn:hover {
+.black-theme .todolistitem .todoremovebtn:hover {
 	color: #888888;
 }
 
-.dark-theme .todolistitem .todoeditbtn {
+.black-theme .todolistitem .todoeditbtn {
 	color: #616161;
 }
 
-.dark-theme .todolistitem .todoeditbtn:hover {
+.black-theme .todolistitem .todoeditbtn:hover {
 	color: #888888;
 }
 
-.dark-theme .bookmark-view-as-button,
-.dark-theme .bookmark-sort-button {
+.black-theme .bookmark-view-as-button,
+.black-theme .bookmark-sort-button {
 	color: var(--darkerColor-dark);
 	border-color: var(--darkColor-blue);
 }
 
-.dark-theme #bookmarkViewGrid.active,
-.dark-theme #bookmarkViewList.active,
-.dark-theme .bookmark-sort-button.active {
+.black-theme #bookmarkViewGrid.active,
+.black-theme #bookmarkViewList.active,
+.black-theme .bookmark-sort-button.active {
 	background: var(--darkColor-blue);
 	color: white !important;
 }
 
-.dark-theme #bookmarkSearch {
+.black-theme #bookmarkSearch {
 	background-color: var(--darkColor-dark) !important;
 }
 
-.dark-theme .bookmark-search-container::after {
+.black-theme .bookmark-search-container::after {
 	filter: none;
 }
 
-.dark-theme .bookmark-button svg {
+.black-theme .bookmark-button svg {
 	fill: var(--textColorDark-blue);
 }
 
-.dark-theme .button-group {
+.black-theme .button-group {
 	background-color: #333333;
 }
 
-.dark-theme #bookmarkList:is(.grid-view) li a:has(.favicon)::after,
-.dark-theme #bookmarkList:is(.grid-view) li a:has(.favicon)::before {
+.black-theme #bookmarkList:is(.grid-view) li a:has(.favicon)::after,
+.black-theme #bookmarkList:is(.grid-view) li a:has(.favicon)::before {
 	background: var(--darkColor-dark);
 }
 
-.dark-theme .ai-settings-modal .ai-reset-button:hover,
-.dark-theme .ai-settings-modal .ai-save-button:hover {
+.black-theme .ai-settings-modal .ai-reset-button:hover,
+.black-theme .ai-settings-modal .ai-save-button:hover {
 	background: #353535;
 }
 
-.dark-theme .aiToolsCont .toolsCont a:hover {
+.black-theme .aiToolsCont .toolsCont a:hover {
 	box-shadow: inset 0 0 0 1px var(--darkerColor-dark);
 }
 
-.dark-theme .favicon {
+.black-theme .favicon {
 	filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
 }
 
-.dark-theme .micIcon,
-.dark-theme .floating-label-field input {
+.black-theme .micIcon,
+.black-theme .floating-label-field input {
 	background-color: var(--whitishColor-dark);
 }
 
-.dark-theme body[data-bg="wallpaper"] .micIcon {
+.black-theme body[data-bg="wallpaper"] .micIcon {
 	background-color: color-mix(
 		in srgb,
 		var(--whitishColor-dark) calc(var(--transparency) * 2),
@@ -4850,129 +4917,129 @@ body[data-bg="wallpaper"] .dropdown-content {
 	);
 }
 
-.dark-theme #searchQ::placeholder {
+.black-theme #searchQ::placeholder {
 	color: #909090 !important;
 }
 
-.dark-theme .floating-label-field input:focus + label,
-.dark-theme .floating-label-field input:not(:placeholder-shown) + label {
+.black-theme .floating-label-field input:focus + label,
+.black-theme .floating-label-field input:not(:placeholder-shown) + label {
 	color: var(--textColorDark-dark);
 }
 
-.dark-theme #editBookmarkModal button {
+.black-theme #editBookmarkModal button {
 	background-color: var(--accentLightTint-dark);
 }
 
-.dark-theme #editBookmarkModal button:hover {
+.black-theme #editBookmarkModal button:hover {
 	background-color: #353535;
 }
 
-.dark-theme #minute,
-.dark-theme #minute::after,
-.dark-theme #second::after {
+.black-theme #minute,
+.black-theme #minute::after,
+.black-theme #second::after {
 	background-color: #909090;
 }
 
-.dark-theme .dot-icon {
+.black-theme .dot-icon {
 	fill: #bfbfbf;
 }
 
-.dark-theme .menuicon {
+.black-theme .menuicon {
 	color: #c2c2c2;
 }
 
-.dark-theme #menuButton {
+.black-theme #menuButton {
 	border: 6px solid var(--accentLightTint-blue);
 	box-shadow: inset 0 0 0 4px #858585,
 		inset 0 0 0 9.7px var(--accentLightTint-blue), inset 0 0 0 40px #bfbfbf;
 }
 
-.dark-theme #menuCloseButton,
-.dark-theme #menuCloseButton:hover {
+.black-theme #menuCloseButton,
+.black-theme #menuCloseButton:hover {
 	background-color: var(--darkColor-dark);
 }
 
-.dark-theme #menuCloseButton .icon {
+.black-theme #menuCloseButton .icon {
 	background: radial-gradient(#cdcdcd 66%, transparent 66%);
 }
 
-.dark-theme #closeBtnX {
+.black-theme #closeBtnX {
 	border: 2px solid #bdbdbd;
 	border-radius: 100px;
 }
 
-.dark-theme body {
+.black-theme body {
 	background-color: #000000;
 }
 
-.dark-theme #aiIcon {
+.black-theme #aiIcon {
 	fill: #c2c2c2 !important;
 }
 
-.dark-theme .tempUnit {
+.black-theme .tempUnit {
 	color: #dadada;
 }
 
-.dark-theme #githab,
-.dark-theme #sujhaw {
+.black-theme #githab,
+.black-theme #sujhaw {
 	fill: #b1b1b1;
 }
 
-.dark-theme .resultItem.active {
+.black-theme .resultItem.active {
 	background-color: var(--darkColor-dark);
 }
 
-.dark-theme .location-suggestion-box {
+.black-theme .location-suggestion-box {
 	background-color: #272727;
 }
 
-.dark-theme .location-suggestion-item.active {
+.black-theme .location-suggestion-item.active {
 	background-color: var(--bg-color-dark);
 }
 
-.dark-theme .shortcutSettingsEntry {
+.black-theme .shortcutSettingsEntry {
 	background-color: var(--bg-color-dark);
 }
 
-.dark-theme .delete button {
+.black-theme .delete button {
 	background: #232221;
 }
 
-.dark-theme .delete button:hover {
+.black-theme .delete button:hover {
 	background: #404040;
 }
 
-.dark-theme .prompt-modal-ok {
+.black-theme .prompt-modal-ok {
 	background: var(--bg-color-dark);
 	color: var(--textColorDark-dark);
 }
 
-.dark-theme .prompt-modal-cancel {
+.black-theme .prompt-modal-cancel {
 	background: var(--darkColor-dark);
 	color: var(--textColorDark-dark);
 }
 
-.dark-theme .prompt-modal-ok:hover {
+.black-theme .prompt-modal-ok:hover {
 	background: black;
 }
 
-.dark-theme .prompt-modal-cancel:hover {
+.black-theme .prompt-modal-cancel:hover {
 	background: var(--bg-color-dark);
 }
 
-.dark-theme .prompt-modal-button:focus {
+.black-theme .prompt-modal-button:focus {
 	outline: 2px solid black;
 }
 
-.dark-theme .tips {
+.black-theme .tips {
 	background-color: var(--darkColor-dark);
 }
 
-.dark-theme #dontShowTips {
+.black-theme #dontShowTips {
 	background-color: var(--bg-color-dark);
 }
 
-.dark-theme #dontShowTips:hover {
+.black-theme #dontShowTips:hover {
 	background-color: var(--accentLightTint-dark);
 }
 /* ---------------- End of Dark(Black) theme ---------------- */
@@ -5147,7 +5214,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	transition: width 0.1s linear;
 }
 
-.dark-theme .toast-timer-bar {
+.black-theme .toast-timer-bar {
 	background: var(--darkColor-dark);
 }
 
@@ -5262,7 +5329,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	opacity: 0.85;
 }
 
-.dark-theme .toast-close svg {
+.black-theme .toast-close svg {
 	color: var(--darkColor-dark);
 }
 /* ------------ End of Toast---------- */
