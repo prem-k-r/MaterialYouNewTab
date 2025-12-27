@@ -3306,8 +3306,9 @@ input:checked + .toggle:before {
 	overflow: hidden;
 	max-height: 1000px; /* large enough */
 	opacity: 1;
-	transition: max-height 0.28s cubic-bezier(0.2, 0, 0, 1),
-		opacity 0.18s var(--md-motion-ease), margin-top 0.18s var(--md-motion-ease);
+	transition: max-height 0.4s var(--md-motion-ease),
+		opacity 0.2s var(--md-motion-ease), margin-top 0.23s var(--md-motion-ease),
+		padding 0.23s var(--md-motion-ease);
 }
 
 /* Rows */
@@ -3332,8 +3333,9 @@ input:checked + .toggle:before {
 	padding-top: 0;
 	padding-bottom: 0;
 
-	transition: max-height 0.28s cubic-bezier(0.2, 0, 0, 1),
-		opacity 0.18s var(--md-motion-ease), margin-top 0.18s var(--md-motion-ease);
+	transition: max-height 0.3s cubic-bezier(0.2, 0, 0, 1),
+		opacity 0.2s var(--md-motion-ease), margin-top 0.23s var(--md-motion-ease),
+		padding 0.23s var(--md-motion-ease);
 }
 
 .appearanceSection .sectionInner {
@@ -3379,8 +3381,7 @@ input:checked + .toggle:before {
 /* ----------- End of section ------------ */
 
 .resetbtn {
-	width: -webkit-fill-available;
-	width: -moz-available;
+	width: 100%;
 	border: none;
 	color: var(--whitishColor-blue);
 	background-color: var(--darkColor-blue);
