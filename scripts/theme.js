@@ -20,10 +20,7 @@ const syncThemeChange = (MediaQuery) => {
     document.body.setAttribute("sysTheme", MediaQuery.matches ? "systemDark" : "systemLight");
 }
 
-// Listen for device theme changes
-systemTheme.addEventListener('change', syncThemeChange);
-
-// Sync theme MediaQuery
+// Initialize system theme attribute immediately
 syncThemeChange(systemTheme);
 
 // ===== Segmented Control for Dark Mode =====
@@ -32,15 +29,12 @@ syncThemeChange(systemTheme);
     const segment = document.getElementById("themeSegment");
     const indicator = segment.querySelector(".themeIndicator");
     const buttons = segment.querySelectorAll(".themeSegBtn");
-    const systemThemeLocal = window.matchMedia("(prefers-color-scheme: dark)");
 
     // Move indicator to correct position
     function moveIndicator(theme) {
         const ltrIndex = theme === "light" ? 0 : theme === "dark" ? 1 : 2;
-
         // If RTL, reverse the index
         const index = isRTL ? 2 - ltrIndex : ltrIndex;
-
         indicator.style.transform = `translateX(${index * 100}%)`;
     }
 
@@ -52,7 +46,7 @@ syncThemeChange(systemTheme);
 
         // Update sysTheme attribute when system mode is selected
         if (theme === "system") {
-            syncThemeChange(systemThemeLocal);
+            syncThemeChange(systemTheme);
         }
     }
 
@@ -64,12 +58,7 @@ syncThemeChange(systemTheme);
     });
 
     // System theme change listener
-    systemThemeLocal.addEventListener("change", (e) => {
-        if (localStorage.getItem(preferredThemeKey) === "system") {
-            // Update the sysTheme attribute so CSS can react
-            syncThemeChange(e);
-        }
-    });
+    systemTheme.addEventListener('change', syncThemeChange);
 
     function initializeThemeMode() {
         const darkModeCheckboxState = localStorage.getItem(darkModeCheckboxKey);
@@ -83,11 +72,9 @@ syncThemeChange(systemTheme);
             localStorage.removeItem(darkModeCheckboxKey);
             localStorage.setItem(preferredThemeKey, "dark");
         } else if (savedPreferredTheme) {
-            // Use saved preference
-            initialTheme = savedPreferredTheme;
+            initialTheme = savedPreferredTheme; // Use saved preference
         } else {
-            // First time user - default to light
-            initialTheme = "light";
+            initialTheme = "light"; // First time user
         }
 
         applyThemeMode(initialTheme);
