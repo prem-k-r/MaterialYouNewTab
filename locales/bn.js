@@ -4,6 +4,14 @@ const bn = {
     "github": "গিটহাব",
     "feedback": "মতামত",
 
+    // Section titles
+    "personalizationSectionTitle": "ব্যক্তিগতকরণ",
+    "clockSectionTitle": "ঘড়ি",
+    "searchSectionTitle": "অনুসন্ধান",
+    "weatherSectionTitle": "আবহাওয়া",
+    "appearanceSectionTitle": "দৃশ্যরূপ",
+    "settingsSectionTitle": "সেটিংস",
+
     // Shortcuts
     "shortcutsText": "শর্টকাট",
     "enableShortcutsText": "সংরক্ষিত শর্টকাটগুলি প্রদর্শন করুন",

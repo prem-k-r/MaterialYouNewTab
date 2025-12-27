@@ -43,32 +43,32 @@ const translations = {
 
 // Define the width of the menu container for each language
 const menuWidths = {
-    en: "400px",
-    ta: "480px",
-    pt: "470px",
-    bn: "416px",
-    uz: "455px",
-    vi: "445px",
-    cs: "452px",
-    es: "446px",
-    hi: "408px",
-    hu: "445px",
-    ja: "444px",
-    ru: "400px",
-    it: "437px",
-    idn: "435px",
-    tr: "430px",
-    fr: "475px",
-    az: "418px",
-    sl: "470px",
-    np: "430px",
-    de: "460px",
-    fa: "460px",
-    ar_SA: "440px",
-    el: "455px",
-    th: "455px",
-    pl: "455px",
-    uk: "455px",
+    en: "443px",
+    ta: "522px",
+    pt: "512px",
+    bn: "458px",
+    uz: "497px",
+    vi: "487px",
+    cs: "494px",
+    es: "488px",
+    hi: "450px",
+    hu: "487px",
+    ja: "486px",
+    ru: "442px",
+    it: "479px",
+    idn: "477px",
+    tr: "472px",
+    fr: "517px",
+    az: "460px",
+    sl: "512px",
+    np: "472px",
+    de: "502px",
+    fa: "502px",
+    ar_SA: "482px",
+    el: "497px",
+    th: "497px",
+    pl: "497px",
+    uk: "497px",
     // Add more languages and widths as needed
 };
 
@@ -226,7 +226,13 @@ function applyLanguage(lang) {
         "opacityTitle",
         "adjustOpacityDesc",
         "footerToastTitle",
-        "footerToastMessage"
+        "footerToastMessage",
+        "personalizationSectionTitle",
+        "clockSectionTitle",
+        "searchSectionTitle",
+        "weatherSectionTitle",
+        "appearanceSectionTitle",
+        "settingsSectionTitle"
     ];
 
     // Specific mapping for placeholders
@@ -261,7 +267,8 @@ function applyLanguage(lang) {
         { id: "aiSettingsHeader", key: "aiToolsSettingsText" },
         { id: "saveAISettingsBtn", key: "saveAPI" },
         { id: "editBookmarkNameLabel", key: "editBookmarkName" },
-        { id: "editBookmarkURLLabel", key: "editBookmarkURL" }
+        { id: "editBookmarkURLLabel", key: "editBookmarkURL" },
+        { id: "shortcutsSectionTitle", key: "shortcutsText" },
     ];
 
     // Function to apply translations
@@ -313,7 +320,7 @@ function applyLanguage(lang) {
     if (menuCont) {
         menuCont.style.width = menuWidths[lang] || menuWidths["en"];
         let widthh = window.innerWidth / parseInt(menuWidths[lang] || menuWidths["en"]);
-        if (window.innerWidth < 476) {
+        if (window.innerWidth < 522) {
             let menuStyle = document.getElementById("menuStyle") || document.createElement("style");
             menuStyle.id = "menuStyle";
             menuStyle.innerHTML = `

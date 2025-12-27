@@ -21,6 +21,9 @@ const hideClockCheckbox = document.getElementById("hideClock");
 const elementsToHide = document.querySelectorAll(".clockRegion");
 
 function toggleHideState(isHidden) {
+    document.getElementById("clockHidden").style.borderBottom =
+        isHidden ? "none" : "";
+
     elementsToHide.forEach(element => {
         if (isHidden) {
             element.style.transform = "translateY(-20px)";
