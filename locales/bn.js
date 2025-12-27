@@ -159,9 +159,9 @@ const bn = {
     "resetAISettingsBtn": "রিসেট করুন",
 
     // Theme
-    "lightThemed": "ডিফল্ট (লাইট থিম)",
-    "darkThemed": "ডার্ক থিম",
-    "systemThemed": "সিস্টেম থিম অনুসরণ করুন",
+    "lightThemed": "লাইট",
+    "darkThemed": "ডার্ক",
+    "systemThemed": "সিস্টেম",
 
     // Wallpaper and settings
     "uploadWallpaperText": "ওয়ালপেপার দিন",

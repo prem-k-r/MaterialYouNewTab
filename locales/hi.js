@@ -159,9 +159,9 @@ const hi = {
     "resetAISettingsBtn": "रीसेट करें",
 
     // Theme
-    "lightThemed": "डिफ़ॉल्ट (लाइट थीम)",
-    "darkThemed": "डार्क थीम",
-    "systemThemed": "सिस्टम थीम का पालन करें",
+    "lightThemed": "लाइट",
+    "darkThemed": "डार्क",
+    "systemThemed": "सिस्टम",
 
     // Wallpaper and settings
     "uploadWallpaperText": "वॉलपेपर सेट करें",

@@ -149,9 +149,9 @@ const uk = {
     "resetAISettingsBtn": "Скинути",
 
     // Theme
-    "lightThemed": "За замовчуванням (світла тема)",
-    "darkThemed": "Темна тема",
-    "systemThemed": "Використовувати системну тему",
+    "lightThemed": "Світла",
+    "darkThemed": "Темна",
+    "systemThemed": "Система",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Завантажити шпалери",
