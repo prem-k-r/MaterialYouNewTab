@@ -36,7 +36,11 @@ syncThemeChange(systemTheme);
 
     // Move indicator to correct position
     function moveIndicator(theme) {
-        const index = theme === "light" ? 0 : theme === "dark" ? 1 : 2;
+        const ltrIndex = theme === "light" ? 0 : theme === "dark" ? 1 : 2;
+
+        // If RTL, reverse the index
+        const index = isRTL ? 2 - ltrIndex : ltrIndex;
+
         indicator.style.transform = `translateX(${index * 100}%)`;
     }
 

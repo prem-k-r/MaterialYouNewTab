@@ -3735,13 +3735,13 @@ input:checked + .toggle:before {
 
 /* Light selected → divider on RIGHT of Dark */
 .themeSegment[data-active="light"] .themeSegBtn[data-theme="dark"]::after {
-	right: -2px;
+	inset-inline-end: -2px;
 	opacity: 1;
 }
 
 /* System selected → divider on LEFT of Dark */
 .themeSegment[data-active="system"] .themeSegBtn[data-theme="dark"]::after {
-	left: -2px;
+	inset-inline-start: -2px;
 	opacity: 1;
 }
 
