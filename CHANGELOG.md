@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Arabic ([@heshamoomar](https://github.com/heshamoomar))
   - Spanish ([@palacios22c](https://github.com/palacios22c))
   - Russian ([@C0dwiz](https://github.com/C0dwiz))
+  - Czech ([@ceskyDJ](https://github.com/ceskyDJ))
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 - Added support for Ukrainian ([@lozik4](https://github.com/lozik4)) ([#106](https://github.com/prem-k-r/MaterialYouNewTab/pull/106))
 
