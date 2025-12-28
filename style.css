@@ -3650,6 +3650,14 @@ input:checked + .toggle:before {
 	}
 }
 
+select:open {
+	background: var(--bg-color-blue);
+}
+
+option:checked {
+	background: var(--accentLightTint-blue);
+}
+
 /* Scrollbar styles for Chrome, Edge, Safari */
 .languageSelector::-webkit-scrollbar {
 	width: 6px;
@@ -3660,7 +3668,7 @@ input:checked + .toggle:before {
 }
 
 .languageSelector::-webkit-scrollbar-thumb {
-	background-color: var(--bg-color-blue);
+	background-color: var(--darkColor-blue);
 	border-radius: 3px;
 }
 
@@ -3697,6 +3705,10 @@ input:checked + .toggle:before {
 	border-radius: 30px;
 	transition: transform 0.32s var(--md-motion-decelerate);
 	z-index: 0;
+}
+
+.black-theme .themeSegment {
+	background: #2a2a2a;
 }
 
 .black-theme .themeIndicator {
@@ -3747,7 +3759,7 @@ input:checked + .toggle:before {
 
 /* Dark selected → no divider */
 .themeSegment[data-active="dark"] .themeSegBtn[data-theme="dark"]::after {
-	opacity: 0;
+	content: none;
 }
 /* Segmented Control ended */
 
