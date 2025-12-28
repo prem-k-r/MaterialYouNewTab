@@ -149,9 +149,9 @@ const es = {
     "resetAISettingsBtn": "Restablecer",
 
     // Theme
-    "lightThemed": "Por defecto (Modo Claro)",
-    "darkThemed": "Modo Oscuro",
-    "systemThemed": "Modo del Sistema",
+    "lightThemed": "Claro",
+    "darkThemed": "Oscuro",
+    "systemThemed": "Sistema",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Subir Wallpaper",

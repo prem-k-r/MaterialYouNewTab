@@ -1651,22 +1651,16 @@
 
                             <div class="sectionInner">
                                 <div class="innerSurface">
-                                    <div class="darkModeSection">
-                                        <div class="darkModeIcon">
-                                            <svg height="100%" width="100%" viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <g id="darkModeSelectorIconSvg" class="accentColor">
-                                                    <path
-                                                        d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16m0-1.2V5.2a6.8 6.8 0 0 1 0 13.6" />
-                                                </g>
-                                            </svg>
-                                        </div>
-                                        <select class="darkModeSelector" id="darkModeSelector">
-                                            <option value="light" id="lightThemed">Light Theme</option>
-                                            <option value="dark" id="darkThemed">Dark Theme</option>
-                                            <option value="system" id="systemThemed">Follow System Theme</option>
-                                        </select>
+                                    <div class="themeSegment" id="themeSegment" data-active="light">
+                                        <span class="themeIndicator"></span>
+                                        <button class="themeSegBtn" id="lightThemed" data-theme="light"
+                                            type="button">Light</button>
+                                        <button class="themeSegBtn" id="darkThemed" data-theme="dark"
+                                            type="button">Dark</button>
+                                        <button class="themeSegBtn" id="systemThemed" data-theme="system"
+                                            type="button">System</button>
                                     </div>
+
                                     <!-- ---🟡--- -->
 
                                     <div class="themingStuff">
