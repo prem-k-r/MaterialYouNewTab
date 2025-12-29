@@ -158,8 +158,8 @@ const cs = {
 
     // Theme
     "lightThemed": "Světlý",
-    "darkThemed": "Tmavý",
-    "systemThemed": "Systém",
+    "darkThemed": "Temný",
+    "systemThemed": "Podle systému",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Nahrát tapetu",
