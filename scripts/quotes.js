@@ -285,6 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const motivationalQuotesCont = document.getElementById("motivationalQuotesCont");
     const motivationalQuotesCheckbox = document.getElementById("motivationalQuotesCheckbox");
     const searchWithContainer = document.getElementById("search-with-container");
+    const hideSearchCheckbox = document.getElementById("hideSearchCheckbox")
 
     // Load states from localStorage
     hideSearchWith.checked = localStorage.getItem("showShortcutSwitch") === "true";
@@ -297,12 +298,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateMotivationalQuotesState = () => {
         const isHideSearchWithEnabled = hideSearchWith.checked;
         const isMotivationalQuotesEnabled = motivationalQuotesCheckbox.checked;
+        const isHideSearchChecked = hideSearchCheckbox.checked;
 
         // Save state to localStorage
         localStorage.setItem("motivationalQuotesVisible", isMotivationalQuotesEnabled);
 
         // Handle visibility based on settings
-        if (!isHideSearchWithEnabled) {
+        if (!isHideSearchWithEnabled && !isHideSearchChecked) {
             quotesToggle.classList.add("inactive");
             motivationalQuotesCont.style.display = "none";
             clearQuotesStorage();
@@ -311,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update UI visibility
         quotesToggle.classList.remove("inactive");
-        searchWithContainer.style.display = isMotivationalQuotesEnabled ? "none" : "flex";
+        searchWithContainer.style.display = (isMotivationalQuotesEnabled || isHideSearchChecked) ? "none" : "flex";
         motivationalQuotesCont.style.display = isMotivationalQuotesEnabled ? "flex" : "none";
 
         // Load quotes if motivational quotes are enabled
@@ -328,6 +330,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Event Listeners
     hideSearchWith.addEventListener("change", () => {
         searchWithContainer.style.display = "flex";
+        updateMotivationalQuotesState();
+    });
+
+    hideSearchCheckbox.addEventListener("change", () => {
         updateMotivationalQuotesState();
     });
 
