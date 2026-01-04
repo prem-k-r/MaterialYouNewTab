@@ -1216,7 +1216,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	}
 }
 
-@keyframes todoScaleIn {
+@keyframes panelScaleIn {
 	from {
 		transform: scale(0);
 	}
@@ -1225,14 +1225,14 @@ body #bookmarkButton.bookmark-button.rotate {
 	}
 }
 
-@keyframes todoScaleOut {
+/* @keyframes panelScaleOut {
 	from {
 		transform: scale(1);
 	}
 	to {
 		transform: scale(0);
 	}
-}
+} */
 
 #todoListHeading {
 	font-size: 1.4rem;

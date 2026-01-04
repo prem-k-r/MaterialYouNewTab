@@ -19,7 +19,7 @@ googleAppsCont.addEventListener("click", function (event) {
 
     // Add or remove the class to hide the tooltip
     if (!isMenuVisible) {
-        iconContainer.style.animation = "todoScaleIn 300ms cubic-bezier(0.2, 0, 0, 1) forwards";
+        iconContainer.style.animation = "panelScaleIn 300ms cubic-bezier(0.2, 0, 0, 1) forwards";
         googleAppsCont.classList.add("menu-open"); // Hide tooltip
     } else {
         googleAppsCont.classList.remove("menu-open"); // Restore tooltip
