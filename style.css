@@ -484,6 +484,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 	scroll-behavior: smooth;
 	box-sizing: border-box;
 	z-index: 3; /* This should be higher that z-index of [.googleAppsCont] */
+	transform-origin: top right;
 }
 
 /* Individual Icon Item Styling */
@@ -1184,6 +1185,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	scroll-behavior: smooth;
 	box-sizing: border-box;
 	z-index: 3;
+	transform-origin: top left;
 }
 
 .todo-container::-webkit-scrollbar {
@@ -1211,6 +1213,24 @@ body #bookmarkButton.bookmark-button.rotate {
 	.todo-container {
 		scrollbar-width: thin;
 		scrollbar-color: var(--darkColor-blue) transparent;
+	}
+}
+
+@keyframes todoScaleIn {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
+@keyframes todoScaleOut {
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(0);
 	}
 }
 
