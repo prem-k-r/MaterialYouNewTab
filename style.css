@@ -651,9 +651,9 @@ body[data-bg="wallpaper"] .bookmark-button {
 }
 
 .bookmark-sidebar {
-	width: min(380px, 100vw);
+	width: min(420px, 100vw);
 	position: fixed;
-	inset-inline-end: max(-380px, -100vw);
+	inset-inline-end: max(-420px, -100vw);
 	top: 0;
 	height: 100%;
 	background-color: var(--accentLightTint-blue);
@@ -686,7 +686,7 @@ body[data-bg="wallpaper"] .bookmark-button {
 
 body #bookmarkButton.bookmark-button.rotate {
 	color: var(--accentLightTint-blue);
-	inset-inline-end: 412px;
+	inset-inline-end: 450px;
 	z-index: 5;
 }
 
@@ -3663,11 +3663,13 @@ input:checked + .toggle:before {
 	cursor: pointer;
 	padding-inline-start: 20px;
 	font-size: 0.82rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 	@-moz-document url-prefix() {
 		/* Scrollbar styles for Firefox */
 		scrollbar-width: thin;
 		scrollbar-color: var(--darkColor-blue) transparent;
 	}
+	transition: border 0.25s var(--md-motion-ease);
 }
 
 select:open {
@@ -3692,6 +3694,7 @@ option:checked {
 	border-radius: 3px;
 }
 
+.languageSelector:hover,
 .languageSelector:focus {
 	border: 2px solid var(--darkColor-blue);
 	/* color matching border on focus */
@@ -3789,8 +3792,8 @@ option:checked {
 	width: 100%;
 	height: 50px;
 	display: flex;
-	justify-content: space-between;
-	gap: var(--gap);
+	justify-content: space-evenly;
+	gap: 20px;
 }
 
 .colorsContainer {
@@ -3927,6 +3930,7 @@ option:checked {
 	border: none;
 	border-radius: 23px;
 	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 	transition: background-color 0.3s, color 0.3s;
 }
 
@@ -3939,6 +3943,7 @@ option:checked {
 	border: none;
 	border-radius: 26px;
 	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 	transition: background-color 0.3s, color 0.3s;
 	padding: 10px;
 }
@@ -4015,16 +4020,6 @@ option:checked {
 	background-color: var(--darkerColor-blue);
 	color: #fffffff5;
 }
-
-.spacer {
-	height: 23px;
-	/* Adjust this value to create space */
-}
-
-/* #darkTheme {
-	grid-column: span 2;
-	width: 82px;
-} */
 
 /* <!-- ----Color Picker || ColorPicker---- --> */
 #colorPicker {
@@ -4261,10 +4256,12 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 /* --------- Save button --------- */
 .savebtn {
-	transition: background-color 0.3s ease;
+	transition: background-color 0.3s var(--md-motion-ease),
+		transform 0.2s var(--md-motion-ease);
 }
 
 .savebtn:hover {
+	transform: scale(1.04);
 	background-color: var(--darkerColor-blue);
 }
 
