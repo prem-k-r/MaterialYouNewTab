@@ -209,11 +209,11 @@ Below are screenshots of the process to guide you through each step visually.
 
 ---
 
-### Installation Video
+<!-- ### Installation Video
 
 For a step-by-step walkthrough, watch this [installation guide video](https://youtu.be/P4ryQPixfw8).
 
-[![Watch the video](https://img.youtube.com/vi/P4ryQPixfw8/0.jpg)](https://youtu.be/P4ryQPixfw8)
+[![Watch the video](https://img.youtube.com/vi/P4ryQPixfw8/0.jpg)](https://youtu.be/P4ryQPixfw8) -->
 
 ## 🌐 Currently Supported Languages (31)
 

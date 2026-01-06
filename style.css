@@ -1,5 +1,5 @@
 /* 
- * Material You NewTab
+ * Material You New Tab
  * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program. 
@@ -467,7 +467,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 	);
 	backdrop-filter: blur(10px);
 	border-radius: 30px;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	border: 8px solid var(--bg-color-blue);
 	grid-template-columns: repeat(3, 1fr);
 	/* 3 icons per row */
@@ -484,6 +484,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 	scroll-behavior: smooth;
 	box-sizing: border-box;
 	z-index: 3; /* This should be higher that z-index of [.googleAppsCont] */
+	transform-origin: top right;
 }
 
 /* Individual Icon Item Styling */
@@ -1172,7 +1173,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	);
 	backdrop-filter: blur(2px);
 	border-radius: 30px;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 	border: 8px solid var(--bg-color-blue);
 	grid-template-columns: 330px;
 	justify-items: center;
@@ -1184,6 +1185,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	scroll-behavior: smooth;
 	box-sizing: border-box;
 	z-index: 3;
+	transform-origin: top left;
 }
 
 .todo-container::-webkit-scrollbar {
@@ -1213,6 +1215,24 @@ body #bookmarkButton.bookmark-button.rotate {
 		scrollbar-color: var(--darkColor-blue) transparent;
 	}
 }
+
+@keyframes panelScaleIn {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
+/* @keyframes panelScaleOut {
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(0);
+	}
+} */
 
 #todoListHeading {
 	font-size: 1.4rem;
@@ -1247,7 +1267,7 @@ body #bookmarkButton.bookmark-button.rotate {
 #todoAdd {
 	height: 100%;
 	border-radius: 20px;
-	padding: 0px 12px;
+	padding: 0 12px;
 	border: none;
 	font-size: 1.8rem;
 	background-color: var(--darkColor-blue);
@@ -2476,7 +2496,7 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 		var(--accentLightTint-blue) var(--transparency),
 		transparent
 	);
-	padding: 0px 6px;
+	padding: 0 6px;
 	border-radius: 5px;
 }
 
@@ -2665,7 +2685,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	color: var(--textColorDark-blue);
 	border-radius: var(--round);
 	padding: 30px 35px;
-	box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	z-index: 1001;
 	width: 380px;
 }
@@ -3782,7 +3802,6 @@ option:checked {
 	justify-content: center;
 	height: fit-content;
 	width: fit-content;
-
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	/* 5 divs in the first row */
@@ -4442,7 +4461,7 @@ option:checked {
 	border-radius: 16px;
 	position: absolute;
 	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 	z-index: 1;
 	top: 50px;
 	inset-inline-start: -15px;
@@ -4747,7 +4766,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 		margin-bottom: 3rem;
 
 		& #searchQ {
-			min-width: 0px;
+			min-width: 0;
 		}
 	}
 	#enterBtn {
@@ -4941,7 +4960,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	.hangno:has(
 			+ :is(
 					.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
-					.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0px;"]
+					.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0;"]
 				)
 		) {
 		& .icon {
@@ -4992,7 +5011,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 .black-theme .search-engine input[type="radio"] {
 	background-color: #9d9d9d;
-	border: 0px solid #000000;
+	border: 0 solid #000000;
 }
 
 .black-theme .colorsContainer {
@@ -5088,7 +5107,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme .humidityBar .thinLine,
-.black-theme .opacityBar .timeline {
+.black-theme .opacityBar .thinLine {
 	background-color: #aaaaaa;
 }
 
@@ -5372,7 +5391,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background: var(--accentLightTint-blue);
 	color: var(--textColorDark-blue);
 	border-radius: var(--round);
-	filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.3));
+	filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
 	padding: 30px 35px;
 }
 
@@ -5587,7 +5606,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 /* Vertical bar */
 .toast-bar-vertical {
 	position: absolute;
-	inset-inline-start: 0px;
+	inset-inline-start: 0;
 	top: 50%;
 	transform: translateY(-50%);
 	width: 9px;
