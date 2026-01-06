@@ -209,11 +209,11 @@ Below are screenshots of the process to guide you through each step visually.
 
 ---
 
-### Installation Video
+<!-- ### Installation Video
 
 For a step-by-step walkthrough, watch this [installation guide video](https://youtu.be/P4ryQPixfw8).
 
-[![Watch the video](https://img.youtube.com/vi/P4ryQPixfw8/0.jpg)](https://youtu.be/P4ryQPixfw8)
+[![Watch the video](https://img.youtube.com/vi/P4ryQPixfw8/0.jpg)](https://youtu.be/P4ryQPixfw8) -->
 
 ## 🌐 Currently Supported Languages (31)
 
@@ -287,6 +287,7 @@ Here is the star history chart for the **MYNT: Material You New Tab** repository
 
 MYNT: Material You New Tab prioritizes your privacy and is focused solely on providing a better browsing experience.
 We make the following commitments:
+
 - **No commercialization** — absolutely no ads, paid features, or premium tiers
 - **No trackers** — no data collection, analytics, or background reporting of any kind
 - **No access to personal information** — all settings, cache, and preferences are stored locally in your browser
@@ -295,7 +296,7 @@ For more details, read our [Privacy Policy](https://prem-k-r.github.io/MaterialY
 
 ## 📜 License
 
-Copyright (C) 2024-2025 Prem Kumar
+Copyright (C) 2024-2026 Prem Kumar
 
 Copyright (C) 2023-2025 XengShi
 
