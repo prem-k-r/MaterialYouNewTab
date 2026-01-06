@@ -3,14 +3,7 @@
 	"name": "MYNT: Material You New Tab",
 	"version": "3.3.4",
 	"description": "A Simple New Tab (browser's home page) inspired by Google's 'Material You' design.",
-	"permissions": [
-		"search",
-		"bookmarks",
-		"https://www.google.com/complete/search?client=*",
-		"https://duckduckgo.com/ac/?q=*",
-		"https://search.brave.com/api/suggest?q=*",
-		"https://*.wikipedia.org/w/api.php?action=opensearch&search=*"
-	],
+	"permissions": ["search", "bookmarks"],
 	"background": {
 		"scripts": ["scripts/background.js"]
 	},
