@@ -51,6 +51,54 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function normalizeHumidity(humidity, conditionText) {
+    const c = conditionText.toLowerCase();
+
+    if (
+        (c.includes("clear") || c.includes("sunny")) &&
+        humidity > 80
+    ) {
+        return Math.round((humidity + 70) / 2);
+    }
+
+    if (humidity > 95) return 95;
+    if (humidity < 15) return 15;
+
+    return humidity;
+}
+
+// WMO Weather interpretation codes
+function interpretWeatherCode(code) {
+    const weatherCodes = {
+        0: "Clear sky",
+        1: "Mainly clear",
+        2: "Partly cloudy",
+        3: "Cloudy",
+        45: "Foggy",
+        48: "Depositing rime fog",
+        51: "Light drizzle",
+        53: "Moderate drizzle",
+        55: "Dense drizzle",
+        61: "Slight rain",
+        63: "Moderate rain",
+        65: "Heavy rain",
+        71: "Slight snow",
+        73: "Moderate snow",
+        75: "Heavy snow",
+        77: "Snow grains",
+        80: "Slight rain showers",
+        81: "Moderate rain showers",
+        82: "Violent rain showers",
+        85: "Slight snow showers",
+        86: "Heavy snow showers",
+        95: "Thunderstorm",
+        96: "Thunderstorm with hail",
+        99: "Thunderstorm with heavy hail"
+    };
+
+    return weatherCodes[code] || "Unknown";
+}
+
 async function getWeatherData() {
     // Display texts 
     document.getElementById("conditionText").textContent = translations[currentLanguage]?.conditionText || translations["en"].conditionText;
@@ -68,10 +116,28 @@ async function getWeatherData() {
 
     // Load saved data from localStorage
     const savedApiKey = localStorage.getItem("weatherApiKey");
-    const savedLocation = localStorage.getItem("weatherLocation");
+    let savedLocation = localStorage.getItem("weatherLocation");
+    const isPlainTextLocation = savedLocation && !savedLocation.includes(",");
 
-    // Pre-fill input fields with saved data
-    if (savedLocation) userLocInput.value = savedLocation;
+    // Handle JSON location objects (parse if needed)
+    if (savedLocation) {
+        try {
+            const parsed = JSON.parse(savedLocation);
+
+            if (parsed.name) {
+                // Show full name in input
+                userLocInput.value = parsed.region
+                    ? `${parsed.name}, ${parsed.region}, ${parsed.country}`
+                    : `${parsed.name}, ${parsed.country}`;
+
+                // ✅ KEEP CITY NAME ONLY (do NOT convert to lat,lon)
+                savedLocation = parsed.name;
+            }
+        } catch (e) {
+            // Plain text location like "Bangalore"
+            userLocInput.value = savedLocation;
+        }
+    }
     if (savedApiKey) userAPIInput.value = savedApiKey;
 
     const minMaxTempCheckbox = document.getElementById("minMaxTempCheckbox");
@@ -101,32 +167,48 @@ async function getWeatherData() {
         location.reload();
     });
 
-    // Handle GPS toggle change
+    // Handle GPS toggle change (actually uses IP-based location for extensions)
     gpsToggle.addEventListener("change", async () => {
+        console.log("Location toggle clicked. Checked:", gpsToggle.checked);
+        
         if (gpsToggle.checked) {
-            const message = translations[currentLanguage]?.GPSDisclaimer || translations["en"].GPSDisclaimer;
-            const confirmGPS = await confirmPrompt(message, agreeText, cancelText);
-
-            if (!confirmGPS) {
-                gpsToggle.checked = false; // Revert toggle if user cancels
-                return;
+            console.log("Requesting IP-based location...");
+            
+            try {
+                const location = await fetchIPBasedLocation();
+                
+                if (location) {
+                    console.log("IP location obtained:", location);
+                    localStorage.setItem("useGPS", true);
+                    locationCont.classList.add("inactive");
+                    console.log("Location enabled, reloading...");
+                    location.reload();
+                } else {
+                    throw new Error("Could not fetch location");
+                }
+            } catch (error) {
+                console.error("Location fetch failed:", error);
+                gpsToggle.checked = false;
+                alert("Could not fetch your location. Try manual entry.");
             }
-            localStorage.setItem("useGPS", true);
-            locationCont.classList.add("inactive");
         } else {
+            console.log("Location disabled");
             localStorage.setItem("useGPS", false);
             locationCont.classList.remove("inactive");
+            location.reload();
         }
-        location.reload();
     });
 
     // Handle manual location input
     saveLocButton.addEventListener("click", () => {
         const userLocation = userLocInput.value.trim();
         localStorage.setItem("weatherLocation", userLocation);
+        localStorage.removeItem("weatherLocationQuery"); // Clear query cache to use the new location
+        localStorage.removeItem("weatherParsedData"); // Clear cached weather data to force refresh
+        localStorage.removeItem("weatherParsedTime");
+        localStorage.removeItem("weatherParsedLocation");
         localStorage.setItem("useGPS", false);
         userLocInput.value = "";
-        fetchWeather();
         location.reload();
     });
 
@@ -251,7 +333,9 @@ async function getWeatherData() {
         userLocInput.value = locationText;
 
         locationSuggestions.style.display = "none";
+        // Store the full object and the lat,lon query separately
         localStorage.setItem("weatherLocation", JSON.stringify(selectedLocation));
+        localStorage.setItem("weatherLocationQuery", `${selectedLocation.lat},${selectedLocation.lon}`);
         saveLocButton.click();
         suggestions = [];
         toggleAutocomplete();
@@ -273,7 +357,7 @@ async function getWeatherData() {
     userLocInput.addEventListener("keydown", (e) => {
         const items = locationSuggestions.querySelectorAll(".location-suggestion-item");
 
-        if (items.length === 0) return;
+        if (items.length === 0) return; // If no suggestions, let other listeners handle the event
 
         if (e.key === "ArrowDown") {
             e.preventDefault();
@@ -301,7 +385,7 @@ async function getWeatherData() {
     });
 
     // Determine the location to use
-    let currentUserLocation = savedLocation;
+    let currentUserLocation = null;
 
     // Load the saved GPS state from localStorage
     const useGPS = JSON.parse(localStorage.getItem("useGPS")) || false;
@@ -309,49 +393,60 @@ async function getWeatherData() {
     if (useGPS) locationCont.classList.add("inactive");
 
 
-    // Function to fetch GPS-based location
-    async function fetchGPSLocation() {
-        const getLocationFromGPS = () => {
-            return new Promise((resolve, reject) => {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        resolve({
-                            latitude: position.coords.latitude,
-                            longitude: position.coords.longitude,
-                        });
-                    },
-                    (error) => reject(error),
-                    { timeout: 6000 }
-                );
-            });
-        };
-
+    // Function to fetch location via IP geolocation (works in extensions)
+    async function fetchIPBasedLocation() {
         try {
-            const { latitude, longitude } = await getLocationFromGPS();
-            return `${latitude},${longitude}`;
+            const response = await fetch("https://ipinfo.io/json/");
+            const data = await response.json();
+            return data.loc; // Returns "lat,lon"
         } catch (error) {
-            console.error("Failed to retrieve GPS Location:", error);
+            console.error("IP geolocation failed:", error);
+            return null;
         }
     }
 
     // Fetch location based on user preference
     await (async function initializeLocation() {
         try {
-            if (useGPS) currentUserLocation = await fetchGPSLocation();
+            if (useGPS) {
+                currentUserLocation = await fetchIPBasedLocation();
 
-            if (!currentUserLocation) {
-                // Fallback to IP-based location if no manual input
+                if (!currentUserLocation) {
+                    throw new Error("IP location failed");
+                }
+
+                // IP location must dominate
+                localStorage.removeItem("weatherLocation");
+                localStorage.removeItem("weatherLocationQuery");
+            }
+            else if (isPlainTextLocation) {
+                // Plain text location (manual input like "Bangalore") — always clear old query cache
+                localStorage.removeItem("weatherLocationQuery");
+                currentUserLocation = savedLocation;
+            }
+            else if (localStorage.getItem("weatherLocationQuery")) {
+                currentUserLocation = localStorage.getItem("weatherLocationQuery");
+            }
+            else if (savedLocation) {
+                currentUserLocation = savedLocation;
+            }
+            else {
                 const ipInfo = "https://ipinfo.io/json/";
                 const locationData = await fetch(ipInfo);
                 const ipLocation = await locationData.json();
                 currentUserLocation = ipLocation.loc;
             }
 
-            // Fetch weather data
+            // FORCE refresh when location changes
+            localStorage.removeItem("weatherParsedData");
+            localStorage.removeItem("weatherParsedTime");
+            localStorage.removeItem("weatherParsedLocation");
+
             fetchWeather();
         } catch (error) {
-            console.error("Failed to retrieve IP-based location:", error);
-            currentUserLocation = "auto:ip";
+            console.error("Location resolution failed:", error);
+            // Fallback to Bangalore if all else fails
+            currentUserLocation = "Bangalore";
             fetchWeather();
         }
     })();
@@ -359,17 +454,21 @@ async function getWeatherData() {
     // Fetch weather data based on a location
     async function fetchWeather() {
         try {
+            console.log("fetchWeather() called. currentUserLocation:", currentUserLocation);
+            
             let parsedData = JSON.parse(localStorage.getItem("weatherParsedData"));
             const weatherParsedTime = parseInt(localStorage.getItem("weatherParsedTime"));
             const weatherParsedLocation = localStorage.getItem("weatherParsedLocation");
             const weatherParsedLang = localStorage.getItem("weatherParsedLang");
 
-            const retentionTime = savedApiKey ? 435000 : 960000; // 7.25 min for user-entered API key, 16 min otherwise
+            const retentionTime = 5 * 60 * 1000; // 5 minutes 
 
             if (!parsedData ||
                 ((Date.now() - weatherParsedTime) > retentionTime) ||
                 (weatherParsedLocation !== currentUserLocation) ||
                 (weatherParsedLang !== currentLanguage)) {
+
+                console.log("Fetching fresh weather data...");
 
                 // Language code for Weather API
                 let lang = currentLanguage === "zh_TW" ? currentLanguage : currentLanguage.split("_")[0];
@@ -377,13 +476,27 @@ async function getWeatherData() {
                 // Fetch weather data using Weather API
                 let weatherApi = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${currentUserLocation}&days=1&aqi=no&alerts=no&lang=${lang}`;
 
+                console.log("WeatherAPI URL:", weatherApi);
+
                 let data = await fetch(weatherApi);
                 parsedData = await data.json();
-                if (!parsedData.error) {
+
+                console.log("WeatherAPI Response:", parsedData);
+                console.log("WeatherAPI Current Temp C:", parsedData.current?.temp_c);
+                console.log("WeatherAPI Current Temp F:", parsedData.current?.temp_f);
+                console.log("WeatherAPI Condition Text:", parsedData.current?.condition?.text);
+                console.log("WeatherAPI Location:", parsedData.location?.name);
+
+                if (parsedData.error) {
+                    console.error("WeatherAPI Error:", parsedData.error);
+                    return;
+                }
                     // Extract only the necessary fields before saving
                     const filteredData = {
                         location: {
                             name: parsedData.location.name,
+                            lat: parsedData.location.lat,
+                            lon: parsedData.location.lon,
                         },
                         current: {
                             condition: {
@@ -393,6 +506,7 @@ async function getWeatherData() {
                             temp_c: parsedData.current.temp_c,
                             temp_f: parsedData.current.temp_f,
                             humidity: parsedData.current.humidity,
+                            humiditySource: "weatherapi",
                             feelslike_c: parsedData.current.feelslike_c,
                             feelslike_f: parsedData.current.feelslike_f,
                         },
@@ -410,13 +524,53 @@ async function getWeatherData() {
                         }
                     };
 
+                    try {
+                        const lat = filteredData.location.lat;
+                        const lon = filteredData.location.lon;
+
+                        const openMeteoUrl =
+                            `https://api.open-meteo.com/v1/forecast?` +
+                            `latitude=${lat}&longitude=${lon}&` +
+                            `current=relative_humidity_2m,weather_code`;
+
+                        const openMeteoResponse = await fetch(openMeteoUrl);
+                        const openMeteoData = await openMeteoResponse.json();
+
+                        console.log("Open-Meteo Response:", openMeteoData);
+                        console.log("Open-Meteo weather_code:", openMeteoData.current?.weather_code);
+                        console.log("Open-Meteo humidity:", openMeteoData.current?.relative_humidity_2m);
+
+                        if (openMeteoData.current) {
+                            // Update humidity if available
+                            if (typeof openMeteoData.current.relative_humidity_2m === "number") {
+                                const rawHumidity = openMeteoData.current.relative_humidity_2m;
+
+                                // ✅ Use Open-Meteo humidity directly (already accurate, no normalization needed)
+                                filteredData.current.humidity = rawHumidity;
+                                filteredData.current.humiditySource = "open-meteo";
+                            }
+
+                            // Don't override weather condition with Open-Meteo code
+                            // WeatherAPI's condition text is more accurate for real-time weather
+                            // Keep the WeatherAPI condition that was already set above
+                        }
+                    } catch (error) {
+                        console.error("Open-Meteo data failed, using WeatherAPI values:", error);
+                    }
+
                     // Save filtered weather data to localStorage
                     localStorage.setItem("weatherParsedData", JSON.stringify(filteredData));
                     localStorage.setItem("weatherParsedTime", Date.now()); // Save time of last fetching
                     localStorage.setItem("weatherParsedLocation", currentUserLocation); // Save user location
                     localStorage.setItem("weatherParsedLang", currentLanguage); // Save language preference
+                    
+                    console.log("Filtered Data saved to localStorage:", filteredData);
+                    console.log("Saved Temp C:", filteredData.current.temp_c);
+                    console.log("Saved Temp F:", filteredData.current.temp_f);
                 }
-            }
+
+            // ✅ Update parsedData with the latest filteredData (includes Open-Meteo humidity)
+            parsedData = JSON.parse(localStorage.getItem("weatherParsedData"));
 
             // Update weather data
             UpdateWeather();
@@ -429,6 +583,11 @@ async function getWeatherData() {
                 const humidity = parsedData.current.humidity;
                 const feelsLikeCelsius = parsedData.current.feelslike_c;
                 const feelsLikeFahrenheit = parsedData.current.feelslike_f;
+
+                console.log("UpdateWeather - Displaying:");
+                console.log("Temp C from parsedData:", parsedData.current.temp_c, "-> Rounded:", tempCelsius);
+                console.log("Temp F from parsedData:", parsedData.current.temp_f, "-> Rounded:", tempFahrenheit);
+                console.log("Full parsedData.current:", parsedData.current);
 
                 // Update DOM elements with the weather data
                 document.getElementById("conditionText").textContent = conditionText;
