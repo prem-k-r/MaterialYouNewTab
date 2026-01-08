@@ -79,26 +79,40 @@ async function getWeatherData() {
     const savedApiKey = localStorage.getItem("weatherApiKey");
     let savedLocation = localStorage.getItem("weatherLocation");
 
-    // Normalize location storage to always use JSON format
+    // Normalize location storage to always use JSON format with validation
     let locationData = null;
     if (savedLocation) {
         try {
             locationData = JSON.parse(savedLocation);
 
-            // If it's already a proper object with name, use it
-            if (locationData && locationData.name) {
-                userLocInput.value = locationData.region
-                    ? `${locationData.name}, ${locationData.region}, ${locationData.country}`
-                    : `${locationData.name}, ${locationData.country}`;
+            // Validate if it's a proper structured location object (has required fields)
+            if (locationData && 
+                typeof locationData === 'object' && 
+                locationData.name && 
+                (locationData.lat !== undefined || locationData.lon !== undefined || locationData.isPlainText)) {
+                
+                if (locationData.isPlainText) {
+                    // Plain text location
+                    userLocInput.value = locationData.name;
+                } else {
+                    // Structured location with lat/lon
+                    userLocInput.value = locationData.region
+                        ? `${locationData.name}, ${locationData.region}, ${locationData.country}`
+                        : `${locationData.name}, ${locationData.country}`;
+                }
             } else {
-                // Plain text - convert to normalized format
-                userLocInput.value = savedLocation;
-                locationData = { name: savedLocation, isPlainText: true };
+                // Invalid/malformed data - clear it and reset
+                console.warn("Invalid weatherLocation data found, clearing:", locationData);
+                localStorage.removeItem("weatherLocation");
+                userLocInput.value = "";
+                locationData = null;
             }
         } catch (e) {
-            // Plain text location like "Bangalore" - normalize it
-            userLocInput.value = savedLocation;
-            locationData = { name: savedLocation, isPlainText: true };
+            // Invalid JSON - clear it
+            console.warn("Invalid JSON in weatherLocation, clearing:", savedLocation);
+            localStorage.removeItem("weatherLocation");
+            userLocInput.value = "";
+            locationData = null;
         }
     }
 
@@ -292,7 +306,7 @@ async function getWeatherData() {
         });
     }
 
-    // Select location from suggestions
+    // Select location from suggestions - FIXED: Skip conflicting save handler
     function selectLocation(index) {
         const selectedLocation = suggestions[index];
 
@@ -305,7 +319,13 @@ async function getWeatherData() {
         // Store the full object and the lat,lon query separately
         localStorage.setItem("weatherLocation", JSON.stringify(selectedLocation));
         localStorage.setItem("weatherLocationQuery", `${selectedLocation.lat},${selectedLocation.lon}`);
-        saveLocButton.click();
+        // Clear cached weather data to force refresh with new location
+        localStorage.removeItem("weatherParsedData");
+        localStorage.removeItem("weatherParsedTime");
+        localStorage.removeItem("weatherParsedLocation");
+        localStorage.setItem("useGPS", false);
+        userLocInput.value = "";
+        window.location.reload();
         suggestions = [];
         toggleAutocomplete();
     }
