@@ -61,6 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function getWeatherData() {
+    debugLog("getWeatherData() initialized");
+
     // Display texts
     document.getElementById("conditionText").textContent = translations[currentLanguage]?.conditionText || translations["en"].conditionText;
     document.getElementById("humidityLevel").textContent = translations[currentLanguage]?.humidityLevel || translations["en"].humidityLevel;
@@ -88,17 +90,35 @@ async function getWeatherData() {
             // Validate if it's a proper structured location object (has required fields)
             if (locationData && 
                 typeof locationData === 'object' && 
-                locationData.name && 
-                (locationData.lat !== undefined || locationData.lon !== undefined || locationData.isPlainText)) {
+                locationData.name) {
                 
                 if (locationData.isPlainText) {
-                    // Plain text location
+                    // Plain text location - unchanged
+                    debugLog("Loaded plain text location:", locationData.name);
                     userLocInput.value = locationData.name;
                 } else {
-                    // Structured location with lat/lon
-                    userLocInput.value = locationData.region
-                        ? `${locationData.name}, ${locationData.region}, ${locationData.country}`
-                        : `${locationData.name}, ${locationData.country}`;
+                    // Structured location - require BOTH valid lat AND lon coordinates
+                    const hasValidLat = typeof locationData.lat === 'number' && !isNaN(locationData.lat) && isFinite(locationData.lat);
+                    const hasValidLon = typeof locationData.lon === 'number' && !isNaN(locationData.lon) && isFinite(locationData.lon);
+                    
+                    if (hasValidLat && hasValidLon) {
+                        // Only treat as structured location if both coordinates are valid
+                        debugLog("Loaded structured location with valid coordinates:", {lat: locationData.lat, lon: locationData.lon});
+                        userLocInput.value = locationData.region
+                            ? `${locationData.name}, ${locationData.region}, ${locationData.country}`
+                            : `${locationData.name}, ${locationData.country}`;
+                    } else {
+                        // Invalid coordinates - treat as corrupted data
+                        console.warn("Structured location missing valid coordinates, clearing:", {
+                            lat: locationData.lat, 
+                            lon: locationData.lon,
+                            hasValidLat, 
+                            hasValidLon
+                        });
+                        localStorage.removeItem("weatherLocation");
+                        userLocInput.value = "";
+                        locationData = null;
+                    }
                 }
             } else {
                 // Invalid/malformed data - clear it and reset
@@ -114,9 +134,14 @@ async function getWeatherData() {
             userLocInput.value = "";
             locationData = null;
         }
+    } else {
+        debugLog("No saved location found");
     }
 
-    if (savedApiKey) userAPIInput.value = savedApiKey;
+    if (savedApiKey) {
+        debugLog("Loaded saved API key");
+        userAPIInput.value = savedApiKey;
+    }
 
     const minMaxTempCheckbox = document.getElementById("minMaxTempCheckbox");
     const isMinMaxEnabled = localStorage.getItem("minMaxTempEnabled") === "true";
@@ -145,13 +170,12 @@ async function getWeatherData() {
         window.location.reload();
     });
 
-    // Handle GPS toggle change (actually uses IP-based location for extensions)
+    // Handle GPS toggle change (IP-based location for extensions)
     gpsToggle.addEventListener("change", async () => {
-        debugLog("Location toggle clicked. Checked:", gpsToggle.checked);
+        debugLog("GPS toggle clicked. Checked:", gpsToggle.checked);
 
         if (gpsToggle.checked) {
             debugLog("Requesting IP-based location...");
-
             try {
                 const ipLocation = await fetchIPBasedLocation();
 
@@ -159,25 +183,25 @@ async function getWeatherData() {
                     debugLog("IP location obtained:", ipLocation);
                     localStorage.setItem("useGPS", true);
                     locationCont.classList.add("inactive");
-                    debugLog("Location enabled, reloading...");
+                    debugLog("IP location enabled, reloading...");
                     window.location.reload();
                 } else {
                     throw new Error("Could not fetch location");
                 }
             } catch (error) {
-                console.error("Location fetch failed:", error);
+                console.error("IP location fetch failed:", error);
                 gpsToggle.checked = false;
                 alert("Could not fetch your location. Try manual entry.");
             }
         } else {
-            debugLog("Location disabled");
+            debugLog("IP location disabled");
             localStorage.setItem("useGPS", false);
             locationCont.classList.remove("inactive");
             window.location.reload();
         }
     });
 
-    // Handle manual location input - FIXED: Input validation
+    // Handle manual location input
     saveLocButton.addEventListener("click", () => {
         const userLocation = userLocInput.value.trim();
         
@@ -187,14 +211,17 @@ async function getWeatherData() {
             return;
         }
         
+        debugLog("Saving manual plain text location:", userLocation);
         // Store as normalized JSON format with plain text flag
         const normalizedLocation = JSON.stringify({
             name: userLocation,
             isPlainText: true
         });
         localStorage.setItem("weatherLocation", normalizedLocation);
-        localStorage.removeItem("weatherLocationQuery"); // Clear query cache to use the new location
-        localStorage.removeItem("weatherParsedData"); // Clear cached weather data to force refresh
+        
+        // Clear caches to force refresh
+        localStorage.removeItem("weatherLocationQuery");
+        localStorage.removeItem("weatherParsedData");
         localStorage.removeItem("weatherParsedTime");
         localStorage.removeItem("weatherParsedLocation");
         localStorage.setItem("useGPS", false);
@@ -202,7 +229,7 @@ async function getWeatherData() {
         window.location.reload();
     });
 
-    // Default Weather API key
+    // Default Weather API key rotation
     const weatherApiKeys = [
         "d36ce712613d4f21a6083436240910",
         "db0392b338114f208ee135134240312",
@@ -224,6 +251,7 @@ async function getWeatherData() {
 
     // Determine which API key to use
     const apiKey = savedApiKey || defaultApiKey;
+    debugLog("Using API key:", apiKey ? "saved" : "default");
 
     let activeIndex = -1; // Track keyboard navigation index
     let suggestions = []; // Store fetched location suggestions
@@ -247,10 +275,12 @@ async function getWeatherData() {
         }
 
         try {
+            debugLog("Fetching location suggestions for:", query);
             const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${savedApiKey}&q=${query}`);
             suggestions = await response.json();
 
             if (suggestions.length > 0) {
+                debugLog("Found", suggestions.length, "location suggestions");
                 displaySuggestions(suggestions);
                 toggleAutocomplete();
             } else {
@@ -313,7 +343,7 @@ async function getWeatherData() {
         });
     }
 
-    // Select location from suggestions - FIXED: Moved cleanup before reload
+    // Select location from suggestions
     function selectLocation(index) {
         const selectedLocation = suggestions[index];
 
@@ -322,10 +352,13 @@ async function getWeatherData() {
             : `${selectedLocation.name}, ${selectedLocation.country}`;
         userLocInput.value = locationText;
 
+        debugLog("Selected structured location:", selectedLocation);
         locationSuggestions.style.display = "none";
+        
         // Store the full object and the lat,lon query separately
         localStorage.setItem("weatherLocation", JSON.stringify(selectedLocation));
         localStorage.setItem("weatherLocationQuery", `${selectedLocation.lat},${selectedLocation.lon}`);
+        
         // Clear cached weather data to force refresh with new location
         localStorage.removeItem("weatherParsedData");
         localStorage.removeItem("weatherParsedTime");
@@ -333,7 +366,7 @@ async function getWeatherData() {
         localStorage.setItem("useGPS", false);
         userLocInput.value = "";
         
-        // Cleanup before reload (moved from after reload)
+        // Cleanup before reload
         suggestions = [];
         toggleAutocomplete();
         
@@ -389,11 +422,15 @@ async function getWeatherData() {
     // Load the saved GPS state from localStorage
     const useGPS = JSON.parse(localStorage.getItem("useGPS")) || false;
     gpsToggle.checked = useGPS;
-    if (useGPS) locationCont.classList.add("inactive");
+    if (useGPS) {
+        locationCont.classList.add("inactive");
+        debugLog("IP location (useGPS) is enabled");
+    }
 
-    // Function to fetch location via IP geolocation (works in extensions) - FIXED: HTTP status check
+    // Fetch location via IP geolocation (works in extensions)
     async function fetchIPBasedLocation() {
         try {
+            debugLog("fetchIPBasedLocation() called");
             const response = await fetch("https://ipinfo.io/json/");
             
             // Check HTTP status before parsing JSON
@@ -403,6 +440,7 @@ async function getWeatherData() {
             }
             
             const data = await response.json();
+            debugLog("IP location response:", data);
             return data.loc; // Returns "lat,lon"
         } catch (error) {
             console.error("IP geolocation failed:", error);
@@ -410,8 +448,9 @@ async function getWeatherData() {
         }
     }
 
-    // Fetch location based on user preference - FIXED: HTTP status check in fallback
+    // Initialize location resolution
     await (async function initializeLocation() {
+        debugLog("initializeLocation() - useGPS:", useGPS, "locationData:", !!locationData);
         try {
             if (useGPS) {
                 currentUserLocation = await fetchIPBasedLocation();
@@ -420,23 +459,28 @@ async function getWeatherData() {
                     throw new Error("IP location failed");
                 }
 
-                // IP location must dominate
+                // IP location must dominate - clear manual location data
                 localStorage.removeItem("weatherLocation");
                 localStorage.removeItem("weatherLocationQuery");
+                debugLog("Using IP location:", currentUserLocation);
             }
             else if (locationData && locationData.isPlainText) {
-                // Plain text location (manual input) — always clear old query cache
+                // Plain text location (manual input)
                 localStorage.removeItem("weatherLocationQuery");
                 currentUserLocation = locationData.name;
+                debugLog("Using plain text location:", currentUserLocation);
             }
             else if (localStorage.getItem("weatherLocationQuery")) {
                 currentUserLocation = localStorage.getItem("weatherLocationQuery");
+                debugLog("Using cached lat,lon query:", currentUserLocation);
             }
             else if (locationData && locationData.name) {
                 currentUserLocation = locationData.name;
+                debugLog("Using structured location name:", currentUserLocation);
             }
             else {
-                // Fallback IP lookup with status check
+                // Fallback IP lookup
+                debugLog("Falling back to IP lookup");
                 const ipInfo = "https://ipinfo.io/json/";
                 const locationResponse = await fetch(ipInfo);
                 
@@ -447,39 +491,44 @@ async function getWeatherData() {
                 
                 const ipLocation = await locationResponse.json();
                 currentUserLocation = ipLocation.loc;
+                debugLog("Fallback IP location:", currentUserLocation);
             }
 
+            debugLog("Resolved location:", currentUserLocation);
             fetchWeather();
         } catch (error) {
             console.error("Location resolution failed:", error);
             // Fallback to Bangalore if all else fails
             currentUserLocation = "Bangalore";
+            debugLog("Using Bangalore fallback");
             fetchWeather();
         }
     })();
 
-    // Fetch weather data based on a location
+    // Fetch weather data based on resolved location (20min cache)
     async function fetchWeather() {
         try {
-            debugLog("fetchWeather() called. currentUserLocation:", currentUserLocation);
+            debugLog("fetchWeather() called with location:", currentUserLocation);
 
             let parsedData = JSON.parse(localStorage.getItem("weatherParsedData"));
             const weatherParsedTime = parseInt(localStorage.getItem("weatherParsedTime"));
             const weatherParsedLocation = localStorage.getItem("weatherParsedLocation");
             const weatherParsedLang = localStorage.getItem("weatherParsedLang");
 
-            // Extended cache retention: 20 minutes (balances freshness with API usage)
+            // Cache retention: 20 minutes
             const retentionTime = 20 * 60 * 1000;
+            const cacheValid = parsedData && 
+                              (Date.now() - weatherParsedTime) <= retentionTime &&
+                              weatherParsedLocation === currentUserLocation &&
+                              weatherParsedLang === currentLanguage;
 
-            if (!parsedData ||
-                ((Date.now() - weatherParsedTime) > retentionTime) ||
-                (weatherParsedLocation !== currentUserLocation) ||
-                (weatherParsedLang !== currentLanguage)) {
-
-                debugLog("Fetching fresh weather data...");
-
+            if (!cacheValid) {
+                debugLog("Cache invalid/missing - fetching fresh data (cache age:", 
+                        parsedData ? `${(Date.now() - weatherParsedTime)/1000}s` : "none", ")");
+                
                 // Clear cache when location changes
                 if (weatherParsedLocation !== currentUserLocation) {
+                    debugLog("Location changed - clearing cache");
                     localStorage.removeItem("weatherParsedData");
                     localStorage.removeItem("weatherParsedTime");
                     localStorage.removeItem("weatherParsedLocation");
@@ -488,19 +537,16 @@ async function getWeatherData() {
                 // Language code for Weather API
                 let lang = currentLanguage === "zh_TW" ? currentLanguage : currentLanguage.split("_")[0];
 
-                // Fetch weather data using Weather API
+                // Primary: WeatherAPI fetch
                 let weatherApi = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${currentUserLocation}&days=1&aqi=no&alerts=no&lang=${lang}`;
-
                 debugLog("WeatherAPI URL:", weatherApi);
 
                 let data = await fetch(weatherApi);
                 parsedData = await data.json();
-
-                debugLog("WeatherAPI Response:", parsedData);
+                debugLog("WeatherAPI Response status:", data.status, "data keys:", Object.keys(parsedData));
 
                 if (parsedData.error) {
                     console.error("WeatherAPI Error:", parsedData.error);
-                    // Display user-friendly error message
                     document.getElementById("conditionText").textContent =
                         translations[currentLanguage]?.weatherError || "Weather unavailable";
                     document.getElementById("temp").textContent = "--";
@@ -509,7 +555,7 @@ async function getWeatherData() {
                     return;
                 }
 
-                // Extract only the necessary fields before saving
+                // Filter and prepare data structure
                 const filteredData = {
                     location: {
                         name: parsedData.location.name,
@@ -524,266 +570,236 @@ async function getWeatherData() {
                         temp_c: parsedData.current.temp_c,
                         temp_f: parsedData.current.temp_f,
                         humidity: parsedData.current.humidity,
-                        humiditySource: "weatherapi",
+                        humiditySource: "weatherapi", // Default source
                         feelslike_c: parsedData.current.feelslike_c,
                         feelslike_f: parsedData.current.feelslike_f,
                     },
                     forecast: {
-                        forecastday: [
-                            {
-                                day: {
-                                    mintemp_c: parsedData.forecast.forecastday[0].day.mintemp_c,
-                                    maxtemp_c: parsedData.forecast.forecastday[0].day.maxtemp_c,
-                                    mintemp_f: parsedData.forecast.forecastday[0].day.mintemp_f,
-                                    maxtemp_f: parsedData.forecast.forecastday[0].day.maxtemp_f
-                                }
+                        forecastday: [{
+                            day: {
+                                mintemp_c: parsedData.forecast.forecastday[0].day.mintemp_c,
+                                maxtemp_c: parsedData.forecast.forecastday[0].day.maxtemp_c,
+                                mintemp_f: parsedData.forecast.forecastday[0].day.mintemp_f,
+                                maxtemp_f: parsedData.forecast.forecastday[0].day.maxtemp_f
                             }
-                        ]
+                        }]
                     }
                 };
 
+                // Augment humidity with Open-Meteo (WeatherAPI condition text preserved)
                 try {
                     const lat = filteredData.location.lat;
                     const lon = filteredData.location.lon;
+                    debugLog("Augmenting humidity with Open-Meteo (lat:", lat, "lon:", lon, ")");
 
-                    const openMeteoUrl =
-                        `https://api.open-meteo.com/v1/forecast?` +
-                        `latitude=${lat}&longitude=${lon}&` +
-                        `current=relative_humidity_2m`;
-
+                    const openMeteoUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=relative_humidity_2m`;
                     const openMeteoResponse = await fetch(openMeteoUrl);
                     const openMeteoData = await openMeteoResponse.json();
 
-                    debugLog("Open-Meteo Response:", openMeteoData);
+                    debugLog("Open-Meteo humidity response:", openMeteoData.current?.relative_humidity_2m);
 
-                    if (openMeteoData.current) {
-                        // Use Open-Meteo humidity directly as the authoritative value
-                        if (typeof openMeteoData.current.relative_humidity_2m === "number") {
-                            const rawHumidity = openMeteoData.current.relative_humidity_2m;
-
-                            filteredData.current.humidity = rawHumidity;
-                            filteredData.current.humiditySource = "open-meteo";
-                        }
+                    if (openMeteoData.current && typeof openMeteoData.current.relative_humidity_2m === "number") {
+                        filteredData.current.humidity = openMeteoData.current.relative_humidity_2m;
+                        filteredData.current.humiditySource = "open-meteo";
+                        debugLog("Humidity updated from Open-Meteo:", filteredData.current.humidity);
+                    } else {
+                        debugLog("Open-Meteo humidity invalid, keeping WeatherAPI value");
                     }
                 } catch (error) {
-                    console.error("Open-Meteo data failed, using WeatherAPI values:", error);
+                    console.error("Open-Meteo augmentation failed, using WeatherAPI humidity:", error);
                 }
 
-                // Save filtered weather data to localStorage
+                // Persist filtered data (20min TTL)
                 localStorage.setItem("weatherParsedData", JSON.stringify(filteredData));
-                localStorage.setItem("weatherParsedTime", Date.now()); // Save time of last fetching
-                localStorage.setItem("weatherParsedLocation", currentUserLocation); // Save user location
-                localStorage.setItem("weatherParsedLang", currentLanguage); // Save language preference
-
-                debugLog("Filtered Data saved to localStorage:", filteredData);
+                localStorage.setItem("weatherParsedTime", Date.now());
+                localStorage.setItem("weatherParsedLocation", currentUserLocation);
+                localStorage.setItem("weatherParsedLang", currentLanguage);
+                debugLog("Weather data cached (TTL: 20min):", filteredData);
+            } else {
+                debugLog("Using cached weather data");
             }
 
-            // Update parsedData with the latest data
+            // Update UI from latest cached data
             parsedData = JSON.parse(localStorage.getItem("weatherParsedData"));
-
-            // Update weather data
             UpdateWeather();
 
-            function UpdateWeather() {
-                // Weather data
-                const conditionText = parsedData.current.condition.text;
-                const tempCelsius = Math.round(parsedData.current.temp_c);
-                const tempFahrenheit = Math.round(parsedData.current.temp_f);
-                const humidity = parsedData.current.humidity;
-                const feelsLikeCelsius = parsedData.current.feelslike_c;
-                const feelsLikeFahrenheit = parsedData.current.feelslike_f;
-
-                debugLog("UpdateWeather - Displaying:");
-                debugLog("Temp C:", tempCelsius, "Temp F:", tempFahrenheit);
-
-                // Update DOM elements with the weather data
-                document.getElementById("conditionText").textContent = conditionText;
-
-                // Localize and display temperature and humidity
-                const localizedHumidity = localizeNumbers(humidity.toString(), currentLanguage);
-                const localizedTempCelsius = localizeNumbers(tempCelsius.toString(), currentLanguage);
-                const localizedFeelsLikeCelsius = localizeNumbers(feelsLikeCelsius.toString(), currentLanguage);
-                const localizedTempFahrenheit = localizeNumbers(tempFahrenheit.toString(), currentLanguage);
-                const localizedFeelsLikeFahrenheit = localizeNumbers(feelsLikeFahrenheit.toString(), currentLanguage);
-
-                const minTempC = parsedData.forecast.forecastday[0].day.mintemp_c;
-                const maxTempC = parsedData.forecast.forecastday[0].day.maxtemp_c;
-                const minTempF = parsedData.forecast.forecastday[0].day.mintemp_f;
-                const maxTempF = parsedData.forecast.forecastday[0].day.maxtemp_f;
-                const localizedMinTempC = localizeNumbers(minTempC.toString(), currentLanguage);
-                const localizedMaxTempC = localizeNumbers(maxTempC.toString(), currentLanguage);
-                const localizedMinTempF = localizeNumbers(minTempF.toString(), currentLanguage);
-                const localizedMaxTempF = localizeNumbers(maxTempF.toString(), currentLanguage);
-
-                // Set humidity level
-                const humidityLabel = translations[currentLanguage]?.humidityLevel || translations["en"].humidityLevel;
-                document.getElementById("humidityLevel").textContent = isRTL
-                    ? `${humidityLabel} %${localizedHumidity}` // RTL: "76% ytidimuH"
-                    : `${humidityLabel} ${localizedHumidity}%`;
-
-                // Event Listener for the Fahrenheit toggle
-                const fahrenheitCheckbox = document.getElementById("fahrenheitCheckbox");
-                const updateTemperatureDisplay = () => {
-                    const tempElement = document.getElementById("temp");
-                    const feelsLikeElement = document.getElementById("feelsLike");
-                    const feelsLikeLabel = translations[currentLanguage]?.feelsLike || translations["en"].feelsLike;
-
-                    // List of languages where a space before °F or °C is required
-                    const langWithSpaceBeforeDegree = ["cs"];
-
-                    // Range separator for min-max temperature
-                    const rangeSeparator = {
-                        cs: "až",
-                        // Add more languages as needed
-                        default: "~"
-                    };
-                    const separator = rangeSeparator[currentLanguage] || rangeSeparator.default;
-
-                    if (fahrenheitCheckbox.checked) {
-                        // Update temperature
-                        tempElement.textContent = localizedTempFahrenheit;
-                        const tempUnitF = document.createElement("span");
-                        tempUnitF.className = "tempUnit";
-                        tempUnitF.textContent = "°F";
-                        tempElement.appendChild(tempUnitF);
-
-                        // Update feels like or Min-Max temp
-                        const feelsLikeFUnit = langWithSpaceBeforeDegree.includes(currentLanguage) ? " °F" : "°F";
-                        if (isMinMaxEnabled) {
-                            feelsLikeElement.textContent = `${localizedMinTempF} ${separator} ${localizedMaxTempF}${feelsLikeFUnit}`;
-                        }
-                        else {
-                            feelsLikeElement.textContent = isRTL
-                                ? `${localizedFeelsLikeFahrenheit}${feelsLikeFUnit} ${feelsLikeLabel}`
-                                : `${feelsLikeLabel} ${localizedFeelsLikeFahrenheit}${feelsLikeFUnit}`;
-                        }
-                    } else {
-                        // Update temperature
-                        tempElement.textContent = localizedTempCelsius;
-                        const tempUnitC = document.createElement("span");
-                        tempUnitC.className = "tempUnit";
-                        tempUnitC.textContent = "°C";
-                        tempElement.appendChild(tempUnitC);
-
-                        // Update feels like or Min-Max temp
-                        const feelsLikeCUnit = langWithSpaceBeforeDegree.includes(currentLanguage) ? " °C" : "°C";
-                        if (isMinMaxEnabled) {
-                            feelsLikeElement.textContent = `${localizedMinTempC} ${separator} ${localizedMaxTempC}${feelsLikeCUnit}`;
-                        }
-                        else {
-                            feelsLikeElement.textContent = isRTL
-                                ? `${localizedFeelsLikeCelsius}${feelsLikeCUnit} ${feelsLikeLabel}`
-                                : `${feelsLikeLabel} ${localizedFeelsLikeCelsius}${feelsLikeCUnit}`;
-                        }
-                    }
-                };
-                updateTemperatureDisplay();
-
-                // Setting weather Icon
-                const newWIcon = parsedData.current.condition.icon;
-                const weatherIcon = newWIcon.replace("//cdn.weatherapi.com/weather/64x64/", "https://cdn.weatherapi.com/weather/128x128/");
-                const wIcon = document.getElementById("wIcon");
-                wIcon.onerror = () => {
-                    wIcon.src = './svgs/defaultWeather.svg';
-                };
-                wIcon.src = weatherIcon;
-
-                // Define minimum width for the slider based on the language
-                const humidityMinWidth = {
-                    idn: "47%",
-                    hu: "48%",
-                    de: "51%",
-                    ta: "46%",
-                    en: "42%" // Default for English and others
-                };
-                const slider = document.getElementById("slider");
-                slider.style.minWidth = humidityMinWidth[currentLanguage] || humidityMinWidth["en"];
-
-                // Set slider width based on humidity
-                if (humidity > 40) {
-                    slider.style.width = `calc(${humidity}% - 60px)`;
-                }
-
-                // Update location
-                let city = parsedData.location.name;
-                let maxLength = 10;
-                let isLocationHidden = localStorage.getItem("locationHidden") === "true";
-
-                const locationTile = document.querySelector(".tiles.location");
-                const locationIcon = locationTile.querySelector(".location-icon");
-                const locationText = document.getElementById("location");
-
-                // Apply initial content
-                function updateLocationText() {
-                    if (isLocationHidden) {
-                        locationText.textContent = translations[currentLanguage]?.location || translations.en.location;
-                    } else {
-                        const limitedText = city.length > maxLength ? city.slice(0, maxLength) + "..." : city;
-                        locationText.textContent = limitedText;
-                    }
-                }
-
-                // Initialize content on load
-                updateLocationText();
-
-                // Return the toggle icon based on the state
-                function getToggleIcon() {
-                    return isLocationHidden ? "./svgs/location-show.svg" : "./svgs/location-hide.svg";
-                }
-
-                // Switch icon on hover
-                let hoverTimeout;
-
-                locationTile.addEventListener("mouseenter", () => {
-                    hoverTimeout = setTimeout(() => {
-                        locationIcon.src = getToggleIcon();
-                    }, 120);
-                });
-
-                locationTile.addEventListener("mouseleave", () => {
-                    clearTimeout(hoverTimeout);
-                    locationIcon.src = "./svgs/location.svg";
-                });
-
-                // Toggle on click
-                locationIcon.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    isLocationHidden = !isLocationHidden;
-                    localStorage.setItem("locationHidden", isLocationHidden);
-                    updateLocationText();
-
-                    // Update icon immediately
-                    if (locationTile.matches(":hover")) {
-                        locationIcon.src = getToggleIcon();
-                    }
-                });
-            }
         } catch (error) {
-            console.error("Error fetching weather data:", error);
-            // Display user-friendly error message
+            console.error("fetchWeather() error:", error);
             document.getElementById("conditionText").textContent =
                 translations[currentLanguage]?.weatherError || "Weather unavailable";
         }
     }
+
+    function UpdateWeather() {
+        const parsedData = JSON.parse(localStorage.getItem("weatherParsedData"));
+        const conditionText = parsedData.current.condition.text;
+        const tempCelsius = Math.round(parsedData.current.temp_c);
+        const tempFahrenheit = Math.round(parsedData.current.temp_f);
+        const humidity = parsedData.current.humidity;
+        const humiditySource = parsedData.current.humiditySource;
+        const feelsLikeCelsius = parsedData.current.feelslike_c;
+        const feelsLikeFahrenheit = parsedData.current.feelslike_f;
+
+        debugLog("UpdateWeather() - Temp:", tempCelsius, "°C /", tempFahrenheit, "°F | Humidity:", humidity, "% (", humiditySource, ")");
+
+        // Update DOM elements
+        document.getElementById("conditionText").textContent = conditionText;
+
+        // Localize numbers
+        const localizedHumidity = localizeNumbers(humidity.toString(), currentLanguage);
+        const localizedTempCelsius = localizeNumbers(tempCelsius.toString(), currentLanguage);
+        const localizedFeelsLikeCelsius = localizeNumbers(feelsLikeCelsius.toString(), currentLanguage);
+        const localizedTempFahrenheit = localizeNumbers(tempFahrenheit.toString(), currentLanguage);
+        const localizedFeelsLikeFahrenheit = localizeNumbers(feelsLikeFahrenheit.toString(), currentLanguage);
+
+        const minTempC = parsedData.forecast.forecastday[0].day.mintemp_c;
+        const maxTempC = parsedData.forecast.forecastday[0].day.maxtemp_c;
+        const minTempF = parsedData.forecast.forecastday[0].day.mintemp_f;
+        const maxTempF = parsedData.forecast.forecastday[0].day.maxtemp_f;
+        const localizedMinTempC = localizeNumbers(minTempC.toString(), currentLanguage);
+        const localizedMaxTempC = localizeNumbers(maxTempC.toString(), currentLanguage);
+        const localizedMinTempF = localizeNumbers(minTempF.toString(), currentLanguage);
+        const localizedMaxTempF = localizeNumbers(maxTempF.toString(), currentLanguage);
+
+        // Humidity display
+        const humidityLabel = translations[currentLanguage]?.humidityLevel || translations["en"].humidityLevel;
+        document.getElementById("humidityLevel").textContent = isRTL
+            ? `${humidityLabel} %${localizedHumidity}`
+            : `${humidityLabel} ${localizedHumidity}%`;
+
+        // Temperature display logic
+        const fahrenheitCheckbox = document.getElementById("fahrenheitCheckbox");
+        const updateTemperatureDisplay = () => {
+            const tempElement = document.getElementById("temp");
+            const feelsLikeElement = document.getElementById("feelsLike");
+            const feelsLikeLabel = translations[currentLanguage]?.feelsLike || translations["en"].feelsLike;
+
+            const langWithSpaceBeforeDegree = ["cs"];
+            const rangeSeparator = {
+                cs: "až",
+                default: "~"
+            };
+            const separator = rangeSeparator[currentLanguage] || rangeSeparator.default;
+
+            if (fahrenheitCheckbox.checked) {
+                tempElement.textContent = localizedTempFahrenheit;
+                const tempUnitF = document.createElement("span");
+                tempUnitF.className = "tempUnit";
+                tempUnitF.textContent = "°F";
+                tempElement.appendChild(tempUnitF);
+
+                const feelsLikeFUnit = langWithSpaceBeforeDegree.includes(currentLanguage) ? " °F" : "°F";
+                if (isMinMaxEnabled) {
+                    feelsLikeElement.textContent = `${localizedMinTempF} ${separator} ${localizedMaxTempF}${feelsLikeFUnit}`;
+                } else {
+                    feelsLikeElement.textContent = isRTL
+                        ? `${localizedFeelsLikeFahrenheit}${feelsLikeFUnit} ${feelsLikeLabel}`
+                        : `${feelsLikeLabel} ${localizedFeelsLikeFahrenheit}${feelsLikeFUnit}`;
+                }
+            } else {
+                tempElement.textContent = localizedTempCelsius;
+                const tempUnitC = document.createElement("span");
+                tempUnitC.className = "tempUnit";
+                tempUnitC.textContent = "°C";
+                tempElement.appendChild(tempUnitC);
+
+                const feelsLikeCUnit = langWithSpaceBeforeDegree.includes(currentLanguage) ? " °C" : "°C";
+                if (isMinMaxEnabled) {
+                    feelsLikeElement.textContent = `${localizedMinTempC} ${separator} ${localizedMaxTempC}${feelsLikeCUnit}`;
+                } else {
+                    feelsLikeElement.textContent = isRTL
+                        ? `${localizedFeelsLikeCelsius}${feelsLikeCUnit} ${feelsLikeLabel}`
+                        : `${feelsLikeLabel} ${localizedFeelsLikeCelsius}${feelsLikeCUnit}`;
+                }
+            }
+        };
+        updateTemperatureDisplay();
+
+        // Weather icon
+        const newWIcon = parsedData.current.condition.icon;
+        const weatherIcon = newWIcon.replace("//cdn.weatherapi.com/weather/64x64/", "https://cdn.weatherapi.com/weather/128x128/");
+        const wIcon = document.getElementById("wIcon");
+        wIcon.onerror = () => { wIcon.src = './svgs/defaultWeather.svg'; };
+        wIcon.src = weatherIcon;
+
+        // Humidity slider
+        const humidityMinWidth = {
+            idn: "47%", hu: "48%", de: "51%", ta: "46%", en: "42%"
+        };
+        const slider = document.getElementById("slider");
+        slider.style.minWidth = humidityMinWidth[currentLanguage] || humidityMinWidth["en"];
+
+        if (humidity > 40) {
+            slider.style.width = `calc(${humidity}% - 60px)`;
+        }
+
+        // Location display with toggle
+        let city = parsedData.location.name;
+        let maxLength = 10;
+        let isLocationHidden = localStorage.getItem("locationHidden") === "true";
+
+        const locationTile = document.querySelector(".tiles.location");
+        const locationIcon = locationTile.querySelector(".location-icon");
+        const locationText = document.getElementById("location");
+
+        function updateLocationText() {
+            if (isLocationHidden) {
+                locationText.textContent = translations[currentLanguage]?.location || translations.en.location;
+            } else {
+                const limitedText = city.length > maxLength ? city.slice(0, maxLength) + "..." : city;
+                locationText.textContent = limitedText;
+            }
+        }
+
+        updateLocationText();
+
+        function getToggleIcon() {
+            return isLocationHidden ? "./svgs/location-show.svg" : "./svgs/location-hide.svg";
+        }
+
+        let hoverTimeout;
+        locationTile.addEventListener("mouseenter", () => {
+            hoverTimeout = setTimeout(() => {
+                locationIcon.src = getToggleIcon();
+            }, 120);
+        });
+
+        locationTile.addEventListener("mouseleave", () => {
+            clearTimeout(hoverTimeout);
+            locationIcon.src = "./svgs/location.svg";
+        });
+
+        locationIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            isLocationHidden = !isLocationHidden;
+            localStorage.setItem("locationHidden", isLocationHidden);
+            updateLocationText();
+
+            if (locationTile.matches(":hover")) {
+                locationIcon.src = getToggleIcon();
+            }
+        });
+    }
 }
 
-// Save and load toggle state
+// Global checkbox state persistence
 const hideWeatherCard = document.getElementById("hideWeatherCard");
 const fahrenheitCheckbox = document.getElementById("fahrenheitCheckbox");
 
-hideWeatherCard.addEventListener("change", function () {
+hideWeatherCard?.addEventListener("change", function () {
     saveCheckboxState("hideWeatherCardState", hideWeatherCard);
 });
 
-fahrenheitCheckbox.addEventListener("change", function () {
+fahrenheitCheckbox?.addEventListener("change", function () {
     saveCheckboxState("fahrenheitCheckboxState", fahrenheitCheckbox);
 });
 
 loadCheckboxState("hideWeatherCardState", hideWeatherCard);
 loadCheckboxState("fahrenheitCheckboxState", fahrenheitCheckbox);
 
-// Handle min-max temp checkbox state change
-minMaxTempCheckbox.addEventListener("change", () => {
+// Min-max temp toggle
+const minMaxTempCheckbox = document.getElementById("minMaxTempCheckbox");
+minMaxTempCheckbox?.addEventListener("change", () => {
     const isChecked = minMaxTempCheckbox.checked;
     localStorage.setItem("minMaxTempEnabled", isChecked);
     window.location.reload();
