@@ -177,9 +177,16 @@ async function getWeatherData() {
         }
     });
 
-    // Handle manual location input
+    // Handle manual location input - FIXED: Input validation
     saveLocButton.addEventListener("click", () => {
         const userLocation = userLocInput.value.trim();
+        
+        // Validate input - don't save empty locations
+        if (!userLocation) {
+            alert("Please enter a location name before saving.");
+            return;
+        }
+        
         // Store as normalized JSON format with plain text flag
         const normalizedLocation = JSON.stringify({
             name: userLocation,
@@ -306,7 +313,7 @@ async function getWeatherData() {
         });
     }
 
-    // Select location from suggestions - FIXED: Skip conflicting save handler
+    // Select location from suggestions - FIXED: Moved cleanup before reload
     function selectLocation(index) {
         const selectedLocation = suggestions[index];
 
@@ -325,9 +332,12 @@ async function getWeatherData() {
         localStorage.removeItem("weatherParsedLocation");
         localStorage.setItem("useGPS", false);
         userLocInput.value = "";
-        window.location.reload();
+        
+        // Cleanup before reload (moved from after reload)
         suggestions = [];
         toggleAutocomplete();
+        
+        window.location.reload();
     }
 
     // Handle user input (fetch locations on change)
@@ -381,12 +391,17 @@ async function getWeatherData() {
     gpsToggle.checked = useGPS;
     if (useGPS) locationCont.classList.add("inactive");
 
-    // Function to fetch location via IP geolocation (works in extensions)
+    // Function to fetch location via IP geolocation (works in extensions) - FIXED: HTTP status check
     async function fetchIPBasedLocation() {
         try {
-            // TODO: In production, use an authenticated ipinfo.io token with domain/IP restrictions
-            // and add a more robust fallback in case this endpoint becomes unavailable.
             const response = await fetch("https://ipinfo.io/json/");
+            
+            // Check HTTP status before parsing JSON
+            if (!response.ok) {
+                console.error("IP geolocation failed - HTTP", response.status, response.statusText);
+                return null;
+            }
+            
             const data = await response.json();
             return data.loc; // Returns "lat,lon"
         } catch (error) {
@@ -395,7 +410,7 @@ async function getWeatherData() {
         }
     }
 
-    // Fetch location based on user preference
+    // Fetch location based on user preference - FIXED: HTTP status check in fallback
     await (async function initializeLocation() {
         try {
             if (useGPS) {
@@ -421,8 +436,15 @@ async function getWeatherData() {
                 currentUserLocation = locationData.name;
             }
             else {
+                // Fallback IP lookup with status check
                 const ipInfo = "https://ipinfo.io/json/";
                 const locationResponse = await fetch(ipInfo);
+                
+                if (!locationResponse.ok) {
+                    console.error("Fallback IP lookup failed - HTTP", locationResponse.status, locationResponse.statusText);
+                    throw new Error("Fallback IP location failed");
+                }
+                
                 const ipLocation = await locationResponse.json();
                 currentUserLocation = ipLocation.loc;
             }
