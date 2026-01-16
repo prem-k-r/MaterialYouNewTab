@@ -73,7 +73,7 @@ async function getWeatherData() {
 
   // Load saved data from localStorage
   const savedApiKey = localStorage.getItem("weatherApiKey");
-  const savedLocation = localStorage.getItem("weatherLocation");
+  const savedLocation = localStorage.getItem("weatherParsedLocation");
 
   // Pre-fill input fields with saved data
   if (savedLocation) userLocInput.value = savedLocation;
@@ -444,9 +444,9 @@ async function getWeatherData() {
                     text: e.condition.text,
                     icon: e.condition.icon,
                   },
-                  feelslike_c:e.feelslike_c,
-                  feelslike_f:e.feelslike_f,
-                  humidity:e.humidity
+                  feelslike_c: e.feelslike_c,
+                  feelslike_f: e.feelslike_f,
+                  humidity: e.humidity,
                 })
               ),
             },
@@ -474,7 +474,7 @@ async function getWeatherData() {
 
       // Check is user offline
       if (!navigator.onLine) {
-        const data = getForecastForNow()
+        const data = getForecastForNow();
         const conditionText = data.condition.text;
         const tempCelsius = Math.round(data.temp_c);
         const tempFahrenheit = Math.round(data.temp_f);
@@ -482,7 +482,7 @@ async function getWeatherData() {
         const feelsLikeCelsius = data.feelslike_c;
         const feelsLikeFahrenheit = data.feelslike_f;
 
-         // Update DOM elements with the weather data
+        // Update DOM elements with the weather data
         document.getElementById("conditionText").textContent = conditionText;
 
         // Localize and display temperature and humidity
