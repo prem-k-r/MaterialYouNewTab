@@ -13,6 +13,9 @@ const todoListCont = document.getElementById("todoListCont");
 const todoulList = document.getElementById("todoullist");
 const todoAdd = document.getElementById("todoAdd");
 const todoInput = document.getElementById("todoInput");
+const streakContainer = document.getElementById("streakContainer");
+const streakCountSpan = document.getElementById("streakCount");
+const allKilledTooltip = document.getElementById("allKilledTooltip");
 let todoList = {}; // Initialize todoList JSON
 let suppressNextClick = false;
 let suppressTimeout = null;
@@ -45,6 +48,7 @@ function addtodoItem() {
     todoulList.appendChild(li); // Append the new item to the DOM immediately
     todoInput.value = ""; // Clear Input
     SaveToDoData(); // Save changes
+    updateStreakAndTooltipUI();
 }
 
 function createTodoItemDOM(id, title, status, pinned) {
@@ -89,18 +93,21 @@ todoulList.addEventListener("click", (event) => {
         let id = event.target.dataset.todoitem;
         todoList[id].status = ((todoList[id].status === "completed") ? "pending" : "completed"); // Update status
         SaveToDoData(); // Save Changes
+        updateStreakAndTooltipUI();
     }
     else if (event.target.classList.contains("todoremovebtn")) {
         let id = event.target.parentElement.dataset.todoitem;
         event.target.parentElement.remove(); // Remove the clicked LI tag
         delete todoList[id]; // Remove the deleted List item data
         SaveToDoData(); // Save Changes
+        updateStreakAndTooltipUI();
     }
     else if (event.target.classList.contains("todopinbtn")) {
         event.target.parentElement.classList.toggle("pinned"); // Check the clicked LI tag
         let id = event.target.parentElement.dataset.todoitem;
         todoList[id].pinned = (todoList[id].pinned !== true); // Update status
         SaveToDoData(); // Save Changes
+        updateStreakAndTooltipUI();
     }
     else if (event.target.classList.contains("todoeditbtn")) {
         if (suppressNextClick) return;
@@ -113,8 +120,6 @@ todoulList.addEventListener("click", (event) => {
         li.classList.toggle("edit");
         if (li.classList.contains("edit")) {
             suppressNextClick = true; // prevent mis-clicks on next action
-
-            // Find the text node in the LI (the title)
             const titleNode = Array.from(li.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "");
 
             //Safe check
@@ -188,6 +193,7 @@ function SaveToDoData() {
 function ShowToDoList() {
     try {
         todoList = JSON.parse(localStorage.getItem("todoList")) || {}; // Parse stored data or initialize empty
+        updateStreakAndTooltipUI(); // Update UI based on loaded data
         const fragment = document.createDocumentFragment(); // Create a DocumentFragment
 
         for (let id in todoList) {
@@ -214,6 +220,44 @@ if (todoLastUpdateDate === todoCurrentDate) {
     localStorage.setItem("todoLastUpdateDate", todoCurrentDate);
     todoList = JSON.parse(localStorage.getItem("todoList")) || {};
 
+    // Check for Streak before resetting
+    const pinnedTasks = Object.values(todoList).filter(t => t.pinned);
+    let currentStreak = parseInt(localStorage.getItem("todoStreakCount") || "0");
+
+    // Only calculate streak if there were pinned tasks yesterday
+    if (pinnedTasks.length > 0) {
+        const allCompleted = pinnedTasks.every(t => t.status === "completed");
+
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toLocaleDateString();
+
+        // If played yesterday and won, increment. 
+        // Note: checking logic against todoLastUpdateDate ensures we don't count if they skipped a week.
+        if (allCompleted && todoLastUpdateDate === yesterdayStr) {
+            currentStreak++;
+        } else {
+            // Streak broken (either didn't finish, or didn't open the app yesterday)
+            currentStreak = 0;
+        }
+    }
+
+    // Update Max Streak
+    let maxStreak = parseInt(localStorage.getItem("todoMaxStreakCount") || "0");
+    if (currentStreak > maxStreak) {
+        maxStreak = currentStreak;
+        localStorage.setItem("todoMaxStreakCount", maxStreak);
+    }
+
+    localStorage.setItem("todoStreakCount", currentStreak);
+
+    if (pinnedTasks.length === 0) {
+        if (Object.keys(todoList).length > 0) {
+            // If they had tasks but none pinned, reset streak
+            localStorage.setItem("todoStreakCount", 0);
+        }
+    }
+
     for (let id in todoList) {
         if (todoList[id].pinned === false) {
             if (todoList[id].status === "completed") {
@@ -226,6 +270,52 @@ if (todoLastUpdateDate === todoCurrentDate) {
 
     SaveToDoData();
     ShowToDoList();
+}
+
+function updateStreakAndTooltipUI() {
+    // 1. Tooltip Logic
+    const tasks = Object.values(todoList);
+
+    // "All Killed" checks if ANY task exists, and ALL existing tasks (pinned + unpinned) are completed.
+    const allTasksCompleted = tasks.length > 0 && tasks.every(t => t.status === "completed");
+
+    if (allTasksCompleted) {
+        allKilledTooltip.style.display = "block";
+    } else {
+        allKilledTooltip.style.display = "none";
+    }
+
+    // 2. Streak Logic
+    const bankedStreak = parseInt(localStorage.getItem("todoStreakCount") || "0");
+    const maxStreak = parseInt(localStorage.getItem("todoMaxStreakCount") || "0");
+
+    const pinnedTasks = tasks.filter(t => t.pinned);
+    const pinnedCompleted = pinnedTasks.filter(t => t.status === "completed");
+
+    // Calculate display streak (current visual streak)
+    let displayStreak = bankedStreak;
+    if (pinnedTasks.length > 0 && pinnedTasks.length === pinnedCompleted.length) {
+        displayStreak += 1;
+    }
+
+    // Check if we effectively increased the max streak today
+    let displayMax = maxStreak;
+    if (displayStreak > maxStreak) {
+        displayMax = displayStreak;
+    }
+
+    // Always show just the current streak number
+    streakCountSpan.textContent = displayStreak;
+
+    // Show streak container if we have a streak OR if we have pinned tasks
+    // AND if the feature is enabled (not force-hidden)
+    const isStreakEnabled = !streakContainer.classList.contains("force-hidden");
+
+    if (isStreakEnabled && (displayStreak > 0 || pinnedTasks.length > 0)) {
+        streakContainer.style.display = "flex";
+    } else {
+        streakContainer.style.display = "none";
+    }
 }
 
 // Toggle menu and tooltip visibility
@@ -262,18 +352,68 @@ document.addEventListener("click", function (event) {
 // ----------------------- To Do List Toggle -----------------------------
 document.addEventListener("DOMContentLoaded", function () {
     const todoListCheckbox = document.getElementById("todoListCheckbox");
+    const showStreaksCheckbox = document.getElementById("showStreaksCheckbox");
+    const streakToggleContainer = document.getElementById("streakToggleContainer");
+
+    // Function to handle the visibility of the streak toggle option
+    function updateStreakToggleVisibility() {
+        if (todoListCheckbox.checked) {
+            streakToggleContainer.style.display = "flex";
+        } else {
+            streakToggleContainer.style.display = "none";
+        }
+    }
+
+    // Function to handle the actual streak counter visibility
+    function updateStreakCounterVisibility() {
+        if (showStreaksCheckbox.checked && todoListCheckbox.checked) {
+            // Let the main logic handle the "flex" display based on logic, 
+            // but we ensure it's allowed to conform to the logic.
+            // Actually, the main logic sets it to 'flex' or 'none'.
+            // We need a way to force hide it if this is unchecked.
+            streakContainer.classList.remove("force-hidden");
+            updateStreakAndTooltipUI(); // Re-run logic to see if it SHOULD be shown
+        } else {
+            streakContainer.classList.add("force-hidden");
+            streakContainer.style.display = "none";
+        }
+    }
 
     todoListCheckbox.addEventListener("change", function () {
         saveCheckboxState("todoListCheckboxState", todoListCheckbox);
+        updateStreakToggleVisibility();
+
         if (todoListCheckbox.checked) {
             todoListCont.style.display = "flex";
             saveDisplayStatus("todoListDisplayStatus", "flex");
+            updateStreakCounterVisibility();
         } else {
             todoListCont.style.display = "none";
             saveDisplayStatus("todoListDisplayStatus", "none");
+            streakContainer.style.display = "none"; // Hide streak if main parent is hidden
         }
     });
 
+    showStreaksCheckbox.addEventListener("change", function () {
+        saveCheckboxState("showStreaksCheckboxState", showStreaksCheckbox);
+        updateStreakCounterVisibility();
+    });
+
+    // Initial Load
     loadCheckboxState("todoListCheckboxState", todoListCheckbox);
     loadDisplayStatus("todoListDisplayStatus", todoListCont);
+
+    // Load Streak Toggle State (default to checked if not set)
+    // Load Streak Toggle State (default to checked if not set)
+    const storedStreakState = localStorage.getItem("showStreaksCheckboxState");
+    if (storedStreakState !== null) {
+        showStreaksCheckbox.checked = storedStreakState === "checked";
+    } else {
+        showStreaksCheckbox.checked = true; // Default On
+        // Save the default state immediately so it's consistent
+        saveCheckboxState("showStreaksCheckboxState", showStreaksCheckbox);
+    }
+
+    updateStreakToggleVisibility();
+    updateStreakCounterVisibility();
 });

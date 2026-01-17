@@ -51,7 +51,8 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 - **Live Weather Updates**: View real-time temperature, conditions, humidity, feels like, and max-min temperature values. Supports °C and °F with location customization.
 - **Quick Shortcuts**: Access common platforms (YouTube, Email, WhatsApp, etc.) or add your own shortcuts for instant navigation.
 - **AI Tools**: Open ChatGPT, Gemini, Copilot, Perplexity, Claude, DeepSeek, and more with one click.
-- **To-Do List**: Manage daily tasks, pin important ones, and enjoy automatic cleanup at the start of each day (pinned tasks reset to pending).
+- **To-Do List**: Manage daily tasks, pin important ones, and enjoy automatic cleanup at the start of each day. Includes a Streak Counter with toggleable visibility.
+- **Motivational Quotes**: Get inspired with a new quote every time you open a tab, or set it to show a daily quote.
 - **Sidebar Bookmarks**: View, delete, and organize bookmarks in either list or grid layout.
 - **Google Apps**: Quickly launch Gmail, Drive, Docs, and other Google services.
 - **Backup & Reset**: Save or restore your setup anytime, or reset everything to default with one click.

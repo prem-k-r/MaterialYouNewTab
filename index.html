@@ -83,6 +83,7 @@
 
     <!-- --------------------- ToDo List Setup Starting --------------------- -->
     <!-- ToDo Icon -->
+    <!-- ToDo Icon -->
     <div class="todoListCont" id="todoListCont">
         <svg id="todoIcon" xmlns="http://www.w3.org/2000/svg" class="dot-icon" width="36" height="36"
             viewBox="0 0 36 36">
@@ -91,6 +92,15 @@
         </svg>
         <!-- Text to appear on hover -->
         <span class="tooltip-text" id="todoListHover">ToDo List</span>
+
+        <!-- Streak Counter attached to the icon -->
+        <div id="streakContainer" class="streak-container"
+            style="display: none; align-items: center; gap: 4px; position: absolute; left: 45px; top: 0; bottom: 0; margin: auto; white-space: nowrap; width: max-content;"
+            title="Daily Pinned Tasks Streak">
+            <span style="font-size: 1.2rem;">🔥</span>
+            <span id="streakCount"
+                style="font-size: 1.1rem; font-weight: bold; color: var(--textColorDark-blue);">0</span>
+        </div>
     </div>
 
     <!-- Centered Icon Container -->
@@ -105,6 +115,10 @@
         </div>
         <ul class="todolist" id="todoullist">
         </ul>
+        <div id="allKilledTooltip"
+            style="display: none; width: 100%; text-align: center; font-size: 0.9rem; margin-top: 5px; color: var(--darkColor-blue); font-weight: bold; padding-bottom: 6px;">
+            All Done !
+        </div>
     </div>
 
     <!-- --------------------- Bookmark System --------------------- -->
@@ -1366,6 +1380,18 @@
                                         </label>
                                     </div>
 
+                                    <div class="ttcont" id="streakToggleContainer" style="display: none;">
+                                        <div class="texts">
+                                            <div class="bigText" id="showStreaksText">Show Streaks</div>
+                                            <div class="infoText" id="showStreaksInfo">Show streak counter beside icon
+                                            </div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="showStreaksCheckbox" type="checkbox" checked>
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -1484,6 +1510,18 @@
                                         </div>
                                         <label class="switch">
                                             <input id="motivationalQuotesCheckbox" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="ttcont" id="refreshQuoteToggle" style="display: none;">
+                                        <div class="texts">
+                                            <div class="bigText" id="refreshQuoteText">New Quote on Refresh</div>
+                                            <div class="infoText" id="refreshQuoteInfo">Show a new quote every time
+                                            </div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="refreshQuoteCheckbox" type="checkbox" checked>
                                             <span class="toggle"></span>
                                         </label>
                                     </div>

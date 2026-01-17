@@ -235,28 +235,24 @@ async function getQuotesForLanguage(forceRefresh = false) {
     }
 }
 
-// Display a random quote that meets the length requirements
-function displayRandomQuote(quotes) {
-    if (!quotes || quotes.length === 0) {
-        displayFallbackQuote();
-        return;
-    }
+// Helper to pick a random suitable quote
+function pickRandomSuitableQuote(quotes) {
+    if (!quotes || quotes.length === 0) return FALLBACK_QUOTE;
 
-    let selectedQuote;
-    const maxAttempts = 15; // Prevent infinite loop
-
-    // Try to find a quote that fits within the character limit
-    for (let attempts = 0; attempts < maxAttempts; attempts++) {
+    const maxAttempts = 15;
+    for (let i = 0; i < maxAttempts; i++) {
         const randomIndex = Math.floor(Math.random() * quotes.length);
-        selectedQuote = quotes[randomIndex];
-
-        const totalLength = selectedQuote.quote.length + selectedQuote.author.length;
+        const selected = quotes[randomIndex];
+        const totalLength = selected.quote.length + selected.author.length;
         if (totalLength <= MAX_QUOTE_LENGTH) {
-            break;
+            return selected;
         }
     }
+    return quotes[0]; // Fallback to first if none fit
+}
 
-    // Display the selected quote
+// Display a specific quote object
+function renderQuote(selectedQuote) {
     quotesContainer.textContent = selectedQuote.quote;
     authorName.textContent = selectedQuote.author;
 
@@ -268,11 +264,52 @@ function displayRandomQuote(quotes) {
     });
 }
 
+// Logic to decide which quote to show (Random vs Daily)
+function selectAndDisplayQuote(quotes) {
+    if (!quotes || quotes.length === 0) {
+        displayFallbackQuote();
+        return;
+    }
+
+    const refreshOnLoad = document.getElementById("refreshQuoteCheckbox").checked;
+
+    if (refreshOnLoad) {
+        // Mode 1: New quote every refresh
+        const quote = pickRandomSuitableQuote(quotes);
+        renderQuote(quote);
+    } else {
+        // Mode 2: One quote per day
+        const todayStr = new Date().toLocaleDateString();
+        const storedDate = localStorage.getItem("dailyQuoteDate");
+        const storedQuoteStr = localStorage.getItem("dailyQuoteObject");
+
+        if (storedDate === todayStr && storedQuoteStr) {
+            // We have a quote for today
+            try {
+                const quote = JSON.parse(storedQuoteStr);
+                renderQuote(quote);
+                return;
+            } catch (e) {
+                console.error("Error parsing daily quote", e);
+            }
+        }
+
+        // No valid quote for today, pick a new one
+        const quote = pickRandomSuitableQuote(quotes);
+
+        // Save it as today's quote
+        localStorage.setItem("dailyQuoteDate", todayStr);
+        localStorage.setItem("dailyQuoteObject", JSON.stringify(quote));
+
+        renderQuote(quote);
+    }
+}
+
 // Main function to load and display a quote
 async function loadAndDisplayQuote(forceRefresh = false) {
     try {
         const quotes = await getQuotesForLanguage(forceRefresh);
-        displayRandomQuote(quotes);
+        selectAndDisplayQuote(quotes);
     } catch (error) {
         console.error("Error loading quote:", error);
         displayFallbackQuote();
@@ -286,9 +323,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const motivationalQuotesCheckbox = document.getElementById("motivationalQuotesCheckbox");
     const searchWithContainer = document.getElementById("search-with-container");
 
+    // New Elements
+    const refreshQuoteToggle = document.getElementById("refreshQuoteToggle");
+    const refreshQuoteCheckbox = document.getElementById("refreshQuoteCheckbox");
+
     // Load states from localStorage
     hideSearchWith.checked = localStorage.getItem("showShortcutSwitch") === "true";
     motivationalQuotesCheckbox.checked = localStorage.getItem("motivationalQuotesVisible") !== "false";
+
+    // Load Refresh Toggle State
+    const storedRefreshState = localStorage.getItem("refreshQuoteOnLoad");
+    if (storedRefreshState !== null) {
+        refreshQuoteCheckbox.checked = storedRefreshState === "true";
+    } else {
+        refreshQuoteCheckbox.checked = true; // Default ON
+    }
 
     // Initialize language tracking
     lastKnownLanguage = currentLanguage;
@@ -305,6 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!isHideSearchWithEnabled) {
             quotesToggle.classList.add("inactive");
             motivationalQuotesCont.style.display = "none";
+            refreshQuoteToggle.style.display = "none"; // Hide sub-option
             clearQuotesStorage();
             return;
         }
@@ -313,6 +363,9 @@ document.addEventListener("DOMContentLoaded", () => {
         quotesToggle.classList.remove("inactive");
         searchWithContainer.style.display = isMotivationalQuotesEnabled ? "none" : "flex";
         motivationalQuotesCont.style.display = isMotivationalQuotesEnabled ? "flex" : "none";
+
+        // Show/Hide the new Refresh toggle based on main toggle
+        refreshQuoteToggle.style.display = isMotivationalQuotesEnabled ? "flex" : "none";
 
         // Load quotes if motivational quotes are enabled
         if (isMotivationalQuotesEnabled) {
@@ -332,4 +385,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     motivationalQuotesCheckbox.addEventListener("change", updateMotivationalQuotesState);
+
+    refreshQuoteCheckbox.addEventListener("change", () => {
+        localStorage.setItem("refreshQuoteOnLoad", refreshQuoteCheckbox.checked);
+        // If switched to "Daily" mode and we might want to refresh to ensure correct state?
+        // Actually, if we switch mode, we should re-run display logic.
+        loadAndDisplayQuote(false);
+    });
 });

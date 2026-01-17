@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.3...main)
 
+### Added
+
+- Added "Show Streaks" toggle for To-Do List, allowing users to hide the streak counter.
+- Added "New Quote on Refresh" toggle for Motivational Quotes, allowing users to choose between a daily quote or a random quote on every refresh.
+
 ### Improved
 
 - Introduced collapsible sections in the settings menu for improved organization and easier navigation ([@prem-k-r](https://github.com/prem-k-r)) ([#109](https://github.com/prem-k-r/MaterialYouNewTab/pull/109))
