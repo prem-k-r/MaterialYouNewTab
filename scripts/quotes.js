@@ -243,7 +243,12 @@ function pickRandomSuitableQuote(quotes) {
     for (let i = 0; i < maxAttempts; i++) {
         const randomIndex = Math.floor(Math.random() * quotes.length);
         const selected = quotes[randomIndex];
-        const totalLength = selected.quote.length + selected.author.length;
+
+        // Safety check for missing properties
+        const qText = selected.quote || "";
+        const qAuthor = selected.author || "";
+
+        const totalLength = qText.length + qAuthor.length;
         if (totalLength <= MAX_QUOTE_LENGTH) {
             return selected;
         }
@@ -253,8 +258,10 @@ function pickRandomSuitableQuote(quotes) {
 
 // Display a specific quote object
 function renderQuote(selectedQuote) {
-    quotesContainer.textContent = selectedQuote.quote;
-    authorName.textContent = selectedQuote.author;
+    if (!selectedQuote) return;
+
+    quotesContainer.textContent = selectedQuote.quote || "";
+    authorName.textContent = selectedQuote.author || "";
 
     // Animate .authorName width to fit content
     requestAnimationFrame(() => {
