@@ -405,10 +405,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Load Streak Toggle State (default to checked if not set)
     // Load Streak Toggle State (default to checked if not set)
-    const storedStreakState = localStorage.getItem("showStreaksCheckboxState");
-    if (storedStreakState !== null) {
-        showStreaksCheckbox.checked = storedStreakState === "checked";
-    } else {
+    loadCheckboxState("showStreaksCheckboxState", showStreaksCheckbox);
+    if (localStorage.getItem("showStreaksCheckboxState") === null) {
         showStreaksCheckbox.checked = true; // Default On
         // Save the default state immediately so it's consistent
         saveCheckboxState("showStreaksCheckboxState", showStreaksCheckbox);

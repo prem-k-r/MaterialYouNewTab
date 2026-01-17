@@ -280,8 +280,11 @@ function selectAndDisplayQuote(quotes) {
     } else {
         // Mode 2: One quote per day
         const todayStr = new Date().toLocaleDateString();
-        const storedDate = localStorage.getItem("dailyQuoteDate");
-        const storedQuoteStr = localStorage.getItem("dailyQuoteObject");
+        // Scope the cache by language so switching languages doesn't show a cached quote from another language
+        const dailyKey = `dailyQuote_${currentLanguage || "en"}`;
+
+        const storedDate = localStorage.getItem(`${dailyKey}_date`);
+        const storedQuoteStr = localStorage.getItem(`${dailyKey}_object`);
 
         if (storedDate === todayStr && storedQuoteStr) {
             // We have a quote for today
@@ -297,9 +300,9 @@ function selectAndDisplayQuote(quotes) {
         // No valid quote for today, pick a new one
         const quote = pickRandomSuitableQuote(quotes);
 
-        // Save it as today's quote
-        localStorage.setItem("dailyQuoteDate", todayStr);
-        localStorage.setItem("dailyQuoteObject", JSON.stringify(quote));
+        // Save it as today's quote for this language
+        localStorage.setItem(`${dailyKey}_date`, todayStr);
+        localStorage.setItem(`${dailyKey}_object`, JSON.stringify(quote));
 
         renderQuote(quote);
     }
