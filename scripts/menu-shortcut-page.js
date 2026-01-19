@@ -96,6 +96,14 @@ document.getElementById("menuCloseButton").onclick = () => {
 }
 
 
+// Toggle expand/collapse sections
+document.querySelectorAll(".sectionHeader").forEach(header => {
+    header.addEventListener("click", () => {
+        header.closest(".section").classList.toggle("expanded");
+    });
+});
+
+
 /* ------ Shortcut Page Transitions & Animations ------ */
 
 // When clicked, open new page by sliding it in from the right.

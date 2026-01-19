@@ -149,9 +149,9 @@ const ja = {
     "resetAISettingsBtn": "リセット",
 
     // Theme
-    "lightThemed": "デフォルト（ライトテーマ）",
-    "darkThemed": "ダークテーマ",
-    "systemThemed": "システムテーマに従う",
+    "lightThemed": "ライト",
+    "darkThemed": "ダーク",
+    "systemThemed": "システム",
 
     // Wallpaper and settings
     "uploadWallpaperText": "壁紙をアップロード",
