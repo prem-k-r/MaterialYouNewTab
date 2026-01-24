@@ -1777,27 +1777,10 @@ body[data-bg="wallpaper"] .opacityBarControl {
 	opacity: 1;
 	transform: translateY(0);
 	pointer-events: auto;
-	max-height: 112px;
-	padding-bottom: 18px;
+	max-height: 150px;
+	overflow: hidden;
 	margin-top: 20px;
 	border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-/* Max-height for specific languages with different font */
-html[lang="vi"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 102px;
-}
-
-html[lang="ur"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 131px;
-}
-
-html[lang="fa"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 113px;
-}
-
-html[lang="ja"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 114px;
 }
 
 .humidityBar,
@@ -1810,7 +1793,7 @@ html[lang="ja"] body[data-bg="wallpaper"] .opacityBarControl {
 }
 
 .opacityBar {
-	margin-top: 8px;
+	margin: 8px 0 0;
 	cursor: grab;
 }
 
