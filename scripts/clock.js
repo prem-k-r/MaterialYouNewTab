@@ -18,6 +18,7 @@ let lastGreetingString = null;
 const leftDiv = document.getElementById("leftDiv");
 const rightDiv = document.getElementById("rightDiv");
 const hideClockCheckbox = document.getElementById("hideClock");
+const clockHidden = document.getElementById("clockHidden");
 const clockOptions = document.querySelector(".clockOptions");
 
 function toggleHideState(isHidden) {
