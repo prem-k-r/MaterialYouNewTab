@@ -2162,6 +2162,7 @@ body[data-bg="wallpaper"] .micIcon {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	text-align: center;
 	padding: 12px;
 	position: relative;
 	margin-inline-end: 5px;
@@ -3041,7 +3042,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 
 .divider {
 	height: 6px;
-	width: 37%;
+	width: 33%;
 	background-color: #ffffffcc;
 	border-radius: 3px;
 	margin: 20px auto;
@@ -3259,7 +3260,7 @@ input:checked + .toggle:before {
 
 /* ===== Unified Section ===== */
 .section {
-	margin-bottom: 18px;
+	margin-bottom: 20px;
 }
 
 /* OUTER container */
