@@ -34,7 +34,7 @@ const uz = {
     // To-do List
     "todoListText": "Vazifalar",
     "todoListInfo": "Kundalik vazifalar ro'yxatini ko'rsatish",
-    "todoListHover": "Vazifalar",    // keep this short
+    "todoListHover": "Vazifalar",
     "todoPlaceholder": "Vazifa qo'shish...",
 
 
@@ -55,7 +55,7 @@ const uz = {
     "fahrenheitCelsiusText": "O'zgarishlar uchun sahifani yangilang",
     "hideWeatherTitle": "Ob-havoni yashirish",
     "hideWeatherInfo": "Ob-havo vidjetlarini o'chirish",
-    "hideWeatherBox": "Ob-havo kartasini yashirish",    // Toggle for mobile devices only
+    "hideWeatherBox": "Ob-havo kartasini yashirish",
     "hideWeatherBoxInfo": "Faqat harorat ikonini ko'rsatish",
     "minMaxTempText": "Min-maks harorat",
     "minMaxTempSubText": "\"His etiladi\" o'rniga minimal va maksimal haroratni ko'rsatish",
@@ -86,7 +86,7 @@ const uz = {
     "PrivacyPolicy": "Maxfiylik siyosati",
 
     // Weather
-    "WeatherApiText": "WeatherAPI kalitini kiritish",    // For 'WeatherAPI' string, only transliterate
+    "WeatherApiText": "WeatherAPI kalitini kiritish",
     "WeatherApiSubtext": "Agar ob-havo funksiyasi ishlamasa",
     "userAPI": "WeatherAPI kalitingiz",
     "LearnMoreButton": "Batafsil ma'lumot",
@@ -103,8 +103,8 @@ const uz = {
     "sortAlphabetical": "A-Z",
     "sortTimeAdded": "Eski-Yangi",
     "bookmarkViewAs": "Ko'rinish usuli",
-    "bookmarkViewGrid": "Katakli",    // Keep this shorter
-    "bookmarkViewList": "Ro'yxatli",    // Keep this shorter
+    "bookmarkViewGrid": "Katakli",
+    "bookmarkViewList": "Ro'yxatli",
     "bookmarkSearch": "Xatcho'p qidirish",
     "editBookmarkHeading": "Xatcho'pni tahrirlash",
     "editBookmarkName": "Xatcho'p nomi",
@@ -133,11 +133,11 @@ const uz = {
     // Search Engines
     "defaultEngine": "Standart",
     "googleEngine": "Google",
-    "duckEngine": "Duck",    // DuckDuckGo
+    "duckEngine": "Duck",
     "bingEngine": "Bing",
     "braveEngine": "Brave",
     "youtubeEngine": "YouTube",
-    "gImagesEngine": "Rasmlar",  // Google Images, https://www.google.com/search?q=check&hl=bn
+    "gImagesEngine": "Rasmlar",
     "redditEngine": "Reddit",
     "wikipediaEngine": "Wikipedia",
     "quoraEngine": "Quora",
@@ -163,8 +163,8 @@ const uz = {
     "systemThemed": "Tizim bo'yicha",
 
     // Wallpaper and settings
-    "uploadWallpaperText": "Fon rasmini yuklash",    // Keep this short
-    "rangColor": "Rang tanlang",    // Keep this short
+    "uploadWallpaperText": "Fon rasmini yuklash",
+    "rangColor": "Rang tanlang",
     "opacityTitle": "Shaffoflik",
     "adjustOpacityDesc": "Interfeys shaffofligini sozlash",
     "backupText": "Zaxiralash",
@@ -207,7 +207,7 @@ const uz = {
     "restorefailed": "Tiklash amalga oshmadi: ",
     "invalidBackup": "Noto'g'ri zaxira fayli tanlandi.",
 
-    "deleteBookmark": "\"{title}\" xatcho'pini o'chirmoqchimisiz?",  // Do not translate {title}
+    "deleteBookmark": "\"{title}\" xatcho'pini o'chirmoqchimisiz?",
     "UnsupportedBrowser": "Xatcho'plar brauzeringizda qo'llab-quvvatlanmaydi.",
     "resetShortcutsPrompt": "Barcha saqlangan yorliqlar o'chiriladi va standart holatga qaytariladi. Davom etilsinmi?"
 };
