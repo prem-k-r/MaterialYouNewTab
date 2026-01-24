@@ -19,7 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function applyWeatherState(hidden) {
         weatherOptions.classList.toggle("not-applicable", hidden);
         weatherOptions.classList.toggle("inactive", hidden);
-        weatherHeader.style.borderBottom = hidden ? "none" : "";
+        if (hidden)
+            setTimeout(() => weatherHeader.style.borderBottom = "none", 150);
+        else
+            weatherHeader.style.borderBottom = "";
+
         // Hide weather widgets
         hideWeather.classList.toggle("weather-hidden", hidden);
     }

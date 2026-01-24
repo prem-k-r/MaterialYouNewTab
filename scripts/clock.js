@@ -21,14 +21,12 @@ const hideClockCheckbox = document.getElementById("hideClock");
 const clockOptions = document.querySelector(".clockOptions");
 
 function toggleHideState(isHidden) {
-    document.getElementById("clockHidden").style.borderBottom =
-        isHidden ? "none" : "";
+    clockOptions.classList.toggle("not-applicable", isHidden);
 
-    if (isHidden) {
-        clockOptions.classList.add("not-applicable");
-    } else {
-        clockOptions.classList.remove("not-applicable");
-    }
+    if (isHidden)
+        setTimeout(() => clockHidden.style.borderBottom = "none", 120);
+    else
+        clockHidden.style.borderBottom = "";
 }
 
 function applyClockState(isHidden) {
