@@ -1652,8 +1652,21 @@ html[lang="ta"] .digiclock {
 	font-size: 6.4rem;
 }
 
-.clockRegion {
-	transition: transform 0.25s ease-in-out;
+.clockOptions,
+.proxyOptions,
+.weatherOptions {
+    overflow: hidden;
+    max-height: 800px;
+    opacity: 1;
+    transition:
+        max-height 0.4s var(--md-motion-ease),
+        opacity 0.3s ease;
+}
+
+.not-applicable {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .clock-hidden-left {

@@ -9,43 +9,36 @@
 document.addEventListener("DOMContentLoaded", function () {
     const hideWeather = document.getElementById("hideWeather");
     const hideWeatherCheckbox = document.getElementById("hideWeatherCheckbox");
+    const weatherHeader = document.getElementById("weatherHeader");
+    const weatherOptions = document.querySelector(".weatherOptions");
 
-    // Select all elements that need to be disabled
-    const elementsToDisable = document.querySelectorAll(".weather");
+    // Retrieve saved state
+    const isHidden = localStorage.getItem("hideWeatherVisible") === "true";
+    hideWeatherCheckbox.checked = isHidden;
 
-    // Retrieve saved state from localStorage (default: false if null)
-    const savedState = localStorage.getItem("hideWeatherVisible") === "true";
-    hideWeatherCheckbox.checked = savedState;
-
-    function applyVisibilityState(isHidden) {
-        hideWeather.classList.toggle("weather-hidden", isHidden);
-    }
-
-    // Function to toggle the 'inactive' class
-    function toggleInactiveState(isInactive) {
-        elementsToDisable.forEach(element => {
-            element.classList.toggle("inactive", isInactive);
-        });
+    function applyWeatherState(hidden) {
+        weatherOptions.classList.toggle("not-applicable", hidden);
+        weatherOptions.classList.toggle("inactive", hidden);
+        weatherHeader.style.borderBottom = hidden ? "none" : "";
+        // Hide weather widgets
+        hideWeather.classList.toggle("weather-hidden", hidden);
     }
 
     // Apply initial state
-    toggleInactiveState(savedState);
-    applyVisibilityState(savedState);
+    applyWeatherState(isHidden);
 
     // Show weather widgets only if toggle is unchecked
-    if (!savedState) {
+    if (!isHidden) {
         getWeatherData();
     }
 
     hideWeatherCheckbox.addEventListener("change", () => {
-        const isChecked = hideWeatherCheckbox.checked;
-        applyVisibilityState(isChecked);
-        localStorage.setItem("hideWeatherVisible", isChecked);
+        const hidden = hideWeatherCheckbox.checked;
+        localStorage.setItem("hideWeatherVisible", hidden);
 
-        // Apply inactive class to disable elements visually
-        toggleInactiveState(isChecked);
+        applyWeatherState(hidden);
 
-        if (!isChecked) {
+        if (!hidden) {
             getWeatherData();
         }
     });

@@ -285,6 +285,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const proxybypassField = document.getElementById("proxybypassField");
     const proxyinputField = document.getElementById("proxyField");
     const useproxyCheckbox = document.getElementById("useproxyCheckbox");
+    const searchSuggestionsHeader = document.getElementById("searchSuggestionsHeader");
+    const proxyOptions = document.querySelector(".proxyOptions");
 
     // This function shows the proxy disclaimer.
     async function showProxyDisclaimer() {
@@ -311,7 +313,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add change event listeners for the checkboxes
     searchsuggestionscheckbox.addEventListener("change", async function () {
         saveCheckboxState("searchsuggestionscheckboxState", searchsuggestionscheckbox);
+        searchSuggestionsHeader.style.borderBottom = searchsuggestionscheckbox.checked ? "" : "none";
+
         if (searchsuggestionscheckbox.checked) {
+            proxyOptions.classList.remove("not-applicable");
             proxybypassField.classList.remove("inactive");
             saveActiveStatus("proxybypassField", "active");
 
@@ -319,6 +324,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 await requestHostPermissions();
             }
         } else {
+            proxyOptions.classList.add("not-applicable");
             proxybypassField.classList.add("inactive");
             saveActiveStatus("proxybypassField", "inactive");
             useproxyCheckbox.checked = false;
@@ -354,4 +360,9 @@ document.addEventListener("DOMContentLoaded", function () {
     loadCheckboxState("useproxyCheckboxState", useproxyCheckbox);
     loadActiveStatus("proxyinputField", proxyinputField);
     loadActiveStatus("proxybypassField", proxybypassField);
+
+    searchSuggestionsHeader.style.borderBottom = searchsuggestionscheckbox.checked ? "" : "none";
+    if (!searchsuggestionscheckbox.checked) {
+        proxyOptions.classList.add("not-applicable");
+    }
 });
