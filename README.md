@@ -209,11 +209,11 @@ Below are screenshots of the process to guide you through each step visually.
 
 ---
 
-### Installation Video
+<!-- ### Installation Video
 
 For a step-by-step walkthrough, watch this [installation guide video](https://youtu.be/P4ryQPixfw8).
 
-[![Watch the video](https://img.youtube.com/vi/P4ryQPixfw8/0.jpg)](https://youtu.be/P4ryQPixfw8)
+[![Watch the video](https://img.youtube.com/vi/P4ryQPixfw8/0.jpg)](https://youtu.be/P4ryQPixfw8) -->
 
 ## 🌐 Currently Supported Languages (31)
 
@@ -248,7 +248,7 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 | <img src='https://flagcdn.com/tr.svg' width=20> &nbsp; **Turkish** - Türkçe                  |  tr   | [Nobody](https://github.com/Nobody9512), [Kerim Ölçer](https://github.com/kerimlcr)   |
 | <img src='https://flagcdn.com/ua.svg' width=20> &nbsp; **Ukrainian** - Українська | uk | [Serhii Lozytskyi](https://github.com/lozik4) |
 | <img src='https://flagcdn.com/pk.svg' width=20> &nbsp; **Urdu** - اردو                        |  ur   | [Asfandiyar Khan](https://github.com/asfand-dev)                                      |
-| <img src='https://flagcdn.com/uz.svg' width=20> &nbsp; **Uzbek** - O'zbek                    |  uz   | [Firdavs](https://github.com/Firdavs9512/)                                            |
+| <img src='https://flagcdn.com/uz.svg' width=20> &nbsp; **Uzbek** - O'zbek                    |  uz   | [Firdavs](https://github.com/Firdavs9512/), [S0ME2](https://github.com/S0ME2/)                                            |
 | <img src='https://flagcdn.com/vn.svg' width=20> &nbsp; **Vietnamese** - Tiếng Việt           |  vn   | [Diep](https://github.com/diepdo1810/), [Tuan](https://github.com/Tuan1-2-3)          |
 
 Check the [Translation Status Page](https://prem-k-r.github.io/MaterialYouNewTab/tools/languagesAnalysis.html) for an overview of completed languages and missing strings analysis.
@@ -287,6 +287,7 @@ Here is the star history chart for the **MYNT: Material You New Tab** repository
 
 MYNT: Material You New Tab prioritizes your privacy and is focused solely on providing a better browsing experience.
 We make the following commitments:
+
 - **No commercialization** — absolutely no ads, paid features, or premium tiers
 - **No trackers** — no data collection, analytics, or background reporting of any kind
 - **No access to personal information** — all settings, cache, and preferences are stored locally in your browser
@@ -295,7 +296,7 @@ For more details, read our [Privacy Policy](https://prem-k-r.github.io/MaterialY
 
 ## 📜 License
 
-Copyright (C) 2024-2025 Prem Kumar
+Copyright (C) 2024-2026 Prem Kumar
 
 Copyright (C) 2023-2025 XengShi
 

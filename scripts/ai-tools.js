@@ -293,7 +293,12 @@ function closeAIToolsSettings() {
 }
 
 // Function to toggle AI Tools panel
+let isAIToolsTransitioning = false;
+
 function toggleAITools(event) {
+    if (isAIToolsTransitioning) return;
+    isAIToolsTransitioning = true;
+
     const shortcutsCheckbox = document.getElementById("shortcutsCheckbox");
     const isAIToolVisible = aiToolName.style.display === "flex";
 
@@ -314,19 +319,21 @@ function toggleAITools(event) {
 
         setTimeout(() => {
             aiToolName.style.display = "none";
+            isAIToolsTransitioning = false;
         }, 500);
     } else {
         // Show AI Tool panel
         shortcuts.style.display = "none";
         aiToolName.style.display = "flex";
 
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             aiToolName.style.opacity = "1";
             aiToolName.style.transform = "translateX(0)";
-        }, 1);
+        });
 
         setTimeout(() => {
             aiToolName.style.gap = "12px";
+            isAIToolsTransitioning = false;
         }, 300);
     }
 }
@@ -459,7 +466,6 @@ document.addEventListener("DOMContentLoaded", function () {
             aiToolsCont.style.display = "flex";
             saveDisplayStatus("aiToolsDisplayStatus", "flex");
             aiToolsEditField.classList.remove("inactive");
-            showAIToolsSettings();
         } else {
             aiToolsCont.style.display = "none";
             saveDisplayStatus("aiToolsDisplayStatus", "none");

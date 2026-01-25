@@ -159,9 +159,9 @@ const en = {
     "resetAISettingsBtn": "Reset",
 
     // Theme
-    "lightThemed": "Default (Light Theme)",
-    "darkThemed": "Dark Theme",
-    "systemThemed": "Follow System Theme",
+    "lightThemed": "Light",
+    "darkThemed": "Dark",
+    "systemThemed": "System",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Upload Wallpaper",    // Keep this short

@@ -4,6 +4,14 @@ const idn = {
     "github": "GitHub",
     "feedback": "Umpan Balik",
 
+    // Section titles
+    "personalizationSectionTitle": "Personalisasi",
+    "clockSectionTitle": "Jam",
+    "searchSectionTitle": "Pencarian",
+    "weatherSectionTitle": "Cuaca",
+    "appearanceSectionTitle": "Penampilan",
+    "settingsSectionTitle": "Pengaturan",
+
     // Shortcuts
     "shortcutsText": "Pintasan",
     "enableShortcutsText": "Menampilkan Pintasan",
@@ -149,9 +157,9 @@ const idn = {
     "resetAISettingsBtn": "Atur Ulang",
 
     // Theme
-    "lightThemed": "Default (Mode Terang)",
-    "darkThemed": "Mode Gelap",
-    "systemThemed": "Mengikuti Mode Sistem",
+    "lightThemed": "Terang",
+    "darkThemed": "Gelap",
+    "systemThemed": "Sistem",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Unggah Wallpaper",
@@ -176,7 +184,7 @@ const idn = {
     "updateFirefoxHomepage": "Perbarui Beranda",
     "updateFirefoxHomepageInfo": "Untuk mengubah beranda Anda seperti tab baru juga, kunjungi <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">tautan ini</a> dan ikuti intruksi-nya.",
     "dontShowTips": "Jangan tampilkan lagi",
-    
+
     // Footer Toast
     "footerToastTitle": "Melihat banner di bawah?",
     "footerToastMessage": "Untuk menyembunyikannya, klik kanan padanya dan pilih 'Sembunyikan Footer Pada Halaman Tab Baru'.",

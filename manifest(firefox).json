@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "MYNT: Material You New Tab",
-	"version": "3.3.2",
+	"version": "3.3.5",
 	"description": "A Simple New Tab (browser's home page) inspired by Google's 'Material You' design.",
 	"permissions": [
 		"search",
@@ -30,7 +30,7 @@
 		"gecko": {
 			"id": "{c30c387e-cd01-42b4-b5c7-6af2d820535b}",
 			"data_collection_permissions": {
-      			"required": ["none"]
+				"required": ["none"]
 			}
 		}
 	}

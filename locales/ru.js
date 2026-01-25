@@ -4,6 +4,14 @@ const ru = {
     "github": "GitHub",
     "feedback": "Отзывы",
 
+    // Section titles
+    "personalizationSectionTitle": "Персонализация",
+    "clockSectionTitle": "Часы",
+    "searchSectionTitle": "Поиск",
+    "weatherSectionTitle": "Погода",
+    "appearanceSectionTitle": "Оформление",
+    "settingsSectionTitle": "Настройки",
+
     // Shortcuts
     "shortcutsText": "Ярлыки",
     "enableShortcutsText": "Включить/Отключить ярлыки",
@@ -149,9 +157,9 @@ const ru = {
     "resetAISettingsBtn": "Сбросить",
 
     // Theme
-    "lightThemed": "По умолчанию (Светлая тема)",
-    "darkThemed": "Тёмная тема",
-    "systemThemed": "Следовать системной теме",
+    "lightThemed": "Светлая",
+    "darkThemed": "Тёмная",
+    "systemThemed": "Система",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Загрузить обои",
@@ -176,7 +184,7 @@ const ru = {
     "updateFirefoxHomepage": "Обновить домашнюю страницу",
     "updateFirefoxHomepageInfo": "Чтобы изменить свою домашнюю страницу на новую вкладку, посетите <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">эту ссылку</a> и следуйте инструкциям.",
     "dontShowTips": "Не показывать снова",
-    
+
     // Footer Toast
     "footerToastTitle": "Видите баннер внизу?",
     "footerToastMessage": "Чтобы скрыть его, нажмите на него правой кнопкой мыши и выберите 'Скрыть нижний колонтитул на странице новой вкладки'.",
