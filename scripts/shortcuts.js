@@ -199,8 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return entry;
     }
 
-    // Renders a shortcut in the main view
-    function renderShortcut(name, url, index) {
+    function createShortcutElement(name, url, index) {
         const normalizedUrl = normalizeUrl(url);
 
         const shortcut = document.createElement("div");
@@ -223,6 +222,13 @@ document.addEventListener("DOMContentLoaded", function () {
         link.appendChild(logoContainer);
         link.appendChild(span);
         shortcut.appendChild(link);
+
+        return shortcut;
+    }
+
+    // Renders a shortcut in the main view
+    function renderShortcut(name, url, index) {
+        const shortcut = createShortcutElement(name, url, index);
 
         if (index < dom.shortcutsContainer.children.length) {
             dom.shortcutsContainer.replaceChild(shortcut, dom.shortcutsContainer.children[index]);
@@ -587,28 +593,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const fragment = document.createDocumentFragment();
 
         order.forEach((item, index) => {
-            const shortcut = document.createElement("div");
-            shortcut.className = "shortcuts";
-            shortcut._index = index;
-
-            const link = document.createElement("a");
-            link.href = normalizeUrl(item.url);
-
-            const logoContainer = document.createElement("div");
-            logoContainer.className = "shortcutLogoContainer";
-
-            const logo = getLogoHtml(item.url);
-            if (logo) logoContainer.appendChild(logo);
-
-            const span = document.createElement("span");
-            span.className = "shortcut-name";
-            span.textContent = item.name;
-
-            link.appendChild(logoContainer);
-            link.appendChild(span);
-            shortcut.appendChild(link);
-
-            fragment.appendChild(shortcut);
+            fragment.appendChild(createShortcutElement(item.name, item.url, index));
         });
 
         dom.shortcutsContainer.innerHTML = "";
