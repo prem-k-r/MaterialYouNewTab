@@ -264,6 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (hostname === "github.com") {
             const img = document.createElement("img");
             img.src = "./svgs/github-shortcut.svg";
+            img.alt = "";
             return img;
         }
 
@@ -279,6 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const img = document.createElement("img");
 
         img.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256`;
+        img.alt = "";
 
         img.addEventListener("error", () => {
             img.src = "./svgs/offline.svg";
