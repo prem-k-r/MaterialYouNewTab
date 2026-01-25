@@ -202,18 +202,27 @@ document.addEventListener("DOMContentLoaded", function () {
     // Renders a shortcut in the main view
     function renderShortcut(name, url, index) {
         const normalizedUrl = normalizeUrl(url);
+
         const shortcut = document.createElement("div");
         shortcut.className = "shortcuts";
         shortcut._index = index;
 
-        shortcut.innerHTML = `
-            <a href="${normalizedUrl}">
-                <div class="shortcutLogoContainer">
-                    ${getLogoHtml(normalizedUrl)}
-                </div>
-                <span class="shortcut-name">${escapeHtml(name)}</span>
-            </a>
-        `;
+        const link = document.createElement("a");
+        link.href = normalizedUrl;
+
+        const logoContainer = document.createElement("div");
+        logoContainer.className = "shortcutLogoContainer";
+
+        const logo = getLogoHtml(normalizedUrl);
+        if (logo) logoContainer.appendChild(logo);
+
+        const span = document.createElement("span");
+        span.className = "shortcut-name";
+        span.textContent = name;
+
+        link.appendChild(logoContainer);
+        link.appendChild(span);
+        shortcut.appendChild(link);
 
         if (index < dom.shortcutsContainer.children.length) {
             dom.shortcutsContainer.replaceChild(shortcut, dom.shortcutsContainer.children[index]);
@@ -245,19 +254,31 @@ document.addEventListener("DOMContentLoaded", function () {
     function getLogoHtml(url) {
         const hostname = new URL(normalizeUrl(url)).hostname.replace("www.", "");
 
+        // GitHub shortcut
         if (hostname === "github.com") {
-            return `<img src="./svgs/github-shortcut.svg" alt="">`;
+            const img = document.createElement("img");
+            img.src = "./svgs/github-shortcut.svg";
+            return img;
         }
 
         // Check presets for matching domain
         const preset = presets.find(p => p.domains.includes(hostname));
         if (preset) {
-            return preset.svg;
+            const wrapper = document.createElement("div");
+            wrapper.innerHTML = preset.svg;
+            return wrapper.firstElementChild;
         }
 
         // Fetch favicon from Google 
-        return `<img src="https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256" 
-                onerror="this.src='./svgs/offline.svg'" alt="">`;
+        const img = document.createElement("img");
+
+        img.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256`;
+
+        img.addEventListener("error", () => {
+            img.src = "./svgs/offline.svg";
+        }, { once: true });
+
+        return img;
     }
 
     // Attaches event listeners to shortcut input fields
@@ -569,14 +590,24 @@ document.addEventListener("DOMContentLoaded", function () {
             const shortcut = document.createElement("div");
             shortcut.className = "shortcuts";
             shortcut._index = index;
-            shortcut.innerHTML = `
-            <a href="${normalizeUrl(item.url)}">
-                <div class="shortcutLogoContainer">
-                    ${getLogoHtml(item.url)}
-                </div>
-                <span class="shortcut-name">${escapeHtml(item.name)}</span>
-            </a>
-        `;
+
+            const link = document.createElement("a");
+            link.href = normalizeUrl(item.url);
+
+            const logoContainer = document.createElement("div");
+            logoContainer.className = "shortcutLogoContainer";
+
+            const logo = getLogoHtml(item.url);
+            if (logo) logoContainer.appendChild(logo);
+
+            const span = document.createElement("span");
+            span.className = "shortcut-name";
+            span.textContent = item.name;
+
+            link.appendChild(logoContainer);
+            link.appendChild(span);
+            shortcut.appendChild(link);
+
             fragment.appendChild(shortcut);
         });
 
