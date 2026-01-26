@@ -40,7 +40,7 @@ function addtodoItem() {
     const t = "t" + Date.now(); // Generate a Unique ID
     const rawText = inputText;
 
-    todoList[t] = { title: rawText, status: "pending", pinned: false }; // Add data to the JSON variable
+    todoList[t] = { title: rawText, status: "pending", pinned: false, archived: false }; // Added archived property
     const li = createTodoItemDOM(t, rawText, "pending", false); // Create List item
     todoulList.appendChild(li); // Append the new item to the DOM immediately
     todoInput.value = ""; // Clear Input
@@ -77,7 +77,7 @@ function createTodoItemDOM(id, title, status, pinned) {
         li.classList.add("pinned");
     }
 
-    li.setAttribute("data-todoitem", id); // Set a data attribute to the li so that we can uniquely identify which li has been modified or deleted
+    li.setAttribute("data-todoitem", id); // Set a data attribute to the li
     return li; // Return the created `li` element
 }
 
@@ -192,10 +192,14 @@ function ShowToDoList() {
 
         for (let id in todoList) {
             const todo = todoList[id];
-            const li = createTodoItemDOM(id, todo.title, todo.status, todo.pinned); // Create `li` elements
-            fragment.appendChild(li); // Add `li` to the fragment
+            // Only show items that are NOT archived
+            if (!todo.archived) {
+                const li = createTodoItemDOM(id, todo.title, todo.status, todo.pinned); // Create `li` elements
+                fragment.appendChild(li); // Add `li` to the fragment
+            }
         }
 
+        todoulList.innerHTML = ""; // Clear current list before appending
         todoulList.appendChild(fragment); // Append all `li` to the `ul` at once
     } catch (error) {
         console.error("Error loading from localStorage:", error);
@@ -203,7 +207,7 @@ function ShowToDoList() {
     }
 }
 
-// Code to reset the List on the Next Day
+// Code to reset the List on the Next Day with Smart Cleanup Logic
 let todoLastUpdateDate = localStorage.getItem("todoLastUpdateDate"); // Get the date of last update
 let todoCurrentDate = new Date().toLocaleDateString(); // Get current date
 
@@ -215,9 +219,10 @@ if (todoLastUpdateDate === todoCurrentDate) {
     todoList = JSON.parse(localStorage.getItem("todoList")) || {};
 
     for (let id in todoList) {
+        // Smart Cleanup: If unpinned and completed, mark as archived instead of deleting
         if (todoList[id].pinned === false) {
             if (todoList[id].status === "completed") {
-                delete todoList[id]; // Remove the Unpinned and Completed list item data
+                todoList[id].archived = true; 
             }
         } else {
             todoList[id].status = "pending"; // Reset status of pinned items
@@ -241,7 +246,6 @@ todoListCont.addEventListener("click", function (event) {
         todoListCont.classList.add("menu-open"); // Hide tooltip
         todoInput.focus(); // Auto focus on input box
     } else {
-        //todoContainer.style.animation = "panelScaleOut 150ms cubic-bezier(0.4, 0, 1, 1) forwards";
         todoListCont.classList.remove("menu-open"); // Restore tooltip
     }
 });

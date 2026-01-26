@@ -95,7 +95,7 @@ async function getWeatherData() {
         const apiKey = userAPIInput.value.trim();
         localStorage.setItem("weatherApiKey", apiKey);
         userAPIInput.value = "";
-        location.reload();
+        fetchWeather(); // Refresh data without full reload
     });
 
     // Handle GPS toggle change
@@ -114,7 +114,8 @@ async function getWeatherData() {
             localStorage.setItem("useGPS", false);
             locationCont.classList.remove("inactive");
         }
-        location.reload();
+        // Instead of reload, re-initialize location and fetch new data
+        getWeatherData(); 
     });
 
     // Handle manual location input
@@ -124,7 +125,6 @@ async function getWeatherData() {
         localStorage.setItem("useGPS", false);
         userLocInput.value = "";
         fetchWeather();
-        location.reload();
     });
 
     // Default Weather API key
@@ -452,8 +452,7 @@ async function getWeatherData() {
                     ? `${humidityLabel} %${localizedHumidity}` // RTL: "76% ytidimuH"
                     : `${humidityLabel} ${localizedHumidity}%`;
 
-                // Event Listener for the Fahrenheit toggle
-                const fahrenheitCheckbox = document.getElementById("fahrenheitCheckbox");
+                // Update temperature display directly without reload
                 const updateTemperatureDisplay = () => {
                     const tempElement = document.getElementById("temp");
                     const feelsLikeElement = document.getElementById("feelsLike");
@@ -465,20 +464,17 @@ async function getWeatherData() {
                     // Range separator for min-max temperature
                     const rangeSeparator = {
                         cs: "až",
-                        // Add more languages as needed
                         default: "~"
                     };
                     const separator = rangeSeparator[currentLanguage] || rangeSeparator.default;
 
                     if (fahrenheitCheckbox.checked) {
-                        // Update temperature
                         tempElement.textContent = localizedTempFahrenheit;
                         const tempUnitF = document.createElement("span");
                         tempUnitF.className = "tempUnit";
                         tempUnitF.textContent = "°F";
                         tempElement.appendChild(tempUnitF);
 
-                        // Update feels like or Min-Max temp
                         const feelsLikeFUnit = langWithSpaceBeforeDegree.includes(currentLanguage) ? " °F" : "°F";
                         if (isMinMaxEnabled) {
                             feelsLikeElement.textContent = `${localizedMinTempF} ${separator} ${localizedMaxTempF}${feelsLikeFUnit}`;
@@ -489,14 +485,12 @@ async function getWeatherData() {
                                 : `${feelsLikeLabel} ${localizedFeelsLikeFahrenheit}${feelsLikeFUnit}`;
                         }
                     } else {
-                        // Update temperature
                         tempElement.textContent = localizedTempCelsius;
                         const tempUnitC = document.createElement("span");
                         tempUnitC.className = "tempUnit";
                         tempUnitC.textContent = "°C";
                         tempElement.appendChild(tempUnitC);
 
-                        // Update feels like or Min-Max temp
                         const feelsLikeCUnit = langWithSpaceBeforeDegree.includes(currentLanguage) ? " °C" : "°C";
                         if (isMinMaxEnabled) {
                             feelsLikeElement.textContent = `${localizedMinTempC} ${separator} ${localizedMaxTempC}${feelsLikeCUnit}`;
@@ -519,23 +513,22 @@ async function getWeatherData() {
                 };
                 wIcon.src = weatherIcon;
 
-                // Define minimum width for the slider based on the language
+                // Adjust layout based on language and data
                 const humidityMinWidth = {
                     idn: "47%",
                     hu: "48%",
                     de: "51%",
                     ta: "46%",
-                    en: "42%" // Default for English and others
+                    en: "42%" 
                 };
                 const slider = document.getElementById("slider");
                 slider.style.minWidth = humidityMinWidth[currentLanguage] || humidityMinWidth["en"];
 
-                // Set slider width based on humidity
                 if (humidity > 40) {
                     slider.style.width = `calc(${humidity}% - 60px)`;
                 }
 
-                // Update location
+                // Update location name visibility
                 let city = parsedData.location.name;
                 let maxLength = 10;
                 let isLocationHidden = localStorage.getItem("locationHidden") === "true";
@@ -544,7 +537,6 @@ async function getWeatherData() {
                 const locationIcon = locationTile.querySelector(".location-icon");
                 const locationText = document.getElementById("location");
 
-                // Apply initial content
                 function updateLocationText() {
                     if (isLocationHidden) {
                         locationText.textContent = translations[currentLanguage]?.location || translations.en.location;
@@ -554,17 +546,13 @@ async function getWeatherData() {
                     }
                 }
 
-                // Initialize content on load
                 updateLocationText();
 
-                // Return the toggle icon based on the state
                 function getToggleIcon() {
                     return isLocationHidden ? "./svgs/location-show.svg" : "./svgs/location-hide.svg";
                 }
 
-                // Switch icon on hover
                 let hoverTimeout;
-
                 locationTile.addEventListener("mouseenter", () => {
                     hoverTimeout = setTimeout(() => {
                         locationIcon.src = getToggleIcon();
@@ -576,14 +564,11 @@ async function getWeatherData() {
                     locationIcon.src = "./svgs/location.svg";
                 });
 
-                // Toggle on click
                 locationIcon.addEventListener("click", (e) => {
                     e.stopPropagation();
                     isLocationHidden = !isLocationHidden;
                     localStorage.setItem("locationHidden", isLocationHidden);
                     updateLocationText();
-
-                    // Update icon immediately
                     if (locationTile.matches(":hover")) {
                         locationIcon.src = getToggleIcon();
                     }
@@ -605,14 +590,21 @@ hideWeatherCard.addEventListener("change", function () {
 
 fahrenheitCheckbox.addEventListener("change", function () {
     saveCheckboxState("fahrenheitCheckboxState", fahrenheitCheckbox);
+    UpdateWeather(); // Direct UI update on toggle
 });
 
 loadCheckboxState("hideWeatherCardState", hideWeatherCard);
 loadCheckboxState("fahrenheitCheckboxState", fahrenheitCheckbox);
 
-// Handle min-max temp checkbox state change
+// Handle min-max temp checkbox state change without full reload
 minMaxTempCheckbox.addEventListener("change", () => {
     const isChecked = minMaxTempCheckbox.checked;
     localStorage.setItem("minMaxTempEnabled", isChecked);
-    location.reload();
+    
+    // Update labels and re-render the display
+    document.getElementById("feelsLike").textContent = isChecked
+        ? translations[currentLanguage]?.minMaxTemp || translations["en"].minMaxTemp
+        : translations[currentLanguage]?.feelsLike || translations["en"].feelsLike;
+    
+    UpdateWeather(); 
 });
