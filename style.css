@@ -5359,3 +5359,77 @@ body[data-bg="wallpaper"] .dropdown-content {
 	color: var(--darkColor-dark);
 }
 /* ------------ End of Toast---------- */
+
+/* --- Material 3 Expressive Motion for To-Do List --- */
+
+/* Keyframe for the "Spring" check effect */
+@keyframes check-spring {
+    0% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(0.92);
+    }
+    70% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Keyframe for the strike-through line growth */
+@keyframes strike-grow {
+    from {
+        text-decoration-color: transparent;
+        width: 0;
+    }
+    to {
+        text-decoration-color: currentColor;
+        width: 100%;
+    }
+}
+
+/* Updated .checked class with Expressive Motion */
+.todolistitem.checked {
+    animation: check-spring 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: var(--md-sys-color-outline);
+    transition: color 0.3s ease;
+}
+
+/* Animated Strike-through Effect */
+.todolistitem.checked::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: var(--md-sys-color-outline);
+    transform: translateY(-50%);
+    transform-origin: left;
+    animation: strike-grow 0.3s ease-out forwards;
+}
+
+/* Hover effect to signal interactivity (Material 3 State Layer) */
+.todolistitem:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+    transform: translateY(-1px);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+/* Active state (Press effect) */
+.todolistitem:active {
+    transform: scale(0.98);
+    background-color: var(--md-sys-color-surface-container-highest);
+}
+
+/* Smooth transition for Pin and Remove buttons */
+.todopinbtn, .todoremovebtn, .todoeditbtn {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+}
+
+.todopinbtn:hover, .todoremovebtn:hover, .todoeditbtn:hover {
+    transform: scale(1.2);
+}
