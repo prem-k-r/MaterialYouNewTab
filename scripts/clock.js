@@ -18,25 +18,16 @@ let lastGreetingString = null;
 const leftDiv = document.getElementById("leftDiv");
 const rightDiv = document.getElementById("rightDiv");
 const hideClockCheckbox = document.getElementById("hideClock");
-const elementsToHide = document.querySelectorAll(".clockRegion");
+const clockHidden = document.getElementById("clockHidden");
+const clockOptions = document.querySelector(".clockOptions");
 
 function toggleHideState(isHidden) {
-    document.getElementById("clockHidden").style.borderBottom =
-        isHidden ? "none" : "";
+    clockOptions.classList.toggle("not-applicable", isHidden);
 
-    elementsToHide.forEach(element => {
-        if (isHidden) {
-            element.style.transform = "translateY(-20px)";
-            setTimeout(() => {
-                element.style.display = "none";
-            }, 250);
-        } else {
-            element.style.display = "flex";
-            setTimeout(() => {
-                element.style.transform = "translateY(0)";
-            }, 50);
-        }
-    });
+    if (isHidden)
+        setTimeout(() => clockHidden.style.borderBottom = "none", 120);
+    else
+        clockHidden.style.borderBottom = "";
 }
 
 function applyClockState(isHidden) {
@@ -50,10 +41,7 @@ function handleClockVisibility() {
     if (window.matchMedia("(max-width: 500px)").matches) {
         initializeClock();
 
-        elementsToHide.forEach(element => {
-            element.style.display = "flex";
-            element.style.transform = "translateY(0)";
-        });
+        clockOptions.classList.remove("not-applicable");
         rightDiv.classList.remove("clock-padding-adjusted");
     }
     else {

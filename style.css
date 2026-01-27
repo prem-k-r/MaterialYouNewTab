@@ -1652,8 +1652,21 @@ html[lang="ta"] .digiclock {
 	font-size: 6.4rem;
 }
 
-.clockRegion {
-	transition: transform 0.25s ease-in-out;
+.clockOptions,
+.proxyOptions,
+.weatherOptions {
+    overflow: hidden;
+    max-height: 800px;
+    opacity: 1;
+    transition:
+        max-height 0.4s var(--md-motion-ease),
+        opacity 0.3s ease;
+}
+
+.not-applicable {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .clock-hidden-left {
@@ -1777,27 +1790,10 @@ body[data-bg="wallpaper"] .opacityBarControl {
 	opacity: 1;
 	transform: translateY(0);
 	pointer-events: auto;
-	max-height: 112px;
-	padding-bottom: 18px;
+	max-height: 150px;
+	overflow: hidden;
 	margin-top: 20px;
 	border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-/* Max-height for specific languages with different font */
-html[lang="vi"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 102px;
-}
-
-html[lang="ur"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 131px;
-}
-
-html[lang="fa"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 113px;
-}
-
-html[lang="ja"] body[data-bg="wallpaper"] .opacityBarControl {
-	max-height: 114px;
 }
 
 .humidityBar,
@@ -1810,7 +1806,7 @@ html[lang="ja"] body[data-bg="wallpaper"] .opacityBarControl {
 }
 
 .opacityBar {
-	margin-top: 8px;
+	margin: 8px 0 0;
 	cursor: grab;
 }
 
@@ -2162,6 +2158,7 @@ body[data-bg="wallpaper"] .micIcon {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	text-align: center;
 	padding: 12px;
 	position: relative;
 	margin-inline-end: 5px;
@@ -3041,7 +3038,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 
 .divider {
 	height: 6px;
-	width: 37%;
+	width: 33%;
 	background-color: #ffffffcc;
 	border-radius: 3px;
 	margin: 20px auto;
@@ -3259,7 +3256,7 @@ input:checked + .toggle:before {
 
 /* ===== Unified Section ===== */
 .section {
-	margin-bottom: 18px;
+	margin-bottom: 20px;
 }
 
 /* OUTER container */

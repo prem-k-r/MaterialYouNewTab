@@ -285,6 +285,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const proxybypassField = document.getElementById("proxybypassField");
     const proxyinputField = document.getElementById("proxyField");
     const useproxyCheckbox = document.getElementById("useproxyCheckbox");
+    const searchSuggestionsHeader = document.getElementById("searchSuggestionsHeader");
+    const proxyOptions = document.querySelector(".proxyOptions");
 
     // This function shows the proxy disclaimer.
     async function showProxyDisclaimer() {
@@ -294,6 +296,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Requests optional host permissions for suggestion APIs
     async function requestHostPermissions() {
+        if (!chrome?.permissions?.request)
+            return false;
+
         return new Promise((resolve) => {
             chrome.permissions.request({
                 origins: [
@@ -308,23 +313,29 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Add change event listeners for the checkboxes
-    searchsuggestionscheckbox.addEventListener("change", async function () {
-        saveCheckboxState("searchsuggestionscheckboxState", searchsuggestionscheckbox);
-        if (searchsuggestionscheckbox.checked) {
-            proxybypassField.classList.remove("inactive");
-            saveActiveStatus("proxybypassField", "active");
+    function applySearchSuggestionsState(enabled) {
+        proxyOptions.classList.toggle("not-applicable", !enabled);
+        proxybypassField.classList.toggle("inactive", !enabled);
 
-            if (!isFirefoxAll) {
-                await requestHostPermissions();
-            }
-        } else {
-            proxybypassField.classList.add("inactive");
-            saveActiveStatus("proxybypassField", "inactive");
+        if (!enabled) {
             useproxyCheckbox.checked = false;
             saveCheckboxState("useproxyCheckboxState", useproxyCheckbox);
             proxyinputField.classList.add("inactive");
             saveActiveStatus("proxyinputField", "inactive");
+            setTimeout(() => searchSuggestionsHeader.style.borderBottom = "none", 80);
+        } else
+            searchSuggestionsHeader.style.borderBottom = "";
+    }
+
+    // Add change event listeners for the checkboxes
+    searchsuggestionscheckbox.addEventListener("change", async function () {
+        saveCheckboxState("searchsuggestionscheckboxState", searchsuggestionscheckbox);
+
+        const enabled = searchsuggestionscheckbox.checked;
+        applySearchSuggestionsState(enabled);
+
+        if (enabled && !isFirefoxAll) {
+            await requestHostPermissions();
         }
     });
 
@@ -354,4 +365,5 @@ document.addEventListener("DOMContentLoaded", function () {
     loadCheckboxState("useproxyCheckboxState", useproxyCheckbox);
     loadActiveStatus("proxyinputField", proxyinputField);
     loadActiveStatus("proxybypassField", proxybypassField);
+    applySearchSuggestionsState(searchsuggestionscheckbox.checked);
 });

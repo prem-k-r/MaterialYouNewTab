@@ -3,133 +3,211 @@ const uz = {
     // Menu Items
     "github": "GitHub",
     "feedback": "Fikr-mulohaza",
-    "resetsettings": "Sozlamalarni tiklash",
-    "menuCloseText": 'Yopish',
+
+    // Section titles
+    "personalizationSectionTitle": "Shaxsiylashtirish",
+    "clockSectionTitle": "Soat",
+    "searchSectionTitle": "Qidiruv",
+    "weatherSectionTitle": "Ob-havo",
+    "appearanceSectionTitle": "Tashqi ko'rinish",
+    "settingsSectionTitle": "Sozlamalar",
 
     // Shortcuts
-    "shortcutsText": "Tezkor tugmalar",
-    "enableShortcutsText": "Tezkor tugmalarni ko'rsatish",
-    "editShortcutsText": "Tezkor tugmalarni tahrirlash",
-    "shortcutsInfoText": "Qaysi tezkor tugmalarni ko'rsatishni tanlang",
-    "editShortcutsList": "Saqlangan Tezkor tugmalar",
-    // "editShortcutsListInfo": "You can add new shortcuts by clicking the \"+\" icon or edit existing ones by clicking on the shortcut name or URL.",
-    "adaptiveIconText": "Adaptiv ikonlar shakllari",
-    "adaptiveIconInfoText": "Tezkor tugmalar doimiy ravishda doiraviy bo'ladi",
-    // "bookmarksText": "Bookmarks",
-    // "bookmarksInfo": "Show bookmarks sidebar",
-    "ai_tools_button": "AI-instrumentlar",
-    "enable_ai_tools": "Tezkor tugmalarni ko'rsatish AI-instrumentlar",
-    "googleAppsMenuText": "Google Dasturlari",
-    "googleAppsMenuInfo": "Google Dasturlariga qisqacha havolani ko'rsating",
-    // "googleAppsHover": "Google Apps",  // Keep this shorter
+    "shortcutsText": "Yorliqlar",
+    "enableShortcutsText": "Saqlangan yorliqlarni ko'rsatish",
+    "editShortcutsText": "Yorliqlarni tahrirlash",
+    "shortcutsInfoText": "Qaysi yorliqlar ko'rsatilishini tanlang",
+    "editShortcutsList": "Saqlangan yorliqlar",
+    "editShortcutsListInfo": "\"+\" tugmasi bilan yangi yorliq qo'shish yoki mavjudlarini nomi yoki URL orqali tahrirlash mumkin.",
+    "adaptiveIconText": "Moslashuvchan ikonlar",
+    "adaptiveIconInfoText": "Yorliq ikonlar mavzuga moslashadi",
+    "bookmarksText": "Xatcho'plar",
+    "bookmarksInfo": "Xatcho'plar panelini ko'rsatish",
+    "ai_tools_button": "AI vositalari",
+    "enable_ai_tools": "AI vositalari uchun yorliqlarni ko'rsatish",
+    "aiToolsSettingsText": "AI sozlamalari",
+    "aiToolsSettingsInfo": "AI vositalari yorliqlarini boshqarish",
+    "googleAppsMenuText": "Google ilovalari",
+    "googleAppsMenuInfo": "Google ilovalari uchun yorliqlarni ko'rsatish",
+    "googleAppsHover": "Google ilovalari",
 
     // To-do List
-    // "todoListText": "To Do List",
-    // "todoListInfo": "Show a daily To Do list",
-    // "todoListHover": "ToDo List",    // Keep this short
-    // "todoPlaceholder": "Add task...",
+    "todoListText": "Vazifalar",
+    "todoListInfo": "Kundalik vazifalar ro'yxatini ko'rsatish",
+    "todoListHover": "Vazifalar",
+    "todoPlaceholder": "Vazifa qo'shish...",
 
-    // Digital Clock
-    "digitalclocktitle": "Digital Clock",
-    "digitalclockinfo": "Digital Clockga o'tish",
-    "timeformattitle": "12-soat format",
-    "timeformatinfo": "12-soat formatni qo'llang",
-    "greetingtitle": "Salomlashish",
-    "greetinginfo": "Savatchadagi text pastdagi salomlashishni ko'rsatish",
+
+    // Clock
+    "hideClockBox": "Soatni yashirish",
+    "hideClockBoxInfo": "Soat va sanani yashirish",
+    "digitalclocktitle": "Raqamli soat",
+    "digitalclockinfo": "Raqamli soatga o'tish",
+    "timeformattitle": "12 soatlik format",
+    "timeformatinfo": "12 soatlik vaqt formatini ishlatish",
+    "greetingtitle": "Salomlashuv",
+    "greetinginfo": "Maxsus matn ostida salomlashuvni ko'rsatish",
 
     // Misc
-    "userTextTitle": "Tahrirlash mumkin bo'lgan matn",
-    "userTextInfo": "Savatchadagi text pastdagi salomlashishni ko'rsatish",
-    "fahrenheitCelsiusCheckbox": "Fahrenheitga o'tish",
-    "fahrenheitCelsiusText": "Sahifani yangilash, o'zgarishlarni qo'llash",
-    "micIconTitle": "Mikrofon belgisini yashirish",
+    "userTextTitle": "Maxsus matn",
+    "userTextInfo": "Soat ostida maxsus matnni ko'rsatish",
+    "fahrenheitCelsiusCheckbox": "Farengeytga o'tish",
+    "fahrenheitCelsiusText": "O'zgarishlar uchun sahifani yangilang",
+    "hideWeatherTitle": "Ob-havoni yashirish",
+    "hideWeatherInfo": "Ob-havo vidjetlarini o'chirish",
+    "hideWeatherBox": "Ob-havo kartasini yashirish",
+    "hideWeatherBoxInfo": "Faqat harorat ikonini ko'rsatish",
+    "minMaxTempText": "Min-maks harorat",
+    "minMaxTempSubText": "\"His etiladi\" o'rniga minimal va maksimal haroratni ko'rsatish",
+
+    // Search
+    "micIconTitle": "Mikrofon ikonini yashirish",
     "micIconInfo": "Agar ovozli yozish ishlamasa",
-    // "hideSearchWith": "Hide Search Engines",
-    // "hideSearchWithInfo": "Switch between search engines by clicking its icon",
-    "search_suggestions_button": "Izlash tavsiyalari",
-    "search_suggestions_text": "Izlash tavsiyalarini yoqish",
+    "hideSearchWith": "Qidiruv tizimlarini yashirish", 
+    "hideSearchWithInfo": "Ikoni orqali qidiruv tizimlari o'zgartirish mumkin",
+    "motivationalQuotesText": "Ruhlantiruvchi iqtiboslar",
+    "motivationalQuotesInfo": "Qidiruv satri ostida iqtiboslarni ko'rsatish",
+    "search_suggestions_button": "Qidiruv tavsiyalari",
+    "search_suggestions_text": "Qidiruv tavsiyalarini yoqish",
 
     // Proxy
-    "useproxytitletext": "Proxy Bypass",
-    "useproxyText": "Izlash tavsiyalari ishlamaydi",
-    "ProxyText": "CORS Bypass Proxy",
-    "ProxySubtext": "O'zingizning CORS bypass proxyni qo'shing",
-    "HostproxyButton": "O'zingizning proxyni joylash",
+    "useproxytitletext": "Proksi orqali",
+    "useproxyText": "Qidiruv tavsiyalari ishlamasa",
+    "ProxyText": "CORS proksi orqali",
+    "ProxySubtext": "O'zingizning CORS proksingizni qo'shing",
+    "HostproxyButton": "O'zingizning proksingizni ishlatish",
 
     // Location
-    "UserLocText": "O'zingizning joylashganligingizni kiriting",
-    "UserLocSubtext": "Agar havo joylashuvi noto'g'ri bo'lsa",
-    "userLoc": "O'zingizning shahringiz yoki koordinatalaringiz (Kenglik, Uzunlik)",
+    "useGPS": "GPSdan foydalanish",
+    "useGPSInfo": "Jonli lokatsiya yangilanishlari uchun GPSni yoqish",
+    "UserLocText": "Lokatsiyani kiriting",
+    "UserLocSubtext": "Agar ob-havo lokatsiyasi noto'g'ri bo'lsa",
+    "userLoc": "Shaharingiz yoki koordinatalar (kenglik, uzunlik)",
+    "PrivacyPolicy": "Maxfiylik siyosati",
 
     // Weather
-    "WeatherApiText": "O'zingizning WeatherAPI kalitini kiriting",
-    "WeatherApiSubtext": "Agar havo funktsiyasi ishlamaydi",
-    "userAPI": "O'zingizning WeatherAPI kaliti",
-    "LearnMoreButton": "Bilish",
+    "WeatherApiText": "WeatherAPI kalitini kiritish",
+    "WeatherApiSubtext": "Agar ob-havo funksiyasi ishlamasa",
+    "userAPI": "WeatherAPI kalitingiz",
+    "LearnMoreButton": "Batafsil ma'lumot",
     "saveAPI": "Saqlash",
 
     // Body Items
     // Calendar
-    "days": ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'],
-    "months": ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
+    "days": ["Yakshanba", "Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba"],
+    "months": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
 
     // Bookmarks
-    // "bookmarksHeading": "Bookmarks",
-    // "bookmarkViewAs": "View as",
-    // "bookmarkViewGrid": "Grid",    // Keep this shorter
-    // "bookmarkViewList": "List",    // Keep this shorter
-    // "bookmarkSearch": "Search bookmark",
+    "bookmarksHeading": "Xatcho'plar",
+    "bookmarkSortBy": "Saralash",
+    "sortAlphabetical": "A-Z",
+    "sortTimeAdded": "Eski-Yangi",
+    "bookmarkViewAs": "Ko'rinish usuli",
+    "bookmarkViewGrid": "Katakli",
+    "bookmarkViewList": "Ro'yxatli",
+    "bookmarkSearch": "Xatcho'p qidirish",
+    "editBookmarkHeading": "Xatcho'pni tahrirlash",
+    "editBookmarkName": "Xatcho'p nomi",
+    "editBookmarkURL": "Xatcho'p URL",
 
     // New Tab Item
-    "conditionText": "Salom! Siz bugun qanday holatdasiz?",
+    "conditionText": "Salom! Qalaysiz?",
     "humidityLevel": "Namlik",
-    "feelsLike": "Uxshaydi",
+    "feelsLike": "Seziladi",
+    "minMaxTemp": "Min ~ Maks",
     "location": "Yer",
-    "enterBtn": "Izlash",
-    "searchPlaceholder": "Sizning savolingiz...",
-    "listenPlaceholder": "Tinglayapman...",
-    "searchWithHint": "Bular bilan izlash",
-    "userText": "Buni tahrirlash",
+    "enterBtn": "Qidirish",
+    "searchPlaceholder": "Shu yerga yozing...",
+    "listenPlaceholder": "Tinglanmoqda...",
+    "searchWithHint": "Qidiruv tizimi",
+    "searchOnHint": "Qayerda qidirish",
+    "userText": "Tahrirlash uchun bosing",
 
     // Greeting
     greeting: {
         "morning": "Xayrli tong!",
-        "afternoon": "Xayrli tushlik!",
+        "afternoon": "Xayrli kun!",
         "evening": "Xayrli kech!"
     },
 
     // Search Engines
+    "defaultEngine": "Standart",
     "googleEngine": "Google",
     "duckEngine": "Duck",
     "bingEngine": "Bing",
     "braveEngine": "Brave",
     "youtubeEngine": "YouTube",
+    "gImagesEngine": "Rasmlar",
+    "redditEngine": "Reddit",
+    "wikipediaEngine": "Wikipedia",
+    "quoraEngine": "Quora",
 
     // AI Tools
-    "ai_tools": "AI Texnikalar",
+    "ai_tools": "AI Vositalari",
     "chatGPT": "ChatGPT",
     "gemini": "Gemini",
     "copilot": "Copilot",
     "claude": "Claude",
+    "grok": "Grok",
+    "qwen": "Qwen",
     "perplexity": "Perplexity",
+    "deepseek": "DeepSeek",
     "metaAI": "Meta AI",
+    "firefly": "Adobe Firefly",
+    "aiSettingsIntro": "Ko'rsatiladigan AI vositalarini tanlang",
+    "resetAISettingsBtn": "Qayta tiklash",
 
-    // Wallpaper and misc
-    // "uploadWallpaperText": "Upload Wallpaper",    // Keep this short
-    // "backupText": "Backup",
-    // "restoreText": "Restore",
-    // "rangColor": "Pick color",    // Keep this short
+    // Theme
+    "lightThemed": "Yorug'",
+    "darkThemed": "Qorong'u",
+    "systemThemed": "Tizim bo'yicha",
+
+    // Wallpaper and settings
+    "uploadWallpaperText": "Fon rasmini yuklash",
+    "rangColor": "Rang tanlang",
+    "opacityTitle": "Shaffoflik",
+    "adjustOpacityDesc": "Interfeys shaffofligini sozlash",
+    "backupText": "Zaxiralash",
+    "restoreText": "Qayta tiklash",
+    "resetsettings": "Sozlamalarni tiklash",
+    "menuCloseText": "Yopish",
+
+    // Tips
+    "switchSearchModes": "Qidiruv rejimini almashtirish",
+    "switchSearchModesInfo": "Rejimni o'zgartirish uchun 'Qidiruv tizimi'ni bosing.",
+    "adjustZoom": "Masshtabni sozlash",
+    "adjustZoomInfo": "Masshtabni o'zgartirish uchun Ctrl + \"+\" yoki Ctrl + \"-\" tugmalarini bosing.",
+    "changeBrowserTheme": "Brauzer mavzusini o'zgartirish",
+    "chromeThemeInfo": "Uch nuqta (⋮) > Qo'shimcha vositalar > Chrome'ni moslash bo'limiga o'ting va kengaytma mavzusiga mos rangni tanlang.",
+    "edgeThemeInfo": "Sozlamalar > Tashqi ko'rinish bo'limiga o'ting va kengaytma mavzusiga mos rangni tanlang.",
+    "braveThemeInfo": "<a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome Theme Store</a> sahifasiga o'ting, kengaytmaga mos mavzuni yuklab o'rnating.",
+    "firefoxThemeInfo": "<a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Firefox Themes</a> sahifasiga o'ting, mos mavzuni yuklab o'rnating.",
+    "updateFirefoxHomepage": "Bosh sahifani yangilash",
+    "updateFirefoxHomepageInfo": "Yangi varaq bilan bir xil bosh sahifa qilish uchun <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">ushbu havola</a> orqali o'ting va ko'rsatmalarga amal qiling.",
+    "dontShowTips": "Qayta ko'rsatilmasin",
+
+    // Footer Toast
+    "footerToastTitle": "Pastda banner ko'ryapsizmi?",
+    "footerToastMessage": "Uni yashirish uchun ustiga o'ng tugma bilan bosib, “Yangi varaqda pastki panelni yashirish”ni tanlang.",
 
     // Dialog boxes (alerts)
-    // "confirmWallpaper": "Would you like to set a new image as your wallpaper for the day?",
-    // "confirmRestore": "Are you sure you want to reset your settings? This action cannot be undone.",
-    // "Nobackgroundset": "No background image is currently set.",
-    // "clearbackgroundimage": "Are you sure you want to clear the background image?",
-    // "ProxyDisclaimer": "All proxy features are off by default.\n\nIf you enable search suggestions and CORS bypass proxy, it is strongly recommended to host your own proxy for enhanced privacy.\n\nBy default, the proxy will be set to https://mynt-proxy.rhythmcorehq.com, meaning all your data will go through this service, which may pose privacy concerns.",
-    // "failedbackup": "Backup failed: ",
-    // "restorecompleted": "Restore completed successfully!",
-    // "restorefailed": "Restore failed: ",
-    // "invalidBackup": "Invalid backup file selected.",
-    // "deleteBookmark": "Are you sure you want to delete the bookmark \"{title}\"?",  // Do not translate {title}
-    // "UnsupportedBrowser": "Bookmarks are not supported in your browser",
+    "okText": "OK",
+    "yesText": "Ha",
+    "noText": "Yo'q",
+    "agreeText": "Roziman",
+    "cancelText": "Bekor qilish",
+    "confirmWallpaper": "Bugun uchun yangi rasmni fon sifatida o'rnatmoqchimisiz?",
+    "confirmRestore": "Sozlamalarni tiklashni xohlaysizmi? Bu amalni bekor qilib bo'lmaydi.",
+    "Nobackgroundset": "Hozircha fon rasmi o'rnatilmagan.",
+    "clearbackgroundimage": "Fon rasmini olib tashlamoqchimisiz?",
+    "ProxyDisclaimer": "Proksi funksiyalari standart holatda o'chirilgan.\n\nAgar qidiruv tavsiyalari va CORS proksini yoqsangiz, maxfiylikni oshirish uchun o'zingizning proksingizdan foydalanish tavsiya etiladi.\n\nStandart holatda proksi https://mynt-proxy.rhythmcorehq.com manziliga ulanadi. Bu holatda barcha ma'lumotlaringiz ushbu xizmat orqali o'tadi va maxfiylikka ta'sir qilishi mumkin.",
+    "GPSDisclaimer": "Lokatsiya ma'lumotlaringiz faqat aniq ob-havo ma'lumotlarini taqdim etish uchun ishlatiladi. U vaqtincha brauzer ichida saqlanadi va uchinchi tomon xizmatlariga uzatilmaydi.\n\nGPS'ni yoqish orqali lokatsiyangizni kengaytma bilan mahalliy tarzda bo'lishishga rozilik bildirasiz.",
+    "failedbackup": "Zaxiralash amalga oshmadi: ",
+    "restorecompleted": "Tiklash muvaffaqiyatli yakunlandi!",
+    "restorefailed": "Tiklash amalga oshmadi: ",
+    "invalidBackup": "Noto'g'ri zaxira fayli tanlandi.",
+
+    "deleteBookmark": "\"{title}\" xatcho'pini o'chirmoqchimisiz?",
+    "UnsupportedBrowser": "Xatcho'plar brauzeringizda qo'llab-quvvatlanmaydi.",
+    "resetShortcutsPrompt": "Barcha saqlangan yorliqlar o'chiriladi va standart holatga qaytariladi. Davom etilsinmi?"
 };

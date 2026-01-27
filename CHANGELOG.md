@@ -40,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Czech ([@ceskyDJ](https://github.com/ceskyDJ))
   - Hindi ([@prem-k-r](https://github.com/prem-k-r))
   - Bengali ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here))
+  - Uzbek ([S0ME2](https://github.com/S0ME2))
+  - Indonesian ([@Ayyas-RF](https://github.com/Ayyas-RF))
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 - Added support for Ukrainian ([@lozik4](https://github.com/lozik4)) ([#106](https://github.com/prem-k-r/MaterialYouNewTab/pull/106))
 
