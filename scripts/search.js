@@ -414,3 +414,43 @@ document.addEventListener("keydown", function (event) {
         searchbar.classList.add("active");
     }
 });
+
+
+/* ------ Event Listeners for Searchbar ------ */
+const showSearchbar = () => {
+    document.getElementById("searchbar").style.visibility = "visible";
+}
+
+const hideSearchbar = () => {
+    document.getElementById("searchbar").style.visibility = "hidden";
+}
+
+const initSearchBarswitch = (element) => {
+    if (element.checked) {
+        hideSearchbar();
+        localStorage.setItem("showSearchBarswitch", true);
+    } else {
+        showSearchbar();
+        localStorage.setItem("showSearchBarswitch", false);
+    }
+}
+
+const hideSearchBox = document.getElementById("searchBoxCheckBox");
+hideSearchBox.addEventListener("change", (e) => {
+    initSearchBarswitch(e.target);
+});
+
+if (localStorage.getItem("showSearchBarswitch")) {
+    const isSearchBarswitchEnabled = localStorage.getItem("showSearchBarswitch").toString() === "true";
+    document.getElementById("searchBoxCheckBox").checked = isSearchBarswitchEnabled;
+
+if (isSearchBarswitchEnabled) {
+        hideSearchbar();
+    } else if (!isShortCutSwitchEnabled) {
+        showSearchbar();
+    }
+} else {
+    localStorage.setItem("showSearchBarswitch", false);
+}
+
+initSearchBarswitch(hideSearchBox);
