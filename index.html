@@ -1194,6 +1194,14 @@
         </filter>
     </svg>
 
+    <!-- ----------- Adjustment Icon -------------- -->
+    <svg style="display: none;">
+        <symbol id="adjustment-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path style="transform: scale(1.1); transform-origin: center;"
+                d="M12 21q-.425 0-.712-.288T11 20v-4q0-.425.288-.712T12 15t.713.288T13 16v1h7q.425 0 .713.288T21 18t-.288.713T20 19h-7v1q0 .425-.288.713T12 21m-8-2q-.425 0-.712-.288T3 18t.288-.712T4 17h4q.425 0 .713.288T9 18t-.288.713T8 19zm4-4q-.425 0-.712-.288T7 14v-1H4q-.425 0-.712-.288T3 12t.288-.712T4 11h3v-1q0-.425.288-.712T8 9t.713.288T9 10v4q0 .425-.288.713T8 15m4-2q-.425 0-.712-.288T11 12t.288-.712T12 11h8q.425 0 .713.288T21 12t-.288.713T20 13zm4-4q-.425 0-.712-.288T15 8V4q0-.425.288-.712T16 3t.713.288T17 4v1h3q.425 0 .713.288T21 6t-.288.713T20 7h-3v1q0 .425-.288.713T16 9M4 7q-.425 0-.712-.288T3 6t.288-.712T4 5h8q.425 0 .713.288T13 6t-.288.713T12 7z" />
+        </symbol>
+    </svg>
+
     <!-- ------Menu-bar----------- -->
     <div class="menuBar" id="menuBar" style="display: none;">
         <div class="menuCont" id="menuCont">
@@ -1267,11 +1275,8 @@
                                         </div>
                                         <label class="switch">
                                             <button id="shortcutEditButton">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24"
-                                                    style="transform: scale(1.1); transform-origin: center;">
-                                                    <path
-                                                        d="M12 21q-.425 0-.712-.288T11 20v-4q0-.425.288-.712T12 15t.713.288T13 16v1h7q.425 0 .713.288T21 18t-.288.713T20 19h-7v1q0 .425-.288.713T12 21m-8-2q-.425 0-.712-.288T3 18t.288-.712T4 17h4q.425 0 .713.288T9 18t-.288.713T8 19zm4-4q-.425 0-.712-.288T7 14v-1H4q-.425 0-.712-.288T3 12t.288-.712T4 11h3v-1q0-.425.288-.712T8 9t.713.288T9 10v4q0 .425-.288.713T8 15m4-2q-.425 0-.712-.288T11 12t.288-.712T12 11h8q.425 0 .713.288T21 12t-.288.713T20 13zm4-4q-.425 0-.712-.288T15 8V4q0-.425.288-.712T16 3t.713.288T17 4v1h3q.425 0 .713.288T21 6t-.288.713T20 7h-3v1q0 .425-.288.713T16 9M4 7q-.425 0-.712-.288T3 6t.288-.712T4 5h8q.425 0 .713.288T13 6t-.288.713T12 7z" />
+                                                <svg width="24" height="24">
+                                                    <use href="#adjustment-icon" />
                                                 </svg>
                                             </button>
                                         </label>
@@ -1333,11 +1338,8 @@
                                         </div>
                                         <label class="switch">
                                             <button id="aiToolsEditButton">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24"
-                                                    style="transform: scale(1.1); transform-origin: center;">
-                                                    <path
-                                                        d="M12 21q-.425 0-.712-.288T11 20v-4q0-.425.288-.712T12 15t.713.288T13 16v1h7q.425 0 .713.288T21 18t-.288.713T20 19h-7v1q0 .425-.288.713T12 21m-8-2q-.425 0-.712-.288T3 18t.288-.712T4 17h4q.425 0 .713.288T9 18t-.288.713T8 19zm4-4q-.425 0-.712-.288T7 14v-1H4q-.425 0-.712-.288T3 12t.288-.712T4 11h3v-1q0-.425.288-.712T8 9t.713.288T9 10v4q0 .425-.288.713T8 15m4-2q-.425 0-.712-.288T11 12t.288-.712T12 11h8q.425 0 .713.288T21 12t-.288.713T20 13zm4-4q-.425 0-.712-.288T15 8V4q0-.425.288-.712T16 3t.713.288T17 4v1h3q.425 0 .713.288T21 6t-.288.713T20 7h-3v1q0 .425-.288.713T16 9M4 7q-.425 0-.712-.288T3 6t.288-.712T4 5h8q.425 0 .713.288T13 6t-.288.713T12 7z" />
+                                                <svg width="24" height="24">
+                                                    <use href="#adjustment-icon" />
                                                 </svg>
                                             </button>
                                         </label>
@@ -1666,7 +1668,6 @@
                                     <!-- ---🟡--- -->
 
                                     <div class="themingStuff">
-                                        <!-- ⚫🟣🔵🔴🟡🟢🟠⚪ -->
                                         <div class="btn" id="themeButton">
                                             <svg fill="none" height="100%" viewBox="0 0 20 20" width="100%"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -1674,7 +1675,7 @@
                                                     d="M14.2778 10a1.1668 1.1668 0 0 1-.825-1.9916 1.1668 1.1668 0 0 1 1.9916.825A1.1666 1.1666 0 0 1 14.2778 10Zm-2.3334-3.1111a1.1666 1.1666 0 1 1 0-2.3332 1.1666 1.1666 0 0 1 0 2.3332Zm-3.8888 0a1.1667 1.1667 0 1 1 0-2.3334 1.1667 1.1667 0 0 1 0 2.3334ZM5.7222 10a1.1667 1.1667 0 1 1 0-2.3334 1.1667 1.1667 0 0 1 0 2.3334ZM10 3a7 7 0 0 0 0 14 1.1668 1.1668 0 0 0 1.1667-1.1667c0-.3033-.1167-.5755-.3034-.7777-.1789-.21-.2955-.4823-.2955-.7778a1.1668 1.1668 0 0 1 1.1666-1.1667h1.3767A3.889 3.889 0 0 0 17 9.2222C17 5.7844 13.8656 3 10 3Z" />
                                             </svg>
                                         </div>
-                                        <!-- -------- -->
+
                                         <div class="colorsContainer" id="colorsContainer">
                                             <input class="colorPlate" name="color" type="radio" value="red">
                                             <input class="colorPlate" name="color" type="radio" value="yellow">
@@ -1683,24 +1684,34 @@
                                             <input id="dfChecked" class="colorPlate" name="color" type="radio" checked
                                                 value="blue">
 
-                                            <!-- -------- -->
                                             <input class="colorPlate" name="color" type="radio" value="pink">
                                             <input class="colorPlate" name="color" type="radio" value="purple">
                                             <input class="colorPlate" name="color" type="radio" value="orange">
                                             <input class="colorPlate" name="color" type="radio" value="brown">
                                             <input class="colorPlate" name="color" type="radio" value="silver">
 
-                                            <!-- -------- -->
-
                                             <input class="colorPlate" name="color" type="radio" value="peach">
-                                            <input class="colorPlate" id="darkTheme" name="color" type="radio"
+                                            <input class="colorPlate" id="blackTheme" name="color" type="radio"
                                                 value="dark">
 
-                                            <!-- ----Color Picker || ColorPicker---- -->
-                                            <label id="rangColor" class="colorPlate colorPickerLabel"
-                                                for="colorPicker">Pick color</label>
-                                            <input type="color" id="colorPicker" autocomplete="off" value="#EA1010" />
-                                            <!-- ----End of Color Picker || ColorPicker---- -->
+                                            <div class="pickerContainer">
+                                                <label class="colorPickerBtn" for="colorPicker">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                        width="21" height="21" fill="none">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="m13.5 7.411 3.5-3.5a2.828 2.828 0 1 1 4 4l-3.5 3.5m-5.5-5.5 7 7m-4 1-3.594 3.594c-.52.52-.779.779-1.081.964a3 3 0 0 1-.868.36c-.345.082-.712.082-1.445.082H7l-3 2 2-3V16.9c0-.733 0-1.1.083-1.445a3 3 0 0 1 .359-.868c.185-.302.445-.562.964-1.08L11 9.91" />
+                                                    </svg>
+                                                    <input type="color" id="colorPicker" value="#4382EC"
+                                                        autocomplete="off" />
+                                                </label>
+
+                                                <button class="colorPickerBtn editor" id="colorEditor">
+                                                    <svg width="22" height="22">
+                                                        <use href="#adjustment-icon" />
+                                                    </svg>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1946,6 +1957,25 @@
     </div>
     <!-- ------end of Menu-bar----------- -->
     <div id="menuButton"></div>
+
+    <!-- Color Editor Modal -->
+    <div class="colorModal" id="colorModal">
+        <div class="modalContent">
+            <div class="modalHeader">
+                <h2>Edit Theme Colors</h2>
+                <button class="closeBtn" id="closeModal">&times;</button>
+            </div>
+
+            <div id="colorVariables">
+                <!-- Color variables will be dynamically inserted here -->
+            </div>
+
+            <div class="modalActions">
+                <button class="btnModal btnSecondary" id="resetColors">Reset</button>
+                <button class="btnModal btnPrimary" id="saveColors">Save</button>
+            </div>
+        </div>
+    </div>
     <!-- ending-of-body -->
 
 </body>
