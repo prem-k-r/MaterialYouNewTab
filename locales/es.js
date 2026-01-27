@@ -4,6 +4,14 @@ const es = {
     "github": "GitHub",
     "feedback": "Comentarios",
 
+    // Section titles
+    "personalizationSectionTitle": "Personalización",
+    "clockSectionTitle": "Reloj",
+    "searchSectionTitle": "Buscar",
+    "weatherSectionTitle": "Tiempo",
+    "appearanceSectionTitle": "Apariencia",
+    "settingsSectionTitle": "Configuración",
+
     // Shortcuts
     "shortcutsText": "Accesos directos",
     "enableShortcutsText": "Mostrar accesos directos guardados",
