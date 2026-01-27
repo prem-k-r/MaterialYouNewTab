@@ -35,6 +35,7 @@ const en = {
     "todoListText": "To Do List",
     "todoListInfo": "Show a daily To Do list",
     "todoListHover": "ToDo List",    // Keep this short
+    "allKilledTooltip": "All Done !",
     "todoPlaceholder": "Add task...",
 
     // Clock

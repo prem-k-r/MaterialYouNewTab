@@ -133,6 +133,7 @@ function applyLanguage(lang) {
         "googleAppsMenuInfo",
         "todoListText",
         "todoListInfo",
+        "allKilledTooltip",
         "fahrenheitCelsiusCheckbox",
         "fahrenheitCelsiusText",
         "minMaxTempText",
