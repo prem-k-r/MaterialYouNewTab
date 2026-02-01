@@ -157,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         setupDragAndDrop();
+        replaceFallbackIcons();
     }
 
     // Creates a shortcut entry element for the settings panel
@@ -257,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Fetch favicon from Google 
         return `<img src="https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256" 
-                onerror="this.src='./svgs/offline.svg'" alt="">`;
+                onerror="this.src='./svgs/offline.svg'" alt="" class="shortcutIcon">`;
     }
 
     // Attaches event listeners to shortcut input fields
@@ -270,6 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     entry.querySelector(".URL").value,
                     entry._index
                 );
+                replaceFallbackIcons()
             });
             input.addEventListener("focus", e => e.target.select());
         });
@@ -549,6 +551,8 @@ document.addEventListener("DOMContentLoaded", function () {
             shortcutsCache = newOrder;
             renderAllShortcuts(newOrder);
         }
+
+        replaceFallbackIcons()
     }
 
     // Checks if the shortcut order has changed
@@ -559,6 +563,29 @@ document.addEventListener("DOMContentLoaded", function () {
             const cached = shortcutsCache[index];
             return item.name !== cached.name || item.url !== cached.url;
         });
+    }
+
+    // Fixes Google fallback 16x16 and missing offline icons
+    function replaceFallbackIcons() {
+        document.querySelectorAll(".shortcutIcon").forEach(img => {
+            const setFallback = (src) => {
+                if (img.src.endsWith(src)) return
+                img.src = src
+            }
+
+            const onError = () => {
+                setFallback("./svgs/offline.svg")
+            }
+
+            const onLoad = () => {
+                if (img.naturalWidth <= 32 && !img.src.endsWith("/svgs/offline.svg")) {
+                    setFallback("./svgs/globe.svg")
+                }
+            }
+
+            img.addEventListener("error", onError)
+            img.addEventListener("load", onLoad)
+        })
     }
 
     // Renders all shortcuts in the main view
