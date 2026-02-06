@@ -163,6 +163,45 @@ function getStoredQuotes(lang) {
     return storedQuotes ? JSON.parse(storedQuotes) : null;
 }
 
+// Get today's date in YYYY-MM-DD format
+function getTodayDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// Get the storage key for today's daily quote
+function getDailyQuoteKey(lang) {
+    return `daily_quote_${lang}_${getTodayDate()}`;
+}
+
+// Store the daily quote for today
+function storeDailyQuote(lang, quote) {
+    const key = getDailyQuoteKey(lang);
+    localStorage.setItem(key, JSON.stringify(quote));
+}
+
+// Get the daily quote for today (if it exists)
+function getDailyQuote(lang) {
+    const key = getDailyQuoteKey(lang);
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : null;
+}
+
+// Clear old daily quotes (cleanup)
+function clearOldDailyQuotes() {
+    const keys = Object.keys(localStorage);
+    const today = getTodayDate();
+    keys.forEach(key => {
+        if (key.startsWith("daily_quote_") && !key.includes(today)) {
+            localStorage.removeItem(key);
+        }
+    });
+}
+
+
 // Display fallback quote
 function displayFallbackQuote() {
     quotesContainer.textContent = FALLBACK_QUOTE.quote;
@@ -242,6 +281,27 @@ function displayRandomQuote(quotes) {
         return;
     }
 
+    // Check if "New Quote On Refresh" is enabled
+    const newQuoteOnRefresh = localStorage.getItem("newQuoteOnRefresh") !== "false";
+
+    // If new quote on refresh is disabled, try to use the daily quote
+    if (!newQuoteOnRefresh) {
+        const dailyQuote = getDailyQuote(currentLanguage);
+        if (dailyQuote) {
+            // Display the stored daily quote
+            quotesContainer.textContent = dailyQuote.quote;
+            authorName.textContent = dailyQuote.author;
+
+            // Animate .authorName width to fit content
+            requestAnimationFrame(() => {
+                const fullWidth = authorName.scrollWidth;
+                const padding = 16;
+                authorContainer.style.width = (fullWidth + padding * 2) + "px";
+            });
+            return;
+        }
+    }
+
     let selectedQuote;
     const maxAttempts = 15; // Prevent infinite loop
 
@@ -254,6 +314,11 @@ function displayRandomQuote(quotes) {
         if (totalLength <= MAX_QUOTE_LENGTH) {
             break;
         }
+    }
+
+    // Store as daily quote if new quote on refresh is disabled
+    if (!newQuoteOnRefresh) {
+        storeDailyQuote(currentLanguage, selectedQuote);
     }
 
     // Display the selected quote
@@ -285,13 +350,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const motivationalQuotesCont = document.getElementById("motivationalQuotesCont");
     const motivationalQuotesCheckbox = document.getElementById("motivationalQuotesCheckbox");
     const searchWithContainer = document.getElementById("search-with-container");
+    const newQuoteOnRefreshToggle = document.getElementById("newQuoteOnRefreshToggle");
+    const newQuoteOnRefreshCheckbox = document.getElementById("newQuoteOnRefreshCheckbox");
 
     // Load states from localStorage
     hideSearchWith.checked = localStorage.getItem("showShortcutSwitch") === "true";
     motivationalQuotesCheckbox.checked = localStorage.getItem("motivationalQuotesVisible") !== "false";
+    newQuoteOnRefreshCheckbox.checked = localStorage.getItem("newQuoteOnRefresh") !== "false";
 
     // Initialize language tracking
     lastKnownLanguage = currentLanguage;
+
+    // Clean up old daily quotes on page load
+    clearOldDailyQuotes();
 
     // Function to update quotes visibility and handle state changes
     const updateMotivationalQuotesState = () => {
@@ -304,6 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Handle visibility based on settings
         if (!isHideSearchWithEnabled) {
             quotesToggle.classList.add("inactive");
+            newQuoteOnRefreshToggle.classList.add("inactive");
             motivationalQuotesCont.style.display = "none";
             clearQuotesStorage();
             return;
@@ -314,6 +386,13 @@ document.addEventListener("DOMContentLoaded", () => {
         searchWithContainer.style.display = isMotivationalQuotesEnabled ? "none" : "flex";
         motivationalQuotesCont.style.display = isMotivationalQuotesEnabled ? "flex" : "none";
 
+        // Enable/disable new quote on refresh toggle based on motivational quotes state
+        if (isMotivationalQuotesEnabled) {
+            newQuoteOnRefreshToggle.classList.remove("inactive");
+        } else {
+            newQuoteOnRefreshToggle.classList.add("inactive");
+        }
+
         // Load quotes if motivational quotes are enabled
         if (isMotivationalQuotesEnabled) {
             loadAndDisplayQuote(false);
@@ -321,6 +400,27 @@ document.addEventListener("DOMContentLoaded", () => {
             clearQuotesStorage();
         }
     };
+
+    // Handle new quote on refresh toggle changes
+    newQuoteOnRefreshCheckbox.addEventListener("change", () => {
+        const isEnabled = newQuoteOnRefreshCheckbox.checked;
+        localStorage.setItem("newQuoteOnRefresh", isEnabled);
+
+        if (!isEnabled) {
+            // When switching to "off", store the current quote as the daily quote
+            const currentQuote = quotesContainer.textContent;
+            const currentAuthor = authorName.textContent;
+            if (currentQuote && currentAuthor) {
+                storeDailyQuote(currentLanguage, {
+                    quote: currentQuote,
+                    author: currentAuthor
+                });
+            }
+        } else {
+            // When switching to "on", load a new quote
+            loadAndDisplayQuote(false);
+        }
+    });
 
     // Apply initial state
     updateMotivationalQuotesState();
@@ -333,3 +433,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     motivationalQuotesCheckbox.addEventListener("change", updateMotivationalQuotesState);
 });
+
