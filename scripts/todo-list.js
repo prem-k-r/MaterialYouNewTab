@@ -237,9 +237,11 @@ todoListCont.addEventListener("click", function (event) {
 
     // Add or remove the class to hide the tooltip
     if (!isMenuVisible) {
+        todoContainer.style.animation = "panelScaleIn 200ms cubic-bezier(0.4, 0, 0.2, 1) forwards";
         todoListCont.classList.add("menu-open"); // Hide tooltip
         todoInput.focus(); // Auto focus on input box
     } else {
+        //todoContainer.style.animation = "panelScaleOut 150ms cubic-bezier(0.4, 0, 1, 1) forwards";
         todoListCont.classList.remove("menu-open"); // Restore tooltip
     }
 });

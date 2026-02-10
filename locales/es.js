@@ -4,6 +4,14 @@ const es = {
     "github": "GitHub",
     "feedback": "Comentarios",
 
+    // Section titles
+    "personalizationSectionTitle": "Personalización",
+    "clockSectionTitle": "Reloj",
+    "searchSectionTitle": "Buscar",
+    "weatherSectionTitle": "Clima",
+    "appearanceSectionTitle": "Apariencia",
+    "settingsSectionTitle": "Configuración",
+
     // Shortcuts
     "shortcutsText": "Accesos directos",
     "enableShortcutsText": "Mostrar accesos directos guardados",
@@ -44,10 +52,10 @@ const es = {
     "userTextInfo": "Mostrar texto personalizado debajo del reloj",
     "fahrenheitCelsiusCheckbox": "Cambiar a Fahrenheit",
     "fahrenheitCelsiusText": "Recarga la página para aplicar cambios",
-    "hideWeatherTitle": "Ocultar clima",
+    "hideWeatherTitle": "Ocultar el clima",
     "hideWeatherInfo": "Deshabilitar las widgets del clima",
     "hideWeatherBox": "Ocultar tarjeta del clima",
-    "hideWeatherBoxInfo": "Mostrar solo la etiqueta de temperatura",
+    "hideWeatherBoxInfo": "Mostrar solo la etiqueta del clima",
     "minMaxTempText": "Temperatura Mínima-Máxima",
     "minMaxTempSubText": "Mostrar temperatura mínima y máxima en lugar de \"Sensación\"",
 
@@ -149,8 +157,9 @@ const es = {
     "resetAISettingsBtn": "Restablecer",
 
     // Theme
-    "enableDarkMode": "Modo Oscuro (Experimental)",
-    "enableDarkModeInfo": "Habilitar temas de Modo Oscuro",
+    "lightThemed": "Claro",
+    "darkThemed": "Oscuro",
+    "systemThemed": "Sistema",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Subir Wallpaper",
@@ -175,6 +184,10 @@ const es = {
     "updateFirefoxHomepage": "Actualizar página de inicio",
     "updateFirefoxHomepageInfo": "Para cambiar tu página de inicio y también la nueva pestaña, visita <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">este enlace</a> y sigue las instrucciones.",
     "dontShowTips": "No volver a mostrar",
+
+    // Footer Toast
+    "footerToastTitle": "¿Ver un banner en la parte inferior?",
+    "footerToastMessage": "Para ocultarlo, haz click sobre él y selecciona 'Ocultar el pie de página en la página de pestaña nueva'.",
 
     // Dialog boxes (alerts)
     "okText": "Aceptar",

@@ -4,6 +4,14 @@ const en = {
     "github": "GitHub",
     "feedback": "Feedback",
 
+    // Section titles
+    "personalizationSectionTitle": "Personalization",
+    "clockSectionTitle": "Clock",
+    "searchSectionTitle": "Search",
+    "weatherSectionTitle": "Weather",
+    "appearanceSectionTitle": "Appearance",
+    "settingsSectionTitle": "Settings",
+
     // Shortcuts
     "shortcutsText": "Shortcuts",
     "enableShortcutsText": "Show saved shortcuts",
@@ -149,9 +157,9 @@ const en = {
     "resetAISettingsBtn": "Reset",
 
     // Theme
-    "lightThemed": "Default (Light Theme)",
-    "darkThemed": "Dark Theme",
-    "systemThemed": "Follow System Theme",
+    "lightThemed": "Light",
+    "darkThemed": "Dark",
+    "systemThemed": "System",
 
     // Wallpaper and settings
     "uploadWallpaperText": "Upload Wallpaper",    // Keep this short
