@@ -2005,15 +2005,14 @@ body[data-bg="wallpaper"] .searchbar {
 	margin-inline-start: 16px;
 }
 
-.searchbar.hiddenByOption {
+.searchbar.hidden-by-option {
 	display: none;
 	opacity: 1;
 }
 
 @media screen and (max-width: 500px) {
-	.searchbar.hiddenByOption {
+	.searchbar.hidden-by-option {
 		display: block;
-
 		opacity: 0;
 	}
 }

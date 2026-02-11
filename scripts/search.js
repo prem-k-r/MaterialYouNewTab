@@ -388,8 +388,8 @@ function handleSearchVisibility(isChecked) {
 
     // show/hide search bar
     // searchBar.style.display = isChecked ? "none" : "block";
-    if (isChecked) searchBar.classList.add("hiddenByOption")
-    else searchBar.classList.remove("hiddenByOption")
+    if (isChecked) searchBar.classList.add("hidden-by-option")
+    else searchBar.classList.remove("hidden-by-option")
 
     // also take "showShortcutSwitch" into account while showing/hiding search with container
     const isShortCutSwitchEnabled = localStorage.getItem("showShortcutSwitch")?.toString() === "true";
