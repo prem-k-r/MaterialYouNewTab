@@ -2005,6 +2005,19 @@ body[data-bg="wallpaper"] .searchbar {
 	margin-inline-start: 16px;
 }
 
+.searchbar.hiddenByOption {
+	display: none;
+	opacity: 1;
+}
+
+@media screen and (max-width: 500px) {
+	.searchbar.hiddenByOption {
+		display: block;
+
+		opacity: 0;
+	}
+}
+
 .searchbar-content {
 	display: flex;
 	align-items: center;

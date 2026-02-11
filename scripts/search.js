@@ -384,10 +384,12 @@ hideSearchWith.addEventListener("change", (e) => {
 // Hiding search bar and search engine container based on saved preference
 function handleSearchVisibility(isChecked) {
     const searchBar = document.getElementById("searchbar");
-    const searchWithContainer = document.getElementById("search-with-container"); 
+    const searchWithContainer = document.getElementById("search-with-container");
 
     // show/hide search bar
-    searchBar.style.display = isChecked ? "none" : "block";
+    // searchBar.style.display = isChecked ? "none" : "block";
+    if (isChecked) searchBar.classList.add("hiddenByOption")
+    else searchBar.classList.remove("hiddenByOption")
 
     // also take "showShortcutSwitch" into account while showing/hiding search with container
     const isShortCutSwitchEnabled = localStorage.getItem("showShortcutSwitch")?.toString() === "true";
@@ -395,8 +397,21 @@ function handleSearchVisibility(isChecked) {
 
     // disable the shortcut switch if search is hidden
     const shortcutSwitchParent = document.getElementById("hideSearchWith")?.parentElement?.parentElement
-    if(isChecked) shortcutSwitchParent.classList.add("inactive");
+    if (isChecked) shortcutSwitchParent.classList.add("inactive");
     else shortcutSwitchParent.classList.remove("inactive");
+
+    // enable/disable the hide microphone icon
+    const hideMicParent = document.getElementById("micIconTitle")?.parentElement?.parentElement
+    if (isChecked) hideMicParent.classList.add("inactive");
+    else hideMicParent.classList.remove("inactive");
+
+    // uncheck and hide the search suggestion option as well
+    const searchSuggestionInput = document.getElementById("searchsuggestionscheckbox")
+    const searchSuggestionParent = searchSuggestionInput?.parentElement?.parentElement
+    if (isChecked) {
+        searchSuggestionInput.checked = false
+        searchSuggestionParent.classList.add("inactive")
+    } else searchSuggestionParent.classList.remove("inactive")
 }
 
 const hideSearchCheckbox = document.getElementById("hideSearchCheckbox")
