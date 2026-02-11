@@ -68,6 +68,8 @@ const en = {
     "motivationalQuotesInfo": "Show quotes below the searchbar",
     "search_suggestions_button": "Search Suggestions",
     "search_suggestions_text": "Enable search suggestions",
+    "hideSearch": "Hide Search",
+    "hideSearchInfo": "Hide the search bar and search engine sections entirely",
 
     // Proxy
     "useproxytitletext": "Proxy Bypass",
