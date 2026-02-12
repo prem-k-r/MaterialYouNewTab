@@ -56,6 +56,8 @@ const zh_TW = {
     "micIconInfo": "如果語音輸入無法使用",
     "hideSearchWith": "隱藏搜尋引擎",
     "hideSearchWithInfo": "透過點擊圖示切換搜尋引擎",
+    "moveSearchUpText": "搜尋列上移",
+    "moveSearchUpInfo": "當只有搜尋列時，自動上移搜尋列以騰出更多空間",
     "motivationalQuotesText": "勵志語錄",
     "motivationalQuotesInfo": "在搜尋列下方顯示語錄",
     "search_suggestions_button": "搜尋建議",

@@ -25,6 +25,10 @@
 	/* Default font */
 	--main-font-family: "poppins", "Poppins", sans-serif;
 
+	/* Search bar move up settings */
+	--search-up-offset: 25vh; /* 向上移动屏幕高度的 25% */
+	--search-suggestions-extra-rows: 88px; /* 额外显示 2 行建议 */
+
 	/* 🔵🔵🔵 */
 	/* ⚠️ Please don't change the color value or names for Blue (if ? modifying code would be difficult */
 	--bg-color-blue: #bbd6fd;
@@ -1452,6 +1456,22 @@ body #bookmarkButton.bookmark-button.rotate {
 	/* background-color: #17a638; */
 	/* always leave enough space for the shortcuts bar at the bottom */
 	padding-bottom: calc(var(--shortcut-size) + var(--gap) * 2);
+}
+
+/* Move search bar up when clock, weather, and search engines are hidden */
+.centerDiv.search-moved-up {
+	transform: translateY(calc(-1 * var(--search-up-offset)));
+}
+
+/* Increase search suggestions height when search bar is moved up */
+.centerDiv.search-moved-up .resultBox {
+	max-height: calc(222px + var(--search-suggestions-extra-rows));
+}
+
+@media screen and (max-height: 700px) {
+	.centerDiv.search-moved-up .resultBox {
+		max-height: calc(180px + var(--search-suggestions-extra-rows));
+	}
 }
 
 /* ____________Clock_____________________---- */

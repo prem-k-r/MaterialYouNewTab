@@ -56,6 +56,8 @@ const zh = {
     "micIconInfo": "若语音输入无法使用",
     "hideSearchWith": "隐藏搜索引擎",
     "hideSearchWithInfo": "点击图标切换搜索引擎",
+    "moveSearchUpText": "搜索栏上移",
+    "moveSearchUpInfo": "当只有搜索栏时，自动上移搜索栏以腾出更多空间",
     "motivationalQuotesText": "励志名言",
     "motivationalQuotesInfo": "在搜索栏下方显示名言",
     "search_suggestions_button": "搜索建议",
