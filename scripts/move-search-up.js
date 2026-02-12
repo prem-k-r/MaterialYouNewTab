@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const hideWeatherCheckbox = document.getElementById("hideWeatherCheckbox");
     const hideSearchWithCheckbox = document.getElementById("shortcut_switchcheckbox");
 
+    // Guard: Exit early if required DOM elements are missing
+    if (!moveSearchUpCheckbox || !centerDiv || !hideClockCheckbox || !hideWeatherCheckbox || !hideSearchWithCheckbox) {
+        console.warn("Move search up: Required DOM elements not found");
+        return;
+    }
+
     // Load saved state
     const isMoveSearchUpEnabled = localStorage.getItem("moveSearchUpEnabled") === "true";
     moveSearchUpCheckbox.checked = isMoveSearchUpEnabled;
