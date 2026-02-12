@@ -129,6 +129,9 @@
 	--round: 30px;
 	--transparency: 90%;
 
+	/* Search bar move up (extra rows for search suggestions) */
+	--search-suggestions-extra-rows: 88px;
+
 	/* Shortcut bar */
 	--max-shortcut-bar-width: 60vw;
 	--shortcut-bar-gap-and-padding: 10px;
@@ -1453,6 +1456,48 @@ body #bookmarkButton.bookmark-button.rotate {
 	/* always leave enough space for the shortcuts bar at the bottom */
 	padding-bottom: calc(var(--shortcut-size) + var(--gap) * 2);
 }
+
+/* stylelint-disable selector-class-pattern */
+/* Move search bar up when clock, weather, and search engines are hidden */
+.centerDiv.search-moved-up {
+	/* Core logic: Move up by fixed 160px, but not more than 20% of screen height */
+	/* This ensures on tall screens, it stops at 160px and won't float infinitely upward */
+	/* stylelint-disable-next-line function-no-unknown */
+	transform: translateY(max(-160px, -20vh));
+}
+
+/* Default: no animation on initial page load */
+.centerDiv {
+	transition: transform 0s;
+}
+
+/* Enable animation only after user interaction */
+body.user-is-interacting .centerDiv {
+	transition: transform 0.5s var(--md-motion-ease);
+}
+
+/* Increase search suggestions height when search bar is moved up */
+.centerDiv.search-moved-up .resultBox {
+	max-height: calc(222px + var(--search-suggestions-extra-rows));
+}
+
+/* For shorter screens, we keep media queries because 160px might hit the top */
+@media screen and (max-height: 700px) {
+	.centerDiv.search-moved-up {
+		transform: translateY(-100px);
+	}
+	
+	.centerDiv.search-moved-up .resultBox {
+		max-height: calc(180px + var(--search-suggestions-extra-rows));
+	}
+}
+
+@media screen and (max-height: 500px) {
+	.centerDiv.search-moved-up {
+		transform: translateY(-50px);
+	}
+}
+/* stylelint-enable selector-class-pattern */
 
 /* ____________Clock_____________________---- */
 #digitalClock {
