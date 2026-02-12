@@ -36,11 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Initial state
+    // Apply initial position immediately (no animation on page load)
     applySearchPosition();
 
     // Event listener for move search up checkbox
     moveSearchUpCheckbox.addEventListener("change", function () {
+        // Enable animation on first user interaction
+        document.body.classList.add("user-is-interacting");
+        
         const isEnabled = moveSearchUpCheckbox.checked;
         
         if (isEnabled) {
@@ -64,6 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // If any of the three is unchecked (shown), automatically disable move search up
     [hideClockCheckbox, hideWeatherCheckbox, hideSearchWithCheckbox].forEach(checkbox => {
         checkbox.addEventListener("change", function () {
+            // Enable animation on user interaction
+            document.body.classList.add("user-is-interacting");
+            
             if (!checkbox.checked && moveSearchUpCheckbox.checked) {
                 moveSearchUpCheckbox.checked = false;
                 localStorage.setItem("moveSearchUpEnabled", "false");
