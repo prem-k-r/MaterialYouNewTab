@@ -4653,7 +4653,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 		display: none;
 	}
 	.quotesContainer,
-	.authorName {
+	.authorWrapper {
 		display: none;
 	}
 	.searchbar .searchIcon:nth-of-type(1) {

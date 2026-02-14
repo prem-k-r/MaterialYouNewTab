@@ -403,6 +403,7 @@ let touchEndY = 0;
 let isScrolling = false;
 let scrollTimeout = null;
 let currentEngineIndex = 0;
+const dropdownBtn = document.querySelector('.dropdown-btn');
 
 // Get all search engines from both modes combined
 function getAllEngines() {
@@ -476,59 +477,30 @@ function switchEngine(direction) {
 }
 
 // Touch event handlers for swipe
-document.querySelector('.dropdown-btn')?.addEventListener('touchstart', function (event) {
-    // Only handle if shortcut switch is enabled (search engines hidden)
-    if (!document.getElementById("shortcut_switchcheckbox").checked) return;
-    // Don't trigger if dropdown is open
-    if (dropdown.classList.contains("show")) return;
-
-    event.stopPropagation();
-    touchStartY = event.changedTouches[0].screenY;
+dropdownBtn?.addEventListener('touchstart', (e) => {
+    if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
+    e.stopPropagation();
+    touchStartY = e.changedTouches[0].screenY;
 }, { passive: true });
 
-document.querySelector('.dropdown-btn')?.addEventListener('touchend', function (event) {
-    // Only handle if shortcut switch is enabled (search engines hidden)
-    if (!document.getElementById("shortcut_switchcheckbox").checked) return;
-    // Don't trigger if dropdown is open
-    if (dropdown.classList.contains("show")) return;
+dropdownBtn?.addEventListener('touchend', (e) => {
+    if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
+    e.stopPropagation();
+    touchEndY = e.changedTouches[0].screenY;
 
-    event.stopPropagation();
-    touchEndY = event.changedTouches[0].screenY;
-    handleSwipe();
-}, { passive: true });
-
-function handleSwipe() {
-    const swipeThreshold = 50; // Minimum distance for swipe
     const swipeDistance = touchStartY - touchEndY;
-
-    if (Math.abs(swipeDistance) < swipeThreshold) return;
-
-    if (swipeDistance > 0) {
-        // Swiped up - next engine
-        switchEngine('next');
-    } else {
-        // Swiped down - previous engine
-        switchEngine('prev');
+    const swipeThreshold = 50; // Minimum distance for swipe
+    if (Math.abs(swipeDistance) >= swipeThreshold) {
+        switchEngine(swipeDistance > 0 ? 'next' : 'prev');
     }
-}
+}, { passive: true });
 
 // Mouse wheel event handler for scroll
-document.querySelector('.dropdown-btn')?.addEventListener('wheel', function (event) {
-    // Only handle if shortcut switch is enabled (search engines hidden)
-    if (!document.getElementById("shortcut_switchcheckbox").checked) return;
-    // Don't trigger if dropdown is open
-    if (dropdown.classList.contains("show")) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (event.deltaY > 0) {
-        // Scrolled down - next engine
-        switchEngine('next');
-    } else {
-        // Scrolled up - previous engine
-        switchEngine('prev');
-    }
+dropdownBtn?.addEventListener('wheel', (e) => {
+    if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
+    e.preventDefault();
+    e.stopPropagation();
+    switchEngine(e.deltaY > 0 ? 'next' : 'prev'); // Scroll down = next, Scroll up = previous
 }, { passive: false });
 
 document.addEventListener("keydown", function (event) {
