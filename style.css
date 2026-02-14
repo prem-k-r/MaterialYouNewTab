@@ -1655,18 +1655,16 @@ html[lang="ta"] .digiclock {
 .clockOptions,
 .proxyOptions,
 .weatherOptions {
-    overflow: hidden;
-    max-height: 800px;
-    opacity: 1;
-    transition:
-        max-height 0.4s var(--md-motion-ease),
-        opacity 0.3s ease;
+	overflow: hidden;
+	max-height: 800px;
+	opacity: 1;
+	transition: max-height 0.4s var(--md-motion-ease), opacity 0.3s ease;
 }
 
 .not-applicable {
-    max-height: 0;
-    opacity: 0;
-    pointer-events: none;
+	max-height: 0;
+	opacity: 0;
+	pointer-events: none;
 }
 
 .clock-hidden-left {
@@ -4249,6 +4247,63 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: var(--darkColor-blue);
 	fill: white;
 	border-radius: 100%;
+}
+
+/* Vertical carousel for search engine switching */
+/* Main transition wrapper for the icon/content */
+.dropdown-btn > * {
+	transition: all 0.4s var(--md-motion-ease);
+}
+
+/* Switching state - vertical slide with fade */
+.searchbar.engine-switching .dropdown-btn > * {
+	animation-duration: 0.4s;
+	animation-timing-function: var(--md-motion-ease);
+	animation-fill-mode: both;
+}
+
+/* Next direction - slide up and fade */
+.searchbar.engine-switching[data-switch-direction="next"] .dropdown-btn > * {
+	animation-name: slideUpFade;
+}
+
+/* Previous direction - slide down and fade */
+.searchbar.engine-switching[data-switch-direction="prev"] .dropdown-btn > * {
+	animation-name: slideDownFade;
+}
+
+/* Slide up with fade (for next) */
+@keyframes slideUpFade {
+	0%,
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	45% {
+		transform: translateY(-15px);
+		opacity: 0;
+	}
+	55% {
+		transform: translateY(15px);
+		opacity: 0;
+	}
+}
+
+/* Slide down with fade (for previous) */
+@keyframes slideDownFade {
+	0%,
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	45% {
+		transform: translateY(15px);
+		opacity: 0;
+	}
+	55% {
+		transform: translateY(-15px);
+		opacity: 0;
+	}
 }
 
 /* --------- Save button --------- */

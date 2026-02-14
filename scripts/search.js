@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
@@ -396,6 +396,140 @@ if (localStorage.getItem("showShortcutSwitch")) {
 }
 
 initShortCutSwitch(hideSearchWith);
+
+// Swipe/Scroll to change search engines
+let touchStartY = 0;
+let touchEndY = 0;
+let isScrolling = false;
+let scrollTimeout = null;
+let currentEngineIndex = 0;
+
+// Get all search engines from both modes combined
+function getAllEngines() {
+    return Array.from(searchEngines);
+}
+
+// Get current selected engine index from all engines
+function getCurrentEngineIndex() {
+    const allEngines = getAllEngines();
+    const selectedOption = document.querySelector('input[name="search-engine"]:checked');
+    return allEngines.findIndex(engine =>
+        engine.querySelector('input[type="radio"]').value === selectedOption.value
+    );
+}
+
+// Switch to next or previous engine
+function switchEngine(direction) {
+    if (isScrolling) return;
+
+    const allEngines = getAllEngines();
+    if (allEngines.length <= 1) return;
+
+    currentEngineIndex = getCurrentEngineIndex();
+    let newIndex;
+
+    if (direction === 'next') {
+        newIndex = (currentEngineIndex + 1) % allEngines.length;
+    } else {
+        newIndex = (currentEngineIndex - 1 + allEngines.length) % allEngines.length;
+    }
+
+    const newEngine = allEngines[newIndex];
+    const radioButton = newEngine.querySelector('input[type="radio"]');
+
+    // Store direction for CSS animation
+    searchbar.setAttribute('data-switch-direction', direction);
+
+    // Add transition class to searchbar
+    searchbar.classList.add('engine-switching');
+
+    // Delay the actual swap until fade-out completes (45% of 400ms = 180ms)
+    setTimeout(() => {
+        radioButton.checked = true;
+
+        const radioButtonValue = radioButton.value.charAt(radioButton.value.length - 1);
+        const selector = `[data-engine="${radioButtonValue}"]`;
+
+        swapDropdown(selector);
+        sortDropdown();
+
+        localStorage.setItem(`selectedSearchEngine-${radioButton.parentElement.dataset.category}`, radioButton.value);
+        localStorage.setItem(`activeSearchMode`, radioButton.parentElement.dataset.category);
+
+        // Update the search mode hint text
+        const newCategory = radioButton.parentElement.dataset.category;
+        toggleSearchEngines(newCategory);
+    }, 180);
+
+    // Remove transition class after animation
+    setTimeout(() => {
+        searchbar.classList.remove('engine-switching');
+        searchbar.removeAttribute('data-switch-direction');
+    }, 400);
+
+    // Prevent rapid scrolling
+    isScrolling = true;
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+    }, 400);
+}
+
+// Touch event handlers for swipe
+document.querySelector('.dropdown-btn')?.addEventListener('touchstart', function (event) {
+    // Only handle if shortcut switch is enabled (search engines hidden)
+    if (!document.getElementById("shortcut_switchcheckbox").checked) return;
+    // Don't trigger if dropdown is open
+    if (dropdown.classList.contains("show")) return;
+
+    event.stopPropagation();
+    touchStartY = event.changedTouches[0].screenY;
+}, { passive: true });
+
+document.querySelector('.dropdown-btn')?.addEventListener('touchend', function (event) {
+    // Only handle if shortcut switch is enabled (search engines hidden)
+    if (!document.getElementById("shortcut_switchcheckbox").checked) return;
+    // Don't trigger if dropdown is open
+    if (dropdown.classList.contains("show")) return;
+
+    event.stopPropagation();
+    touchEndY = event.changedTouches[0].screenY;
+    handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+    const swipeThreshold = 50; // Minimum distance for swipe
+    const swipeDistance = touchStartY - touchEndY;
+
+    if (Math.abs(swipeDistance) < swipeThreshold) return;
+
+    if (swipeDistance > 0) {
+        // Swiped up - next engine
+        switchEngine('next');
+    } else {
+        // Swiped down - previous engine
+        switchEngine('prev');
+    }
+}
+
+// Mouse wheel event handler for scroll
+document.querySelector('.dropdown-btn')?.addEventListener('wheel', function (event) {
+    // Only handle if shortcut switch is enabled (search engines hidden)
+    if (!document.getElementById("shortcut_switchcheckbox").checked) return;
+    // Don't trigger if dropdown is open
+    if (dropdown.classList.contains("show")) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.deltaY > 0) {
+        // Scrolled down - next engine
+        switchEngine('next');
+    } else {
+        // Scrolled up - previous engine
+        switchEngine('prev');
+    }
+}, { passive: false });
 
 document.addEventListener("keydown", function (event) {
     // Prevent shortcut if modal, menu, or bookmarks sidebar is open
