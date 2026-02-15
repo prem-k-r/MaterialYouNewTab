@@ -1,5 +1,4 @@
-/* 
- * Material You NewTab
+/* * Material You NewTab
  * Copyright (c) 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program. 
@@ -10,6 +9,7 @@
 // DOM Variables
 const bookmarkButton = document.getElementById("bookmarkButton");
 const bookmarkSidebar = document.getElementById("bookmarkSidebar");
+const bookmarksContainer = document.getElementById("bookmarksContainer"); // Added for sync
 const bookmarkList = document.getElementById("bookmarkList");
 const bookmarkSearch = document.getElementById("bookmarkSearch");
 const bookmarkSearchClearButton = document.getElementById("clearSearchButton");
@@ -39,9 +39,43 @@ if (isFirefox) {
 // Initialize sort buttons
 updateSortButtons();
 
-bookmarkButton.addEventListener("click", function () {
-    toggleBookmarkSidebar();
-    bookmarkSearchClearButton.click();
+// Unified Toggle Function for smoother performance and synchronization
+function toggleBookmarkSidebar(open) {
+    if (open === undefined) open = !bookmarkSidebar.classList.contains("open");
+
+    if (open) {
+        bookmarksContainer.style.opacity = "1";
+        bookmarksContainer.style.pointerEvents = "auto";
+        bookmarkSidebar.classList.add("open");
+        bookmarkButton.classList.add("rotate");
+        
+        // Auto-focus search for better UX
+        setTimeout(() => bookmarkSearch.focus(), 300);
+        loadBookmarks();
+    } else {
+        bookmarkSidebar.classList.remove("open");
+        bookmarkButton.classList.remove("rotate");
+        
+        // Synchronize overlay fade-out with sidebar slide
+        setTimeout(() => {
+            if (!bookmarkSidebar.classList.contains("open")) {
+                bookmarksContainer.style.opacity = "0";
+                bookmarksContainer.style.pointerEvents = "none";
+            }
+        }, 300);
+
+        if (editBookmarkModal.style.display !== "none") {
+            editBookmarkModal.style.display = "none";
+        }
+    }
+}
+
+bookmarkButton.addEventListener("click", async function () {
+    const hasPermission = await verifyBookmarkPermission();
+    if (hasPermission) {
+        toggleBookmarkSidebar();
+        bookmarkSearchClearButton.click();
+    }
 });
 
 bookmarkViewGrid.addEventListener("click", function () {
@@ -52,42 +86,26 @@ bookmarkViewList.addEventListener("click", function () {
     if (bookmarkGridCheckbox.checked) bookmarkGridCheckbox.click();
 });
 
-document.addEventListener("click", function (event) {
-    const modalContainer = document.getElementById("prompt-modal-container");
-    // If modal is open, don't close the sidebar
-    if (modalContainer && modalContainer.style.display === "flex") {
-        return;
-    }
-
-    if (
-        !bookmarkSidebar.contains(event.target) &&
-        !bookmarkButton.contains(event.target) &&
-        !editBookmarkModal.contains(event.target) &&
-        bookmarkSidebar.classList.contains("open")
-    ) {
-        toggleBookmarkSidebar();
-
-        if (editBookmarkModal.style.display !== "none") {
-            editBookmarkModal.style.display = "none";
-        }
+// Close when clicking outside on the overlay
+bookmarksContainer.addEventListener("click", function (event) {
+    if (event.target === bookmarksContainer && bookmarkSidebar.classList.contains("open")) {
+        toggleBookmarkSidebar(false);
     }
 });
 
 // Search Functionality
 bookmarkSearch.addEventListener("input", function () {
     const searchTerm = bookmarkSearch.value.toLowerCase();
-    const bookmarks = bookmarkList.querySelectorAll("li[data-url], li.folder"); // Include both bookmarks and folders
+    const bookmarks = bookmarkList.querySelectorAll("li[data-url], li.folder");
 
     Array.from(bookmarks).forEach(function (bookmark) {
         const text = bookmark.textContent.toLowerCase();
         const url = bookmark.dataset.url ? bookmark.dataset.url.toLowerCase() : "";
         const isFolder = bookmark.classList.contains("folder");
 
-        // Show bookmarks if the search term matches either the name or the URL
         if (!isFolder && (text.includes(searchTerm) || url.includes(searchTerm))) {
-            bookmark.style.display = ""; // Show matching bookmarks
+            bookmark.style.display = ""; 
         } else if (isFolder) {
-            // For folders, check if any child bookmarks match the search
             const childBookmarks = bookmark.querySelectorAll("li[data-url]");
             let hasVisibleChild = false;
             Array.from(childBookmarks).forEach(function (childBookmark) {
@@ -95,26 +113,25 @@ bookmarkSearch.addEventListener("input", function () {
                 const childUrl = childBookmark.dataset.url ? childBookmark.dataset.url.toLowerCase() : "";
                 if (childText.includes(searchTerm) || childUrl.includes(searchTerm)) {
                     hasVisibleChild = true;
-                    childBookmark.style.display = ""; // Show matching child bookmarks
+                    childBookmark.style.display = ""; 
                 } else {
-                    childBookmark.style.display = "none"; // Hide non-matching child bookmarks
+                    childBookmark.style.display = "none"; 
                 }
             });
 
             if (hasVisibleChild) {
-                bookmark.style.display = ""; // Show folder if it has matching child bookmarks
-                bookmark.classList.add("open"); // Open folder to show matching child bookmarks
+                bookmark.style.display = ""; 
+                bookmark.classList.add("open"); 
             } else {
-                bookmark.style.display = "none"; // Hide folder if no child matches
+                bookmark.style.display = "none"; 
                 bookmark.classList.remove("open");
             }
         } else {
-            bookmark.style.display = "none"; // Hide non-matching bookmarks
+            bookmark.style.display = "none"; 
         }
     });
 
     if (searchTerm === "") {
-        // Reset display for all bookmarks and folders
         Array.from(bookmarks).forEach(function (bookmark) {
             bookmark.style.display = "";
             if (bookmark.classList.contains("folder")) {
@@ -127,7 +144,6 @@ bookmarkSearch.addEventListener("input", function () {
         });
     }
 
-    // Show or hide the clear button based on the search term
     bookmarkSearchClearButton.style.display = searchTerm ? "inline" : "none";
 });
 
@@ -155,10 +171,9 @@ function updateSortButtons() {
     sortTimeAdded.classList.toggle("active", currentSortMethod === 'date');
 }
 
-
 bookmarkSearchClearButton.addEventListener("click", function () {
     bookmarkSearch.value = "";
-    bookmarkSearch.dispatchEvent(new Event("input")); // Trigger input event to clear search results
+    bookmarkSearch.dispatchEvent(new Event("input"));
 });
 
 function updateBookmarkUI(enabled) {
@@ -169,84 +184,52 @@ function updateBookmarkUI(enabled) {
 }
 
 async function verifyBookmarkPermission() {
-    // Early exit for unsupported browsers
     let bookmarksPermission;
     if (isFirefox) bookmarksPermission = browser.permissions;
     else if (isChromiumBased) bookmarksPermission = chrome.permissions;
 
     if (!bookmarksPermission) {
-        await alertPrompt(translations[currentLanguage]?.UnsupportedBrowser ||
-            translations['en'].UnsupportedBrowser);
+        await alertPrompt(translations[currentLanguage]?.UnsupportedBrowser || translations['en'].UnsupportedBrowser);
         updateBookmarkUI(false);
         return false;
     }
 
-    // Firefox always has permission
     if (isFirefox) {
         updateBookmarkUI(true);
         return true;
     }
 
-    // Chromium-based browsers
-    // Opera doesn't have favicon permission yet
     const requiredPermissions = isOpera ? ["bookmarks"] : ["bookmarks", "favicon"];
-
-    const hasPermission = await new Promise(resolve =>
-        chrome.permissions.contains({ permissions: requiredPermissions }, resolve));
+    const hasPermission = await new Promise(resolve => chrome.permissions.contains({ permissions: requiredPermissions }, resolve));
 
     if (!hasPermission) {
-        const granted = await new Promise(resolve =>
-            chrome.permissions.request({ permissions: requiredPermissions }, resolve));
-
+        const granted = await new Promise(resolve => chrome.permissions.request({ permissions: requiredPermissions }, resolve));
         if (!granted) {
             updateBookmarkUI(false);
             return false;
         }
-        bookmarksAPI = chrome.bookmarks; // Initialize if just granted
+        bookmarksAPI = chrome.bookmarks;
     }
 
-    // Success case
     updateBookmarkUI(true);
     return true;
 }
 
-async function toggleBookmarkSidebar() {
-    const hasPermission = await verifyBookmarkPermission();
-    if (hasPermission) {
-        bookmarkSidebar.classList.toggle("open");
-        bookmarkButton.classList.toggle("rotate");
-
-        if (bookmarkSidebar.classList.contains("open")) {
-            loadBookmarks();
-        }
-    }
-}
-
-// Function to load bookmarks
 function loadBookmarks() {
-    if (!bookmarksAPI?.getTree) {
-        console.error("Bookmarks API is unavailable. Please check permissions or context.");
-        return;
-    }
+    if (!bookmarksAPI?.getTree) return;
 
     bookmarksAPI.getTree().then(bookmarkTreeNodes => {
-        // Clear the current list
         bookmarkList.innerHTML = "";
 
-        // Display the "Recently Added" folder
         if (bookmarksAPI.getRecent) {
             bookmarksAPI.getRecent(8).then(recentBookmarks => {
                 if (recentBookmarks.length > 0) {
-                    const recentAddedFolder = {
-                        title: "Recently Added",
-                        children: recentBookmarks
-                    };
+                    const recentAddedFolder = { title: "Recently Added", children: recentBookmarks };
                     bookmarkList.appendChild(displayBookmarks([recentAddedFolder]));
                 }
             });
         }
 
-        // For Firefox: "Bookmarks Menu" and "Other Bookmarks" are distinct nodes
         if (isFirefox) {
             const toolbarNode = bookmarkTreeNodes[0]?.children?.find(node => node.title === "Bookmarks Toolbar");
             const menuNode = bookmarkTreeNodes[0]?.children?.find(node => node.title === "Bookmarks Menu");
@@ -255,50 +238,28 @@ function loadBookmarks() {
             if (toolbarNode?.children) bookmarkList.appendChild(displayBookmarks(toolbarNode.children));
             if (menuNode?.children) bookmarkList.appendChild(displayBookmarks(menuNode.children));
             if (otherNode?.children) bookmarkList.appendChild(displayBookmarks(otherNode.children));
-        }
-        else {
-            let default_folder = "Bookmarks bar";
-            if (isEdge) default_folder = "Favorites bar";
-            if (isBrave) default_folder = "Bookmarks";
-
-            // Get the children of the root bookmark folder
+        } else {
+            let default_folder = isEdge ? "Favorites bar" : (isBrave ? "Bookmarks" : "Bookmarks bar");
             const rootChildren = bookmarkTreeNodes[0]?.children || [];
+            const mainBookmarks = rootChildren.find(node => node.title === default_folder || node.folderType === "bookmarks-bar");
 
-            // Find and process the default bookmarks folder
-            const mainBookmarks = rootChildren.find(node =>
-                node.title === default_folder ||
-                node.folderType === "bookmarks-bar"
-            );
-
-            // If the default folder has children, display its bookmarks
-            if (mainBookmarks?.children) {
-                bookmarkList.appendChild(displayBookmarks(mainBookmarks.children));
-            }
-
-            // Process all other root-level folders
+            if (mainBookmarks?.children) bookmarkList.appendChild(displayBookmarks(mainBookmarks.children));
             rootChildren.forEach(node => {
                 if (node !== mainBookmarks && node.id !== "1" && node.children) {
                     bookmarkList.appendChild(displayBookmarks([node]));
                 }
             });
         }
-    }).catch(err => {
-        console.error("Error loading bookmarks:", err);
     });
 }
 
-// Function to set the favicon for a bookmark
 function setBookmarkFavicon(faviconElement, pageUrl) {
-    // Final fallback to local offline icon
     const offlineFallback = () => faviconElement.src = "./svgs/offline.svg";
-
-    // Google favicon api fallback
     const googleFallback = () => {
         faviconElement.src = `https://www.google.com/s2/favicons?domain=${new URL(pageUrl).hostname}&sz=32`;
         faviconElement.onerror = offlineFallback;
     };
 
-    // Try browser-specific favicon first (Chromium only)
     if (!isFirefox || !isOpera) {
         faviconElement.src = `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(pageUrl)}&size=32`;
         faviconElement.onerror = googleFallback;
@@ -309,12 +270,9 @@ function setBookmarkFavicon(faviconElement, pageUrl) {
 
 function displayBookmarks(bookmarkNodes) {
     let list = document.createElement("ul");
-
-    // Separate folders and bookmarks
     const folders = bookmarkNodes.filter(node => node.children && node.children.length > 0);
     const bookmarks = bookmarkNodes.filter(node => node.url);
 
-    // Sorting folders and bookmarks separately by title or dateAdded
     if (currentSortMethod === 'title') {
         folders.sort((a, b) => a.title.localeCompare(b.title));
         bookmarks.sort((a, b) => a.title.localeCompare(b.title));
@@ -323,7 +281,6 @@ function displayBookmarks(bookmarkNodes) {
         bookmarks.sort((a, b) => (a.dateAdded || 0) - (b.dateAdded || 0));
     }
 
-    // Combine folders and bookmarks
     const sortedNodes = [...bookmarks, ...folders];
 
     for (let node of sortedNodes) {
@@ -331,35 +288,26 @@ function displayBookmarks(bookmarkNodes) {
 
         if (node.children && node.children.length > 0) {
             let folderItem = document.createElement("li");
-
-            folderItem.dataset.id = node.id; // Add ID as dataset for context menu
-
-            // Use the SVG icon from HTML
+            folderItem.dataset.id = node.id;
             const folderIcon = document.getElementById("folderIconTemplate").cloneNode(true);
-            folderIcon.removeAttribute("id"); // Remove the id to prevent duplicates
+            folderIcon.removeAttribute("id");
             folderItem.appendChild(folderIcon);
-
             folderItem.appendChild(document.createTextNode(node.title));
             folderItem.classList.add("folder", "open");
 
-            // Add event listener for unfolding/folding
             folderItem.addEventListener("click", function (event) {
                 event.stopPropagation();
                 folderItem.classList.toggle("open");
                 const subList = folderItem.querySelector("ul");
-                if (subList) {
-                    subList.classList.toggle("hidden");
-                }
+                if (subList) subList.classList.toggle("hidden");
             });
 
-            let subList = displayBookmarks(node.children);
-            folderItem.appendChild(subList);
-
+            folderItem.appendChild(displayBookmarks(node.children));
             list.appendChild(folderItem);
         } else if (node.url) {
             let item = document.createElement("li");
-            item.dataset.id = node.id; // Add ID as dataset for context menu
-            item.dataset.url = node.url; // Add URL as dataset for search functionality
+            item.dataset.id = node.id;
+            item.dataset.url = node.url;
             let link = document.createElement("a");
             link.href = node.url;
             let span = document.createElement("span");
@@ -369,7 +317,6 @@ function displayBookmarks(bookmarkNodes) {
             setBookmarkFavicon(favicon, node.url);
             favicon.classList.add("favicon");
 
-            // Create the delete button
             let deleteButton = document.createElement("button");
             deleteButton.textContent = "✖";
             deleteButton.classList.add("bookmark-delete-button");
@@ -377,163 +324,70 @@ function displayBookmarks(bookmarkNodes) {
             deleteButton.addEventListener("click", async function (event) {
                 event.preventDefault();
                 event.stopPropagation();
-
-                const confirmMessage = (translations[currentLanguage]?.deleteBookmark || translations["en"].deleteBookmark)
-                    .replace("{title}", node.title || node.url);
+                const confirmMessage = (translations[currentLanguage]?.deleteBookmark || translations["en"].deleteBookmark).replace("{title}", node.title || node.url);
 
                 if (await confirmPrompt(confirmMessage)) {
-                    if (isFirefox) {
-                        // Firefox API (Promise-based)
-                        bookmarksAPI.remove(node.id).then(() => {
-                            item.remove(); // Remove the item from the DOM
-                        }).catch(err => {
-                            console.error("Error removing bookmark:", err);
-                        });
-                    } else {
-                        // Chrome API (Callback-based)
-                        bookmarksAPI.remove(node.id, function () {
-                            item.remove(); // Remove the item from the DOM
-                        });
-                    }
+                    const removeAction = isFirefox ? bookmarksAPI.remove(node.id) : new Promise(r => bookmarksAPI.remove(node.id, r));
+                    removeAction.then(() => item.remove()).catch(console.error);
                 }
             });
 
             link.appendChild(favicon);
             link.appendChild(span);
             item.appendChild(link);
-            item.appendChild(deleteButton); // Add delete button to the item
+            item.appendChild(deleteButton);
 
-            // Open links in the current tab or new tab if ctrl pressed
             link.addEventListener("click", function (event) {
-                if (event.ctrlKey || event.metaKey) {
-                    // Open in a new tab
-                    event.preventDefault();
-                    if (isFirefox) {
-                        browser.tabs.create({ url: node.url, active: false });
-                    } else if (isChromiumBased) {
-                        chrome.tabs.create({ url: node.url, active: false });
-                    } else {
-                        window.open(node.url, "_blank");
-                    }
+                event.preventDefault();
+                const openInNew = event.ctrlKey || event.metaKey;
+                if (isFirefox) {
+                    openInNew ? browser.tabs.create({ url: node.url, active: false }) : browser.tabs.update({ url: node.url });
                 } else {
-                    // Open in the current tab
-                    event.preventDefault();
-                    if (isFirefox) {
-                        browser.tabs.update({ url: node.url });
-                    } else if (isChromiumBased) {
-                        chrome.tabs.update({ url: node.url }, function () {
-                        });
-                    } else {
-                        window.location.href = node.url;
-                    }
+                    openInNew ? chrome.tabs.create({ url: node.url, active: false }) : chrome.tabs.update({ url: node.url });
                 }
             });
             list.appendChild(item);
         }
     }
-
-    list.addEventListener("click", function (event) {
-        event.stopPropagation();
-    });
-
+    list.addEventListener("click", e => e.stopPropagation());
     return list;
 }
 
-// Right-click (context menu) event
 bookmarkList.addEventListener("contextmenu", function (event) {
-    event.preventDefault(); // Prevent default right-click menu
-
+    event.preventDefault();
     const bookmarkItem = event.target.closest("li[data-id]");
-    if (!bookmarkItem) return;
+    if (!bookmarkItem || bookmarkItem.classList.contains("folder")) return;
 
     currentBookmarkId = bookmarkItem.dataset.id;
-    const bookmarkTitle = bookmarkItem.querySelector("a").textContent.trim();
-    const bookmarkURL = bookmarkItem.dataset.url;
-
-    // Populate modal fields
-    editBookmarkName.value = bookmarkTitle;
-    editBookmarkURL.value = bookmarkURL;
-    setBookmarkFavicon(editBookmarkFavicon, bookmarkURL);
-
-    // Show modal
+    editBookmarkName.value = bookmarkItem.querySelector("a").textContent.trim();
+    editBookmarkURL.value = bookmarkItem.dataset.url;
+    setBookmarkFavicon(editBookmarkFavicon, bookmarkItem.dataset.url);
     editBookmarkModal.style.display = "block";
     saveBookmarkChanges.disabled = false;
 });
 
-// Disable save button if URL is empty
 editBookmarkURL.addEventListener("input", () => {
     saveBookmarkChanges.disabled = editBookmarkURL.value.trim() === "";
 });
 
-// Save button action
 saveBookmarkChanges.onclick = function () {
     if (!currentBookmarkId) return;
+    const updatedData = { title: editBookmarkName.value.trim(), url: encodeURI(editBookmarkURL.value.trim()) };
 
-    const updatedTitle = editBookmarkName.value.trim();
-    const updatedURL = encodeURI(editBookmarkURL.value.trim());
-
-    const updatedData = { title: updatedTitle, url: updatedURL };
-
-    if (isFirefox) {
-        bookmarksAPI.update(currentBookmarkId, updatedData).then(() => {
-            updateBookmark(currentBookmarkId, updatedTitle, updatedURL);
-            editBookmarkModal.style.display = "none";
-        }).catch(err => {
-            console.error("Error updating bookmark:", err);
-        });
-    } else {
-        bookmarksAPI.update(currentBookmarkId, updatedData, function () {
-            if (chrome.runtime.lastError) {
-                console.error("Error updating bookmark:", chrome.runtime.lastError);
-                return;
-            }
-            updateBookmark(currentBookmarkId, updatedTitle, updatedURL);
-            editBookmarkModal.style.display = "none";
-        });
-    }
-
-    loadBookmarks();
+    const updateAction = isFirefox ? bookmarksAPI.update(currentBookmarkId, updatedData) : new Promise(r => bookmarksAPI.update(currentBookmarkId, updatedData, r));
+    updateAction.then(() => {
+        editBookmarkModal.style.display = "none";
+        loadBookmarks();
+    }).catch(console.error);
 };
 
-// Cancel button action
-cancelBookmarkEdit.onclick = function () {
-    editBookmarkModal.style.display = "none";
-};
+cancelBookmarkEdit.onclick = () => editBookmarkModal.style.display = "none";
 
-// Function to update after edit
-function updateBookmark(bookmarkId, title, url) {
-    const bookmarkItem = document.querySelector(`li[data-id="${bookmarkId}"]`);
-    if (bookmarkItem) {
-        const link = bookmarkItem.querySelector("a");
-        link.textContent = title;
-        link.href = url;
-        bookmarkItem.dataset.url = url;
-    }
-}
+editBookmarkName.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); editBookmarkURL.focus(); } });
+editBookmarkURL.addEventListener("keydown", (e) => { if (e.key === "Enter" && !saveBookmarkChanges.disabled) saveBookmarkChanges.click(); });
 
-// Move focus to URL field when Enter is pressed in Name field
-editBookmarkName.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        editBookmarkURL.focus();
-    }
-});
-
-// Trigger Save button when Enter is pressed in URL field
-editBookmarkURL.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        if (!saveBookmarkChanges.disabled) {
-            saveBookmarkChanges.click();
-        }
-    }
-});
-
-// ------------------------ End of Bookmark System -----------------------------------
-
-// Save and load the state of the bookmarks toggle
 document.addEventListener("DOMContentLoaded", function () {
-    bookmarksCheckbox.addEventListener("change", async function () {
+    bookmarksCheckbox.addEventListener("change", async () => {
         if (!bookmarksCheckbox.checked) {
             updateBookmarkUI(false);
             return;
@@ -543,11 +397,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     bookmarkGridCheckbox.addEventListener("change", function () {
         saveCheckboxState("bookmarkGridCheckboxState", bookmarkGridCheckbox);
-        if (bookmarkGridCheckbox.checked) {
-            bookmarkList.classList.add("grid-view");
-        } else {
-            bookmarkList.classList.remove("grid-view");
-        }
+        bookmarkList.classList.toggle("grid-view", bookmarkGridCheckbox.checked);
     });
 
     loadCheckboxState("bookmarksCheckboxState", bookmarksCheckbox);
@@ -555,21 +405,11 @@ document.addEventListener("DOMContentLoaded", function () {
     loadCheckboxState("bookmarkGridCheckboxState", bookmarkGridCheckbox);
 });
 
-// Keyboard shortcut for bookmarks
 document.addEventListener("keydown", function (event) {
-    // Prevent shortcut if modal or menu is open
     const modalContainer = document.getElementById("prompt-modal-container");
-    if (modalContainer?.style.display === "flex" || menuBar.style.display !== "none") {
-        return;
-    }
+    if (modalContainer?.style.display === "flex" || menuBar.style.display !== "none") return;
 
-    if (bookmarksCheckbox.checked &&
-        event.key === "ArrowRight" &&
-        !event.repeat &&
-        event.target.tagName !== "INPUT" &&
-        event.target.tagName !== "TEXTAREA" &&
-        event.target.isContentEditable !== true
-    ) {
+    if (bookmarksCheckbox.checked && event.key === "ArrowRight" && !event.repeat && event.target.tagName !== "INPUT" && event.target.tagName !== "TEXTAREA" && !event.target.isContentEditable) {
         bookmarkButton.click();
     }
 });
