@@ -64,6 +64,8 @@ const en = {
     "micIconInfo": "If voice typing is not working",
     "hideSearchWith": "Hide Search Engines",
     "hideSearchWithInfo": "Switch between search engines by clicking its icon",
+    "moveSearchUpText": "Move Search Bar Up",
+    "moveSearchUpInfo": "Automatically move search bar upward when only search bar is visible",
     "motivationalQuotesText": "Motivational Quotes",
     "motivationalQuotesInfo": "Show quotes below the searchbar",
     "search_suggestions_button": "Search Suggestions",
