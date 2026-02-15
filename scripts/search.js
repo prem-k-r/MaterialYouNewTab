@@ -398,11 +398,11 @@ if (localStorage.getItem("showShortcutSwitch")) {
 initShortCutSwitch(hideSearchWith);
 
 // Swipe/Scroll to change search engines
-let touchStartY = 0;
-let touchEndY = 0;
-let isScrolling = false;
-let scrollTimeout = null;
-let currentEngineIndex = 0;
+let engineSwipeStartY = 0;
+let engineSwipeEndY = 0;
+let isEngineSwitching = false;
+let engineSwitchTimeout = null;
+let currentSearchEngineIndex = 0;
 const dropdownBtn = document.querySelector('.dropdown-btn');
 
 // Get all search engines from both modes combined
@@ -411,7 +411,7 @@ function getAllEngines() {
 }
 
 // Get current selected engine index from all engines
-function getCurrentEngineIndex() {
+function getcurrentSearchEngineIndex() {
     const allEngines = getAllEngines();
     const selectedOption = document.querySelector('input[name="search-engine"]:checked');
     return allEngines.findIndex(engine =>
@@ -421,18 +421,18 @@ function getCurrentEngineIndex() {
 
 // Switch to next or previous engine
 function switchEngine(direction) {
-    if (isScrolling) return;
+    if (isEngineSwitching) return;
 
     const allEngines = getAllEngines();
     if (allEngines.length <= 1) return;
 
-    currentEngineIndex = getCurrentEngineIndex();
+    currentSearchEngineIndex = getcurrentSearchEngineIndex();
     let newIndex;
 
     if (direction === 'next') {
-        newIndex = (currentEngineIndex + 1) % allEngines.length;
+        newIndex = (currentSearchEngineIndex + 1) % allEngines.length;
     } else {
-        newIndex = (currentEngineIndex - 1 + allEngines.length) % allEngines.length;
+        newIndex = (currentSearchEngineIndex - 1 + allEngines.length) % allEngines.length;
     }
 
     const newEngine = allEngines[newIndex];
@@ -469,26 +469,27 @@ function switchEngine(direction) {
     }, 400);
 
     // Prevent rapid scrolling
-    isScrolling = true;
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        isScrolling = false;
+    isEngineSwitching = true;
+    clearTimeout(engineSwitchTimeout);
+    engineSwitchTimeout = setTimeout(() => {
+        isEngineSwitching = false;
     }, 400);
 }
 
 // Touch event handlers for swipe
 dropdownBtn?.addEventListener('touchstart', (e) => {
     if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
+    e.preventDefault();
     e.stopPropagation();
-    touchStartY = e.changedTouches[0].screenY;
-}, { passive: true });
+    engineSwipeStartY = e.changedTouches[0].screenY;
+}, { passive: false });
 
 dropdownBtn?.addEventListener('touchend', (e) => {
     if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
     e.stopPropagation();
-    touchEndY = e.changedTouches[0].screenY;
+    engineSwipeEndY = e.changedTouches[0].screenY;
 
-    const swipeDistance = touchStartY - touchEndY;
+    const swipeDistance = engineSwipeStartY - engineSwipeEndY;
     const swipeThreshold = 50; // Minimum distance for swipe
     if (Math.abs(swipeDistance) >= swipeThreshold) {
         switchEngine(swipeDistance > 0 ? 'next' : 'prev');
