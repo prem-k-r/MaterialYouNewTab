@@ -487,13 +487,8 @@ dropdownBtn?.addEventListener('touchstart', (e) => {
 
 dropdownBtn?.addEventListener('touchmove', (e) => {
     if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
-    const currentY = e.changedTouches[0].screenY;
-    const distance = Math.abs(engineSwipeStartY - currentY);
-    // Only prevent scroll if user is actually swiping (moved > 10px)
-    if (distance > 10) {
-        e.preventDefault();
-        isEngineSwiping = true;
-    }
+    e.preventDefault();
+    isEngineSwiping = true;
 }, { passive: false });
 
 dropdownBtn?.addEventListener('touchend', (e) => {
@@ -504,10 +499,9 @@ dropdownBtn?.addEventListener('touchend', (e) => {
     const swipeDistance = engineSwipeStartY - engineSwipeEndY;
     const swipeThreshold = 50; // Minimum distance for swipe
     if (isEngineSwiping && Math.abs(swipeDistance) >= swipeThreshold) {
-        e.preventDefault();
         switchEngine(swipeDistance > 0 ? 'next' : 'prev');
     }
-}, { passive: false });
+}, { passive: true });
 
 // Mouse wheel event handler for scroll
 dropdownBtn?.addEventListener('wheel', (e) => {
