@@ -400,6 +400,7 @@ initShortCutSwitch(hideSearchWith);
 // Swipe/Scroll to change search engines
 let engineSwipeStartY = 0;
 let engineSwipeEndY = 0;
+let isEngineSwiping = false;
 let isEngineSwitching = false;
 let engineSwitchTimeout = null;
 let currentSearchEngineIndex = 0;
@@ -411,7 +412,7 @@ function getAllEngines() {
 }
 
 // Get current selected engine index from all engines
-function getcurrentSearchEngineIndex() {
+function getCurrentSearchEngineIndex() {
     const allEngines = getAllEngines();
     const selectedOption = document.querySelector('input[name="search-engine"]:checked');
     return allEngines.findIndex(engine =>
@@ -426,7 +427,7 @@ function switchEngine(direction) {
     const allEngines = getAllEngines();
     if (allEngines.length <= 1) return;
 
-    currentSearchEngineIndex = getcurrentSearchEngineIndex();
+    currentSearchEngineIndex = getCurrentSearchEngineIndex();
     let newIndex;
 
     if (direction === 'next') {
@@ -479,9 +480,20 @@ function switchEngine(direction) {
 // Touch event handlers for swipe
 dropdownBtn?.addEventListener('touchstart', (e) => {
     if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
-    e.preventDefault();
     e.stopPropagation();
     engineSwipeStartY = e.changedTouches[0].screenY;
+    isEngineSwiping = false;
+}, { passive: true });
+
+dropdownBtn?.addEventListener('touchmove', (e) => {
+    if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
+    const currentY = e.changedTouches[0].screenY;
+    const distance = Math.abs(engineSwipeStartY - currentY);
+    // Only prevent scroll if user is actually swiping (moved > 10px)
+    if (distance > 10) {
+        e.preventDefault();
+        isEngineSwiping = true;
+    }
 }, { passive: false });
 
 dropdownBtn?.addEventListener('touchend', (e) => {
@@ -491,10 +503,11 @@ dropdownBtn?.addEventListener('touchend', (e) => {
 
     const swipeDistance = engineSwipeStartY - engineSwipeEndY;
     const swipeThreshold = 50; // Minimum distance for swipe
-    if (Math.abs(swipeDistance) >= swipeThreshold) {
+    if (isEngineSwiping && Math.abs(swipeDistance) >= swipeThreshold) {
+        e.preventDefault();
         switchEngine(swipeDistance > 0 ? 'next' : 'prev');
     }
-}, { passive: true });
+}, { passive: false });
 
 // Mouse wheel event handler for scroll
 dropdownBtn?.addEventListener('wheel', (e) => {
