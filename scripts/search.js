@@ -22,6 +22,12 @@ const searchQueryURLs = {
     engine9: "https://www.quora.com/search?q="
 };
 
+// DDG supports POST requests
+const duckDuckGoConfig = {
+    url: "https://duckduckgo.com/",
+    param: "q"
+};
+
 // Showing border or outline when you click on the searchbar
 searchbar.addEventListener("click", function (event) {
     event.stopPropagation();
@@ -220,11 +226,34 @@ function performSearch(query) {
                 var fallbackUrl = searchQueryURLs.engine1 + encodeURIComponent(searchTerm);
                 window.location.href = fallbackUrl;
             }
+        } else if (selectedOption === "engine2") {
+            // POST request for DDG
+            submitPostSearch(duckDuckGoConfig, searchTerm);
         } else {
+            // GET request for all other search engines
             var searchUrl = searchQueryURLs[selectedOption] + encodeURIComponent(searchTerm);
             window.location.href = searchUrl;
         }
     }
+}
+
+function submitPostSearch(config, searchTerm) {
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = config.url;
+    form.style.display = "none";
+
+    const searchInput = document.createElement("input");
+    searchInput.type = "hidden";
+    searchInput.name = config.param;
+    searchInput.value = searchTerm;
+    form.appendChild(searchInput);
+
+    document.body.appendChild(form);
+    form.submit();
+    setTimeout(() => {
+        document.body.removeChild(form);
+    }, 0);
 }
 
 // Event listeners
