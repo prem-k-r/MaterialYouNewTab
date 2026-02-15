@@ -5,337 +5,498 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="shortcut icon" href="../favicon/icon48.png" type="image/png">
-    <title>Language Key Analysis</title>
+    <title>MYNT Language Key Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
     <style>
-        :root {
-            --md-sys-color-primary: #1b3041;
-            --md-sys-color-on-primary: #ffffff;
-            --md-sys-color-primary-container: #c7e4c7;
-            --md-sys-color-secondary: #5d4037;
-            --md-sys-color-on-secondary: #ffffff;
-            --md-sys-color-secondary-container: #efebe9;
-            --md-sys-color-on-secondary-container: #211a16;
-            --md-sys-color-error: #860000;
-            --md-sys-color-error-container: #ffcdd2;
-            --md-sys-color-outline: #757575;
-            --md-sys-color-background: #fafafa;
-            --md-sys-color-on-background: #004d43;
-            --md-sys-color-surface: #ffffff;
-            --md-sys-color-on-surface: #212121;
-            --md-sys-color-on-surface-variant: #424242;
-            --md-sys-color-outline-variant: #c0b2a5;
+        /* MYNT Language Key Analysis - Blue Shade Theme */
+        /* Uses style.css Blue Shade variables */
+
+        .mynt-lka {
+            --mynt-round: 20px;
+            --mynt-gap: 16px;
+            --mynt-shadow: 0 4px 12px rgba(27, 48, 65, 0.08);
+            --mynt-shadow-hover: 0 6px 20px rgba(27, 48, 65, 0.12);
         }
 
-        :root .dark-mode {
-            --md-sys-color-primary: #3c3c4c;
-            --md-sys-color-on-primary: #ffffff;
-            --md-sys-color-primary-container: #004d4377;
-            --md-sys-color-secondary: #8d6e63;
-            --md-sys-color-on-secondary: #322926;
-            --md-sys-color-secondary-container: #594a44;
-            --md-sys-color-on-secondary-container: #ebe1dd;
-            --md-sys-color-error: #ef9a9a;
-            --md-sys-color-error-container: #86000077;
-            --md-sys-color-outline: #bdbdbd;
-            --md-sys-color-background: #151627;
-            --md-sys-color-on-background: #c7e4c7;
-            --md-sys-color-surface: #212131;
-            --md-sys-color-on-surface: #e0e0e0;
-            --md-sys-color-on-surface-variant: #bdbdbd;
-            --md-sys-color-outline-variant: #3c3c4c;
-        }
-
-        body {
-            font-family: "Roboto", sans-serif;
+        .mynt-lka {
+            font-family: var(--main-font-family);
             margin: 0;
             padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-            background-color: var(--md-sys-color-background);
-            color: var(--md-sys-color-on-background);
+            min-height: 100vh;
+            background: var(--bg-color-blue);
+            color: var(--textColorDark-blue);
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            align-items: stretch;
+            justify-content: flex-start;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        main {
-            flex: 1;
-            padding: 1rem;
-            max-width: 800px;
-            margin: 0 auto;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+        .mynt-lka.dark-mode {
+            background: #0f1a28;
+            color: var(--whitishColor-blue);
         }
 
-        #results,
-        #complete {
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-            margin-bottom: 1rem;
-            transition: background-color 0.3s, border-color 0.3s;
-            background-color: var(--md-sys-color-surface);
-            border: 1px solid var(--md-sys-color-outline-variant);
+        .mynt-lka.dark-mode {
+            --mynt-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+            --mynt-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
-        #results ul,
-        #complete ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        #results li,
-        #complete li {
-            margin: 0.6rem 0;
-            padding: 0.6rem;
-            border-left: 4px solid;
-            border-radius: 6px;
-            transition: background-color 0.3s;
-            line-height: 1.4;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        #results li.missing {
-            border-left-color: var(--md-sys-color-error);
-            background-color: var(--md-sys-color-error-container);
-            color: var(--md-sys-color-error);
-        }
-
-        #results li.extra {
-            border-left-color: var(--md-sys-color-secondary);
-            background-color: var(--md-sys-color-secondary-container);
-        }
-
-        #complete li {
-            border-left-color: var(--md-sys-color-on-background);
-            background-color: var(--md-sys-color-primary-container);
-        }
-
-        h2 {
-            text-align: center;
-            color: var(--md-sys-color-on-surface);
-            transition: color 0.3s;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .material-banner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: var(--md-sys-color-primary);
-            color: var(--md-sys-color-on-primary);
-            padding: 1rem 1.5rem;
-            border-radius: 0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        .mynt-lka .tool-header {
+            background: linear-gradient(135deg, var(--darkColor-blue) 0%, var(--darkerColor-blue) 100%);
+            color: var(--whitishColor-blue);
+            padding: 1.25rem 1.5rem;
+            box-shadow: var(--mynt-shadow);
             position: sticky;
             top: 0;
             z-index: 10;
+            animation: mynt-headerSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        .material-banner strong {
-            margin-left: 0.5rem;
-            font-size: 1.1rem;
-            letter-spacing: 0.05rem;
+        @keyframes mynt-headerSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        nav {
+        .mynt-lka .tool-header-inner {
+            max-width: 900px;
+            margin: 0 auto;
             display: flex;
-            justify-content: flex-end;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--mynt-gap);
+        }
+
+        .mynt-lka .tool-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .mynt-lka .tool-brand-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            object-fit: contain;
+            padding: 4px;
+            box-sizing: border-box;
+        }
+
+        .mynt-lka .tool-brand h1 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .mynt-lka .tool-brand span {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* Theme selector - clear segmented control */
+        .mynt-lka .theme-selector {
+            display: flex;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 3px;
+            gap: 2px;
+        }
+
+        .mynt-lka .theme-btn {
+            padding: 0.4rem 0.9rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: inherit;
+            color: rgba(255, 255, 255, 0.8);
+            background: transparent;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mynt-lka .theme-btn:hover {
+            color: var(--whitishColor-blue);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .mynt-lka .theme-btn.active {
+            background: var(--whitishColor-blue);
+            color: var(--darkerColor-blue);
+        }
+
+        .mynt-lka .theme-btn.active:hover {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .mynt-lka main {
+            flex: 1;
+            padding: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .mynt-lka .card {
+            background: var(--accentLightTint-blue);
+            border-radius: var(--mynt-round);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow: var(--mynt-shadow);
+            border: 1px solid rgba(67, 130, 236, 0.15);
+            transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            animation: mynt-cardFade 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+        }
+
+        .mynt-lka .card:nth-child(1) { animation-delay: 0.1s; }
+        .mynt-lka .card:nth-child(2) { animation-delay: 0.2s; }
+
+        @keyframes mynt-cardFade {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mynt-lka.dark-mode .card {
+            background: rgba(54, 105, 178, 0.22);
+            border-color: rgba(67, 130, 236, 0.25);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .mynt-lka.dark-mode .card:hover {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .mynt-lka .card:hover {
+            box-shadow: var(--mynt-shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .mynt-lka .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--textColorDark-blue);
+            margin: 0 0 0.75rem 0;
+            display: flex;
+            align-items: center;
             gap: 0.5rem;
         }
 
-        nav button {
-            cursor: pointer;
-            text-decoration: none;
-            color: var(--md-sys-color-on-primary);
-            font-weight: bold;
-            padding: 0.6rem 1rem;
-            background-color: var(--md-sys-color-secondary);
-            border-radius: 6px;
-            border: none;
-            transition: background-color 0.3s;
+        .mynt-lka.dark-mode .card-title {
+            color: var(--whitishColor-blue);
+        }
+
+        .mynt-lka .card-title::before {
+            content: "";
+            width: 4px;
+            height: 1.1rem;
+            background: var(--darkColor-blue);
+            border-radius: 2px;
+        }
+
+        .mynt-lka .intro-text {
+            color: var(--textColorDark-blue);
+            opacity: 0.9;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .mynt-lka.dark-mode .intro-text {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .mynt-lka ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mynt-lka .key-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 12px;
+            transition: background 0.2s ease, opacity 0.2s ease;
             font-size: 0.9rem;
         }
 
-        nav button:hover {
-            background-color: var(--md-sys-color-secondary-container);
-            color: var(--md-sys-color-on-secondary-container);
+        .mynt-lka .key-item.missing {
+            background: var(--bg-color-red);
+            border-left: 4px solid var(--darkerColor-red);
+            color: var(--textColorDark-red);
         }
 
-        p {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--md-sys-color-on-surface-variant);
-            line-height: 1.4;
-            font-size: 0.9rem;
+        .mynt-lka .key-item.extra {
+            background: color-mix(in srgb, var(--accentLightTint-blue) 80%, var(--bg-color-blue));
+            border-left: 4px solid var(--darkerColor-blue);
         }
 
-        /* Estilos para o checkbox */
-        input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--md-sys-color-error);
-            border-radius: 4px;
-            outline: none;
-            cursor: pointer;
-            transition: background-color 0.2s, border-color 0.2s;
+        .mynt-lka.dark-mode .key-item.extra {
+            background: rgba(54, 105, 178, 0.4);
         }
 
-        input[type="checkbox"]:checked {
-            background-color: var(--md-sys-color-error);
-            border-color: var(--md-sys-color-error);
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23fff"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
+        .mynt-lka .key-item.complete {
+            background: var(--bg-color-green);
+            border-left: 4px solid var(--darkerColor-green);
+            color: var(--textColorDark-green);
         }
 
-        li.checked {
-            opacity: 0.7;
+        .mynt-lka .key-item.checked {
+            opacity: 0.5;
         }
 
-        li.checked span {
+        .mynt-lka .key-item.checked span {
             text-decoration: line-through;
         }
 
-        .language-group {
+        .mynt-lka input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--darkerColor-red);
+            border-radius: 6px;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .mynt-lka input[type="checkbox"]:hover {
+            transform: scale(1.08);
+        }
+
+        .mynt-lka input[type="checkbox"]:checked {
+            background: var(--darkerColor-red);
+            border-color: var(--darkerColor-red);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23fff"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
+            background-size: 14px 14px;
+            background-position: center;
+        }
+
+        .mynt-lka input[type="checkbox"]:active {
+            transform: scale(0.95);
+        }
+
+        .mynt-lka .language-group {
             margin-bottom: 1rem;
         }
 
-        .language-group h3 {
-            margin-bottom: 0.5rem;
-            color: var(--md-sys-color-on-surface-variant);
-            padding-left: 0.5rem;
+        .mynt-lka .language-group-header {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            padding: 0.875rem 1rem;
+            background: var(--bg-color-blue);
+            border-radius: 12px;
             cursor: pointer;
             user-select: none;
-            justify-content: space-between;
-            /* Alinha o texto à esquerda e o contador à direita */
+            transition: background 0.2s ease, transform 0.2s ease;
         }
 
-        .language-group h3::before {
-            content: "▶";
-            display: inline-block;
+        .mynt-lka .language-group-header:hover {
+            transform: translateX(4px);
+            background: color-mix(in srgb, var(--bg-color-blue) 90%, var(--darkColor-blue));
+        }
+
+        .mynt-lka .language-group-header:active {
+            transform: translateX(2px);
+        }
+
+        .mynt-lka.dark-mode .language-group-header {
+            background: rgba(54, 105, 178, 0.35);
+        }
+
+        .mynt-lka.dark-mode .language-group-header:hover {
+            background: rgba(54, 105, 178, 0.5);
+        }
+
+        .mynt-lka .language-group-header::before {
+            content: "▼";
+            font-size: 0.7rem;
             margin-right: 0.5rem;
-            transition: transform 0.2s;
-            transform: rotate(90deg);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--darkColor-blue);
+            display: inline-block;
         }
 
-        .language-group.collapsed h3::before {
-            transform: none;
+        .mynt-lka .language-group.collapsed .language-group-header::before {
+            transform: rotate(-90deg);
         }
 
-        .language-group ul {
-            padding-left: 1rem;
+        .mynt-lka .language-group ul {
+            overflow: hidden;
         }
 
-        .language-group.collapsed ul {
-            display: none;
+        .mynt-lka .language-group:not(.collapsed) ul {
+            animation: mynt-groupExpand 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        #theme-toggle {
-            position: relative;
-            width: 40px;
-            height: 20px;
-            border-radius: 15px;
-            background-color: #ccc;
-            border: none;
-            transition: background-color 0.3s;
-        }
-
-        #theme-toggle::before {
-            content: "";
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 16px;
-            height: 16px;
-            background-color: var(--md-sys-color-primary);
-            border-radius: 50%;
-            transition: left 0.3s ease;
-        }
-
-        body.dark-mode #theme-toggle::before {
-            left: 22px;
-        }
-
-        /* Animação suave */
-        .material-banner,
-        nav button,
-        #results,
-        #complete,
-        #results li,
-        #complete li,
-        input[type="checkbox"],
-        #theme-toggle {
-            transition: all 0.2s ease;
-        }
-
-        #incomplete-message {
-            text-align: center;
-            margin-bottom: 1rem;
-            color: var(--md-sys-color-on-surface-variant);
-            font-size: 0.9rem;
-            font-style: italic;
-            background-color: var(--md-sys-color-error-container);
-            padding: 0.7rem;
-            border-radius: 8px;
-            display: block;
-            animation: fadeIn 0.3s ease-in-out;
-            /* Adicionando animação */
-        }
-
-        #extra-keys-message {
-            text-align: center;
-            margin-bottom: 1rem;
-            color: var(--md-sys-color-on-surface-variant);
-            font-size: 0.9rem;
-            font-style: italic;
-            background-color: var(--md-sys-color-secondary-container);
-            padding: 0.7rem;
-            border-radius: 8px;
-            display: none;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        @keyframes fadeIn {
+        @keyframes mynt-groupExpand {
             from {
                 opacity: 0;
             }
-
             to {
                 opacity: 1;
             }
         }
 
-        .key-count {
+        .mynt-lka .language-group:not(.collapsed) .key-item {
+            animation: mynt-itemSlide 0.25s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+        }
+
+        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(1) { animation-delay: 0.03s; }
+        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(2) { animation-delay: 0.06s; }
+        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(3) { animation-delay: 0.09s; }
+        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(4) { animation-delay: 0.12s; }
+        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(5) { animation-delay: 0.15s; }
+        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(n+6) { animation-delay: 0.18s; }
+
+        @keyframes mynt-itemSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .mynt-lka .language-group-header h3 {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .mynt-lka .key-counts {
+            display: flex;
+            gap: 1rem;
             font-size: 0.8rem;
-            font-weight: normal;
-            margin-left: 1rem;
-            opacity: 0.7;
+            font-weight: 500;
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
+        .mynt-lka .key-counts .missing-count {
+            color: var(--darkerColor-red);
         }
 
-        ::-webkit-scrollbar-track {
-            background-color: transparent;
+        .mynt-lka .key-counts .extra-count {
+            color: var(--darkerColor-blue);
         }
 
-        ::-webkit-scrollbar-thumb {
-            background-color: var(--md-sys-color-on-surface-variant);
-            border-radius: 3px;
+        .mynt-lka .language-group ul {
+            padding: 0.5rem 0 0 1rem;
+        }
+
+        .mynt-lka .language-group.collapsed ul {
+            display: none;
+        }
+
+        .mynt-lka .alert-box {
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .mynt-lka .alert-box.show {
+            display: block;
+            animation: mynt-alertSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes mynt-alertSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mynt-lka #incomplete-message {
+            background: var(--accentLightTint-red);
+            color: var(--textColorDark-red);
+            border-left: 4px solid var(--darkerColor-red);
+        }
+
+        .mynt-lka #extra-keys-message {
+            background: color-mix(in srgb, var(--accentLightTint-blue) 90%, var(--bg-color-blue));
+            color: var(--textColorDark-blue);
+            border-left: 4px solid var(--darkerColor-blue);
+        }
+
+        .mynt-lka.dark-mode #extra-keys-message {
+            background: rgba(54, 105, 178, 0.35);
+            color: rgba(255, 255, 255, 0.95);
+            border-left-color: var(--darkColor-blue);
+            box-shadow: none;
+        }
+
+        .mynt-lka.dark-mode #incomplete-message {
+            background: rgba(178, 53, 53, 0.25);
+            color: #ffb3b3;
+            border-left-color: var(--darkerColor-red);
+            box-shadow: none;
+        }
+
+        @keyframes mynt-fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mynt-lka .results-section h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 0 0 1rem 0;
+            color: var(--textColorDark-blue);
+        }
+
+        .mynt-lka.dark-mode .results-section h2 {
+            color: var(--whitishColor-blue);
+        }
+
+        .mynt-lka ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .mynt-lka ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .mynt-lka ::-webkit-scrollbar-thumb {
+            background: var(--darkColor-blue);
+            border-radius: 4px;
+            opacity: 0.5;
+        }
+
+        .mynt-lka ::-webkit-scrollbar-thumb:hover {
+            background: var(--darkerColor-blue);
         }
     </style>
-    <!-- SCRIPTS -->
     <script src="../locales/pt.js"></script>
     <script src="../locales/en.js"></script>
     <script src="../locales/es.js"></script>
@@ -369,50 +530,55 @@
     <script src="../locales/uk.js"></script>
 </head>
 
-<body class="light-mode">
-    <div class="material-banner">
-        <span>🌟</span>
-        <strong>Language Key Analysis Tool</strong>
-        <nav>
-            <button id="theme-toggle"></button>
-        </nav>
-    </div>
+<body class="mynt-lka light-mode">
+    <header class="tool-header">
+        <div class="tool-header-inner">
+            <div class="tool-brand">
+                <img class="tool-brand-icon" src="../favicon/icon128.png" alt="MYNT" width="40" height="40">
+                <div>
+                    <h1>MYNT Language Key Analysis</h1>
+                    <span>Compare translation keys against English reference</span>
+                </div>
+            </div>
+            <div class="theme-selector" role="group" aria-label="Choose theme">
+                <button type="button" class="theme-btn active" id="theme-light" data-theme="light" aria-pressed="true">Light</button>
+                <button type="button" class="theme-btn" id="theme-dark" data-theme="dark" aria-pressed="false">Dark</button>
+            </div>
+        </div>
+    </header>
     <main>
-        <div id="complete"></div>
-        <h2>Language Key Analysis Results</h2>
-        <p>
-            This page is a tool designed to analyze language keys in the project. English serves as the reference
-            language for
-            comparison. The tool identifies missing or extra keys in other languages and highlights the complete ones.
-        </p>
-        <div id="incomplete-message" style="display: none">
-            The following languages have missing translations compared to English.
-        </div>
-        <div id="extra-keys-message" style="display: none">
-            Some of the following languages have extra keys not present in English. Consider removing them for
-            consistency.
-        </div>
-        <div id="results"></div>
+        <div id="complete" class="card"></div>
+        <section class="card results-section">
+            <h2>Language Key Analysis Results</h2>
+            <p class="intro-text">
+                This tool analyzes language keys across the MYNT project. English serves as the reference language.
+                Missing keys, extra keys, and complete languages are identified below.
+            </p>
+            <div id="incomplete-message" class="alert-box">
+                The following languages have missing translations compared to English.
+            </div>
+            <div id="extra-keys-message" class="alert-box">
+                Some languages have extra keys not present in English. Consider removing them for consistency.
+            </div>
+            <div id="results"></div>
+        </section>
     </main>
     <script>
         const languages = { ar_SA, az, bn, cs, de, el, en, es, fa, fr, hi, hu, idn, it, ja, ko, mr, np, pl, pt, ru, sl, ta, th, tr, uk, ur, uz, vi, zh, zh_TW };
         const resultsDiv = document.getElementById("results");
         const completeDiv = document.getElementById("complete");
-        const themeToggle = document.getElementById("theme-toggle");
         const incompleteMessage = document.getElementById("incomplete-message");
         const extraKeysMessage = document.getElementById("extra-keys-message");
+        const bodyEl = document.querySelector(".mynt-lka");
 
         function compareLanguageKeys(referenceLang, languages) {
             const analysis = {};
-
             for (const lang in languages) {
                 if (lang !== referenceLang) {
                     const refKeys = Object.keys(languages[referenceLang]);
                     const langKeys = Object.keys(languages[lang]);
-
                     const missing = refKeys.filter((key) => !langKeys.includes(key));
                     const extra = langKeys.filter((key) => !refKeys.includes(key));
-
                     analysis[lang] = {
                         missingKeys: missing,
                         extraKeys: extra,
@@ -422,6 +588,7 @@
             }
             return analysis;
         }
+
         const languageAnalysis = compareLanguageKeys("en", languages);
         const ulResults = document.createElement("ul");
         const ulComplete = document.createElement("ul");
@@ -429,7 +596,8 @@
         for (const lang in languageAnalysis) {
             if (languageAnalysis[lang].isComplete) {
                 const li = document.createElement("li");
-                li.innerHTML = `<strong>Congratulations!</strong> The language <strong>${lang}</strong> is complete!`;
+                li.className = "key-item complete";
+                li.innerHTML = `<strong>✓ Complete</strong> — <strong>${lang}</strong> has all keys matching English.`;
                 ulComplete.appendChild(li);
             }
         }
@@ -447,30 +615,31 @@
                 languageGroups[lang] = document.createElement("div");
                 languageGroups[lang].classList.add("language-group", "collapsed");
                 const h3 = document.createElement("h3");
-                h3.innerHTML = `Language: ${lang}
-                    <span class="key-count">Missing: ${missingKeys.length}</span>
-                    <span class="key-count">Extra: ${extraKeys.length}</span>
+                h3.className = "language-group-header";
+                h3.innerHTML = `<span>${lang}</span>
+                    <span class="key-counts">
+                        <span class="missing-count">Missing: ${missingKeys.length}</span>
+                        <span class="extra-count">Extra: ${extraKeys.length}</span>
+                    </span>
                 `;
                 languageGroups[lang].appendChild(h3);
-                languageGroups[lang].appendChild(document.createElement("ul"));
+                const ul = document.createElement("ul");
+                languageGroups[lang].appendChild(ul);
 
-                const ul = languageGroups[lang].querySelector("ul");
                 missingKeys.forEach((key) => {
                     const li = document.createElement("li");
-                    li.classList.add("missing");
+                    li.className = "key-item missing";
                     li.innerHTML = `
                         <input type="checkbox" id="checkbox-missing-${lang}-${key}" data-lang="${lang}" data-key="${key}">
-                       <span>Missing: ${key}</span>
+                        <span>Missing: ${key}</span>
                     `;
                     ul.appendChild(li);
                 });
 
                 extraKeys.forEach((key) => {
                     const li = document.createElement("li");
-                    li.classList.add("extra");
-                    li.innerHTML = `
-                        <span>Extra: ${key}</span>
-                    `;
+                    li.className = "key-item extra";
+                    li.innerHTML = `<span>Extra: ${key}</span>`;
                     ul.appendChild(li);
                 });
             }
@@ -480,53 +649,61 @@
             ulResults.appendChild(languageGroups[langGroup]);
         }
 
-        if (
-            Object.keys(languageAnalysis).filter(
-                (lang) => languageAnalysis[lang].isComplete
-            ).length > 0
-        ) {
+        if (Object.keys(languageAnalysis).filter((lang) => languageAnalysis[lang].isComplete).length > 0) {
+            const completeTitle = document.createElement("h3");
+            completeTitle.className = "card-title";
+            completeTitle.textContent = "Complete Languages";
+            completeDiv.insertBefore(completeTitle, completeDiv.firstChild);
             completeDiv.appendChild(ulComplete);
         } else {
             const li = document.createElement("li");
-            li.textContent = "No languages are complete.";
+            li.className = "key-item";
+            li.textContent = "No languages are fully complete.";
             ulComplete.appendChild(li);
+            const completeTitle = document.createElement("h3");
+            completeTitle.className = "card-title";
+            completeTitle.textContent = "Complete Languages";
+            completeDiv.insertBefore(completeTitle, completeDiv.firstChild);
             completeDiv.appendChild(ulComplete);
         }
 
         if (hasMissingKeys) {
-            incompleteMessage.style.display = "block";
+            incompleteMessage.classList.add("show");
         }
-
         if (hasExtraKeys) {
-            extraKeysMessage.style.display = "block";
+            extraKeysMessage.classList.add("show");
         }
-
         if (hasMissingKeys || hasExtraKeys) {
             resultsDiv.appendChild(ulResults);
         }
 
         resultsDiv.addEventListener("change", (event) => {
             if (event.target.type === "checkbox") {
-                const checkbox = event.target;
-                const listItem = checkbox.closest("li");
-                if (checkbox.checked) {
-                    listItem.classList.add("checked");
-                } else {
-                    listItem.classList.remove("checked");
-                }
+                const listItem = event.target.closest("li");
+                listItem.classList.toggle("checked", event.target.checked);
             }
         });
 
-        resultsDiv.addEventListener("click", (event) => {
-            if (event.target.closest(".language-group h3")) {
-                const group = event.target.closest(".language-group");
-                group.classList.toggle("collapsed");
-            }
+        document.querySelectorAll(".language-group-header").forEach((h) => {
+            h.addEventListener("click", () => {
+                h.closest(".language-group").classList.toggle("collapsed");
+            });
         });
 
-        themeToggle.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-        });
+        const themeLight = document.getElementById("theme-light");
+        const themeDark = document.getElementById("theme-dark");
+
+        function setTheme(theme) {
+            const isDark = theme === "dark";
+            bodyEl.classList.toggle("dark-mode", isDark);
+            themeLight.classList.toggle("active", !isDark);
+            themeLight.setAttribute("aria-pressed", !isDark);
+            themeDark.classList.toggle("active", isDark);
+            themeDark.setAttribute("aria-pressed", isDark);
+        }
+
+        themeLight.addEventListener("click", () => setTheme("light"));
+        themeDark.addEventListener("click", () => setTheme("dark"));
     </script>
 </body>
 
