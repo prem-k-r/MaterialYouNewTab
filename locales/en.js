@@ -164,6 +164,13 @@ const en = {
     // Wallpaper and settings
     "uploadWallpaperText": "Upload Wallpaper",    // Keep this short
     "rangColor": "Pick color",    // Keep this short
+
+    // Glassmorphism
+    "glassmorphismText": "Glassmorphism",
+    "glassmorphismInfo": "Enable frosted glass (backdrop blur)",
+    "glassBlurTitle": "Blur Intensity",
+    "glassBlurDesc": "Adjust backdrop blur",
+
     "opacityTitle": "Opacity",
     "adjustOpacityDesc": "Adjust interface transparency",
     "backupText": "Backup",
