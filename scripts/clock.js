@@ -17,7 +17,7 @@ let lastGreetingString = null;
 // Select elements
 const leftDiv = document.getElementById("leftDiv");
 const rightDiv = document.getElementById("rightDiv");
-const hideClockCheckbox = document.getElementById("hideClock");
+const showClockCheckbox = document.getElementById("showClock");
 const clockHidden = document.getElementById("clockHidden");
 const clockOptions = document.querySelector(".clockOptions");
 
@@ -38,37 +38,52 @@ function applyClockState(isHidden) {
 }
 
 function handleClockVisibility() {
+    if (localStorage.getItem("showClock") === null) {
+        localStorage.setItem("showClock", "true");
+    }
+
+    const isClockVisible = localStorage.getItem("showClock") !== "false";
+
     if (window.matchMedia("(max-width: 500px)").matches) {
-        initializeClock();
+        showClockCheckbox.checked = isClockVisible;
+        applyClockState(!isClockVisible);
+        toggleHideState(!isClockVisible);
+
+        if (isClockVisible) {
+            initializeClock();
+        }
 
         clockOptions.classList.remove("not-applicable");
         rightDiv.classList.remove("clock-padding-adjusted");
     }
     else {
-        // Retrieve saved state from localStorage
-        const isClockHidden = localStorage.getItem("hideClockVisible") === "true";
-        hideClockCheckbox.checked = isClockHidden;
+        showClockCheckbox.checked = isClockVisible;
 
         // Apply initial state
-        applyClockState(isClockHidden);
-        toggleHideState(isClockHidden);
+        applyClockState(!isClockVisible);
+        toggleHideState(!isClockVisible);
 
-        if (!isClockHidden) {
+        if (isClockVisible) {
             initializeClock();
         }
-
-        hideClockCheckbox.addEventListener("change", function () {
-            const isChecked = hideClockCheckbox.checked;
-            localStorage.setItem("hideClockVisible", isChecked);
-            applyClockState(isChecked);
-            toggleHideState(isChecked);
-
-            if (!isChecked) {
-                initializeClock();
-            }
-        });
     }
 }
+
+showClockCheckbox.addEventListener("change", function () {
+    const isChecked = showClockCheckbox.checked;
+    localStorage.setItem("showClock", isChecked);
+    applyClockState(!isChecked);
+    toggleHideState(!isChecked);
+
+    if (window.matchMedia("(max-width: 500px)").matches) {
+        clockOptions.classList.remove("not-applicable");
+        rightDiv.classList.remove("clock-padding-adjusted");
+    }
+
+    if (isChecked) {
+        initializeClock();
+    }
+});
 
 handleClockVisibility();
 // Update on window resize
@@ -468,6 +483,13 @@ async function initializeClock() {
     function displayClock() {
         const analogClock = document.getElementById("analogClock");
         const digitalClock = document.getElementById("digitalClock");
+        const showClock = localStorage.getItem("showClock") !== "false";
+
+        if (!showClock) {
+            analogClock.style.display = "none";
+            digitalClock.style.display = "none";
+            return;
+        }
 
         if (clocktype === "analog") {
             analogClock.style.display = "block";  // Show the analog clock
