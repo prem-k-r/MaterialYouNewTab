@@ -11,17 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     <style>
-        /* MYNT Language Key Analysis - Blue Shade Theme */
-        /* Uses style.css Blue Shade variables */
-
         .mynt-lka {
             --mynt-round: 20px;
             --mynt-gap: 16px;
             --mynt-shadow: 0 4px 12px rgba(27, 48, 65, 0.08);
             --mynt-shadow-hover: 0 6px 20px rgba(27, 48, 65, 0.12);
-        }
 
-        .mynt-lka {
             font-family: var(--main-font-family);
             margin: 0;
             padding: 0;
@@ -38,17 +33,15 @@
         .mynt-lka.dark-mode {
             background: #0f1a28;
             color: var(--whitishColor-blue);
-        }
-
-        .mynt-lka.dark-mode {
             --mynt-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
             --mynt-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
+        /* ── Header ── */
         .mynt-lka .tool-header {
             background: linear-gradient(135deg, var(--darkColor-blue) 0%, var(--darkerColor-blue) 100%);
             color: var(--whitishColor-blue);
-            padding: 1.25rem 1.5rem;
+            padding: 0.8rem 2rem;
             box-shadow: var(--mynt-shadow);
             position: sticky;
             top: 0;
@@ -61,6 +54,7 @@
                 opacity: 0;
                 transform: translateY(-12px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -68,7 +62,7 @@
         }
 
         .mynt-lka .tool-header-inner {
-            max-width: 900px;
+            width: 100%;
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -105,7 +99,7 @@
             font-weight: 400;
         }
 
-        /* Theme selector - clear segmented control */
+        /* ── Theme toggle ── */
         .mynt-lka .theme-selector {
             display: flex;
             background: rgba(255, 255, 255, 0.2);
@@ -141,6 +135,7 @@
             background: rgba(255, 255, 255, 0.95);
         }
 
+        /* ── Layout ── */
         .mynt-lka main {
             flex: 1;
             padding: 1.5rem;
@@ -149,6 +144,7 @@
             width: 100%;
         }
 
+        /* ── Cards ── */
         .mynt-lka .card {
             background: var(--accentLightTint-blue);
             border-radius: var(--mynt-round);
@@ -160,14 +156,20 @@
             animation: mynt-cardFade 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
         }
 
-        .mynt-lka .card:nth-child(1) { animation-delay: 0.1s; }
-        .mynt-lka .card:nth-child(2) { animation-delay: 0.2s; }
+        .mynt-lka .card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .mynt-lka .card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
 
         @keyframes mynt-cardFade {
             from {
                 opacity: 0;
                 transform: translateY(16px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -180,13 +182,13 @@
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
-        .mynt-lka.dark-mode .card:hover {
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-        }
-
         .mynt-lka .card:hover {
             box-shadow: var(--mynt-shadow-hover);
             transform: translateY(-2px);
+        }
+
+        .mynt-lka.dark-mode .card:hover {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
 
         .mynt-lka .card-title {
@@ -211,6 +213,7 @@
             border-radius: 2px;
         }
 
+        /* ── Intro text ── */
         .mynt-lka .intro-text {
             color: var(--textColorDark-blue);
             opacity: 0.9;
@@ -223,6 +226,7 @@
             color: rgba(255, 255, 255, 0.9);
         }
 
+        /* ── Lists ── */
         .mynt-lka ul {
             list-style: none;
             padding: 0;
@@ -259,6 +263,7 @@
             background: var(--bg-color-green);
             border-left: 4px solid var(--darkerColor-green);
             color: var(--textColorDark-green);
+            fill: var(--darkerColor-green);
         }
 
         .mynt-lka .key-item.checked {
@@ -269,6 +274,14 @@
             text-decoration: line-through;
         }
 
+        .mynt-lka .key-item code {
+            background-color: rgba(0, 0, 0, 0.06);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        /* ── Checkbox ── */
         .mynt-lka input[type="checkbox"] {
             appearance: none;
             -webkit-appearance: none;
@@ -285,18 +298,20 @@
             transform: scale(1.08);
         }
 
+        .mynt-lka input[type="checkbox"]:active {
+            transform: scale(0.95);
+        }
+
         .mynt-lka input[type="checkbox"]:checked {
             background: var(--darkerColor-red);
             border-color: var(--darkerColor-red);
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23fff"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
             background-size: 14px 14px;
             background-position: center;
+            background-repeat: no-repeat;
         }
 
-        .mynt-lka input[type="checkbox"]:active {
-            transform: scale(0.95);
-        }
-
+        /* ── Language groups ── */
         .mynt-lka .language-group {
             margin-bottom: 1rem;
         }
@@ -305,11 +320,15 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            width: 100%;
             padding: 0.875rem 1rem;
             background: var(--bg-color-blue);
+            border: none;
             border-radius: 12px;
             cursor: pointer;
             user-select: none;
+            font-family: inherit;
+            text-align: left;
             transition: background 0.2s ease, transform 0.2s ease;
         }
 
@@ -320,6 +339,11 @@
 
         .mynt-lka .language-group-header:active {
             transform: translateX(2px);
+        }
+
+        .mynt-lka .language-group-header:focus-visible {
+            outline: 2px solid var(--darkColor-blue);
+            outline-offset: 2px;
         }
 
         .mynt-lka.dark-mode .language-group-header {
@@ -337,14 +361,31 @@
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             color: var(--darkColor-blue);
             display: inline-block;
+            flex-shrink: 0;
         }
 
         .mynt-lka .language-group.collapsed .language-group-header::before {
             transform: rotate(-90deg);
         }
 
+        .mynt-lka .language-group-header-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--textColorDark-blue);
+        }
+
+        .mynt-lka.dark-mode .language-group-header-text {
+            color: var(--whitishColor-blue);
+        }
+
+        /* ── Group expand animation ── */
         .mynt-lka .language-group ul {
             overflow: hidden;
+            padding: 0.5rem 0 0 1rem;
+        }
+
+        .mynt-lka .language-group.collapsed ul {
+            display: none;
         }
 
         .mynt-lka .language-group:not(.collapsed) ul {
@@ -355,39 +396,31 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
         }
 
+        /* Staggered item animation via --i CSS custom property set in JS */
         .mynt-lka .language-group:not(.collapsed) .key-item {
             animation: mynt-itemSlide 0.25s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+            animation-delay: calc(var(--i, 0) * 30ms);
         }
-
-        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(1) { animation-delay: 0.03s; }
-        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(2) { animation-delay: 0.06s; }
-        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(3) { animation-delay: 0.09s; }
-        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(4) { animation-delay: 0.12s; }
-        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(5) { animation-delay: 0.15s; }
-        .mynt-lka .language-group:not(.collapsed) .key-item:nth-child(n+6) { animation-delay: 0.18s; }
 
         @keyframes mynt-itemSlide {
             from {
                 opacity: 0;
                 transform: translateX(-8px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
             }
         }
 
-        .mynt-lka .language-group-header h3 {
-            margin: 0;
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
+        /* ── Key counts badges ── */
         .mynt-lka .key-counts {
             display: flex;
             gap: 1rem;
@@ -397,20 +430,19 @@
 
         .mynt-lka .key-counts .missing-count {
             color: var(--darkerColor-red);
+            padding: 0.16rem 0.6rem;
+            border-radius: 20px;
+            outline: 1px solid var(--darkerColor-red);
         }
 
         .mynt-lka .key-counts .extra-count {
             color: var(--darkerColor-blue);
+            padding: 0.16rem 0.6rem;
+            border-radius: 20px;
+            outline: 1px solid var(--darkerColor-blue);
         }
 
-        .mynt-lka .language-group ul {
-            padding: 0.5rem 0 0 1rem;
-        }
-
-        .mynt-lka .language-group.collapsed ul {
-            display: none;
-        }
-
+        /* ── Alert boxes ── */
         .mynt-lka .alert-box {
             padding: 1rem 1.25rem;
             border-radius: 12px;
@@ -429,6 +461,7 @@
                 opacity: 0;
                 transform: translateY(-8px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -442,7 +475,7 @@
         }
 
         .mynt-lka #extra-keys-message {
-            background: color-mix(in srgb, var(--accentLightTint-blue) 90%, var(--bg-color-blue));
+            background: color-mix(in srgb, var(--accentLightTint-blue) 70%, var(--bg-color-blue));
             color: var(--textColorDark-blue);
             border-left: 4px solid var(--darkerColor-blue);
         }
@@ -451,23 +484,17 @@
             background: rgba(54, 105, 178, 0.35);
             color: rgba(255, 255, 255, 0.95);
             border-left-color: var(--darkColor-blue);
-            box-shadow: none;
         }
 
         .mynt-lka.dark-mode #incomplete-message {
             background: rgba(178, 53, 53, 0.25);
             color: #ffb3b3;
             border-left-color: var(--darkerColor-red);
-            box-shadow: none;
         }
 
-        @keyframes mynt-fadeIn {
-            from { opacity: 0; transform: translateY(-4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* ── Results heading ── */
         .mynt-lka .results-section h2 {
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             font-weight: 600;
             text-align: center;
             margin: 0 0 1rem 0;
@@ -478,6 +505,7 @@
             color: var(--whitishColor-blue);
         }
 
+        /* ── Scrollbar ── */
         .mynt-lka ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -490,13 +518,13 @@
         .mynt-lka ::-webkit-scrollbar-thumb {
             background: var(--darkColor-blue);
             border-radius: 4px;
-            opacity: 0.5;
         }
 
         .mynt-lka ::-webkit-scrollbar-thumb:hover {
             background: var(--darkerColor-blue);
         }
     </style>
+
     <script src="../locales/pt.js"></script>
     <script src="../locales/en.js"></script>
     <script src="../locales/es.js"></script>
@@ -530,165 +558,228 @@
     <script src="../locales/uk.js"></script>
 </head>
 
-<body class="mynt-lka light-mode">
+<body id="mynt-lka" class="mynt-lka light-mode">
     <header class="tool-header">
         <div class="tool-header-inner">
             <div class="tool-brand">
                 <img class="tool-brand-icon" src="../favicon/icon128.png" alt="MYNT" width="40" height="40">
                 <div>
-                    <h1>MYNT Language Key Analysis</h1>
-                    <span>Compare translation keys against English reference</span>
+                    <h1>MYNT Language Key Analysis Tool</h1>
+                    <span>Compare translation keys against English</span>
                 </div>
             </div>
             <div class="theme-selector" role="group" aria-label="Choose theme">
-                <button type="button" class="theme-btn active" id="theme-light" data-theme="light" aria-pressed="true">Light</button>
-                <button type="button" class="theme-btn" id="theme-dark" data-theme="dark" aria-pressed="false">Dark</button>
+                <button type="button" class="theme-btn active" id="theme-light" data-theme="light"
+                    aria-pressed="true">Light</button>
+                <button type="button" class="theme-btn" id="theme-dark" data-theme="dark"
+                    aria-pressed="false">Dark</button>
             </div>
         </div>
     </header>
+
     <main>
         <div id="complete" class="card"></div>
         <section class="card results-section">
             <h2>Language Key Analysis Results</h2>
             <p class="intro-text">
-                This tool analyzes language keys across the MYNT project. English serves as the reference language.
-                Missing keys, extra keys, and complete languages are identified below.
+                This tool analyzes language keys across the MYNT project. Any language that has missing keys or contains
+                keys not present in English is listed below.
             </p>
             <div id="incomplete-message" class="alert-box">
-                The following languages have missing translations compared to English.
+                The following languages have keys that are missing compared to English.
             </div>
             <div id="extra-keys-message" class="alert-box">
-                Some languages have extra keys not present in English. Consider removing them for consistency.
+                Some languages contain extra keys not present in English. Consider removing them for consistency.
             </div>
             <div id="results"></div>
         </section>
     </main>
+
     <script>
+        // ─── Locale map ───────────────────────────────────────────────────────────
         const languages = { ar_SA, az, bn, cs, de, el, en, es, fa, fr, hi, hu, idn, it, ja, ko, mr, np, pl, pt, ru, sl, ta, th, tr, uk, ur, uz, vi, zh, zh_TW };
+
+        // ─── DOM refs ─────────────────────────────────────────────────────────────
+        const bodyEl = document.getElementById("mynt-lka");
         const resultsDiv = document.getElementById("results");
         const completeDiv = document.getElementById("complete");
-        const incompleteMessage = document.getElementById("incomplete-message");
-        const extraKeysMessage = document.getElementById("extra-keys-message");
-        const bodyEl = document.querySelector(".mynt-lka");
+        const incompleteMsg = document.getElementById("incomplete-message");
+        const extraKeysMsg = document.getElementById("extra-keys-message");
 
-        function compareLanguageKeys(referenceLang, languages) {
-            const analysis = {};
-            for (const lang in languages) {
-                if (lang !== referenceLang) {
-                    const refKeys = Object.keys(languages[referenceLang]);
-                    const langKeys = Object.keys(languages[lang]);
-                    const missing = refKeys.filter((key) => !langKeys.includes(key));
-                    const extra = langKeys.filter((key) => !refKeys.includes(key));
-                    analysis[lang] = {
-                        missingKeys: missing,
-                        extraKeys: extra,
-                        isComplete: missing.length === 0 && extra.length === 0,
-                    };
+        // ─── SVG icon ─────────────────────────────────────────────────────────────
+        const completeIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18" aria-hidden="true">
+            <path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/>
+        </svg>`;
+
+        // ─── Helpers ──────────────────────────────────────────────────────────────
+
+        /** Lightweight element factory. */
+        function mkEl(tag, options = {}) {
+            const node = document.createElement(tag);
+            if (options.className) node.className = options.className;
+            if (options.textContent) node.textContent = options.textContent;
+            if (options.innerHTML) node.innerHTML = options.innerHTML;
+            if (options.attrs) {
+                for (const [k, v] of Object.entries(options.attrs)) node.setAttribute(k, v);
+            }
+            return node;
+        }
+
+        // ─── Analysis ─────────────────────────────────────────────────────────────
+
+        /**
+         * Compares every language against the reference.
+         * Returns an object keyed by language code with { missing, extra, isComplete }.
+         */
+        function analyseLanguageKeys(reference, allLanguages) {
+            const refKeys = Object.keys(reference);
+            const refSet = new Set(refKeys);
+            const results = {};
+
+            for (const [lang, translations] of Object.entries(allLanguages)) {
+                const langKeys = Object.keys(translations);
+                const langSet = new Set(langKeys);
+                const missing = refKeys.filter(k => !langSet.has(k));
+                const extra = langKeys.filter(k => !refSet.has(k));
+
+                results[lang] = {
+                    missing,
+                    extra,
+                    isComplete: missing.length === 0 && extra.length === 0,
+                };
+            }
+
+            return results;
+        }
+
+        // Remove English itself from the comparison map
+        const { en: _ref, ...otherLanguages } = languages;
+        const analysis = analyseLanguageKeys(en, otherLanguages);
+
+        // Derive flags cleanly from analysis data
+        const hasMissingKeys = Object.values(analysis).some(r => r.missing.length > 0);
+        const hasExtraKeys = Object.values(analysis).some(r => r.extra.length > 0);
+
+        // ─── Rendering ────────────────────────────────────────────────────────────
+
+        /** Renders the "Completed Languages" card. */
+        function renderCompleteCard() {
+            const title = mkEl("h3", { className: "card-title", textContent: "Completed Languages" });
+            const list = mkEl("ul");
+
+            const completedLangs = Object.entries(analysis).filter(([, r]) => r.isComplete);
+
+            if (completedLangs.length === 0) {
+                list.appendChild(mkEl("li", {
+                    className: "key-item",
+                    textContent: "No languages are fully in sync with English yet.",
+                }));
+            } else {
+                for (const [lang] of completedLangs) {
+                    list.appendChild(mkEl("li", {
+                        className: "key-item complete",
+                        innerHTML: `${completeIcon}<span><strong>${lang}</strong> — up to date, no missing or extra keys</span>`,
+                    }));
                 }
             }
-            return analysis;
+
+            completeDiv.appendChild(title);
+            completeDiv.appendChild(list);
         }
 
-        const languageAnalysis = compareLanguageKeys("en", languages);
-        const ulResults = document.createElement("ul");
-        const ulComplete = document.createElement("ul");
+        /** Renders one collapsible language group (missing + extra keys). */
+        function renderLanguageGroup(lang, missing, extra) {
+            const group = mkEl("div", { className: "language-group collapsed" });
 
-        for (const lang in languageAnalysis) {
-            if (languageAnalysis[lang].isComplete) {
-                const li = document.createElement("li");
-                li.className = "key-item complete";
-                li.innerHTML = `<strong>✓ Complete</strong> — <strong>${lang}</strong> has all keys matching English.`;
-                ulComplete.appendChild(li);
-            }
-        }
-
-        const languageGroups = {};
-        let hasMissingKeys = false;
-        let hasExtraKeys = false;
-
-        for (const lang in languageAnalysis) {
-            const { missingKeys, extraKeys } = languageAnalysis[lang];
-            if (missingKeys.length > 0 || extraKeys.length > 0) {
-                hasMissingKeys = hasMissingKeys || missingKeys.length > 0;
-                hasExtraKeys = hasExtraKeys || extraKeys.length > 0;
-
-                languageGroups[lang] = document.createElement("div");
-                languageGroups[lang].classList.add("language-group", "collapsed");
-                const h3 = document.createElement("h3");
-                h3.className = "language-group-header";
-                h3.innerHTML = `<span>${lang}</span>
+            // Button header (keyboard-accessible)
+            const btn = mkEl("button", {
+                className: "language-group-header",
+                attrs: {
+                    type: "aria-expanded",
+                    "aria-expanded": "false",
+                    "aria-controls": `group-list-${lang}`,
+                },
+                innerHTML: `
+                    <span class="language-group-header-text">${lang}</span>
                     <span class="key-counts">
-                        <span class="missing-count">Missing: ${missingKeys.length}</span>
-                        <span class="extra-count">Extra: ${extraKeys.length}</span>
+                        <span class="missing-count">−${missing.length} missing</span>
+                        <span class="extra-count">+${extra.length} extra</span>
                     </span>
-                `;
-                languageGroups[lang].appendChild(h3);
-                const ul = document.createElement("ul");
-                languageGroups[lang].appendChild(ul);
-
-                missingKeys.forEach((key) => {
-                    const li = document.createElement("li");
-                    li.className = "key-item missing";
-                    li.innerHTML = `
-                        <input type="checkbox" id="checkbox-missing-${lang}-${key}" data-lang="${lang}" data-key="${key}">
-                        <span>Missing: ${key}</span>
-                    `;
-                    ul.appendChild(li);
-                });
-
-                extraKeys.forEach((key) => {
-                    const li = document.createElement("li");
-                    li.className = "key-item extra";
-                    li.innerHTML = `<span>Extra: ${key}</span>`;
-                    ul.appendChild(li);
-                });
-            }
-        }
-
-        for (const langGroup in languageGroups) {
-            ulResults.appendChild(languageGroups[langGroup]);
-        }
-
-        if (Object.keys(languageAnalysis).filter((lang) => languageAnalysis[lang].isComplete).length > 0) {
-            const completeTitle = document.createElement("h3");
-            completeTitle.className = "card-title";
-            completeTitle.textContent = "Complete Languages";
-            completeDiv.insertBefore(completeTitle, completeDiv.firstChild);
-            completeDiv.appendChild(ulComplete);
-        } else {
-            const li = document.createElement("li");
-            li.className = "key-item";
-            li.textContent = "No languages are fully complete.";
-            ulComplete.appendChild(li);
-            const completeTitle = document.createElement("h3");
-            completeTitle.className = "card-title";
-            completeTitle.textContent = "Complete Languages";
-            completeDiv.insertBefore(completeTitle, completeDiv.firstChild);
-            completeDiv.appendChild(ulComplete);
-        }
-
-        if (hasMissingKeys) {
-            incompleteMessage.classList.add("show");
-        }
-        if (hasExtraKeys) {
-            extraKeysMessage.classList.add("show");
-        }
-        if (hasMissingKeys || hasExtraKeys) {
-            resultsDiv.appendChild(ulResults);
-        }
-
-        resultsDiv.addEventListener("change", (event) => {
-            if (event.target.type === "checkbox") {
-                const listItem = event.target.closest("li");
-                listItem.classList.toggle("checked", event.target.checked);
-            }
-        });
-
-        document.querySelectorAll(".language-group-header").forEach((h) => {
-            h.addEventListener("click", () => {
-                h.closest(".language-group").classList.toggle("collapsed");
+                `,
             });
+            btn.type = "button";
+
+            btn.addEventListener("click", () => {
+                const isCollapsed = group.classList.toggle("collapsed");
+                btn.setAttribute("aria-expanded", String(!isCollapsed));
+            });
+
+            btn.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    btn.click();
+                }
+            });
+
+            group.appendChild(btn);
+
+            // Key list
+            const list = mkEl("ul", { attrs: { id: `group-list-${lang}` } });
+
+            missing.forEach((key, i) => {
+                const safeId = `cb-${lang}-${key.replace(/[^a-zA-Z0-9_-]/g, "_")}`;
+                const li = mkEl("li", {
+                    className: "key-item missing",
+                    innerHTML: `
+                        <input type="checkbox" id="${safeId}" data-lang="${lang}" data-key="${key}" aria-label="Mark '${key}' as resolved">
+                        <label for="${safeId}">Missing: <code>${key}</code></label>
+                    `,
+                });
+                li.style.setProperty("--i", i);
+                list.appendChild(li);
+            });
+
+            extra.forEach((key, i) => {
+                const li = mkEl("li", {
+                    className: "key-item extra",
+                    innerHTML: `<span>Extra: <code>${key}</code></span>`,
+                });
+                li.style.setProperty("--i", missing.length + i);
+                list.appendChild(li);
+            });
+
+            group.appendChild(list);
+            return group;
+        }
+
+        /** Renders the full results section (incomplete languages). */
+        function renderResultsList() {
+            const container = mkEl("ul");
+
+            for (const [lang, { missing, extra }] of Object.entries(analysis)) {
+                if (missing.length === 0 && extra.length === 0) continue;
+                container.appendChild(renderLanguageGroup(lang, missing, extra));
+            }
+
+            resultsDiv.appendChild(container);
+        }
+
+        // ─── Init ─────────────────────────────────────────────────────────────────
+
+        renderCompleteCard();
+
+        if (hasMissingKeys) incompleteMsg.classList.add("show");
+        if (hasExtraKeys) extraKeysMsg.classList.add("show");
+        if (hasMissingKeys || hasExtraKeys) renderResultsList();
+
+        // Checkbox → strikethrough
+        resultsDiv.addEventListener("change", (e) => {
+            if (e.target.type === "checkbox") {
+                e.target.closest("li").classList.toggle("checked", e.target.checked);
+            }
         });
+
+        // ─── Theme ────────────────────────────────────────────────────────────────
 
         const themeLight = document.getElementById("theme-light");
         const themeDark = document.getElementById("theme-dark");
@@ -697,10 +788,17 @@
             const isDark = theme === "dark";
             bodyEl.classList.toggle("dark-mode", isDark);
             themeLight.classList.toggle("active", !isDark);
-            themeLight.setAttribute("aria-pressed", !isDark);
+            themeLight.setAttribute("aria-pressed", String(!isDark));
             themeDark.classList.toggle("active", isDark);
-            themeDark.setAttribute("aria-pressed", isDark);
+            themeDark.setAttribute("aria-pressed", String(isDark));
         }
+
+        // Detect system preference
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        setTheme(prefersDark ? "dark" : "light");
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+            setTheme(e.matches ? "dark" : "light");
+        });
 
         themeLight.addEventListener("click", () => setTheme("light"));
         themeDark.addEventListener("click", () => setTheme("dark"));
