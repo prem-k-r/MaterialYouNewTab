@@ -52,7 +52,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added toast notification to hide the footer for Chromium users ([@prem-k-r](https://github.com/prem-k-r)) ([#89](https://github.com/prem-k-r/MaterialYouNewTab/pull/89))
 
 ### Improved
-
 - Updated search suggestion behavior to autocomplete the current search term upon selection via keyboard ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here)) ([#33](https://github.com/prem-k-r/MaterialYouNewTab/pull/33))
 - Added minimum width constraint to the custom text input box ([@anugrahrk](https://github.com/anugrahrk)) ([#70](https://github.com/prem-k-r/MaterialYouNewTab/pull/70))
 - Smoothed the opening and closing animation for search dropdown ([@prem-k-r](https://github.com/prem-k-r)) ([#83](https://github.com/prem-k-r/MaterialYouNewTab/pull/83))
@@ -115,7 +114,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added edit functionality for todo list ([@GauravKukreti](https://github.com/GauravKukreti)) ([#719](https://github.com/XengShi/materialYouNewTab/pull/719))
 
 ### Changed
-
+- DuckDuckGo now makes POST requests for search instead of GET requests ([@spj2401Dev](https://github.com/spj2401Dev))
 - Weather retention time set to 7.25 minutes for user-entered API keys and 16 minutes otherwise ([@prem-k-r](https://github.com/prem-k-r)) ([#428](https://github.com/XengShi/materialYouNewTab/pull/428))
 - Changed default Vietnamese font to 'Be Vietnam Pro' ([@prem-k-r](https://github.com/prem-k-r)) ([#442](https://github.com/XengShi/materialYouNewTab/pull/442))
 - Improved date format for Japanese and Korean ([@prem-k-r](https://github.com/prem-k-r)), ([@dempavof](https://github.com/dempavof)) ([#529](https://github.com/XengShi/materialYouNewTab/pull/529))
