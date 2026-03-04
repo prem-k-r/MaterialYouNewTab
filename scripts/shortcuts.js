@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
         shortcutEditField: document.getElementById("shortcutEditField"),
         adaptiveIconField: document.getElementById("adaptiveIconField"),
         adaptiveIconToggle: document.getElementById("adaptiveIconToggle"),
+        mostVisitedSitesToggle: document.getElementById("mostVisitedSitesToggle"),
+        mostVisitedSitesField: document.getElementById("mostVisitedSitesField"),
         shortcutSettingsContainer: document.getElementById("shortcutList"),
         shortcutsContainer: document.getElementById("shortcutsContainer"),
         newShortcutButton: document.getElementById("newShortcutButton"),
@@ -85,8 +87,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function loadSettings() {
         loadCheckboxState("shortcutsCheckboxState", dom.shortcutsCheckbox);
         loadCheckboxState("adaptiveIconToggle", dom.adaptiveIconToggle);
+        if (dom.mostVisitedSitesToggle) loadCheckboxState("mostVisitedSitesToggle", dom.mostVisitedSitesToggle);
         loadActiveStatus("shortcutEditField", dom.shortcutEditField);
         loadActiveStatus("adaptiveIconField", dom.adaptiveIconField);
+        if (dom.mostVisitedSitesField) loadActiveStatus("mostVisitedSitesField", dom.mostVisitedSitesField);
         loadDisplayStatus("shortcutsDisplayStatus", dom.shortcuts);
 
         // Apply adaptive icon style if enabled
@@ -102,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Checkbox events
         dom.shortcutsCheckbox.addEventListener("change", handleShortcutsToggle);
         dom.adaptiveIconToggle.addEventListener("change", handleAdaptiveIconToggle);
+        if (dom.mostVisitedSitesToggle) dom.mostVisitedSitesToggle.addEventListener("change", handleMostVisitedToggle);
 
         // Button events
         dom.newShortcutButton.addEventListener("click", handleNewShortcutClick);
@@ -135,6 +140,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Loads shortcuts from localStorage or uses presets if none exist
     function loadShortcuts() {
+        dom.shortcutSettingsContainer.innerHTML = "";
+
+        if (dom.mostVisitedSitesToggle && dom.mostVisitedSitesToggle.checked) {
+            if (dom.shortcutEditField) dom.shortcutEditField.classList.add("inactive");
+            if (dom.newShortcutButton) dom.newShortcutButton.classList.add("inactive");
+
+            if (chrome && chrome.topSites) {
+                chrome.topSites.get((topSites) => {
+                    shortcutsCache = topSites.map(site => ({ name: site.title || new URL(site.url).hostname, url: site.url })).slice(0, MAX_SHORTCUTS);
+                    renderAllShortcuts(shortcutsCache);
+
+                    const infoMsg = document.createElement("div");
+                    infoMsg.style.padding = "20px";
+                    infoMsg.style.textAlign = "center";
+                    infoMsg.style.color = "var(--text-color)";
+                    infoMsg.style.opacity = "0.7";
+                    infoMsg.textContent = "Most Visited Sites is enabled. Manual shortcuts are hidden.";
+                    dom.shortcutSettingsContainer.appendChild(infoMsg);
+                });
+            } else {
+                console.warn("topSites API not available.");
+            }
+            return;
+        }
+
+        if (dom.shortcutsCheckbox && dom.shortcutsCheckbox.checked && dom.shortcutEditField) {
+            dom.shortcutEditField.classList.remove("inactive");
+        }
+
         const amount = localStorage.getItem("shortcutAmount") || presets.length;
         const deleteInactive = amount <= 1;
 
@@ -597,6 +631,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         dom.adaptiveIconField.classList.toggle("inactive", !isChecked);
         saveActiveStatus("adaptiveIconField", isChecked ? "active" : "inactive");
+
+        if (dom.mostVisitedSitesField) {
+            dom.mostVisitedSitesField.classList.toggle("inactive", !isChecked);
+            saveActiveStatus("mostVisitedSitesField", isChecked ? "active" : "inactive");
+        }
+
+        if (isChecked && dom.mostVisitedSitesToggle && dom.mostVisitedSitesToggle.checked) {
+            dom.shortcutEditField.classList.add("inactive");
+        }
+    }
+
+    // Handles the most visited sites toggle
+    function handleMostVisitedToggle() {
+        saveCheckboxState("mostVisitedSitesToggle", this);
+        loadShortcuts();
     }
 
     // Handles the adaptive icon toggle checkbox change
