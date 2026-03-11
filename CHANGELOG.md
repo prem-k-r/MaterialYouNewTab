@@ -113,6 +113,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added toggle to hide or show location in the location tile ([@prem-k-r](https://github.com/prem-k-r)) ([#685](https://github.com/XengShi/materialYouNewTab/pull/685))
 - Added drag and drop functionality for reordering shortcuts ([@prem-k-r](https://github.com/prem-k-r)) ([#695](https://github.com/XengShi/materialYouNewTab/pull/695))
 - Added edit functionality for todo list ([@GauravKukreti](https://github.com/GauravKukreti)) ([#719](https://github.com/XengShi/materialYouNewTab/pull/719))
+- Added option to hide the search box ([@satyansh2004](https://github.com/satyansh2004)) ([#51](https://github.com/prem-k-r/MaterialYouNewTab/issues/51))
 
 ### Changed
 
