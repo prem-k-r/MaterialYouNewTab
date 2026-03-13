@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Gets the appropriate logo HTML for a given URL
     function getLogoHtml(url) {
-        const hostname = new URL(normalizeUrl(url)).hostname.replace("www.", "");
+        const hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
 
         // GitHub shortcut
         if (hostname === "github.com") {
