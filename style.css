@@ -5414,3 +5414,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	color: var(--darkColor-dark);
 }
 /* ------------ End of Toast---------- */
+
+#shortcuts-section {
+    display: none !important;
+}
