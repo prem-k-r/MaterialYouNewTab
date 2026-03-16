@@ -381,6 +381,56 @@ hideSearchWith.addEventListener("change", (e) => {
     sortDropdown();
 });
 
+// Hiding search bar and search engine container based on saved preference
+function handleSearchVisibility(isChecked) {
+    const searchBar = document.getElementById("searchbar");
+    const searchWithContainer = document.getElementById("search-with-container");
+
+    // show/hide search bar
+    // searchBar.style.display = isChecked ? "none" : "block";
+    if (isChecked) searchBar.classList.add("hidden-by-option")
+    else searchBar.classList.remove("hidden-by-option")
+
+    // also take "showShortcutSwitch" into account while showing/hiding search with container
+    const isShortCutSwitchEnabled = localStorage.getItem("showShortcutSwitch")?.toString() === "true";
+    searchWithContainer.style.display = (isChecked || isShortCutSwitchEnabled) ? "none" : "flex"
+
+    // disable the shortcut switch if search is hidden
+    const shortcutSwitchParent = document.getElementById("hideSearchWith")?.parentElement?.parentElement
+    if (isChecked) shortcutSwitchParent.classList.add("inactive");
+    else shortcutSwitchParent.classList.remove("inactive");
+
+    // enable/disable the hide microphone icon
+    const hideMicParent = document.getElementById("micIconTitle")?.parentElement?.parentElement
+    if (isChecked) hideMicParent.classList.add("inactive");
+    else hideMicParent.classList.remove("inactive");
+
+    // uncheck and hide the search suggestion option as well
+    const searchSuggestionInput = document.getElementById("searchsuggestionscheckbox")
+    const searchSuggestionParent = searchSuggestionInput?.parentElement?.parentElement
+    if (isChecked) {
+        searchSuggestionInput.checked = false
+        searchSuggestionParent.classList.add("inactive")
+    } else searchSuggestionParent.classList.remove("inactive")
+}
+
+const hideSearchCheckbox = document.getElementById("hideSearchCheckbox")
+hideSearchCheckbox.addEventListener("change", (e) => {
+    const isChecked = e.target.checked;
+
+    handleSearchVisibility(isChecked);
+
+    // update localStorage
+    localStorage.setItem("hideSearch", isChecked);
+})
+
+// Initialize search visibility based on saved preference
+if (localStorage.getItem("hideSearch")) {
+    const isSearchHidden = localStorage.getItem("hideSearch").toString() === "true";
+    hideSearchCheckbox.checked = isSearchHidden;
+    handleSearchVisibility(isSearchHidden);
+}
+
 // Intialize shortcut switch
 if (localStorage.getItem("showShortcutSwitch")) {
     const isShortCutSwitchEnabled = localStorage.getItem("showShortcutSwitch").toString() === "true";
