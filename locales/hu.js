@@ -1,137 +1,245 @@
 // Hungarian
 const hu = {
-    // Menu Items
-    "feedback": "Visszajelzés",
-    "resetsettings": "Beállítások visszaállítása",
-    "menuCloseText": "Bezárás",
+  // Menu Items
+  github: "GitHub",
+  feedback: "Visszajelzés",
 
-    // Shortcuts
-    "shortcutsText": "Parancsikonok",
-    "enableShortcutsText": "Parancsikonok megjelenítése",
-    "editShortcutsText": "Parancsikonok szerkesztése",
-    "shortcutsInfoText": "Válassza ki a parancsikonokat, amelyeket meg szeretné jeleníteni a kezdőképernyőn",
-    "editShortcutsList": "Elmentett parancsikonok",
-    "editShortcutsListInfo": "Új parancsikonokat adhatsz hozzá a \"+\" ikonra kattintva, vagy szerkesztheted a meglévőket a parancsikon nevére vagy URL címére kattintva.",
-    "adaptiveIconText": "Alkalmazkodó ikonformák",
-    "adaptiveIconInfoText": "Parancsikonok kisebbnek fognak tűnni",
-    "bookmarksText": "Könyvjelzők",
-    "bookmarksInfo": "Könyvjelzők oldalsáv megjelenítése",
-    "ai_tools_button": "MI-Eszközök",
-    "enable_ai_tools": "Parancsikon az MI-eszközökhöz",
-    "googleAppsMenuText": "Google Alkalmazások",
-    "googleAppsMenuInfo": "Parancsikonok a Google alkalmazásaihoz",
-    "googleAppsHover": "Google Appok",
+  // Section titles
+  personalizationSectionTitle: "Személyre szabás",
+  clockSectionTitle: "Óra",
+  searchSectionTitle: "Keresés",
+  weatherSectionTitle: "Időjárás",
+  appearanceSectionTitle: "Megjelenés",
+  settingsSectionTitle: "Beállítások",
 
-    // To-do List
-    "todoListText": "Teendő lista",
-    "todoListInfo": "Napi teendők lista megjelenítése",
-    "todoListHover": "Teendő lista",
-    "todoPlaceholder": "Feladat hozzáadása...",
+  // Shortcuts
+  shortcutsText: "Parancsikonok",
+  enableShortcutsText: "Parancsikonok megjelenítése",
+  editShortcutsText: "Parancsikonok szerkesztése",
+  shortcutsInfoText:
+    "Válassza ki a parancsikonokat, amelyeket meg szeretné jeleníteni a kezdőképernyőn",
+  editShortcutsList: "Elmentett parancsikonok",
+  editShortcutsListInfo:
+    'Új parancsikonokat adhat hozzá a "+" ikonra kattintva, vagy szerkesztheti a meglévőket a parancsikon nevére vagy URL címére kattintva.',
+  adaptiveIconText: "Alkalmazkodó ikonformák",
+  adaptiveIconInfoText: "A parancsikonok a témához alkalmazkodnak",
+  bookmarksText: "Könyvjelzők",
+  bookmarksInfo: "Könyvjelzők oldalsáv megjelenítése",
+  ai_tools_button: "MI-Eszközök",
+  enable_ai_tools: "Parancsikon az MI-eszközökhöz",
+  aiToolsSettingsText: "MI-eszközök Beállításai",
+  aiToolsSettingsInfo: "MI-eszközök parancsikonjainak kezelése",
+  googleAppsMenuText: "Google Alkalmazások",
+  googleAppsMenuInfo: "Parancsikonok a Google alkalmazásaihoz",
+  googleAppsHover: "Google Appok",
 
-    // Digital Clock
-    "digitalclocktitle": "Digitális óra",
-    "digitalclockinfo": "Váltás a digitális órára",
-    "timeformattitle": "12 órás formátum",
-    "timeformatinfo": "12 órás időformátum használata",
-    "greetingtitle": "Üdvözlés",
-    "greetinginfo": "Üdvözlet megjelenítése az egyéni szöveg alatt",
+  // To-do List
+  todoListText: "Teendő lista",
+  todoListInfo: "Napi teendők lista megjelenítése",
+  todoListHover: "Teendő lista",
+  todoPlaceholder: "Feladat hozzáadása...",
 
-    // Misc
-    "userTextTitle": "Testreszabható szöveg",
-    "userTextInfo": "Egyéni szöveg megjelenítése az óra alatt",
-    "fahrenheitCelsiusCheckbox": "Fahrenheit használata",
-    "fahrenheitCelsiusText": "Frissítsd az oldalt a módosítások alkalmazásához",
-    "micIconTitle": "Mikrofon ikon elrejtése",
-    "micIconInfo": "Ha a hangalapú gépelés nem működik",
-    "hideSearchWith": "Keresőmotorok elrejtése",
-    "hideSearchWithInfo": "Váltás a keresőmotorok között az ikonra kattintva",
-    "search_suggestions_button": "Keresési javaslatok",
-    "search_suggestions_text": "Keresési javaslatok bekapcsolása",
+  // Digital Clock
+  hideClockBox: "Óra elrejtése",
+  hideClockBoxInfo: "Az óra és dátum elrejtése",
+  digitalclocktitle: "Digitális óra",
+  digitalclockinfo: "Váltás a digitális órára",
+  timeformattitle: "12 órás formátum",
+  timeformatinfo: "12 órás időformátum használata",
+  greetingtitle: "Üdvözlés",
+  greetinginfo: "Üdvözlet megjelenítése az egyéni szöveg alatt",
 
-    // Proxy
-    "useproxytitletext": "Proxy megkerülése",
-    "useproxyText": "Ha a keresési javaslatok nem működnek",
-    "ProxyText": "CORS megkerülő proxy",
-    "ProxySubtext": "Saját CORS megkerülő proxy hozzáadása",
-    "HostproxyButton": "Saját proxy üzemeltetése",
+  // Misc
+  userTextTitle: "Testreszabható szöveg",
+  userTextInfo: "Egyéni szöveg megjelenítése az óra alatt",
+  fahrenheitCelsiusCheckbox: "Fahrenheit használata",
+  fahrenheitCelsiusText: "Frissítsd az oldalt a módosítások alkalmazásához",
+  hideWeatherTitle: "Időjárás elrejtése",
+  hideWeatherInfo: "Az időjárási widgetek letiltása",
+  hideWeatherBox: "Időjárás kártya elrejtése",
+  hideWeatherBoxInfo: "Csak a hőmérséklet megjelenítése",
+  minMaxTempText: "Min-Max hőmérséklet",
+  minMaxTempSubText:
+    "Kicserélni a 'Hőérzet szerint' a minimum és maximum hőmérsékletre",
 
-    // Location
-    "UserLocText": "Add meg a tartózkodási helyed",
-    "UserLocSubtext": "Ha az időjárás helye nem megfelelő",
-    "userLoc": "A városod vagy koordinátáid (földrajzi szélesség, hosszúság)",
+  // Search
+  micIconTitle: "Mikrofon ikon elrejtése",
+  micIconInfo: "Ha a hangalapú keresés nem működik",
+  hideSearchWith: "Keresőmotorok elrejtése",
+  hideSearchWithInfo: "Váltás a keresőmotorok között az ikonra kattintva",
+  motivationalQuotesText: "Motivációs idézetek",
+  motivationalQuotesInfo: "Idézetek megjelenítése a keresősáv alatt",
+  search_suggestions_button: "Keresési javaslatok",
+  search_suggestions_text: "Keresési javaslatok bekapcsolása",
 
-    // Weather
-    "WeatherApiText": "Add meg a WeatherAPI kulcsodat",
-    "WeatherApiSubtext": "Ha az időjárási funkciók nem működnek",
-    "userAPI": "A weatherAPI kulcsod",
-    "LearnMoreButton": "További információk",
-    "saveAPI": "Mentés",
+  // Proxy
+  useproxytitletext: "Proxy megkerülése",
+  useproxyText: "Ha a keresési javaslatok nem működnek",
+  ProxyText: "CORS megkerülő proxy",
+  ProxySubtext: "Saját CORS megkerülő proxy hozzáadása",
+  HostproxyButton: "Saját proxy üzemeltetése",
 
-    // Body Items
-    // Calendar
-    "days": ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'],
-    "months": ['Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'],
+  // Location
+  useGPS: "GPS használata",
+  useGPSInfo: "GPS engedélyezése az élő helyzet frissítéséhez",
+  UserLocText: "Addja meg a tartózkodási helyét",
+  UserLocSubtext: "Ha az időjárás helye nem megfelelő",
+  userLoc: "A városa vagy koordinátái (földrajzi szélesség, hosszúság)",
+  PrivacyPolicy: "Adatvédelmi nyilatkozat",
 
-    // Weather
-    "humidityLevel": "Páratartalom",
-    "feelsLike": "Érzés",
-    "location": "Föld",
+  // Weather
+  WeatherApiText: "Addja meg a WeatherAPI kulcsát",
+  WeatherApiSubtext: "Ha az időjárási funkciók nem működnek",
+  userAPI: "A weatherAPI kulcsa",
+  LearnMoreButton: "További információk",
+  saveAPI: "Mentés",
 
-    // Bookmarks
-    "bookmarksHeading": "Könyvjelzők",
-    "bookmarkViewAs": "Megjelenítés mint",
-    "bookmarkViewGrid": "Rács",
-    "bookmarkViewList": "Lista",
-    "bookmarkSearch": "Könyvjező keresése",
+  // Body Items
+  // Calendar
+  days: [
+    "Vasárnap",
+    "Hétfő",
+    "Kedd",
+    "Szerda",
+    "Csütörtök",
+    "Péntek",
+    "Szombat",
+  ],
+  months: [
+    "Január",
+    "Február",
+    "Március",
+    "Április",
+    "Május",
+    "Június",
+    "Július",
+    "Augusztus",
+    "Szeptember",
+    "Október",
+    "November",
+    "December",
+  ],
 
-    // New Tab Item
-    "conditionText": "Szia! Hogy vagy ma?",
-    "enterBtn": "Keresés",
-    "searchPlaceholder": "Írj ide...",
-    "listenPlaceholder": "Hallgatlak...",
-    "searchWithHint": "Keresés a következővel",
-    "userText": "Kattints ide a szerkesztéshez",
+  // Bookmarks
+  bookmarksHeading: "Könyvjelzők",
+  bookmarkSortBy: "Rendezés",
+  sortAlphabetical: "A-Z",
+  sortTimeAdded: "Régi-Új",
+  bookmarkViewAs: "Megjelenítés mint",
+  bookmarkViewGrid: "Rács",
+  bookmarkViewList: "Lista",
+  bookmarkSearch: "Könyvjelző keresése",
+  editBookmarkHeading: "Könyvjelző szerkesztése",
+  editBookmarkName: "Könyvjelző neve",
+  editBookmarkURL: "Könyvjelző URL-je",
 
-    // Greeting
-    greeting: {
-        "morning": "Jó reggelt!",
-        "afternoon": "Jó napot!",
-        "evening": "Jó estét!"
-    },
+  // New Tab Item
+  conditionText: "Szia! Hogy vagy ma?",
+  humidityLevel: "Páratartalom",
+  minMaxTemp: "Min / Max",
+  feelsLike: "Hőérzet szerint",
+  location: "Föld",
+  enterBtn: "Keresés",
+  searchPlaceholder: "Írj ide...",
+  listenPlaceholder: "Hallgatlak...",
+  searchWithHint: "Keresés a következővel",
+  searchOnHint: "Keresés a következőn",
+  userText: "Kattints ide a szerkesztéshez",
 
-    // Search Engines and rest
-    "googleEngine": "Google",
-    "duckEngine": "Duck",
-    "bingEngine": "Bing",
-    "braveEngine": "Brave",
-    "youtubeEngine": "YouTube",
+  // Greeting
+  greeting: {
+    morning: "Jó reggelt!",
+    afternoon: "Jó napot!",
+    evening: "Jó estét!",
+  },
 
-    // AI Tools
-    "ai_tools": "MI Eszközök",
-    "chatGPT": "ChatGPT",
-    "gemini": "Gemini",
-    "copilot": "Copilot",
-    "claude": "Claude",
-    "perplexity": "Perplexity",
-    "metaAI": "Meta AI",
-    "github": "GitHub",
+  // Search Engines and rest
+  defaultEngine: "Alapértelmezett",
+  googleEngine: "Google",
+  duckEngine: "Duck",
+  bingEngine: "Bing",
+  braveEngine: "Brave",
+  youtubeEngine: "YouTube",
+  gImagesEngine: "Képek",
+  redditEngine: "Reddit",
+  wikipediaEngine: "Wikipedia",
+  quoraEngine: "Quora",
 
-    // Wallpaper and misc
-    "uploadWallpaperText": "Háttérkép feltöltése",
-    "backupText": "Mentés",
-    "restoreText": "Visszaállítás",
-    "rangColor": "Szín kiválasztása",
+  // AI Tools
+  ai_tools: "MI Eszközök",
+  chatGPT: "ChatGPT",
+  gemini: "Gemini",
+  copilot: "Copilot",
+  claude: "Claude",
+  grok: "Grok",
+  qwen: "Qwen",
+  perplexity: "Perplexity",
+  deepseek: "DeepSeek",
+  metaAI: "Meta AI",
+  firefly: "Adobe Firefly",
+  aiSettingsIntro: "Válassza ki a MI eszközöket, amelyeket szeretne használni",
+  resetAISettingsBtn: "Visszaállítás",
 
-    // Dialog boxes (alerts)
-    "confirmWallpaper": "Szeretnél egy újabb képet beállítani a napi háttérképednek?",
-    "confirmRestore": "Biztos, hogy vissza akarja állítani a beállításokat? Ezt a műveletet nem lehet visszacsinálni.",
-    "Nobackgroundset": "Jelenleg nincs beállítva háttérkép.",
-    "clearbackgroundimage": "Biztos, hogy törölni szeretnéd a háttérképet?",
-    "ProxyDisclaimer": "Alapértelmezés szerint minden proxy funkció ki van kapcsolva.\n\nHa engedélyezed a keresési javaslatokat és a CORS megkerülő proxy-t, erősen ajánlott saját proxy-t üzemeltetni a fokozott adatvédelem érdekében.\n\n\nA proxy alapértelmezés szerint a https://mynt-proxy.rhythmcorehq.com beállítással működik, ami azt jelenti, hogy minden adat ezen a szolgáltatáson keresztül fog menni, ami adatvédelmi aggályokat vethet fel.",
-    "failedbackup": "Sikertelen mentés: ",
-    "restorecompleted": "A visszaállítás sikeresen befejeződött!",
-    "restorefailed": "Sikertelen visszaállítás: ",
-    "invalidBackup": "Érvénytelen mentési fájl",
-    "deleteBookmark": "Biztos, hogy törölni szeretnéd a könyvjelzőt \"{title}\"?",
-    "UnsupportedBrowser": "A könyvjelzők nem támogatottak a böngészőben",
+  // Theme
+  lightThemed: "Világos",
+  darkThemed: "Sötét",
+  systemThemed: "Rendszer",
+
+  // Wallpaper and misc
+  uploadWallpaperText: "Háttérkép feltöltése",
+  rangColor: "Szín kiválasztása",
+  opacityTitle: "Homályosság",
+  adjustOpacityDesc: "Homályosság beállítása",
+  backupText: "Mentés",
+  restoreText: "Visszaállítás",
+  resetsettings: "Beállítások visszaállítása",
+  menuCloseText: "Bezárás",
+
+  // Tips
+  switchSearchModes: "Keresési módok váltása",
+  switchSearchModesInfo:
+    "Kattintson a 'Keresés a következővel' gombra a mód változtatásához.",
+  adjustZoom: "Zoom beállítása",
+  adjustZoomInfo:
+    'Nyomja meg a Ctrl + "+" vagy Ctrl + "-" billentyűket a zoom beállításához.',
+  changeBrowserTheme: "Böngésző témának változtatása",
+  chromeThemeInfo:
+    "Nyomja meg a három pontot (⋮) > További eszközök > Chrome személyre szabása, azután pedig válassza ki a kívánt színt.",
+  edgeThemeInfo:
+    "Lépjen a Beállítások > Megjelenés menüpontba, majd válassza ki a kívánt színt.",
+  braveThemeInfo:
+    'Látogassa meg a <a href="https://chromewebstore.google.com/category/themes/" target="_blank">Chrome Theme Store</a>, töltse le és alkalmazza a kívánt témát.',
+  firefoxThemeInfo:
+    'Látogassa meg a <a href="https://addons.mozilla.org/firefox/themes/" target="_blank">Firefox Themes</a>, töltse le és alkalmazza a kívánt témát.',
+  updateFirefoxHomepage: "Kezdőlap frissítése",
+  updateFirefoxHomepageInfo:
+    'Ha a kezdőlapot is új lap-ként szeretné kezelni, látogasson el <a href="https://github.com/prem-k-r/MaterialYouNewTab#-firefox" target="_blank">erre a linkre</a> és kövesse a lépéseket.',
+  dontShowTips: "Ne mutassa újra",
+
+  // Footer Toast
+  footerToastTitle: "Van egy banner az oldal alján?",
+  footerToastMessage:
+    "Hogy elrejtse, kattintson rá jobb gombbal és válassza ki a 'Lábléc elrejtése' opciót.",
+
+  // Dialog boxes (alerts)
+  yesText: "Igen",
+  noText: "Nem",
+  agreeText: "Egyetértek",
+  cancelText: "Mégse",
+  confirmWallpaper:
+    "Szeretne egy újabb képet beállítani a napi háttérképednek?",
+  confirmRestore:
+    "Biztos, hogy vissza akarja állítani a beállításokat? Ezt a műveletet nem lehet visszacsinálni.",
+  Nobackgroundset: "Jelenleg nincs beállítva háttérkép.",
+  clearbackgroundimage: "Biztos, hogy törölni szeretné a háttérképet?",
+  ProxyDisclaimer:
+    "Alapértelmezés szerint minden proxy funkció ki van kapcsolva.\n\nHa engedélyezi a keresési javaslatokat és a CORS megkerülő proxy-t, erősen ajánlott saját proxy-t üzemeltetni a fokozott adatvédelem érdekében.\n\n\nA proxy alapértelmezés szerint a https://mynt-proxy.rhythmcorehq.com beállítással működik, ami azt jelenti, hogy minden adat ezen a szolgáltatáson keresztül fog átmenni, ami adatvédelmi aggályokat vethet fel.",
+  failedbackup: "Sikertelen mentés: ",
+  restorecompleted: "A visszaállítás sikeresen befejeződött!",
+  restorefailed: "Sikertelen visszaállítás: ",
+  invalidBackup: "A választott mentési fájl érvénytelen.",
+  deleteBookmark: 'Biztos, hogy törölni szeretné a könyvjelzőt "{title}"?',
+  UnsupportedBrowser: "A könyvjelzők nem támogatottak a böngésződben",
+  resetShortcutsPrompt:
+    "Az összes mentett parancsikon törlésre kerül és visszaállításra kerülnek az alapértelmezett beállítások. Szeretné folytatni?",
 };
