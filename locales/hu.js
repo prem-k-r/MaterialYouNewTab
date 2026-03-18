@@ -204,7 +204,7 @@ const hu = {
     'Nyomja meg a Ctrl + "+" vagy Ctrl + "-" billentyűket a zoom beállításához.',
   changeBrowserTheme: "Böngésző témának változtatása",
   chromeThemeInfo:
-    "Nyzomja meg a három pontot (⋮) > További eszközök > Chrome személyreszabása, azután pedig válassza ki a kívánt színt.",
+    "Nyomja meg a három pontot (⋮) > További eszközök > Chrome személyre szabása, azután pedig válassza ki a kívánt színt.",
   edgeThemeInfo:
     "Lépjen a Beállítások > Megjelenés menüpontba, majd válassza ki a kívánt színt.",
   braveThemeInfo:
