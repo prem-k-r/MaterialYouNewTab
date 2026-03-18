@@ -11,7 +11,7 @@ const uk = {
     weatherSectionTitle: "Погода",
     appearanceSectionTitle: "Зовнішній вигляд",
     settingsSectionTitle: "Налаштування",
-    
+
     // Shortcuts
     "shortcutsText": "Ярлики",
     "enableShortcutsText": "Показати збережені ярлики",
