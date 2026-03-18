@@ -122,7 +122,6 @@ const hu = {
 
   // Bookmarks
   bookmarksHeading: "Könyvjelzők",
-  bookmarkViewAs: "Megjelenítés mint",
   bookmarkSortBy: "Rendezés",
   sortAlphabetical: "A-Z",
   sortTimeAdded: "Régi-Új",
@@ -137,6 +136,7 @@ const hu = {
   // New Tab Item
   conditionText: "Szia! Hogy vagy ma?",
   humidityLevel: "Páratartalom",
+  minMaxTemp: "Min / Max",
   feelsLike: "Hőérzet szerint",
   location: "Föld",
   enterBtn: "Keresés",
@@ -219,7 +219,7 @@ const hu = {
   // Footer Toast
   footerToastTitle: "Van egy banner az oldal alján?",
   footerToastMessage:
-    "Hogy elrejtse, kattinson rá jobb gombbal és válassza ki a 'Lábléc elrejtése' opciót.",
+    "Hogy elrejtse, kattintson rá jobb gombbal és válassza ki a 'Lábléc elrejtése' opciót.",
 
   // Dialog boxes (alerts)
   yesText: "Igen",
