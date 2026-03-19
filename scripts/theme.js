@@ -30,6 +30,17 @@ syncThemeChange(systemTheme);
     const indicator = segment.querySelector(".themeIndicator");
     const buttons = segment.querySelectorAll(".themeSegBtn");
 
+    // Helper to determine and broadcast the actual color being used
+    const emitThemeChanged = (theme) => {
+        const effectiveTheme = theme === "system" 
+            ? (systemTheme.matches ? "dark" : "light") 
+            : theme;
+
+        window.dispatchEvent(new CustomEvent("themeChanged", {
+            detail: { theme, effectiveTheme }
+        }));
+    };
+
     // Move indicator to correct position
     function moveIndicator(theme) {
         const ltrIndex = theme === "light" ? 0 : theme === "dark" ? 1 : 2;
@@ -38,25 +49,20 @@ syncThemeChange(systemTheme);
         indicator.style.transform = `translateX(${index * 100}%)`;
     }
 
-   // Apply theme mode (light/dark/system)
-function applyThemeMode(theme) {
-    localStorage.setItem(preferredThemeKey, theme);
-    segment.dataset.active = theme;
-    moveIndicator(theme);
+    // Apply theme mode (light/dark/system)
+    function applyThemeMode(theme) {
+        localStorage.setItem(preferredThemeKey, theme);
+        segment.dataset.active = theme;
+        moveIndicator(theme);
 
-    // Update sysTheme attribute when system mode is selected
-    if (theme === "system") {
-        syncThemeChange(systemTheme);
+        // Update sysTheme attribute when system mode is selected
+        if (theme === "system") {
+            syncThemeChange(systemTheme);
+        }
+
+        // Dispatch custom event for real-time synchronization
+        emitThemeChanged(theme);
     }
-
-    // --- FIX START ---
-    // Dispatch a custom event so other UI components (like the settings panel)
-    // know the theme has changed and can update their colors instantly.
-    window.dispatchEvent(new CustomEvent('themeChanged', { 
-        detail: { theme: theme } 
-    }));
-    // --- FIX END ---
-}
 
     // Button click handlers
     buttons.forEach(btn => {
@@ -65,8 +71,13 @@ function applyThemeMode(theme) {
         });
     });
 
-    // System theme change listener
-    systemTheme.addEventListener('change', syncThemeChange);
+    // System theme change listener to handle automatic OS flips
+    systemTheme.addEventListener('change', (event) => {
+        syncThemeChange(event);
+        if (segment.dataset.active === "system") {
+            emitThemeChanged("system");
+        }
+    });
 
     function initializeThemeMode() {
         const darkModeCheckboxState = localStorage.getItem(darkModeCheckboxKey);
@@ -97,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const storedCustomColor = localStorage.getItem(customThemeStorageKey);
     if (storedCustomColor) {
         applyCustomTheme(storedCustomColor);
-        // Uncheck all radio buttons
         radioButtons.forEach(radio => {
             radio.checked = false;
         });
@@ -114,26 +124,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Remove Loading Screen when the DOM and the theme has loaded
     document.getElementById("LoadingScreen").style.display = "none";
 
-    // Stop blinking of some elements when the page is reloaded
     setTimeout(() => {
         document.documentElement.classList.add("theme-transition");
     }, 25);
 });
 
-// Function to load background color 
 function ApplyLoadingColor() {
     let LoadingScreenColor = getComputedStyle(document.body).getPropertyValue("background-color");
     localStorage.setItem("LoadingScreenColor", LoadingScreenColor);
 }
 
 const resetDarkTheme = () => {
-    // Remove the dark theme class
     document.documentElement.classList.remove("black-theme");
-
-    // Reset inline styles that were applied specifically for dark mode
     const resetElements = ["searchQ", "searchIconDark", "darkFeelsLikeIcon", "menuButton", "menuCloseButton", "closeBtnX"];
 
     resetElements.forEach((id) => {
@@ -143,24 +147,17 @@ const resetDarkTheme = () => {
         }
     });
 
-    // Reset fill color for elements with the class "accentColor"
     const accentElements = document.querySelectorAll(".accentColor");
     accentElements.forEach((element) => {
-        element.style.fill = ""; // Reset fill color
+        element.style.fill = ""; 
     });
 };
 
-// Function to apply the selected theme
 const applySelectedTheme = (colorValue) => {
     const isDarkMode = colorValue === "dark";
-
-    // Reset dark theme if not in dark mode
     if (!isDarkMode) resetDarkTheme();
-
-    // Reset color picker label border when switching to predefined theme
     colorPickerLabel.style.borderColor = "";
 
-    // Set CSS variables based on the selected color theme
     if (colorValue === "blue") {
         document.documentElement.style.setProperty("--bg-color-blue", "#BBD6FD");
         document.documentElement.style.setProperty("--accentLightTint-blue", "#E2EEFF");
@@ -181,7 +178,6 @@ const applySelectedTheme = (colorValue) => {
         }
     }
 
-    // Handle dark mode specific changes
     if (isDarkMode) {
         document.documentElement.classList.add("black-theme");
         document.querySelectorAll(".accentColor").forEach(el => {
@@ -194,10 +190,8 @@ const applySelectedTheme = (colorValue) => {
 };
 
 function changeFaviconColor() {
-    // Fetch colors from CSS variables
     const rootStyles = getComputedStyle(document.documentElement);
     const darkColor = rootStyles.getPropertyValue("--darkColor-blue");
-    //const bgColor = rootStyles.getPropertyValue("--bg-color-blue");
 
     const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -212,7 +206,6 @@ function changeFaviconColor() {
 }
 changeFaviconColor();
 
-// --------------------- Color Picker ---------------------
 function adjustHexColor(hex, factor, isLighten = true) {
     hex = hex.replace("#", "");
     if (hex.length === 3) {
@@ -262,37 +255,32 @@ const applyCustomTheme = (color) => {
     ApplyLoadingColor();
 };
 
-// Handle radio button changes
 const handleThemeChange = function () {
     if (this.checked) {
         const colorValue = this.value;
         localStorage.setItem(themeStorageKey, colorValue);
-        localStorage.removeItem(customThemeStorageKey); // Clear custom theme
+        localStorage.removeItem(customThemeStorageKey); 
         applySelectedTheme(colorValue);
     }
 };
 
-// Remove any previously attached listeners and add only one
 radioButtons.forEach(radioButton => {
-    radioButton.removeEventListener("change", handleThemeChange); // Remove if already attached
-    radioButton.addEventListener("change", handleThemeChange);    // Add fresh listener
+    radioButton.removeEventListener("change", handleThemeChange);
+    radioButton.addEventListener("change", handleThemeChange);
 });
 
-// Handle color picker changes
 const handleColorPickerChange = function (event) {
     const selectedColor = event.target.value;
-    resetDarkTheme(); // Clear dark theme if active
-    localStorage.setItem(customThemeStorageKey, selectedColor); // Save custom color
-    localStorage.removeItem(themeStorageKey); // Clear predefined theme
+    resetDarkTheme(); 
+    localStorage.setItem(customThemeStorageKey, selectedColor); 
+    localStorage.removeItem(themeStorageKey); 
     applyCustomTheme(selectedColor);
 
-    // Uncheck all radio buttons
     radioButtons.forEach(radio => {
         radio.checked = false;
     });
 };
 
-// Throttle for performance optimization
 const throttle = (func, limit) => {
     let lastFunc;
     let lastRan;
@@ -312,6 +300,5 @@ const throttle = (func, limit) => {
     };
 };
 
-// Add listeners for color picker
-colorPicker.removeEventListener("input", handleColorPickerChange); // Ensure no duplicate listeners
+colorPicker.removeEventListener("input", handleColorPickerChange);
 colorPicker.addEventListener("input", throttle(handleColorPickerChange, 10));
