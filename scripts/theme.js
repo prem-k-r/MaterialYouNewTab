@@ -38,17 +38,25 @@ syncThemeChange(systemTheme);
         indicator.style.transform = `translateX(${index * 100}%)`;
     }
 
-    // Apply theme mode (light/dark/system)
-    function applyThemeMode(theme) {
-        localStorage.setItem(preferredThemeKey, theme);
-        segment.dataset.active = theme;
-        moveIndicator(theme);
+   // Apply theme mode (light/dark/system)
+function applyThemeMode(theme) {
+    localStorage.setItem(preferredThemeKey, theme);
+    segment.dataset.active = theme;
+    moveIndicator(theme);
 
-        // Update sysTheme attribute when system mode is selected
-        if (theme === "system") {
-            syncThemeChange(systemTheme);
-        }
+    // Update sysTheme attribute when system mode is selected
+    if (theme === "system") {
+        syncThemeChange(systemTheme);
     }
+
+    // --- FIX START ---
+    // Dispatch a custom event so other UI components (like the settings panel)
+    // know the theme has changed and can update their colors instantly.
+    window.dispatchEvent(new CustomEvent('themeChanged', { 
+        detail: { theme: theme } 
+    }));
+    // --- FIX END ---
+}
 
     // Button click handlers
     buttons.forEach(btn => {
