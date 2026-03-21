@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div>
                 <input class="shortcutName" placeholder="${PLACEHOLDER.inputName}" value="${escapeHtml(name)}">
                 <input class="URL" placeholder="${PLACEHOLDER.inputUrl}" value="${escapeHtml(url)}">
-                <input class="SVG" placeholder="${PLACEHOLDER.inputSvg}">
+                <input class="SVG" placeholder="${PLACEHOLDER.inputSvg}" value="${escapeHtml(svg)}">            
             </div>
             <div class="delete">
                 <button class="${deleteInactive ? 'inactive' : ''}">
@@ -274,7 +274,8 @@ document.addEventListener("DOMContentLoaded", function () {
             "d", "fill", "stroke", "stroke-width",
             "viewBox", "cx", "cy", "r",
             "x", "y", "width", "height",
-            "points", "transform", "xmlns"
+            "points", "transform", "xmlns",
+            "class", "style"
         ]);
     
         function clean(node) {
@@ -288,16 +289,19 @@ document.addEventListener("DOMContentLoaded", function () {
             [...node.attributes].forEach(attr => {
                 const name = attr.name;
                 const value = attr.value;
-    
+            
                 const isEvent = name.startsWith("on");
                 const isHref = name === "href" || name === "xlink:href";
-                const isDangerousUrl = value.includes("javascript:");
-    
+                const isDangerousUrl = /javascript:/i.test(value) || /url\s*\(/i.test(value);
+            
+                const isBadStyle = name === "style" && !/^\s*transform\s*:/i.test(value);
+            
                 if (
                     !allowedAttrs.has(name) ||
                     isEvent ||
                     isHref ||
-                    isDangerousUrl
+                    isDangerousUrl ||
+                    isBadStyle
                 ) {
                     node.removeAttribute(name);
                 }
