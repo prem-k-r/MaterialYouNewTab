@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div>
                 <input class="shortcutName" placeholder="${PLACEHOLDER.inputName}" value="${escapeHtml(name)}">
                 <input class="URL" placeholder="${PLACEHOLDER.inputUrl}" value="${escapeHtml(url)}">
-                <input class="SVG" placeholder="${PLACEHOLDER.inputSvg}" value="${escapeHtml(svg)}">
+                <input class="SVG" placeholder="${PLACEHOLDER.inputSvg}">
             </div>
             <div class="delete">
                 <button class="${deleteInactive ? 'inactive' : ''}">
