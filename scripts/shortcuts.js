@@ -746,6 +746,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         localStorage.removeItem(`shortcutName${currentAmount - 1}`);
         localStorage.removeItem(`shortcutURL${currentAmount - 1}`);
+        localStorage.removeItem(`shortcutSVG${currentAmount - 1}`);
 
         if (currentAmount - 1 === 1) {
             document.querySelectorAll(".delete button").forEach(b => {
@@ -773,6 +774,7 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < (localStorage.getItem("shortcutAmount") || 0); i++) {
             localStorage.removeItem(`shortcutName${i}`);
             localStorage.removeItem(`shortcutURL${i}`);
+            localStorage.removeItem(`shortcutSVG${i}`);
         }
         localStorage.removeItem("shortcutAmount");
 
