@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         url: "https://github.com/prem-k-r/MaterialYouNewTab",
         inputName: "Shortcut Name",
         inputUrl: "Shortcut URL",
-        svg: "Shortcut SVG"
+        inputSvg: "Shortcut SVG"
     };
 
     // DOM Elements
@@ -364,6 +364,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 renderShortcut(
                     entry.querySelector(".shortcutName").value,
                     entry.querySelector(".URL").value,
+                    entry.querySelector(".SVG").value,
                     entry._index
                 );
             });
@@ -716,11 +717,11 @@ document.addEventListener("DOMContentLoaded", function () {
             dom.newShortcutButton.classList.add("inactive");
         }
 
-        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, false, currentAmount);
+        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, "" ,false, currentAmount);
         dom.shortcutSettingsContainer.appendChild(entry);
 
         saveShortcut(entry);
-        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, currentAmount);
+        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, "" ,currentAmount);
     }
 
     // Deletes a shortcut
