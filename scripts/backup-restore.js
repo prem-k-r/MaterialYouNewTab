@@ -11,17 +11,20 @@ document.getElementById("backupBtn").addEventListener("click", backupData);
 document.getElementById("restoreBtn").addEventListener("click", () => document.getElementById("fileInput").click());
 document.getElementById("fileInput").addEventListener("change", validateAndRestoreData);
 
-// Backup data from localStorage and IndexedDB
+// Backup data from Storage API, localStorage (local-only keys) and IndexedDB
 async function backupData() {
     try {
-        const backup = { localStorage: {}, indexedDB: {} };
+        const backup = { localStorage: {}, chromeStorage: {}, indexedDB: {} };
 
-        // Backup localStorage
+        // Backup local-only keys from localStorage (quotes, weather cache, etc.)
         for (let key in localStorage) {
             if (localStorage.hasOwnProperty(key)) {
                 backup.localStorage[key] = localStorage.getItem(key);
             }
         }
+
+        // Backup all synced settings from chrome.storage via Storage wrapper
+        backup.chromeStorage = await Storage.getAll();
 
         // Backup IndexedDB (ImageDB)
         backup.indexedDB = await backupIndexedDB();
@@ -150,16 +153,57 @@ async function restoreIndexedDB(data) {
     });
 }
 
-// Restore data for both localStorage and IndexedDB
+// Restore data for Storage API, localStorage and IndexedDB.
+// Supports both the old (localStorage-only) and new (chromeStorage) backup formats.
 async function restoreData(backup) {
-    // Clear localStorage before restoring
-    localStorage.clear();
+    // Clear all synced settings from chrome.storage
+    await Storage.clearForRestore();
 
-    // Restore localStorage from backup
+    // Clear local-only localStorage data (quotes, weather cache)
+    // We'll selectively restore only what's in the backup
+    const localOnlyKeys = Object.keys(localStorage);
+    localOnlyKeys.forEach(key => localStorage.removeItem(key));
+
+    // --- Restore local-only keys (quotes, weather cache, etc.) ---
     if (backup.localStorage) {
         Object.keys(backup.localStorage).forEach(key => {
-            localStorage.setItem(key, backup.localStorage[key]);
+            // Restore only keys that belong in localStorage
+            // (local-only keys: quotes_*, LoadingScreenColor, weatherParsed*)
+            if (
+                key.startsWith("quotes_") ||
+                key === "LoadingScreenColor" ||
+                key === "weatherParsedData" ||
+                key === "weatherParsedTime" ||
+                key === "weatherParsedLocation" ||
+                key === "weatherParsedLang"
+            ) {
+                localStorage.setItem(key, backup.localStorage[key]);
+            }
         });
+    }
+
+    // --- Restore synced settings ---
+    if (backup.chromeStorage && Object.keys(backup.chromeStorage).length > 0) {
+        // New backup format: restore from chromeStorage field
+        await Storage.setAll(backup.chromeStorage);
+    } else if (backup.localStorage) {
+        // Old backup format: migrate non-local-only keys to chrome.storage
+        const settingsToRestore = {};
+        Object.keys(backup.localStorage).forEach(key => {
+            if (
+                !key.startsWith("quotes_") &&
+                key !== "LoadingScreenColor" &&
+                key !== "weatherParsedData" &&
+                key !== "weatherParsedTime" &&
+                key !== "weatherParsedLocation" &&
+                key !== "weatherParsedLang"
+            ) {
+                settingsToRestore[key] = backup.localStorage[key];
+            }
+        });
+        if (Object.keys(settingsToRestore).length > 0) {
+            await Storage.setAll(settingsToRestore);
+        }
     }
 
     // Restore IndexedDB from backup
@@ -183,13 +227,19 @@ function base64ToBlob(base64) {
 // ------------------- Reset Settings ----------------------------
 const resetbtn = document.getElementById("resetsettings");
 
-// Clear localStorage and reload the page
+// Clear all settings and reload the page
 resetbtn.addEventListener("click", async () => {
     const confirmationMessage = translations[currentLanguage]?.confirmRestore || translations["en"].confirmRestore;
 
     if (await confirmPrompt(confirmationMessage)) {
-        localStorage.clear();
+        await Storage.reset();
+        // Also clear local-only localStorage data
+        const localKeys = Object.keys(localStorage).filter(k =>
+            !k.startsWith("quotes_") && k !== "LoadingScreenColor" &&
+            k !== "weatherParsedData" && k !== "weatherParsedTime" &&
+            k !== "weatherParsedLocation" && k !== "weatherParsedLang"
+        );
+        localKeys.forEach(k => localStorage.removeItem(k));
         location.reload();
     }
 });
-

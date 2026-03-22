@@ -7,8 +7,6 @@
 const themeStorageKey = "selectedTheme";
 const customThemeStorageKey = "customThemeColor";
 const darkModeCheckboxKey = "enableDarkModeCheckboxState";
-const storedTheme = localStorage.getItem(themeStorageKey);
-const storedCustomColor = localStorage.getItem(customThemeStorageKey);
 const radioButtons = document.querySelectorAll(".colorPlate");
 const colorPicker = document.getElementById("colorPicker");
 const colorPickerLabel = document.getElementById("rangColor");
@@ -24,7 +22,9 @@ const syncThemeChange = (MediaQuery) => {
 syncThemeChange(systemTheme);
 
 // ===== Segmented Control for Dark Mode =====
-(function () {
+(async function () {
+    await window.storageReady;
+
     const preferredThemeKey = "preferredTheme";
     const segment = document.getElementById("themeSegment");
     const indicator = segment.querySelector(".themeIndicator");
@@ -40,7 +40,7 @@ syncThemeChange(systemTheme);
 
     // Apply theme mode (light/dark/system)
     function applyThemeMode(theme) {
-        localStorage.setItem(preferredThemeKey, theme);
+        Storage.setItem(preferredThemeKey, theme);
         segment.dataset.active = theme;
         moveIndicator(theme);
 
@@ -61,16 +61,16 @@ syncThemeChange(systemTheme);
     systemTheme.addEventListener('change', syncThemeChange);
 
     function initializeThemeMode() {
-        const darkModeCheckboxState = localStorage.getItem(darkModeCheckboxKey);
-        const savedPreferredTheme = localStorage.getItem(preferredThemeKey);
+        const darkModeCheckboxState = Storage.getItem(darkModeCheckboxKey);
+        const savedPreferredTheme = Storage.getItem(preferredThemeKey);
 
         let initialTheme;
 
         if (darkModeCheckboxState === "checked") {
             // Migrate old checkbox users to "dark" mode
             initialTheme = "dark";
-            localStorage.removeItem(darkModeCheckboxKey);
-            localStorage.setItem(preferredThemeKey, "dark");
+            Storage.removeItem(darkModeCheckboxKey);
+            Storage.setItem(preferredThemeKey, "dark");
         } else if (savedPreferredTheme) {
             initialTheme = savedPreferredTheme; // Use saved preference
         } else {
@@ -84,9 +84,11 @@ syncThemeChange(systemTheme);
     initializeThemeMode();
 })();
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    await window.storageReady;
+
     // Check for custom color
-    const storedCustomColor = localStorage.getItem(customThemeStorageKey);
+    const storedCustomColor = Storage.getItem(customThemeStorageKey);
     if (storedCustomColor) {
         applyCustomTheme(storedCustomColor);
         // Uncheck all radio buttons
@@ -96,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // Check for regular theme
     else {
-        const storedTheme = localStorage.getItem(themeStorageKey);
+        const storedTheme = Storage.getItem(themeStorageKey);
         if (storedTheme) {
             applySelectedTheme(storedTheme);
             const selectedRadioButton = document.querySelector(`.colorPlate[value="${storedTheme}"]`);
@@ -115,10 +117,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 25);
 });
 
-// Function to load background color 
+// Function to load background color
 function ApplyLoadingColor() {
     let LoadingScreenColor = getComputedStyle(document.body).getPropertyValue("background-color");
-    localStorage.setItem("LoadingScreenColor", LoadingScreenColor);
+    Storage.setItem("LoadingScreenColor", LoadingScreenColor);
 }
 
 const resetDarkTheme = () => {
@@ -258,8 +260,8 @@ const applyCustomTheme = (color) => {
 const handleThemeChange = function () {
     if (this.checked) {
         const colorValue = this.value;
-        localStorage.setItem(themeStorageKey, colorValue);
-        localStorage.removeItem(customThemeStorageKey); // Clear custom theme
+        Storage.setItem(themeStorageKey, colorValue);
+        Storage.removeItem(customThemeStorageKey); // Clear custom theme
         applySelectedTheme(colorValue);
     }
 };
@@ -274,8 +276,8 @@ radioButtons.forEach(radioButton => {
 const handleColorPickerChange = function (event) {
     const selectedColor = event.target.value;
     resetDarkTheme(); // Clear dark theme if active
-    localStorage.setItem(customThemeStorageKey, selectedColor); // Save custom color
-    localStorage.removeItem(themeStorageKey); // Clear predefined theme
+    Storage.setItem(customThemeStorageKey, selectedColor); // Save custom color
+    Storage.removeItem(themeStorageKey); // Clear predefined theme
     applyCustomTheme(selectedColor);
 
     // Uncheck all radio buttons
