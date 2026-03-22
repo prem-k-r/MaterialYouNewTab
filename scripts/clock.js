@@ -45,8 +45,8 @@ function handleClockVisibility() {
         rightDiv.classList.remove("clock-padding-adjusted");
     }
     else {
-        // Retrieve saved state from localStorage
-        const isClockHidden = localStorage.getItem("hideClockVisible") === "true";
+        // Retrieve saved state from Storage
+        const isClockHidden = Storage.getItem("hideClockVisible") === "true";
         hideClockCheckbox.checked = isClockHidden;
 
         // Apply initial state
@@ -59,7 +59,7 @@ function handleClockVisibility() {
 
         hideClockCheckbox.addEventListener("change", function () {
             const isChecked = hideClockCheckbox.checked;
-            localStorage.setItem("hideClockVisible", isChecked);
+            Storage.setItem("hideClockVisible", isChecked);
             applyClockState(isChecked);
             toggleHideState(isChecked);
 
@@ -113,9 +113,9 @@ async function initializeClock() {
     document.getElementById("hour").style.transform = `rotate(${cumulativeHourRotation}deg)`;
 
     function initializeClockType() {
-        const savedClockType = localStorage.getItem("clocktype");
+        const savedClockType = Storage.getItem("clocktype");
         clocktype = savedClockType ? savedClockType : "analog"; // Default to "analog" if nothing is saved
-        localStorage.setItem("clocktype", clocktype); // Ensure it's set in local storage
+        Storage.setItem("clocktype", clocktype); // Ensure it's set in local storage
     }
 
     // Call this function to initialize the clock type
@@ -258,10 +258,10 @@ async function initializeClock() {
     }
 
     function updatedigiClock() {
-        const hourformatstored = localStorage.getItem("hourformat");
+        const hourformatstored = Storage.getItem("hourformat");
         let hourformat = hourformatstored === "true"; // Default to false if null
         const greetingCheckbox = document.getElementById("greetingcheckbox");
-        const isGreetingEnabled = localStorage.getItem("greetingEnabled") === "true";
+        const isGreetingEnabled = Storage.getItem("greetingEnabled") === "true";
         greetingCheckbox.checked = isGreetingEnabled;
 
         const now = new Date();
@@ -389,7 +389,7 @@ async function initializeClock() {
             document.getElementById("amPm").textContent = ""; // Clear AM/PM for 24-hour format
         }
 
-        const clocktype1 = localStorage.getItem("clocktype");
+        const clocktype1 = Storage.getItem("clocktype");
         const dateElement = document.getElementById("date");
         if (clocktype1 === "digital" && isGreetingEnabled) {
             const newGreeting = getGreeting();
@@ -496,12 +496,12 @@ async function initializeClock() {
         const greetingCheckbox = document.getElementById("greetingcheckbox");
         const greetingField = document.getElementById("greetingField");
 
-        if (localStorage.getItem("greetingEnabled") === null) {
-            localStorage.setItem("greetingEnabled", "true");
+        if (Storage.getItem("greetingEnabled") === null) {
+            Storage.setItem("greetingEnabled", "true");
         }
 
-        greetingCheckbox.checked = localStorage.getItem("greetingEnabled") === "true";
-        greetingCheckbox.disabled = localStorage.getItem("clocktype") !== "digital";
+        greetingCheckbox.checked = Storage.getItem("greetingEnabled") === "true";
+        greetingCheckbox.disabled = Storage.getItem("clocktype") !== "digital";
 
         digitalCheckbox.addEventListener("change", function () {
             saveCheckboxState("digitalCheckboxState", digitalCheckbox);
@@ -509,8 +509,8 @@ async function initializeClock() {
                 timeformatField.classList.remove("inactive");
                 greetingField.classList.remove("inactive");
                 greetingCheckbox.disabled = false; // Enable greeting toggle
-                localStorage.setItem("clocktype", "digital");
-                clocktype = localStorage.getItem("clocktype");
+                Storage.setItem("clocktype", "digital");
+                clocktype = Storage.getItem("clocktype");
                 displayClock();
                 stopAnalogClock();
                 startDigitalClock();
@@ -521,8 +521,8 @@ async function initializeClock() {
                 timeformatField.classList.add("inactive");
                 greetingField.classList.add("inactive");
                 greetingCheckbox.disabled = true; // Disable greeting toggle
-                localStorage.setItem("clocktype", "analog");
-                clocktype = localStorage.getItem("clocktype");
+                Storage.setItem("clocktype", "analog");
+                clocktype = Storage.getItem("clocktype");
                 stopDigitalClock();
                 startAnalogClock();
                 updateanalogclock();
@@ -536,14 +536,14 @@ async function initializeClock() {
         hourcheckbox.addEventListener("change", function () {
             saveCheckboxState("hourcheckboxState", hourcheckbox);
             if (hourcheckbox.checked) {
-                localStorage.setItem("hourformat", "true");
+                Storage.setItem("hourformat", "true");
             } else {
-                localStorage.setItem("hourformat", "false");
+                Storage.setItem("hourformat", "false");
             }
         });
 
         greetingCheckbox.addEventListener("change", () => {
-            localStorage.setItem("greetingEnabled", greetingCheckbox.checked);
+            Storage.setItem("greetingEnabled", greetingCheckbox.checked);
             updatedigiClock();
         });
 
