@@ -664,7 +664,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return newOrder.some((item, index) => {
             const cached = shortcutsCache[index];
-            return item.name !== cached.name || item.url !== cached.url;
+            return item.name !== cached.name || item.url !== cached.url || item.svg !== cached.svg;
         });
     }
 
