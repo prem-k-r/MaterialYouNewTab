@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < amount; i++) {
             const name = localStorage.getItem(`shortcutName${i}`) || (presets[i] ? presets[i].name : PLACEHOLDER.name);
             const url = localStorage.getItem(`shortcutURL${i}`) || (presets[i] ? presets[i].url : PLACEHOLDER.url);
-            const svg = localStorage.getItem(`shortcutSVG${i}`) || (presets[i] ? presets[i].svg : PLACEHOLDER.svg);
+            const svg = localStorage.getItem(`shortcutSVG${i}`) ?? (presets[i]?.svg ?? "");
 
             shortcutsCache.push({ name, url, svg });
 
@@ -272,6 +272,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
         const allowedAttrs = new Set([
             "d", "fill", "stroke", "stroke-width",
+            "fill-rule", "clip-rule",
+            "stroke-linecap", "stroke-linejoin",
             "viewBox", "cx", "cy", "r",
             "x", "y", "width", "height",
             "points", "transform", "xmlns",
@@ -279,25 +281,26 @@ document.addEventListener("DOMContentLoaded", function () {
         ]);
     
         function clean(node) {
-            // Remove disallowed elements
-            if (!allowedTags.has(node.nodeName)) {
+            // Remove disallowed elements (case-insensitive comparison)
+            if (!allowedTags.has(node.nodeName.toLowerCase())) {
                 node.remove();
                 return;
             }
     
-            // Remove dangerous attributes
+            // Remove dangerous attributes (case-insensitive comparison, remove by original name)
             [...node.attributes].forEach(attr => {
                 const name = attr.name;
+                const nameLower = name.toLowerCase();
                 const value = attr.value;
             
-                const isEvent = name.startsWith("on");
-                const isHref = name === "href" || name === "xlink:href";
+                const isEvent = nameLower.startsWith("on");
+                const isHref = nameLower === "href" || nameLower === "xlink:href";
                 const isDangerousUrl = /javascript:/i.test(value) || /url\s*\(/i.test(value);
             
-                const isBadStyle = name === "style" && !/^\s*transform\s*:/i.test(value);
+                const isBadStyle = nameLower === "style" && !/^\s*transform\s*:/i.test(value);
             
                 if (
-                    !allowedAttrs.has(name) ||
+                    !allowedAttrs.has(nameLower) ||
                     isEvent ||
                     isHref ||
                     isDangerousUrl ||
@@ -313,7 +316,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
         const svg = doc.documentElement;
     
-        if (svg.nodeName === "parsererror") {
+        if (svg.nodeName === "parsererror" || svg.nodeName.toLowerCase() !== "svg") {
             return null;
         }
     
@@ -376,7 +379,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         inputs[0].addEventListener("keydown", e => e.key === "Enter" && inputs[1].focus());
-        inputs[1].addEventListener("keydown", e => e.key === "Enter" && e.target.blur());
+        inputs[1].addEventListener("keydown", e => e.key === "Enter" && inputs[2].focus());
+        inputs[2].addEventListener("keydown", e => e.key === "Enter" && e.target.blur());
     }
 
     // Drag and drop functionality for reordering shortcuts
