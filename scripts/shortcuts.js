@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "d", "fill", "stroke", "stroke-width",
             "fill-rule", "clip-rule",
             "stroke-linecap", "stroke-linejoin",
-            "viewBox", "cx", "cy", "r",
+            "viewbox", "cx", "cy", "r",
             "x", "y", "width", "height",
             "points", "transform", "xmlns",
             "class", "style"
