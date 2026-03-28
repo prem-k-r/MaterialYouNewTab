@@ -235,8 +235,13 @@ html:has(
 
 	& #darkTheme,
 	& .favicon,
-	& .shortcuts,
+	& .shortcuts a,
 	& .tIcon {
+		filter: invert(1) hue-rotate(180deg);
+		-webkit-filter: invert(1) hue-rotate(180deg);
+	}
+
+	& .shortcut-name {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -275,8 +280,13 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 
 	& #darkTheme,
 	& .favicon,
-	& .shortcuts,
+	& .shortcuts a,
 	& .tIcon {
+		filter: invert(1) hue-rotate(180deg);
+		-webkit-filter: invert(1) hue-rotate(180deg);
+	}
+
+	& .shortcut-name {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
