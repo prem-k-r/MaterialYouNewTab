@@ -130,7 +130,7 @@
 	--transparency: 90%;
 
 	/* Shortcut bar */
-	--max-shortcut-bar-width: 60vw;
+	--max-shortcut-bar-width: min(60vw, 100vw - 20px);
 	--shortcut-bar-gap-and-padding: 10px;
 	--shortcut-size: 50px;
 	--always-show-dock-background: 0;
@@ -2377,6 +2377,8 @@ html[lang="ur"] .qtRounder2 {
 	overflow: scroll;
 	scrollbar-width: none;
 	margin: auto;
+	box-sizing: border-box;
+	padding-inline: var(--shortcut-bar-gap-and-padding);
 }
 
 #shortcuts-section::-webkit-scrollbar {
