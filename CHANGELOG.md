@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed an issue where rapid clicks on the AI Tools icon caused race conditions, leading to inconsistent shortcuts panel visibility. ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
+- Fixed shortcuts being squished/misaligned in windowed (non-fullscreen) mode and with vertical tab strips by capping `--max-shortcut-bar-width` to the available viewport width and adding `padding-inline` to the shortcuts section. ([#139](https://github.com/prem-k-r/MaterialYouNewTab/pull/139))
 
 ### Localized
 
