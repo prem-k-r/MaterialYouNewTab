@@ -127,6 +127,32 @@ function toggleBackgroundType(hasWallpaper) {
     document.body.setAttribute("data-bg", hasWallpaper ? "wallpaper" : "color");
 }
 
+// Signal that wallpaper is ready and trigger loading screen hide if theme is also ready
+function signalWallpaperReady() {
+    window._wallpaperReady = true;
+    if (window._themeReady) {
+        hideLoadingScreen();
+    }
+}
+
+// Helper to preload and decode an image before applying it as background
+function preloadAndApplyBackground(imageUrl) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.src = imageUrl;
+        img.decode().then(() => {
+            document.body.style.setProperty("--bg-image", `url(${imageUrl})`);
+            toggleBackgroundType(true);
+            resolve();
+        }).catch(() => {
+            // Fallback: apply even if decode fails
+            document.body.style.setProperty("--bg-image", `url(${imageUrl})`);
+            toggleBackgroundType(true);
+            resolve();
+        });
+    });
+}
+
 // Check and update image on page load
 function checkAndUpdateImage() {
     loadImageAndDetails()
@@ -137,6 +163,7 @@ function checkAndUpdateImage() {
             // No image or invalid data
             if (!blob || !savedTimestamp || isNaN(lastUpdate)) {
                 toggleBackgroundType(false);
+                signalWallpaperReady();
                 return;
             }
 
@@ -144,26 +171,30 @@ function checkAndUpdateImage() {
             const imageUrl = URL.createObjectURL(blob);
 
             if (imageType === "upload") {
-                document.body.style.setProperty("--bg-image", `url(${imageUrl})`);
-                toggleBackgroundType(true);
+                preloadAndApplyBackground(imageUrl).then(() => {
+                    signalWallpaperReady();
+                });
                 return;
             }
 
             if (lastUpdate.toDateString() !== now.toDateString()) {
                 // Refresh random image if a new day
-                applyRandomImage(false);
+                applyRandomImage(false).then(() => {
+                    signalWallpaperReady();
+                });
             } else {
                 // Reapply the saved random image
-                document.body.style.setProperty("--bg-image", `url(${imageUrl})`);
-                toggleBackgroundType(true);
+                preloadAndApplyBackground(imageUrl).then(() => {
+                    signalWallpaperReady();
+                    // Clean up the Blob URL after setting the background
+                    setTimeout(() => URL.revokeObjectURL(imageUrl), 1500);
+                });
             }
-
-            // Clean up the Blob URL after setting the background
-            setTimeout(() => URL.revokeObjectURL(imageUrl), 1500);
         })
         .catch((error) => {
             console.error("Error loading image details:", error);
             toggleBackgroundType(false);
+            signalWallpaperReady();
         });
 }
 
