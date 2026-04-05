@@ -221,6 +221,14 @@ body {
 	margin: 0;
 }
 
+/* Early dark mode filter applied by preload.js before DOM elements exist.
+   Prevents light→dark flash by pre-applying the invert filter on <html>.
+   Removed by wallpaper.js once the proper CSS selectors can take over. */
+html.early-dark-filter {
+	filter: invert(1) hue-rotate(180deg);
+	-webkit-filter: invert(1) hue-rotate(180deg);
+}
+
 /* Apply dark mode when: Dark Mode is selected manually, OR System Theme is selected */
 html:has(body[data-bg="color"] .menuBar .themeSegment[data-active="dark"]):not(
 		:has(#darkTheme:checked)
