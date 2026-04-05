@@ -225,8 +225,14 @@ body {
    Prevents light→dark flash by pre-applying the invert filter on <html>.
    Removed by wallpaper.js once the proper CSS selectors can take over. */
 html.early-dark-filter {
-	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
+	filter: invert(1) hue-rotate(180deg);
+
+	& #darkTheme,
+	& .favicon {
+		-webkit-filter: invert(1) hue-rotate(180deg);
+		filter: invert(1) hue-rotate(180deg);
+	}
 }
 
 /* Apply dark mode when: Dark Mode is selected manually, OR System Theme is selected */
@@ -238,13 +244,13 @@ html:has(
 			.menuBar
 			.themeSegment[data-active="system"]
 	):not(:has(#darkTheme:checked)) {
-	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
+	filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
 	& .favicon {
-		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
+		filter: invert(1) hue-rotate(180deg);
 	}
 
 	& .menuBar,
@@ -276,13 +282,13 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 		.menuBar .themeSegment[data-active="system"]
 	):not(:has(#darkTheme:checked))
 	:is(.menuCont, .bookmark-sidebar) {
-	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
+	filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
 	& .favicon {
-		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
+		filter: invert(1) hue-rotate(180deg);
 	}
 
 	--whitishColor-blue: #f2f2f2;

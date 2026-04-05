@@ -124,7 +124,10 @@ async function applyRandomImage(showConfirmation = true) {
 
 // Function to update the background type attribute
 function toggleBackgroundType(hasWallpaper) {
-    document.body.setAttribute("data-bg", hasWallpaper ? "wallpaper" : "color");
+    const bgType = hasWallpaper ? "wallpaper" : "color";
+    document.body.setAttribute("data-bg", bgType);
+    localStorage.setItem("bgType", bgType);
+    document.documentElement.classList.remove("early-dark-filter");
 }
 
 // Signal that wallpaper is ready and trigger loading screen hide if theme is also ready
