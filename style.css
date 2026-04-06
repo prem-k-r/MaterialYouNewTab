@@ -4659,9 +4659,6 @@ body[data-bg="wallpaper"] .dropdown-content {
 	.toggleTextsCont .ttcont:has(#hideWeatherBox) {
 		display: flex;
 	}
-	.toggleTextsCont .ttcont:has(#hideClock) {
-		display: none;
-	}
 	.toggleTextsCont .ttcont:has(#shortcut_switchcheckbox) {
 		display: none;
 	}
