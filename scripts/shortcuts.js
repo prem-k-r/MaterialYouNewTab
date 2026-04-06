@@ -33,42 +33,42 @@ document.addEventListener("DOMContentLoaded", function () {
             name: "YouTube",
             url: "youtube.com",
             domains: ["youtube.com", "m.youtube.com", "youtu.be"],
-            svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" class="accentColor shorcutDarkColor"/><g style="transform: scale(0.6); transform-origin: center;"><path class="bgLightTint" id="darkLightTint" fill-rule="evenodd"
+            svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" class="accentColor shortcutDarkColor"/><g style="transform: scale(0.6); transform-origin: center;"><path class="bgLightTint" id="darkLightTint" fill-rule="evenodd"
                     d="M23.498 6.186a3.02 3.02 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.02 3.02 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.02 3.02 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.02 3.02 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814M9.545 15.568V8.432L15.818 12z"/></g></svg>`
         },
         {
             name: "Gmail",
             url: "mail.google.com",
             domains: ["gmail.com", "mail.google.com"],
-            svg: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="12" class="accentColor shorcutDarkColor"/><g style="transform: scale(0.58); transform-origin: center;"><path class="bgLightTint" id="darkLightTint" 
+            svg: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="12" class="accentColor shortcutDarkColor"/><g style="transform: scale(0.58); transform-origin: center;"><path class="bgLightTint" id="darkLightTint" 
                     d="m8.606 13.6 3.396 2.323 3.274-2.259 7.338 7.24q-.29.095-.614.096H2c-.264 0-.516-.052-.747-.144zM24 7.652V19a2 2 0 0 1-.18.83l-7.193-7.097zM0 7.715l7.25 4.958-7.123 7.03A2.04 2.04 0 0 1 0 19ZM22 3a2 2 0 0 1 2 2v.704l-12.002 8.274L0 5.772V5a2 2 0 0 1 2-2Z"/></g></svg>`
         },
         {
             name: "Telegram",
             url: "web.telegram.org",
             domains: ["telegram.org", "t.me", "web.telegram.org"],
-            svg: `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path class="accentColor shorcutDarkColor"
+            svg: `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path class="accentColor shortcutDarkColor"
                     d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0Zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38Z"/></svg>`
         },
         {
             name: "WhatsApp",
             url: "web.whatsapp.com",
             domains: ["whatsapp.com", "web.whatsapp.com", "api.whatsapp.com"],
-            svg: `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path class="accentColor shorcutDarkColor"
+            svg: `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path class="accentColor shortcutDarkColor"
                     d="M10 0c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.953 9.953 0 0 1-5.03-1.355L.004 20l1.352-4.968A9.953 9.953 0 0 1 0 10C0 4.477 4.477 0 10 0ZM6.592 5.3l-.2.008a.961.961 0 0 0-.372.1 1.293 1.293 0 0 0-.294.228c-.12.113-.188.211-.261.306a2.73 2.73 0 0 0-.566 1.678c.002.49.13.967.33 1.413.409.902 1.082 1.857 1.97 2.742.214.213.424.427.65.626a9.448 9.448 0 0 0 3.84 2.046l.568.087c.185.01.37-.004.556-.013a1.99 1.99 0 0 0 .833-.231c.131-.067.259-.14.383-.22 0 0 .043-.028.125-.09.135-.1.218-.171.33-.288.083-.086.155-.187.21-.302.078-.163.156-.474.188-.733.024-.198.017-.306.014-.373-.004-.107-.093-.218-.19-.265l-.582-.261s-.87-.379-1.402-.621a.497.497 0 0 0-.176-.041.482.482 0 0 0-.378.127c-.005-.002-.072.055-.795.931a.35.35 0 0 1-.368.13 1.432 1.432 0 0 1-.191-.066c-.124-.052-.167-.072-.252-.108a6.028 6.028 0 0 1-1.575-1.003c-.126-.11-.243-.23-.363-.346a6.298 6.298 0 0 1-1.02-1.268l-.059-.095a.923.923 0 0 1-.102-.205c-.038-.147.061-.265.061-.265s.243-.266.356-.41c.11-.14.203-.276.263-.373.118-.19.155-.385.093-.536-.28-.684-.57-1.365-.868-2.041-.059-.134-.234-.23-.393-.249a4.439 4.439 0 0 0-.162-.016 3.385 3.385 0 0 0-.403.004l.201-.008.001.001Z"/></svg>`
         },
         {
             name: "Twitter",
             url: "x.com",
             domains: ["twitter.com", "x.com"],
-            svg: `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path class="accentColor shorcutDarkColor"
+            svg: `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path class="accentColor shortcutDarkColor"
                     d="M10 0c5.529 0 10 4.471 10 10s-4.471 10-10 10S0 15.529 0 10 4.471 0 10 0ZM8.171 15.271c4.429 0 6.858-3.671 6.858-6.857V8.1a4.783 4.783 0 0 0 1.2-1.257c-.429.186-.9.314-1.386.386.5-.3.886-.772 1.057-1.329a5.215 5.215 0 0 1-1.529.586 2.405 2.405 0 0 0-1.757-.757A2.42 2.42 0 0 0 10.2 8.143c0 .186.014.371.071.543-2-.1-3.785-1.057-4.971-2.515-.2.358-.329.772-.329 1.215 0 .828.429 1.571 1.072 2-.4 0-.772-.115-1.086-.3v.028c0 1.172.829 2.143 1.929 2.372a2.3 2.3 0 0 1-.629.085c-.157 0-.3-.014-.457-.042.3.957 1.2 1.657 2.243 1.671a4.883 4.883 0 0 1-3 1.029c-.2 0-.386 0-.572-.029a6.765 6.765 0 0 0 3.686 1.086"/></svg>`
         },
         {
             name: "Discord",
             url: "discord.com/app",
             domains: ["discord.com", "discord.gg", "discordapp.com"],
-            svg: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="12" class="accentColor shorcutDarkColor"/><g style="transform: scale(0.75); transform-origin: center;"><path class="bgLightTint" id="darkLightTint"
+            svg: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="12" class="accentColor shortcutDarkColor"/><g style="transform: scale(0.75); transform-origin: center;"><path class="bgLightTint" id="darkLightTint"
                     d="M19.303 5.337A17.3 17.3 0 0 0 14.963 4c-.191.329-.403.775-.552 1.125a16.6 16.6 0 0 0-4.808 0C9.454 4.775 9.23 4.329 9.05 4a17 17 0 0 0-4.342 1.337C1.961 9.391 1.218 13.35 1.59 17.255a17.7 17.7 0 0 0 5.318 2.664 13 13 0 0 0 1.136-1.836c-.627-.234-1.22-.52-1.794-.86.149-.106.297-.223.435-.34 3.46 1.582 7.207 1.582 10.624 0 .149.117.287.234.435.34-.573.34-1.167.626-1.793.86a13 13 0 0 0 1.135 1.836 17.6 17.6 0 0 0 5.318-2.664c.457-4.52-.722-8.448-3.1-11.918M8.52 14.846c-1.04 0-1.889-.945-1.889-2.101s.828-2.102 1.89-2.102c1.05 0 1.91.945 1.888 2.102 0 1.156-.838 2.1-1.889 2.1m6.974 0c-1.04 0-1.89-.945-1.89-2.101s.828-2.102 1.89-2.102c1.05 0 1.91.945 1.889 2.102 0 1.156-.828 2.1-1.89 2.1"/></g></svg>`
         }
     ];
