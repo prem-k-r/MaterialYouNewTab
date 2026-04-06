@@ -4882,7 +4882,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: #cdcdcd;
 }
 
-.black-theme .shorcutDarkColor {
+.black-theme .shortcutDarkColor {
 	fill: var(--accentLightTint-dark) !important;
 }
 
