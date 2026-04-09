@@ -2488,7 +2488,13 @@ html[lang="ur"] .qtRounder2 {
 }
 /* Push shortcuts up if the finance dock is active */
 body:has(#financeDock[style*="display: flex"]) #shortcuts-section {
-	bottom: 65px;
+	z-index: 110; /* Higher than the Finance Dock's 100 */
+	bottom: 85px;
+}
+
+/* Sync the AI Tools tray to the same height as the shortcuts */
+body:has(#financeDock[style*="display: flex"]) .aiToolsCont {
+	bottom: calc(85px + var(--gap));
 }
 
 #shortcuts-section::-webkit-scrollbar {

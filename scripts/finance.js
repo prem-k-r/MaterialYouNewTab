@@ -20,16 +20,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const RETENTION_MS = 15 * 60 * 1000;
 
     const proxyurl = localStorage.getItem("proxy") || "https://mynt-proxy.rhythmcorehq.com/proxy?url=";
-    const exchangeRateCache = {}; // Prevents redundant API calls for the same currency pair
+    const exchangeRateCache = {};
 
-    let watchedSymbols = JSON.parse(localStorage.getItem(SYMBOLS_KEY)) || ["AAPL", "BTC-USD", "^GSPC"];
+    // --- FIX 1: Safe JSON Parsing ---
+    function readJson(key, fallback) {
+        try {
+            const raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : fallback;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    let watchedSymbols = readJson(SYMBOLS_KEY, ["AAPL", "BTC-USD", "^GSPC"]);
+    if (!Array.isArray(watchedSymbols)) watchedSymbols = ["AAPL", "BTC-USD", "^GSPC"];
+
     let prefCurrency = localStorage.getItem("financeCurrency") || "original";
 
     async function getExchangeRate(from, to) {
         if (from === to || to === "original") return 1;
         const pair = `${from}${to}=X`;
         if (exchangeRateCache[pair]) return exchangeRateCache[pair];
-
         try {
             const url = `https://query1.finance.yahoo.com/v8/finance/chart/${pair}?interval=1d&range=1d`;
             const response = await fetch(proxyurl + encodeURIComponent(url));
@@ -37,9 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const rate = data.chart.result[0].meta.regularMarketPrice;
             exchangeRateCache[pair] = rate;
             return rate;
-        } catch (e) {
-            return 1;
-        }
+        } catch (e) { return 1; }
     }
 
     async function fetchStockData(symbol) {
@@ -48,12 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const response = await fetch(proxyurl + encodeURIComponent(url));
             const data = await response.json();
             const meta = data.chart.result[0].meta;
-
             const nativePrice = meta.regularMarketPrice;
             const nativePrevClose = meta.chartPreviousClose;
             const nativeCurrency = meta.currency;
 
-            // Handle Currency Conversion
             const targetCurrency = prefCurrency === "original" ? nativeCurrency : prefCurrency;
             const rate = await getExchangeRate(nativeCurrency, targetCurrency);
 
@@ -81,11 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const lastUpdate = localStorage.getItem(TIME_KEY);
         const cachedData = localStorage.getItem(CACHE_KEY);
 
-        // If user changed currency, we MUST force a fresh fetch to do the math
         if (!force && lastUpdate && (Date.now() - lastUpdate < RETENTION_MS) && cachedData) {
-            const parsed = JSON.parse(cachedData);
-            // Check if cache matches current currency preference
-            if (parsed.length > 0 && parsed[0].displayCurrency === (prefCurrency === "original" ? parsed[0].displayCurrency : prefCurrency)) {
+            const parsed = readJson(CACHE_KEY, []);
+            if (Array.isArray(parsed) && parsed.length > 0) {
                 renderStocks(parsed);
                 return;
             }
@@ -101,6 +106,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderStocks(data) {
         ticker.innerHTML = "";
+
+        // --- FIX 2: Hide dock if empty ---
+        if (!data.length) {
+            dock.style.display = "none";
+            return;
+        }
         dock.style.display = "flex";
 
         if (localStorage.getItem("financeWrap") === "true") ticker.classList.add("wrap-mode");
@@ -113,24 +124,22 @@ document.addEventListener("DOMContentLoaded", function () {
             const pill = document.createElement("div");
             pill.className = `stock-pill ${isCompact ? 'compact' : ''}`;
             const trendDisplay = showValue ? stock.changeVal : stock.percent;
-
             pill.innerHTML = `
                 <span class="sym">${stock.symbol}</span>
                 ${isCompact ? '' : `<span class="price">${stock.price} <small>${stock.displayCurrency}</small></span>`}
                 <span class="change ${stock.isUp ? 'up' : 'down'}">${stock.isUp ? '▲' : '▼'} ${trendDisplay}</span>
             `;
-
             pill.oncontextmenu = (e) => {
                 e.preventDefault();
                 watchedSymbols = watchedSymbols.filter(s => s !== stock.symbol);
                 localStorage.setItem(SYMBOLS_KEY, JSON.stringify(watchedSymbols));
                 refreshData(true);
             };
-
             ticker.appendChild(pill);
         });
     }
 
+    // Logic for Buttons/Toggles remains same...
     addBtn.onclick = () => {
         const sym = input.value.toUpperCase().trim();
         if (sym && !watchedSymbols.includes(sym)) {
@@ -140,41 +149,33 @@ document.addEventListener("DOMContentLoaded", function () {
             refreshData(true);
         }
     };
-
     input.onkeydown = (e) => { if (e.key === "Enter") addBtn.click(); };
-
     financeCheckbox.onchange = () => {
         localStorage.setItem("financeCheckboxState", financeCheckbox.checked);
         refreshData(true);
     };
-
     wrapToggle.onchange = () => {
         localStorage.setItem("financeWrap", wrapToggle.checked);
         refreshData();
     };
-
     compactToggle.onchange = () => {
         localStorage.setItem("financeCompact", compactToggle.checked);
         refreshData();
     };
-
     valueToggle.onchange = () => {
         localStorage.setItem("financeShowValue", valueToggle.checked);
         refreshData();
     };
-
     currencySelect.onchange = () => {
         localStorage.setItem("financeCurrency", currencySelect.value);
         prefCurrency = currencySelect.value;
-        refreshData(true); // Force refresh to trigger math conversion
+        refreshData(true);
     };
 
-    // Load initial states
     financeCheckbox.checked = localStorage.getItem("financeCheckboxState") === "true";
     wrapToggle.checked = localStorage.getItem("financeWrap") === "true";
     compactToggle.checked = localStorage.getItem("financeCompact") === "true";
     valueToggle.checked = localStorage.getItem("financeShowValue") === "true";
     currencySelect.value = prefCurrency;
-
     refreshData();
 });
