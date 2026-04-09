@@ -225,6 +225,8 @@ function applyLanguage(lang) {
         "resetAISettingsBtn",
         "opacityTitle",
         "adjustOpacityDesc",
+        "financeTitleText",
+        "financeInfoText",
         "footerToastTitle",
         "footerToastMessage",
         "personalizationSectionTitle",
@@ -238,6 +240,7 @@ function applyLanguage(lang) {
     // Specific mapping for placeholders
     const placeholderMap = [
         { id: "userLoc", key: "userLoc" },
+        { id: "stockInput", key: "financeInputPlaceholder" },
         { id: "userAPI", key: "userAPI" },
         { id: "searchQ", key: "searchPlaceholder" },
         { id: "todoInput", key: "todoPlaceholder" },

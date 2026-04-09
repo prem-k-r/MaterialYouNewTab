@@ -91,6 +91,11 @@ const en = {
     "LearnMoreButton": "Learn more",
     "saveAPI": "Save",
 
+    //Finance
+    "financeTitleText": "Finance",
+    "financeInfoText": "Show stock and crypto prices",
+    "financeInputPlaceholder": "Add Symbol (e.g. AAPL or BTC-USD)",
+
     // Body Items
     // Calendar
     "days": ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
