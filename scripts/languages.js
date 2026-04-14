@@ -10,6 +10,7 @@
 const translations = {
     en: en, // English
     pt: pt, // Portuguese-BR (Brazil)
+    sv: sv, // Swedish
     zh: zh, // Chinese (Simplified)
     zh_TW: zh_TW, // Chinese (Traditional)
     hi: hi, // Hindi
@@ -46,6 +47,7 @@ const menuWidths = {
     en: "443px",
     ta: "522px",
     pt: "512px",
+    sv: "480px",
     bn: "458px",
     uz: "497px",
     vi: "487px",
