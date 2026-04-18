@@ -1,5 +1,7 @@
 // Czech
 const cs = {
+    "newTabTitle": "Nová karta",
+
     // Menu Items
     "github": "GitHub",
     "feedback": "Zpětná vazba",
