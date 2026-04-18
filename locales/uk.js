@@ -5,12 +5,12 @@ const uk = {
     "feedback": "Відгук",
 
     // Section titles
-    personalizationSectionTitle: "Персоналізація",
-    clockSectionTitle: "Годинник",
-    searchSectionTitle: "Пошук",
-    weatherSectionTitle: "Погода",
-    appearanceSectionTitle: "Зовнішній вигляд",
-    settingsSectionTitle: "Налаштування",
+    "personalizationSectionTitle": "Персоналізація",
+    "clockSectionTitle": "Годинник",
+    "searchSectionTitle": "Пошук",
+    "weatherSectionTitle": "Погода",
+    "appearanceSectionTitle": "Зовнішній вигляд",
+    "settingsSectionTitle": "Налаштування",
 
     // Shortcuts
     "shortcutsText": "Ярлики",
