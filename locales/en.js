@@ -1,6 +1,5 @@
 // English (Default)
 const en = {
-    "newTabTitle": "New Tab",
     // Menu Items
     "github": "GitHub",
     "feedback": "Feedback",

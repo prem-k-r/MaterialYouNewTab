@@ -113,8 +113,6 @@ const rtlLanguages = ["ur", "fa", "ar_SA"];
 
 // Function to apply the language to the page
 function applyLanguage(lang) {
-    document.title = translations[lang]?.newTabTitle || translations["en"].newTabTitle
-
     // Mapping of text elements and their translation keys
     const translationMap = [
         "feedback",

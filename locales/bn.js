@@ -1,6 +1,5 @@
 // Bengali
 const bn = {
-    "newTabTitle": "নতুন ট্যাব",
     // Menu Items
     "github": "গিটহাব",
     "feedback": "মতামত",
