@@ -10,7 +10,6 @@
 const translations = {
     en: en, // English
     pt: pt, // Portuguese-BR (Brazil)
-    sv: sv, // Swedish
     zh: zh, // Chinese (Simplified)
     zh_TW: zh_TW, // Chinese (Traditional)
     hi: hi, // Hindi
@@ -40,6 +39,7 @@ const translations = {
     th: th, // Thai
     pl: pl, // Polish
     uk: uk, // Ukrainian
+    sv: sv, // Swedish
 };
 
 // Define the width of the menu container for each language
@@ -47,7 +47,7 @@ const menuWidths = {
     en: "443px",
     ta: "522px",
     pt: "512px",
-    sv: "480px",
+    sv: "472px",
     bn: "458px",
     uz: "497px",
     vi: "487px",
@@ -115,7 +115,7 @@ const rtlLanguages = ["ur", "fa", "ar_SA"];
 
 // Function to apply the language to the page
 function applyLanguage(lang) {
-    document.title = translations[lang]?.newTabTitle || translations["en"].newTabTitle
+    document.title = translations[lang]?.newTabTitle || translations["en"].newTabTitle;
 
     // Mapping of text elements and their translation keys
     const translationMap = [
