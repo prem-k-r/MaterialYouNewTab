@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Bengali ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here))
   - Uzbek ([S0ME2](https://github.com/S0ME2))
   - Indonesian ([@Ayyas-RF](https://github.com/Ayyas-RF))
+  - Ukrainian ([@smurf11k](https://github.com/smurf11k))
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 - Added support for Ukrainian ([@lozik4](https://github.com/lozik4)) ([#106](https://github.com/prem-k-r/MaterialYouNewTab/pull/106))
 - Localized New Tab title ([@prem-k-r](https://github.com/prem-k-r))
