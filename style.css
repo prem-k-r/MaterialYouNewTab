@@ -115,7 +115,7 @@
 	--whitishColor-peach: #ffffff;
 
 	/* ⚫⚫⚫ */
-	--bg-color-dark: #171615;
+	--bg-color-dark: #0a0a0a;
 	--accentLightTint-dark: #3c3c3c;
 	--darkerColor-dark: #eeeeee;
 	--darkColor-dark: #212121;
@@ -222,18 +222,18 @@ body {
 }
 
 /* Apply dark mode when: Dark Mode is selected manually, OR System Theme is selected */
-html:has(body[data-bg="color"] .menuBar .themeSegment[data-active="dark"]):not(
-		:has(#darkTheme:checked)
+/* html:has(body[data-bg="color"] .menuBar .themeSegment[data-active="dark"]):not(
+		:has(#blackTheme:checked)
 	),
 html:has(
 		body[data-bg="color"][sysTheme="systemDark"]
 			.menuBar
 			.themeSegment[data-active="system"]
-	):not(:has(#darkTheme:checked)) {
+	):not(:has(#blackTheme:checked)) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
-	& #darkTheme,
+	& #blackTheme,
 	& .favicon {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
@@ -253,32 +253,32 @@ html:has(
 }
 
 body[data-bg="wallpaper"]:has(.menuBar .themeSegment[data-active="dark"]):not(
-		:has(#darkTheme:checked)
+		:has(#blackTheme:checked)
 	)
 	> *:not(.menuBar, #bookmarksContainer),
 body[data-bg="wallpaper"]:has(.menuBar .themeSegment[data-active="dark"]):not(
-		:has(#darkTheme:checked)
+		:has(#blackTheme:checked)
 	)
 	:is(.menuCont, .bookmark-sidebar),
 body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 		.menuBar .themeSegment[data-active="system"]
-	):not(:has(#darkTheme:checked))
+	):not(:has(#blackTheme:checked))
 	> *:not(.menuBar, #bookmarksContainer),
 body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 		.menuBar .themeSegment[data-active="system"]
-	):not(:has(#darkTheme:checked))
+	):not(:has(#blackTheme:checked))
 	:is(.menuCont, .bookmark-sidebar) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
-	& #darkTheme,
+	& #blackTheme,
 	& .favicon {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
 
 	--whitishColor-blue: #f2f2f2;
-}
+} */
 
 /* -------------------------------------- */
 
@@ -347,7 +347,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 .resultItem:hover {
 	background-color: var(--darkColor-blue);
 	border-radius: 15px;
-	color: var(--whitishColor-blue);
+	color: white;
 }
 
 /* ----------------- Google App Menu CSS Setup ----------------- */
@@ -1279,7 +1279,7 @@ body #bookmarkButton.bookmark-button.rotate {
 
 #todoAdd:hover {
 	background-color: var(--darkerColor-blue);
-	color: var(--whitishColor-blue);
+	color: #fff;
 	cursor: pointer;
 }
 
@@ -1325,7 +1325,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	display: flex;
 	background-color: var(--darkColor-blue);
 	background-color: color-mix(in srgb, var(--darkColor-blue) 95%, transparent);
-	color: var(--whitishColor-blue);
+	color: white;
 	border-radius: 8px;
 	list-style-type: none;
 	font-size: 1rem;
@@ -1406,7 +1406,7 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 .todolistitem .todoremovebtn:hover {
-	color: var(--whitishColor-blue);
+	color: white;
 }
 
 .todolistitem .todopinbtn {
@@ -1741,7 +1741,7 @@ html[lang="ta"] .digiclock {
 }
 
 .tilesContainer .location .location_spn {
-	color: var(--whitishColor-blue);
+	color: white;
 }
 
 .tilesContainer .tiles .icon {
@@ -1874,7 +1874,7 @@ body[data-bg="wallpaper"] .humidityBar .thinLine {
 
 #humidityLevel,
 #opacityLevel {
-	color: var(--whitishColor-blue);
+	color: white;
 	width: fit-content;
 	position: absolute;
 	bottom: 0;
@@ -2776,7 +2776,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	font-size: 0.9rem;
 	border-radius: 20px;
 	background: var(--darkColor-blue);
-	color: var(--whitishColor-blue);
+	color: white;
 	border: none;
 	cursor: pointer;
 }
@@ -3192,7 +3192,7 @@ input:checked + .toggle:before {
 	margin-inline-end: var(--gap);
 	width: -webkit-fill-available;
 	width: -moz-available;
-	background-color: var(--whitishColor-blue);
+	background-color: white;
 	color: var(--textColorDark-blue);
 	border-radius: 10px;
 	margin-top: 3px;
@@ -3241,7 +3241,7 @@ input:checked + .toggle:before {
 .location-suggestion-item:hover,
 .location-suggestion-item.active {
 	background-color: var(--darkColor-blue);
-	color: var(--whitishColor-blue);
+	color: white;
 }
 
 .location-suggestion-item:first-child {
@@ -3875,10 +3875,21 @@ option:checked {
 	height: 36px;
 	background: url("./svgs/tick.svg") center center no-repeat;
 	background-size: 74%;
+	border-radius: 50%;
+	outline: 3px solid var(--darkerColor-blue);
+	outline-offset: 2px;
+}
+
+.colorPlate {
+	transition: transform 0.2s var(--md-motion-ease);
+}
+
+.colorPlate:hover {
+	transform: scale(1.04);
 }
 
 .themingStuff .btn {
-	background-color: var(--whitishColor-blue);
+	background-color: white;
 	height: 100%;
 	aspect-ratio: 1/1;
 	inset-inline-end: 0;
@@ -3886,8 +3897,331 @@ option:checked {
 	z-index: 2;
 }
 
+/* <!-- ----Color Picker || ColorPicker---- --> */
+.pickerContainer {
+	grid-column: span 3;
+	display: flex;
+	gap: 2px;
+}
+
+#colorPicker {
+	display: none;
+}
+
+.colorPickerBtn {
+	flex: 1;
+	height: 36px;
+	border-radius: 50px;
+	border-start-end-radius: 10px;
+	border-end-end-radius: 10px;
+	cursor: pointer;
+	position: relative;
+	background: var(--accentLightTint-blue);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 3px solid transparent;
+	transition: background-color 0.3s ease, border 0.3s ease,
+		transform 0.3s var(--md-motion-ease);
+}
+
+.colorPickerBtn.editor {
+	border-radius: 50px;
+	border-start-start-radius: 10px;
+	border-end-start-radius: 10px;
+}
+
+.colorPickerBtn:hover {
+	background: var(--bg-color-blue);
+	transform: translateY(-1px);
+}
+
+.colorPickerBtn svg {
+	stroke: var(--darkerColor-blue);
+}
+
+.colorPickerBtn.editor svg {
+	fill: var(--darkerColor-blue);
+	stroke: none;
+}
+
+.colorPickerOne input[type="color"],
+.colorPickerAll input[type="color"] {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+	display: block;
+	appearance: none;
+}
+
+/* Modal */
+.colorModal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	inset: 0;
+	animation: fadeIn 0.2s var(--md-motion-ease);
+}
+
+.colorModal.active {
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	padding: 20px;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.modalContent {
+	background: var(--accentLightTint-blue);
+	border-radius: 24px;
+	width: 320px;
+	max-height: 85vh;
+	overflow-y: auto;
+	animation: slideUp 0.3s var(--md-motion-decelerate);
+	box-shadow: 0px 0px 10px #0005;
+}
+
+.black-theme .modalContent {
+	background: #2a2a2a;
+	color: #e0e0e0;
+}
+
+.modalContent::-webkit-scrollbar {
+	width: 6px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+	background: transparent;
+	margin: 10px 0;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+	background: var(--darkColor-blue);
+	border-radius: 4px;
+}
+
+.modalHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 16px;
+	padding: 12px 24px;
+	border-bottom: 1px solid var(--bg-color-blue);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 50%,
+		var(--bg-color-blue)
+	);
+}
+
+.modalHeader h2 {
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: var(--textColorDark-blue);
+}
+
+.black-theme .modalHeader h2 {
+	color: #e0e0e0;
+}
+
+.closeBtn {
+	background: none;
+	border: none;
+	font-size: 1.8rem;
+	cursor: pointer;
+	color: var(--darkerColor-blue);
+	width: 36px;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	transition: background 0.2s var(--md-motion-ease);
+	line-height: 1;
+}
+
+.closeBtn:hover {
+	background: var(--bg-color-blue);
+}
+
+.colorVariable {
+	padding: 0 24px;
+	margin-bottom: 14px;
+}
+
+.colorVariable label {
+	display: block;
+	margin-bottom: 6px;
+	font-weight: 500;
+	color: var(--textColorDark-blue);
+	font-size: 0.8rem;
+}
+
+.black-theme .colorVariable label {
+	color: #e0e0e0;
+}
+
+.colorInput {
+	display: flex;
+	gap: 14px;
+	align-items: center;
+	justify-content: center;
+
+	input {
+		transition: all 0.2s var(--md-motion-ease);
+	}
+
+	input[type="color"] {
+		height: 30px;
+		width: 30px;
+		background-color: transparent;
+		border: none;
+		border-radius: 25%;
+		cursor: pointer;
+
+		&:hover {
+			transform: scale(1.05);
+		}
+
+		&::-moz-color-swatch {
+			border: none;
+		}
+
+		&::-webkit-color-swatch-wrapper {
+			padding: 0;
+			border-radius: 0;
+		}
+
+		&::-webkit-color-swatch {
+			border: none;
+		}
+
+		&#accentColorPicker {
+			border: 1px solid var(--textColorDark-blue);
+		}
+	}
+
+	input[type="text"] {
+		/* flex: 1; */
+		padding: 6px 14px;
+		border: 2px solid var(--whitishColor-blue);
+		border-radius: 10px;
+		font-size: 0.8rem;
+		font-family: "Courier New", Consolas, monospace;
+		background: var(--whitishColor-blue);
+		color: var(--textColorDark-blue);
+
+		&:focus {
+			outline: none;
+			border-color: var(--darkColor-blue);
+			background: var(--bg-color-blue);
+		}
+
+		&:invalid {
+			border-color: #ec4343;
+			animation: invalid-shake 0.5s cubic-bezier(0.2, 0, 0, 1);
+		}
+	}
+}
+
+@keyframes invalid-shake {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	20% {
+		transform: translateX(-6px);
+	}
+	40% {
+		transform: translateX(5px);
+	}
+	60% {
+		transform: translateX(-3px);
+	}
+	80% {
+		transform: translateX(2px);
+	}
+}
+
+.black-theme .colorInput input[type="color"],
+.black-theme .colorInput input[type="text"] {
+	background: #1e1e1e;
+	border-color: #3a3a3a;
+	color: #e0e0e0;
+}
+
+.modalActions {
+	display: flex;
+	gap: 12px;
+	margin-top: 20px;
+	padding: 14px 20px;
+	border-top: 1px solid var(--bg-color-blue);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 50%,
+		var(--bg-color-blue)
+	);
+}
+
+.btnModal {
+	flex: 1;
+	padding: 8px 14px;
+	border: none;
+	border-radius: 20px;
+	font-size: 0.8rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s var(--md-motion-ease);
+}
+
+.btnPrimary {
+	background: var(--darkColor-blue);
+	color: white;
+}
+
+.btnPrimary:hover {
+	background: var(--darkerColor-blue);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btnSecondary {
+	background: var(--accentLightTint-blue);
+	color: var(--darkerColor-blue);
+}
+
+.btnSecondary:hover {
+	background: var(--bg-color-blue);
+}
+
+.btnModal:active {
+	transform: translateY(0);
+}
+/* <!-- ----End of Color Picker ---- --> */
+
 .languageIcon {
-	background-color: var(--whitishColor-blue);
+	background-color: white;
 	height: 100%;
 	aspect-ratio: 1/1;
 	inset-inline-end: 0;
@@ -4016,33 +4350,7 @@ option:checked {
 	color: #fffffff5;
 }
 
-/* <!-- ----Color Picker || ColorPicker---- --> */
-#colorPicker {
-	display: none;
-}
-
-.colorPickerLabel {
-	grid-column: span 3;
-	width: 100%;
-	background: var(--accentLightTint-blue);
-	height: 100%;
-	border-radius: 100px;
-	display: flex;
-	text-align: center;
-	justify-content: center;
-	font-size: 0.8rem;
-	line-height: 35px;
-	cursor: pointer;
-	border: 2px solid transparent;
-	transition: background-color 0.3s ease;
-}
-
-.colorPickerLabel:hover {
-	background: var(--bg-color-blue);
-}
-/* <!-- ----End of Color Picker || ColorPicker---- --> */
-
-/* -----------End of theming stuff---------------- */
+/* ----------------------- */
 
 #menuButton {
 	position: fixed;
