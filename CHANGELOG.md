@@ -18,13 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
+- Added custom icon load for shortcuts ([@smurf11k](https://github.com/smurf11k)) [#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/)
 
 ### Improved
 
 - Introduced collapsible sections in the settings menu for improved organization and easier navigation ([@prem-k-r](https://github.com/prem-k-r)) ([#109](https://github.com/prem-k-r/MaterialYouNewTab/pull/109))
 - Redesigned the theme selector from dropdown to buttons for easier switching between Light, Dark, and System modes ([@prem-k-r](https://github.com/prem-k-r)) ([#112](https://github.com/prem-k-r/MaterialYouNewTab/pull/112))
 - Added expanding animations to todo and Google apps panels and some other minor UI changes ([@prem-k-r](https://github.com/prem-k-r)) ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
-- Added custom icon load for shortcuts ([@smurf11k](https://github.com/smurf11k))
 
 ### Fixed
 
