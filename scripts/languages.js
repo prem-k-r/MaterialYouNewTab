@@ -39,6 +39,7 @@ const translations = {
     th: th, // Thai
     pl: pl, // Polish
     uk: uk, // Ukrainian
+    sv: sv, // Swedish
 };
 
 // Define the width of the menu container for each language
@@ -46,6 +47,7 @@ const menuWidths = {
     en: "443px",
     ta: "522px",
     pt: "512px",
+    sv: "472px",
     bn: "458px",
     uz: "497px",
     vi: "487px",
@@ -88,7 +90,7 @@ function localizeNumbers(text, language) {
     const map = numberMappings[language]; // Get the numeral map for the current language
 
     // Define languages that use a comma as the decimal separator instead of a dot
-    const specialDecimalLanguages = ["cs", "it", "pt", "ru", "tr", "vi", "uz", "es", "ko", "idn", "fr", "az", "sl", "hu", "de", "fa", "el", "uk"]; // Add more languages here as needed
+    const specialDecimalLanguages = ["cs", "it", "pt", "ru", "tr", "vi", "uz", "es", "ko", "idn", "fr", "az", "sl", "hu", "de", "fa", "el", "uk", "sv"]; // Add more languages here as needed
 
     if (specialDecimalLanguages.includes(language)) {
         // Replace decimal point with a comma for specific languages
@@ -113,7 +115,7 @@ const rtlLanguages = ["ur", "fa", "ar_SA"];
 
 // Function to apply the language to the page
 function applyLanguage(lang) {
-    document.title = translations[lang]?.newTabTitle || translations["en"].newTabTitle
+    document.title = translations[lang]?.newTabTitle || translations["en"].newTabTitle;
 
     // Mapping of text elements and their translation keys
     const translationMap = [
