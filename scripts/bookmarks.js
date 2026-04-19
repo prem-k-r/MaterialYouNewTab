@@ -27,7 +27,7 @@ let currentBookmarkId = null;
 
 const sortAlphabetical = document.getElementById("sortAlphabetical");
 const sortTimeAdded = document.getElementById("sortTimeAdded");
-let currentSortMethod = localStorage.getItem("bookmarkSortMethod") || 'title';
+let currentSortMethod = Storage.getItem("bookmarkSortMethod") || 'title';
 
 var bookmarksAPI;
 if (isFirefox) {
@@ -135,7 +135,7 @@ bookmarkSearch.addEventListener("input", function () {
 sortAlphabetical.addEventListener("click", function () {
     if (!this.classList.contains("active")) {
         currentSortMethod = 'title';
-        localStorage.setItem("bookmarkSortMethod", "title");
+        Storage.setItem("bookmarkSortMethod", "title");
         updateSortButtons();
         loadBookmarks();
     }
@@ -144,7 +144,7 @@ sortAlphabetical.addEventListener("click", function () {
 sortTimeAdded.addEventListener("click", function () {
     if (!this.classList.contains("active")) {
         currentSortMethod = 'date';
-        localStorage.setItem("bookmarkSortMethod", "date");
+        Storage.setItem("bookmarkSortMethod", "date");
         updateSortButtons();
         loadBookmarks();
     }

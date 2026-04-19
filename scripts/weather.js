@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const weatherOptions = document.querySelector(".weatherOptions");
 
     // Retrieve saved state
-    const isHidden = localStorage.getItem("hideWeatherVisible") === "true";
+    const isHidden = Storage.getItem("hideWeatherVisible") === "true";
     hideWeatherCheckbox.checked = isHidden;
 
     function applyWeatherState(hidden) {
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     hideWeatherCheckbox.addEventListener("change", () => {
         const hidden = hideWeatherCheckbox.checked;
-        localStorage.setItem("hideWeatherVisible", hidden);
+        Storage.setItem("hideWeatherVisible", hidden);
 
         applyWeatherState(hidden);
 
@@ -63,16 +63,16 @@ async function getWeatherData() {
     const locationCont = document.getElementById("locationCont");
     const locationSuggestions = document.getElementById("locationSuggestions");
 
-    // Load saved data from localStorage
-    const savedApiKey = localStorage.getItem("weatherApiKey");
-    const savedLocation = localStorage.getItem("weatherLocation");
+    // Load saved data from Storage
+    const savedApiKey = Storage.getItem("weatherApiKey");
+    const savedLocation = Storage.getItem("weatherLocation");
 
     // Pre-fill input fields with saved data
     if (savedLocation) userLocInput.value = savedLocation;
     if (savedApiKey) userAPIInput.value = savedApiKey;
 
     const minMaxTempCheckbox = document.getElementById("minMaxTempCheckbox");
-    const isMinMaxEnabled = localStorage.getItem("minMaxTempEnabled") === "true";
+    const isMinMaxEnabled = Storage.getItem("minMaxTempEnabled") === "true";
     minMaxTempCheckbox.checked = isMinMaxEnabled;
 
     document.getElementById("feelsLike").textContent = isMinMaxEnabled
@@ -90,10 +90,10 @@ async function getWeatherData() {
     userAPIInput.addEventListener("keydown", (event) => handleEnterPress(event, "saveAPI"));
     userLocInput.addEventListener("keydown", (event) => handleEnterPress(event, "saveLoc"));
 
-    // Save API key to localStorage
+    // Save API key to Storage
     saveAPIButton.addEventListener("click", () => {
         const apiKey = userAPIInput.value.trim();
-        localStorage.setItem("weatherApiKey", apiKey);
+        Storage.setItem("weatherApiKey", apiKey);
         userAPIInput.value = "";
         location.reload();
     });
@@ -108,10 +108,10 @@ async function getWeatherData() {
                 gpsToggle.checked = false; // Revert toggle if user cancels
                 return;
             }
-            localStorage.setItem("useGPS", true);
+            Storage.setItem("useGPS", true);
             locationCont.classList.add("inactive");
         } else {
-            localStorage.setItem("useGPS", false);
+            Storage.setItem("useGPS", false);
             locationCont.classList.remove("inactive");
         }
         location.reload();
@@ -120,8 +120,8 @@ async function getWeatherData() {
     // Handle manual location input
     saveLocButton.addEventListener("click", () => {
         const userLocation = userLocInput.value.trim();
-        localStorage.setItem("weatherLocation", userLocation);
-        localStorage.setItem("useGPS", false);
+        Storage.setItem("weatherLocation", userLocation);
+        Storage.setItem("useGPS", false);
         userLocInput.value = "";
         fetchWeather();
         location.reload();
@@ -248,7 +248,7 @@ async function getWeatherData() {
         userLocInput.value = locationText;
 
         locationSuggestions.style.display = "none";
-        localStorage.setItem("weatherLocation", JSON.stringify(selectedLocation));
+        Storage.setItem("weatherLocation", JSON.stringify(selectedLocation));
         saveLocButton.click();
         suggestions = [];
         toggleAutocomplete();
@@ -300,8 +300,8 @@ async function getWeatherData() {
     // Determine the location to use
     let currentUserLocation = savedLocation;
 
-    // Load the saved GPS state from localStorage
-    const useGPS = JSON.parse(localStorage.getItem("useGPS")) || false;
+    // Load the saved GPS state from Storage
+    const useGPS = JSON.parse(Storage.getItem("useGPS")) || false;
     gpsToggle.checked = useGPS;
     if (useGPS) locationCont.classList.add("inactive");
 
@@ -356,10 +356,10 @@ async function getWeatherData() {
     // Fetch weather data based on a location
     async function fetchWeather() {
         try {
-            let parsedData = JSON.parse(localStorage.getItem("weatherParsedData"));
-            const weatherParsedTime = parseInt(localStorage.getItem("weatherParsedTime"));
-            const weatherParsedLocation = localStorage.getItem("weatherParsedLocation");
-            const weatherParsedLang = localStorage.getItem("weatherParsedLang");
+            let parsedData = JSON.parse(Storage.getItem("weatherParsedData"));
+            const weatherParsedTime = parseInt(Storage.getItem("weatherParsedTime"));
+            const weatherParsedLocation = Storage.getItem("weatherParsedLocation");
+            const weatherParsedLang = Storage.getItem("weatherParsedLang");
 
             const retentionTime = savedApiKey ? 435000 : 960000; // 7.25 min for user-entered API key, 16 min otherwise
 
@@ -407,11 +407,11 @@ async function getWeatherData() {
                         }
                     };
 
-                    // Save filtered weather data to localStorage
-                    localStorage.setItem("weatherParsedData", JSON.stringify(filteredData));
-                    localStorage.setItem("weatherParsedTime", Date.now()); // Save time of last fetching
-                    localStorage.setItem("weatherParsedLocation", currentUserLocation); // Save user location
-                    localStorage.setItem("weatherParsedLang", currentLanguage); // Save language preference
+                    // Save filtered weather data to Storage
+                    Storage.setItem("weatherParsedData", JSON.stringify(filteredData));
+                    Storage.setItem("weatherParsedTime", Date.now()); // Save time of last fetching
+                    Storage.setItem("weatherParsedLocation", currentUserLocation); // Save user location
+                    Storage.setItem("weatherParsedLang", currentLanguage); // Save language preference
                 }
             }
 
@@ -538,7 +538,7 @@ async function getWeatherData() {
                 // Update location
                 let city = parsedData.location.name;
                 let maxLength = 10;
-                let isLocationHidden = localStorage.getItem("locationHidden") === "true";
+                let isLocationHidden = Storage.getItem("locationHidden") === "true";
 
                 const locationTile = document.querySelector(".tiles.location");
                 const locationIcon = locationTile.querySelector(".location-icon");
@@ -580,7 +580,7 @@ async function getWeatherData() {
                 locationIcon.addEventListener("click", (e) => {
                     e.stopPropagation();
                     isLocationHidden = !isLocationHidden;
-                    localStorage.setItem("locationHidden", isLocationHidden);
+                    Storage.setItem("locationHidden", isLocationHidden);
                     updateLocationText();
 
                     // Update icon immediately
@@ -613,6 +613,6 @@ loadCheckboxState("fahrenheitCheckboxState", fahrenheitCheckbox);
 // Handle min-max temp checkbox state change
 minMaxTempCheckbox.addEventListener("change", () => {
     const isChecked = minMaxTempCheckbox.checked;
-    localStorage.setItem("minMaxTempEnabled", isChecked);
+    Storage.setItem("minMaxTempEnabled", isChecked);
     location.reload();
 });

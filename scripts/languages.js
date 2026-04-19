@@ -304,8 +304,8 @@ function applyLanguage(lang) {
     if (translations[lang]) {
         const placeholder = translations[lang]?.userText || translations["en"].userText;
         userTextDiv.dataset.placeholder = placeholder; // Update the placeholder in data attribute
-        // Only set the text content if there's nothing in localStorage
-        if (!localStorage.getItem("userText")) {
+        // Only set the text content if there's nothing in Storage
+        if (!Storage.getItem("userText")) {
             userTextDiv.innerText = placeholder;
         }
     }
@@ -385,7 +385,7 @@ function applyLanguage(lang) {
     // quotesText.style.textAlign = isRTL ? "right" : "left";
     quotesText.style.fontFamily = commonFontStack;
 
-    // Save the selected language in localStorage
+    // Save the selected language in Storage
     document.documentElement.lang = currentLanguage;
     saveLanguageStatus("selectedLanguage", lang);
 }
@@ -403,12 +403,12 @@ window.onload = function () {
     applyLanguage(savedLanguage);
 };
 
-// Function to save the language status in localStorage
+// Function to save the language status to Storage
 function saveLanguageStatus(key, languageStatus) {
-    localStorage.setItem(key, languageStatus);
+    Storage.setItem(key, languageStatus);
 }
 
-// Function to get the language status from localStorage
+// Function to get the language status from Storage
 function getLanguageStatus(key) {
-    return localStorage.getItem(key);
+    return Storage.getItem(key);
 }
