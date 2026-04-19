@@ -84,6 +84,20 @@ syncThemeChange(systemTheme);
     initializeThemeMode();
 })();
 
+// Hide loading screen with smooth fade-out
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById("LoadingScreen");
+    if (!loadingScreen || loadingScreen.classList.contains("fade-out")) return;
+    loadingScreen.classList.add("fade-out");
+    loadingScreen.addEventListener("transitionend", () => {
+        loadingScreen.style.display = "none";
+    }, { once: true });
+    // Fallback in case transitionend doesn't fire
+    setTimeout(() => {
+        loadingScreen.style.display = "none";
+    }, 500);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     // Check for custom color
     const storedCustomColor = localStorage.getItem(customThemeStorageKey);
@@ -106,8 +120,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Remove Loading Screen when the DOM and the theme has loaded
-    document.getElementById("LoadingScreen").style.display = "none";
+    // Signal that theme is ready; loading screen will be hidden
+    // once both theme and wallpaper are ready
+    window._themeReady = true;
+    if (window._wallpaperReady) {
+        hideLoadingScreen();
+    }
+
+    // Safety: ensure loading screen is hidden even if wallpaper never signals
+    setTimeout(() => {
+        if (!window._wallpaperReady) {
+            window._wallpaperReady = true;
+            hideLoadingScreen();
+        }
+    }, 3000);
 
     // Stop blinking of some elements when the page is reloaded
     setTimeout(() => {
