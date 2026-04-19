@@ -1,5 +1,6 @@
 // Ukrainian
 const uk = {
+    "newTabTitle": "Нова вкладка",
     // Menu Items
     "github": "GitHub",
     "feedback": "Відгук",
