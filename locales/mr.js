@@ -1,9 +1,18 @@
 // Marathi
 const mr = {
+    "newTabTitle": "नवा टैब",
     // Menu Items
     "github": "गिटहब",
     "feedback": "प्रतिसाद",
-
+    
+    // Section titles
+    "personalizationSectionTitle": "वैयक्तिकरण",
+    "clockSectionTitle": "घड्याळ",
+    "searchSectionTitle": "शोधा",
+    "weatherSectionTitle": "हवामान",
+    "appearanceSectionTitle": "रंगरूप",
+    "settingsSectionTitle": "सेटिंग्ज",
+    
     // Shortcuts
     "shortcutsText": "शॉर्टकट्स",
     "enableShortcutsText": "जतन केलेले शॉर्टकट दाखवा",
@@ -28,6 +37,8 @@ const mr = {
     "todoPlaceholder": "कार्य जोडा...",
 
     // Digital Clock
+    "hideClockBox": "घड्याळ लिपवा",
+    "hideClockBoxInfo": "घड्याळ आणि तारीख दाखवा किंवा लिपवा",
     "digitalclocktitle": "डिजिटल घड्याळ",
     "digitalclockinfo": "डिजिटल घड्याळावर स्विच करा",
     "timeformattitle": "१२-तासांचा फॉरमॅट",
@@ -38,39 +49,46 @@ const mr = {
     // Misc
     "userTextTitle": "सानुकूल मजकूर",
     "userTextInfo": "घड्याळाखाली सानुकूल मजकूर दाखवा",
-    "fahrenheitCelsiusCheckbox": "फॅरेनहाइटमध्ये बदल करा",
+    "fahrenheitCelsiusCheckbox": "फॅरनहाइटमध्ये दाखवा",
     "fahrenheitCelsiusText": "बदल लागू करण्यासाठी पृष्ठ रीफ्रेश करा",
     "hideWeatherTitle": "हवामान लपवा",
-    "hideWeatherInfo": "हवामान विजेट अक्षम करा",
+    "hideWeatherInfo": "हवामान विजेट निष्क्रिय करा",
     "hideWeatherBox": "हवामान कार्ड लपवा",
-    "hideWeatherBoxInfo": "केवळ तापमान पिल दाखवा",
+    "hideWeatherBoxInfo": "फक्त तापमान पिल दाखवा",
+    "minMaxTempText": "किमान-अधिकतम तापमान",
+    "minMaxTempSubText": "भासणार्या तापमानाच्या जागी किमान व अधिकतम तापमान दाखवा",
 
     // Search
-    "micIconTitle": "मायक्रोफोन आयकॉन लपवा",
-    "micIconInfo": "जर व्हॉइस टायपिंग कार्यरत नसेल",
-    "hideSearchWith": "सर्च इंजिन सिलेक्टर लपवा",
+    "micIconTitle": "मायक्रोफोनचे चिन्ह लपवा",
+    "micIconInfo": "जर व्हॉइस टायपिंग चालत नसेल",
+    "hideSearchWith": "सर्च इंजिने लपवा",
     "hideSearchWithInfo": "आयकॉनवर क्लिक करून सर्च इंजिन बदला",
+    "motivationalQuotesText": "प्रेरणादायी सुविचार",
+    "motivationalQuotesInfo": "शोधपट्टीच्या च्या सुविचार दाखवा",
     "search_suggestions_button": "शोध सूचना",
-    "search_suggestions_text": "शोध सूचना सक्षम करा",
+    "search_suggestions_text": "शोध सूचना चालू करा",
 
     // Proxy
     "useproxytitletext": "प्रॉक्सी बायपास",
-    "useproxyText": "जर शोध सूचना कार्यरत नसतील",
+    "useproxyText": "जर शोध सूचना चालत नसेल",
     "ProxyText": "CORS बायपास प्रॉक्सी",
     "ProxySubtext": "आपला स्वतःचा CORS बायपास प्रॉक्सी जोडा",
     "HostproxyButton": "आपला प्रॉक्सी होस्ट करा",
 
     // Location
-    "UserLocText": "आपले स्थान प्रविष्ट करा",
+    "useGPS": "GPSचा उपयोग",
+    "useGPSInfo": "लाइव स्थान अपडेट करण्यासाठी GPS सुरू करा",
+    "UserLocText": "आपले स्थान नोंद करा",
     "UserLocSubtext": "जर हवामानाचे स्थान बरोबर नसेल",
     "userLoc": "आपले शहर किंवा समन्वय (अक्षांश, रेखांश)",
+    "PrivacyPolicy": "गोपनीयता धोरणे",
 
     // Weather
-    "WeatherApiText": "आपली WeatherAPI की प्रविष्ट करा",
+    "WeatherApiText": "आपली WeatherAPI key नोंदवा",
     "WeatherApiSubtext": "जर हवामान कार्यरत नसेल",
     "userAPI": "आपली WeatherAPI कळी",
     "useGPS": "GPS वापरा",
-    "LearnMoreButton": "अधिक जाणून घ्या",
+    "LearnMoreButton": "अधिक माहिती",
     "saveAPI": "जतन करा",
 
     // Body Items
@@ -86,12 +104,12 @@ const mr = {
     "bookmarkViewList": "लिस्ट",
     "bookmarkSearch": "बुकमार्क शोधा",
     "editBookmarkHeading": "बुकमार्क संपादित करा",
-    "editBookmarkName": "बुकमार्क नाव",
-    "editBookmarkURL": "बुकमार्क URL",
+    "editBookmarkName": "बुकमार्कचे नाव",
+    "editBookmarkURL": "बुकमार्कचे URL",
 
     // New Tab Item
     "conditionText": "नमस्कार! तुम्ही आज कसे आहात?",
-    "humidityLevel": "आर्द्रता",
+    "humidityLevel": "दमटपणा",
     "feelsLike": "वाटते",
     "location": "पृथ्वी",
     "enterBtn": "शोधा",
@@ -132,10 +150,17 @@ const mr = {
     "metaAI": "मेटा AI",
     "firefly": "अडोबी फायरफ्लाय",
     "resetAISettingsBtn": "रीसेट करा",
-
+    
+    // Theme
+    "lightThemed": "लाइट",
+    "darkThemed": "डार्क",
+    "systemThemed": "सिस्टम",
+    
     // Wallpaper and settings
     "uploadWallpaperText": "वॉलपेपर सेट करा",
     "rangColor": "रंग निवडा",
+    "opacityTitle": "अपारदर्शकता",
+    "adjustOpacityDesc": "इंटरफेसची अपारदर्शकता समायोजित करा",
     "backupText": "बॅकअप करा",
     "restoreText": "पुनर्संचयित करा",
     "resetsettings": "सेटिंग्ज रीसेट करा",
