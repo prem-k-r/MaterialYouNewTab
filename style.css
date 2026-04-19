@@ -2543,6 +2543,16 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 	mix-blend-mode: normal;
 }
 
+.shortcutsContainer .shortcuts .shortcutLogoContainer img.custom-shortcut-icon {
+	height: 80%;
+	width: 80%;
+	border-radius: 20%;
+	object-fit: contain;
+	background: transparent;
+	filter: none;
+	mix-blend-mode: normal;
+}
+
 /* Adaptive Icons styling */
 .adaptive-icons .shortcuts .shortcutLogoContainer img {
 	height: calc(100% * 0.7071) !important;
@@ -3521,6 +3531,14 @@ input:checked + .toggle:before {
 	will-change: transform, opacity;
 }
 
+.shortcutInputGroup {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 .shortcutSettingsEntry:last-child {
 	margin-bottom: 0;
 }
@@ -3542,6 +3560,12 @@ input:checked + .toggle:before {
 	font-size: 0.84rem;
 	opacity: 0.9;
 	margin-top: -3px;
+}
+
+.shortcutSettingsEntry .iconURL {
+	font-size: 0.76rem;
+	opacity: 0.9;
+	margin-top: -2px;
 }
 
 /* Drag and drop styles */
@@ -3591,6 +3615,13 @@ input:checked + .toggle:before {
 	transform: none;
 }
 
+.shortcutActions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-inline-start: 10px;
+}
+
 .delete button {
 	fill: var(--textColorDark-blue);
 	display: flex;
@@ -3603,6 +3634,31 @@ input:checked + .toggle:before {
 	border-radius: 7px;
 	cursor: pointer;
 	transition: 0.3s all;
+}
+
+.uploadCustomIconButton {
+	fill: var(--textColorDark-blue);
+	color: var(--textColorDark-blue);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 46px;
+	height: 46px;
+	background: rgba(255, 255, 255, 0.4);
+	border: none;
+	border-radius: 7px;
+	cursor: pointer;
+	transition: 0.3s all;
+}
+
+.uploadCustomIconButton:not(.inactive):hover {
+	fill: white;
+	color: white;
+	background: var(--darkColor-blue);
+}
+
+.uploadCustomIconButton svg {
+	pointer-events: none;
 }
 
 .delete button:not(.inactive):hover {
@@ -3638,7 +3694,7 @@ input:checked + .toggle:before {
 	height: 50px;
 	display: flex;
 	justify-content: space-between;
-	margin-top: 19px;
+	background: color-mix(in srgb, var(--darkColor-blue) 14%, transparent);
 	gap: 20px;
 }
 
@@ -5080,6 +5136,18 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 .black-theme .shortcutSettingsEntry {
 	background-color: var(--bg-color-dark);
+}
+
+.black-theme .uploadCustomIconButton {
+	background: #232221;
+	color: var(--textColorDark-dark);
+	fill: var(--textColorDark-dark);
+}
+
+.black-theme .uploadCustomIconButton:not(.inactive):hover {
+	background: #404040;
+	color: var(--whitishColor-dark);
+	fill: var(--whitishColor-dark);
 }
 
 .black-theme .delete button {
