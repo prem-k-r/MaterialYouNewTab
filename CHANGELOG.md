@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
+- Added a Finance Dock to display real-time stock and cryptocurrency trends at the bottom of the page ([`@Jmersh`](https://github.com/Jmersh)) ([`#176`](https://github.com/prem-k-r/MaterialYouNewTab/pull/176))
+- Added support for adding custom symbols (e.g., AAPL, BTC-USD) and removing them via right-click ([`@Jmersh`](https://github.com/Jmersh)) ([`#176`](https://github.com/prem-k-r/MaterialYouNewTab/pull/176))
+- Added real-time currency conversion to display stocks in a preferred currency (USD, EUR, GBP) using Yahoo Finance exchange rates ([`@Jmersh`](https://github.com/Jmersh)) ([`#176`](https://github.com/prem-k-r/MaterialYouNewTab/pull/176))
+- Added Finance customization settings: Stack in rows (wrap mode), Compact mode (hide price), and toggle between percentage or numerical price change ([`@Jmersh`](https://github.com/Jmersh)) ([`#176`](https://github.com/prem-k-r/MaterialYouNewTab/pull/176))
 
 ### Improved
 

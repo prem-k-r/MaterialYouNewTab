@@ -2361,6 +2361,114 @@ html[lang="ur"] .qtRounder2 {
 	right: -1.5px;
 }
 
+/* ==========================================================================
+   FINANCE TICKER - MATERIAL YOU (V4 FINAL)
+   ========================================================================== */
+
+.finance-dock {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	min-height: 60px;
+	display: flex;
+	align-items: center;
+	background: color-mix(in srgb, var(--accentLightTint-blue) 40%, transparent);
+	backdrop-filter: blur(12px);
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	z-index: 100;
+	box-sizing: border-box;
+	padding: 0; /* Padding moved to ticker for better scrolling */
+}
+
+.stock-ticker {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	overflow-x: auto;
+	scrollbar-width: none;
+	width: 100%;
+	height: 100%;
+	padding: 10px 20px;
+	/* 120px padding on the right ensures the last stock isn't hidden by the settings button */
+	padding-inline-end: 120px;
+	box-sizing: border-box;
+}
+
+/* Center stocks when there are only a few, but allow scrolling when many */
+.stock-ticker:not(.wrap-mode):after {
+	content: '';
+	flex: 0 0 1px;
+}
+
+/* Ensure wrapped rows are centered */
+.stock-ticker.wrap-mode {
+	flex-wrap: wrap;
+	justify-content: center;
+	padding-inline-end: 20px; /* Reset the extra padding when wrapping */
+}
+
+
+
+.stock-ticker::-webkit-scrollbar { display: none; }
+
+/* Individual Pills */
+.stock-pill {
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	gap: 8px;
+	background-color: var(--whitishColor-blue);
+	padding: 6px 14px;
+	border-radius: 16px;
+	white-space: nowrap;
+	height: 36px;
+	border: 1px solid rgba(0,0,0,0.05);
+	transition: transform 0.2s ease;
+}
+
+.stock-pill:hover { transform: translateY(-2px); }
+.stock-pill .sym { font-weight: 700; color: var(--textColorDark-blue); font-size: 0.85rem; }
+.stock-pill .price { opacity: 0.7; font-size: 0.8rem; color: var(--textColorDark-blue); }
+
+.stock-pill .change {
+	font-weight: 800;
+	font-size: 0.75rem;
+	padding: 2px 8px;
+	border-radius: 8px;
+}
+
+.stock-pill.compact { padding: 4px 10px; height: 28px; }
+.stock-pill.compact .price { display: none; }
+
+.stock-pill .change.up { color: #1b5e20; background-color: rgba(76, 175, 80, 0.15); }
+.stock-pill .change.down { color: #b71c1c; background-color: rgba(244, 67, 54, 0.15); }
+
+/* Settings UI Specifics */
+.finance-input-row { display: flex; gap: 10px; margin-top: 12px; }
+#stockInput {
+	flex: 1;
+	background-color: var(--bg-color-blue) !important;
+	border-radius: 12px !important;
+	padding: 8px 12px !important;
+	height: 36px !important;
+	border: none !important;
+}
+#addStockBtn {
+	background-color: var(--darkColor-blue);
+	color: white;
+	border: none;
+	border-radius: 20px;
+	padding: 0 18px;
+	cursor: pointer;
+}
+
+/* Dark Mode Overrides */
+.black-theme .stock-pill { background-color: var(--darkColor-dark); border: none; }
+.black-theme .finance-dock { background: rgba(0,0,0,0.4); }
+.black-theme .stock-pill .change.up { color: #81c784; }
+
+
 /* ----------Shortcuts----------------- */
 
 #shortcuts-section {
@@ -2377,6 +2485,16 @@ html[lang="ur"] .qtRounder2 {
 	overflow: scroll;
 	scrollbar-width: none;
 	margin: auto;
+}
+/* Push shortcuts up if the finance dock is active */
+body:has(#financeDock[style*="display: flex"]) #shortcuts-section {
+	z-index: 110; /* Higher than the Finance Dock's 100 */
+	bottom: 85px;
+}
+
+/* Sync the AI Tools tray to the same height as the shortcuts */
+body:has(#financeDock[style*="display: flex"]) .aiToolsCont {
+	bottom: calc(85px + var(--gap));
 }
 
 #shortcuts-section::-webkit-scrollbar {
@@ -4050,6 +4168,7 @@ option:checked {
 	bottom: var(--gap);
 	width: 50px;
 	height: 50px;
+	z-index: 101; /* This keeps it above the dock */
 	background-color: var(--accentLightTint-blue);
 	border-radius: 50%;
 	border: 6px solid var(--accentLightTint-blue);

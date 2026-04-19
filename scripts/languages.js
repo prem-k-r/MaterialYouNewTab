@@ -227,6 +227,8 @@ function applyLanguage(lang) {
         "resetAISettingsBtn",
         "opacityTitle",
         "adjustOpacityDesc",
+        "financeTitleText",
+        "financeInfoText",
         "footerToastTitle",
         "footerToastMessage",
         "personalizationSectionTitle",
@@ -234,12 +236,26 @@ function applyLanguage(lang) {
         "searchSectionTitle",
         "weatherSectionTitle",
         "appearanceSectionTitle",
-        "settingsSectionTitle"
+        "settingsSectionTitle",
+        "financeSectionTitle",
+        "financeTitleText",
+        "financeInfoText",
+        "financeStackText",
+        "financeStackInfo",
+        "financeCompactText",
+        "financeCompactInfo",
+        "financeValueText",
+        "financeValueInfo",
+        "financeAddText",
+        "financeAddSubtext",
+        "financeCurrencyText",
+        "financeCurrencySubtext"
     ];
 
     // Specific mapping for placeholders
     const placeholderMap = [
         { id: "userLoc", key: "userLoc" },
+        { id: "stockInput", key: "financeInputPlaceholder" },
         { id: "userAPI", key: "userAPI" },
         { id: "searchQ", key: "searchPlaceholder" },
         { id: "todoInput", key: "todoPlaceholder" },
@@ -271,6 +287,7 @@ function applyLanguage(lang) {
         { id: "editBookmarkNameLabel", key: "editBookmarkName" },
         { id: "editBookmarkURLLabel", key: "editBookmarkURL" },
         { id: "shortcutsSectionTitle", key: "shortcutsText" },
+        { id: "addStockBtn", key: "financeAddButton" } // Uses the existing "Add" style translation
     ];
 
     // Function to apply translations

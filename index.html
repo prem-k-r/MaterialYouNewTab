@@ -42,6 +42,7 @@
     <script defer src="scripts/google-apps.js"></script>
     <script defer src="scripts/voice-search.js"></script>
     <script defer src="scripts/backup-restore.js"></script>
+    <script defer src="scripts/finance.js"></script>
 
     <!-- LANGUAGES SCRIPTS -->
     <script src="locales/pt.js"></script>
@@ -1370,6 +1371,90 @@
                             </div>
                         </div>
 
+                        <div class="section expanded">
+                            <div class="sectionOuter">
+                                <div class="sectionHeader" role="button">
+                                    <span class="sectionTitle" id="financeSectionTitle">Finance Settings</span>
+                                    <span class="sectionChevron"></span>
+                                </div>
+                                <div class="sectionInner">
+                                    <!-- Visibility Toggle -->
+                                    <div class="ttcont">
+                                        <div class="texts">
+                                            <div class="bigText" id="financeTitleText">Finance Dock</div>
+                                            <div class="infoText" id="financeInfoText">Show market trends at the bottom</div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="financeCheckbox" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <!-- Stack in Rows Toggle -->
+                                    <div class="ttcont">
+                                        <div class="texts">
+                                            <div class="bigText" id="financeStackText">Stack in Rows</div>
+                                            <div class="infoText" id="financeStackInfo">Wrap stocks instead of scrolling</div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="financeWrapToggle" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <!-- Compact Mode Toggle -->
+                                    <div class="ttcont">
+                                        <div class="texts">
+                                            <div class="bigText" id="financeCompactText">Compact Mode</div>
+                                            <div class="infoText" id="financeCompactInfo">Reduce pill size to fit more</div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="financeCompactToggle" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <!-- Display Value Toggle -->
+                                    <div class="ttcont">
+                                        <div class="texts">
+                                            <div class="bigText" id="financeValueText">Display Value</div>
+                                            <div class="infoText" id="financeValueInfo">Show price change instead of percentage</div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="financeValueToggle" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <!-- Add Symbol Input -->
+                                    <div class="ttcont unflex">
+                                        <div class="texts">
+                                            <div class="bigText" id="financeAddText">Add Stocks/Crypto</div>
+                                            <div class="infoText" id="financeAddSubtext">Right-click a pill in the dock to remove</div>
+                                        </div>
+                                        <div class="finance-input-row">
+                                            <input type="text" id="stockInput" placeholder="AAPL, BTC-USD..." autocomplete="off">
+                                            <button id="addStockBtn" class="savebtn"></button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Currency Selector -->
+                                    <div class="ttcont">
+                                        <div class="texts">
+                                            <div class="bigText" id="financeCurrencyText">Currency</div>
+                                            <div class="infoText" id="financeCurrencySubtext">Force display currency</div>
+                                        </div>
+                                        <select id="currencySelector" class="languageSelector finance-select">
+                                            <option value="original">Default</option>
+                                            <option value="USD">USD ($)</option>
+                                            <option value="EUR">EUR (€)</option>
+                                            <option value="GBP">GBP (£)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- ---🟡--- -->
 
                         <div class="section expanded">
@@ -1949,6 +2034,13 @@
     <!-- ------end of Menu-bar----------- -->
     <div id="menuButton"></div>
     <!-- ending-of-body -->
+
+    <!-- FINANCE DOCK -->
+    <div id="financeDock" class="finance-dock" style="display: none;">
+        <div id="stockTicker" class="stock-ticker">
+            <!-- Stocks injected here as horizontal pills -->
+        </div>
+    </div>
 
 </body>
 
