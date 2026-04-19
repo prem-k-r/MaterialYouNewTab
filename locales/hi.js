@@ -1,5 +1,6 @@
 // Hindi
 const hi = {
+    "newTabTitle": "नया टैब",
     // Menu Items
     "github": "गिटहब",
     "feedback": "प्रतिक्रिया",
