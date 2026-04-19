@@ -234,7 +234,15 @@ html:has(
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
-	& .favicon {
+	& .favicon,
+	& .shortcutLogoContainer,
+	& .googleAppsCont .dot-icon,
+	& .bookmark-button,
+	& .todoListCont .dot-icon,
+	& .searchIcon svg,
+	& #aiToolsIcon,
+	& .micIcon,
+	& .tIcon {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -272,7 +280,15 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
-	& .favicon {
+	& .favicon,
+	& .shortcutLogoContainer,
+	& .googleAppsCont .dot-icon,
+	& .bookmark-button,
+	& .todoListCont .dot-icon,
+	& .searchIcon svg,
+	& #aiToolsIcon,
+	& .micIcon,
+	& .tIcon {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -4643,9 +4659,6 @@ body[data-bg="wallpaper"] .dropdown-content {
 	.toggleTextsCont .ttcont:has(#hideWeatherBox) {
 		display: flex;
 	}
-	.toggleTextsCont .ttcont:has(#hideClock) {
-		display: none;
-	}
 	.toggleTextsCont .ttcont:has(#shortcut_switchcheckbox) {
 		display: none;
 	}
@@ -4866,7 +4879,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: #cdcdcd;
 }
 
-.black-theme .shorcutDarkColor {
+.black-theme .shortcutDarkColor {
 	fill: var(--accentLightTint-dark) !important;
 }
 

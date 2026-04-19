@@ -134,12 +134,6 @@ const resetDarkTheme = () => {
             element.removeAttribute("style");
         }
     });
-
-    // Reset fill color for elements with the class "accentColor"
-    const accentElements = document.querySelectorAll(".accentColor");
-    accentElements.forEach((element) => {
-        element.style.fill = ""; // Reset fill color
-    });
 };
 
 // Function to apply the selected theme
@@ -176,9 +170,6 @@ const applySelectedTheme = (colorValue) => {
     // Handle dark mode specific changes
     if (isDarkMode) {
         document.documentElement.classList.add("black-theme");
-        document.querySelectorAll(".accentColor").forEach(el => {
-            el.style.fill = "#212121";
-        });
     }
 
     changeFaviconColor();
