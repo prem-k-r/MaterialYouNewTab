@@ -21,3 +21,14 @@
 - [ ] I have verified compatibility across Chrome and Firefox (additional browsers if applicable).
 - [ ] I have attached relevant visual evidence (screenshots/videos) if applicable.
 - [ ] I have updated the [CHANGELOG.md](https://github.com/prem-k-r/MaterialYouNewTab/blob/main/CHANGELOG.md) under the appropriate categories with all my changes in this PR.
+
+## 🤖 AI Assistance (Coding)
+
+- [ ] None  
+- [ ] Ideas / planning  
+- [ ] Debugging / review help  
+- [ ] Small code snippets  
+- [ ] Partial implementation  
+- [ ] Major implementation help  
+- [ ] Mostly AI-generated  
+- [ ] Full vibe coded
