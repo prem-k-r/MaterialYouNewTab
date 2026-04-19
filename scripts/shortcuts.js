@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
         name: "New shortcut",
         url: "https://github.com/prem-k-r/MaterialYouNewTab",
         inputName: "Shortcut Name",
-        inputUrl: "Shortcut URL"
+        inputUrl: "Shortcut URL",
+        inputSvg: "Shortcut SVG"
     };
 
     // DOM Elements
@@ -143,12 +144,13 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < amount; i++) {
             const name = localStorage.getItem(`shortcutName${i}`) || (presets[i] ? presets[i].name : PLACEHOLDER.name);
             const url = localStorage.getItem(`shortcutURL${i}`) || (presets[i] ? presets[i].url : PLACEHOLDER.url);
+            const svg = localStorage.getItem(`shortcutSVG${i}`) ?? (presets[i]?.svg ?? "");
 
-            shortcutsCache.push({ name, url });
+            shortcutsCache.push({ name, url, svg });
 
-            const entry = createShortcutEntry(name, url, deleteInactive, i);
+            const entry = createShortcutEntry(name, url, svg, deleteInactive, i);
             dom.shortcutSettingsContainer.appendChild(entry);
-            renderShortcut(name, url, i);
+            renderShortcut(name, url, svg, i);
         }
 
         // Disable new shortcut button if max reached
@@ -160,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Creates a shortcut entry element for the settings panel
-    function createShortcutEntry(name, url, deleteInactive, index) {
+    function createShortcutEntry(name, url, svg, deleteInactive, index) {
         const entry = document.createElement("div");
         entry.className = "shortcutSettingsEntry";
         entry.draggable = true;
@@ -180,6 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div>
                 <input class="shortcutName" placeholder="${PLACEHOLDER.inputName}" value="${escapeHtml(name)}">
                 <input class="URL" placeholder="${PLACEHOLDER.inputUrl}" value="${escapeHtml(url)}">
+                <input class="SVG" placeholder="${PLACEHOLDER.inputSvg}" value="${escapeHtml(svg)}">            
             </div>
             <div class="delete">
                 <button class="${deleteInactive ? 'inactive' : ''}">
@@ -199,37 +202,37 @@ document.addEventListener("DOMContentLoaded", function () {
         return entry;
     }
 
-    function createShortcutElement(name, url, index) {
+    function createShortcutElement(name, url, svg, index) {
         const normalizedUrl = normalizeUrl(url);
-
+    
         const shortcut = document.createElement("div");
         shortcut.className = "shortcuts";
         shortcut._index = index;
-
+    
         const link = document.createElement("a");
         link.href = normalizedUrl;
-
+    
         const logoContainer = document.createElement("div");
         logoContainer.className = "shortcutLogoContainer";
-
-        const logo = getLogoHtml(normalizedUrl);
+    
+        const logo = getLogoHtml(normalizedUrl, svg);
         if (logo) logoContainer.appendChild(logo);
-
+    
         const span = document.createElement("span");
         span.className = "shortcut-name";
         span.textContent = name;
-
+    
         link.appendChild(logoContainer);
         link.appendChild(span);
         shortcut.appendChild(link);
-
+    
         return shortcut;
     }
 
     // Renders a shortcut in the main view
-    function renderShortcut(name, url, index) {
-        const shortcut = createShortcutElement(name, url, index);
-
+    function renderShortcut(name, url, svg, index) {
+        const shortcut = createShortcutElement(name, url, svg, index);
+    
         if (index < dom.shortcutsContainer.children.length) {
             dom.shortcutsContainer.replaceChild(shortcut, dom.shortcutsContainer.children[index]);
         } else {
@@ -256,10 +259,82 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
+    function sanitizeSVG(svgString) {
+        if (!svgString || typeof svgString !== "string") return null;
+    
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgString, "image/svg+xml");
+    
+        const allowedTags = new Set([
+            "svg", "g", "path", "circle", "rect", "line",
+            "polyline", "polygon", "ellipse"
+        ]);
+    
+        const allowedAttrs = new Set([
+            "d", "fill", "stroke", "stroke-width",
+            "fill-rule", "clip-rule",
+            "stroke-linecap", "stroke-linejoin",
+            "viewbox", "cx", "cy", "r",
+            "x", "y", "width", "height",
+            "points", "transform", "xmlns",
+            "class", "style"
+        ]);
+    
+        function clean(node) {
+            // Remove disallowed elements (case-insensitive comparison)
+            if (!allowedTags.has(node.nodeName.toLowerCase())) {
+                node.remove();
+                return;
+            }
+    
+            // Remove dangerous attributes (case-insensitive comparison, remove by original name)
+            [...node.attributes].forEach(attr => {
+                const name = attr.name;
+                const nameLower = name.toLowerCase();
+                const value = attr.value;
+            
+                const isEvent = nameLower.startsWith("on");
+                const isHref = nameLower === "href" || nameLower === "xlink:href";
+                // Treat javascript: as dangerous and block url(...) except for internal SVG fragments url(#...)
+                const isDangerousUrl = /javascript:/i.test(value) || /url\s*\(\s*(?!['"]?#)/i.test(value);
+            
+                const isBadStyle = nameLower === "style" && !/^\s*transform\s*:/i.test(value);
+            
+                if (
+                    !allowedAttrs.has(nameLower) ||
+                    isEvent ||
+                    isHref ||
+                    isDangerousUrl ||
+                    isBadStyle
+                ) {
+                    node.removeAttribute(name);
+                }
+            });
+    
+            // Recursively clean children
+            [...node.children].forEach(child => clean(child));
+        }
+    
+        const svg = doc.documentElement;
+    
+        if (svg.nodeName === "parsererror" || svg.nodeName.toLowerCase() !== "svg") {
+            return null;
+        }
+    
+        clean(svg);
+    
+        return svg;
+    }
+    
     // Gets the appropriate logo HTML for a given URL
-    function getLogoHtml(url) {
+    function getLogoHtml(url, svg) {
         const hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
 
+        if (svg) {
+            const svgEl = sanitizeSVG(svg);
+            if (svgEl) return svgEl.cloneNode(true);
+        }
+        
         // GitHub shortcut
         if (hostname === "github.com") {
             const img = document.createElement("img");
@@ -297,6 +372,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 renderShortcut(
                     entry.querySelector(".shortcutName").value,
                     entry.querySelector(".URL").value,
+                    entry.querySelector(".SVG").value,
                     entry._index
                 );
             });
@@ -304,7 +380,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         inputs[0].addEventListener("keydown", e => e.key === "Enter" && inputs[1].focus());
-        inputs[1].addEventListener("keydown", e => e.key === "Enter" && e.target.blur());
+        inputs[1].addEventListener("keydown", e => e.key === "Enter" && inputs[2].focus());
+        inputs[2].addEventListener("keydown", e => e.key === "Enter" && e.target.blur());
     }
 
     // Drag and drop functionality for reordering shortcuts
@@ -564,7 +641,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const entries = dom.shortcutSettingsContainer.querySelectorAll(".shortcutSettingsEntry");
         const newOrder = Array.from(entries).map(entry => ({
             name: entry.querySelector(".shortcutName").value,
-            url: entry.querySelector(".URL").value
+            url: entry.querySelector(".URL").value,
+            svg: entry.querySelector(".SVG").value
         }));
 
         // Only save if order has changed
@@ -573,6 +651,7 @@ document.addEventListener("DOMContentLoaded", function () {
             newOrder.forEach((item, index) => {
                 localStorage.setItem(`shortcutName${index}`, item.name);
                 localStorage.setItem(`shortcutURL${index}`, item.url);
+                localStorage.setItem(`shortcutSVG${index}`, item.svg);
             });
 
             shortcutsCache = newOrder;
@@ -586,18 +665,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return newOrder.some((item, index) => {
             const cached = shortcutsCache[index];
-            return item.name !== cached.name || item.url !== cached.url;
+            return item.name !== cached.name || item.url !== cached.url || item.svg !== cached.svg;
         });
     }
 
     // Renders all shortcuts in the main view
     function renderAllShortcuts(order) {
         const fragment = document.createDocumentFragment();
-
+    
         order.forEach((item, index) => {
-            fragment.appendChild(createShortcutElement(item.name, item.url, index));
+            fragment.appendChild(
+                createShortcutElement(item.name, item.url, item.svg, index)
+            );
         });
-
+    
         dom.shortcutsContainer.innerHTML = "";
         dom.shortcutsContainer.appendChild(fragment);
     }
@@ -645,11 +726,11 @@ document.addEventListener("DOMContentLoaded", function () {
             dom.newShortcutButton.classList.add("inactive");
         }
 
-        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, false, currentAmount);
+        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, "" ,false, currentAmount);
         dom.shortcutSettingsContainer.appendChild(entry);
 
         saveShortcut(entry);
-        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, currentAmount);
+        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, "" ,currentAmount);
     }
 
     // Deletes a shortcut
@@ -670,6 +751,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         localStorage.removeItem(`shortcutName${currentAmount - 1}`);
         localStorage.removeItem(`shortcutURL${currentAmount - 1}`);
+        localStorage.removeItem(`shortcutSVG${currentAmount - 1}`);
 
         if (currentAmount - 1 === 1) {
             document.querySelectorAll(".delete button").forEach(b => {
@@ -697,6 +779,7 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < (localStorage.getItem("shortcutAmount") || 0); i++) {
             localStorage.removeItem(`shortcutName${i}`);
             localStorage.removeItem(`shortcutURL${i}`);
+            localStorage.removeItem(`shortcutSVG${i}`);
         }
         localStorage.removeItem("shortcutAmount");
 
@@ -717,5 +800,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function saveShortcut(entry) {
         localStorage.setItem(`shortcutName${entry._index}`, entry.querySelector(".shortcutName").value);
         localStorage.setItem(`shortcutURL${entry._index}`, entry.querySelector(".URL").value);
+        localStorage.setItem(`shortcutSVG${entry._index}`, entry.querySelector(".SVG").value);
     }
 });
