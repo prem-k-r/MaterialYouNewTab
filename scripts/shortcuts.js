@@ -231,6 +231,8 @@ document.addEventListener("DOMContentLoaded", function () {
             reader.onload = () => {
                 iconInput.value = reader.result;
                 saveShortcut(entry);
+                
+                // Render with the current icon value (may be empty if quota was exceeded)
                 renderShortcut(
                     entry.querySelector(".shortcutName").value,
                     entry.querySelector(".URL").value,
@@ -297,6 +299,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }[match]));
     }
 
+    // Validates custom icon URL for security
+    function isValidCustomIconUrl(url) {
+        if (!url || typeof url !== "string") return false;
+        
+        const trimmed = url.trim();
+        
+        if (trimmed.startsWith("data:image/")) {
+            return true;
+        }
+        
+        if (trimmed.startsWith("https://")) {
+            return true;
+        }
+        
+        return false;
+    }
+
     // Normalizes URLs to ensure they're valid
     function normalizeUrl(url) {
         url = url.trim();
@@ -307,17 +326,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Gets the appropriate logo HTML for a given URL
     function getLogoHtml(url, customIcon = "") {
-        const hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
-
-        if (customIcon && customIcon.trim()) {
+        if (customIcon && isValidCustomIconUrl(customIcon)) {
             const customIconImg = document.createElement("img");
             customIconImg.src = customIcon.trim();
             customIconImg.alt = "";
             customIconImg.classList.add("custom-shortcut-icon");
+            customIconImg.referrerPolicy = "no-referrer";
+            customIconImg.crossOrigin = "anonymous";
             customIconImg.addEventListener("error", () => {
                 customIconImg.src = "./svgs/offline.svg";
             }, { once: true });
             return customIconImg;
+        }
+
+        let hostname;
+        try {
+            hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
+        } catch (error) {
+            const offlineImg = document.createElement("img");
+            offlineImg.src = "./svgs/offline.svg";
+            offlineImg.alt = "";
+            return offlineImg;
         }
 
         // GitHub shortcut
@@ -341,6 +370,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         img.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256`;
         img.alt = "";
+        img.referrerPolicy = "no-referrer";
 
         img.addEventListener("error", () => {
             img.src = "./svgs/offline.svg";
@@ -632,15 +662,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Only save if order has changed
         if (hasOrderChanged(newOrder)) {
-            localStorage.setItem("shortcutAmount", newOrder.length.toString());
-            newOrder.forEach((item, index) => {
-                localStorage.setItem(`shortcutName${index}`, item.name);
-                localStorage.setItem(`shortcutURL${index}`, item.url);
-                localStorage.setItem(`shortcutIcon${index}`, item.icon || "");
-            });
+            try {
+                localStorage.setItem("shortcutAmount", newOrder.length.toString());
+                newOrder.forEach((item, index) => {
+                    localStorage.setItem(`shortcutName${index}`, item.name);
+                    localStorage.setItem(`shortcutURL${index}`, item.url);
+                    
+                    // Try to save icon, skip/clear if quota exceeded
+                    try {
+                        localStorage.setItem(`shortcutIcon${index}`, item.icon || "");
+                    } catch (iconError) {
+                        if (iconError.name === "QuotaExceededError") {
+                            // Remove icon due to quota
+                            localStorage.removeItem(`shortcutIcon${index}`);
+                            // Clear from UI as well
+                            const entry = entries[index];
+                            if (entry) entry.querySelector(".iconURL").value = "";
+                        } else {
+                            throw iconError;
+                        }
+                    }
+                });
 
-            shortcutsCache = newOrder;
-            renderAllShortcuts(newOrder);
+                shortcutsCache = newOrder;
+                renderAllShortcuts(newOrder);
+            } catch (error) {
+                console.error("Error saving shortcut order:", error);
+                if (error.name === "QuotaExceededError") {
+                    const message = "Could not save all shortcuts: storage quota exceeded. Please remove some icons or clear storage.";
+                    if (typeof alertPrompt === "function") {
+                        alertPrompt(message);
+                    } else {
+                        alert(message);
+                    }
+                }
+            }
         }
     }
 
@@ -781,8 +837,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Saves a single shortcut to localStorage
     function saveShortcut(entry) {
-        localStorage.setItem(`shortcutName${entry._index}`, entry.querySelector(".shortcutName").value);
-        localStorage.setItem(`shortcutURL${entry._index}`, entry.querySelector(".URL").value);
-        localStorage.setItem(`shortcutIcon${entry._index}`, entry.querySelector(".iconURL").value || "");
+        const index = entry._index;
+        const name = entry.querySelector(".shortcutName").value;
+        const url = entry.querySelector(".URL").value;
+        const iconInput = entry.querySelector(".iconURL");
+        const icon = iconInput.value || "";
+
+        try {
+            localStorage.setItem(`shortcutName${index}`, name);
+            localStorage.setItem(`shortcutURL${index}`, url);
+            
+            // Try to save icon separately to handle quota errors gracefully
+            try {
+                localStorage.setItem(`shortcutIcon${index}`, icon);
+            } catch (iconError) {
+                if (iconError.name === "QuotaExceededError") {
+                    // Icon is too large, clear it from input and localStorage
+                    iconInput.value = "";
+                    localStorage.removeItem(`shortcutIcon${index}`);
+                    
+                    const message = "Icon could not be saved: storage quota exceeded. Please use a smaller icon file.";
+                    if (typeof alertPrompt === "function") {
+                        alertPrompt(message);
+                    } else {
+                        alert(message);
+                    }
+                } else {
+                    throw iconError;
+                }
+            }
+        } catch (error) {
+            console.error("Error saving shortcut:", error);
+            if (error.name !== "QuotaExceededError") {
+                const message = "Failed to save shortcut. Please check your browser storage.";
+                if (typeof alertPrompt === "function") {
+                    alertPrompt(message);
+                } else {
+                    alert(message);
+                }
+            }
+        }
     }
 });
