@@ -1,5 +1,7 @@
 // Hungarian
 const hu = {
+  "newTabTitle": "Új oldal",
+
   // Menu Items
   "github": "GitHub",
   "feedback": "Visszajelzés",
@@ -94,27 +96,9 @@ const hu = {
   // Body Items
   // Calendar
   "days": [
-    "Vasárnap",
-    "Hétfő",
-    "Kedd",
-    "Szerda",
-    "Csütörtök",
-    "Péntek",
-    "Szombat"
+    "Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"
   ],
-  "months": [
-    "Január",
-    "Február",
-    "Március",
-    "Április",
-    "Május",
-    "Június",
-    "Július",
-    "Augusztus",
-    "Szeptember",
-    "Október",
-    "November",
-    "December"
+  "months": ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"
   ],
 
   // Bookmarks
@@ -131,7 +115,6 @@ const hu = {
   "editBookmarkURL": "Könyvjelző URL-je",
 
   // New Tab Item
-  "newTabTitle": "Új oldal"
   "conditionText": "Szia! Hogy vagy ma?",
   "humidityLevel": "Páratartalom",
   "minMaxTemp": "Min / Max",
