@@ -5414,3 +5414,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	color: var(--darkColor-dark);
 }
 /* ------------ End of Toast---------- */
+/* fix dark mode shortcut icon color */
+[data-theme="dark"] .shortcut {
+    filter: invert(1) contrast(1.2);
+}
