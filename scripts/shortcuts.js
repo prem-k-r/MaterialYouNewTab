@@ -230,15 +230,35 @@ document.addEventListener("DOMContentLoaded", function () {
             const reader = new FileReader();
             reader.onload = () => {
                 iconInput.value = reader.result;
-                saveShortcut(entry);
-                
-                // Render with the current icon value (may be empty if quota was exceeded)
-                renderShortcut(
-                    entry.querySelector(".shortcutName").value,
-                    entry.querySelector(".URL").value,
-                    iconInput.value,
-                    entry._index
-                );
+                try {
+                    saveShortcut(entry);
+                    
+                    // Render with the current icon value (may be empty if quota was exceeded)
+                    renderShortcut(
+                        entry.querySelector(".shortcutName").value,
+                        entry.querySelector(".URL").value,
+                        iconInput.value,
+                        entry._index
+                    );
+                } catch (err) {
+                    const msg = "Unable to save the icon — storage is full. Try removing other custom icons or using a smaller image.";
+                    if (typeof alertPrompt === "function") {
+                        alertPrompt(msg);
+                    } else {
+                        alert(msg);
+                    }
+                    iconInput.value = "";
+                } finally {
+                    fileInput.value = "";
+                }
+            };
+            reader.onerror = () => {
+                const msg = "Could not read the selected file. Please try a different image.";
+                if (typeof alertPrompt === "function") {
+                    alertPrompt(msg);
+                } else {
+                    alert(msg);
+                }
                 fileInput.value = "";
             };
             reader.readAsDataURL(selectedFile);
@@ -332,7 +352,6 @@ document.addEventListener("DOMContentLoaded", function () {
             customIconImg.alt = "";
             customIconImg.classList.add("custom-shortcut-icon");
             customIconImg.referrerPolicy = "no-referrer";
-            customIconImg.crossOrigin = "anonymous";
             customIconImg.addEventListener("error", () => {
                 customIconImg.src = "./svgs/offline.svg";
             }, { once: true });
@@ -678,6 +697,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             // Clear from UI as well
                             const entry = entries[index];
                             if (entry) entry.querySelector(".iconURL").value = "";
+                            // Keep cache/render consistent with persisted state
+                            item.icon = "";
                         } else {
                             throw iconError;
                         }
