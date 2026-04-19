@@ -295,7 +295,8 @@ document.addEventListener("DOMContentLoaded", function () {
             
                 const isEvent = nameLower.startsWith("on");
                 const isHref = nameLower === "href" || nameLower === "xlink:href";
-                const isDangerousUrl = /javascript:/i.test(value) || /url\s*\(/i.test(value);
+                // Treat javascript: as dangerous and block url(...) except for internal SVG fragments url(#...)
+                const isDangerousUrl = /javascript:/i.test(value) || /url\s*\(\s*(?!['"]?#)/i.test(value);
             
                 const isBadStyle = nameLower === "style" && !/^\s*transform\s*:/i.test(value);
             
