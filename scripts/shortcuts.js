@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
         name: "New shortcut",
         url: "https://github.com/prem-k-r/MaterialYouNewTab",
         inputName: "Shortcut Name",
-        inputUrl: "Shortcut URL"
+        inputUrl: "Shortcut URL",
+        inputIcon: "Custom Icon URL (optional)"
     };
 
     // DOM Elements
@@ -143,12 +144,13 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < amount; i++) {
             const name = localStorage.getItem(`shortcutName${i}`) || (presets[i] ? presets[i].name : PLACEHOLDER.name);
             const url = localStorage.getItem(`shortcutURL${i}`) || (presets[i] ? presets[i].url : PLACEHOLDER.url);
+            const icon = localStorage.getItem(`shortcutIcon${i}`) || "";
 
-            shortcutsCache.push({ name, url });
+            shortcutsCache.push({ name, url, icon });
 
-            const entry = createShortcutEntry(name, url, deleteInactive, i);
+            const entry = createShortcutEntry(name, url, icon, deleteInactive, i);
             dom.shortcutSettingsContainer.appendChild(entry);
-            renderShortcut(name, url, i);
+            renderShortcut(name, url, icon, i);
         }
 
         // Disable new shortcut button if max reached
@@ -160,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Creates a shortcut entry element for the settings panel
-    function createShortcutEntry(name, url, deleteInactive, index) {
+    function createShortcutEntry(name, url, iconUrl, deleteInactive, index) {
         const entry = document.createElement("div");
         entry.className = "shortcutSettingsEntry";
         entry.draggable = true;
@@ -177,21 +179,90 @@ document.addEventListener("DOMContentLoaded", function () {
                     <circle cy="13.5" cx="10.5" r=".75"/>
                 </svg>
             </div>
-            <div>
+            <div class="shortcutInputGroup">
                 <input class="shortcutName" placeholder="${PLACEHOLDER.inputName}" value="${escapeHtml(name)}">
                 <input class="URL" placeholder="${PLACEHOLDER.inputUrl}" value="${escapeHtml(url)}">
+                <input class="iconURL" placeholder="${PLACEHOLDER.inputIcon}" value="${escapeHtml(iconUrl || "")}">
             </div>
-            <div class="delete">
+            <div class="shortcutActions">
+                <button type="button" class="uploadCustomIconButton" aria-label="Upload custom icon" title="Upload custom icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3v12"/>
+                        <path d="m8 7 4-4 4 4"/>
+                        <path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/>
+                    </svg>
+                </button>
+                <input type="file" class="iconFileInput" accept="image/*,.ico" hidden>
+                <div class="delete">
                 <button class="${deleteInactive ? 'inactive' : ''}">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                         <path d="M7.8 20.4q-.742 0-1.271-.529Q6 19.343 6 18.6v-12h-.3q-.383 0-.641-.257-.259-.258-.259-.638t.259-.643Q5.317 4.8 5.7 4.8h3.9v-.3q0-.383.259-.641.258-.259.641-.259h3q.383 0 .641.259.259.258.259.641v.3h3.9q.383 0 .641.257.259.257.259.638 0 .38-.259.643-.258.262-.641.262H18v11.99q0 .76-.529 1.285-.529.525-1.271.525Zm8.4-13.8H7.8v12h8.4zm-5.705 10.2q.38 0 .643-.259.262-.259.262-.641V9.3q0-.383-.257-.641-.258-.259-.638-.259t-.643.259Q9.6 8.917 9.6 9.3v6.6q0 .383.257.641.258.259.638.259Zm3 0q.38 0 .643-.259.262-.259.262-.641V9.3q0-.383-.257-.641-.258-.259-.638-.259t-.643.259q-.262.258-.262.641v6.6q0 .383.257.641.258.259.638.259ZM7.8 6.6v12z"/>
                     </svg>
                 </button>
             </div>
+            </div>
         `;
 
-        const inputs = entry.querySelectorAll("input");
+        const inputs = entry.querySelectorAll("input.shortcutName, input.URL, input.iconURL");
         attachInputListeners(inputs, entry);
+
+        const uploadButton = entry.querySelector(".uploadCustomIconButton");
+        const fileInput = entry.querySelector(".iconFileInput");
+        const iconInput = entry.querySelector(".iconURL");
+
+        uploadButton.addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", async e => {
+            const selectedFile = e.target.files?.[0];
+            if (!selectedFile) return;
+
+            const maxIconBytes = 350 * 1024;
+            if (selectedFile.size > maxIconBytes) {
+                const message = "Icon file is too large. Please use a file smaller than 350 KB.";
+                if (typeof alertPrompt === "function") {
+                    await alertPrompt(message);
+                } else {
+                    alert(message);
+                }
+                fileInput.value = "";
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                iconInput.value = reader.result;
+                try {
+                    saveShortcut(entry);
+                    
+                    // Render with the current icon value (may be empty if quota was exceeded)
+                    renderShortcut(
+                        entry.querySelector(".shortcutName").value,
+                        entry.querySelector(".URL").value,
+                        iconInput.value,
+                        entry._index
+                    );
+                } catch (err) {
+                    const msg = "Unable to save the icon — storage is full. Try removing other custom icons or using a smaller image.";
+                    if (typeof alertPrompt === "function") {
+                        alertPrompt(msg);
+                    } else {
+                        alert(msg);
+                    }
+                    iconInput.value = "";
+                } finally {
+                    fileInput.value = "";
+                }
+            };
+            reader.onerror = () => {
+                const msg = "Could not read the selected file. Please try a different image.";
+                if (typeof alertPrompt === "function") {
+                    alertPrompt(msg);
+                } else {
+                    alert(msg);
+                }
+                fileInput.value = "";
+            };
+            reader.readAsDataURL(selectedFile);
+        });
 
         const deleteBtn = entry.querySelector(".delete button");
         deleteBtn.addEventListener("click", () => deleteShortcut(entry));
@@ -199,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return entry;
     }
 
-    function createShortcutElement(name, url, index) {
+    function createShortcutElement(name, url, icon, index) {
         const normalizedUrl = normalizeUrl(url);
 
         const shortcut = document.createElement("div");
@@ -212,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const logoContainer = document.createElement("div");
         logoContainer.className = "shortcutLogoContainer";
 
-        const logo = getLogoHtml(normalizedUrl);
+        const logo = getLogoHtml(normalizedUrl, icon);
         if (logo) logoContainer.appendChild(logo);
 
         const span = document.createElement("span");
@@ -227,8 +298,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Renders a shortcut in the main view
-    function renderShortcut(name, url, index) {
-        const shortcut = createShortcutElement(name, url, index);
+    function renderShortcut(name, url, icon, index) {
+        const shortcut = createShortcutElement(name, url, icon, index);
 
         if (index < dom.shortcutsContainer.children.length) {
             dom.shortcutsContainer.replaceChild(shortcut, dom.shortcutsContainer.children[index]);
@@ -248,6 +319,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }[match]));
     }
 
+    // Validates custom icon URL for security
+    function isValidCustomIconUrl(url) {
+        if (!url || typeof url !== "string") return false;
+        
+        const trimmed = url.trim();
+        
+        if (trimmed.startsWith("data:image/")) {
+            return true;
+        }
+        
+        if (trimmed.startsWith("https://")) {
+            return true;
+        }
+        
+        return false;
+    }
+
     // Normalizes URLs to ensure they're valid
     function normalizeUrl(url) {
         url = url.trim();
@@ -257,8 +345,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Gets the appropriate logo HTML for a given URL
-    function getLogoHtml(url) {
-        const hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
+    function getLogoHtml(url, customIcon = "") {
+        if (customIcon && isValidCustomIconUrl(customIcon)) {
+            const customIconImg = document.createElement("img");
+            customIconImg.src = customIcon.trim();
+            customIconImg.alt = "";
+            customIconImg.classList.add("custom-shortcut-icon");
+            customIconImg.referrerPolicy = "no-referrer";
+            customIconImg.addEventListener("error", () => {
+                customIconImg.src = "./svgs/offline.svg";
+            }, { once: true });
+            return customIconImg;
+        }
+
+        let hostname;
+        try {
+            hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
+        } catch (error) {
+            const offlineImg = document.createElement("img");
+            offlineImg.src = "./svgs/offline.svg";
+            offlineImg.alt = "";
+            return offlineImg;
+        }
 
         // GitHub shortcut
         if (hostname === "github.com") {
@@ -281,6 +389,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         img.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256`;
         img.alt = "";
+        img.referrerPolicy = "no-referrer";
 
         img.addEventListener("error", () => {
             img.src = "./svgs/offline.svg";
@@ -297,6 +406,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 renderShortcut(
                     entry.querySelector(".shortcutName").value,
                     entry.querySelector(".URL").value,
+                    entry.querySelector(".iconURL").value,
                     entry._index
                 );
             });
@@ -304,7 +414,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         inputs[0].addEventListener("keydown", e => e.key === "Enter" && inputs[1].focus());
-        inputs[1].addEventListener("keydown", e => e.key === "Enter" && e.target.blur());
+        inputs[1].addEventListener("keydown", e => e.key === "Enter" && inputs[2].focus());
+        inputs[2].addEventListener("keydown", e => e.key === "Enter" && e.target.blur());
     }
 
     // Drag and drop functionality for reordering shortcuts
@@ -564,19 +675,49 @@ document.addEventListener("DOMContentLoaded", function () {
         const entries = dom.shortcutSettingsContainer.querySelectorAll(".shortcutSettingsEntry");
         const newOrder = Array.from(entries).map(entry => ({
             name: entry.querySelector(".shortcutName").value,
-            url: entry.querySelector(".URL").value
+            url: entry.querySelector(".URL").value,
+            icon: entry.querySelector(".iconURL").value
         }));
 
         // Only save if order has changed
         if (hasOrderChanged(newOrder)) {
-            localStorage.setItem("shortcutAmount", newOrder.length.toString());
-            newOrder.forEach((item, index) => {
-                localStorage.setItem(`shortcutName${index}`, item.name);
-                localStorage.setItem(`shortcutURL${index}`, item.url);
-            });
+            try {
+                localStorage.setItem("shortcutAmount", newOrder.length.toString());
+                newOrder.forEach((item, index) => {
+                    localStorage.setItem(`shortcutName${index}`, item.name);
+                    localStorage.setItem(`shortcutURL${index}`, item.url);
+                    
+                    // Try to save icon, skip/clear if quota exceeded
+                    try {
+                        localStorage.setItem(`shortcutIcon${index}`, item.icon || "");
+                    } catch (iconError) {
+                        if (iconError.name === "QuotaExceededError") {
+                            // Remove icon due to quota
+                            localStorage.removeItem(`shortcutIcon${index}`);
+                            // Clear from UI as well
+                            const entry = entries[index];
+                            if (entry) entry.querySelector(".iconURL").value = "";
+                            // Keep cache/render consistent with persisted state
+                            item.icon = "";
+                        } else {
+                            throw iconError;
+                        }
+                    }
+                });
 
-            shortcutsCache = newOrder;
-            renderAllShortcuts(newOrder);
+                shortcutsCache = newOrder;
+                renderAllShortcuts(newOrder);
+            } catch (error) {
+                console.error("Error saving shortcut order:", error);
+                if (error.name === "QuotaExceededError") {
+                    const message = "Could not save all shortcuts: storage quota exceeded. Please remove some icons or clear storage.";
+                    if (typeof alertPrompt === "function") {
+                        alertPrompt(message);
+                    } else {
+                        alert(message);
+                    }
+                }
+            }
         }
     }
 
@@ -586,7 +727,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return newOrder.some((item, index) => {
             const cached = shortcutsCache[index];
-            return item.name !== cached.name || item.url !== cached.url;
+            return item.name !== cached.name || item.url !== cached.url || (item.icon || "") !== (cached.icon || "");
         });
     }
 
@@ -595,7 +736,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const fragment = document.createDocumentFragment();
 
         order.forEach((item, index) => {
-            fragment.appendChild(createShortcutElement(item.name, item.url, index));
+            fragment.appendChild(createShortcutElement(item.name, item.url, item.icon, index));
         });
 
         dom.shortcutsContainer.innerHTML = "";
@@ -645,11 +786,11 @@ document.addEventListener("DOMContentLoaded", function () {
             dom.newShortcutButton.classList.add("inactive");
         }
 
-        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, false, currentAmount);
+        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, "", false, currentAmount);
         dom.shortcutSettingsContainer.appendChild(entry);
 
         saveShortcut(entry);
-        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, currentAmount);
+        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, "", currentAmount);
     }
 
     // Deletes a shortcut
@@ -670,6 +811,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         localStorage.removeItem(`shortcutName${currentAmount - 1}`);
         localStorage.removeItem(`shortcutURL${currentAmount - 1}`);
+        localStorage.removeItem(`shortcutIcon${currentAmount - 1}`);
 
         if (currentAmount - 1 === 1) {
             document.querySelectorAll(".delete button").forEach(b => {
@@ -697,6 +839,7 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < (localStorage.getItem("shortcutAmount") || 0); i++) {
             localStorage.removeItem(`shortcutName${i}`);
             localStorage.removeItem(`shortcutURL${i}`);
+            localStorage.removeItem(`shortcutIcon${i}`);
         }
         localStorage.removeItem("shortcutAmount");
 
@@ -715,7 +858,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Saves a single shortcut to localStorage
     function saveShortcut(entry) {
-        localStorage.setItem(`shortcutName${entry._index}`, entry.querySelector(".shortcutName").value);
-        localStorage.setItem(`shortcutURL${entry._index}`, entry.querySelector(".URL").value);
+        const index = entry._index;
+        const name = entry.querySelector(".shortcutName").value;
+        const url = entry.querySelector(".URL").value;
+        const iconInput = entry.querySelector(".iconURL");
+        const icon = iconInput.value || "";
+
+        try {
+            localStorage.setItem(`shortcutName${index}`, name);
+            localStorage.setItem(`shortcutURL${index}`, url);
+            
+            // Try to save icon separately to handle quota errors gracefully
+            try {
+                localStorage.setItem(`shortcutIcon${index}`, icon);
+            } catch (iconError) {
+                if (iconError.name === "QuotaExceededError") {
+                    // Icon is too large, clear it from input and localStorage
+                    iconInput.value = "";
+                    localStorage.removeItem(`shortcutIcon${index}`);
+                    
+                    const message = "Icon could not be saved: storage quota exceeded. Please use a smaller icon file.";
+                    if (typeof alertPrompt === "function") {
+                        alertPrompt(message);
+                    } else {
+                        alert(message);
+                    }
+                } else {
+                    throw iconError;
+                }
+            }
+        } catch (error) {
+            console.error("Error saving shortcut:", error);
+            if (error.name !== "QuotaExceededError") {
+                const message = "Failed to save shortcut. Please check your browser storage.";
+                if (typeof alertPrompt === "function") {
+                    alertPrompt(message);
+                } else {
+                    alert(message);
+                }
+            }
+        }
     }
 });
