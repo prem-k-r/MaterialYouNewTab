@@ -99,6 +99,9 @@ const mr = {
 
     // Bookmarks
     "bookmarksHeading": "बुकमार्क्स",
+    "bookmarkSortBy": "क्रमवारी लावा",
+    "sortAlphabetical": "ए-झेड",
+    "sortTimeAdded": "जुना - नवा",
     "bookmarkViewAs": "या रूपात पाहा",
     "bookmarkViewGrid": "ग्रिड",
     "bookmarkViewList": "लिस्ट",
@@ -111,6 +114,7 @@ const mr = {
     "conditionText": "नमस्कार! तुम्ही आज कसे आहात?",
     "humidityLevel": "दमटपणा",
     "feelsLike": "वाटते",
+    "minMaxTemp": "किमान ~ अधिकतम",
     "location": "पृथ्वी",
     "enterBtn": "शोधा",
     "searchPlaceholder": "येथे लिहा...",
@@ -149,6 +153,7 @@ const mr = {
     "deepseek": "डीपसीक",
     "metaAI": "मेटा AI",
     "firefly": "अडोबी फायरफ्लाय",
+    "aiSettingsIntro": "कोणती AI साधने दाखवायची, ते निवडा.",
     "resetAISettingsBtn": "रीसेट करा",
     
     // Theme
@@ -165,7 +170,25 @@ const mr = {
     "restoreText": "पुनर्संचयित करा",
     "resetsettings": "सेटिंग्ज रीसेट करा",
     "menuCloseText": "बंद करा",
-
+    
+    // Tips
+    "switchSearchModes": "शोधण्याचा मोड बदला",
+    "switchSearchModesInfo": "मोड बदलण्यासाठी ‘यासह शोधा’ वर क्लिक करा",
+    "adjustZoom": "ज़ूम समायोजित करा",
+    "adjustZoomInfo": "ज़ूम समायोजित करण्यासाठी Ctrl + \"+\" अथवा Ctrl + \"-\" दाबा",
+    "changeBrowserTheme": "ब्राउझरची थीम बदला",
+    "chromeThemeInfo": "तीन बिंदूंवर (⋮) क्लिक करा > अधिक साधने > क्रोम कस्टमाइझ करा, त्यानंतर एक्सटेंशन थीमसोबत जुळणारा रंग निवडा",
+    "edgeThemeInfo": "सेटिंग्ज > स्वरूप (Appearance) वर जा, मग एक्सटेंशन थीमसोबत जुळणारा रंग निवडा",
+    "braveThemeInfo": ' <a href="https://chromewebstore.google.com/category/themes/" target="_blank">क्रोम थीम स्टोर</a> वर जाऊन, आपल्या पसंतीच थीम डाउनलोड करा आणि लागू करा',
+    "firefoxThemeInfo": '<a href="https://addons.mozilla.org/firefox/themes/" target="_blank">फायरफॉक्स थीम्स</a> वर जाऊन, आपल्या आवडीचा थीम डाउनलोड करा आणि लागू करा',
+    "updateFirefoxHomepage": "होमपेज अपडेट करा",
+    "updateFirefoxHomepageInfo": 'आपल्या होमपेजला सुद्धा नवीन टॅबाप्रमाणे बदलण्यासाठी, <a href="https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target="_blank">या लिंक</a> वर जा आणि दिलेल्या सूचनांचे पालन करा.',
+    "dontShowTips": "हे पुन्हा दाखवू नका",
+    
+    // Footer Toast
+    "footerToastTitle": "खाली एक बॅनर दिसतोय?",
+    "footerToastMessage": "ते लपवण्यासाठी, त्यावर राइट-क्लिक करा आणि 'नवीन टॅबा पेजवर लपवा' निवडा",
+    
     // Dialog boxes (alerts)
     "okText": "ठीक आहे",
     "yesText": "होय",
@@ -177,10 +200,12 @@ const mr = {
     "Nobackgroundset": "सद्यस्थितीत कोणतीही पार्श्वभूमी सेट केलेली नाही.",
     "clearbackgroundimage": "तुम्हाला पार्श्वभूमी इमेज क्लिअर करायची आहे का?",
     "ProxyDisclaimer": "सर्व प्रॉक्सी फीचर्स डिफॉल्टनुसार बंद असतात.\n\nजर तुम्ही सर्च सुजेशन्स आणि CORS बायपास प्रॉक्सी सक्षम केले, तर गोपनीयतेसाठी तुमची स्वतःची प्रॉक्सी होस्ट करणे अत्यंत शिफारसीय आहे.\n\nडिफॉल्टनुसार, प्रॉक्सी https://mynt-proxy.rhythmcorehq.com म्हणून सेट केले जाईल, म्हणजे तुमचे सर्व डेटा या सर्विसमधून जाईल, ज्यामुळे गोपनीयतेच्या संदर्भात धोका होऊ शकतो.",
+    "GPSDisclaimer": "आपल्या स्थानाची माहिती केवळ अचूक हवामान अपडेट करण्यासाठी उपयोग केली जात आहे. हे ब्राउझरमध्ये तात्पुरते साठवले जाते. ते कोणत्याही त्रयस्थ सेवांशी सामायिक केले जात नाही, तसेच आम्हालाही ते ॲक्सेस करता येत नाही.\n\nGPS सक्षम करून, तुम्ही तुमचे स्थान या एक्स्टेंशनसोबत स्थानिक पातळीवर सामायिक करण्यास संमती देता.।",
     "failedbackup": "बॅकअप अयशस्वी: ",
     "restorecompleted": "पुनर्संचयित यशस्वी झाले!",
     "restorefailed": "पुनर्संचयित अयशस्वी: ",
     "invalidBackup": "अवैध बॅकअप फाइल निवडली आहे.",
     "deleteBookmark": "तुम्हाला \"{title}\" बुकमार्क डिलीट करायचा आहे का?",
     "UnsupportedBrowser": "तुमच्या ब्राउझरमध्ये बुकमार्क्सला समर्थन नाही.",
+    "resetShortcutsPrompt": "जतन केलेले सर्व शॉर्टकट्स हटवले जातील आणि पूर्ववत केले जातील. तुम्हाला खरंच पुढे चपुढे जायचे आहे का?"
 };
