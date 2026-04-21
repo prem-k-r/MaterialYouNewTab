@@ -181,7 +181,7 @@ const mr = {
     "changeBrowserTheme": "ब्राउझरची थीम बदला",
     "chromeThemeInfo": "तीन बिंदूंवर (⋮) क्लिक करा > अधिक साधने > क्रोम कस्टमाइझ करा, त्यानंतर एक्सटेंशन थीमसोबत जुळणारा रंग निवडा",
     "edgeThemeInfo": "सेटिंग्ज > स्वरूप (Appearance) वर जा, मग एक्सटेंशन थीमसोबत जुळणारा रंग निवडा",
-    "braveThemeInfo": ' <a href="https://chromewebstore.google.com/category/themes/" target="_blank">क्रोम थीम स्टोर</a> वर जाऊन, आपल्या पसंतीच थीम डाउनलोड करा आणि लागू करा',
+    "braveThemeInfo": '<a href="https://chromewebstore.google.com/category/themes/" target="_blank">क्रोम थीम स्टोर</a> वर जाऊन, आपल्या पसंतीची थीम डाउनलोड करा आणि लागू करा',
     "firefoxThemeInfo": '<a href="https://addons.mozilla.org/firefox/themes/" target="_blank">फायरफॉक्स थीम्स</a> वर जाऊन, आपल्या आवडीचा थीम डाउनलोड करा आणि लागू करा',
     "updateFirefoxHomepage": "होमपेज अपडेट करा",
     "updateFirefoxHomepageInfo": 'आपल्या होमपेजला सुद्धा नवीन टॅबाप्रमाणे बदलण्यासाठी, <a href="https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target="_blank">या लिंक</a> वर जा आणि दिलेल्या सूचनांचे पालन करा.',
