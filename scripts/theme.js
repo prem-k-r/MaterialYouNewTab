@@ -468,21 +468,10 @@ class ThemeManager {
     // Black theme
     applyBlackThemeStyles() {
         document.body.classList.add('black-theme');
-
-        // Apply dark theme styles to specific elements
-        const accentColor = '#212121';
-        document.querySelectorAll('.accentColor').forEach(el => {
-            el.style.fill = accentColor;
-        });
     }
 
     removeBlackThemeStyles() {
         document.body.classList.remove('black-theme');
-
-        // Reset accent color fills
-        document.querySelectorAll('.accentColor').forEach(el => {
-            el.style.fill = '';
-        });
     }
 
     uncheckAllRadios() {

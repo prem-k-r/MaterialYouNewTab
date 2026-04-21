@@ -4,6 +4,14 @@ const idn = {
     "github": "GitHub",
     "feedback": "Umpan Balik",
 
+    // Section titles
+    "personalizationSectionTitle": "Personalisasi",
+    "clockSectionTitle": "Jam",
+    "searchSectionTitle": "Pencarian",
+    "weatherSectionTitle": "Cuaca",
+    "appearanceSectionTitle": "Penampilan",
+    "settingsSectionTitle": "Pengaturan",
+
     // Shortcuts
     "shortcutsText": "Pintasan",
     "enableShortcutsText": "Menampilkan Pintasan",
