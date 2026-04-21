@@ -40,7 +40,7 @@ const mr = {
 
     // Digital Clock
     "hideClockBox": "घड्याळ लपवा",
-    "hideClockBoxInfo": "घड्याळ आणि तारीख दाखवा किंवा लपवा",
+    "hideClockBoxInfo": "घड्याळ आणि तारीख लपवा",
     "digitalclocktitle": "डिजिटल घड्याळ",
     "digitalclockinfo": "डिजिटल घड्याळावर स्विच करा",
     "timeformattitle": "१२-तासांचा फॉरमॅट",
