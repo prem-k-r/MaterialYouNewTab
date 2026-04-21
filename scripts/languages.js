@@ -205,7 +205,6 @@ function applyLanguage(lang) {
         "uploadWallpaperText",
         "backupText",
         "restoreText",
-        "rangColor",
         "bookmarksText",
         "bookmarksInfo",
         "bookmarksHeading",
