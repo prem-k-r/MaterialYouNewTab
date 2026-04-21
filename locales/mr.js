@@ -36,7 +36,7 @@ const mr = {
     "todoListText": "कार्य सूची",
     "todoListInfo": "दैनिक कार्यांची सूची पहा",
     "todoListHover": "कार्य सूची",
-    "todoPlaceholder": "कार्ये समाविष्ट कारा...",
+    "todoPlaceholder": "कार्ये समाविष्ट करा...",
 
     // Digital Clock
     "hideClockBox": "घड्याळ लिपवा",
