@@ -38,39 +38,34 @@ function applyClockState(isHidden) {
 }
 
 function handleClockVisibility() {
-    if (window.matchMedia("(max-width: 500px)").matches) {
+    // Retrieve saved state from localStorage
+    const isClockHidden = localStorage.getItem("hideClockVisible") === "true";
+    hideClockCheckbox.checked = isClockHidden;
+
+    // Apply initial state
+    applyClockState(isClockHidden);
+    toggleHideState(isClockHidden);
+
+    if (!isClockHidden) {
         initializeClock();
-
-        clockOptions.classList.remove("not-applicable");
-        rightDiv.classList.remove("clock-padding-adjusted");
-    }
-    else {
-        // Retrieve saved state from localStorage
-        const isClockHidden = localStorage.getItem("hideClockVisible") === "true";
-        hideClockCheckbox.checked = isClockHidden;
-
-        // Apply initial state
-        applyClockState(isClockHidden);
-        toggleHideState(isClockHidden);
-
-        if (!isClockHidden) {
-            initializeClock();
-        }
-
-        hideClockCheckbox.addEventListener("change", function () {
-            const isChecked = hideClockCheckbox.checked;
-            localStorage.setItem("hideClockVisible", isChecked);
-            applyClockState(isChecked);
-            toggleHideState(isChecked);
-
-            if (!isChecked) {
-                initializeClock();
-            }
-        });
     }
 }
 
+// Initial call
 handleClockVisibility();
+
+// Add event listener once
+hideClockCheckbox.addEventListener("change", function () {
+    const isChecked = hideClockCheckbox.checked;
+    localStorage.setItem("hideClockVisible", isChecked);
+    applyClockState(isChecked);
+    toggleHideState(isChecked);
+
+    if (!isChecked) {
+        initializeClock();
+    }
+});
+
 // Update on window resize
 window.addEventListener("resize", handleClockVisibility);
 
