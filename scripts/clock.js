@@ -172,6 +172,7 @@ async function initializeClock() {
                 el: `${dayName.substring(0, 3)} ${dayOfMonth} ${monthName}`, // Κυρ 22 Δεκ
                 th: `วัน${dayName}ที่ ${dayOfMonth} ${monthName}`, // วันอาทิตย์ที่ 22 ธันวาคม
                 uk: `${dayName}, ${dayOfMonth} ${monthName.substring(0, 4)}`,
+                sv: `${dayName.substring(0, 3)} ${dayOfMonth} ${monthName.substring(0, 3)}`, // Sön 19 Apr
                 default: `${dayName.substring(0, 3)}, ${monthName.substring(0, 3)} ${dayOfMonth}`	// Sun, Dec 22
             };
 
