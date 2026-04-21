@@ -29,6 +29,8 @@ const mr = {
     "googleAppsMenuText": "गुगल ॲप्स",
     "googleAppsMenuInfo": "गुगल ॲप्ससाठी शॉर्टकट्स दाखवा",
     "googleAppsHover": "गुगल ॲप्स",
+    "aiToolsSettingsText": "AI साधनांची सेटिंग्ज",
+    "aiToolsSettingsInfo": "AI साधनांच्या शॉर्टकट्सचे व्यवस्थापन करा",
 
     // To-do List
     "todoListText": "कार्य सूची",
@@ -119,6 +121,7 @@ const mr = {
     "searchPlaceholder": "येथे लिहा...",
     "listenPlaceholder": "ऐकत आहे...",
     "searchWithHint": "यासह शोधा",
+    "searchOnHint": "यावर शोधा",
     "userText": "येथे आपला मजकूर लिहा",
 
     // Greeting
