@@ -209,5 +209,25 @@ const uz = {
 
     "deleteBookmark": "\"{title}\" xatcho'pini o'chirmoqchimisiz?",
     "UnsupportedBrowser": "Xatcho'plar brauzeringizda qo'llab-quvvatlanmaydi.",
-    "resetShortcutsPrompt": "Barcha saqlangan yorliqlar o'chiriladi va standart holatga qaytariladi. Davom etilsinmi?"
+    "resetShortcutsPrompt": "Barcha saqlangan yorliqlar o'chiriladi va standart holatga qaytariladi. Davom etilsinmi?",
+    "cloudBackupSectionTitle": "Bulut zaxira nusxasi",
+    "webdavTitle": "WebDAV sinxronlash",
+    "webdavBackupText": "WebDAV ga zaxiralash",
+    "webdavRestoreText": "Eng so‘nggisini tiklash",
+    "webdavUrlPlaceholder": "https://example.com/remote.php/dav/files/username/backups",
+    "cloudPrefixPlaceholder": "MYNT_Backup",
+    "webdavUsernamePlaceholder": "Foydalanuvchi nomi (ixtiyoriy)",
+    "webdavPasswordPlaceholder": "Parol yoki ilova paroli (ixtiyoriy)",
+    "cloudAutoBackupText": "Avtomatik zaxiralashni yoqish",
+    "cloudIntervalPlaceholder": "Soat",
+    "cloudIntervalHours": "Soat",
+    "saveBackupConfig": "Zaxira sozlamalarini saqlash",
+    "backupConfigSaved": "Zaxira sozlamalari saqlandi.",
+    "webdavMissingConfig": "Avval WebDAV papkasi URL manzilini kiriting.",
+    "webdavPermissionDenied": "Ushbu WebDAV serveri uchun host ruxsati berilmadi.",
+    "webdavBackupCompleted": "Zaxira muvaffaqiyatli WebDAV ga yuklandi!",
+    "webdavDownloadFailed": "WebDAV dan zaxirani yuklab bo‘lmadi: ",
+    "webdavUploadFailed": "Zaxirani WebDAV ga yuklab bo‘lmadi: ",
+    "webdavRestoreConfirm": "Sozlamalar eng so‘nggi WebDAV zaxirasidan tiklansinmi? Joriy mahalliy ma’lumotlaringiz ustiga yoziladi.",
+    "webdavLatestPointerMissing": "MYNT papkasida eng so‘nggi zaxira yozuvi topilmadi."
 };

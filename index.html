@@ -41,6 +41,7 @@
     <script defer src="scripts/todo-list.js"></script>
     <script defer src="scripts/google-apps.js"></script>
     <script defer src="scripts/voice-search.js"></script>
+    <script defer src="scripts/snapshot-service.js"></script>
     <script defer src="scripts/backup-restore.js"></script>
 
     <!-- LANGUAGES SCRIPTS -->
@@ -1829,7 +1830,6 @@
                                     <!-- end of languageSelector -->
                                 </div>
 
-                                <!-- Settings -->
                                 <div class="backupRestoreContainer">
                                     <button class="backupRestoreBtn" id="backupBtn">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -1849,11 +1849,62 @@
                                         <span id="restoreText">Restore</span>
                                     </button>
                                 </div>
-
                                 <input type="file" id="fileInput" accept=".json" style="display: none;">
 
                                 <button class="resetbtn" id="resetsettings">Reset Settings</button>
 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section expanded">
+                        <div class="sectionOuter">
+                            <div class="sectionHeader" role="button">
+                                <span class="sectionTitle" id="cloudBackupSectionTitle">Cloud Backup</span>
+                                <span class="sectionChevron"></span>
+                            </div>
+
+                            <div class="sectionInner">
+                                <div class="backupModuleSection">
+                                    <div id="webdavBackupPanel" class="webdavSettingsSection">
+                                        <div class="webdavSettingsTitle" id="webdavTitle">WebDAV Sync</div>
+                                        <input type="url" id="webdavUrlInput" class="webdavInput"
+                                            placeholder="https://example.com/remote.php/dav/files/username/backups">
+                                        <input type="text" id="webdavUsernameInput" class="webdavInput"
+                                            placeholder="Username (optional)">
+                                        <input type="password" id="webdavPasswordInput" class="webdavInput"
+                                            placeholder="Password or app password (optional)">
+                                        <div class="backupRestoreContainer webdavActionContainer">
+                                            <button class="backupRestoreBtn" id="webdavBackupBtn">
+                                                <span id="webdavBackupText">Backup to WebDAV</span>
+                                            </button>
+                                            <button class="backupRestoreBtn" id="webdavRestoreBtn">
+                                                <span id="webdavRestoreText">Restore Latest</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="cloudBackupSharedPanel">
+                                        <div class="webdavAutoRow">
+                                            <div class="webdavAutoCard">
+                                                <div class="texts">
+                                                    <div class="bigText" id="cloudAutoBackupText">Enable automatic backup</div>
+                                                    <div class="infoText" id="cloudAutoBackupHint">Back up settings to WebDAV on a schedule</div>
+                                                </div>
+                                                <label class="switch" for="cloudAutoBackupCheckbox">
+                                                    <input type="checkbox" id="cloudAutoBackupCheckbox">
+                                                    <span class="toggle"></span>
+                                                </label>
+                                            </div>
+                                            <label class="webdavIntervalField" for="cloudIntervalInput">
+                                                <span class="webdavIntervalLabel" id="cloudIntervalUnitLabel">Hours</span>
+                                                <input type="number" id="cloudIntervalInput" class="webdavInput webdavIntervalInput"
+                                                    min="1" step="1" placeholder="24">
+                                            </label>
+                                        </div>
+                                        <button type="button" class="resetbtn backupConfigSaveBtn" id="saveBackupConfigBtn">Save Backup Config</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

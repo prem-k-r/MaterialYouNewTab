@@ -236,7 +236,12 @@ function applyLanguage(lang) {
         "searchSectionTitle",
         "weatherSectionTitle",
         "appearanceSectionTitle",
-        "settingsSectionTitle"
+        "settingsSectionTitle",
+        "cloudBackupSectionTitle",
+        "webdavTitle",
+        "webdavBackupText",
+        "webdavRestoreText",
+        "cloudAutoBackupText"
     ];
 
     // Specific mapping for placeholders
@@ -247,7 +252,11 @@ function applyLanguage(lang) {
         { id: "todoInput", key: "todoPlaceholder" },
         { id: "bookmarkSearch", key: "bookmarkSearch" },
         { id: "editBookmarkName", key: "editBookmarkName" },
-        { id: "editBookmarkURL", key: "editBookmarkURL" }
+        { id: "editBookmarkURL", key: "editBookmarkURL" },
+        { id: "webdavUrlInput", key: "webdavUrlPlaceholder" },
+        { id: "webdavUsernameInput", key: "webdavUsernamePlaceholder" },
+        { id: "webdavPasswordInput", key: "webdavPasswordPlaceholder" },
+        { id: "cloudIntervalInput", key: "cloudIntervalPlaceholder" }
     ];
 
     // Mapping of elements and their different translation keys
@@ -273,6 +282,8 @@ function applyLanguage(lang) {
         { id: "editBookmarkNameLabel", key: "editBookmarkName" },
         { id: "editBookmarkURLLabel", key: "editBookmarkURL" },
         { id: "shortcutsSectionTitle", key: "shortcutsText" },
+        { id: "saveBackupConfigBtn", key: "saveBackupConfig" },
+        { id: "cloudIntervalUnitLabel", key: "cloudIntervalHours" }
     ];
 
     // Function to apply translations

@@ -4016,6 +4016,233 @@ option:checked {
 	color: #fffffff5;
 }
 
+.backupModuleSection {
+	width: 100%;
+	margin-top: 18px;
+	display: grid;
+	gap: 12px;
+}
+
+.backupModuleTitle {
+	font-size: 0.96rem;
+	color: var(--darkerColor-blue);
+	font-weight: 600;
+}
+
+.cloudMethodButtons {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+}
+
+.backupMethodPrimaryBtn,
+.backupMethodChoiceBtn,
+.backupMethodSwitchBtn {
+	border: none;
+	border-radius: 18px;
+	padding: 11px 14px;
+	cursor: pointer;
+	background-color: var(--bg-color-blue);
+	color: var(--darkerColor-blue);
+	font-size: 0.9rem;
+}
+
+.backupMethodPrimaryBtn {
+	width: 100%;
+}
+
+.cloudMethodActiveBar {
+	display: none;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	gap: 12px;
+}
+
+.cloudMethodActiveBar.active {
+	display: grid;
+}
+
+.cloudMethodCurrent {
+	color: var(--darkerColor-blue);
+	font-size: 0.9rem;
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+.cloudMethodInlinePicker {
+	background-color: var(--lightColor-blue);
+	border-radius: 22px;
+	padding: 16px;
+	display: none;
+	box-shadow: 0 18px 48px rgba(0, 0, 0, 0.08);
+}
+
+.cloudMethodInlinePicker.active {
+	display: grid;
+	gap: 14px;
+}
+
+.cloudMethodInlineTitle {
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--darkerColor-blue);
+}
+
+.backupMethodPanel {
+	display: none !important;
+}
+
+.backupMethodPanel.active {
+	display: grid !important;
+}
+
+.cloudBackupSharedPanel {
+	display: grid;
+	gap: 10px;
+	padding-top: 4px;
+}
+
+.webdavSettingsSection {
+	width: 100%;
+	display: grid;
+	gap: 10px;
+}
+
+.webdavSettingsTitle {
+	font-size: 0.92rem;
+	color: var(--darkerColor-blue);
+	font-weight: 600;
+}
+
+.webdavInput {
+	width: 100%;
+	border: none;
+	border-radius: 18px;
+	padding: 11px 15px;
+	background-color: var(--bg-color-blue);
+	color: var(--darkerColor-blue);
+	font-size: 0.9rem;
+	outline: none;
+}
+
+.webdavInput::placeholder {
+	color: color-mix(in srgb, var(--darkerColor-blue) 64%, transparent);
+}
+
+.webdavActionContainer {
+	margin-top: 2px;
+}
+
+.cloudProviderStatusRow {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: 10px;
+	padding: 4px 6px;
+	color: var(--darkerColor-blue);
+	font-size: 0.9rem;
+}
+
+.cloudProviderStatusLabel {
+	opacity: 0.78;
+}
+
+.cloudProviderStatusValue {
+	justify-self: end;
+}
+
+.backupConfigSaveBtn {
+	margin-top: 4px;
+	margin-bottom: 0;
+}
+
+.webdavAutoRow {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 130px;
+	gap: 10px;
+	align-items: stretch;
+}
+
+.webdavAutoCard {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	padding: 14px 16px;
+	border-radius: 20px;
+	background-color: var(--bg-color-blue);
+	color: var(--darkerColor-blue);
+	min-width: 0;
+}
+
+.webdavAutoCard .texts {
+	min-width: 0;
+}
+
+.webdavAutoCard .bigText {
+	font-size: 0.95rem;
+}
+
+.webdavAutoCard .infoText {
+	font-size: 0.82rem;
+	line-height: 1.35;
+	color: color-mix(in srgb, var(--darkerColor-blue) 76%, transparent);
+}
+
+.webdavAutoCard .switch {
+	margin-inline-start: 0;
+	flex-shrink: 0;
+}
+
+.webdavIntervalField {
+	display: grid;
+	align-content: center;
+	gap: 8px;
+	padding: 12px 14px;
+	border-radius: 20px;
+	background-color: var(--bg-color-blue);
+	color: var(--darkerColor-blue);
+}
+
+.webdavIntervalLabel {
+	font-size: 0.78rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	opacity: 0.78;
+}
+
+.webdavIntervalInput {
+	text-align: center;
+	padding: 10px 12px;
+	background-color: color-mix(in srgb, var(--accentLightTint-blue) 38%, transparent);
+	font-weight: 600;
+}
+
+.webdavIntervalGroup {
+	display: grid;
+	grid-template-columns: 72px 1fr;
+	gap: 8px;
+	align-items: center;
+}
+
+.webdavIntervalUnitLabel {
+	font-size: 0.78rem;
+	color: inherit;
+	padding-inline: 0;
+}
+
+.cloudPlaceholderPanel {
+	background-color: var(--bg-color-blue);
+	border-radius: 18px;
+	padding: 14px 16px;
+}
+
+.cloudPlaceholderText {
+	font-size: 0.9rem;
+	color: var(--darkerColor-blue);
+}
+
 /* <!-- ----Color Picker || ColorPicker---- --> */
 #colorPicker {
 	display: none;
@@ -4441,6 +4668,16 @@ body[data-bg="wallpaper"] .dropdown-content {
 @media screen and (max-width: 720px) {
 	:root {
 		--gap: 1rem;
+	}
+	.webdavAutoRow {
+		grid-template-columns: 1fr;
+	}
+	.webdavIntervalField {
+		grid-template-columns: auto 88px;
+		align-items: center;
+	}
+	.webdavIntervalLabel {
+		font-size: 0.82rem;
 	}
 	#shortcuts-section {
 		position: fixed;
@@ -4906,6 +5143,53 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 .black-theme .backupRestoreBtn {
 	background-color: var(--darkColor-dark);
+}
+
+.black-theme .webdavSettingsTitle {
+	color: #fff;
+}
+
+.black-theme .backupModuleTitle {
+	color: #fff;
+}
+
+.black-theme .cloudMethodCurrent,
+.black-theme .webdavIntervalUnitLabel,
+.black-theme .cloudPlaceholderText {
+	color: #fff;
+}
+
+.black-theme .cloudMethodInlineTitle {
+	color: #fff;
+}
+
+.black-theme .webdavInput {
+	background-color: var(--darkColor-dark);
+	color: #fff;
+}
+
+.black-theme .cloudMethodInlinePicker,
+.black-theme .backupMethodChoiceBtn,
+.black-theme .backupMethodSwitchBtn,
+.black-theme .backupMethodPrimaryBtn,
+.black-theme .cloudPlaceholderPanel,
+.black-theme .webdavAutoCard,
+.black-theme .webdavIntervalField {
+	background-color: var(--darkColor-dark);
+	color: #fff;
+}
+
+.black-theme .webdavAutoCard .infoText,
+.black-theme .webdavIntervalLabel {
+	color: #d0d0d0;
+}
+
+.black-theme .webdavIntervalInput {
+	background-color: var(--bg-color-dark);
+}
+
+.black-theme .webdavInput::placeholder {
+	color: #a8a8a8;
 }
 
 .black-theme .backupRestoreBtn:hover,
