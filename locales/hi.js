@@ -40,7 +40,7 @@ const hi = {
 
     // Clock
     "hideClockBox": "घड़ी छिपाएँ",
-    "hideClockBoxInfo": "घड़ी और तारीख दिखाएँ या छिपाएँ",
+    "hideClockBoxInfo": "घड़ी और तारीख छिपाएँ",
     "digitalclocktitle": "डिजिटल घड़ी",
     "digitalclockinfo": "डिजिटल घड़ी पर स्विच करें",
     "timeformattitle": "12 घंटे का प्रारूप",

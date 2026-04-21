@@ -234,7 +234,9 @@ html:has(
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
-	& .favicon {
+	& .favicon,
+	& #wIcon,
+	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -272,7 +274,9 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
-	& .favicon {
+	& .favicon,
+	& #wIcon,
+	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -297,7 +301,10 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	opacity: 0;
 	z-index: -100;
 	transform: translateY(-70px);
-	transition: opacity 0.5s ease, transform 0.5s ease, z-index 0.5s ease;
+	transition:
+		opacity 0.5s ease,
+		transform 0.5s ease,
+		z-index 0.5s ease;
 	pointer-events: none;
 	backdrop-filter: blur(4px);
 }
@@ -496,7 +503,9 @@ body[data-bg="wallpaper"] .tooltip-text {
 	text-align: center;
 	padding: 10px;
 	border-radius: 15px;
-	transition: transform 0.3s ease, background-color 0.3s ease;
+	transition:
+		transform 0.3s ease,
+		background-color 0.3s ease;
 	text-decoration: none;
 	cursor: pointer;
 	position: relative;
@@ -836,7 +845,9 @@ body #bookmarkButton.bookmark-button.rotate {
 	text-overflow: ellipsis;
 	padding: 4px 8px;
 	color: var(--darkColor-blue);
-	transition: background-color 0.2s, color 0.2s;
+	transition:
+		background-color 0.2s,
+		color 0.2s;
 }
 
 #sortAlphabetical {
@@ -1658,7 +1669,9 @@ html[lang="ta"] .digiclock {
 	overflow: hidden;
 	max-height: 800px;
 	opacity: 1;
-	transition: max-height 0.4s var(--md-motion-ease), opacity 0.3s ease;
+	transition:
+		max-height 0.4s var(--md-motion-ease),
+		opacity 0.3s ease;
 }
 
 .not-applicable {
@@ -1781,7 +1794,10 @@ html[lang="ta"] .digiclock {
 	height: auto;
 	max-height: 0;
 	overflow: hidden;
-	transition: opacity 0.3s ease, transform 0.5s ease, max-height 0.4s ease;
+	transition:
+		opacity 0.3s ease,
+		transform 0.5s ease,
+		max-height 0.4s ease;
 }
 
 body[data-bg="wallpaper"] .opacityBarControl {
@@ -2001,6 +2017,7 @@ body[data-bg="wallpaper"] .searchbar {
 	position: absolute;
 	margin-top: 16px;
 	margin-inline-start: 16px;
+	fill: var(--darkColor-blue);
 }
 
 .searchbar-content {
@@ -2162,7 +2179,9 @@ body[data-bg="wallpaper"] .micIcon {
 	margin-inline-end: 5px;
 	border-radius: var(--round);
 	cursor: pointer;
-	transition: border-radius 0.4s, margin-inline-start 0.4s;
+	transition:
+		border-radius 0.4s,
+		margin-inline-start 0.4s;
 }
 
 :dir(rtl) .searchWithCont .hint {
@@ -2262,7 +2281,9 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 }
 
 .theme-transition .search-engine input[type="radio"] {
-	transition: background-color 0.2s ease, border 0.2s ease;
+	transition:
+		background-color 0.2s ease,
+		border 0.2s ease;
 }
 
 /* ----------- Quotes ------------ */
@@ -2559,6 +2580,32 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 	width: calc(100% * 0.7071) !important;
 	filter: grayscale(1);
 	mix-blend-mode: screen;
+}
+
+html:has(.themeSegment[data-active="dark"])
+	.adaptive-icons
+	.shortcuts
+	.shortcutLogoContainer
+	img,
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"])
+	.adaptive-icons
+	.shortcuts
+	.shortcutLogoContainer
+	img {
+	filter: grayscale(1) invert(1);
+}
+
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"])
+	.adaptive-icons
+	.shortcutLogoContainer
+	img,
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.themeSegment[data-active="system"]
+	)
+	.adaptive-icons
+	.shortcutLogoContainer
+	img {
+	filter: grayscale(1) invert(1) !important;
 }
 /* ----------end of Shortcuts----------------- */
 
@@ -3278,7 +3325,8 @@ input:checked + .toggle:before {
 	border-radius: 25px;
 	padding: 7px;
 
-	transition: border-radius 0.25s var(--md-motion-ease),
+	transition:
+		border-radius 0.25s var(--md-motion-ease),
 		background-color 0.25s var(--md-motion-ease);
 }
 
@@ -3332,8 +3380,10 @@ input:checked + .toggle:before {
 	overflow: hidden;
 	max-height: 1000px; /* large enough */
 	opacity: 1;
-	transition: max-height 0.4s var(--md-motion-ease),
-		opacity 0.2s var(--md-motion-ease), margin-top 0.23s var(--md-motion-ease),
+	transition:
+		max-height 0.4s var(--md-motion-ease),
+		opacity 0.2s var(--md-motion-ease),
+		margin-top 0.23s var(--md-motion-ease),
 		padding 0.23s var(--md-motion-ease);
 }
 
@@ -3359,8 +3409,10 @@ input:checked + .toggle:before {
 	padding-top: 0;
 	padding-bottom: 0;
 
-	transition: max-height 0.3s cubic-bezier(0.2, 0, 0, 1),
-		opacity 0.2s var(--md-motion-ease), margin-top 0.23s var(--md-motion-ease),
+	transition:
+		max-height 0.3s cubic-bezier(0.2, 0, 0, 1),
+		opacity 0.2s var(--md-motion-ease),
+		margin-top 0.23s var(--md-motion-ease),
 		padding 0.23s var(--md-motion-ease);
 }
 
@@ -3985,7 +4037,9 @@ option:checked {
 	border-radius: 23px;
 	cursor: pointer;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-	transition: background-color 0.3s, color 0.3s;
+	transition:
+		background-color 0.3s,
+		color 0.3s;
 }
 
 .randomButton {
@@ -3998,7 +4052,9 @@ option:checked {
 	border-radius: 26px;
 	cursor: pointer;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-	transition: background-color 0.3s, color 0.3s;
+	transition:
+		background-color 0.3s,
+		color 0.3s;
 	padding: 10px;
 }
 
@@ -4012,7 +4068,9 @@ option:checked {
 	border: none;
 	border-radius: 26px;
 	cursor: pointer;
-	transition: background-color 0.3s, color 0.3s;
+	transition:
+		background-color 0.3s,
+		color 0.3s;
 }
 
 /* Hover Effects */
@@ -4112,7 +4170,8 @@ option:checked {
 	background-color: var(--accentLightTint-blue);
 	border-radius: 50%;
 	border: 6px solid var(--accentLightTint-blue);
-	box-shadow: inset 0 0 0 4px var(--darkColor-blue),
+	box-shadow:
+		inset 0 0 0 4px var(--darkColor-blue),
 		inset 0 0 0 9.7px var(--accentLightTint-blue),
 		inset 0 0 0 40px var(--darkColor-blue);
 	cursor: pointer;
@@ -4216,14 +4275,16 @@ option:checked {
 	overflow-y: auto;
 	max-height: 0;
 	opacity: 0;
-	transition: max-height 0.21s var(--md-motion-accelerate),
+	transition:
+		max-height 0.21s var(--md-motion-accelerate),
 		opacity 0.2s var(--md-motion-accelerate);
 }
 
 .dropdown-content.show {
 	max-height: 192px;
 	opacity: 1;
-	transition: max-height 0.32s var(--md-motion-decelerate),
+	transition:
+		max-height 0.32s var(--md-motion-decelerate),
 		opacity 0.12s var(--md-motion-decelerate);
 }
 
@@ -4367,7 +4428,8 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 /* --------- Save button --------- */
 .savebtn {
-	transition: background-color 0.3s var(--md-motion-ease),
+	transition:
+		background-color 0.3s var(--md-motion-ease),
 		transform 0.2s var(--md-motion-ease);
 }
 
@@ -4763,11 +4825,11 @@ body[data-bg="wallpaper"] .dropdown-content {
 		display: flex !important;
 	}
 	.hangno:has(
-			+ :is(
-					.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
-					.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0;"]
-				)
-		) {
+		+ :is(
+			.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
+			.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0;"]
+		)
+	) {
 		& .icon {
 			margin: 0;
 		}
@@ -4892,11 +4954,15 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme #searchIconDark {
-	fill: #bbb !important;
+	fill: #bbb;
 }
 
 .black-theme .dropdown-item.selected:not(*[data-default]):before {
 	background-color: #707070;
+}
+
+.black-theme #micIconPath {
+	fill: var(--darkColor-dark);
 }
 
 .black-theme .tilesContainer .tiles {
@@ -4904,7 +4970,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme #darkFeelsLikeIcon {
-	fill: #fff !important;
+	fill: #fff;
 }
 
 .black-theme .humidityBar .slider {
@@ -4925,7 +4991,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: #cdcdcd;
 }
 
-.black-theme .shorcutDarkColor {
+.black-theme .shortcutDarkColor {
 	fill: var(--accentLightTint-dark) !important;
 }
 
@@ -5090,8 +5156,10 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 .black-theme #menuButton {
 	border: 6px solid var(--accentLightTint-blue);
-	box-shadow: inset 0 0 0 4px #858585,
-		inset 0 0 0 9.7px var(--accentLightTint-blue), inset 0 0 0 40px #bfbfbf;
+	box-shadow:
+		inset 0 0 0 4px #858585,
+		inset 0 0 0 9.7px var(--accentLightTint-blue),
+		inset 0 0 0 40px #bfbfbf;
 }
 
 .black-theme #menuCloseButton,
@@ -5106,6 +5174,10 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme #closeBtnX {
 	border: 2px solid #bdbdbd;
 	border-radius: 100px;
+}
+
+.black-theme #menuCloseBtnIcon {
+	fill: var(--darkColor-dark);
 }
 
 .black-theme body {
@@ -5381,7 +5453,9 @@ body[data-bg="wallpaper"] .dropdown-content {
 	overflow: hidden;
 	display: flex;
 	align-items: flex-start;
-	box-shadow: 0 6px 6px rgba(0, 0, 0, 0.25), 0 0 22px rgba(0, 0, 0, 0.16);
+	box-shadow:
+		0 6px 6px rgba(0, 0, 0, 0.25),
+		0 0 22px rgba(0, 0, 0, 0.16);
 }
 
 /* Blur distortion */
@@ -5405,7 +5479,8 @@ body[data-bg="wallpaper"] .dropdown-content {
 .liquidGlass-shine {
 	position: absolute;
 	inset: 0;
-	box-shadow: inset 2px 2px 1px rgba(255, 255, 255, 0.55),
+	box-shadow:
+		inset 2px 2px 1px rgba(255, 255, 255, 0.55),
 		inset -1px -1px 1px rgba(255, 255, 255, 0.45);
 	z-index: 4;
 }

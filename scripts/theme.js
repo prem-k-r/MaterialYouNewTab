@@ -124,22 +124,6 @@ function ApplyLoadingColor() {
 const resetDarkTheme = () => {
     // Remove the dark theme class
     document.documentElement.classList.remove("black-theme");
-
-    // Reset inline styles that were applied specifically for dark mode
-    const resetElements = ["searchQ", "searchIconDark", "darkFeelsLikeIcon", "menuButton", "menuCloseButton", "closeBtnX"];
-
-    resetElements.forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.removeAttribute("style");
-        }
-    });
-
-    // Reset fill color for elements with the class "accentColor"
-    const accentElements = document.querySelectorAll(".accentColor");
-    accentElements.forEach((element) => {
-        element.style.fill = ""; // Reset fill color
-    });
 };
 
 // Function to apply the selected theme
@@ -176,9 +160,6 @@ const applySelectedTheme = (colorValue) => {
     // Handle dark mode specific changes
     if (isDarkMode) {
         document.documentElement.classList.add("black-theme");
-        document.querySelectorAll(".accentColor").forEach(el => {
-            el.style.fill = "#212121";
-        });
     }
 
     changeFaviconColor();

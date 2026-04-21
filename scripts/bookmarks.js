@@ -42,6 +42,7 @@ updateSortButtons();
 bookmarkButton.addEventListener("click", function () {
     toggleBookmarkSidebar();
     bookmarkSearchClearButton.click();
+    bookmarkSearch.focus();
 });
 
 bookmarkViewGrid.addEventListener("click", function () {
