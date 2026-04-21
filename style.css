@@ -234,7 +234,9 @@ html:has(
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
-	& .favicon {
+	& .favicon,
+	& #wIcon,
+	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -272,7 +274,9 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
-	& .favicon {
+	& .favicon,
+	& #wIcon,
+	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -2566,6 +2570,14 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 	width: calc(100% * 0.7071) !important;
 	filter: grayscale(1);
 	mix-blend-mode: screen;
+}
+
+html:has(.themeSegment[data-active="dark"])
+	.adaptive-icons
+	.shortcuts
+	.shortcutLogoContainer
+	img {
+	filter: grayscale(1) invert(1);
 }
 /* ----------end of Shortcuts----------------- */
 
