@@ -171,6 +171,8 @@ function changeFaviconColor() {
     const rootStyles = getComputedStyle(document.documentElement);
     const darkColor = rootStyles.getPropertyValue("--darkColor-blue");
     //const bgColor = rootStyles.getPropertyValue("--bg-color-blue");
+    let accentLightTintColor = rootStyles.getPropertyValue("--accentLightTint-blue");
+    localStorage.setItem("accentLightTintColor", accentLightTintColor);
 
     const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

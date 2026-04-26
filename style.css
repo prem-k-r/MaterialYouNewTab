@@ -2582,6 +2582,21 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 	mix-blend-mode: screen;
 }
 
+.adaptive-icons .shortcuts .shortcutLogoContainer img.custom-shortcut-icon {
+	height: 60%;
+	width: 60%;
+	border-radius: 20%;
+	object-fit: contain;
+	background: transparent;
+	filter: none !important;
+	mix-blend-mode: normal !important;
+}
+
+.adaptive-icons .shortcuts .shortcutLogoContainer img.letter-shortcut-icon {
+	height: 100% !important;
+	width: 100% !important;
+}
+
 html:has(.themeSegment[data-active="dark"])
 	.adaptive-icons
 	.shortcuts
@@ -3570,7 +3585,7 @@ input:checked + .toggle:before {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	align-items: flex-start;
+	align-items: center;
 	margin-bottom: 16px;
 	background-color: var(--bg-color-blue);
 	border-radius: 13px;
@@ -3632,7 +3647,7 @@ input:checked + .toggle:before {
 
 .grip-container {
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	justify-content: center;
 	padding: 4px 6px;
 	cursor: grab;
@@ -3674,7 +3689,7 @@ input:checked + .toggle:before {
 	margin-inline-start: 10px;
 }
 
-.delete button {
+.shortcutDelete button {
 	fill: var(--textColorDark-blue);
 	display: flex;
 	align-items: center;
@@ -3705,7 +3720,7 @@ input:checked + .toggle:before {
 
 /* Shared hover state for action buttons */
 .uploadCustomIconButton:not(.inactive):hover,
-.delete button:not(.inactive):hover {
+.shortcutDelete button:not(.inactive):hover {
 	fill: white;
 	background: var(--darkColor-blue);
 }
@@ -3721,7 +3736,7 @@ input:checked + .toggle:before {
 
 /* Shared inactive state for action buttons */
 .uploadCustomIconButton.inactive,
-.delete button.inactive {
+.shortcutDelete button.inactive {
 	opacity: 0.5;
 	cursor: not-allowed;
 }
@@ -5220,18 +5235,18 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 /* Shared dark-theme hover for action buttons */
-.black-theme .uploadCustomIconButton:not(.inactive):hover,
-.black-theme .delete button:hover {
+.black-theme .uploadCustomIconButton:hover,
+.black-theme .shortcutDelete button:hover {
 	background: #404040;
 }
 
 /* Color-specific dark-theme hover for upload button */
-.black-theme .uploadCustomIconButton:not(.inactive):hover {
+.black-theme .uploadCustomIconButton:hover {
 	color: var(--whitishColor-dark);
 	fill: var(--whitishColor-dark);
 }
 
-.black-theme .delete button {
+.black-theme .shortcutDelete button {
 	background: #232221;
 }
 
