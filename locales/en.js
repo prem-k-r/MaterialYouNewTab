@@ -1,6 +1,5 @@
 // English (Default)
 const en = {
-    "newTabTitle": "New Tab",
     // Menu Items
     "github": "GitHub",
     "feedback": "Feedback",
@@ -37,6 +36,31 @@ const en = {
     "todoListInfo": "Show a daily To Do list",
     "todoListHover": "ToDo List",    // Keep this short
     "todoPlaceholder": "Add task...",
+    "todoCategoryAll": "All",
+    "todoCategoryUncategorized": "Uncategorized",
+    "todoCategoryWork": "Work",
+    "todoCategoryLife": "Life",
+    "todoCategoryStudy": "Study",
+    "todoCategoryOther": "Other",
+    "todoPriorityHigh": "High",
+    "todoPriorityMedium": "Medium",
+    "todoPriorityLow": "Low",
+    "todoFilterAll": "All",
+    "todoFilterPending": "Pending",
+    "todoFilterCompleted": "Completed",
+    "todoFilterOverdue": "Overdue",
+    "todoFilterToday": "Today",
+    "todoSortCreated": "Created",
+    "todoSortPriority": "Priority",
+    "todoSortDue": "Due Date",
+    "todoImportSuccess": "Import successful!",
+    "todoImportFailed": "Import failed: Invalid JSON file",
+    "todoDueOverdue": "Overdue",
+    "todoDueToday": "Due today",
+    "todoNotificationTitle": "To Do Reminder",
+    "todoContextMenuAdd": "Add to To Do List",
+    "importText": "Import",
+    "exportText": "Export",
 
     // Clock
     "hideClockBox": "Hide Clock",

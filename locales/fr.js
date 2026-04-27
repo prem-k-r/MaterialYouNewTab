@@ -1,19 +1,10 @@
 // French
 const fr = {
-    "newTabTitle": "Nouvel Onglet",
     // Menu Items
     "github": "GitHub",
     "feedback": "Feedback",
     "resetsettings": "Réinitialiser les paramètres",
     "menuCloseText": "Fermer",
-
-    // Section titles
-    "personalizationSectionTitle": "Personnalisation",
-    "clockSectionTitle": "Horloge",
-    "searchSectionTitle": "Recherche",
-    "weatherSectionTitle": "Météo",
-    "appearanceSectionTitle": "Apparence",
-    "settingsSectionTitle": "Paramètres",
 
     // Shortcuts
     "shortcutsText": "Raccourcis",
@@ -39,6 +30,31 @@ const fr = {
     "todoListInfo": "Afficher une liste de tâches quotidiennes",
     "todoListHover": "Liste To-Do",
     "todoPlaceholder": "Ajouter une tâche...",
+    "todoCategoryAll": "Tous",
+    "todoCategoryUncategorized": "Non classé",
+    "todoCategoryWork": "Travail",
+    "todoCategoryLife": "Vie",
+    "todoCategoryStudy": "Étude",
+    "todoCategoryOther": "Autre",
+    "todoPriorityHigh": "Haute",
+    "todoPriorityMedium": "Moyenne",
+    "todoPriorityLow": "Basse",
+    "todoFilterAll": "Tous",
+    "todoFilterPending": "En attente",
+    "todoFilterCompleted": "Terminé",
+    "todoFilterOverdue": "En retard",
+    "todoFilterToday": "Aujourd'hui",
+    "todoSortCreated": "Créé",
+    "todoSortPriority": "Priorité",
+    "todoSortDue": "Échéance",
+    "todoImportSuccess": "Importation réussie !",
+    "todoImportFailed": "Échec de l'importation : fichier JSON invalide",
+    "todoDueOverdue": "En retard",
+    "todoDueToday": "Échéance aujourd'hui",
+    "todoNotificationTitle": "Rappel To-Do",
+    "todoContextMenuAdd": "Ajouter à la To-Do",
+    "importText": "Importer",
+    "exportText": "Exporter",
 
     // Digital Clock
     "hideClockBox": "Masquer l'horloge",
@@ -92,7 +108,7 @@ const fr = {
     // Weather
     "WeatherApiText": "Entrez votre clé WeatherAPI",
     "WeatherApiSubtext": "Si la fonctionnalité météo ne fonctionne pas",
-    "userAPI": "Votre clé WeatherAPI",
+    "userAPI": "Your weatherAPI key",
     "LearnMoreButton": "En savoir plus",
     "saveAPI": "Enregistrer",
 
@@ -168,7 +184,7 @@ const fr = {
 
 
     // Wallpaper and misc
-    "uploadWallpaperText": "Charger un fond d'écran",
+    "uploadWallpaperText": "Uploader un fond d'ecran",
     "backupText": "Sauvegarder",
     "restoreText": "Restaurer",
     "rangColor": "Choisir la couleur",
@@ -188,10 +204,6 @@ const fr = {
     "updateFirefoxHomepage": "Mettre à jour la page d'accueil",
     "updateFirefoxHomepageInfo": "Pour changer votre page d'accueil comme le nouvel onglet, visitez <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">ce lien</a> et suivez les instructions.",
     "dontShowTips": "Ne plus afficher",
-
-    // Footer Toast
-    "footerToastTitle": "En train de voir une bannière?",
-    "footerToastMessage": "Pour masquer la bannière, faites un clic droit dessus et sélectionnez 'Masquer le pied de page sur un nouvel onglet'.",
 
     // Dialog boxes (alerts)
     "okText": "OK",

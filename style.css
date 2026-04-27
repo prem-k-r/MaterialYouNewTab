@@ -234,9 +234,7 @@ html:has(
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
-	& .favicon,
-	& #wIcon,
-	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img {
+	& .favicon {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -274,9 +272,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
-	& .favicon,
-	& #wIcon,
-	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img {
+	& .favicon {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -301,10 +297,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	opacity: 0;
 	z-index: -100;
 	transform: translateY(-70px);
-	transition:
-		opacity 0.5s ease,
-		transform 0.5s ease,
-		z-index 0.5s ease;
+	transition: opacity 0.5s ease, transform 0.5s ease, z-index 0.5s ease;
 	pointer-events: none;
 	backdrop-filter: blur(4px);
 }
@@ -503,9 +496,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 	text-align: center;
 	padding: 10px;
 	border-radius: 15px;
-	transition:
-		transform 0.3s ease,
-		background-color 0.3s ease;
+	transition: transform 0.3s ease, background-color 0.3s ease;
 	text-decoration: none;
 	cursor: pointer;
 	position: relative;
@@ -845,9 +836,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	text-overflow: ellipsis;
 	padding: 4px 8px;
 	color: var(--darkColor-blue);
-	transition:
-		background-color 0.2s,
-		color 0.2s;
+	transition: background-color 0.2s, color 0.2s;
 }
 
 #sortAlphabetical {
@@ -1186,8 +1175,8 @@ body #bookmarkButton.bookmark-button.rotate {
 	border-radius: 30px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 	border: 8px solid var(--bg-color-blue);
-	grid-template-columns: 330px;
-	justify-items: center;
+	grid-template-columns: auto;
+	justify-items: stretch;
 	position: fixed;
 	top: 85px;
 	left: 15px;
@@ -1217,6 +1206,96 @@ body #bookmarkButton.bookmark-button.rotate {
 .todo-container::-webkit-scrollbar-thumb:hover {
 	background-color: var(--darkerColor-blue);
 	border-radius: 3px;
+}
+
+.todo-actions {
+	display: flex;
+	gap: 10px;
+	justify-content: flex-end;
+	width: 100%;
+	padding: 0 10px;
+	box-sizing: border-box;
+}
+
+.todo-actions button {
+	padding: 5px 10px;
+	background-color: var(--accent-color-blue);
+	color: var(--whitishColor-blue);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 0.8rem;
+	transition: background-color 0.2s ease;
+}
+
+.todo-actions button:hover {
+	background-color: color-mix(in srgb, var(--accent-color-blue) 80%, white);
+}
+
+.todo-filters {
+	display: flex;
+	gap: 10px;
+	width: 100%;
+	padding: 0 10px;
+	box-sizing: border-box;
+}
+
+.todo-filters select {
+	flex: 0 0 auto;
+	width: auto;
+	min-width: 0;
+	padding: 5px 8px;
+	background-color: var(--darkColor-blue);
+	background-color: color-mix(in srgb, var(--darkColor-blue) 90%, transparent);
+	color: var(--whitishColor-blue);
+	border: 1px solid var(--bg-color-blue);
+	border-radius: 5px;
+	font-size: 0.8rem;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.todo-filters select option {
+	background-color: var(--bg-color-blue);
+	color: var(--whitishColor-blue);
+}
+
+/* Edit controls styles */
+.todo-edit-controls {
+	display: flex;
+	gap: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 100%;
+}
+
+.todo-category-select,
+.todo-priority-select,
+.todo-due-date-input {
+	flex: 0 0 auto;
+	width: auto;
+	min-width: 0;
+	max-width: none;
+	padding: 3px 6px;
+	background-color: var(--darkColor-blue);
+	background-color: color-mix(in srgb, var(--darkColor-blue) 90%, transparent);
+	color: var(--whitishColor-blue);
+	border: 1px solid var(--bg-color-blue);
+	border-radius: 3px;
+	font-size: 0.8rem;
+	white-space: nowrap;
+}
+
+.edit-input {
+	width: 100%;
+	padding: 5px;
+	background-color: var(--darkColor-blue);
+	background-color: color-mix(in srgb, var(--darkColor-blue) 90%, transparent);
+	color: var(--whitishColor-blue);
+	border: 1px solid var(--bg-color-blue);
+	border-radius: 3px;
+	font-size: 1rem;
+	margin-bottom: 5px;
 }
 
 /* For Firefox */
@@ -1255,13 +1334,13 @@ body #bookmarkButton.bookmark-button.rotate {
 .todo-container .addTaskCont {
 	background: white;
 	background-color: color-mix(in srgb, var(--accentLightTint-blue) 10%, white);
-	padding: 0;
+	padding: 10px;
 	margin-bottom: 4px;
 	border-radius: 20px;
-	height: 42px;
 	width: 100%;
 	display: flex;
-	align-items: center;
+	flex-direction: column;
+	gap: 10px;
 	outline: none;
 }
 
@@ -1277,15 +1356,79 @@ body #bookmarkButton.bookmark-button.rotate {
 	outline: 1px solid var(--accentLightTint-dark);
 }
 
-#todoAdd {
-	height: 100%;
-	border-radius: 20px;
-	padding: 0 12px;
-	border: none;
-	font-size: 1.8rem;
+.task-controls {
+	display: flex;
+	gap: 4px;
+	align-items: center;
+}
+
+.task-controls select,
+.task-controls input[type="date"] {
+	flex: 0 0 auto;
+	width: auto;
+	min-width: 0;
+	max-width: none;
+	padding: 3px 8px;
+	background-color: rgba(255, 255, 255, 0.8);
+	color: var(--darkColor-blue);
+	border: 1px solid var(--bg-color-blue);
+	border-radius: 12px;
+	font-size: 0.7rem;
+	white-space: nowrap;
+}
+
+.task-controls select option {
+	background-color: white;
+	color: var(--darkColor-blue);
+}
+
+.task-controls button {
+	padding: 5px 15px;
 	background-color: var(--darkColor-blue);
 	color: white;
-	scale: 0.78;
+	border: none;
+	border-radius: 15px;
+	cursor: pointer;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.task-controls button:hover {
+	background-color: var(--bg-color-blue);
+}
+
+/* Black theme styles */
+.black-theme .task-controls select,
+.black-theme .task-controls input[type="date"] {
+	background-color: rgba(0, 0, 0, 0.5);
+	color: var(--whitishColor-blue);
+	border: 1px solid var(--accentLightTint-dark);
+}
+
+.black-theme .task-controls select option {
+	background-color: #333;
+	color: var(--whitishColor-blue);
+}
+
+.black-theme .task-controls button {
+	background-color: var(--accentLightTint-dark);
+	color: var(--whitishColor-blue);
+}
+
+.black-theme .task-controls button:hover {
+	background-color: var(--bg-color-dark);
+}
+
+#todoAdd {
+	padding: 3px 10px;
+	border-radius: 12px;
+	border: none;
+	font-size: 1.2rem;
+	background-color: var(--darkColor-blue);
+	color: white;
+	cursor: pointer;
+	min-width: 30px;
+	text-align: center;
 }
 
 #todoAdd:hover {
@@ -1334,6 +1477,7 @@ body #bookmarkButton.bookmark-button.rotate {
 .todolistitem {
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 	background-color: var(--darkColor-blue);
 	background-color: color-mix(in srgb, var(--darkColor-blue) 95%, transparent);
 	color: var(--whitishColor-blue);
@@ -1347,6 +1491,54 @@ body #bookmarkButton.bookmark-button.rotate {
 	cursor: pointer;
 	position: relative;
 	word-break: break-word;
+}
+
+.task-content {
+	margin-bottom: 4px;
+}
+
+.task-meta {
+	display: flex;
+	gap: 8px;
+	font-size: 0.8rem;
+	opacity: 0.8;
+}
+
+.category-badge {
+	background-color: color-mix(in srgb, var(--bg-color-blue) 30%, transparent);
+	padding: 2px 8px;
+	border-radius: 10px;
+}
+
+.priority-badge {
+	padding: 2px 8px;
+	border-radius: 10px;
+}
+
+.priority-高 {
+	background-color: color-mix(in srgb, #ff4757 30%, transparent);
+}
+
+.priority-中 {
+	background-color: color-mix(in srgb, #ffa502 30%, transparent);
+}
+
+.priority-低 {
+	background-color: color-mix(in srgb, #2ed573 30%, transparent);
+}
+
+.due-date-badge {
+	background-color: color-mix(in srgb, var(--bg-color-cyan) 30%, transparent);
+	padding: 2px 8px;
+	border-radius: 10px;
+}
+
+.due-date-badge.overdue {
+	background-color: color-mix(in srgb, #ff4757 30%, transparent);
+}
+
+.due-date-badge.due-today {
+	background-color: color-mix(in srgb, #ffa502 30%, transparent);
 }
 
 .todolistitem::before {
@@ -1669,9 +1861,7 @@ html[lang="ta"] .digiclock {
 	overflow: hidden;
 	max-height: 800px;
 	opacity: 1;
-	transition:
-		max-height 0.4s var(--md-motion-ease),
-		opacity 0.3s ease;
+	transition: max-height 0.4s var(--md-motion-ease), opacity 0.3s ease;
 }
 
 .not-applicable {
@@ -1794,10 +1984,7 @@ html[lang="ta"] .digiclock {
 	height: auto;
 	max-height: 0;
 	overflow: hidden;
-	transition:
-		opacity 0.3s ease,
-		transform 0.5s ease,
-		max-height 0.4s ease;
+	transition: opacity 0.3s ease, transform 0.5s ease, max-height 0.4s ease;
 }
 
 body[data-bg="wallpaper"] .opacityBarControl {
@@ -2017,7 +2204,6 @@ body[data-bg="wallpaper"] .searchbar {
 	position: absolute;
 	margin-top: 16px;
 	margin-inline-start: 16px;
-	fill: var(--darkColor-blue);
 }
 
 .searchbar-content {
@@ -2179,9 +2365,7 @@ body[data-bg="wallpaper"] .micIcon {
 	margin-inline-end: 5px;
 	border-radius: var(--round);
 	cursor: pointer;
-	transition:
-		border-radius 0.4s,
-		margin-inline-start 0.4s;
+	transition: border-radius 0.4s, margin-inline-start 0.4s;
 }
 
 :dir(rtl) .searchWithCont .hint {
@@ -2281,9 +2465,7 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 }
 
 .theme-transition .search-engine input[type="radio"] {
-	transition:
-		background-color 0.2s ease,
-		border 0.2s ease;
+	transition: background-color 0.2s ease, border 0.2s ease;
 }
 
 /* ----------- Quotes ------------ */
@@ -2570,32 +2752,6 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 	width: calc(100% * 0.7071) !important;
 	filter: grayscale(1);
 	mix-blend-mode: screen;
-}
-
-html:has(.themeSegment[data-active="dark"])
-	.adaptive-icons
-	.shortcuts
-	.shortcutLogoContainer
-	img,
-html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"])
-	.adaptive-icons
-	.shortcuts
-	.shortcutLogoContainer
-	img {
-	filter: grayscale(1) invert(1);
-}
-
-body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"])
-	.adaptive-icons
-	.shortcutLogoContainer
-	img,
-body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
-		.themeSegment[data-active="system"]
-	)
-	.adaptive-icons
-	.shortcutLogoContainer
-	img {
-	filter: grayscale(1) invert(1) !important;
 }
 /* ----------end of Shortcuts----------------- */
 
@@ -3315,8 +3471,7 @@ input:checked + .toggle:before {
 	border-radius: 25px;
 	padding: 7px;
 
-	transition:
-		border-radius 0.25s var(--md-motion-ease),
+	transition: border-radius 0.25s var(--md-motion-ease),
 		background-color 0.25s var(--md-motion-ease);
 }
 
@@ -3370,10 +3525,8 @@ input:checked + .toggle:before {
 	overflow: hidden;
 	max-height: 1000px; /* large enough */
 	opacity: 1;
-	transition:
-		max-height 0.4s var(--md-motion-ease),
-		opacity 0.2s var(--md-motion-ease),
-		margin-top 0.23s var(--md-motion-ease),
+	transition: max-height 0.4s var(--md-motion-ease),
+		opacity 0.2s var(--md-motion-ease), margin-top 0.23s var(--md-motion-ease),
 		padding 0.23s var(--md-motion-ease);
 }
 
@@ -3399,10 +3552,8 @@ input:checked + .toggle:before {
 	padding-top: 0;
 	padding-bottom: 0;
 
-	transition:
-		max-height 0.3s cubic-bezier(0.2, 0, 0, 1),
-		opacity 0.2s var(--md-motion-ease),
-		margin-top 0.23s var(--md-motion-ease),
+	transition: max-height 0.3s cubic-bezier(0.2, 0, 0, 1),
+		opacity 0.2s var(--md-motion-ease), margin-top 0.23s var(--md-motion-ease),
 		padding 0.23s var(--md-motion-ease);
 }
 
@@ -3978,9 +4129,7 @@ option:checked {
 	border-radius: 23px;
 	cursor: pointer;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-	transition:
-		background-color 0.3s,
-		color 0.3s;
+	transition: background-color 0.3s, color 0.3s;
 }
 
 .randomButton {
@@ -3993,9 +4142,7 @@ option:checked {
 	border-radius: 26px;
 	cursor: pointer;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-	transition:
-		background-color 0.3s,
-		color 0.3s;
+	transition: background-color 0.3s, color 0.3s;
 	padding: 10px;
 }
 
@@ -4009,9 +4156,7 @@ option:checked {
 	border: none;
 	border-radius: 26px;
 	cursor: pointer;
-	transition:
-		background-color 0.3s,
-		color 0.3s;
+	transition: background-color 0.3s, color 0.3s;
 }
 
 /* Hover Effects */
@@ -4111,8 +4256,7 @@ option:checked {
 	background-color: var(--accentLightTint-blue);
 	border-radius: 50%;
 	border: 6px solid var(--accentLightTint-blue);
-	box-shadow:
-		inset 0 0 0 4px var(--darkColor-blue),
+	box-shadow: inset 0 0 0 4px var(--darkColor-blue),
 		inset 0 0 0 9.7px var(--accentLightTint-blue),
 		inset 0 0 0 40px var(--darkColor-blue);
 	cursor: pointer;
@@ -4216,16 +4360,14 @@ option:checked {
 	overflow-y: auto;
 	max-height: 0;
 	opacity: 0;
-	transition:
-		max-height 0.21s var(--md-motion-accelerate),
+	transition: max-height 0.21s var(--md-motion-accelerate),
 		opacity 0.2s var(--md-motion-accelerate);
 }
 
 .dropdown-content.show {
 	max-height: 192px;
 	opacity: 1;
-	transition:
-		max-height 0.32s var(--md-motion-decelerate),
+	transition: max-height 0.32s var(--md-motion-decelerate),
 		opacity 0.12s var(--md-motion-decelerate);
 }
 
@@ -4369,8 +4511,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 /* --------- Save button --------- */
 .savebtn {
-	transition:
-		background-color 0.3s var(--md-motion-ease),
+	transition: background-color 0.3s var(--md-motion-ease),
 		transform 0.2s var(--md-motion-ease);
 }
 
@@ -4766,11 +4907,11 @@ body[data-bg="wallpaper"] .dropdown-content {
 		display: flex !important;
 	}
 	.hangno:has(
-		+ :is(
-			.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
-			.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0;"]
-		)
-	) {
+			+ :is(
+					.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
+					.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0;"]
+				)
+		) {
 		& .icon {
 			margin: 0;
 		}
@@ -4895,15 +5036,11 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme #searchIconDark {
-	fill: #bbb;
+	fill: #bbb !important;
 }
 
 .black-theme .dropdown-item.selected:not(*[data-default]):before {
 	background-color: #707070;
-}
-
-.black-theme #micIconPath {
-	fill: var(--darkColor-dark);
 }
 
 .black-theme .tilesContainer .tiles {
@@ -4911,7 +5048,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme #darkFeelsLikeIcon {
-	fill: #fff;
+	fill: #fff !important;
 }
 
 .black-theme .humidityBar .slider {
@@ -4932,7 +5069,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: #cdcdcd;
 }
 
-.black-theme .shortcutDarkColor {
+.black-theme .shorcutDarkColor {
 	fill: var(--accentLightTint-dark) !important;
 }
 
@@ -5097,10 +5234,8 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 .black-theme #menuButton {
 	border: 6px solid var(--accentLightTint-blue);
-	box-shadow:
-		inset 0 0 0 4px #858585,
-		inset 0 0 0 9.7px var(--accentLightTint-blue),
-		inset 0 0 0 40px #bfbfbf;
+	box-shadow: inset 0 0 0 4px #858585,
+		inset 0 0 0 9.7px var(--accentLightTint-blue), inset 0 0 0 40px #bfbfbf;
 }
 
 .black-theme #menuCloseButton,
@@ -5115,10 +5250,6 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme #closeBtnX {
 	border: 2px solid #bdbdbd;
 	border-radius: 100px;
-}
-
-.black-theme #menuCloseBtnIcon {
-	fill: var(--darkColor-dark);
 }
 
 .black-theme body {
@@ -5380,9 +5511,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	overflow: hidden;
 	display: flex;
 	align-items: flex-start;
-	box-shadow:
-		0 6px 6px rgba(0, 0, 0, 0.25),
-		0 0 22px rgba(0, 0, 0, 0.16);
+	box-shadow: 0 6px 6px rgba(0, 0, 0, 0.25), 0 0 22px rgba(0, 0, 0, 0.16);
 }
 
 /* Blur distortion */
@@ -5406,8 +5535,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 .liquidGlass-shine {
 	position: absolute;
 	inset: 0;
-	box-shadow:
-		inset 2px 2px 1px rgba(255, 255, 255, 0.55),
+	box-shadow: inset 2px 2px 1px rgba(255, 255, 255, 0.55),
 		inset -1px -1px 1px rgba(255, 255, 255, 0.45);
 	z-index: 4;
 }
