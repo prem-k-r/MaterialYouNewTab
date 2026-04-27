@@ -39,7 +39,6 @@ const translations = {
     th: th, // Thai
     pl: pl, // Polish
     uk: uk, // Ukrainian
-    sv: sv, // Swedish
 };
 
 // Define the width of the menu container for each language
@@ -47,14 +46,12 @@ const menuWidths = {
     en: "443px",
     ta: "522px",
     pt: "512px",
-    sv: "472px",
     bn: "458px",
     uz: "497px",
     vi: "487px",
     cs: "494px",
     es: "488px",
     hi: "450px",
-    mr: "460px",
     hu: "487px",
     ja: "486px",
     ru: "442px",
@@ -91,7 +88,7 @@ function localizeNumbers(text, language) {
     const map = numberMappings[language]; // Get the numeral map for the current language
 
     // Define languages that use a comma as the decimal separator instead of a dot
-    const specialDecimalLanguages = ["cs", "it", "pt", "ru", "tr", "vi", "uz", "es", "ko", "idn", "fr", "az", "sl", "hu", "de", "fa", "el", "uk", "sv"]; // Add more languages here as needed
+    const specialDecimalLanguages = ["cs", "it", "pt", "ru", "tr", "vi", "uz", "es", "ko", "idn", "fr", "az", "sl", "hu", "de", "fa", "el", "uk"]; // Add more languages here as needed
 
     if (specialDecimalLanguages.includes(language)) {
         // Replace decimal point with a comma for specific languages
@@ -116,8 +113,6 @@ const rtlLanguages = ["ur", "fa", "ar_SA"];
 
 // Function to apply the language to the page
 function applyLanguage(lang) {
-    document.title = translations[lang]?.newTabTitle || translations["en"].newTabTitle;
-
     // Mapping of text elements and their translation keys
     const translationMap = [
         "feedback",
@@ -138,6 +133,15 @@ function applyLanguage(lang) {
         "googleAppsMenuInfo",
         "todoListText",
         "todoListInfo",
+        // To-do List translations
+        "todoFilterAll",
+        "todoFilterPending",
+        "todoFilterCompleted",
+        "todoFilterOverdue",
+        "todoFilterToday",
+        "todoSortCreated",
+        "todoSortPriority",
+        "todoSortDue",
         "fahrenheitCelsiusCheckbox",
         "fahrenheitCelsiusText",
         "minMaxTempText",
@@ -388,9 +392,83 @@ function applyLanguage(lang) {
     // quotesText.style.textAlign = isRTL ? "right" : "left";
     quotesText.style.fontFamily = commonFontStack;
 
+    // Update todo list select options
+    updateTodoOptions(lang);
+
     // Save the selected language in localStorage
     document.documentElement.lang = currentLanguage;
     saveLanguageStatus("selectedLanguage", lang);
+}
+
+// Function to update todo list options with translations
+function updateTodoOptions(lang) {
+    const translation = translations[lang] || translations["en"];
+    
+    // Update category options
+    const categorySelect = document.getElementById("todoCategory");
+    if (categorySelect) {
+        const categoryMap = {
+            "uncategorized": translation.todoCategoryUncategorized || translations["en"].todoCategoryUncategorized,
+            "work": translation.todoCategoryWork || translations["en"].todoCategoryWork,
+            "life": translation.todoCategoryLife || translations["en"].todoCategoryLife,
+            "study": translation.todoCategoryStudy || translations["en"].todoCategoryStudy,
+            "other": translation.todoCategoryOther || translations["en"].todoCategoryOther
+        };
+        categorySelect.querySelectorAll("option").forEach(option => {
+            option.textContent = categoryMap[option.value] || option.textContent;
+        });
+    }
+    
+    // Update priority options
+    const prioritySelect = document.getElementById("todoPriority");
+    if (prioritySelect) {
+        const priorityMap = {
+            "high": translation.todoPriorityHigh || translations["en"].todoPriorityHigh,
+            "medium": translation.todoPriorityMedium || translations["en"].todoPriorityMedium,
+            "low": translation.todoPriorityLow || translations["en"].todoPriorityLow
+        };
+        prioritySelect.querySelectorAll("option").forEach(option => {
+            option.textContent = priorityMap[option.value] || option.textContent;
+        });
+    }
+    
+    // Update filter options
+    const filterSelect = document.getElementById("todoFilter");
+    if (filterSelect) {
+        const filterMap = {
+            "all": translation.todoFilterAll || translations["en"].todoFilterAll,
+            "pending": translation.todoFilterPending || translations["en"].todoFilterPending,
+            "completed": translation.todoFilterCompleted || translations["en"].todoFilterCompleted,
+            "overdue": translation.todoFilterOverdue || translations["en"].todoFilterOverdue,
+            "today": translation.todoFilterToday || translations["en"].todoFilterToday
+        };
+        filterSelect.querySelectorAll("option").forEach(option => {
+            option.textContent = filterMap[option.value] || option.textContent;
+        });
+    }
+    
+    // Update sort options
+    const sortSelect = document.getElementById("todoSort");
+    if (sortSelect) {
+        const sortMap = {
+            "created": translation.todoSortCreated || translations["en"].todoSortCreated,
+            "priority": translation.todoSortPriority || translations["en"].todoSortPriority,
+            "due": translation.todoSortDue || translations["en"].todoSortDue
+        };
+        sortSelect.querySelectorAll("option").forEach(option => {
+            option.textContent = sortMap[option.value] || option.textContent;
+        });
+    }
+    
+    // Update import/export buttons
+    const importBtn = document.getElementById("todoImport");
+    if (importBtn) {
+        importBtn.textContent = translation.importText || translations["en"].importText;
+    }
+    const exportBtn = document.getElementById("todoExport");
+    if (exportBtn) {
+        exportBtn.textContent = translation.exportText || translations["en"].exportText;
+    }
 }
 
 // Detect language from navigator.language

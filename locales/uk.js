@@ -1,17 +1,8 @@
 // Ukrainian
 const uk = {
-    "newTabTitle": "Нова вкладка",
     // Menu Items
     "github": "GitHub",
     "feedback": "Відгук",
-
-    // Section titles
-    "personalizationSectionTitle": "Персоналізація",
-    "clockSectionTitle": "Годинник",
-    "searchSectionTitle": "Пошук",
-    "weatherSectionTitle": "Погода",
-    "appearanceSectionTitle": "Зовнішній вигляд",
-    "settingsSectionTitle": "Налаштування",
 
     // Shortcuts
     "shortcutsText": "Ярлики",
@@ -37,6 +28,31 @@ const uk = {
     "todoListInfo": "Показати щоденний список справ",
     "todoListHover": "Список справ",
     "todoPlaceholder": "Додати задачу...",
+    "todoCategoryAll": "Всі",
+    "todoCategoryUncategorized": "Без категорії",
+    "todoCategoryWork": "Робота",
+    "todoCategoryLife": "Життя",
+    "todoCategoryStudy": "Навчання",
+    "todoCategoryOther": "Інше",
+    "todoPriorityHigh": "Високий",
+    "todoPriorityMedium": "Середній",
+    "todoPriorityLow": "Низький",
+    "todoFilterAll": "Всі",
+    "todoFilterPending": "Очікує",
+    "todoFilterCompleted": "Виконано",
+    "todoFilterOverdue": "Прострочено",
+    "todoFilterToday": "Сьогодні",
+    "todoSortCreated": "Створено",
+    "todoSortPriority": "Пріоритет",
+    "todoSortDue": "Дедлайн",
+    "todoImportSuccess": "Імпорт успішний!",
+    "todoImportFailed": "Помилка імпорту: недійсний JSON файл",
+    "todoDueOverdue": "Прострочено",
+    "todoDueToday": "Сьогодні",
+    "todoNotificationTitle": "Нагадування",
+    "todoContextMenuAdd": "Додати до справ",
+    "importText": "Імпорт",
+    "exportText": "Експорт",
 
     // Clock
     "hideClockBox": "Приховати годинник",

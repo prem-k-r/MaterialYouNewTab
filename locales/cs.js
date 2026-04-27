@@ -1,7 +1,5 @@
 // Czech
 const cs = {
-    "newTabTitle": "Nová karta",
-
     // Menu Items
     "github": "GitHub",
     "feedback": "Zpětná vazba",
@@ -38,6 +36,31 @@ const cs = {
     "todoListInfo": "Zobrazí denní seznam úkolů",
     "todoListHover": "Seznam úkolů",
     "todoPlaceholder": "Přidat úkol…",
+    "todoCategoryAll": "Všechny",
+    "todoCategoryUncategorized": "Bez kategorie",
+    "todoCategoryWork": "Práce",
+    "todoCategoryLife": "Život",
+    "todoCategoryStudy": "Studium",
+    "todoCategoryOther": "Jiné",
+    "todoPriorityHigh": "Vysoká",
+    "todoPriorityMedium": "Střední",
+    "todoPriorityLow": "Nízká",
+    "todoFilterAll": "Všechny",
+    "todoFilterPending": "Čekající",
+    "todoFilterCompleted": "Dokončené",
+    "todoFilterOverdue": "Po termínu",
+    "todoFilterToday": "Dnes",
+    "todoSortCreated": "Vytvořeno",
+    "todoSortPriority": "Priorita",
+    "todoSortDue": "Termín",
+    "todoImportSuccess": "Import úspěšný!",
+    "todoImportFailed": "Chyba importu: neplatný soubor JSON",
+    "todoDueOverdue": "Po termínu",
+    "todoDueToday": "Termín dnes",
+    "todoNotificationTitle": "Připomínka úkolů",
+    "todoContextMenuAdd": "Přidat do seznamu",
+    "importText": "Import",
+    "exportText": "Export",
 
     // Clock
     "hideClockBox": "Skrýt hodiny",
