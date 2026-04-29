@@ -45,14 +45,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const dontShowButton = document.getElementById("dontShowTips");
 
     // Check if the user has previously disabled tips
-    if (localStorage.getItem("hideTips") === "true") {
+    if (Storage.getItem("hideTips") === "true") {
         tips.style.display = "none";
     }
 
     // Hide tips and save preference when button is clicked
     dontShowButton.addEventListener("click", function () {
         tips.style.display = "none";
-        localStorage.setItem("hideTips", "true"); // Save preference
+        Storage.setItem("hideTips", "true"); // Save preference
     });
 });
 
@@ -75,11 +75,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function showToast() {
         // Check if toast has been shown before
-        const hasShown = localStorage.getItem(STORAGE_KEY);
+        const hasShown = Storage.getItem(STORAGE_KEY);
         if (hasShown) return;
 
         // Mark as shown
-        localStorage.setItem(STORAGE_KEY, 'true');
+        Storage.setItem(STORAGE_KEY, 'true');
 
         // Show toast after brief delay
         setTimeout(() => {

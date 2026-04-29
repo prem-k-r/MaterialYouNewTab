@@ -15,8 +15,8 @@ function isSupportedBrowser() {
 const micIcon = document.getElementById("micIcon");
 const micIconCheckbox = document.getElementById("micIconCheckbox");
 
-// Check if there's a saved state in localStorage
-const savedState = localStorage.getItem("micIconVisible");
+// Check if there's a saved state in Storage
+const savedState = Storage.getItem("micIconVisible");
 let isMicIconVisible;
 
 // If saved state exists, use it; otherwise, fallback to initial state based on browser support
@@ -26,7 +26,7 @@ if (savedState !== null) {
     // Default state: Hide mic icon if browser is not supported
     isMicIconVisible = isSupportedBrowser();
     // Save the initial state based on the user agent
-    localStorage.setItem("micIconVisible", isMicIconVisible);
+    Storage.setItem("micIconVisible", isMicIconVisible);
 }
 
 // Set the checkbox state based on the saved or default state
@@ -40,7 +40,7 @@ if (isMicIconVisible) {
 // Function to toggle mic icon visibility
 function toggleMicIconVisibility(isVisible) {
     micIcon.style.display = isVisible ? "block" : "none";
-    localStorage.setItem("micIconVisible", isVisible); // Save to localStorage
+    Storage.setItem("micIconVisible", isVisible); // Save to Storage
 }
 
 // Toggle mic icon display based on checkbox state

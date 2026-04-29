@@ -8,15 +8,15 @@
 
 /* ------ Helper functions for saving and loading states ------ */
 
-// Function to save checkbox state to localStorage
+// Function to save checkbox state to Storage
 function saveCheckboxState(key, checkbox) {
-    localStorage.setItem(key, checkbox.checked ? "checked" : "unchecked");
+    Storage.setItem(key, checkbox.checked ? "checked" : "unchecked");
 }
 
 const bookmarkGridCheckbox = document.getElementById("bookmarkGridCheckbox");
-// Function to load and apply checkbox state from localStorage
+// Function to load and apply checkbox state from Storage
 function loadCheckboxState(key, checkbox) {
-    const savedState = localStorage.getItem(key);
+    const savedState = Storage.getItem(key);
     checkbox.checked = savedState === "checked";
     if (key === "bookmarkGridCheckboxState") {
         if (!savedState) {
@@ -28,14 +28,14 @@ function loadCheckboxState(key, checkbox) {
     }
 }
 
-// Function to save display status to localStorage
+// Function to save display status to Storage
 function saveDisplayStatus(key, displayStatus) {
-    localStorage.setItem(key, displayStatus);
+    Storage.setItem(key, displayStatus);
 }
 
-// Function to load and apply display status from localStorage
+// Function to load and apply display status from Storage
 function loadDisplayStatus(key, element) {
-    const savedStatus = localStorage.getItem(key);
+    const savedStatus = Storage.getItem(key);
     if (savedStatus === "flex") {
         element.style.display = "flex";
     } else {
@@ -43,14 +43,14 @@ function loadDisplayStatus(key, element) {
     }
 }
 
-// Function to save activeness status to localStorage
+// Function to save activeness status to Storage
 function saveActiveStatus(key, activeStatus) {
-    localStorage.setItem(key, activeStatus);
+    Storage.setItem(key, activeStatus);
 }
 
-// Function to load and apply activeness status from localStorage
+// Function to load and apply activeness status from Storage
 function loadActiveStatus(key, element) {
-    const savedStatus = localStorage.getItem(key);
+    const savedStatus = Storage.getItem(key);
     if (savedStatus === "active") {
         element.classList.remove("inactive");
     } else {

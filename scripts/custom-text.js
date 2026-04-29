@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const userTextCheckbox = document.getElementById("userTextCheckbox");
 
     // Load and apply the checkbox state
-    const isUserTextVisible = localStorage.getItem("userTextVisible") !== "false";
+    const isUserTextVisible = Storage.getItem("userTextVisible") !== "false";
     userTextCheckbox.checked = isUserTextVisible;
     userTextDiv.style.display = isUserTextVisible ? "block" : "none";
 
@@ -20,15 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
     userTextCheckbox.addEventListener("change", () => {
         const isVisible = userTextCheckbox.checked;
         userTextDiv.style.display = isVisible ? "block" : "none";
-        localStorage.setItem("userTextVisible", isVisible);
+        Storage.setItem("userTextVisible", isVisible);
     });
 
     // Set the default language to English if no language is saved
-    const savedLang = localStorage.getItem("selectedLanguage") || "en";
+    const savedLang = Storage.getItem("selectedLanguage") || "en";
     applyLanguage(savedLang);
 
     // Load the stored text if it exists
-    const storedValue = localStorage.getItem("userText");
+    const storedValue = Storage.getItem("userText");
     if (storedValue) {
         userTextDiv.textContent = storedValue;
     } else {
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Handle input event
     userTextDiv.addEventListener("input", function () {
-        localStorage.setItem("userText", userTextDiv.textContent);
+        Storage.setItem("userText", userTextDiv.textContent);
     });
 
     // Remove placeholder text when the user starts editing

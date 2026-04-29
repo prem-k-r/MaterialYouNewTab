@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setupEventListeners();
     loadShortcuts();
 
-    // Loads all settings from localStorage and applies them
+    // Loads all settings from Storage and applies them
     function loadSettings() {
         loadCheckboxState("shortcutsCheckboxState", dom.shortcutsCheckbox);
         loadCheckboxState("adaptiveIconToggle", dom.adaptiveIconToggle);
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function handleNewShortcutClick() {
         if (this.classList.contains("inactive")) return;
 
-        const currentAmount = parseInt(localStorage.getItem("shortcutAmount")) || shortcutsCache.length;
+        const currentAmount = parseInt(Storage.getItem("shortcutAmount")) || shortcutsCache.length;
         if (currentAmount >= MAX_SHORTCUTS) return;
 
         addNewShortcut();
@@ -133,16 +133,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 800);
     }
 
-    // Loads shortcuts from localStorage or uses presets if none exist
+    // Loads shortcuts from Storage or uses presets if none exist
     function loadShortcuts() {
-        const amount = localStorage.getItem("shortcutAmount") || presets.length;
+        const amount = Storage.getItem("shortcutAmount") || presets.length;
         const deleteInactive = amount <= 1;
 
         shortcutsCache = [];
 
         for (let i = 0; i < amount; i++) {
-            const name = localStorage.getItem(`shortcutName${i}`) || (presets[i] ? presets[i].name : PLACEHOLDER.name);
-            const url = localStorage.getItem(`shortcutURL${i}`) || (presets[i] ? presets[i].url : PLACEHOLDER.url);
+            const name = Storage.getItem(`shortcutName${i}`) || (presets[i] ? presets[i].name : PLACEHOLDER.name);
+            const url = Storage.getItem(`shortcutURL${i}`) || (presets[i] ? presets[i].url : PLACEHOLDER.url);
 
             shortcutsCache.push({ name, url });
 
@@ -559,7 +559,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Saves the new shortcut order to localStorage
+    // Saves the new shortcut order to Storage
     function saveShortcutOrder() {
         const entries = dom.shortcutSettingsContainer.querySelectorAll(".shortcutSettingsEntry");
         const newOrder = Array.from(entries).map(entry => ({
@@ -569,10 +569,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Only save if order has changed
         if (hasOrderChanged(newOrder)) {
-            localStorage.setItem("shortcutAmount", newOrder.length.toString());
+            Storage.setItem("shortcutAmount", newOrder.length.toString());
             newOrder.forEach((item, index) => {
-                localStorage.setItem(`shortcutName${index}`, item.name);
-                localStorage.setItem(`shortcutURL${index}`, item.url);
+                Storage.setItem(`shortcutName${index}`, item.name);
+                Storage.setItem(`shortcutURL${index}`, item.url);
             });
 
             shortcutsCache = newOrder;
@@ -629,11 +629,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Adds a new shortcut
     function addNewShortcut() {
-        const currentAmount = parseInt(localStorage.getItem("shortcutAmount")) || shortcutsCache.length;
+        const currentAmount = parseInt(Storage.getItem("shortcutAmount")) || shortcutsCache.length;
         if (currentAmount >= MAX_SHORTCUTS) return;
 
         const newAmount = currentAmount + 1;
-        localStorage.setItem("shortcutAmount", newAmount.toString());
+        Storage.setItem("shortcutAmount", newAmount.toString());
 
         if (currentAmount >= 1) {
             document.querySelectorAll(".delete button.inactive").forEach(b => {
@@ -654,22 +654,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Deletes a shortcut
     function deleteShortcut(entry) {
-        const currentAmount = parseInt(localStorage.getItem("shortcutAmount")) || shortcutsCache.length;
+        const currentAmount = parseInt(Storage.getItem("shortcutAmount")) || shortcutsCache.length;
         if (currentAmount <= 1) return;
 
         const index = entry._index;
         entry.remove();
         dom.shortcutsContainer.removeChild(dom.shortcutsContainer.children[index]);
 
-        // Update localStorage
-        localStorage.setItem("shortcutAmount", (currentAmount - 1).toString());
+        // Update Storage
+        Storage.setItem("shortcutAmount", (currentAmount - 1).toString());
         for (let i = index; i < currentAmount - 1; i++) {
             const nextEntry = dom.shortcutSettingsContainer.children[i];
             nextEntry._index = i;
             saveShortcut(nextEntry);
         }
-        localStorage.removeItem(`shortcutName${currentAmount - 1}`);
-        localStorage.removeItem(`shortcutURL${currentAmount - 1}`);
+        Storage.removeItem(`shortcutName${currentAmount - 1}`);
+        Storage.removeItem(`shortcutURL${currentAmount - 1}`);
 
         if (currentAmount - 1 === 1) {
             document.querySelectorAll(".delete button").forEach(b => {
@@ -694,11 +694,11 @@ document.addEventListener("DOMContentLoaded", function () {
         svg.classList.add("rotate-animation");
 
         // Clear storage
-        for (let i = 0; i < (localStorage.getItem("shortcutAmount") || 0); i++) {
-            localStorage.removeItem(`shortcutName${i}`);
-            localStorage.removeItem(`shortcutURL${i}`);
+        for (let i = 0; i < (Storage.getItem("shortcutAmount") || 0); i++) {
+            Storage.removeItem(`shortcutName${i}`);
+            Storage.removeItem(`shortcutURL${i}`);
         }
-        localStorage.removeItem("shortcutAmount");
+        Storage.removeItem("shortcutAmount");
 
         // Wait for animations of shortcut elements to complete
         await new Promise(resolve => setTimeout(resolve, 300));
@@ -713,9 +713,9 @@ document.addEventListener("DOMContentLoaded", function () {
         loadShortcuts();
     }
 
-    // Saves a single shortcut to localStorage
+    // Saves a single shortcut to Storage
     function saveShortcut(entry) {
-        localStorage.setItem(`shortcutName${entry._index}`, entry.querySelector(".shortcutName").value);
-        localStorage.setItem(`shortcutURL${entry._index}`, entry.querySelector(".URL").value);
+        Storage.setItem(`shortcutName${entry._index}`, entry.querySelector(".shortcutName").value);
+        Storage.setItem(`shortcutURL${entry._index}`, entry.querySelector(".URL").value);
     }
 });

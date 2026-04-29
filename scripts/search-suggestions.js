@@ -11,7 +11,7 @@ let proxyurl;
 document.addEventListener("DOMContentLoaded", () => {
     const userProxyInput = document.getElementById("userproxy");
     const saveProxyButton = document.getElementById("saveproxy");
-    const savedProxy = localStorage.getItem("proxy");
+    const savedProxy = Storage.getItem("proxy");
 
     const defaultProxyURL = "https://mynt-proxy.rhythmcorehq.com/proxy?url="; //Default proxy url
 
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Save the proxy to localStorage
+    // Save the proxy to Storage
     saveProxyButton.addEventListener("click", () => {
         proxyurl = userProxyInput.value.trim();
 
@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 proxyurl = "https://" + proxyurl;
             }
         }
-        // Set the proxy in localStorage, clear the input, and reload the page
-        localStorage.setItem("proxy", proxyurl);
+        // Set the proxy in Storage, clear the input, and reload the page
+        Storage.setItem("proxy", proxyurl);
         userProxyInput.value = "";
         location.reload();
     });

@@ -181,13 +181,13 @@ todoulList.addEventListener("click", (event) => {
 
 // Save JSON to local Storage
 function SaveToDoData() {
-    localStorage.setItem("todoList", JSON.stringify(todoList));
+    Storage.setItem("todoList", JSON.stringify(todoList));
 }
 
 // Fetch saved JSON and create list items using it
 function ShowToDoList() {
     try {
-        todoList = JSON.parse(localStorage.getItem("todoList")) || {}; // Parse stored data or initialize empty
+        todoList = JSON.parse(Storage.getItem("todoList")) || {}; // Parse stored data or initialize empty
         const fragment = document.createDocumentFragment(); // Create a DocumentFragment
 
         for (let id in todoList) {
@@ -198,21 +198,21 @@ function ShowToDoList() {
 
         todoulList.appendChild(fragment); // Append all `li` to the `ul` at once
     } catch (error) {
-        console.error("Error loading from localStorage:", error);
-        localStorage.setItem("todoList", "{}"); // Reset corrupted data
+        console.error("Error loading from Storage:", error);
+        Storage.setItem("todoList", "{}"); // Reset corrupted data
     }
 }
 
 // Code to reset the List on the Next Day
-let todoLastUpdateDate = localStorage.getItem("todoLastUpdateDate"); // Get the date of last update
+let todoLastUpdateDate = Storage.getItem("todoLastUpdateDate"); // Get the date of last update
 let todoCurrentDate = new Date().toLocaleDateString(); // Get current date
 
 if (todoLastUpdateDate === todoCurrentDate) {
     ShowToDoList();
 } else {
     // Modify the list when last update date and the current date does not match
-    localStorage.setItem("todoLastUpdateDate", todoCurrentDate);
-    todoList = JSON.parse(localStorage.getItem("todoList")) || {};
+    Storage.setItem("todoLastUpdateDate", todoCurrentDate);
+    todoList = JSON.parse(Storage.getItem("todoList")) || {};
 
     for (let id in todoList) {
         if (todoList[id].pinned === false) {

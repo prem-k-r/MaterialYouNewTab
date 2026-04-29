@@ -18,7 +18,7 @@ function setSliderPosition(percentage) {
     slider.style.width = `${posPercent}%`;
     opacityLevel.textContent = `${localizeNumbers(Math.round(posPercent).toString(), currentLanguage)}%`;
     document.documentElement.style.setProperty("--transparency", `${Math.round(posPercent)}%`);
-    localStorage.setItem("bgOpacity", posPercent);
+    Storage.setItem("bgOpacity", posPercent);
 }
 
 // Handle drag or click interaction on opacity bar
@@ -55,5 +55,5 @@ function startDrag() {
 });
 
 // Initialize with saved opacity value or default to 90%
-const savedOpacity = localStorage.getItem("bgOpacity") || 90;
+const savedOpacity = Storage.getItem("bgOpacity") || 90;
 setSliderPosition(Number(savedOpacity));

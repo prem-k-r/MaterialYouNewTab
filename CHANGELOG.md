@@ -18,10 +18,12 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 ### Added
 
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
+- Migrated storage from `localStorage` to browser Storage API (`chrome.storage.sync` on Chrome, `browser.storage.local` on Firefox) with automatic one-time migration of existing user data ([@basupatil1213](https://github.com/basupatil1213))
 
 ### Improved
 
 - Introduced collapsible sections in the settings menu for improved organization and easier navigation ([@prem-k-r](https://github.com/prem-k-r)) ([#109](https://github.com/prem-k-r/MaterialYouNewTab/pull/109))
+- Settings now sync across devices via `chrome.storage.sync`; large/ephemeral data (quotes, weather cache) kept local to respect sync quotas ([@basupatil1213](https://github.com/basupatil1213))
 - Redesigned the theme selector from dropdown to buttons for easier switching between Light, Dark, and System modes ([@prem-k-r](https://github.com/prem-k-r)) ([#112](https://github.com/prem-k-r/MaterialYouNewTab/pull/112))
 - Added expanding animations to todo and Google apps panels and some other minor UI changes ([@prem-k-r](https://github.com/prem-k-r)) ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
 - Prevented weather condition and shortcut icons from being color-inverted in dark mode ([@prem-k-r](https://github.com/prem-k-r)) ([#191](https://github.com/prem-k-r/MaterialYouNewTab/pull/191))
@@ -29,6 +31,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 ### Fixed
 
 - Fixed an issue where rapid clicks on the AI Tools icon caused race conditions, leading to inconsistent shortcuts panel visibility. ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
+- Fixed flash of wrong theme color on page load by awaiting storage initialization before applying theme ([@basupatil1213](https://github.com/basupatil1213))
 
 ### Localized
 

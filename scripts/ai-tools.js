@@ -122,19 +122,19 @@ function saveAIToolsSettings() {
         }
     });
 
-    // Save settings to localStorage
-    localStorage.setItem("aiToolsSettings", JSON.stringify(aiToolsSettings));
+    // Save settings to Storage
+    Storage.setItem("aiToolsSettings", JSON.stringify(aiToolsSettings));
 }
 
 // Function to apply saved settings (visibility and order)
 function applyAIToolsSettings() {
-    const savedSettings = JSON.parse(localStorage.getItem("aiToolsSettings") || "null");
+    const savedSettings = JSON.parse(Storage.getItem("aiToolsSettings") || "null");
     let settingsToApply;
 
     if (!savedSettings || !Array.isArray(savedSettings)) {
         // Initialize with default values if no settings exist
         settingsToApply = aiTools.map(tool => tool.visible ? tool.id : { [tool.id]: false });
-        localStorage.setItem("aiToolsSettings", JSON.stringify(settingsToApply));
+        Storage.setItem("aiToolsSettings", JSON.stringify(settingsToApply));
     } else {
         settingsToApply = savedSettings;
     }
@@ -243,7 +243,7 @@ function showAIToolsSettings() {
     aiToolsForm.innerHTML = "";
 
     // Load saved tool order and visibility or initialize from defaults
-    let savedSettings = JSON.parse(localStorage.getItem("aiToolsSettings") || "null");
+    let savedSettings = JSON.parse(Storage.getItem("aiToolsSettings") || "null");
 
     // If no settings exist, create from aiTools
     if (!savedSettings || !Array.isArray(savedSettings)) {
@@ -444,8 +444,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Save settings to localStorage
-        localStorage.setItem("aiToolsSettings", JSON.stringify(newSettings));
+        // Save settings to Storage
+        Storage.setItem("aiToolsSettings", JSON.stringify(newSettings));
 
         // Apply new settings
         applyAIToolsSettings();
