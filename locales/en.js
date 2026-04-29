@@ -92,6 +92,24 @@ const en = {
     "LearnMoreButton": "Learn more",
     "saveAPI": "Save",
 
+// Finance
+    "financeSectionTitle": "Finance Settings",
+    "financeTitleText": "Finance Dock",
+    "financeInfoText": "Show market trends at the bottom",
+    "financeStackText": "Stack in Rows",
+    "financeStackInfo": "Wrap stocks instead of scrolling",
+    "financeCompactText": "Compact Mode",
+    "financeCompactInfo": "Reduce pill size to fit more",
+    "financeValueText": "Display Value",
+    "financeValueInfo": "Show price change instead of percentage",
+    "financeAddText": "Add Stocks/Crypto",
+    "financeAddSubtext": "Right-click a pill in the dock to remove",
+    "financeInputPlaceholder": "Add Symbol (e.g. AAPL or BTC-USD)",
+    "financeCurrencyText": "Currency",
+    "financeCurrencySubtext": "Force display currency",
+    "financeAddButton": "Add",
+
+
     // Body Items
     // Calendar
     "days": ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
