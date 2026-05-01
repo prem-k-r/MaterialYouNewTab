@@ -1,10 +1,19 @@
 // French
 const fr = {
+    "newTabTitle": "Nouvel Onglet",
     // Menu Items
     "github": "GitHub",
     "feedback": "Feedback",
     "resetsettings": "Réinitialiser les paramètres",
     "menuCloseText": "Fermer",
+
+    // Section titles
+    "personalizationSectionTitle": "Personnalisation",
+    "clockSectionTitle": "Horloge",
+    "searchSectionTitle": "Recherche",
+    "weatherSectionTitle": "Météo",
+    "appearanceSectionTitle": "Apparence",
+    "settingsSectionTitle": "Paramètres",
 
     // Shortcuts
     "shortcutsText": "Raccourcis",
@@ -83,7 +92,7 @@ const fr = {
     // Weather
     "WeatherApiText": "Entrez votre clé WeatherAPI",
     "WeatherApiSubtext": "Si la fonctionnalité météo ne fonctionne pas",
-    "userAPI": "Your weatherAPI key",
+    "userAPI": "Votre clé WeatherAPI",
     "LearnMoreButton": "En savoir plus",
     "saveAPI": "Enregistrer",
 
@@ -159,7 +168,7 @@ const fr = {
 
 
     // Wallpaper and misc
-    "uploadWallpaperText": "Uploader un fond d'ecran",
+    "uploadWallpaperText": "Charger un fond d'écran",
     "backupText": "Sauvegarder",
     "restoreText": "Restaurer",
     "rangColor": "Choisir la couleur",
@@ -179,6 +188,10 @@ const fr = {
     "updateFirefoxHomepage": "Mettre à jour la page d'accueil",
     "updateFirefoxHomepageInfo": "Pour changer votre page d'accueil comme le nouvel onglet, visitez <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">ce lien</a> et suivez les instructions.",
     "dontShowTips": "Ne plus afficher",
+
+    // Footer Toast
+    "footerToastTitle": "En train de voir une bannière?",
+    "footerToastMessage": "Pour masquer la bannière, faites un clic droit dessus et sélectionnez 'Masquer le pied de page sur un nouvel onglet'.",
 
     // Dialog boxes (alerts)
     "okText": "OK",

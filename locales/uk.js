@@ -1,8 +1,17 @@
 // Ukrainian
 const uk = {
+    "newTabTitle": "Нова вкладка",
     // Menu Items
     "github": "GitHub",
     "feedback": "Відгук",
+
+    // Section titles
+    "personalizationSectionTitle": "Персоналізація",
+    "clockSectionTitle": "Годинник",
+    "searchSectionTitle": "Пошук",
+    "weatherSectionTitle": "Погода",
+    "appearanceSectionTitle": "Зовнішній вигляд",
+    "settingsSectionTitle": "Налаштування",
 
     // Shortcuts
     "shortcutsText": "Ярлики",

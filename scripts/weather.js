@@ -525,6 +525,7 @@ async function getWeatherData() {
                     hu: "48%",
                     de: "51%",
                     ta: "46%",
+                    sv: "45%",
                     en: "42%" // Default for English and others
                 };
                 const slider = document.getElementById("slider");

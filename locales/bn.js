@@ -1,5 +1,6 @@
 // Bengali
 const bn = {
+    "newTabTitle": "নতুন ট্যাব",
     // Menu Items
     "github": "গিটহাব",
     "feedback": "মতামত",
@@ -39,7 +40,7 @@ const bn = {
 
     // Clock
     "hideClockBox": "ঘড়ি লুকান",
-    "hideClockBoxInfo": "ঘড়ি এবং তারিখ দেখান বা লুকান",
+    "hideClockBoxInfo": "ঘড়ি এবং তারিখ লুকান",
     "digitalclocktitle": "ডিজিটাল ঘড়ি",
     "digitalclockinfo": "ডিজিটাল ঘড়িতে পরিবর্তন করুন",
     "timeformattitle": "১২-ঘণ্টা ফরম্যাট",

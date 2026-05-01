@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and this project partially follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - `Added` - for new features.
 - `Changed` - for changes in existing functionality.
@@ -15,11 +15,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.3...main)
 
+### Added
+
+- Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
+
 ### Improved
 
 - Introduced collapsible sections in the settings menu for improved organization and easier navigation ([@prem-k-r](https://github.com/prem-k-r)) ([#109](https://github.com/prem-k-r/MaterialYouNewTab/pull/109))
 - Redesigned the theme selector from dropdown to buttons for easier switching between Light, Dark, and System modes ([@prem-k-r](https://github.com/prem-k-r)) ([#112](https://github.com/prem-k-r/MaterialYouNewTab/pull/112))
 - Added expanding animations to todo and Google apps panels and some other minor UI changes ([@prem-k-r](https://github.com/prem-k-r)) ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
+- Prevented weather condition and shortcut icons from being color-inverted in dark mode ([@prem-k-r](https://github.com/prem-k-r)) ([#191](https://github.com/prem-k-r/MaterialYouNewTab/pull/191))
 
 ### Fixed
 
@@ -37,8 +42,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Bengali ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here))
   - Uzbek ([S0ME2](https://github.com/S0ME2))
   - Indonesian ([@Ayyas-RF](https://github.com/Ayyas-RF))
+  - Ukrainian ([@smurf11k](https://github.com/smurf11k))
+  - Hungarian ([@smurf11k](https://github.com/smurf11k))
+  - Marathi ([@anndiy](https://github.com/anndiy))
+  - French ([@iamwinner422](https://github.com/iamwinner422))
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 - Added support for Ukrainian ([@lozik4](https://github.com/lozik4)) ([#106](https://github.com/prem-k-r/MaterialYouNewTab/pull/106))
+- Added support for Swedish ([@empohello-imamempogitub](https://github.com/empohello-imamempogitub)) ([#179](https://github.com/prem-k-r/MaterialYouNewTab/pull/179))
+- Localized New Tab title ([@prem-k-r](https://github.com/prem-k-r))
+
+### Other
+
+- Disabled dragging for weather and location icons ([@anndiy](https://github.com/anndiy)) ([#183](https://github.com/prem-k-r/MaterialYouNewTab/pull/183))
 
 ## [v3.3](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...v3.3) - Nov 23, 2025
 
