@@ -20,7 +20,9 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 ![GitHub stars](https://img.shields.io/github/stars/prem-k-r/MaterialYouNewTab)
 ![GitHub forks](https://img.shields.io/github/forks/prem-k-r/MaterialYouNewTab)
 
-[![](https://img.shields.io/chrome-web-store/v/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) [![](https://img.shields.io/chrome-web-store/rating/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) [![](https://img.shields.io/chrome-web-store/users/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) ‾ [![](https://img.shields.io/amo/v/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) [![](https://img.shields.io/amo/rating/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) [![](https://img.shields.io/amo/users/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/)
+[![](https://img.shields.io/chrome-web-store/v/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) [![](https://img.shields.io/chrome-web-store/rating/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) [![](https://img.shields.io/chrome-web-store/users/jjpokbgpiljgndebfoljdeihhkpcpfgl.svg)](https://chrome.google.com/webstore/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) ▪️ [![](https://img.shields.io/amo/v/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) [![](https://img.shields.io/amo/rating/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) [![](https://img.shields.io/amo/users/mynt.svg)](https://addons.mozilla.org/en-US/firefox/addon/mynt/) ▪️ [![](https://img.shields.io/badge/dynamic/json?label=edge%20add-on&prefix=v&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Flcgdmfjofmcblocogcabdpfidfbkblcd)](https://microsoftedge.microsoft.com/addons/detail/mynt-material-you-new-ta/lcgdmfjofmcblocogcabdpfidfbkblcd)
+[![](https://img.shields.io/badge/dynamic/json?label=rating&suffix=/5&query=%24.averageRating&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Flcgdmfjofmcblocogcabdpfidfbkblcd)](https://microsoftedge.microsoft.com/addons/detail/mynt-material-you-new-ta/lcgdmfjofmcblocogcabdpfidfbkblcd)
+[![](https://img.shields.io/badge/dynamic/json?label=users&query=%24.activeInstallCount&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Flcgdmfjofmcblocogcabdpfidfbkblcd)](https://microsoftedge.microsoft.com/addons/detail/mynt-material-you-new-ta/lcgdmfjofmcblocogcabdpfidfbkblcd)
 
 </div>
 
@@ -62,7 +64,7 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 
 ### Download
 
-1. **Development Version** (v3.2.*)
+1. **Development Version** (v3.3.*)
 
     - **Clone the Repository**:
       Use the following command to clone the repository:
@@ -77,11 +79,12 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 
     - You can also download the ZIP file by clicking on the Code button. On the repository page, look for a green button labeled **Code**. Click on the **Code** button, and in the dropdown menu, select **Download ZIP**.
 
-2. **Stable Release** (v3.2)
+2. **Stable Release** (v3.3)
 
 <p align="center">
     <a href="https://github.com/prem-k-r/MaterialYouNewTab/releases/latest"><img src="https://github.com/user-attachments/assets/51048d6d-0b35-4f62-8351-4a3ea52d2213" alt="Download from GitHub" height="48" /></a>
     <a href="https://chromewebstore.google.com/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl"><img src="https://github.com/user-attachments/assets/7a829ba4-dcd0-452b-922a-5efacbfda498" alt="Download from Chrome Web Store" height="48" /></a>
+    <a href="https://microsoftedge.microsoft.com/addons/detail/mynt-material-you-new-ta/lcgdmfjofmcblocogcabdpfidfbkblcd"><img src="https://github.com/user-attachments/assets/3ad87ccf-92bf-4dab-bdf4-6577c3305d54" alt="Download from Microsoft Edge" height="48" /></a>
     <a href="https://addons.mozilla.org/en-US/firefox/addon/mynt/"><img src="https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg" alt="Download from Mozilla Add-ons" height="48" /></a>
 </p>
 
@@ -91,9 +94,7 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 
 #### ![Chromium](https://img.icons8.com/?size=20&id=104996&format=png&color=000000) Chromium-Based Browsers
 
-1. **Install from Chrome Web Store**:
-
-   - [Chrome Web Store link](https://chromewebstore.google.com/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl)
+1. **Install from [Chrome Web Store](https://chromewebstore.google.com/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl) or [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/mynt-material-you-new-ta/lcgdmfjofmcblocogcabdpfidfbkblcd)**:
 
    **Or** follow the manual steps below:
 
@@ -160,9 +161,7 @@ Below are screenshots of the process to guide you through each step visually.
 
 #### ![Firefox](https://img.icons8.com/color/20/000000/firefox--v1.png) Firefox
 
-1. **Install from Mozilla Extensions Store**:
-
-   - [Mozilla Add-ons link](https://addons.mozilla.org/en-US/firefox/addon/mynt/)
+1. **Install from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/mynt/)**
 
    <img src="https://i.postimg.cc/bPW2fHX7/FireFox.png" alt="Screenshot" width="569">
 
