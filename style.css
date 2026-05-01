@@ -2573,26 +2573,23 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 	mix-blend-mode: screen;
 }
 
-html:has(.themeSegment[data-active="dark"])
+html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
 	.adaptive-icons
 	.shortcuts
 	.shortcutLogoContainer
 	img[data-icon-type="default"],
-html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"])
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(:has(#darkTheme:checked))
 	.adaptive-icons
 	.shortcuts
 	.shortcutLogoContainer
-	img[data-icon-type="default"] {
-	filter: grayscale(1) invert(1);
-}
-
-body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"])
+	img[data-icon-type="default"],
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
 	.adaptive-icons
 	.shortcutLogoContainer
 	img[data-icon-type="default"],
 body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 		.themeSegment[data-active="system"]
-	)
+	):not(:has(#darkTheme:checked))
 	.adaptive-icons
 	.shortcutLogoContainer
 	img[data-icon-type="default"] {
@@ -2604,13 +2601,13 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
     mix-blend-mode: normal !important;
 }
 
-html:has(.themeSegment[data-active="dark"])
+html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
     .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
-html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"])
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(:has(#darkTheme:checked))
     .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
-body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"])
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
     .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
-body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.themeSegment[data-active="system"])
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.themeSegment[data-active="system"]):not(:has(#darkTheme:checked))
     .shortcuts .shortcutLogoContainer img[data-icon-type="custom"] {
     filter: invert(1) hue-rotate(180deg) !important;
     mix-blend-mode: normal !important;
@@ -2627,6 +2624,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.themeSegment[data-active="
 	filter: none !important;
     mix-blend-mode: normal !important;
 } 
+
 /* ----------end of Shortcuts----------------- */
 
 /* -----------Ai-Tools----------------- */
@@ -5222,8 +5220,6 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme .shortcutDelete button,
 .black-theme .uploadCustomIconButton {
 	background: #232221;
-	color: var(--textColorDark-dark);
-	fill: var(--textColorDark-dark);
 }
 
 .black-theme .uploadCustomIconButton:hover,
