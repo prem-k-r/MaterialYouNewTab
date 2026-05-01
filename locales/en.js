@@ -210,5 +210,5 @@ const en = {
     "UnsupportedBrowser": "Bookmarks are not supported in your browser.",
     "resetShortcutsPrompt": "All saved shortcuts will be deleted and reset to default. Do you want to continue?",
     "iconFileTooLargeMessage": "Selected file is too large: {size}. Please use a file smaller than 100 KB.",
-    "iconStorageQuotaMessage": "Icon couldn’t be saved: storage limit reached. Please use a smaller image."
+    "iconStorageQuotaMessage": "Icon couldn’t be saved because the storage limit has been reached. Please use a smaller image."
 };
