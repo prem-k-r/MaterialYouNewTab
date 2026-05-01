@@ -236,7 +236,7 @@ html:has(
 	& #darkTheme,
 	& .favicon,
 	& #wIcon,
-	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img {
+	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img[data-icon-type="default"] {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -276,7 +276,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	& #darkTheme,
 	& .favicon,
 	& #wIcon,
-	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img {
+	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img[data-icon-type="default"] {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -2565,56 +2565,68 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 	mix-blend-mode: normal;
 }
 
-/* .shortcutsContainer .shortcuts .shortcutLogoContainer img.custom-shortcut-icon {
-	object-fit: contain;
-	background: transparent;
-	filter: none;
-	mix-blend-mode: normal;
-} */
-
 /* Adaptive Icons styling */
-.adaptive-icons .shortcuts .shortcutLogoContainer img {
+.adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="default"] {
 	height: calc(100% * 0.7071) !important;
 	width: calc(100% * 0.7071) !important;
 	filter: grayscale(1);
 	mix-blend-mode: screen;
 }
 
-/* .adaptive-icons .shortcuts .shortcutLogoContainer img.custom-shortcut-icon {
-	filter: none !important;
-	mix-blend-mode: normal !important;
-}*/
-
-.adaptive-icons .shortcuts .shortcutLogoContainer img.letter-shortcut-icon {
-	height: 100% !important;
-	width: 100% !important;
-} 
-
 html:has(.themeSegment[data-active="dark"])
 	.adaptive-icons
 	.shortcuts
 	.shortcutLogoContainer
-	img,
+	img[data-icon-type="default"],
 html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"])
 	.adaptive-icons
 	.shortcuts
 	.shortcutLogoContainer
-	img {
+	img[data-icon-type="default"] {
 	filter: grayscale(1) invert(1);
 }
 
 body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"])
 	.adaptive-icons
 	.shortcutLogoContainer
-	img,
+	img[data-icon-type="default"],
 body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 		.themeSegment[data-active="system"]
 	)
 	.adaptive-icons
 	.shortcutLogoContainer
-	img {
+	img[data-icon-type="default"] {
 	filter: grayscale(1) invert(1) !important;
 }
+
+.shortcutLogoContainer img[data-icon-type="custom"] {
+    filter: none !important;
+    mix-blend-mode: normal !important;
+}
+
+html:has(.themeSegment[data-active="dark"])
+    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"])
+    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"])
+    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.themeSegment[data-active="system"])
+    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"] {
+    filter: invert(1) hue-rotate(180deg) !important;
+    mix-blend-mode: normal !important;
+}
+
+.adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="custom"] {
+    height: calc(100% * 0.7071) !important;
+    width: calc(100% * 0.7071) !important;
+}
+
+.adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="letter"] {
+	height: 100% !important;
+	width: 100% !important;
+	filter: none !important;
+    mix-blend-mode: normal !important;
+} 
 /* ----------end of Shortcuts----------------- */
 
 /* -----------Ai-Tools----------------- */
@@ -5207,26 +5219,16 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: var(--bg-color-dark);
 }
 
+.black-theme .shortcutDelete button,
 .black-theme .uploadCustomIconButton {
 	background: #232221;
 	color: var(--textColorDark-dark);
 	fill: var(--textColorDark-dark);
 }
 
-/* Shared dark-theme hover for action buttons */
 .black-theme .uploadCustomIconButton:hover,
 .black-theme .shortcutDelete button:hover {
 	background: #404040;
-}
-
-/* Color-specific dark-theme hover for upload button */
-.black-theme .uploadCustomIconButton:hover {
-	color: var(--whitishColor-dark);
-	fill: var(--whitishColor-dark);
-}
-
-.black-theme .shortcutDelete button {
-	background: #232221;
 }
 
 .black-theme .prompt-modal-ok {

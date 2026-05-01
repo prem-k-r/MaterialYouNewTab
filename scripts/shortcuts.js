@@ -365,7 +365,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const img = document.createElement("img");
             img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
             img.alt = "";
-            setIconType(img, "default");
             return img;
         }
 
@@ -373,13 +372,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const customIconImg = document.createElement("img");
             customIconImg.src = customIcon.trim();
             customIconImg.alt = "";
-            customIconImg.classList.add("custom-shortcut-icon");
             customIconImg.referrerPolicy = "no-referrer";
             setIconType(customIconImg, "custom");
             customIconImg.addEventListener("error", () => {
                 customIconImg.src = createLetterFallback().src;
-                customIconImg.classList.remove("custom-shortcut-icon");
-                customIconImg.classList.add("letter-shortcut-icon");
+                setIconType(customIconImg, "letter");
             }, { once: true });
 
             return customIconImg;
@@ -419,7 +416,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setIconType(img, "default");
         img.addEventListener("error", () => {
             img.src = createLetterFallback().src;
-            img.classList.add("letter-shortcut-icon");
+            setIconType(customIconImg, "letter");
         }, { once: true });
 
         return img;
