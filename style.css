@@ -2599,6 +2599,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 .shortcutLogoContainer img[data-icon-type="custom"] {
     filter: none !important;
     mix-blend-mode: normal !important;
+	border-radius: 10% !important;
 }
 
 html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
