@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             };
             reader.onerror = () => {
-                console.error("Failed to read selected file:", err);
+                console.error("Failed to read selected file:", reader.error);
                 fileInput.value = "";
             };
             reader.readAsDataURL(selectedFile);
