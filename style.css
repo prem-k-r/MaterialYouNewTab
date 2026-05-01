@@ -2559,20 +2559,18 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 .shortcutsContainer .shortcuts .shortcutLogoContainer img {
 	height: 100%;
 	width: 100%;
-	border-radius: 100%;
+	border-radius: 50%;
+	object-fit: contain;
 	filter: none;
 	mix-blend-mode: normal;
 }
 
-.shortcutsContainer .shortcuts .shortcutLogoContainer img.custom-shortcut-icon {
-	height: 80%;
-	width: 80%;
-	border-radius: 20%;
+/* .shortcutsContainer .shortcuts .shortcutLogoContainer img.custom-shortcut-icon {
 	object-fit: contain;
 	background: transparent;
 	filter: none;
 	mix-blend-mode: normal;
-}
+} */
 
 /* Adaptive Icons styling */
 .adaptive-icons .shortcuts .shortcutLogoContainer img {
@@ -2582,20 +2580,15 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 	mix-blend-mode: screen;
 }
 
-.adaptive-icons .shortcuts .shortcutLogoContainer img.custom-shortcut-icon {
-	height: 60%;
-	width: 60%;
-	border-radius: 20%;
-	object-fit: contain;
-	background: transparent;
+/* .adaptive-icons .shortcuts .shortcutLogoContainer img.custom-shortcut-icon {
 	filter: none !important;
 	mix-blend-mode: normal !important;
-}
+}*/
 
 .adaptive-icons .shortcuts .shortcutLogoContainer img.letter-shortcut-icon {
 	height: 100% !important;
 	width: 100% !important;
-}
+} 
 
 html:has(.themeSegment[data-active="dark"])
 	.adaptive-icons
@@ -3589,9 +3582,8 @@ input:checked + .toggle:before {
 	margin-bottom: 16px;
 	background-color: var(--bg-color-blue);
 	border-radius: 13px;
-	padding: 12px 10px;
+	padding: 8px 10px;
 	padding-inline-start: 8px;
-	gap: 10px;
 	position: relative;
 	transition: transform 0.3s var(--md-motion-ease) opacity 0.2s ease;
 	/* Enable hardware acceleration */
@@ -3604,6 +3596,8 @@ input:checked + .toggle:before {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	margin: 0 8px 0 6px;
+	gap: 1px;
 }
 
 .shortcutSettingsEntry:last-child {
@@ -3611,10 +3605,9 @@ input:checked + .toggle:before {
 }
 
 .shortcutSettingsEntry input {
-	width: calc(100% - 18px);
+	width: 100%;
 	background: none;
 	border: none;
-	margin-inline-start: 8px;
 	color: var(--textColorDark-blue);
 	text-overflow: ellipsis;
 }
@@ -3624,15 +3617,14 @@ input:checked + .toggle:before {
 }
 
 .shortcutSettingsEntry .URL {
-	font-size: 0.84rem;
+	font-size: 0.8rem;
 	opacity: 0.9;
-	margin-top: -3px;
+	margin-top: -2px;
 }
 
 .shortcutSettingsEntry .iconURL {
-	font-size: 0.76rem;
+	font-size: 0.7rem;
 	opacity: 0.9;
-	margin-top: -2px;
 }
 
 /* Drag and drop styles */
@@ -3649,11 +3641,11 @@ input:checked + .toggle:before {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 4px 6px;
+	padding: 12px 6px;
 	cursor: grab;
 	color: var(--textColor);
 	opacity: 0.5;
-	min-height: 40px;
+	height: 50px;
 }
 
 .grip-container:hover {
@@ -3661,12 +3653,13 @@ input:checked + .toggle:before {
 }
 
 .grip-container svg {
+	transform: scale(1.1);
 	pointer-events: none;
 	transition: transform 0.2s ease;
 }
 
 .grip-container:hover svg {
-	transform: scale(1.1);
+	transform: scale(1.2);
 }
 
 .shortcutSettingsEntry.dragging .grip-container {
@@ -3686,26 +3679,12 @@ input:checked + .toggle:before {
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	margin-inline-start: 10px;
+	margin-inline-start: 8px;
 }
 
-.shortcutDelete button {
-	fill: var(--textColorDark-blue);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 46px;
-	height: 46px;
-	background: rgba(255, 255, 255, 0.4);
-	border: none;
-	border-radius: 7px;
-	cursor: pointer;
-	transition: 0.3s all;
-}
-
+.shortcutDelete button,
 .uploadCustomIconButton {
 	fill: var(--textColorDark-blue);
-	color: var(--textColorDark-blue);
 	display: flex;
 	align-items: center;
 	justify-content: center;

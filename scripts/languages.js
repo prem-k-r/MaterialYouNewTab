@@ -237,7 +237,9 @@ function applyLanguage(lang) {
         "searchSectionTitle",
         "weatherSectionTitle",
         "appearanceSectionTitle",
-        "settingsSectionTitle"
+        "settingsSectionTitle",
+        "iconFileTooLargeMessage",
+        "iconStorageQuotaMessage"
     ];
 
     // Specific mapping for placeholders

@@ -171,12 +171,12 @@ document.addEventListener("DOMContentLoaded", function () {
         entry.innerHTML = `
             <div class="grip-container" draggable="true">
                 <svg stroke="currentColor" width="18" height="18" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                    <circle cy="2.5" cx="5.5" r=".75"/>
+                    <circle cy="2" cx="5.5" r=".75"/>
                     <circle cy="8" cx="5.5" r=".75"/>
-                    <circle cy="13.5" cx="5.5" r=".75"/>
-                    <circle cy="2.5" cx="10.5" r=".75"/>
+                    <circle cy="14" cx="5.5" r=".75"/>
+                    <circle cy="2" cx="10.5" r=".75"/>
                     <circle cy="8" cx="10.5" r=".75"/>
-                    <circle cy="13.5" cx="10.5" r=".75"/>
+                    <circle cy="14" cx="10.5" r=".75"/>
                 </svg>
             </div>
             <div class="shortcutInputGroup">
@@ -208,16 +208,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const deleteBtn = entry.querySelector(".shortcutDelete button");
 
         attachInputListeners(inputs, entry);
-        // TODO: I've to Check!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         uploadButton.addEventListener("click", () => fileInput.click());
         fileInput.addEventListener("change", async e => {
             const selectedFile = e.target.files?.[0];
             if (!selectedFile) return;
 
-            const maxIconBytes = 350 * 1024;
+            const maxIconBytes = 100 * 1024;
             if (selectedFile.size > maxIconBytes) {
-                const message = "Icon file is too large. Please use a file smaller than 350 KB.";
-                alertPrompt(message);
+                const iconFileTooLargeMessage = translations[currentLanguage]?.iconFileTooLargeMessage || translations["en"].iconFileTooLargeMessage;
+                const fileSizeKB = (selectedFile.size / 1024).toFixed(1);
+                alertPrompt(iconFileTooLargeMessage.replace("{size}", `${fileSizeKB} KB`));
                 fileInput.value = "";
                 return;
             }
@@ -227,7 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 iconInput.value = reader.result;
                 try {
                     saveShortcut(entry);
-
                     // Render with the current icon value (may be empty if quota was exceeded)
                     renderShortcut(
                         entry.querySelector(".shortcutName").value,
@@ -236,16 +236,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         entry._index
                     );
                 } catch (err) {
-                    const msg = "Unable to save the icon — storage is full. Try removing other custom icons or using a smaller image.";
-                    alertPrompt(msg);
+                    console.error("Failed to save icon:", err);
                     iconInput.value = "";
                 } finally {
                     fileInput.value = "";
                 }
             };
             reader.onerror = () => {
-                const msg = "Could not read the selected file. Please try a different image.";
-                alertPrompt(msg);
+                console.error("Failed to read selected file:", err);
                 fileInput.value = "";
             };
             reader.readAsDataURL(selectedFile);
@@ -297,19 +295,25 @@ document.addEventListener("DOMContentLoaded", function () {
     // Escapes HTML to prevent XSS
     function escapeHtml(unsafe) {
         return unsafe.replace(/[&<>"']/g, match => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;'
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
         }[match]));
     }
 
     // Validates custom icon URL
     function isValidCustomIconUrl(url) {
         if (typeof url !== "string") return false;
-        const trimmed = url.trim();
-        return trimmed.startsWith("data:image/") || trimmed.startsWith("https://") || trimmed.startsWith("http://");
+        const trimmedUrl = url.trim();
+        if (trimmedUrl.includes(" ")) return false;
+        const lowercaseUrl = trimmedUrl.toLowerCase();
+        return (
+            lowercaseUrl.startsWith("data:image/") ||
+            lowercaseUrl.startsWith("https://") ||
+            lowercaseUrl.startsWith("http://")
+        );
     }
 
     // Normalizes URLs to ensure they're valid
@@ -406,7 +410,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return svgElement;
         }
 
-        // Fetch favicon from Google 
+        // Fetch favicon from Google
         const img = document.createElement("img");
 
         img.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256`;
@@ -453,7 +457,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Cache element positions for smooth gliding animation
         function cachePositions() {
             const map = new Map();
-            const entries = dom.shortcutSettingsContainer.querySelectorAll('.shortcutSettingsEntry');
+            const entries = dom.shortcutSettingsContainer.querySelectorAll(".shortcutSettingsEntry");
             for (const el of entries) {
                 map.set(el, el.getBoundingClientRect().top);
             }
@@ -480,11 +484,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (oldTop !== undefined && newTop !== undefined) {
                     const delta = oldTop - newTop;
                     if (delta !== 0) {
-                        el.style.transition = 'none';
+                        el.style.transition = "none";
                         el.style.transform = `translateY(${delta}px)`;
                         requestAnimationFrame(() => {
-                            el.style.transition = 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)';
-                            el.style.transform = 'none';
+                            el.style.transition = "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)";
+                            el.style.transform = "none";
                         });
                     }
                 }
@@ -555,7 +559,7 @@ document.addEventListener("DOMContentLoaded", function () {
             while (low <= high) {
                 const mid = (low + high) >>> 1;
                 const middleY = elements[mid].rect.top + elements[mid].rect.height / 2;
-                y < middleY ? high = mid - 1 : low = mid + 1;
+                y < middleY ? (high = mid - 1) : (low = mid + 1);
             }
 
             return elements[low]?.element || null;
@@ -701,26 +705,23 @@ document.addEventListener("DOMContentLoaded", function () {
             url: entry.querySelector(".URL").value,
             icon: entry.querySelector(".iconURL").value
         }));
-        // TODO: I've to Check!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         // Only save if order has changed
         if (hasOrderChanged(newOrder)) {
-            try {
-                localStorage.setItem("shortcutAmount", newOrder.length.toString());
-                newOrder.forEach((item, index) => {
-                    localStorage.setItem(`shortcutName${index}`, item.name);
-                    localStorage.setItem(`shortcutURL${index}`, item.url);
+            localStorage.setItem("shortcutAmount", newOrder.length.toString());
+            newOrder.forEach((item, index) => {
+                localStorage.setItem(`shortcutName${index}`, item.name);
+                localStorage.setItem(`shortcutURL${index}`, item.url);
 
-                    // Try to save icon, skip/clear if quota exceeded
-                    try {
-                        localStorage.setItem(`shortcutIcon${index}`, item.icon || "");
-                    } catch (iconError) {
-                        if (iconError.name === "QuotaExceededError") {
+                // Try to save icon, skip/clear if quota exceeded
+                try {
+                    localStorage.setItem(`shortcutIcon${index}`, item.icon || "");
+                } catch (iconError) {
+                        if (iconError.name === "QuotaExceededError" || iconError.code === 22) {
                             // Remove icon due to quota
                             localStorage.removeItem(`shortcutIcon${index}`);
-                            // Clear from UI as well
                             const entry = entries[index];
                             if (entry) entry.querySelector(".iconURL").value = "";
-                            // Keep cache/render consistent with persisted state
                             item.icon = "";
                         } else {
                             throw iconError;
@@ -728,15 +729,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 });
 
-                shortcutsCache = newOrder;
-                renderAllShortcuts(newOrder);
-            } catch (error) {
-                console.error("Error saving shortcut order:", error);
-                if (error.name === "QuotaExceededError") {
-                    const message = "Could not save all shortcuts: storage quota exceeded. Please remove some icons or clear storage.";
-                    alertPrompt(message);
-                }
-            }
+            shortcutsCache = newOrder;
+            renderAllShortcuts(newOrder);
         }
     }
 
@@ -847,7 +841,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
 
         // Animation for shortcut elements
-        const shortcutEntries = [...dom.shortcutSettingsContainer.querySelectorAll('.shortcutSettingsEntry')];
+        const shortcutEntries = [...dom.shortcutSettingsContainer.querySelectorAll(".shortcutSettingsEntry")];
         shortcutEntries.forEach(el => el.classList.add("reset-shift-animation"));
 
         // Animation for reset button
@@ -882,31 +876,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const url = entry.querySelector(".URL").value;
         const iconInput = entry.querySelector(".iconURL");
         const icon = iconInput.value || "";
-        // TODO: I've to Check!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        localStorage.setItem(`shortcutName${index}`, name);
+        localStorage.setItem(`shortcutURL${index}`, url);
+
+        // Try to save icon separately to handle quota errors gracefully
         try {
-            localStorage.setItem(`shortcutName${index}`, name);
-            localStorage.setItem(`shortcutURL${index}`, url);
+            localStorage.setItem(`shortcutIcon${index}`, icon);
+        } catch (iconError) {
+            if (iconError.name === "QuotaExceededError" || iconError.code === 22) {
+                // Icon is too large, clear it from input and localStorage
+                iconInput.value = "";
+                localStorage.removeItem(`shortcutIcon${index}`);
 
-            // Try to save icon separately to handle quota errors gracefully
-            try {
-                localStorage.setItem(`shortcutIcon${index}`, icon);
-            } catch (iconError) {
-                if (iconError.name === "QuotaExceededError") {
-                    // Icon is too large, clear it from input and localStorage
-                    iconInput.value = "";
-                    localStorage.removeItem(`shortcutIcon${index}`);
-
-                    const message = "Icon could not be saved: storage quota exceeded. Please use a smaller icon file.";
-                    alertPrompt(message);
-                } else {
-                    throw iconError;
-                }
-            }
-        } catch (error) {
-            console.error("Error saving shortcut:", error);
-            if (error.name !== "QuotaExceededError") {
-                const message = "Failed to save shortcut. Please check your browser storage.";
-                alertPrompt(message);
+                const iconStorageQuotaMessage = translations[currentLanguage]?.iconStorageQuotaMessage || translations["en"].iconStorageQuotaMessage;
+                alertPrompt(iconStorageQuotaMessage);
+            } else {
+                throw iconError;
             }
         }
     }
