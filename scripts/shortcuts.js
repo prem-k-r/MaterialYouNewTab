@@ -319,7 +319,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Sanitizes raw SVG code, returns data URL or null if unsafe
     function sanitizeSvg(raw) {
         const trimmed = raw.trim();
-        if (!trimmed.toLowerCase().startsWith("<svg")) return null;
+        const normalized = trimmed
+            .replace(/^<\?xml[\s\S]*?\?>\s*/i, "")
+            .replace(/^<!doctype[\s\S]*?>\s*/i, "")
+            .replace(/^<!--[\s\S]*?-->\s*/i, "");
+        if (!normalized.toLowerCase().startsWith("<svg")) return null;
 
         const forbidden = [
             /<script[\s>]/i,                // <script> tags
@@ -331,10 +335,10 @@ document.addEventListener("DOMContentLoaded", function () {
         ];
 
         for (const pattern of forbidden) {
-            if (pattern.test(trimmed)) return null;
+            if (pattern.test(normalized)) return null;
         }
 
-        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(trimmed);
+        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(normalized);
     }
 
     // Normalizes icon input: converts raw SVG code → data URL, passes URLs through
