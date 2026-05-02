@@ -316,6 +316,40 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
+    // Sanitizes raw SVG code, returns data URL or null if unsafe
+    function sanitizeSvg(raw) {
+        const trimmed = raw.trim();
+        if (!trimmed.toLowerCase().startsWith("<svg")) return null;
+
+        const forbidden = [
+            /<script[\s>]/i,                // <script> tags
+            /\bon\w+\s*=/i,                 // event handlers: onload=, onclick=, onerror=, …
+            /<iframe[\s>]/i,                // iframes
+            /<foreignObject[\s>]/i,         // foreignObject (can embed HTML)
+            /javascript\s*:/i,              // javascript: URIs
+            /data:(?!image\/[a-z]+;base64,)[^"'\s]*/i, // non-image data URIs
+        ];
+
+        for (const pattern of forbidden) {
+            if (pattern.test(trimmed)) return null;
+        }
+
+        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(trimmed);
+    }
+
+    // Normalizes icon input: converts raw SVG code → data URL, passes URLs through
+    function processIconInput(raw) {
+        const trimmed = raw.trim();
+        if (!trimmed) return { value: "", error: null };
+
+        if (trimmed.toLowerCase().startsWith("<svg")) {
+            const dataUrl = sanitizeSvg(trimmed);
+            return { value: dataUrl ?? "", error: null };
+        }
+
+        return { value: trimmed, error: null };
+    }
+
     // Normalizes URLs to ensure they're valid
     function normalizeUrl(url) {
         url = url.trim();
@@ -426,6 +460,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function attachInputListeners(inputs, entry) {
         inputs.forEach(input => {
             input.addEventListener("blur", () => {
+                if (input.classList.contains("iconURL")) {
+                    const { value } = processIconInput(input.value);
+                    input.value = value;
+                }
+
                 saveShortcut(entry);
                 renderShortcut(
                     entry.querySelector(".shortcutName").value,

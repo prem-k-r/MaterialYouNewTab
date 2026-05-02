@@ -18,7 +18,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 ### Added
 
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
-- Added support for custom shortcut icons via upload or URL ([@smurf11k](https://github.com/smurf11k)), ([@prem-k-r](https://github.com/prem-k-r)) [#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/)
+- Added support for custom shortcut icons via upload, URL, or pasted SVG ([@smurf11k](https://github.com/smurf11k)), ([@prem-k-r](https://github.com/prem-k-r)) [#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/), [#199](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/)
 
 ### Improved
 
