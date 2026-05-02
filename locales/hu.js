@@ -213,6 +213,6 @@ const hu = {
   "deleteBookmark": "Biztos, hogy törölni szeretné a könyvjelzőt '{title}'?",
   "UnsupportedBrowser": "A könyvjelzők nem támogatottak a böngészőjében",
   "resetShortcutsPrompt": "Az összes mentett parancsikon törlésre kerül és visszaállításra kerülnek az alapértelmezett beállítások. Szeretné folytatni?",
-  "iconFileTooLargeMessage": "A kiválasztott fájl túl nagy: {size} KB. Kérjük, használjon 100 KB-nál kisebb fájlt.",
+  "iconFileTooLargeMessage": "A kiválasztott fájl túl nagy: {size} KB. Kérjük, használjon {max} KB-nál kisebb fájlt.",
   "iconStorageQuotaMessage": "Az ikon mentése nem sikerült, mert elérte a tárhelykeretet. Távolítson el néhány egyéni ikont, vagy használjon kisebb képet."
 };

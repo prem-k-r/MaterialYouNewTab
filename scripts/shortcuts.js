@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  */
 
@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Constants
     const MAX_SHORTCUTS = 50;
     const PLACEHOLDER = {
-        name: "New shortcut",
+        get name()      { return translations[currentLanguage]?.shortcutDefaultName || translations["en"].shortcutDefaultName; },
         url: "https://github.com/prem-k-r/MaterialYouNewTab",
-        inputName: "Shortcut Name",
-        inputUrl: "Shortcut URL",
-        inputIcon: "Custom Icon URL (optional)"
+        get inputName() { return translations[currentLanguage]?.shortcutInputName   || translations["en"].shortcutInputName; },
+        get inputUrl()  { return translations[currentLanguage]?.shortcutInputUrl    || translations["en"].shortcutInputUrl; },
+        get inputIcon() { return translations[currentLanguage]?.shortcutInputIcon   || translations["en"].shortcutInputIcon; },
     };
 
     // DOM Elements
@@ -212,13 +212,23 @@ document.addEventListener("DOMContentLoaded", function () {
         uploadButton.addEventListener("click", () => fileInput.click());
         fileInput.addEventListener("change", async e => {
             const selectedFile = e.target.files?.[0];
-            if (!selectedFile) return;
+            if (!selectedFile.type.startsWith("image/")) {
+                const invalidFileTypeMessage = translations[currentLanguage]?.invalidFileTypeMessage || translations["en"]?.invalidFileTypeMessage;
+                alertPrompt(invalidFileTypeMessage);
+                fileInput.value = "";
+                return;
+            }
 
             const maxIconBytes = 100 * 1024;
             if (selectedFile.size > maxIconBytes) {
                 const iconFileTooLargeMessage = translations[currentLanguage]?.iconFileTooLargeMessage || translations["en"].iconFileTooLargeMessage;
-                const fileSizeKB = (selectedFile.size / 1024).toFixed(1);
-                alertPrompt(iconFileTooLargeMessage.replace("{size}", `${fileSizeKB}`));
+                const fileSizeKB = localizeNumbers((selectedFile.size / 1024).toFixed(1), currentLanguage);
+                const maxSizeKB = localizeNumbers((maxIconBytes / 1024).toFixed(0), currentLanguage);
+
+                const message = iconFileTooLargeMessage
+                    .replace("{size}", fileSizeKB)
+                    .replace("{max}", maxSizeKB);
+                alertPrompt(message);
                 fileInput.value = "";
                 return;
             }

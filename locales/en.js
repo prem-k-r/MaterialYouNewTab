@@ -19,7 +19,7 @@ const en = {
     "editShortcutsText": "Edit Shortcuts",
     "shortcutsInfoText": "Choose which shortcuts get shown",
     "editShortcutsList": "Saved Shortcuts",
-    "editShortcutsListInfo": "You can add new shortcuts by clicking the \"+\" icon or edit existing ones by clicking on the shortcut name or URL.",
+    "editShortcutsListInfo": "You can add new shortcuts by clicking the \"+\" icon or edit existing ones by clicking on the shortcut name or URL.\nTo reset a custom icon, simply clear the icon URL.",
     "adaptiveIconText": "Adaptive Icons",
     "adaptiveIconInfoText": "Shortcut icons will adapt to theme",
     "bookmarksText": "Bookmarks",
@@ -31,6 +31,12 @@ const en = {
     "googleAppsMenuText": "Google Apps",
     "googleAppsMenuInfo": "Show shortcuts for Google Apps",
     "googleAppsHover": "Google Apps",    // Keep this shorter
+
+    "shortcutDefaultName": "New Shortcut",
+    "shortcutInputName": "Shortcut Name",
+    "shortcutInputUrl": "Shortcut URL",
+    "shortcutInputIcon": "Custom Icon URL (optional)",
+    "recentlyAddedBookmarks": "Recently Added",
 
     // To-do List
     "todoListText": "To Do List",
@@ -209,6 +215,7 @@ const en = {
     "deleteBookmark": "Are you sure you want to delete the bookmark \"{title}\"?",  // Do not translate {title}
     "UnsupportedBrowser": "Bookmarks are not supported in your browser.",
     "resetShortcutsPrompt": "All saved shortcuts will be deleted and reset to default. Do you want to continue?",
-    "iconFileTooLargeMessage": "Selected file is too large: {size} KB. Please use a file smaller than 100 KB.",
+    "invalidFileTypeMessage": "Please select a valid image file.",
+    "iconFileTooLargeMessage": "Selected file is too large: {size} KB. Please use a file smaller than {max} KB.",
     "iconStorageQuotaMessage": "Icon couldn’t be saved because the storage limit has been reached. Remove some custom icons or use a smaller image."
 };

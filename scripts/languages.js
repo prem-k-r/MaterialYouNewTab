@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
@@ -314,6 +314,14 @@ function applyLanguage(lang) {
             userTextDiv.innerText = placeholder;
         }
     }
+
+    // Update placeholders on already-rendered shortcut inputs
+    document.querySelectorAll(".shortcutSettingsEntry .shortcutName")
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputName  || translations["en"].shortcutInputName);
+    document.querySelectorAll(".shortcutSettingsEntry .URL")
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputUrl   || translations["en"].shortcutInputUrl);
+    document.querySelectorAll(".shortcutSettingsEntry .iconURL")
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputIcon  || translations["en"].shortcutInputIcon);
 
     // Update hover text for #menuCloseButton
     const menuCloseButton = document.getElementById("menuCloseButton");
