@@ -357,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const trimmed = raw.trim();
         if (!trimmed) return { value: "", error: null };
 
-        if (trimmed.toLowerCase().startsWith("<svg")) {
+        if (/<svg[\s>]/i.test(trimmed)) {
             const dataUrl = sanitizeSvg(trimmed);
             return { value: dataUrl ?? "", error: null };
         }
@@ -476,7 +476,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const raw = input.value.trim();
         if (!raw) return;
 
-        if (raw.toLowerCase().startsWith("<svg")) {
+        if (/<svg[\s>]/i.test(raw)) {
             const { value } = processIconInput(raw);
             if (!value) {
                 alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
