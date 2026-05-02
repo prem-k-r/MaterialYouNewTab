@@ -3388,6 +3388,10 @@ input:checked + .toggle:before {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
+.sectionInner .quotesOptions:not(:last-child) .ttcont:last-child {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
 /* Collapse */
 .section:not(.expanded) .sectionOuter {
 	border-radius: 20px;
@@ -3441,6 +3445,10 @@ input:checked + .toggle:before {
 }
 
 .black-theme .sectionInner .ttcont:not(:last-child) {
+	border-bottom: 1px solid #ffffff1a;
+}
+
+.black-theme .sectionInner .quotesOptions:not(:last-child) .ttcont:last-child {
 	border-bottom: 1px solid #ffffff1a;
 }
 
