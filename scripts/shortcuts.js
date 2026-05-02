@@ -513,7 +513,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         inputs[0].addEventListener("keydown", e => e.key === "Enter" && inputs[1].focus());
         inputs[1].addEventListener("keydown", e => e.key === "Enter" && inputs[2].focus());
-        inputs[2].addEventListener("keydown", e => e.key === "Enter" && e.target.blur());
+        inputs[2].addEventListener("keydown", e => {
+            if (e.key !== "Enter") return;
+            e.preventDefault();
+            e.stopPropagation();
+            e.target.blur();
+        });
     }
 
     // Drag and drop functionality for reordering shortcuts
