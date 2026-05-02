@@ -212,6 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
         uploadButton.addEventListener("click", () => fileInput.click());
         fileInput.addEventListener("change", async e => {
             const selectedFile = e.target.files?.[0];
+            if (!selectedFile) return;
             if (!selectedFile.type.startsWith("image/")) {
                 const invalidFileTypeMessage = translations[currentLanguage]?.invalidFileTypeMessage || translations["en"]?.invalidFileTypeMessage;
                 alertPrompt(invalidFileTypeMessage);
@@ -464,10 +465,31 @@ document.addEventListener("DOMContentLoaded", function () {
         setIconType(img, "default");
         img.addEventListener("error", () => {
             img.src = createLetterFallback().src;
-            setIconType(customIconImg, "letter");
+            setIconType(img, "letter");
         }, { once: true });
 
         return img;
+    }
+
+    // Validates the icon input field on blur
+    function validateIconInput(input) {
+        const raw = input.value.trim();
+        if (!raw) return;
+
+        if (raw.toLowerCase().startsWith("<svg")) {
+            const { value } = processIconInput(raw);
+            if (!value) {
+                alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
+                input.value = "";
+            } else {
+                input.value = value;
+            }
+        } else {
+            if (!isValidCustomIconUrl(raw)) {
+                alertPrompt(translations[currentLanguage]?.invalidIconUrlMessage || translations["en"]?.invalidIconUrlMessage);
+                input.value = "";
+            }
+        }
     }
 
     // Attaches event listeners to shortcut input fields
@@ -475,8 +497,7 @@ document.addEventListener("DOMContentLoaded", function () {
         inputs.forEach(input => {
             input.addEventListener("blur", () => {
                 if (input.classList.contains("iconURL")) {
-                    const { value } = processIconInput(input.value);
-                    input.value = value;
+                    validateIconInput(input);
                 }
 
                 saveShortcut(entry);

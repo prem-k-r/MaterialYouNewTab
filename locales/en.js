@@ -216,6 +216,8 @@ const en = {
     "UnsupportedBrowser": "Bookmarks are not supported in your browser.",
     "resetShortcutsPrompt": "All saved shortcuts will be deleted and reset to default. Do you want to continue?",
     "invalidFileTypeMessage": "Please select a valid image file.",
+    "invalidSvgMessage": "Invalid SVG or it contains unsafe content and cannot be used as an icon.",
+    "invalidIconUrlMessage": "Please enter a valid image URL (must start with https://, http://, or data:image/).",
     "iconFileTooLargeMessage": "Selected file is too large: {size} KB. Please use a file smaller than {max} KB.",
     "iconStorageQuotaMessage": "Icon couldn’t be saved because the storage limit has been reached. Remove some custom icons or use a smaller image."
 };
