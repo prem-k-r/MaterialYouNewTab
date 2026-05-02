@@ -1665,7 +1665,8 @@ html[lang="ta"] .digiclock {
 
 .clockOptions,
 .proxyOptions,
-.weatherOptions {
+.weatherOptions,
+.quotesOptions {
 	overflow: hidden;
 	max-height: 800px;
 	opacity: 1;
@@ -4712,6 +4713,10 @@ body[data-bg="wallpaper"] .dropdown-content {
 		display: none;
 	}
 	.toggleTextsCont .ttcont:has(#motivationalQuotesCheckbox) {
+		display: none;
+	}
+	.quotesOptions,
+	.toggleTextsCont .ttcont:has(#newQuoteOnRefreshCheckbox) {
 		display: none;
 	}
 	.quotesContainer,

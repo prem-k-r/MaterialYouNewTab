@@ -281,7 +281,7 @@ function displayRandomQuote(quotes) {
         return;
     }
 
-    // Check if "New Quote On Refresh" is enabled
+    // Check if "Daily Quote" is enabled (show one quote per day)
     const newQuoteOnRefresh = localStorage.getItem("newQuoteOnRefresh") !== "false";
 
     // If new quote on refresh is disabled, try to use the daily quote
@@ -352,11 +352,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchWithContainer = document.getElementById("search-with-container");
     const newQuoteOnRefreshToggle = document.getElementById("newQuoteOnRefreshToggle");
     const newQuoteOnRefreshCheckbox = document.getElementById("newQuoteOnRefreshCheckbox");
+    const quotesOptions = document.querySelector(".quotesOptions");
 
     // Load states from localStorage
     hideSearchWith.checked = localStorage.getItem("showShortcutSwitch") === "true";
     motivationalQuotesCheckbox.checked = localStorage.getItem("motivationalQuotesVisible") !== "false";
-    newQuoteOnRefreshCheckbox.checked = localStorage.getItem("newQuoteOnRefresh") !== "false";
+    newQuoteOnRefreshCheckbox.checked = localStorage.getItem("newQuoteOnRefresh") === "false";
 
     // Initialize language tracking
     lastKnownLanguage = currentLanguage;
@@ -375,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Handle visibility based on settings
         if (!isHideSearchWithEnabled) {
             quotesToggle.classList.add("inactive");
-            newQuoteOnRefreshToggle.classList.add("inactive");
+            quotesOptions.classList.add("not-applicable");
             motivationalQuotesCont.style.display = "none";
             clearQuotesStorage();
             return;
@@ -386,12 +387,8 @@ document.addEventListener("DOMContentLoaded", () => {
         searchWithContainer.style.display = isMotivationalQuotesEnabled ? "none" : "flex";
         motivationalQuotesCont.style.display = isMotivationalQuotesEnabled ? "flex" : "none";
 
-        // Enable/disable new quote on refresh toggle based on motivational quotes state
-        if (isMotivationalQuotesEnabled) {
-            newQuoteOnRefreshToggle.classList.remove("inactive");
-        } else {
-            newQuoteOnRefreshToggle.classList.add("inactive");
-        }
+        // Show/hide Daily Quote option based on whether quotes are enabled
+        quotesOptions.classList.toggle("not-applicable", !isMotivationalQuotesEnabled);
 
         // Load quotes if motivational quotes are enabled
         if (isMotivationalQuotesEnabled) {
@@ -401,13 +398,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Handle new quote on refresh toggle changes
+    // Handle daily quote toggle changes
     newQuoteOnRefreshCheckbox.addEventListener("change", () => {
-        const isEnabled = newQuoteOnRefreshCheckbox.checked;
-        localStorage.setItem("newQuoteOnRefresh", isEnabled);
+        const isDailyQuote = newQuoteOnRefreshCheckbox.checked;
+        // Store as "newQuoteOnRefresh = false" when daily quote is ON (inverted)
+        localStorage.setItem("newQuoteOnRefresh", !isDailyQuote);
 
-        if (!isEnabled) {
-            // When switching to "off", store the current quote as the daily quote
+        if (isDailyQuote) {
+            // When switching to daily quote, store the current quote as the daily quote
             const currentQuote = quotesContainer.textContent;
             const currentAuthor = authorName.textContent;
             if (currentQuote && currentAuthor) {
@@ -417,7 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
         } else {
-            // When switching to "on", load a new quote
+            // When switching off daily quote, load a new quote
             loadAndDisplayQuote(false);
         }
     });
