@@ -1,5 +1,6 @@
 // Indonesian
 const idn = {
+    "newTabTitle": "Tab Baru",
     // Menu Items
     "github": "GitHub",
     "feedback": "Umpan Balik",
