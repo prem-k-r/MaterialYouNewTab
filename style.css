@@ -1008,7 +1008,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	vertical-align: middle;
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
-	border-top: 5px solid currentcolor;
+	border-top: 5px solid currentColor;
 	transition: transform 0.2s ease;
 }
 
