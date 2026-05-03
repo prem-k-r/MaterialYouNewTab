@@ -37,6 +37,7 @@ const cs = {
     "shortcutInputName": "Název zkratky",
     "shortcutInputUrl": "URL adresa zkratky",
     "shortcutInputIcon": "Vlastní ikona: URL nebo SVG (nepovinné)",
+    "recentlyAddedBookmarks": "Nedávno přidané",
 
     // To-do List
     "todoListText": "Seznam úkolů",
