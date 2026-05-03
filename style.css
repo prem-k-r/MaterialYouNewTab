@@ -3601,7 +3601,7 @@ input:checked + .toggle:before {
 #editShortcutsListInfo {
 	font-size: 0.74rem;
 	margin-top: 5px;
-	margin-bottom: 25px;
+	margin-bottom: 24px;
 	text-align: justify;
 	font-style: italic;
 }
@@ -3622,7 +3622,7 @@ input:checked + .toggle:before {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 16px;
+	margin-bottom: 14px;
 	background-color: var(--bg-color-blue);
 	border-radius: 13px;
 	padding: 9px 10px;
