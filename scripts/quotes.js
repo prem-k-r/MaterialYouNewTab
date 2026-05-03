@@ -291,7 +291,7 @@ function displayRandomQuote(quotes) {
     }
 
     // Check if "Daily Quote" is enabled (show one quote per day)
-    const newQuoteOnRefresh = localStorage.getItem("newQuoteOnRefresh") !== "false";
+    const newQuoteOnRefresh = localStorage.getItem("dailyQuoteEnabled") !== "false";
 
     // If new quote on refresh is disabled, try to use the daily quote
     if (!newQuoteOnRefresh) {
@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Load states from localStorage
     hideSearchWith.checked = localStorage.getItem("showShortcutSwitch") === "true";
     motivationalQuotesCheckbox.checked = localStorage.getItem("motivationalQuotesVisible") !== "false";
-    newQuoteOnRefreshCheckbox.checked = localStorage.getItem("newQuoteOnRefresh") === "false";
+    newQuoteOnRefreshCheckbox.checked = localStorage.getItem("dailyQuoteEnabled") === "false";
 
     // Initialize language tracking
     lastKnownLanguage = currentLanguage;
@@ -398,7 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
     newQuoteOnRefreshCheckbox.addEventListener("change", () => {
         const isDailyQuote = newQuoteOnRefreshCheckbox.checked;
         // Store as "newQuoteOnRefresh = false" when daily quote is ON (inverted)
-        localStorage.setItem("newQuoteOnRefresh", !isDailyQuote);
+        localStorage.setItem("dailyQuoteEnabled", !isDailyQuote);
 
         if (isDailyQuote) {
             // When switching to daily quote, store the current quote as the daily quote
