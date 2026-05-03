@@ -3519,15 +3519,26 @@ input:checked + .toggle:before {
 
 .rightButtons {
 	display: flex;
-	gap: 24px;
+	gap: 8px;
 }
 
 #resetButton,
 #newShortcutButton {
 	fill: var(--textColorDark-blue);
 	border: none;
-	background: none;
+	background: color-mix(in srgb, var(--bg-color-blue) 80%, transparent);
+	height: 40px;
+	width: 40px;
+	padding: 8px;
+	border-radius: 7px;
 	cursor: pointer;
+	transition: background-color 0.3s ease, fill 0.3s ease;
+}
+
+#resetButton:hover,
+#newShortcutButton:hover {
+	fill: white;
+	background-color: var(--darkColor-blue);
 }
 
 #newShortcutButton svg {
@@ -3571,19 +3582,30 @@ input:checked + .toggle:before {
 }
 
 .pageTitle {
-	margin-top: 10px;
+	margin-top: 6px;
 	width: 100%;
-	font-size: 1.6rem;
+	font-size: 1.5rem;
 	color: var(--textColorDark-blue);
 }
 
 #editShortcutsListInfo {
-	font-size: 0.8rem;
+	font-size: 0.74rem;
 	margin-top: 5px;
 	margin-bottom: 25px;
 	text-align: justify;
 	font-style: italic;
 }
+
+/* 
+#editShortcutsListInfo::before {
+	content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'><g fill='currentColor'><path d='M8 0a.75.75 0 0 1 .75.75v1a.75.75 0 0 1-1.5 0v-1A.75.75 0 0 1 8 0m5.28 2.22a.75.75 0 0 1 0 1.06l-.707.707a.75.75 0 1 1-1.06-1.06l.707-.707a.75.75 0 0 1 1.06 0M2.72 3.28a.75.75 0 0 1 1.06-1.06l.707.707a.75.75 0 0 1-1.06 1.06zM15.5 7.5a.75.75 0 0 1-.75.75h-1a.75.75 0 0 1 0-1.5h1a.75.75 0 0 1 .75.75m-13.25.75a.75.75 0 0 0 0-1.5h-1a.75.75 0 0 0 0 1.5zm4 7A.75.75 0 0 1 7 14.5h2A.75.75 0 0 1 9 16H7a.75.75 0 0 1-.75-.75'/><path fill-rule='evenodd' d='M8 3.5A4.5 4.5 0 0 0 3.5 8c0 1.53.926 2.465 1.718 3.264l.2.203c.05.05.081.124.081.208A1.826 1.826 0 0 0 7.325 13.5H8.69c1 0 1.811-.81 1.811-1.81 0-.083.033-.159.088-.213l.067-.066C11.492 10.592 12.5 9.605 12.5 8A4.5 4.5 0 0 0 8 3.5M5 8a3 3 0 0 1 6 0c0 .928-.54 1.502-1.462 2.406-.347.34-.538.803-.538 1.283a.31.31 0 0 1-.31.311H7.324A.326.326 0 0 1 7 11.674c0-.461-.175-.914-.507-1.255l-.115-.117C5.49 9.397 5 8.894 5 8' clip-rule='evenodd'/></g></svg>");
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin-right: 2px;
+	vertical-align: -2px;
+	opacity: 0.7;
+} */
 
 .shortcutSettingsEntry {
 	width: 100%;
@@ -3593,8 +3615,8 @@ input:checked + .toggle:before {
 	margin-bottom: 16px;
 	background-color: var(--bg-color-blue);
 	border-radius: 13px;
-	padding: 8px 10px;
-	padding-inline-start: 8px;
+	padding: 9px 10px;
+	padding-inline-start: 6px;
 	position: relative;
 	transition: transform 0.3s var(--md-motion-ease) opacity 0.2s ease;
 	/* Enable hardware acceleration */
@@ -3607,8 +3629,7 @@ input:checked + .toggle:before {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	margin: 0 8px 0 6px;
-	gap: 1px;
+	margin: 0 4px;
 }
 
 .shortcutSettingsEntry:last-child {
@@ -3636,14 +3657,35 @@ input:checked + .toggle:before {
 }
 
 .shortcutSettingsEntry .URL {
-	font-size: 0.8rem;
+	font-size: 0.76rem;
 	opacity: 0.9;
-	margin-top: -2px;
 }
 
 .shortcutSettingsEntry .iconURL {
 	font-size: 0.7rem;
 	opacity: 0.9;
+}
+
+.shortcutInputRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.shortcutInputRow:last-child {
+	margin-top: 1px;
+}
+
+.shortcutInputRow svg {
+    flex-shrink: 0;
+    opacity: 0.5;
+    color: var(--textColorDark-blue);
+    pointer-events: none;
+}
+
+.shortcutInputRow input {
+    flex: 1;
+    min-width: 0;
 }
 
 /* Drag and drop styles */
@@ -3660,11 +3702,11 @@ input:checked + .toggle:before {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 12px 6px;
+	padding: 27px 6px;
 	cursor: grab;
 	color: var(--textColor);
 	opacity: 0.5;
-	height: 50px;
+	height: 54px;
 }
 
 .grip-container:hover {
@@ -3752,24 +3794,6 @@ input:checked + .toggle:before {
 	border-radius: 34px;
 	cursor: pointer;
 	transition: 0.3s all;
-}
-
-.shortcutInputRow {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.shortcutInputRow svg {
-    flex-shrink: 0;
-    opacity: 0.6;
-    color: var(--darkerColor-blue);
-    pointer-events: none;
-}
-
-.shortcutInputRow input {
-    flex: 1;
-    min-width: 0;
 }
 
 /* ---------------Menu-bar-css---------------- */
@@ -5244,9 +5268,17 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: var(--bg-color-dark);
 }
 
+.black-theme #resetButton,
+.black-theme #newShortcutButton,
 .black-theme .shortcutDelete button,
 .black-theme .uploadCustomIconButton {
 	background: #232221;
+}
+
+.black-theme #resetButton:hover,
+.black-theme #newShortcutButton:hover{
+	fill: #e4e4e4;
+	background: #282828;
 }
 
 .black-theme .uploadCustomIconButton:hover,
