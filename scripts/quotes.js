@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
@@ -26,6 +26,14 @@ const FALLBACK_QUOTE = {
 
 let lastKnownLanguage = null;
 
+// Animate .authorName container width to hug its text content
+function fitAuthorWidth() {
+    requestAnimationFrame(() => {
+        const padding = 16;
+        authorContainer.style.width = (authorName.scrollWidth + padding * 2) + "px";
+    });
+}
+
 // Clear all quotes-related data from localStorage
 function clearQuotesStorage() {
     const keys = Object.keys(localStorage);
@@ -45,7 +53,8 @@ function clearOtherLanguageQuotes(exceptLang) {
     keys.forEach(key => {
         if (
             key.startsWith("quotes_") &&
-            !key.includes(`quotes_${exceptLang}`) &&
+            key !== `quotes_${exceptLang}` &&
+            !key.startsWith(`quotes_${exceptLang}_`) &&
             key !== "quotes_metadata_timestamp"
         ) {
             localStorage.removeItem(key);
@@ -55,7 +64,7 @@ function clearOtherLanguageQuotes(exceptLang) {
 
 // Check if we need to fetch data for a language
 function needsDataFetch(lang) {
-    // Always fetch if offline
+    // Skip fetch if offline
     if (!navigator.onLine) return false;
 
     // Check if language changed
@@ -190,7 +199,7 @@ function getDailyQuote(lang) {
     return stored ? JSON.parse(stored) : null;
 }
 
-// Clear old daily quotes (cleanup)
+// Clear old daily quotes
 function clearOldDailyQuotes() {
     const keys = Object.keys(localStorage);
     const today = getTodayDate();
@@ -206,13 +215,13 @@ function clearOldDailyQuotes() {
 function displayFallbackQuote() {
     quotesContainer.textContent = FALLBACK_QUOTE.quote;
     authorName.textContent = FALLBACK_QUOTE.author;
+    fitAuthorWidth();
 }
 
 // Get quotes for the current language
 async function getQuotesForLanguage(forceRefresh = false) {
     try {
-        // Check if language has changed
-        const languageChanged = lastKnownLanguage !== null && lastKnownLanguage !== currentLanguage;
+        // Update last known language
         lastKnownLanguage = currentLanguage;
 
         // Check if we need to fetch new data
@@ -291,13 +300,7 @@ function displayRandomQuote(quotes) {
             // Display the stored daily quote
             quotesContainer.textContent = dailyQuote.quote;
             authorName.textContent = dailyQuote.author;
-
-            // Animate .authorName width to fit content
-            requestAnimationFrame(() => {
-                const fullWidth = authorName.scrollWidth;
-                const padding = 16;
-                authorContainer.style.width = (fullWidth + padding * 2) + "px";
-            });
+            fitAuthorWidth();
             return;
         }
     }
@@ -324,13 +327,7 @@ function displayRandomQuote(quotes) {
     // Display the selected quote
     quotesContainer.textContent = selectedQuote.quote;
     authorName.textContent = selectedQuote.author;
-
-    // Animate .authorName width to fit content
-    requestAnimationFrame(() => {
-        const fullWidth = authorName.scrollWidth;
-        const padding = 16;
-        authorContainer.style.width = (fullWidth + padding * 2) + "px";
-    });
+    fitAuthorWidth();
 }
 
 // Main function to load and display a quote
@@ -350,7 +347,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const motivationalQuotesCont = document.getElementById("motivationalQuotesCont");
     const motivationalQuotesCheckbox = document.getElementById("motivationalQuotesCheckbox");
     const searchWithContainer = document.getElementById("search-with-container");
-    const newQuoteOnRefreshToggle = document.getElementById("newQuoteOnRefreshToggle");
     const newQuoteOnRefreshCheckbox = document.getElementById("newQuoteOnRefreshCheckbox");
     const quotesOptions = document.querySelector(".quotesOptions");
 
@@ -363,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lastKnownLanguage = currentLanguage;
 
     // Clean up old daily quotes on page load
-    clearOldDailyQuotes();
+    if (newQuoteOnRefreshCheckbox.checked) clearOldDailyQuotes();
 
     // Function to update quotes visibility and handle state changes
     const updateMotivationalQuotesState = () => {
@@ -415,6 +411,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
         } else {
+            clearOldDailyQuotes();
+            localStorage.removeItem(getDailyQuoteKey(currentLanguage));
             // When switching off daily quote, load a new quote
             loadAndDisplayQuote(false);
         }

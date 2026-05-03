@@ -1681,6 +1681,11 @@ html[lang="ta"] .digiclock {
 	pointer-events: none;
 }
 
+.quotesOptions:not(:last-child) .ttcont:last-child {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+
 .clock-hidden-left {
 	display: none;
 }
@@ -3414,10 +3419,6 @@ input:checked + .toggle:before {
 }
 
 .sectionInner .ttcont:not(:last-child) {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.sectionInner .quotesOptions:not(:last-child) .ttcont:last-child {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
