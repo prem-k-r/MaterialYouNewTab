@@ -1008,7 +1008,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	vertical-align: middle;
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
-	border-top: 5px solid currentColor;
+	border-top: 5px solid currentcolor;
 	transition: transform 0.2s ease;
 }
 
@@ -2144,10 +2144,10 @@ body[data-bg="wallpaper"] .micIcon {
 	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
 	z-index: 1000;
 	box-sizing: border-box;
-	animation: imageSearchPopoverIn 0.18s ease-out;
+	animation: image-search-popover-in 0.18s ease-out;
 }
 
-@keyframes imageSearchPopoverIn {
+@keyframes image-search-popover-in {
 	from { opacity: 0; transform: translateY(-6px); }
 	to { opacity: 1; transform: translateY(0); }
 }
@@ -2252,7 +2252,7 @@ body[data-bg="wallpaper"] .micIcon {
 	content: "";
 	flex: 1;
 	height: 1px;
-	background-color: color-mix(in srgb, currentColor 30%, transparent);
+	background-color: color-mix(in srgb, currentcolor 30%, transparent);
 }
 
 .imageSearchPopover .imageSearchUploadBtn {

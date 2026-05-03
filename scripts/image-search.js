@@ -29,7 +29,7 @@ function isGoogleEngineActive() {
 }
 
 function openImageSearchByUrl(url) {
-    window.location.href = googleLensByUrl(url);
+    window.open(googleLensByUrl(url), "_blank", "noopener");
 }
 
 function openImageSearchUpload() {
@@ -224,6 +224,7 @@ function submitUrl() {
     }
     urlRow.classList.remove("invalid");
     openImageSearchByUrl(value);
+    hidePopover();
 }
 
 urlGoBtn.addEventListener("click", submitUrl);

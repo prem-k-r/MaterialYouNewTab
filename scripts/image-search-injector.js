@@ -26,14 +26,26 @@
 
     if (!location.hash.startsWith(HASH_PREFIX)) return;
 
-    const key = decodeURIComponent(location.hash.slice(HASH_PREFIX.length));
+    const api = (typeof browser !== "undefined" ? browser : chrome);
+    const storage = api.storage.local;
+
+    const rawKey = location.hash.slice(HASH_PREFIX.length);
+    let key;
+    try {
+        key = decodeURIComponent(rawKey);
+    } catch (err) {
+        if (err instanceof URIError) {
+            // Best-effort cleanup of the stashed payload, then bail.
+            storage.remove(rawKey);
+            history.replaceState(null, "", location.pathname + location.search);
+            return;
+        }
+        throw err;
+    }
     if (!key) return;
 
     // Strip the hash so a refresh doesn't re-trigger the injection.
     history.replaceState(null, "", location.pathname + location.search);
-
-    const api = (typeof browser !== "undefined" ? browser : chrome);
-    const storage = api.storage.local;
 
     storage.get(key, (items) => {
         const payload = items?.[key];
