@@ -35,7 +35,7 @@ const bn = {
     "shortcutDefaultName": "নতুন শর্টকাট",
     "shortcutInputName": "শর্টকাটের নাম",
     "shortcutInputUrl": "শর্টকাটের URL",
-    "shortcutInputIcon": "কাস্টম আইকন URL (ঐচ্ছিক)",
+    "shortcutInputIcon": "কাস্টম আইকন: URL অথবা SVG (ঐচ্ছিক)",
     "recentlyAddedBookmarks": "সম্প্রতি যোগ করা",
 
     // To-do List

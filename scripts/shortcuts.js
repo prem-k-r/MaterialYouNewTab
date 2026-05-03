@@ -234,12 +234,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = () => {
-                iconInput.value = reader.result;
+            function applyIcon(iconValue) {
+                iconInput.value = iconValue;
                 try {
                     saveShortcut(entry);
-                    // Render with the current icon value (may be empty if quota was exceeded)
                     renderShortcut(
                         entry.querySelector(".shortcutName").value,
                         entry.querySelector(".URL").value,
@@ -252,12 +250,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 } finally {
                     fileInput.value = "";
                 }
-            };
-            reader.onerror = () => {
-                console.error("Failed to read selected file:", reader.error);
-                fileInput.value = "";
-            };
-            reader.readAsDataURL(selectedFile);
+            }
+
+            const isSvgFile = selectedFile.type === "image/svg+xml";
+
+            if (isSvgFile) {
+                const textReader = new FileReader();
+                textReader.onload = () => {
+                    const sanitized = sanitizeSvg(textReader.result);
+                    if (!sanitized) {
+                        alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
+                        fileInput.value = "";
+                        return;
+                    }
+                    applyIcon(sanitized);
+                };
+                textReader.onerror = () => {
+                    console.error("Failed to read SVG file:", textReader.error);
+                    fileInput.value = "";
+                };
+                textReader.readAsText(selectedFile);
+            } else {
+                const reader = new FileReader();
+                reader.onload = () => applyIcon(reader.result);
+                reader.onerror = () => {
+                    console.error("Failed to read selected file:", reader.error);
+                    fileInput.value = "";
+                };
+                reader.readAsDataURL(selectedFile);
+            }
         });
 
         deleteBtn.addEventListener("click", () => deleteShortcut(entry));

@@ -35,7 +35,7 @@ const hi = {
     "shortcutDefaultName": "नया शॉर्टकट",
     "shortcutInputName": "शॉर्टकट का नाम",
     "shortcutInputUrl": "शॉर्टकट का URL",
-    "shortcutInputIcon": "कस्टम आइकन URL (वैकल्पिक)",
+    "shortcutInputIcon": "कस्टम आइकन: URL या SVG (वैकल्पिक)",
     "recentlyAddedBookmarks": "हाल ही में जोड़े गए",
 
     // To-do List
