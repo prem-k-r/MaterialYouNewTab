@@ -73,6 +73,8 @@ const en = {
     "hideSearchWithInfo": "Switch between search engines by clicking its icon",
     "motivationalQuotesText": "Motivational Quotes",
     "motivationalQuotesInfo": "Show quotes below the searchbar",
+    "newQuoteOnRefreshText": "Daily Quote",
+    "newQuoteOnRefreshInfo": "Show one quote per day instead of refreshing each time",
     "search_suggestions_button": "Search Suggestions",
     "search_suggestions_text": "Enable search suggestions",
 

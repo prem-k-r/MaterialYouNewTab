@@ -73,6 +73,8 @@ const bn = {
     "hideSearchWithInfo": "সার্চ ইঞ্জিনের আইকনে ক্লিক করে সার্চ ইঞ্জিন পরিবর্তন করুন",
     "motivationalQuotesText": "অনুপ্রেরণামূলক উক্তি",
     "motivationalQuotesInfo": "সার্চবারের নিচে উক্তি দেখান",
+    "newQuoteOnRefreshText": "দৈনিক উক্তি",
+    "newQuoteOnRefreshInfo": "প্রতিবার রিফ্রেশ হওয়ার পরিবর্তে দিনে একটি উক্তি দেখান",
     "search_suggestions_button": "সার্চ সাজেশন",
     "search_suggestions_text": "সার্চ সাজেশন সক্রিয় করুন",
 

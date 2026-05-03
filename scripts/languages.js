@@ -152,6 +152,8 @@ function applyLanguage(lang) {
         "hideSearchWithInfo",
         "motivationalQuotesText",
         "motivationalQuotesInfo",
+        "newQuoteOnRefreshText",
+        "newQuoteOnRefreshInfo",
         "search_suggestions_button",
         "search_suggestions_text",
         "hideClockBox",
