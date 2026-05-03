@@ -236,7 +236,7 @@ html:has(
 	& #darkTheme,
 	& .favicon,
 	& #wIcon,
-	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img {
+	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img[data-icon-type="default"] {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -276,7 +276,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	& #darkTheme,
 	& .favicon,
 	& #wIcon,
-	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img {
+	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img[data-icon-type="default"] {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -2560,44 +2560,73 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 .shortcutsContainer .shortcuts .shortcutLogoContainer img {
 	height: 100%;
 	width: 100%;
-	border-radius: 100%;
+	border-radius: 50%;
+	object-fit: contain;
 	filter: none;
 	mix-blend-mode: normal;
 }
 
 /* Adaptive Icons styling */
-.adaptive-icons .shortcuts .shortcutLogoContainer img {
+.adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="default"] {
 	height: calc(100% * 0.7071) !important;
 	width: calc(100% * 0.7071) !important;
 	filter: grayscale(1);
 	mix-blend-mode: screen;
 }
 
-html:has(.themeSegment[data-active="dark"])
+html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
 	.adaptive-icons
 	.shortcuts
 	.shortcutLogoContainer
-	img,
-html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"])
+	img[data-icon-type="default"],
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(:has(#darkTheme:checked))
 	.adaptive-icons
 	.shortcuts
 	.shortcutLogoContainer
-	img {
-	filter: grayscale(1) invert(1);
-}
-
-body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"])
+	img[data-icon-type="default"],
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
 	.adaptive-icons
 	.shortcutLogoContainer
-	img,
+	img[data-icon-type="default"],
 body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 		.themeSegment[data-active="system"]
-	)
+	):not(:has(#darkTheme:checked))
 	.adaptive-icons
 	.shortcutLogoContainer
-	img {
+	img[data-icon-type="default"] {
 	filter: grayscale(1) invert(1) !important;
 }
+
+.shortcutLogoContainer img[data-icon-type="custom"] {
+    filter: none !important;
+    mix-blend-mode: normal !important;
+	border-radius: 10% !important;
+}
+
+html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
+    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(:has(#darkTheme:checked))
+    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
+    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.themeSegment[data-active="system"]):not(:has(#darkTheme:checked))
+    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"] {
+    filter: invert(1) hue-rotate(180deg) !important;
+    mix-blend-mode: normal !important;
+}
+
+.adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="custom"] {
+    height: calc(100% * 0.7071) !important;
+    width: calc(100% * 0.7071) !important;
+}
+
+.adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="letter"] {
+	height: 100% !important;
+	width: 100% !important;
+	filter: none !important;
+    mix-blend-mode: normal !important;
+} 
+
 /* ----------end of Shortcuts----------------- */
 
 /* -----------Ai-Tools----------------- */
@@ -3568,13 +3597,12 @@ input:checked + .toggle:before {
 .shortcutSettingsEntry {
 	width: 100%;
 	display: flex;
-	height: 68px;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 16px;
 	background-color: var(--bg-color-blue);
 	border-radius: 13px;
-	padding: 15px 10px;
+	padding: 8px 10px;
 	padding-inline-start: 8px;
 	position: relative;
 	transition: transform 0.3s var(--md-motion-ease) opacity 0.2s ease;
@@ -3582,17 +3610,34 @@ input:checked + .toggle:before {
 	will-change: transform, opacity;
 }
 
+.shortcutInputGroup {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 8px 0 6px;
+	gap: 1px;
+}
+
 .shortcutSettingsEntry:last-child {
 	margin-bottom: 0;
 }
 
 .shortcutSettingsEntry input {
-	width: calc(100% - 18px);
+	width: 100%;
 	background: none;
 	border: none;
-	margin-inline-start: 8px;
 	color: var(--textColorDark-blue);
 	text-overflow: ellipsis;
+}
+
+.shortcutSettingsEntry input:hover {
+    animation: clipText 0s 150ms forwards;
+}
+
+@keyframes clipText {
+    to { text-overflow: clip; }
 }
 
 .shortcutSettingsEntry .shortcutName {
@@ -3600,9 +3645,14 @@ input:checked + .toggle:before {
 }
 
 .shortcutSettingsEntry .URL {
-	font-size: 0.84rem;
+	font-size: 0.8rem;
 	opacity: 0.9;
-	margin-top: -3px;
+	margin-top: -2px;
+}
+
+.shortcutSettingsEntry .iconURL {
+	font-size: 0.7rem;
+	opacity: 0.9;
 }
 
 /* Drag and drop styles */
@@ -3619,11 +3669,11 @@ input:checked + .toggle:before {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 54px;
-	padding: 0 6px;
+	padding: 12px 6px;
 	cursor: grab;
 	color: var(--textColor);
 	opacity: 0.5;
+	height: 50px;
 }
 
 .grip-container:hover {
@@ -3631,12 +3681,13 @@ input:checked + .toggle:before {
 }
 
 .grip-container svg {
+	transform: scale(1.1);
 	pointer-events: none;
 	transition: transform 0.2s ease;
 }
 
 .grip-container:hover svg {
-	transform: scale(1.1);
+	transform: scale(1.2);
 }
 
 .shortcutSettingsEntry.dragging .grip-container {
@@ -3652,7 +3703,15 @@ input:checked + .toggle:before {
 	transform: none;
 }
 
-.delete button {
+.shortcutActions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-inline-start: 8px;
+}
+
+.shortcutDelete button,
+.uploadCustomIconButton {
 	fill: var(--textColorDark-blue);
 	display: flex;
 	align-items: center;
@@ -3666,12 +3725,25 @@ input:checked + .toggle:before {
 	transition: 0.3s all;
 }
 
-.delete button:not(.inactive):hover {
+/* Shared hover state for action buttons */
+.uploadCustomIconButton:not(.inactive):hover,
+.shortcutDelete button:not(.inactive):hover {
 	fill: white;
 	background: var(--darkColor-blue);
 }
 
-.delete button.inactive {
+/* Color-specific hover for upload button */
+.uploadCustomIconButton:not(.inactive):hover {
+	color: white;
+}
+
+.uploadCustomIconButton svg {
+	pointer-events: none;
+}
+
+/* Shared inactive state for action buttons */
+.uploadCustomIconButton.inactive,
+.shortcutDelete button.inactive {
 	opacity: 0.5;
 	cursor: not-allowed;
 }
@@ -5167,11 +5239,13 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: var(--bg-color-dark);
 }
 
-.black-theme .delete button {
+.black-theme .shortcutDelete button,
+.black-theme .uploadCustomIconButton {
 	background: #232221;
 }
 
-.black-theme .delete button:hover {
+.black-theme .uploadCustomIconButton:hover,
+.black-theme .shortcutDelete button:hover {
 	background: #404040;
 }
 

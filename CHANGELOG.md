@@ -18,6 +18,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 ### Added
 
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
+- Added support for custom shortcut icons via upload, URL, or pasted SVG ([@smurf11k](https://github.com/smurf11k)), ([@prem-k-r](https://github.com/prem-k-r)) [#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/), [#199](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/)
 
 ### Improved
 
@@ -25,6 +26,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Redesigned the theme selector from dropdown to buttons for easier switching between Light, Dark, and System modes ([@prem-k-r](https://github.com/prem-k-r)) ([#112](https://github.com/prem-k-r/MaterialYouNewTab/pull/112))
 - Added expanding animations to todo and Google apps panels and some other minor UI changes ([@prem-k-r](https://github.com/prem-k-r)) ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
 - Prevented weather condition and shortcut icons from being color-inverted in dark mode ([@prem-k-r](https://github.com/prem-k-r)) ([#191](https://github.com/prem-k-r/MaterialYouNewTab/pull/191))
+- Improved fallback behavior of shortcut icons to first-letter icons when custom icons fail to load or when offline ([@prem-k-r](https://github.com/prem-k-r))
 
 ### Fixed
 
@@ -36,7 +38,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
   - Japanese ([@kons10](https://github.com/kons10))
   - Arabic ([@heshamoomar](https://github.com/heshamoomar))
   - Spanish ([@palacios22c](https://github.com/palacios22c))
-  - Russian ([@C0dwiz](https://github.com/C0dwiz), [@giwih](https://github.com/giwih))
+  - Russian ([@C0dwiz](https://github.com/C0dwiz), [@giwih](https://github.com/giwih)), ([@smurf11k](https://github.com/smurf11k))
   - Czech ([@ceskyDJ](https://github.com/ceskyDJ))
   - Hindi ([@prem-k-r](https://github.com/prem-k-r))
   - Bengali ([@prem-k-r](https://github.com/prem-k-r)), ([@itz-rj-here](https://github.com/itz-rj-here))

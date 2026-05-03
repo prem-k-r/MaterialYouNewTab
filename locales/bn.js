@@ -19,7 +19,7 @@ const bn = {
     "editShortcutsText": "শর্টকাট সম্পাদনা করুন",
     "shortcutsInfoText": "যে শর্টকাটগুলো দেখাতে চান তা নির্বাচন করুন",
     "editShortcutsList": "সংরক্ষিত শর্টকাট",
-    "editShortcutsListInfo": "\"+\" আইকনে ক্লিক করে নতুন শর্টকাট যোগ করুন অথবা বিদ্যমান শর্টকাটের নাম বা URL-এ ক্লিক করে সম্পাদনা করুন।",
+    "editShortcutsListInfo": "\"+\" আইকনে ক্লিক করে নতুন শর্টকাট যোগ করুন অথবা বিদ্যমান শর্টকাটের নাম বা URL-এ ক্লিক করে সম্পাদনা করুন। কাস্টম আইকন মুছতে আইকন URL খালি করে দিন।",
     "adaptiveIconText": "অ্যাডাপ্টিভ আইকন",
     "adaptiveIconInfoText": "শর্টকাট আইকন থিম রঙের সাথে মিলে ছোট আকারে প্রদর্শিত হবে",
     "bookmarksText": "বুকমার্কস",
@@ -31,6 +31,12 @@ const bn = {
     "googleAppsMenuText": "গুগল অ্যাপস",
     "googleAppsMenuInfo": "গুগল অ্যাপসের শর্টকাট প্রদর্শন করুন",
     "googleAppsHover": "গুগল অ্যাপস",
+
+    "shortcutDefaultName": "নতুন শর্টকাট",
+    "shortcutInputName": "শর্টকাটের নাম",
+    "shortcutInputUrl": "শর্টকাটের URL",
+    "shortcutInputIcon": "কাস্টম আইকন: URL অথবা SVG (ঐচ্ছিক)",
+    "recentlyAddedBookmarks": "সম্প্রতি যোগ করা",
 
     // To-do List
     "todoListText": "টু ডু লিস্ট",
@@ -210,5 +216,10 @@ const bn = {
     "invalidBackup": "অবৈধ ব্যাকআপ ফাইল নির্বাচিত হয়েছে।",
     "deleteBookmark": "আপনি কি নিশ্চিত যে আপনি \"{title}\" বুকমার্কটি মুছে ফেলতে চান?",
     "UnsupportedBrowser": "আপনার ব্রাউজারে বুকমার্ক সমর্থিত নয়।",
-    "resetShortcutsPrompt": "সব সংরক্ষিত শর্টকাট মুছে ফেলা হবে এবং ডিফল্ট অবস্থায় পুনরায় সেট করা হবে। আপনি কি চালিয়ে যেতে চান?"
+    "resetShortcutsPrompt": "সব সংরক্ষিত শর্টকাট মুছে ফেলা হবে এবং ডিফল্ট অবস্থায় পুনরায় সেট করা হবে। আপনি কি চালিয়ে যেতে চান?",
+    "invalidFileTypeMessage": "একটি বৈধ ইমেজ ফাইল নির্বাচন করুন।",
+    "invalidSvgMessage": "অবৈধ SVG অথবা এতে অনিরাপদ বিষয়বস্তু রয়েছে এবং এটি আইকন হিসাবে ব্যবহার করা যাবে না।",
+    "invalidIconUrlMessage": "একটি বৈধ ইমেজ URL লিখুন (https://, http://, অথবা data:image/ দিয়ে শুরু হতে হবে)।",
+    "iconFileTooLargeMessage": "নির্বাচিত ফাইলটি খুব বড়: {size} KB। অনুগ্রহ করে {max} KB এর কম আকারের ফাইল ব্যবহার করুন।",
+    "iconStorageQuotaMessage": "স্টোরেজ সীমা পূর্ণ হয়ে যাওয়ায় আইকন সংরক্ষণ করা যায়নি। অনুগ্রহ করে ছোট আকারের ছবি ব্যবহার করুন।"
 };

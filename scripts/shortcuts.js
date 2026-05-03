@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  */
 
@@ -8,10 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Constants
     const MAX_SHORTCUTS = 50;
     const PLACEHOLDER = {
-        name: "New shortcut",
+        get name()      { return translations[currentLanguage]?.shortcutDefaultName || translations["en"].shortcutDefaultName; },
         url: "https://github.com/prem-k-r/MaterialYouNewTab",
-        inputName: "Shortcut Name",
-        inputUrl: "Shortcut URL"
+        get inputName() { return translations[currentLanguage]?.shortcutInputName   || translations["en"].shortcutInputName; },
+        get inputUrl()  { return translations[currentLanguage]?.shortcutInputUrl    || translations["en"].shortcutInputUrl; },
+        get inputIcon() { return translations[currentLanguage]?.shortcutInputIcon   || translations["en"].shortcutInputIcon; },
     };
 
     // DOM Elements
@@ -143,12 +144,13 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < amount; i++) {
             const name = localStorage.getItem(`shortcutName${i}`) || (presets[i] ? presets[i].name : PLACEHOLDER.name);
             const url = localStorage.getItem(`shortcutURL${i}`) || (presets[i] ? presets[i].url : PLACEHOLDER.url);
+            const icon = localStorage.getItem(`shortcutIcon${i}`) || "";
 
-            shortcutsCache.push({ name, url });
+            shortcutsCache.push({ name, url, icon });
 
-            const entry = createShortcutEntry(name, url, deleteInactive, i);
+            const entry = createShortcutEntry(name, url, icon, deleteInactive, i);
             dom.shortcutSettingsContainer.appendChild(entry);
-            renderShortcut(name, url, i);
+            renderShortcut(name, url, icon, i);
         }
 
         // Disable new shortcut button if max reached
@@ -160,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Creates a shortcut entry element for the settings panel
-    function createShortcutEntry(name, url, deleteInactive, index) {
+    function createShortcutEntry(name, url, iconUrl, deleteInactive, index) {
         const entry = document.createElement("div");
         entry.className = "shortcutSettingsEntry";
         entry.draggable = true;
@@ -169,37 +171,122 @@ document.addEventListener("DOMContentLoaded", function () {
         entry.innerHTML = `
             <div class="grip-container" draggable="true">
                 <svg stroke="currentColor" width="18" height="18" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                    <circle cy="2.5" cx="5.5" r=".75"/>
+                    <circle cy="2" cx="5.5" r=".75"/>
                     <circle cy="8" cx="5.5" r=".75"/>
-                    <circle cy="13.5" cx="5.5" r=".75"/>
-                    <circle cy="2.5" cx="10.5" r=".75"/>
+                    <circle cy="14" cx="5.5" r=".75"/>
+                    <circle cy="2" cx="10.5" r=".75"/>
                     <circle cy="8" cx="10.5" r=".75"/>
-                    <circle cy="13.5" cx="10.5" r=".75"/>
+                    <circle cy="14" cx="10.5" r=".75"/>
                 </svg>
             </div>
-            <div>
+            <div class="shortcutInputGroup">
                 <input class="shortcutName" placeholder="${PLACEHOLDER.inputName}" value="${escapeHtml(name)}">
                 <input class="URL" placeholder="${PLACEHOLDER.inputUrl}" value="${escapeHtml(url)}">
+                <input class="iconURL" placeholder="${PLACEHOLDER.inputIcon}" value="${escapeHtml(iconUrl || "")}">
             </div>
-            <div class="delete">
-                <button class="${deleteInactive ? 'inactive' : ''}">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-                        <path d="M7.8 20.4q-.742 0-1.271-.529Q6 19.343 6 18.6v-12h-.3q-.383 0-.641-.257-.259-.258-.259-.638t.259-.643Q5.317 4.8 5.7 4.8h3.9v-.3q0-.383.259-.641.258-.259.641-.259h3q.383 0 .641.259.259.258.259.641v.3h3.9q.383 0 .641.257.259.257.259.638 0 .38-.259.643-.258.262-.641.262H18v11.99q0 .76-.529 1.285-.529.525-1.271.525Zm8.4-13.8H7.8v12h8.4zm-5.705 10.2q.38 0 .643-.259.262-.259.262-.641V9.3q0-.383-.257-.641-.258-.259-.638-.259t-.643.259Q9.6 8.917 9.6 9.3v6.6q0 .383.257.641.258.259.638.259Zm3 0q.38 0 .643-.259.262-.259.262-.641V9.3q0-.383-.257-.641-.258-.259-.638-.259t-.643.259q-.262.258-.262.641v6.6q0 .383.257.641.258.259.638.259ZM7.8 6.6v12z"/>
+            <div class="shortcutActions">
+                <button type="button" class="uploadCustomIconButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M12 3.5a.89.89 0 0 0-.641.27l-3.57 3.571a.895.895 0 0 0 1.265 1.265l2.051-2.051v8.577a.895.895 0 1 0 1.79 0V6.555l2.051 2.051a.895.895 0 0 0 1.266-1.265l-3.57-3.57A.91.91 0 0 0 12 3.5m-6.263 9.842c-.494 0-.895.4-.895.895v3.579A2.7 2.7 0 0 0 7.526 20.5h8.948a2.7 2.7 0 0 0 2.684-2.684v-3.58a.895.895 0 1 0-1.79 0v3.58c0 .505-.39.895-.894.895H7.526a.88.88 0 0 1-.894-.895v-3.58c0-.493-.401-.894-.895-.894"/>
                     </svg>
                 </button>
+                <input type="file" class="iconFileInput" accept="image/*" hidden>
+                <div class="shortcutDelete">
+                    <button class="${deleteInactive ? 'inactive' : ''}">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                            <path d="M7.8 20.4q-.742 0-1.271-.529Q6 19.343 6 18.6v-12h-.3q-.383 0-.641-.257-.259-.258-.259-.638t.259-.643Q5.317 4.8 5.7 4.8h3.9v-.3q0-.383.259-.641.258-.259.641-.259h3q.383 0 .641.259.259.258.259.641v.3h3.9q.383 0 .641.257.259.257.259.638 0 .38-.259.643-.258.262-.641.262H18v11.99q0 .76-.529 1.285-.529.525-1.271.525Zm8.4-13.8H7.8v12h8.4zm-5.705 10.2q.38 0 .643-.259.262-.259.262-.641V9.3q0-.383-.257-.641-.258-.259-.638-.259t-.643.259Q9.6 8.917 9.6 9.3v6.6q0 .383.257.641.258.259.638.259Zm3 0q.38 0 .643-.259.262-.259.262-.641V9.3q0-.383-.257-.641-.258-.259-.638-.259t-.643.259q-.262.258-.262.641v6.6q0 .383.257.641.258.259.638.259ZM7.8 6.6v12z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         `;
 
-        const inputs = entry.querySelectorAll("input");
+        const inputs = entry.querySelectorAll("input.shortcutName, input.URL, input.iconURL");
+        const uploadButton = entry.querySelector(".uploadCustomIconButton");
+        const fileInput = entry.querySelector(".iconFileInput");
+        const iconInput = entry.querySelector(".iconURL");
+        const deleteBtn = entry.querySelector(".shortcutDelete button");
+
         attachInputListeners(inputs, entry);
 
-        const deleteBtn = entry.querySelector(".delete button");
+        uploadButton.addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", async e => {
+            const selectedFile = e.target.files?.[0];
+            if (!selectedFile) return;
+            if (!selectedFile.type.startsWith("image/")) {
+                const invalidFileTypeMessage = translations[currentLanguage]?.invalidFileTypeMessage || translations["en"]?.invalidFileTypeMessage;
+                alertPrompt(invalidFileTypeMessage);
+                fileInput.value = "";
+                return;
+            }
+
+            const maxIconBytes = 100 * 1024;
+            if (selectedFile.size > maxIconBytes) {
+                const iconFileTooLargeMessage = translations[currentLanguage]?.iconFileTooLargeMessage || translations["en"].iconFileTooLargeMessage;
+                const fileSizeKB = localizeNumbers((selectedFile.size / 1024).toFixed(1), currentLanguage);
+                const maxSizeKB = localizeNumbers((maxIconBytes / 1024).toFixed(0), currentLanguage);
+
+                const message = iconFileTooLargeMessage
+                    .replace("{size}", fileSizeKB)
+                    .replace("{max}", maxSizeKB);
+                alertPrompt(message);
+                fileInput.value = "";
+                return;
+            }
+
+            function applyIcon(iconValue) {
+                iconInput.value = iconValue;
+                try {
+                    saveShortcut(entry);
+                    renderShortcut(
+                        entry.querySelector(".shortcutName").value,
+                        entry.querySelector(".URL").value,
+                        iconInput.value,
+                        entry._index
+                    );
+                } catch (err) {
+                    console.error("Failed to save icon:", err);
+                    iconInput.value = "";
+                } finally {
+                    fileInput.value = "";
+                }
+            }
+
+            const isSvgFile = selectedFile.type === "image/svg+xml";
+
+            if (isSvgFile) {
+                const textReader = new FileReader();
+                textReader.onload = () => {
+                    const sanitized = sanitizeSvg(textReader.result);
+                    if (!sanitized) {
+                        alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
+                        fileInput.value = "";
+                        return;
+                    }
+                    applyIcon(sanitized);
+                };
+                textReader.onerror = () => {
+                    console.error("Failed to read SVG file:", textReader.error);
+                    fileInput.value = "";
+                };
+                textReader.readAsText(selectedFile);
+            } else {
+                const reader = new FileReader();
+                reader.onload = () => applyIcon(reader.result);
+                reader.onerror = () => {
+                    console.error("Failed to read selected file:", reader.error);
+                    fileInput.value = "";
+                };
+                reader.readAsDataURL(selectedFile);
+            }
+        });
+
         deleteBtn.addEventListener("click", () => deleteShortcut(entry));
 
         return entry;
     }
 
-    function createShortcutElement(name, url, index) {
+    function createShortcutElement(name, url, icon, index) {
         const normalizedUrl = normalizeUrl(url);
 
         const shortcut = document.createElement("div");
@@ -212,7 +299,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const logoContainer = document.createElement("div");
         logoContainer.className = "shortcutLogoContainer";
 
-        const logo = getLogoHtml(normalizedUrl);
+        const logo = getLogoHtml(name, normalizedUrl, icon);
         if (logo) logoContainer.appendChild(logo);
 
         const span = document.createElement("span");
@@ -227,8 +314,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Renders a shortcut in the main view
-    function renderShortcut(name, url, index) {
-        const shortcut = createShortcutElement(name, url, index);
+    function renderShortcut(name, url, icon, index) {
+        const shortcut = createShortcutElement(name, url, icon, index);
 
         if (index < dom.shortcutsContainer.children.length) {
             dom.shortcutsContainer.replaceChild(shortcut, dom.shortcutsContainer.children[index]);
@@ -240,12 +327,63 @@ document.addEventListener("DOMContentLoaded", function () {
     // Escapes HTML to prevent XSS
     function escapeHtml(unsafe) {
         return unsafe.replace(/[&<>"']/g, match => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;'
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
         }[match]));
+    }
+
+    // Validates custom icon URL
+    function isValidCustomIconUrl(url) {
+        if (typeof url !== "string") return false;
+        const trimmedUrl = url.trim();
+        if (trimmedUrl.includes(" ")) return false;
+        const lowercaseUrl = trimmedUrl.toLowerCase();
+        return (
+            lowercaseUrl.startsWith("data:image/") ||
+            lowercaseUrl.startsWith("https://") ||
+            lowercaseUrl.startsWith("http://")
+        );
+    }
+
+    // Sanitizes raw SVG code, returns data URL or null if unsafe
+    function sanitizeSvg(raw) {
+        const trimmed = raw.trim();
+        const normalized = trimmed
+            .replace(/^<\?xml[\s\S]*?\?>\s*/i, "")
+            .replace(/^<!doctype[\s\S]*?>\s*/i, "")
+            .replace(/^<!--[\s\S]*?-->\s*/i, "");
+        if (!normalized.toLowerCase().startsWith("<svg")) return null;
+
+        const forbidden = [
+            /<script[\s>]/i,                // <script> tags
+            /\bon\w+\s*=/i,                 // event handlers: onload=, onclick=, onerror=, …
+            /<iframe[\s>]/i,                // iframes
+            /<foreignObject[\s>]/i,         // foreignObject (can embed HTML)
+            /javascript\s*:/i,              // javascript: URIs
+            /data:(?!image\/[a-z]+;base64,)[^"'\s]*/i, // non-image data URIs
+        ];
+
+        for (const pattern of forbidden) {
+            if (pattern.test(normalized)) return null;
+        }
+
+        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(normalized);
+    }
+
+    // Normalizes icon input: converts raw SVG code → data URL, passes URLs through
+    function processIconInput(raw) {
+        const trimmed = raw.trim();
+        if (!trimmed) return { value: "", error: null };
+
+        if (/<svg[\s>]/i.test(trimmed)) {
+            const dataUrl = sanitizeSvg(trimmed);
+            return { value: dataUrl ?? "", error: null };
+        }
+
+        return { value: trimmed, error: null };
     }
 
     // Normalizes URLs to ensure they're valid
@@ -257,14 +395,75 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Gets the appropriate logo HTML for a given URL
-    function getLogoHtml(url) {
-        const hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
+    function getLogoHtml(name, url, customIcon = "") {
+        let hostname;
+
+        function setIconType(element, type) {
+            element.setAttribute("data-icon-type", type);
+            return element;
+        }
+
+        function createLetterFallback() {
+            let letter = "?";
+
+            if (name.trim()) {
+                letter = name.trim().charAt(0).toUpperCase();
+            } else {
+                try {
+                    hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
+                    letter = hostname.charAt(0).toUpperCase() || "?";
+                } catch {
+                    letter = (url.trim()?.charAt(0) || "?").toUpperCase();
+                }
+            }
+
+            // TODO: MutationObserver to update colors when theme changes
+            const selectedTheme = localStorage.getItem("selectedTheme");
+            const color = selectedTheme === "dark"
+                ? "#bfbfbf"
+                : localStorage.getItem("accentLightTintColor") || "#ffffff";
+            const svg = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <text x="50%" y="58%" text-anchor="middle" dominant-baseline="middle"
+                        font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700"
+                        fill="${color}">
+                        ${letter}
+                    </text>
+                </svg>
+            `;
+
+            const img = document.createElement("img");
+            img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+            img.alt = "";
+            return img;
+        }
+
+        if (customIcon && isValidCustomIconUrl(customIcon)) {
+            const customIconImg = document.createElement("img");
+            customIconImg.src = customIcon.trim();
+            customIconImg.alt = "";
+            customIconImg.referrerPolicy = "no-referrer";
+            setIconType(customIconImg, "custom");
+            customIconImg.addEventListener("error", () => {
+                customIconImg.src = createLetterFallback().src;
+                setIconType(customIconImg, "letter");
+            }, { once: true });
+
+            return customIconImg;
+        }
+
+        try {
+            hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
+        } catch (error) {
+            return createLetterFallback();
+        }
 
         // GitHub shortcut
         if (hostname === "github.com") {
             const img = document.createElement("img");
             img.src = "./svgs/github-shortcut.svg";
             img.alt = "";
+            setIconType(img, "default");
             return img;
         }
 
@@ -273,30 +472,60 @@ document.addEventListener("DOMContentLoaded", function () {
         if (preset) {
             const wrapper = document.createElement("div");
             wrapper.innerHTML = preset.svg;
-            return wrapper.firstElementChild;
+            const svgElement = wrapper.firstElementChild;
+            setIconType(svgElement, "default");
+            return svgElement;
         }
 
-        // Fetch favicon from Google 
+        // Fetch favicon from Google
         const img = document.createElement("img");
 
         img.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256`;
         img.alt = "";
-
+        img.referrerPolicy = "no-referrer";
+        setIconType(img, "default");
         img.addEventListener("error", () => {
-            img.src = "./svgs/offline.svg";
+            img.src = createLetterFallback().src;
+            setIconType(img, "letter");
         }, { once: true });
 
         return img;
+    }
+
+    // Validates the icon input field on blur
+    function validateIconInput(input) {
+        const raw = input.value.trim();
+        if (!raw) return;
+
+        if (/<svg[\s>]/i.test(raw)) {
+            const { value } = processIconInput(raw);
+            if (!value) {
+                alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
+                input.value = "";
+            } else {
+                input.value = value;
+            }
+        } else {
+            if (!isValidCustomIconUrl(raw)) {
+                alertPrompt(translations[currentLanguage]?.invalidIconUrlMessage || translations["en"]?.invalidIconUrlMessage);
+                input.value = "";
+            }
+        }
     }
 
     // Attaches event listeners to shortcut input fields
     function attachInputListeners(inputs, entry) {
         inputs.forEach(input => {
             input.addEventListener("blur", () => {
+                if (input.classList.contains("iconURL")) {
+                    validateIconInput(input);
+                }
+
                 saveShortcut(entry);
                 renderShortcut(
                     entry.querySelector(".shortcutName").value,
                     entry.querySelector(".URL").value,
+                    entry.querySelector(".iconURL").value,
                     entry._index
                 );
             });
@@ -304,7 +533,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         inputs[0].addEventListener("keydown", e => e.key === "Enter" && inputs[1].focus());
-        inputs[1].addEventListener("keydown", e => e.key === "Enter" && e.target.blur());
+        inputs[1].addEventListener("keydown", e => e.key === "Enter" && inputs[2].focus());
+        inputs[2].addEventListener("keydown", e => {
+            if (e.key !== "Enter") return;
+            e.preventDefault();
+            e.stopPropagation();
+            e.target.blur();
+        });
     }
 
     // Drag and drop functionality for reordering shortcuts
@@ -319,7 +554,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Cache element positions for smooth gliding animation
         function cachePositions() {
             const map = new Map();
-            const entries = dom.shortcutSettingsContainer.querySelectorAll('.shortcutSettingsEntry');
+            const entries = dom.shortcutSettingsContainer.querySelectorAll(".shortcutSettingsEntry");
             for (const el of entries) {
                 map.set(el, el.getBoundingClientRect().top);
             }
@@ -346,11 +581,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (oldTop !== undefined && newTop !== undefined) {
                     const delta = oldTop - newTop;
                     if (delta !== 0) {
-                        el.style.transition = 'none';
+                        el.style.transition = "none";
                         el.style.transform = `translateY(${delta}px)`;
                         requestAnimationFrame(() => {
-                            el.style.transition = 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)';
-                            el.style.transform = 'none';
+                            el.style.transition = "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)";
+                            el.style.transform = "none";
                         });
                     }
                 }
@@ -421,7 +656,7 @@ document.addEventListener("DOMContentLoaded", function () {
             while (low <= high) {
                 const mid = (low + high) >>> 1;
                 const middleY = elements[mid].rect.top + elements[mid].rect.height / 2;
-                y < middleY ? high = mid - 1 : low = mid + 1;
+                y < middleY ? (high = mid - 1) : (low = mid + 1);
             }
 
             return elements[low]?.element || null;
@@ -564,7 +799,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const entries = dom.shortcutSettingsContainer.querySelectorAll(".shortcutSettingsEntry");
         const newOrder = Array.from(entries).map(entry => ({
             name: entry.querySelector(".shortcutName").value,
-            url: entry.querySelector(".URL").value
+            url: entry.querySelector(".URL").value,
+            icon: entry.querySelector(".iconURL").value
         }));
 
         // Only save if order has changed
@@ -573,7 +809,22 @@ document.addEventListener("DOMContentLoaded", function () {
             newOrder.forEach((item, index) => {
                 localStorage.setItem(`shortcutName${index}`, item.name);
                 localStorage.setItem(`shortcutURL${index}`, item.url);
-            });
+
+                // Try to save icon, skip/clear if quota exceeded
+                try {
+                    localStorage.setItem(`shortcutIcon${index}`, item.icon || "");
+                } catch (iconError) {
+                        if (iconError.name === "QuotaExceededError" || iconError.code === 22) {
+                            // Remove icon due to quota
+                            localStorage.removeItem(`shortcutIcon${index}`);
+                            const entry = entries[index];
+                            if (entry) entry.querySelector(".iconURL").value = "";
+                            item.icon = "";
+                        } else {
+                            throw iconError;
+                        }
+                    }
+                });
 
             shortcutsCache = newOrder;
             renderAllShortcuts(newOrder);
@@ -586,7 +837,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return newOrder.some((item, index) => {
             const cached = shortcutsCache[index];
-            return item.name !== cached.name || item.url !== cached.url;
+            return item.name !== cached.name || item.url !== cached.url || (item.icon || "") !== (cached.icon || "");
         });
     }
 
@@ -595,7 +846,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const fragment = document.createDocumentFragment();
 
         order.forEach((item, index) => {
-            fragment.appendChild(createShortcutElement(item.name, item.url, index));
+            fragment.appendChild(createShortcutElement(item.name, item.url, item.icon, index));
         });
 
         dom.shortcutsContainer.innerHTML = "";
@@ -636,7 +887,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("shortcutAmount", newAmount.toString());
 
         if (currentAmount >= 1) {
-            document.querySelectorAll(".delete button.inactive").forEach(b => {
+            document.querySelectorAll(".shortcutDelete button.inactive").forEach(b => {
                 b.classList.remove("inactive");
             });
         }
@@ -645,11 +896,11 @@ document.addEventListener("DOMContentLoaded", function () {
             dom.newShortcutButton.classList.add("inactive");
         }
 
-        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, false, currentAmount);
+        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, "", false, currentAmount);
         dom.shortcutSettingsContainer.appendChild(entry);
 
         saveShortcut(entry);
-        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, currentAmount);
+        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, "", currentAmount);
     }
 
     // Deletes a shortcut
@@ -670,9 +921,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         localStorage.removeItem(`shortcutName${currentAmount - 1}`);
         localStorage.removeItem(`shortcutURL${currentAmount - 1}`);
+        localStorage.removeItem(`shortcutIcon${currentAmount - 1}`);
 
         if (currentAmount - 1 === 1) {
-            document.querySelectorAll(".delete button").forEach(b => {
+            document.querySelectorAll(".shortcutDelete button").forEach(b => {
                 b.classList.add("inactive");
             });
         }
@@ -686,7 +938,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
 
         // Animation for shortcut elements
-        const shortcutEntries = [...dom.shortcutSettingsContainer.querySelectorAll('.shortcutSettingsEntry')];
+        const shortcutEntries = [...dom.shortcutSettingsContainer.querySelectorAll(".shortcutSettingsEntry")];
         shortcutEntries.forEach(el => el.classList.add("reset-shift-animation"));
 
         // Animation for reset button
@@ -697,6 +949,7 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let i = 0; i < (localStorage.getItem("shortcutAmount") || 0); i++) {
             localStorage.removeItem(`shortcutName${i}`);
             localStorage.removeItem(`shortcutURL${i}`);
+            localStorage.removeItem(`shortcutIcon${i}`);
         }
         localStorage.removeItem("shortcutAmount");
 
@@ -715,7 +968,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Saves a single shortcut to localStorage
     function saveShortcut(entry) {
-        localStorage.setItem(`shortcutName${entry._index}`, entry.querySelector(".shortcutName").value);
-        localStorage.setItem(`shortcutURL${entry._index}`, entry.querySelector(".URL").value);
+        const index = entry._index;
+        const name = entry.querySelector(".shortcutName").value;
+        const url = entry.querySelector(".URL").value;
+        const iconInput = entry.querySelector(".iconURL");
+        const icon = iconInput.value || "";
+
+        localStorage.setItem(`shortcutName${index}`, name);
+        localStorage.setItem(`shortcutURL${index}`, url);
+
+        // Try to save icon separately to handle quota errors gracefully
+        try {
+            localStorage.setItem(`shortcutIcon${index}`, icon);
+        } catch (iconError) {
+            if (iconError.name === "QuotaExceededError" || iconError.code === 22) {
+                // Icon is too large, clear it from input and localStorage
+                iconInput.value = "";
+                localStorage.removeItem(`shortcutIcon${index}`);
+
+                const iconStorageQuotaMessage = translations[currentLanguage]?.iconStorageQuotaMessage || translations["en"].iconStorageQuotaMessage;
+                alertPrompt(iconStorageQuotaMessage);
+            } else {
+                throw iconError;
+            }
+        }
     }
 });
