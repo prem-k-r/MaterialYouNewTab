@@ -74,6 +74,8 @@ const cs = {
     "hideSearchWithInfo": "Mezi vyhledávači přepnete klepnutím na jejich ikonky",
     "motivationalQuotesText": "Motivační citáty",
     "motivationalQuotesInfo": "Zobrazí citáty pod vyhledávacím polem",
+    "newQuoteOnRefreshText": "Denní citát",
+    "newQuoteOnRefreshInfo": "Místo neustálé obměny citátů zobrazí jeden citát na celý den",
     "search_suggestions_button": "Návrhy ve vyhledávání",
     "search_suggestions_text": "Zapne návrhy vyhledávání",
 
