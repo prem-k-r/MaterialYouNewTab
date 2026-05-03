@@ -20,7 +20,7 @@ const cs = {
     "editShortcutsText": "Upravit zkratky",
     "shortcutsInfoText": "Vyberte, které zkratky se mají zobrazit",
     "editShortcutsList": "Uložené zkratky",
-    "editShortcutsListInfo": "Nové zkratky můžete přidat klepnutím na ikonku „+“. Upravit existující můžete klepnutím na název nebo URL adresu zkratky.",
+    "editShortcutsListInfo": "Nové zkratky můžete přidat klepnutím na ikonku „+“. Upravit existující můžete klepnutím na název nebo URL adresu zkratky.\nVlastní ikonu resetujete jednoduše smazáním URL adresy obrázku.",
     "adaptiveIconText": "Adaptivní ikony",
     "adaptiveIconInfoText": "Ikony zkratek se adaptují vzhledem k motivu",
     "bookmarksText": "Záložky",
@@ -32,6 +32,12 @@ const cs = {
     "googleAppsMenuText": "Google aplikace",
     "googleAppsMenuInfo": "Zobrazí zkratky Google aplikací",
     "googleAppsHover": "Google aplikace",
+
+    "shortcutDefaultName": "Nová zkratka",
+    "shortcutInputName": "Název zkratky",
+    "shortcutInputUrl": "URL adresa zkratky",
+    "shortcutInputIcon": "Vlastní ikona: URL nebo SVG (nepovinné)",
+    "recentlyAddedBookmarks": "Nedávno přidané",
 
     // To-do List
     "todoListText": "Seznam úkolů",
@@ -68,6 +74,8 @@ const cs = {
     "hideSearchWithInfo": "Mezi vyhledávači přepnete klepnutím na jejich ikonky",
     "motivationalQuotesText": "Motivační citáty",
     "motivationalQuotesInfo": "Zobrazí citáty pod vyhledávacím polem",
+    "newQuoteOnRefreshText": "Denní citát",
+    "newQuoteOnRefreshInfo": "Místo neustálé obměny citátů zobrazí jeden citát na celý den",
     "search_suggestions_button": "Návrhy ve vyhledávání",
     "search_suggestions_text": "Zapne návrhy vyhledávání",
 
@@ -210,4 +218,9 @@ const cs = {
     "deleteBookmark": "Opravdu si přejete smazat záložku „{title}“?",
     "UnsupportedBrowser": "Ve vašem prohlížeči nejsou záložky podporované",
     "resetShortcutsPrompt": "Budou odstraněny všechny uložené zkratky a následně se obnoví výchozí sada zkratek. Přejete si pokračovat?",
+    "invalidFileTypeMessage": "Vyberte prosím validní soubor s obrázkem.",
+    "invalidSvgMessage": "Vložené SVG je nevalidní nebo obsahuje nebezpečný obsah, a nemůže být použito jako ikona.",
+    "invalidIconUrlMessage": "Zadejte prosím validní URL adresu obrázku (musí začínat https://, http://, nebo data:image/).",
+    "iconFileTooLargeMessage": "Vybraný soubor je příliš velký: {size} KB. Použijte prosím menší soubor do velikosti {max} KB.",
+    "iconStorageQuotaMessage": "Ikonu nebylo možné uložit kvůli překročení kapacity úložiště. Odstraňte některé vlastní ikony nebo použijte menší obrázek.",
 };

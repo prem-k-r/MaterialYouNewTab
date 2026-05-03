@@ -1665,7 +1665,8 @@ html[lang="ta"] .digiclock {
 
 .clockOptions,
 .proxyOptions,
-.weatherOptions {
+.weatherOptions,
+.quotesOptions {
 	overflow: hidden;
 	max-height: 800px;
 	opacity: 1;
@@ -1679,6 +1680,11 @@ html[lang="ta"] .digiclock {
 	opacity: 0;
 	pointer-events: none;
 }
+
+.quotesOptions:not(:last-child) .ttcont:last-child {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
 
 .clock-hidden-left {
 	display: none;
@@ -3472,6 +3478,10 @@ input:checked + .toggle:before {
 	border-bottom: 1px solid #ffffff1a;
 }
 
+.black-theme .sectionInner .quotesOptions:not(:last-child) .ttcont:last-child {
+	border-bottom: 1px solid #ffffff1a;
+}
+
 .black-theme body[data-bg="wallpaper"] .opacityBarControl {
 	border-top: 1px solid #ffffff1a;
 }
@@ -4826,6 +4836,10 @@ body[data-bg="wallpaper"] .dropdown-content {
 		display: none;
 	}
 	.toggleTextsCont .ttcont:has(#motivationalQuotesCheckbox) {
+		display: none;
+	}
+	.quotesOptions,
+	.toggleTextsCont .ttcont:has(#newQuoteOnRefreshCheckbox) {
 		display: none;
 	}
 	.quotesContainer,

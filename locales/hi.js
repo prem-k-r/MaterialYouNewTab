@@ -19,7 +19,7 @@ const hi = {
     "editShortcutsText": "शॉर्टकट्स संपादित करें",
     "shortcutsInfoText": "निर्धारित करें कि कौन से शॉर्टकट दिखेंगे",
     "editShortcutsList": "सहेजे गए शॉर्टकट",
-    "editShortcutsListInfo": "आप \"+\" आइकन पर क्लिक करके नए शॉर्टकट्स जोड़ सकते हैं या शॉर्टकट के नाम या URL पर क्लिक करके मौजूदा शॉर्टकट्स को संपादित कर सकते हैं। कस्टम आइकन रीसेट करने के लिए आइकन URL को खाली कर दें।",
+    "editShortcutsListInfo": "आप \"+\" आइकन पर क्लिक करके नए शॉर्टकट्स जोड़ सकते हैं या शॉर्टकट के नाम या URL पर क्लिक करके मौजूदा शॉर्टकट्स को संपादित कर सकते हैं। कस्टम आइकन रीसेट करने के लिए इमेज URL को खाली करें।",
     "adaptiveIconText": "अनुकूलनीय आइकन",
     "adaptiveIconInfoText": "शॉर्टकट आइकन थीम से मेल खाते हुए दिखेंगे",
     "bookmarksText": "बुकमार्क्स",
@@ -73,6 +73,8 @@ const hi = {
     "hideSearchWithInfo": "आइकन पर क्लिक करके सर्च इंजन बदलें",
     "motivationalQuotesText": "प्रेरणादायक उद्धरण",
     "motivationalQuotesInfo": "खोज बार के नीचे उद्धरण दिखाएँ",
+    "newQuoteOnRefreshText": "दैनिक उद्धरण",
+    "newQuoteOnRefreshInfo": "हर बार रिफ्रेश होने के बजाय दिन में एक ही उद्धरण दिखाएँ",
     "search_suggestions_button": "खोज सुझाव",
     "search_suggestions_text": "खोज सुझाव सक्षम करें",
 

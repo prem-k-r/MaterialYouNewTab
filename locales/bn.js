@@ -19,7 +19,7 @@ const bn = {
     "editShortcutsText": "শর্টকাট সম্পাদনা করুন",
     "shortcutsInfoText": "যে শর্টকাটগুলো দেখাতে চান তা নির্বাচন করুন",
     "editShortcutsList": "সংরক্ষিত শর্টকাট",
-    "editShortcutsListInfo": "\"+\" আইকনে ক্লিক করে নতুন শর্টকাট যোগ করুন অথবা বিদ্যমান শর্টকাটের নাম বা URL-এ ক্লিক করে সম্পাদনা করুন। কাস্টম আইকন মুছতে আইকন URL খালি করে দিন।",
+    "editShortcutsListInfo": "\"+\" আইকনে ক্লিক করে নতুন শর্টকাট যোগ করুন অথবা বিদ্যমান শর্টকাটের নাম বা URL-এ ক্লিক করে সম্পাদনা করুন। কাস্টম আইকন রিসেট করতে ইমেজ URL খালি করুন।",
     "adaptiveIconText": "অ্যাডাপ্টিভ আইকন",
     "adaptiveIconInfoText": "শর্টকাট আইকন থিম রঙের সাথে মিলে ছোট আকারে প্রদর্শিত হবে",
     "bookmarksText": "বুকমার্কস",
@@ -73,6 +73,8 @@ const bn = {
     "hideSearchWithInfo": "সার্চ ইঞ্জিনের আইকনে ক্লিক করে সার্চ ইঞ্জিন পরিবর্তন করুন",
     "motivationalQuotesText": "অনুপ্রেরণামূলক উক্তি",
     "motivationalQuotesInfo": "সার্চবারের নিচে উক্তি দেখান",
+    "newQuoteOnRefreshText": "দৈনিক উক্তি",
+    "newQuoteOnRefreshInfo": "প্রতিবার রিফ্রেশ হওয়ার পরিবর্তে দিনে একটি উক্তি দেখান",
     "search_suggestions_button": "সার্চ সাজেশন",
     "search_suggestions_text": "সার্চ সাজেশন সক্রিয় করুন",
 
