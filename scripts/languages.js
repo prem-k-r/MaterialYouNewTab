@@ -148,6 +148,8 @@ function applyLanguage(lang) {
         "hideWeatherBoxInfo",
         "micIconTitle",
         "micIconInfo",
+        "imageSearchIconTitle",
+        "imageSearchIconInfo",
         "hideSearchWith",
         "hideSearchWithInfo",
         "motivationalQuotesText",

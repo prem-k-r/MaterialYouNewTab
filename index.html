@@ -41,6 +41,7 @@
     <script defer src="scripts/todo-list.js"></script>
     <script defer src="scripts/google-apps.js"></script>
     <script defer src="scripts/voice-search.js"></script>
+    <script defer src="scripts/image-search.js"></script>
     <script defer src="scripts/backup-restore.js"></script>
 
     <!-- LANGUAGES SCRIPTS -->
@@ -778,6 +779,13 @@
                     <input id="searchQ" placeholder="Type here..." type="text" autocomplete="off">
 
                     <div class="searchControls">
+                        <!-- Image Search Icon -->
+                        <div class="micIcon imageSearchIcon" id="imageSearchIcon" title="Search by image">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="100%" width="100%">
+                                <path id="imageSearchIconPath" class="accentColor"
+                                    d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v280h-80v-280H200v560h280v80H200Zm480 40-110-110q-23 14-49.5 22T466-160q-83 0-141.5-58.5T266-360q0-83 58.5-141.5T466-560q83 0 141.5 58.5T666-360q0 28-8 54.5T636-256l110 110-66 66ZM466-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z" />
+                            </svg>
+                        </div>
                         <!-- Mic Icon -->
                         <div class="micIcon" id="micIcon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 24 24" height="100%" width="100%">
@@ -1461,6 +1469,17 @@
                                         </div>
                                         <label class="switch">
                                             <input id="micIconCheckbox" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="ttcont">
+                                        <div class="texts">
+                                            <div class="bigText" id="imageSearchIconTitle">Hide Image Search Icon</div>
+                                            <div class="infoText" id="imageSearchIconInfo">Search by image URL, file or paste</div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="imageSearchIconCheckbox" type="checkbox">
                                             <span class="toggle"></span>
                                         </label>
                                     </div>
