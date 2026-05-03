@@ -3623,6 +3623,14 @@ input:checked + .toggle:before {
 	text-overflow: ellipsis;
 }
 
+.shortcutSettingsEntry input:hover {
+    animation: clipText 0s 150ms forwards;
+}
+
+@keyframes clipText {
+    to { text-overflow: clip; }
+}
+
 .shortcutSettingsEntry .shortcutName {
 	font-size: 1.1rem;
 }
