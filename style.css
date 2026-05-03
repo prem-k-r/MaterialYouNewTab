@@ -3754,6 +3754,24 @@ input:checked + .toggle:before {
 	transition: 0.3s all;
 }
 
+.shortcutInputRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.shortcutInputRow svg {
+    flex-shrink: 0;
+    opacity: 0.6;
+    color: var(--darkerColor-blue);
+    pointer-events: none;
+}
+
+.shortcutInputRow input {
+    flex: 1;
+    min-width: 0;
+}
+
 /* ---------------Menu-bar-css---------------- */
 
 /* --------------Language & Dark Mode Selection-------------- */
