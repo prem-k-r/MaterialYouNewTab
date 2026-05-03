@@ -33,6 +33,11 @@ const cs = {
     "googleAppsMenuInfo": "Zobrazí zkratky Google aplikací",
     "googleAppsHover": "Google aplikace",
 
+    "shortcutDefaultName": "Nová zkratka",
+    "shortcutInputName": "Název zkratky",
+    "shortcutInputUrl": "URL adresa zkratky",
+    "shortcutInputIcon": "Vlastní ikona: URL nebo SVG (nepovinné)",
+
     // To-do List
     "todoListText": "Seznam úkolů",
     "todoListInfo": "Zobrazí denní seznam úkolů",
