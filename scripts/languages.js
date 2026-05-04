@@ -42,6 +42,114 @@ const translations = {
     sv: sv, // Swedish
 };
 
+// Map browser/system locale codes to this app's translation keys.
+const langMap = {
+    "ar": "ar_SA",
+    "ar-SA": "ar_SA",
+    "az": "az",
+    "az-AZ": "az",
+    "bn": "bn",
+    "bn-BD": "bn",
+    "bn-IN": "bn",
+    "cs": "cs",
+    "cs-CZ": "cs",
+    "de": "de",
+    "de-AT": "de",
+    "de-CH": "de",
+    "de-DE": "de",
+    "el": "el",
+    "el-GR": "el",
+    "en": "en",
+    "en-AU": "en",
+    "en-CA": "en",
+    "en-GB": "en",
+    "en-IN": "en",
+    "en-US": "en",
+    "es": "es",
+    "es-419": "es",
+    "es-ES": "es",
+    "es-MX": "es",
+    "fa": "fa",
+    "fa-IR": "fa",
+    "fr": "fr",
+    "fr-CA": "fr",
+    "fr-FR": "fr",
+    "hi": "hi",
+    "hi-IN": "hi",
+    "hu": "hu",
+    "hu-HU": "hu",
+    "id": "idn",
+    "id-ID": "idn",
+    "it": "it",
+    "it-IT": "it",
+    "ja": "ja",
+    "ja-JP": "ja",
+    "ko": "ko",
+    "ko-KR": "ko",
+    "mr": "mr",
+    "mr-IN": "mr",
+    "ne": "np",
+    "ne-NP": "np",
+    "pl": "pl",
+    "pl-PL": "pl",
+    "pt": "pt",
+    "pt-BR": "pt",
+    "pt-PT": "pt",
+    "ru": "ru",
+    "ru-RU": "ru",
+    "sl": "sl",
+    "sl-SI": "sl",
+    "sv": "sv",
+    "sv-SE": "sv",
+    "ta": "ta",
+    "ta-IN": "ta",
+    "ta-LK": "ta",
+    "th": "th",
+    "th-TH": "th",
+    "tr": "tr",
+    "tr-TR": "tr",
+    "uk": "uk",
+    "uk-UA": "uk",
+    "ur": "ur",
+    "ur-IN": "ur",
+    "ur-PK": "ur",
+    "uz": "uz",
+    "uz-Latn": "uz",
+    "uz-Latn-UZ": "uz",
+    "uz-UZ": "uz",
+    "vi": "vi",
+    "vi-VN": "vi",
+    "zh": "zh",
+    "zh-CN": "zh",
+    "zh-Hans": "zh",
+    "zh-Hans-CN": "zh",
+    "zh-Hans-SG": "zh",
+    "zh-SG": "zh",
+    "zh-HK": "zh_TW",
+    "zh-Hant": "zh_TW",
+    "zh-Hant-HK": "zh_TW",
+    "zh-Hant-MO": "zh_TW",
+    "zh-Hant-TW": "zh_TW",
+    "zh-MO": "zh_TW",
+    "zh-TW": "zh_TW"
+};
+
+function getDetectedLanguage(translations) {
+    const supported = Object.keys(translations);
+    const raw = typeof navigator !== "undefined" ? navigator.language : "en";
+    const mapped = langMap[raw] || raw;
+    const normalized = mapped.replace("-", "_");
+    const base = mapped.split(/[-_]/)[0];
+
+    return supported.includes(mapped)
+        ? mapped
+        : supported.includes(normalized)
+            ? normalized
+            : supported.includes(base)
+                ? base
+                : "en";
+}
+
 // Define the width of the menu container for each language
 const menuWidths = {
     en: "443px",
@@ -401,21 +509,57 @@ function applyLanguage(lang) {
     quotesText.style.fontFamily = commonFontStack;
 
     // Save the selected language in localStorage
-    document.documentElement.lang = currentLanguage;
+    document.documentElement.lang = lang;
     saveLanguageStatus("selectedLanguage", lang);
 }
 
-// Detect language from navigator.language
+{
+    // Keep selectedLanguage as the effective language for existing scripts.
+    const savedLanguageMode = getLanguageStatus("selectedLanguageMode");
+    const savedLanguage = getLanguageStatus("selectedLanguage");
+
+    if (!savedLanguage || savedLanguage === "system" || savedLanguageMode === "system") {
+        saveLanguageStatus("selectedLanguageMode", "system");
+        saveLanguageStatus("selectedLanguage", getDetectedLanguage(translations));
+    } else if (!translations[savedLanguage]) {
+        saveLanguageStatus("selectedLanguageMode", "manual");
+        saveLanguageStatus("selectedLanguage", "en");
+    }
+}
+
 document.getElementById("languageSelector").addEventListener("change", (event) => {
-    applyLanguage(event.target.value);
+    const value = event.target.value;
+
+    if (value === "system") {
+        // Store the selector mode separately so "system" never reaches translators.
+        saveLanguageStatus("selectedLanguageMode", "system");
+        applyLanguage(getDetectedLanguage(translations));
+    } else {
+        saveLanguageStatus("selectedLanguageMode", "manual");
+        applyLanguage(value);
+    }
+
     location.reload();
 });
 
 // Function to apply the language when the page loads
 window.onload = function () {
-    const savedLanguage = getLanguageStatus("selectedLanguage") || "en"; // Default language is English
-    document.getElementById("languageSelector").value = savedLanguage;
-    applyLanguage(savedLanguage);
+    const saved = getLanguageStatus("selectedLanguage");
+    const mode = getLanguageStatus("selectedLanguageMode");
+    const useSystemLanguage = !saved || saved === "system" || mode === "system";
+    const lang = useSystemLanguage
+        ? getDetectedLanguage(translations)
+        : translations[saved]
+            ? saved
+            : "en";
+
+    document.getElementById("languageSelector").value = useSystemLanguage ? "system" : lang;
+    applyLanguage(lang);
+
+    if (useSystemLanguage) {
+        saveLanguageStatus("selectedLanguageMode", "system");
+        saveLanguageStatus("selectedLanguage", lang);
+    }
 };
 
 // Function to save the language status in localStorage
