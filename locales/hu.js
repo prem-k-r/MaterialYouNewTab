@@ -48,6 +48,11 @@ const hu = {
   "timeformatinfo": "12 órás időformátum használata",
   "greetingtitle": "Üdvözlés",
   "greetinginfo": "Üdvözlet megjelenítése az egyéni szöveg alatt",
+    "analogNumeralsTitle": "Számok megjelenítése",
+    "analogNumeralsInfo": "Számok megjelenítése az analóg órán",
+    "romanNumeralsTitle": "Római számok",
+    "romanNumeralsInfo": "Római számok használata a szokásosak helyett",
+
 
   // Misc
   "userTextTitle": "Testreszabható szöveg",

@@ -177,10 +177,25 @@ async function initializeClock() {
             };
 
             const newDateString = dateDisplay[currentLanguage] || dateDisplay.default;
-            // Update date if date actually changed or if it's the first time
+            // Update analog inside date
             if (newDateString !== lastDateString) {
-                document.getElementById("date").innerText = newDateString;
+                const analogDateElement = document.getElementById("analogDate");
+                if (analogDateElement) analogDateElement.textContent = newDateString;
                 lastDateString = newDateString;
+            }
+
+            // Update outer greeting string
+            const isGreetingEnabled = localStorage.getItem("greetingEnabled") === "true";
+            const dateElement = document.getElementById("date");
+            if (isGreetingEnabled) {
+                const newGreeting = getGreeting();
+                if (newGreeting !== lastGreetingString) {
+                    dateElement.style.display = "block";
+                    dateElement.innerText = newGreeting;
+                    lastGreetingString = newGreeting;
+                }
+            } else {
+                dateElement.style.display = "none";
             }
         }
     }
@@ -434,9 +449,32 @@ async function initializeClock() {
         }
     }
 
+    function updateAnalogNumeralsDisplay() {
+        const numeralsGroup = document.querySelector(".clock-numerals");
+        if (!numeralsGroup) return;
+        const texts = numeralsGroup.querySelectorAll("text");
+        
+        const showNumerals = localStorage.getItem("analogNumerals") !== "false"; // Default true
+        const useRoman = localStorage.getItem("romanNumerals") !== "false"; // Default true
+        
+        if (!showNumerals) {
+            numeralsGroup.style.display = "none";
+        } else {
+            numeralsGroup.style.display = "";
+            const romanArr = ['XII', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI'];
+            const standardArr = ['12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+            
+            const arrToUse = useRoman ? romanArr : standardArr;
+            texts.forEach((txt, idx) => {
+                txt.textContent = arrToUse[idx];
+            });
+        }
+    }
+
     // Initial clock display
     displayClock();
     updateanalogclock();
+    updateAnalogNumeralsDisplay();
 
     // Start appropriate clock based on type
     if (clocktype === "digital") {
@@ -482,11 +520,8 @@ async function initializeClock() {
     // ----------------------- End of clock display -------------------------
     function resetDateDisplay() {
         const dateElement = document.getElementById("date");
-        dateElement.style.display = "block";
-        dateElement.innerText = "";
-        lastGreetingString = null;
-        lastDateString = null;
-        updateDate();
+        // No longer clear greeting text so gracefully transitioning
+        // between clock types doesn't blink the greeting.
     }
 
     // Save and load toggle state
@@ -496,20 +531,38 @@ async function initializeClock() {
         const digitalCheckbox = document.getElementById("digitalCheckbox");
         const greetingCheckbox = document.getElementById("greetingcheckbox");
         const greetingField = document.getElementById("greetingField");
+        
+        const analogNumeralsField = document.getElementById("analogNumeralsField");
+        const analogNumeralsTypeField = document.getElementById("analogNumeralsTypeField");
+        const analogNumeralsCheckbox = document.getElementById("analogNumeralsCheckbox");
+        const romanNumeralsCheckbox = document.getElementById("romanNumeralsCheckbox");
 
         if (localStorage.getItem("greetingEnabled") === null) {
             localStorage.setItem("greetingEnabled", "true");
         }
+        if (localStorage.getItem("analogNumerals") === null) {
+            localStorage.setItem("analogNumerals", "true");
+        }
+        if (localStorage.getItem("romanNumerals") === null) {
+            localStorage.setItem("romanNumerals", "true");
+        }
 
         greetingCheckbox.checked = localStorage.getItem("greetingEnabled") === "true";
-        greetingCheckbox.disabled = localStorage.getItem("clocktype") !== "digital";
+        greetingCheckbox.disabled = false;
+        
+        analogNumeralsCheckbox.checked = localStorage.getItem("analogNumerals") === "true";
+        romanNumeralsCheckbox.checked = localStorage.getItem("romanNumerals") === "true";
+        
+        if (!analogNumeralsCheckbox.checked) {
+            analogNumeralsTypeField.classList.add("inactive");
+        }
 
         digitalCheckbox.addEventListener("change", function () {
             saveCheckboxState("digitalCheckboxState", digitalCheckbox);
             if (digitalCheckbox.checked) {
                 timeformatField.classList.remove("inactive");
-                greetingField.classList.remove("inactive");
-                greetingCheckbox.disabled = false; // Enable greeting toggle
+                analogNumeralsField.classList.add("inactive");
+                analogNumeralsTypeField.classList.add("inactive");
                 localStorage.setItem("clocktype", "digital");
                 clocktype = localStorage.getItem("clocktype");
                 displayClock();
@@ -517,21 +570,41 @@ async function initializeClock() {
                 startDigitalClock();
                 updatedigiClock();
                 saveActiveStatus("timeformatField", "active");
-                saveActiveStatus("greetingField", "active");
+                saveActiveStatus("analogNumeralsField", "inactive");
+                saveActiveStatus("analogNumeralsTypeField", "inactive");
             } else {
                 timeformatField.classList.add("inactive");
-                greetingField.classList.add("inactive");
-                greetingCheckbox.disabled = true; // Disable greeting toggle
+                analogNumeralsField.classList.remove("inactive");
+                if (analogNumeralsCheckbox.checked) analogNumeralsTypeField.classList.remove("inactive");
                 localStorage.setItem("clocktype", "analog");
                 clocktype = localStorage.getItem("clocktype");
                 stopDigitalClock();
                 startAnalogClock();
                 updateanalogclock();
                 displayClock();
-                resetDateDisplay();
                 saveActiveStatus("timeformatField", "inactive");
-                saveActiveStatus("greetingField", "inactive");
+                saveActiveStatus("analogNumeralsField", "active");
+                if (analogNumeralsCheckbox.checked) saveActiveStatus("analogNumeralsTypeField", "active");
             }
+        });
+
+        analogNumeralsCheckbox.addEventListener("change", function () {
+            saveCheckboxState("analogNumeralsState", analogNumeralsCheckbox);
+            localStorage.setItem("analogNumerals", analogNumeralsCheckbox.checked);
+            if (analogNumeralsCheckbox.checked) {
+                analogNumeralsTypeField.classList.remove("inactive");
+                saveActiveStatus("analogNumeralsTypeField", "active");
+            } else {
+                analogNumeralsTypeField.classList.add("inactive");
+                saveActiveStatus("analogNumeralsTypeField", "inactive");
+            }
+            updateAnalogNumeralsDisplay();
+        });
+
+        romanNumeralsCheckbox.addEventListener("change", function () {
+            saveCheckboxState("romanNumeralsState", romanNumeralsCheckbox);
+            localStorage.setItem("romanNumerals", romanNumeralsCheckbox.checked);
+            updateAnalogNumeralsDisplay();
         });
 
         hourcheckbox.addEventListener("change", function () {
@@ -545,13 +618,22 @@ async function initializeClock() {
 
         greetingCheckbox.addEventListener("change", () => {
             localStorage.setItem("greetingEnabled", greetingCheckbox.checked);
-            updatedigiClock();
+            if (localStorage.getItem("clocktype") === "digital") {
+                updatedigiClock();
+            } else {
+                updateDate();
+            }
         });
 
         loadCheckboxState("digitalCheckboxState", digitalCheckbox);
         loadCheckboxState("hourcheckboxState", hourcheckbox);
+        loadCheckboxState("analogNumeralsState", analogNumeralsCheckbox);
+        loadCheckboxState("romanNumeralsState", romanNumeralsCheckbox);
+        
         loadActiveStatus("timeformatField", timeformatField);
         loadActiveStatus("greetingField", greetingField);
+        loadActiveStatus("analogNumeralsField", analogNumeralsField);
+        loadActiveStatus("analogNumeralsTypeField", analogNumeralsTypeField);
     });
 }
 

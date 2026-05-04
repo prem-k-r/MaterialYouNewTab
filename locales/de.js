@@ -38,6 +38,11 @@ const de = {
     "timeformatinfo": "12-Stunden-Zeitformat verwenden",
     "greetingtitle": "Gruß",
     "greetinginfo": "Begrüßung unter benutzerdefiniertem Text anzeigen",
+    "analogNumeralsTitle": "Zahlen anzeigen",
+    "analogNumeralsInfo": "Zeige Zahlen auf der analogen Uhr an",
+    "romanNumeralsTitle": "Römische Ziffern",
+    "romanNumeralsInfo": "Verwende römische Ziffern anstelle von Standardzahlen",
+
 
     // Misc
     "userTextTitle": "Anpassbarer Text",

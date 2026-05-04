@@ -47,6 +47,11 @@ const idn = {
     "timeformatinfo": "Menggunakan format 12-jam",
     "greetingtitle": "Sapaan",
     "greetinginfo": "Tampilkan sapaan di bawah teks kustom",
+    "analogNumeralsTitle": "Tampilkan Angka",
+    "analogNumeralsInfo": "Tampilkan angka pada jam analog",
+    "romanNumeralsTitle": "Angka Romawi",
+    "romanNumeralsInfo": "Gunakan angka Romawi alih-alih angka standar",
+
 
     // Misc
     "userTextTitle": "Teks Kostumisasi",

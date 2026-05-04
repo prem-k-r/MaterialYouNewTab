@@ -38,6 +38,11 @@ const zh_TW = {
     "timeformatinfo": "使用 12 小時制時間格式",
     "greetingtitle": "問候語",
     "greetinginfo": "在自訂文字下顯示問候語",
+    "analogNumeralsTitle": "顯示數字",
+    "analogNumeralsInfo": "在模擬時鐘上顯示數字",
+    "romanNumeralsTitle": "羅馬數字",
+    "romanNumeralsInfo": "使用羅馬數字代替標準數字",
+
 
     // Misc
     "userTextTitle": "自訂文字",

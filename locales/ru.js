@@ -47,6 +47,11 @@ const ru = {
     "timeformatinfo": "Использовать 12-часовой формат времени",
     "greetingtitle": "Приветствие",
     "greetinginfo": "Показать приветствие под часами",
+    "analogNumeralsTitle": "Показать цифры",
+    "analogNumeralsInfo": "Отображать цифры на аналоговых часах",
+    "romanNumeralsTitle": "Римские цифры",
+    "romanNumeralsInfo": "Использовать римские цифры вместо стандартных",
+
 
     // Misc
     "userTextTitle": "Пользовательский текст",

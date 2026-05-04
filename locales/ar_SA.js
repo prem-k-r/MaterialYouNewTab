@@ -40,6 +40,10 @@ const ar_SA = {
     timeformatinfo: "استخدام تنسيق الوقت 12 ساعة",
     greetingtitle: "الترحيب",
     greetinginfo: "عرض رسالة ترحيب أسفل النص المخصص",
+    analogNumeralsTitle: "إظهار الأرقام",
+    analogNumeralsInfo: "عرض الأرقام على الساعة التناظرية",
+    romanNumeralsTitle: "الأرقام الرومانية",
+    romanNumeralsInfo: "استخدام الأرقام الرومانية بدلاً من الأرقام القياسية",
 
     // Misc
     userTextTitle: "نص قابل للتخصيص",

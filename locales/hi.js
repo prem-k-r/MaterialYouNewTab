@@ -53,6 +53,11 @@ const hi = {
     "timeformatinfo": "12 घंटे का समय प्रारूप उपयोग करें",
     "greetingtitle": "अभिवादन",
     "greetinginfo": "कस्टम टेक्स्ट के नीचे अभिवादन दिखाएँ",
+    "analogNumeralsTitle": "अंक दिखाएं",
+    "analogNumeralsInfo": "एनालॉग घड़ी पर संख्याएँ दिखाएं",
+    "romanNumeralsTitle": "रोमन संख्याएँ",
+    "romanNumeralsInfo": "मानक संख्याओं के बजाय रोमन संख्याओं का उपयोग करें",
+
 
     // Misc
     "userTextTitle": "कस्टमाइज़ेबल टेक्स्ट",

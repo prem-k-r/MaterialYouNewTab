@@ -36,6 +36,11 @@ const np = {
     "timeformatinfo": "12-घण्टा समय ढाँचा प्रयोग गर्नुहोस्",
     "greetingtitle": "अभिवादन",
     "greetinginfo": "अनुकूलन पाठ अभिवादनको तल देखाउनुहोस्",
+    "analogNumeralsTitle": "अंक देखाउनुहोस्",
+    "analogNumeralsInfo": "एनालग घडीमा संख्याहरू देखाउनुहोस्",
+    "romanNumeralsTitle": "रोमन अंकहरू",
+    "romanNumeralsInfo": "मानक संख्याहरूको सट्टा रोमन अंकहरू प्रयोग गर्नुहोस्",
+
 
     // Misc
     "userTextTitle": "अनुकूलन योग्य पाठ",

@@ -45,6 +45,11 @@ const sv = {
     "timeformatinfo": "Använd 12-timmarsformat",
     "greetingtitle": "Hälsning",
     "greetinginfo": "Visa hälsning under anpassad text",
+    "analogNumeralsTitle": "Visa siffror",
+    "analogNumeralsInfo": "Visa siffror på den analoga klockan",
+    "romanNumeralsTitle": "Romerska siffror",
+    "romanNumeralsInfo": "Använd romerska siffror istället för vanliga nummer",
+
 
     // Misc
     "userTextTitle": "Anpassningsbar text",

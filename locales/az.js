@@ -36,6 +36,11 @@ const az = {
     "timeformatinfo": "12 saatlıq vaxt formatından istifadə edin",
     "greetingtitle": "Xoş gəlmisiniz",
     "greetinginfo": "Fərdi mətnin altında salamlama mesajını göstər",
+    "analogNumeralsTitle": "Rəqəmləri Göstər",
+    "analogNumeralsInfo": "Analoq saatda rəqəmləri göstərin",
+    "romanNumeralsTitle": "Roma Rəqəmləri",
+    "romanNumeralsInfo": "Standart rəqəmlərin əvəzinə Roma rəqəmlərindən istifadə edin",
+
 
     // Misc
     "userTextTitle": "Fərdiləşdirilə bilən mətn",

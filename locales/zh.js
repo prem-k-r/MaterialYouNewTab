@@ -40,6 +40,11 @@ const zh = {
     "timeformatinfo": "使用12小时时间格式",
     "greetingtitle": "问候语",
     "greetinginfo": "在自定义文本下方显示问候语",
+    "analogNumeralsTitle": "显示数字",
+    "analogNumeralsInfo": "在模拟时钟上显示数字",
+    "romanNumeralsTitle": "罗马数字",
+    "romanNumeralsInfo": "使用罗马数字代替标准数字",
+
 
     // Misc
     "userTextTitle": "自定义文本",

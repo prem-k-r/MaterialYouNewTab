@@ -40,6 +40,10 @@ const fa = {
     timeformatinfo: "استفاده از قالب زمانی ۱۲ ساعته",
     greetingtitle: "خوشامدگویی",
     greetinginfo: "نمایش خوشامدگویی زیر متن سفارشی",
+    analogNumeralsTitle: "نمایش اعداد",
+    analogNumeralsInfo: "نمایش اعداد روی ساعت آنالوگ",
+    romanNumeralsTitle: "اعداد رومی",
+    romanNumeralsInfo: "استفاده از اعداد رومی به جای اعداد استاندارد",
 
     // Misc
     userTextTitle: "متن قابل تنظیم",

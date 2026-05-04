@@ -38,6 +38,11 @@ const ko = {
     "timeformatinfo": "12시간 형식으로 표시",
     "greetingtitle": "인사말",
     "greetinginfo": "사용자 지정 텍스트 아래에 인사말 표시",
+    "analogNumeralsTitle": "숫자 표시",
+    "analogNumeralsInfo": "아날로그 시계에 숫자를 표시합니다",
+    "romanNumeralsTitle": "로마 숫자",
+    "romanNumeralsInfo": "일반 숫자 대신 로마 숫자를 사용합니다",
+
 
     // Misc
     "userTextTitle": "사용자 지정 텍스트",

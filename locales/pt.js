@@ -38,6 +38,11 @@ const pt = {
     "timeformatinfo": "Usar formato de 12 horas",
     "greetingtitle": "Saudação",
     "greetinginfo": "Mostrar saudação abaixo do texto personalizado",
+    "analogNumeralsTitle": "Mostrar Números",
+    "analogNumeralsInfo": "Mostrar números no relógio analógico",
+    "romanNumeralsTitle": "Algarismos Romanos",
+    "romanNumeralsInfo": "Usar algarismos romanos em vez dos números padrão",
+
 
     // Misc
     "userTextTitle": "Texto Personalizável",

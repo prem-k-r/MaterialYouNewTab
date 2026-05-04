@@ -133,7 +133,7 @@
 	--max-shortcut-bar-width: 60vw;
 	--shortcut-bar-gap-and-padding: 10px;
 	--shortcut-size: 50px;
-	--always-show-dock-background: 0;
+	--always-show-dock-background: 1;
 
 	/* standard: Smooth start and end */
 	--md-motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1478,6 +1478,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	height: 300px;
 	border-radius: 100%;
 	position: relative;
+	color: var(--textColorDark-blue);
 }
 
 #clock svg {
@@ -2414,9 +2415,7 @@ html[lang="ur"] .qtRounder2 {
 	position: relative;
 	height: fit-content;
 	display: inline-flex;
-	/* make sure elements are next to each other */
 	align-items: stretch;
-	/* make sure both elements grow to the same height */
 	width: fit-content;
 }
 
@@ -2424,14 +2423,12 @@ html[lang="ur"] .qtRounder2 {
 #shortcuts-section #flexMonitor {
 	position: absolute;
 	height: 100%;
-	/* This will match the height of .shortcutsContainer, which it is supposed to monitor */
 	visibility: hidden;
 }
 
 /* Invisible element to get standard height */
 #shortcuts-section #defaultMonitor {
 	position: absolute;
-	/* This is the standard height of one row */
 	height: calc(
 		var(--shortcut-size) + var(--gap) + var(--shortcut-bar-gap-and-padding)
 	);
@@ -2451,18 +2448,17 @@ html[lang="ur"] .qtRounder2 {
 	);
 	display: flex;
 	flex-wrap: wrap;
-	padding: var(--shortcut-bar-gap-and-padding);
+	padding: 14px 24px var(--shortcut-bar-gap-and-padding);
 	justify-content: center;
 	width: fit-content;
-	/* gap: var(--gap) var(--shortcut-bar-gap-and-padding); */
 	gap: 2rem;
 }
 
 .shortcutsContainer::before {
-	border-radius: 34px;
+	border-radius: 100px;
 	content: "";
 	position: absolute;
-	top: 0;
+	top: 24px;
 	inset-inline-start: 0;
 	inset-inline-end: 0;
 	bottom: 0;
@@ -2471,6 +2467,14 @@ html[lang="ur"] .qtRounder2 {
 	opacity: var(--always-show-dock-background);
 	transition: opacity 0.5s;
 	pointer-events: none;
+}
+
+body[data-bg="wallpaper"] .shortcutsContainer::before {
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) calc(var(--transparency) * 1.75),
+		transparent
+	);
 }
 
 .shortcutsContainer.showBackground::before {
@@ -2484,34 +2488,33 @@ html[lang="ur"] .qtRounder2 {
 }
 
 .shortcutsContainer .shortcuts:hover {
-	transform: translateY(-10px) scale(1.03);
-	/* box-shadow: 0 5px 10px var(--accentLightTint-blue); */
+	transform: translateY(-6px) scale(1.08);
 	border-radius: 100px;
 }
 
 .shortcuts .shortcut-name {
 	visibility: hidden;
 	position: absolute;
-	bottom: -30px;
+	bottom: calc(100% + 6px);
 	inset-inline-end: 0;
 	inset-inline-start: 50%;
 	transform: translateX(-50%);
-	/* Center horizontally */
 	margin: auto;
 	min-width: 30px;
-	width: fit-content;
+	width: fit-content ;
 	text-align: center;
 	color: var(--textColorDark-blue);
-	background-color: transparent;
-	padding: 0;
-	border-radius: 0;
+	background-color: color-mix(in srgb, var(--accentLightTint-blue) 85%, transparent);
+	padding: 2px 8px;
+	border-radius: 6px;
 	opacity: 0;
 	transition: all 0.3s;
-	font-size: 1rem;
+	font-size: 0.85rem;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	max-width: 120px;
+	pointer-events: none;
 }
 
 body[data-bg="wallpaper"] .shortcuts .shortcut-name {

@@ -36,6 +36,11 @@ const sl = {
     "timeformatinfo": "Uporabi 12-urni časovni format",
     "greetingtitle": "Pozdrav",
     "greetinginfo": "Prikaži pozdrav pod prilagojenim besedilom",
+    "analogNumeralsTitle": "Prikaži številke",
+    "analogNumeralsInfo": "Prikaz številk na analogni uri",
+    "romanNumeralsTitle": "Rimske številke",
+    "romanNumeralsInfo": "Uporabi rimske številke namesto standardnih",
+
 
     // Misc
     "userTextTitle": "Uporabniško prilagodljivo besedilo",

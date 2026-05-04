@@ -26,6 +26,11 @@ const ur = {
     "timeformatinfo": "12 گھنٹے کی شکل استعمال کریں",
     "greetingtitle": "سلام",
     "greetinginfo": "کسٹم ٹیکسٹ کے نیچے سلام دکھائیں",
+    "analogNumeralsTitle": "اعداد دکھائیں",
+    "analogNumeralsInfo": "اینالاگ گھڑی پر اعداد دکھائیں",
+    "romanNumeralsTitle": "رومن اعداد",
+    "romanNumeralsInfo": "معیاری اعداد کی بجائے رومن اعداد استعمال کریں",
+
 
     // Misc
     "userTextTitle": "حسب ضرورت ٹیکسٹ",

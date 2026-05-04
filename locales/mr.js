@@ -47,6 +47,11 @@ const mr = {
     "timeformatinfo": "१२-तासांचा वेळ फॉरमॅट वापरा",
     "greetingtitle": "शुभेच्छा",
     "greetinginfo": "सानुकूल मजकुराखाली शुभेच्छा दाखवा",
+    "analogNumeralsTitle": "अंक दाखवा",
+    "analogNumeralsInfo": "अॅनालॉग घड्याळावर अंक दर्शवा",
+    "romanNumeralsTitle": "रोमन अंक",
+    "romanNumeralsInfo": "मानक अंकांऐवजी रोमन अंक वापरा",
+
 
     // Misc
     "userTextTitle": "सानुकूल मजकूर",

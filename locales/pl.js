@@ -38,6 +38,11 @@ const pl = {
     "timeformatinfo": "Używaj formatu 12-godzinnego",
     "greetingtitle": "Powitanie",
     "greetinginfo": "Pokaż powitanie poniżej niestandardowego tekstu",
+    "analogNumeralsTitle": "Pokaż cyfry",
+    "analogNumeralsInfo": "Wyświetlaj liczby na zegarze analogowym",
+    "romanNumeralsTitle": "Cyfry rzymskie",
+    "romanNumeralsInfo": "Użyj cyfr rzymskich zamiast standardowych",
+
 
     // Misc
     "userTextTitle": "Tekst konfigurowalny",

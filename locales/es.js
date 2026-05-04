@@ -46,6 +46,11 @@ const es = {
     "timeformatinfo": "Usar formato de 12 horas",
     "greetingtitle": "Saludo",
     "greetinginfo": "Mostrar saludo debajo del texto personalizado",
+    "analogNumeralsTitle": "Mostrar números",
+    "analogNumeralsInfo": "Muestra los números en el reloj analógico",
+    "romanNumeralsTitle": "Números romanos",
+    "romanNumeralsInfo": "Usar números romanos en lugar de números estándar",
+
 
     // Misc
     "userTextTitle": "Texto personalizable",

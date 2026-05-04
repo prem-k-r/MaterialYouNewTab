@@ -36,6 +36,11 @@ const vi = {
     "timeformatinfo": "Sử dụng định dạng thời gian 12 giờ",
     "greetingtitle": "Lời chào",
     "greetinginfo": "Hiển thị lời chào dưới văn bản tùy chỉnh",
+    "analogNumeralsTitle": "Hiển thị chữ số",
+    "analogNumeralsInfo": "Hiển thị các số trên đồng hồ kim",
+    "romanNumeralsTitle": "Chữ số La Mã",
+    "romanNumeralsInfo": "Sử dụng chữ số La Mã thay vì số tiêu chuẩn",
+
 
     // Misc
     "userTextTitle": "Văn bản tùy chỉnh",

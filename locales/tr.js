@@ -36,6 +36,11 @@ const tr = {
     "timeformatinfo": "12 saat zaman formatını kullanın",
     "greetingtitle": "Karşılama",
     "greetinginfo": "Özel metinin altında karşılama mesajını göster",
+    "analogNumeralsTitle": "Rakamları Göster",
+    "analogNumeralsInfo": "Analog saatte rakamları göster",
+    "romanNumeralsTitle": "Roma Rakamları",
+    "romanNumeralsInfo": "Standart sayılar yerine Roma rakamlarını kullan",
+
 
     // Misc
     "userTextTitle": "Özelleştirilebilir Metin",

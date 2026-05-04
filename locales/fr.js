@@ -49,6 +49,11 @@ const fr = {
     "timeformatinfo": "Utiliser le format 12h",
     "greetingtitle": "Salutation",
     "greetinginfo": "Afficher la salutation sous le texte personnalisé",
+    "analogNumeralsTitle": "Afficher les chiffres",
+    "analogNumeralsInfo": "Afficher les nombres sur l'horloge analogique",
+    "romanNumeralsTitle": "Chiffres romains",
+    "romanNumeralsInfo": "Utiliser des chiffres romains au lieu des nombres standard",
+
 
     // Misc
     "userTextTitle": "Texte personnalisé",

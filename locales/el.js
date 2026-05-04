@@ -38,6 +38,11 @@ const el = {
     "timeformatinfo": "Χρήση μορφής ώρας 12 ωρών",
     "greetingtitle": "Χαιρετισμός",
     "greetinginfo": "Εμφάνιση χαιρετισμού κάτω από το προσαρμοσμένο κείμενο",
+    "analogNumeralsTitle": "Εμφάνιση αριθμών",
+    "analogNumeralsInfo": "Εμφάνιση αριθμών στο αναλογικό ρολόι",
+    "romanNumeralsTitle": "Ρωμαϊκοί αριθμοί",
+    "romanNumeralsInfo": "Χρήση ρωμαϊκών αριθμών αντί για τυπικούς",
+
 
     // Διάφορα
     "userTextTitle": "Προσαρμόσιμο Κείμενο",

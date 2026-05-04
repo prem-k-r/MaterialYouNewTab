@@ -38,6 +38,11 @@ const ja = {
     "timeformatinfo": "12時間形式を使用",
     "greetingtitle": "あいさつ",
     "greetinginfo": "カスタムテキストの下にあいさつを表示",
+    "analogNumeralsTitle": "数字を表示",
+    "analogNumeralsInfo": "アナログ時計に数字を表示する",
+    "romanNumeralsTitle": "ローマ数字",
+    "romanNumeralsInfo": "標準の数字の代わりにローマ数字を使用する",
+
 
     // Misc
     "userTextTitle": "カスタムテキスト",

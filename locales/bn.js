@@ -53,6 +53,11 @@ const bn = {
     "timeformatinfo": "১২-ঘণ্টার সময় ফরম্যাট ব্যবহার করুন",
     "greetingtitle": "অভিবাদন",
     "greetinginfo": "কাস্টম টেক্সটের নিচে অভিবাদন দেখান",
+    "analogNumeralsTitle": "সংখ্যা প্রদর্শন করুন",
+    "analogNumeralsInfo": "অ্যানালগ ঘড়িতে সংখ্যা দেখান",
+    "romanNumeralsTitle": "রোমান সংখ্যা",
+    "romanNumeralsInfo": "সাধারণ সংখ্যার পরিবর্তে রোমান সংখ্যা ব্যবহার করুন",
+
 
     // Misc
     "userTextTitle": "কাস্টমাইজেবল টেক্সট",

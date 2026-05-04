@@ -47,6 +47,11 @@ const uz = {
     "timeformatinfo": "12 soatlik vaqt formatini ishlatish",
     "greetingtitle": "Salomlashuv",
     "greetinginfo": "Maxsus matn ostida salomlashuvni ko'rsatish",
+    "analogNumeralsTitle": "Raqamlarni ko'rsatish",
+    "analogNumeralsInfo": "Analog soatda raqamlarni ko'rsatish",
+    "romanNumeralsTitle": "Rim raqamlari",
+    "romanNumeralsInfo": "Standart raqamlar o'rniga Rim raqamlaridan foydalaning",
+
 
     // Misc
     "userTextTitle": "Maxsus matn",

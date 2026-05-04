@@ -578,17 +578,38 @@
 
             <!-- ____________clock___________ -->
             <div class="clock" id="analogClock">
-
-                <svg fill="none" height="100%" viewBox="0 0 461 461" width="100%" xmlns="http://www.w3.org/2000/svg">
-                    <path class="bgLightTint" clip-rule="evenodd" fill-rule="evenodd"
-                        d="M93.6379 63.9405C89.7543 78.4344 78.4333 89.7554 63.9394 93.639l-7.4405 1.9937c-22.4055 6.0033-35.702 29.0333-29.6984 51.4393l1.9196 7.164c3.8837 14.494-.2601 29.959-10.8704 40.569l-5.5482 5.548c-16.402 16.402-16.402 42.995 0 59.397l5.6221 5.622c10.6102 10.611 14.754 26.075 10.8704 40.569l-1.9936 7.441c-6.0036 22.405 7.2929 45.435 29.6985 51.439l7.4406 1.994c14.4939 3.883 25.8149 15.204 29.6985 29.698l1.9942 7.443c6.0038 22.405 29.0338 35.702 51.4388 29.698l7.442-1.994c14.494-3.883 29.959.26 40.569 10.871l5.271 5.271c16.402 16.402 42.995 16.402 59.397 0l5.347-5.347c10.61-10.61 26.075-14.754 40.569-10.87l7.717 2.068c22.405 6.003 45.435-7.293 51.439-29.699l1.993-7.439c3.884-14.494 15.205-25.815 29.699-29.699l7.441-1.994c22.406-6.003 35.702-29.033 29.699-51.439l-2.068-7.718c-3.884-14.493.26-29.958 10.87-40.569l5.346-5.346c16.402-16.402 16.402-42.995 0-59.397l-5.272-5.272c-10.61-10.61-14.754-26.075-10.87-40.569l1.994-7.441c6.003-22.406-7.293-45.436-29.699-51.4398l-7.441-1.9939c-14.494-3.8836-25.815-15.2046-29.699-29.6984l-1.993-7.4395c-6.004-22.4056-29.034-35.702-51.439-29.6985l-7.441 1.9937c-14.494 3.8836-29.959-.2601-40.569-10.8704l-5.623-5.6227c-16.402-16.402-42.995-16.402-59.397 0l-5.547 5.5476c-10.61 10.6102-26.075 14.754-40.569 10.8704l-7.166-1.92c-22.405-6.0036-45.435 7.2929-51.4388 29.6985l-1.9943 7.4425Z" />
-                </svg>
-                <div class="centerPoint">
-                    <div class="sui" id="hour"></div>
-                    <div class="sui" id="second"></div>
-                    <div class="sui" id="minute"></div>
-                </div>
-            </div>
+<svg fill="none" height="100%" viewBox="0 0 461 461" width="100%" xmlns="http://www.w3.org/2000/svg">
+    <path class="bgLightTint" fill="#f4f4f4" stroke="#e0e0e0" stroke-width="2" clip-rule="evenodd" fill-rule="evenodd"
+        d="M93.6379 63.9405C89.7543 78.4344 78.4333 89.7554 63.9394 93.639l-7.4405 1.9937c-22.4055 6.0033-35.702 29.0333-29.6984 51.4393l1.9196 7.164c3.8837 14.494-.2601 29.959-10.8704 40.569l-5.5482 5.548c-16.402 16.402-16.402 42.995 0 59.397l5.6221 5.622c10.6102 10.611 14.754 26.075 10.8704 40.569l-1.9936 7.441c-6.0036 22.405 7.2929 45.435 29.6985 51.439l7.4406 1.994c14.4939 3.883 25.8149 15.204 29.6985 29.698l1.9942 7.443c6.0038 22.405 29.0338 35.702 51.4388 29.698l7.442-1.994c14.494-3.883 29.959.26 40.569 10.871l5.271 5.271c16.402 16.402 42.995 16.402 59.397 0l5.347-5.347c10.61-10.61 26.075-14.754 40.569-10.87l7.717 2.068c22.405 6.003 45.435-7.293 51.439-29.699l1.993-7.439c3.884-14.494 15.205-25.815 29.699-29.699l7.441-1.994c22.406-6.003 35.702-29.033 29.699-51.439l-2.068-7.718c-3.884-14.493.26-29.958 10.87-40.569l5.346-5.346c16.402-16.402 16.402-42.995 0-59.397l-5.272-5.272c-10.61-10.61-14.754-26.075-10.87-40.569l1.994-7.441c6.003-22.406-7.293-45.436-29.699-51.4398l-7.441-1.9939c-14.494-3.8836-25.815-15.2046-29.699-29.6984l-1.993-7.4395c-6.004-22.4056-29.034-35.702-51.439-29.6985l-7.441 1.9937c-14.494 3.8836-29.959-.2601-40.569-10.8704l-5.623-5.6227c-16.402-16.402-42.995-16.402-59.397 0l-5.547 5.5476c-10.61 10.6102-26.075 14.754-40.569 10.8704l-7.166-1.92c-22.405-6.0036-45.435 7.2929-51.4388 29.6985l-1.9943 7.4425Z" />
+    
+    <g font-family="Georgia, serif" font-size="26" font-weight="bold" fill="currentColor" opacity="0.85" text-anchor="middle" dominant-baseline="central" class="clock-numerals">
+        <text x="230.5" y="35.5">XII</text>
+        <text x="328" y="61.6">I</text>
+        <text x="399.4" y="133">II</text>
+        <text x="425.5" y="230.5">III</text>
+        <text x="399.4" y="328">IV</text>
+        <text x="328" y="399.4">V</text>
+        <text x="230.5" y="425.5">VI</text>
+        <text x="133" y="399.4">VII</text>
+        <text x="61.6" y="328">VIII</text>
+        <text x="35.5" y="230.5">IX</text>
+        <text x="61.6" y="133">X</text>
+        <text x="133" y="61.6">XI</text>
+    </g>
+</svg>
+                
+<div class="centerPoint">
+    <div class="sui" id="hour"></div>
+    <div class="sui" id="second"></div>
+    <div class="sui" id="minute"></div>
+</div>
+<svg fill="none" height="100%" viewBox="0 0 461 461" width="100%" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;">
+    <!-- Date Text Overlaid on top of hands -->
+    <text id="analogDate" x="230.5" y="130" fill="currentColor" opacity="0.75" font-size="24" font-family="Arial, sans-serif" font-weight="normal" text-anchor="middle">Thu 9</text>
+    <circle cx="230.5" cy="230.5" r="8" fill="currentColor" class="clock-center-dot" />
+    <circle cx="230.5" cy="230.5" r="3" fill="var(--bg-color-blue)" class="clock-center-inner" />
+</svg>
+</div>
             <div class="clock" id="digitalClock">
                 <svg fill="none" height="100%" viewBox="60 0 460 450" width="100%" xmlns="http://www.w3.org/2000/svg">
                     <!-- Background oval shape -->
@@ -1401,6 +1422,28 @@
                                             </div>
                                             <label class="switch">
                                                 <input id="digitalCheckbox" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="ttcont" id="analogNumeralsField">
+                                            <div class="texts">
+                                                <div class="bigText" id="analogNumeralsTitle">Show Numerals</div>
+                                                <div class="infoText" id="analogNumeralsInfo">Display numbers on analog clock</div>
+                                            </div>
+                                            <label class="switch">
+                                                <input id="analogNumeralsCheckbox" type="checkbox" checked>
+                                                <span class="toggle"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="ttcont" id="analogNumeralsTypeField">
+                                            <div class="texts">
+                                                <div class="bigText" id="romanNumeralsTitle">Roman Numerals</div>
+                                                <div class="infoText" id="romanNumeralsInfo">Use Roman numerals instead of standard numbers</div>
+                                            </div>
+                                            <label class="switch">
+                                                <input id="romanNumeralsCheckbox" type="checkbox" checked>
                                                 <span class="toggle"></span>
                                             </label>
                                         </div>

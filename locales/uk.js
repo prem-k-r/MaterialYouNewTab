@@ -47,6 +47,11 @@ const uk = {
     "timeformatinfo": "Включити 12-годинний формат",
     "greetingtitle": "Привітання",
     "greetinginfo": "Показати привітання нижче власного тексту",
+    "analogNumeralsTitle": "Показати цифри",
+    "analogNumeralsInfo": "Відображати цифри на аналоговому годиннику",
+    "romanNumeralsTitle": "Римські цифри",
+    "romanNumeralsInfo": "Використовувати римські цифри замість стандартних",
+
 
     // Misc
     "userTextTitle": "Кастомізувати текст",

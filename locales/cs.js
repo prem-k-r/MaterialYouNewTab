@@ -54,6 +54,11 @@ const cs = {
     "timeformatinfo": "Použije se 12hodinový formát času",
     "greetingtitle": "Pozdrav",
     "greetinginfo": "Zobrazí pozdrav pod upravitelným textem",
+    "analogNumeralsTitle": "Zobrazit číslice",
+    "analogNumeralsInfo": "Zobrazit čísla na analogových hodinách",
+    "romanNumeralsTitle": "Římské číslice",
+    "romanNumeralsInfo": "Použít římské číslice místo standardních",
+
 
     // Misc
     "userTextTitle": "Upravitelný text",

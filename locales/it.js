@@ -36,6 +36,11 @@ const it = {
     "timeformatinfo": "Usa formato orario a 12 ore",
     "greetingtitle": "Saluto",
     "greetinginfo": "Mostra il saluto sotto il testo personalizzato",
+    "analogNumeralsTitle": "Mostra numeri",
+    "analogNumeralsInfo": "Mostra i numeri sull'orologio analogico",
+    "romanNumeralsTitle": "Numeri romani",
+    "romanNumeralsInfo": "Usa i numeri romani invece dei numeri standard",
+
 
     // Misc
     "userTextTitle": "Testo personalizzabile",

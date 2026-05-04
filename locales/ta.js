@@ -38,6 +38,11 @@ const ta = {
     "timeformatinfo": "12-மணிநேர வடிவமைப்பைப் பயன்படுத்து",
     "greetingtitle": "வாழ்த்து",
     "greetinginfo": "தனிப்பயன் உரைக்கு கீழே வாழ்த்துக்களைக் காட்டு",
+    "analogNumeralsTitle": "எண்களைக் காட்டு",
+    "analogNumeralsInfo": "அனலாக் கடிகாரத்தில் எண்களைக் காட்டு",
+    "romanNumeralsTitle": "ரோமன் எண்கள்",
+    "romanNumeralsInfo": "நிலையான எண்களுக்கு பதிலாக ரோமன் எண்களைப் பயன்படுத்தவும்",
+
 
     // Misc
     "userTextTitle": "தனிப்பயனாக்கக்கூடிய உரை",

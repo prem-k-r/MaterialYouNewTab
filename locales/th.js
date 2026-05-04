@@ -38,6 +38,11 @@ const th = {
     "timeformatinfo": "ใช้รูปแบบเวลา 12 ชั่วโมง",
     "greetingtitle": "คำทักทาย",
     "greetinginfo": "แสดงคำทักทายด้านล่างข้อความที่กำหนดเอง",
+    "analogNumeralsTitle": "แสดงตัวเลข",
+    "analogNumeralsInfo": "แสดงตัวเลขบนนาฬิกาอะนาล็อก",
+    "romanNumeralsTitle": "ตัวเลขโรมัน",
+    "romanNumeralsInfo": "ใช้ตัวเลขโรมันแทนตัวเลขมาตรฐาน",
+
     // Misc
     "userTextTitle": "ข้อความที่กำหนดเอง",
     "userTextInfo": "แสดงข้อความที่กำหนดเองด้านล่างนาฬิกา",

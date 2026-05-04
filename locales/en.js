@@ -53,6 +53,11 @@ const en = {
     "timeformatinfo": "Use 12-hour time format",
     "greetingtitle": "Greeting",
     "greetinginfo": "Show greeting below custom text",
+    "analogNumeralsTitle": "Show Numerals",
+    "analogNumeralsInfo": "Display numbers on analog clock",
+    "romanNumeralsTitle": "Roman Numerals",
+    "romanNumeralsInfo": "Use Roman numerals instead of standard numbers",
+
 
     // Misc
     "userTextTitle": "Customizable Text",
