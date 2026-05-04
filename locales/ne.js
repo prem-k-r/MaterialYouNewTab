@@ -1,5 +1,5 @@
 // Nepali
-const np = {
+const ne = {
     // Menu Items
     "github": "गिटहब",
     "feedback": "प्रतिक्रिया",
