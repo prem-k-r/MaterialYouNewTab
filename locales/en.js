@@ -255,7 +255,7 @@ const en = {
     // Tips - Theme
     "changeBrowserTheme": "Change Browser Theme",
     "chromeThemeInfo": "Click the three dots (⋮) > More tools > Customize Chrome, then choose a color that matches the extension theme.",
-    "edgeThemeInfo": "Goto Settings > Appearance, then choose a color that matches the extension theme.",
+    "edgeThemeInfo": "Go to Settings > Appearance, then choose a color that matches the extension theme.",
     "braveThemeInfo": "Visit <a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome Theme Store</a>, download and apply the theme that matches the extension.",
     "firefoxThemeInfo": "Visit <a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Firefox Themes</a>, download and apply the theme that matches the extension.",
 
