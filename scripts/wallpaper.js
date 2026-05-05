@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
@@ -12,6 +12,19 @@ const dbName = "ImageDB";
 const storeName = "backgroundImages";
 const timestampKey = "lastUpdateTime"; // Key to store last update time
 const imageTypeKey = "imageType"; // Key to store the type of image ("random" or "upload")
+
+let currentBgUrl = null;
+
+// To set background image using a Blob
+function setBackground(blob) {
+    if (currentBgUrl) {
+        URL.revokeObjectURL(currentBgUrl);
+    }
+    const newUrl = URL.createObjectURL(blob);
+    currentBgUrl = newUrl;
+    document.body.style.setProperty("--bg-image", `url(${newUrl})`);
+    toggleBackgroundType(true);
+}
 
 // Open IndexedDB database
 function openDatabase() {
@@ -33,7 +46,7 @@ async function saveImageToIndexedDB(imageBlob, isRandom) {
         const transaction = db.transaction(storeName, "readwrite");
         const store = transaction.objectStore(storeName);
 
-        store.put(imageBlob, "backgroundImage"); // Save Blob
+        store.put(imageBlob, "backgroundImage");
         store.put(new Date().toISOString(), timestampKey);
         store.put(isRandom ? "random" : "upload", imageTypeKey);
 
@@ -82,20 +95,9 @@ async function clearImageFromIndexedDB() {
 document.getElementById("imageUpload").addEventListener("change", function (event) {
     const file = event.target.files[0];
     if (file) {
-        const imageUrl = URL.createObjectURL(file); // Create temporary Blob URL
-        const image = new Image();
-
-        image.onload = function () {
-            document.body.style.setProperty("--bg-image", `url(${imageUrl})`);
-            saveImageToIndexedDB(file, false)
-                .then(() => {
-                    toggleBackgroundType(true);
-                    URL.revokeObjectURL(imageUrl); // Clean up memory
-                })
-                .catch(error => console.error(error));
-        };
-
-        image.src = imageUrl;
+        saveImageToIndexedDB(file, false)
+            .then(() => setBackground(file))
+            .catch(error => console.error(error));
     }
 });
 
@@ -110,13 +112,9 @@ async function applyRandomImage(showConfirmation = true) {
     }
     try {
         const response = await fetch(RANDOM_IMAGE_URL);
-        const blob = await response.blob(); // Get Blob from response
-        const imageUrl = URL.createObjectURL(blob);
-
-        document.body.style.setProperty("--bg-image", `url(${imageUrl})`);
+        const blob = await response.blob();
         await saveImageToIndexedDB(blob, true);
-        toggleBackgroundType(true);
-        setTimeout(() => URL.revokeObjectURL(imageUrl), 2000); // Delay URL revocation
+        setBackground(blob);
     } catch (error) {
         console.error("Error fetching random image:", error);
     }
@@ -134,32 +132,22 @@ function checkAndUpdateImage() {
             const now = new Date();
             const lastUpdate = new Date(savedTimestamp);
 
-            // No image or invalid data
             if (!blob || !savedTimestamp || isNaN(lastUpdate)) {
                 toggleBackgroundType(false);
                 return;
             }
 
-            // Create a new Blob URL dynamically
-            const imageUrl = URL.createObjectURL(blob);
-
             if (imageType === "upload") {
-                document.body.style.setProperty("--bg-image", `url(${imageUrl})`);
-                toggleBackgroundType(true);
+                setBackground(blob);
                 return;
             }
 
             if (lastUpdate.toDateString() !== now.toDateString()) {
-                // Refresh random image if a new day
                 applyRandomImage(false);
             } else {
-                // Reapply the saved random image
-                document.body.style.setProperty("--bg-image", `url(${imageUrl})`);
-                toggleBackgroundType(true);
+                setBackground(blob);
             }
 
-            // Clean up the Blob URL after setting the background
-            setTimeout(() => URL.revokeObjectURL(imageUrl), 1500);
         })
         .catch((error) => {
             console.error("Error loading image details:", error);
@@ -184,6 +172,10 @@ document.getElementById("clearImage").addEventListener("click", async function (
         if (await confirmPrompt(confirmationMessage)) {
             try {
                 await clearImageFromIndexedDB();
+                if (currentBgUrl) {
+                    URL.revokeObjectURL(currentBgUrl);
+                    currentBgUrl = null;
+                }
                 document.body.style.removeProperty("--bg-image");
                 toggleBackgroundType(false);
             } catch (error) {
@@ -194,8 +186,8 @@ document.getElementById("clearImage").addEventListener("click", async function (
         console.error(error);
     }
 });
+
 document.getElementById("randomImageTrigger").addEventListener("click", applyRandomImage);
 
 // Start image check on page load
 checkAndUpdateImage();
-// ------------------------ End of BG Image --------------------------
