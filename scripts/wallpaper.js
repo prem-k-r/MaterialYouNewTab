@@ -157,9 +157,6 @@ function checkAndUpdateImage() {
                 document.body.style.setProperty("--bg-image", `url(${imageUrl})`);
                 toggleBackgroundType(true);
             }
-
-            // Clean up the Blob URL after setting the background
-            setTimeout(() => URL.revokeObjectURL(imageUrl), 1500);
         })
         .catch((error) => {
             console.error("Error loading image details:", error);
