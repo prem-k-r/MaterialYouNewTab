@@ -32,6 +32,12 @@ const idn = {
     "googleAppsMenuInfo": "Tampilkan pintasan untuk Google Apps",
     "googleAppsHover": "Google Apps",    // Keep this shorter
 
+    "shortcutDefaultName": "Pintasan Baru",
+    "shortcutInputName": "Nama Pintasan",
+    "shortcutInputUrl": "URL Pintasan",
+    "shortcutInputIcon": "Ikon Kustom: URL atau SVG (opsional)",
+    "recentlyAddedBookmarks": "Terbaru",
+
     // To-do List
     "todoListText": "To-Do List",
     "todoListInfo": "Tampilkan To-Do list harian",
@@ -67,6 +73,8 @@ const idn = {
     "hideSearchWithInfo": "Ubah mesin pencarian dengan mengeklik ikon-nya",
     "motivationalQuotesText": "Kata-kata Motivasi",
     "motivationalQuotesInfo": "Tampilkan kata-kata dibawah kotak pencarian",
+    "newQuoteOnRefreshText": "Kata-Kata Harian",
+    "newQuoteOnRefreshInfo": "Tampilkan 1 kata-kata per hari dibandingkan refresh setiap waktu",
     "search_suggestions_button": "Saran Pencarian",
     "search_suggestions_text": "Mengaktifkan saran pencarian",
 
@@ -209,6 +217,9 @@ const idn = {
     "deleteBookmark": "Apakah Anda yakin untuk menghapus markah buku \"{title}\"?",
     "UnsupportedBrowser": "Markah buku tidak didukung oleh browser Anda",
     "resetShortcutsPrompt": "Semua pintasan yang tersimpan akan terhapus dan diatur ke default. Apakah Anda ingin melanjutkannya?",
+    "invalidFileTypeMessage": "Pilih file gambar yang valid.",
+    "invalidSvgMessage": "SVG yang dipilih tidak valid, atau mengandung konten tidak pantas dan tidak bisa digunakan sebagai ikon.",
+    "invalidIconUrlMessage": "Masukkan URL gambar yang valid (perlu diawali dengan https://, http://, atau data:image/).",
     "iconFileTooLargeMessage": "File yang terpilih terlalu besar: {size} KB. Tolong gunakan file yang kurang dari {max} KB.",
     "iconStorageQuotaMessage": "Ikon tidak bisa tersimpan karena menyentuh batas maksimal penyimpanan. Hapus beberapa ikon kustom atau gunakan gambar yang lebih kecil."
 };
