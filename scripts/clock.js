@@ -18,25 +18,16 @@ let lastGreetingString = null;
 const leftDiv = document.getElementById("leftDiv");
 const rightDiv = document.getElementById("rightDiv");
 const hideClockCheckbox = document.getElementById("hideClock");
-const elementsToHide = document.querySelectorAll(".clockRegion");
+const clockHidden = document.getElementById("clockHidden");
+const clockOptions = document.querySelector(".clockOptions");
 
 function toggleHideState(isHidden) {
-    document.getElementById("clockHidden").style.borderBottom =
-        isHidden ? "none" : "";
+    clockOptions.classList.toggle("not-applicable", isHidden);
 
-    elementsToHide.forEach(element => {
-        if (isHidden) {
-            element.style.transform = "translateY(-20px)";
-            setTimeout(() => {
-                element.style.display = "none";
-            }, 250);
-        } else {
-            element.style.display = "flex";
-            setTimeout(() => {
-                element.style.transform = "translateY(0)";
-            }, 50);
-        }
-    });
+    if (isHidden)
+        setTimeout(() => clockHidden.style.borderBottom = "none", 120);
+    else
+        clockHidden.style.borderBottom = "";
 }
 
 function applyClockState(isHidden) {
@@ -50,10 +41,7 @@ function handleClockVisibility() {
     if (window.matchMedia("(max-width: 500px)").matches) {
         initializeClock();
 
-        elementsToHide.forEach(element => {
-            element.style.display = "flex";
-            element.style.transform = "translateY(0)";
-        });
+        clockOptions.classList.remove("not-applicable");
         rightDiv.classList.remove("clock-padding-adjusted");
     }
     else {
@@ -156,7 +144,7 @@ async function initializeClock() {
             const dateDisplay = {
                 bn: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
                 mr: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
-                np: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
+                ne: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
                 zh: `${month + 1}月${dayOfMonth}日，${dayName}`,
                 zh_TW: `${month + 1}月${dayOfMonth}日，${dayName}`,
                 cs: `${dayName}, ${dayOfMonth}. ${monthName}`,
@@ -184,6 +172,7 @@ async function initializeClock() {
                 el: `${dayName.substring(0, 3)} ${dayOfMonth} ${monthName}`, // Κυρ 22 Δεκ
                 th: `วัน${dayName}ที่ ${dayOfMonth} ${monthName}`, // วันอาทิตย์ที่ 22 ธันวาคม
                 uk: `${dayName}, ${dayOfMonth} ${monthName.substring(0, 4)}`,
+                sv: `${dayName.substring(0, 3)} ${dayOfMonth} ${monthName.substring(0, 3)}`, // Sön 19 Apr
                 default: `${dayName.substring(0, 3)}, ${monthName.substring(0, 3)} ${dayOfMonth}`	// Sun, Dec 22
             };
 
@@ -293,7 +282,7 @@ async function initializeClock() {
             az: `${dayName} ${dayOfMonth}`,
             bn: `${dayName}, ${localizedDayOfMonth}`,
             mr: `${dayName}, ${localizedDayOfMonth}`,
-            np: `${dayName}, ${localizedDayOfMonth}`,
+            ne: `${dayName}, ${localizedDayOfMonth}`,
             zh: `${dayOfMonth}日${dayName}`,
             zh_TW: `${dayOfMonth}日${dayName}`,
             cs: `${dayName}, ${dayOfMonth}.`,
@@ -368,7 +357,7 @@ async function initializeClock() {
         if (hourformat && (specialLanguages.includes(currentLanguage) || localizedLanguages.includes(currentLanguage))) {
             let realHours = new Date().getHours();
 
-            // lANGUAGE-SPECIFIC AM/PM 
+            // LANGUAGE-SPECIFIC AM/PM
             if (currentLanguage === "fa") {
                 period = realHours < 12 ? "ق.ظ" : "ب.ظ"; // قبل از ظهر / بعد از ظهر
             } else if (currentLanguage === "ar_SA") {
@@ -565,4 +554,3 @@ async function initializeClock() {
         loadActiveStatus("greetingField", greetingField);
     });
 }
-

@@ -42,6 +42,7 @@ updateSortButtons();
 bookmarkButton.addEventListener("click", function () {
     toggleBookmarkSidebar();
     bookmarkSearchClearButton.click();
+    bookmarkSearch.focus();
 });
 
 bookmarkViewGrid.addEventListener("click", function () {
@@ -238,7 +239,7 @@ function loadBookmarks() {
             bookmarksAPI.getRecent(8).then(recentBookmarks => {
                 if (recentBookmarks.length > 0) {
                     const recentAddedFolder = {
-                        title: "Recently Added",
+                        title: translations[currentLanguage]?.recentlyAddedBookmarks || translations["en"]?.recentlyAddedBookmarks,
                         children: recentBookmarks
                     };
                     bookmarkList.appendChild(displayBookmarks([recentAddedFolder]));

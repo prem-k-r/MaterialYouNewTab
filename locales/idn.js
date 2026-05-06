@@ -1,8 +1,17 @@
 // Indonesian
 const idn = {
+    "newTabTitle": "Tab Baru",
     // Menu Items
     "github": "GitHub",
     "feedback": "Umpan Balik",
+
+    // Section titles
+    "personalizationSectionTitle": "Personalisasi",
+    "clockSectionTitle": "Jam",
+    "searchSectionTitle": "Pencarian",
+    "weatherSectionTitle": "Cuaca",
+    "appearanceSectionTitle": "Penampilan",
+    "settingsSectionTitle": "Pengaturan",
 
     // Shortcuts
     "shortcutsText": "Pintasan",
@@ -199,5 +208,7 @@ const idn = {
     "invalidBackup": "File cadangan yang dipilih tidak valid",
     "deleteBookmark": "Apakah Anda yakin untuk menghapus markah buku \"{title}\"?",
     "UnsupportedBrowser": "Markah buku tidak didukung oleh browser Anda",
-    "resetShortcutsPrompt": "Semua pintasan yang tersimpan akan terhapus dan diatur ke default. Apakah Anda ingin melanjutkannya?"
+    "resetShortcutsPrompt": "Semua pintasan yang tersimpan akan terhapus dan diatur ke default. Apakah Anda ingin melanjutkannya?",
+    "iconFileTooLargeMessage": "File yang terpilih terlalu besar: {size} KB. Tolong gunakan file yang kurang dari {max} KB.",
+    "iconStorageQuotaMessage": "Ikon tidak bisa tersimpan karena menyentuh batas maksimal penyimpanan. Hapus beberapa ikon kustom atau gunakan gambar yang lebih kecil."
 };

@@ -466,7 +466,6 @@ document.addEventListener("DOMContentLoaded", function () {
             aiToolsCont.style.display = "flex";
             saveDisplayStatus("aiToolsDisplayStatus", "flex");
             aiToolsEditField.classList.remove("inactive");
-            showAIToolsSettings();
         } else {
             aiToolsCont.style.display = "none";
             saveDisplayStatus("aiToolsDisplayStatus", "none");

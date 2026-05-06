@@ -46,7 +46,7 @@
     <!-- LANGUAGES SCRIPTS -->
     <script src="locales/pt.js"></script>
     <script src="locales/en.js"></script>
-    <script src="locales/np.js"></script>
+    <script src="locales/ne.js"></script>
     <script src="locales/es.js"></script>
     <script src="locales/hi.js"></script>
     <script src="locales/hu.js"></script>
@@ -75,6 +75,7 @@
     <script src="locales/th.js"></script>
     <script src="locales/pl.js"></script>
     <script src="locales/uk.js"></script>
+    <script src="locales/sv.js"></script>
 </head>
 
 <body>
@@ -645,7 +646,7 @@
                             </div>
                             <div class="tiles location">
                                 <div class="icon">
-                                    <img class="location-icon" src="./svgs/location.svg" alt="">
+                                    <img class="location-icon" draggable="false" src="./svgs/location.svg" alt="">
                                 </div>
                                 <span class="location_spn" id="location"></span>
                             </div>
@@ -663,7 +664,7 @@
                     </svg>
                     <div class="wInfo">
                         <div id="temp">?</div>
-                        <img alt="" id="wIcon" src="./svgs/defaultWeather.svg">
+                        <img alt="" id="wIcon" draggable="false" src="./svgs/defaultWeather.svg">
                     </div>
                 </div>
             </div>
@@ -674,9 +675,8 @@
 
                 <div class="searchIcon">
                     <svg fill="none" height="100%" viewBox="0 0 45 45" width="100%" xmlns="http://www.w3.org/2000/svg">
-                        <path id="searchIconDark" class="accentColor" clip-rule="evenodd"
-                            d="M5 20.014A15.01 15.01 0 0 1 9.399 9.4a15.012 15.012 0 0 1 21.229 0 15.01 15.01 0 0 1 4.396 10.614 15.01 15.01 0 0 1-4.396 10.614 15.012 15.012 0 0 1-21.23 0 15.01 15.01 0 0 1-4.396-10.614ZM20.013 0A20.016 20.016 0 0 0 3.729 8.38a20.013 20.013 0 0 0 2.417 26.063 20.015 20.015 0 0 0 17.547 5.244 20.015 20.015 0 0 0 8.593-3.862l8.474 8.473a2.502 2.502 0 0 0 3.538-3.538l-8.474-8.473a20.013 20.013 0 0 0 2.166-21.075A20.016 20.016 0 0 0 20.012 0Zm0 30.02a10.008 10.008 0 0 0 7.076-2.93 10.007 10.007 0 0 0 0-14.152 10.008 10.008 0 0 0-17.084 7.076A10.007 10.007 0 0 0 20.012 30.02Z"
-                            fill-rule="evenodd" />
+                        <path id="searchIconDark" class="accentColor"
+                            d="M20.012 0A20.02 20.02 0 0 0 3.729 8.38a20.01 20.01 0 0 0 2.417 26.063 20.02 20.02 0 0 0 17.547 5.245 20 20 0 0 0 8.592-3.864L40.76 44.3a2.502 2.502 0 0 0 3.539-3.54l-8.475-8.472a20.01 20.01 0 0 0 2.166-21.074A20.02 20.02 0 0 0 20.014 0zm.002 5.004A15 15 0 0 1 30.629 9.4a15 15 0 0 1 4.394 10.614 15 15 0 0 1-4.394 10.615 15.01 15.01 0 0 1-21.23 0 15 15 0 0 1-4.397-10.615H5A15 15 0 0 1 9.398 9.4a15 15 0 0 1 10.616-4.396m-.463 5.014a10.01 10.01 0 0 0-9.545 9.996A10.007 10.007 0 0 0 20.012 30.02h.002a10 10 0 0 0 7.076-2.93 10.007 10.007 0 0 0 0-14.152 10 10 0 0 0-7.54-2.92" />
                     </svg>
                 </div>
                 <div class="searchIcon">
@@ -781,7 +781,7 @@
                         <!-- Mic Icon -->
                         <div class="micIcon" id="micIcon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 24 24" height="100%" width="100%">
-                                <path class="accentColor"
+                                <path id="micIconPath" class="accentColor"
                                     d="M12 14q-1.25 0-2.125-.875T9 11V5q0-1.25.875-2.125T12 2t2.125.875T15 5v6q0 1.25-.875 2.125T12 14m-1 7v-3.075q-2.6-.35-4.3-2.325T5 11h2q0 2.075 1.463 3.538T12 16t3.538-1.463T17 11h2q0 2.625-1.7 4.6T13 17.925V21z" />
                             </svg>
                         </div>
@@ -1392,53 +1392,54 @@
                                         </label>
                                     </div>
 
-                                    <div class="ttcont clockRegion">
-                                        <div class="texts">
-                                            <div class="bigText" id="digitalclocktitle">Digital Clock</div>
-                                            <div class="infoText" id="digitalclockinfo">Switch to the digital clock
+                                    <div class="clockOptions">
+                                        <div class="ttcont">
+                                            <div class="texts">
+                                                <div class="bigText" id="digitalclocktitle">Digital Clock</div>
+                                                <div class="infoText" id="digitalclockinfo">Switch to the digital clock
+                                                </div>
                                             </div>
+                                            <label class="switch">
+                                                <input id="digitalCheckbox" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
                                         </div>
-                                        <label class="switch">
-                                            <input id="digitalCheckbox" type="checkbox">
-                                            <span class="toggle"></span>
-                                        </label>
-                                    </div>
 
-                                    <div class="ttcont clockRegion" id="timeformatField">
-                                        <div class="texts">
-                                            <div class="bigText" id="timeformattitle">12-Hour Format</div>
-                                            <div class="infoText" id="timeformatinfo">Use 12-hour time format</div>
-                                        </div>
-                                        <label class="switch">
-                                            <input id="12hourcheckbox" type="checkbox">
-                                            <span class="toggle"></span>
-                                        </label>
-                                    </div>
-
-                                    <div class="ttcont clockRegion" id="greetingField">
-                                        <div class="texts">
-                                            <div class="bigText" id="greetingtitle">Greeting</div>
-                                            <div class="infoText" id="greetinginfo">Show greeting below custom text
+                                        <div class="ttcont" id="timeformatField">
+                                            <div class="texts">
+                                                <div class="bigText" id="timeformattitle">12-Hour Format</div>
+                                                <div class="infoText" id="timeformatinfo">Use 12-hour time format</div>
                                             </div>
+                                            <label class="switch">
+                                                <input id="12hourcheckbox" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
                                         </div>
-                                        <label class="switch">
-                                            <input id="greetingcheckbox" type="checkbox">
-                                            <span class="toggle"></span>
-                                        </label>
-                                    </div>
 
-                                    <div class="ttcont clockRegion">
-                                        <div class="texts">
-                                            <div class="bigText" id="userTextTitle">Customizable Text</div>
-                                            <div class="infoText" id="userTextInfo">Show custom text below the clock
+                                        <div class="ttcont" id="greetingField">
+                                            <div class="texts">
+                                                <div class="bigText" id="greetingtitle">Greeting</div>
+                                                <div class="infoText" id="greetinginfo">Show greeting below custom text
+                                                </div>
                                             </div>
+                                            <label class="switch">
+                                                <input id="greetingcheckbox" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
                                         </div>
-                                        <label class="switch">
-                                            <input id="userTextCheckbox" type="checkbox">
-                                            <span class="toggle"></span>
-                                        </label>
-                                    </div>
 
+                                        <div class="ttcont">
+                                            <div class="texts">
+                                                <div class="bigText" id="userTextTitle">Customizable Text</div>
+                                                <div class="infoText" id="userTextInfo">Show custom text below the clock
+                                                </div>
+                                            </div>
+                                            <label class="switch">
+                                                <input id="userTextCheckbox" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1488,7 +1489,20 @@
                                         </label>
                                     </div>
 
-                                    <div class="ttcont">
+                                    <div class="quotesOptions">
+                                        <div class="ttcont" id="newQuoteOnRefreshToggle">
+                                            <div class="texts">
+                                                <div class="bigText" id="newQuoteOnRefreshText">Daily Quote</div>
+                                                <div class="infoText" id="newQuoteOnRefreshInfo">Show one quote per day instead of refreshing each time</div>
+                                            </div>
+                                            <label class="switch">
+                                                <input id="newQuoteOnRefreshCheckbox" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="ttcont" id="searchSuggestionsHeader">
                                         <div class="texts">
                                             <div class="bigText" id="search_suggestions_button">Search Suggestions</div>
                                             <div class="infoText" id="search_suggestions_text">Enable search suggestions
@@ -1500,33 +1514,34 @@
                                         </label>
                                     </div>
 
-                                    <div class="ttcont" id="proxybypassField">
-                                        <div class="texts">
-                                            <div class="bigText" id="useproxytitletext">Proxy Bypass</div>
-                                            <div class="infoText" id="useproxyText">If search suggestions aren't working
+                                    <div class="proxyOptions">
+                                        <div class="ttcont" id="proxybypassField">
+                                            <div class="texts">
+                                                <div class="bigText" id="useproxytitletext">Proxy Bypass</div>
+                                                <div class="infoText" id="useproxyText">If search suggestions aren't
+                                                    working</div>
+                                            </div>
+                                            <label class="switch">
+                                                <input id="useproxyCheckbox" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="ttcont unflex" id="proxyField">
+                                            <div class="texts">
+                                                <div class="bigText" id="ProxyText">CORS Bypass Proxy</div>
+                                                <div class="infoText" id="ProxySubtext">Add your own CORS bypass proxy
+                                                </div>
+                                            </div>
+                                            <input id="userproxy" placeholder="https://mynt-proxy.rhythmcorehq.com"
+                                                type="text">
+                                            <div class="bottom">
+                                                <a href="https://github.com/Minuga-RC/MYNT-CORS-Bypass-Proxy"
+                                                    id="HostproxyButton" target="_blank">Host your own proxy</a>
+                                                <button class="savebtn" id="saveproxy">Save</button>
                                             </div>
                                         </div>
-                                        <label class="switch">
-                                            <input id="useproxyCheckbox" type="checkbox">
-                                            <span class="toggle"></span>
-                                        </label>
                                     </div>
-
-                                    <div class="ttcont unflex" id="proxyField">
-                                        <div class="texts">
-                                            <div class="bigText" id="ProxyText">CORS Bypass Proxy</div>
-                                            <div class="infoText" id="ProxySubtext">Add your own CORS bypass proxy</div>
-                                        </div>
-                                        <input id="userproxy" placeholder="https://mynt-proxy.rhythmcorehq.com"
-                                            type="text">
-                                        <div class="bottom">
-                                            <a href="https://github.com/Minuga-RC/MYNT-CORS-Bypass-Proxy"
-                                                id="HostproxyButton" target="_blank">Host
-                                                your own proxy</a>
-                                            <button class="savebtn" id="saveproxy">Save</button>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -1541,7 +1556,7 @@
                                 </div>
 
                                 <div class="sectionInner">
-                                    <div class="ttcont">
+                                    <div class="ttcont" id="weatherHeader">
                                         <div class="texts">
                                             <div class="bigText" id="hideWeatherTitle">Hide Weather</div>
                                             <div class="infoText" id="hideWeatherInfo">Disable the weather widgets</div>
@@ -1553,88 +1568,90 @@
                                         </label>
                                     </div>
 
-                                    <div class="ttcont weather">
-                                        <div class="texts">
-                                            <div class="bigText" id="hideWeatherBox">Hide Weather Card</div>
-                                            <div class="infoText" id="hideWeatherBoxInfo">Show only temperature pill
+                                    <div class="weatherOptions">
+                                        <div class="ttcont">
+                                            <div class="texts">
+                                                <div class="bigText" id="hideWeatherBox">Hide Weather Card</div>
+                                                <div class="infoText" id="hideWeatherBoxInfo">Show only temperature pill
+                                                </div>
+                                            </div>
+                                            <label class="switch">
+                                                <input id="hideWeatherCard" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="ttcont" id="minMaxTempCont">
+                                            <div class="texts">
+                                                <div class="bigText" id="minMaxTempText">Min-Max Temperature</div>
+                                                <div class="infoText" id="minMaxTempSubText">Replace 'Feels Like' with
+                                                    minimum and maximum temperature</div>
+                                            </div>
+                                            <label class="switch">
+                                                <input id="minMaxTempCheckbox" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="ttcont">
+                                            <div class="texts">
+                                                <div class="bigText" id="fahrenheitCelsiusCheckbox">Switch to Fahrenheit
+                                                </div>
+                                                <div class="infoText" id="fahrenheitCelsiusText">Refresh the page to
+                                                    apply changes</div>
+                                            </div>
+                                            <label class="switch">
+                                                <input id="fahrenheitCheckbox" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="ttcont unflex" id="locationCont">
+                                            <div class="texts">
+                                                <div class="bigText" id="UserLocText">Enter your Location</div>
+                                                <div class="infoText" id="UserLocSubtext">If the weather location isn't
+                                                    correct</div>
+                                            </div>
+
+                                            <input id="userLoc"
+                                                placeholder="Your City or Coordinates (Latitude, Longitude)"
+                                                type="text">
+
+                                            <div id="locationSuggestions" class="location-suggestion-box"></div>
+
+                                            <div class="bottom">
+                                                <a href="https://prem-k-r.github.io/MaterialYouNewTab/privacy-policy.html"
+                                                    id="PrivacyPolicy" target="_blank">Privacy policy</a>
+                                                <button class="savebtn" id="saveLoc">Save</button>
                                             </div>
                                         </div>
-                                        <label class="switch">
-                                            <input id="hideWeatherCard" type="checkbox">
-                                            <span class="toggle"></span>
-                                        </label>
-                                    </div>
 
-                                    <div class="ttcont weather" id="minMaxTempCont">
-                                        <div class="texts">
-                                            <div class="bigText" id="minMaxTempText">Min-Max Temperature</div>
-                                            <div class="infoText" id="minMaxTempSubText">Replace 'Feels Like' with
-                                                minimum and maximum temperature</div>
-                                        </div>
-                                        <label class="switch">
-                                            <input id="minMaxTempCheckbox" type="checkbox">
-                                            <span class="toggle"></span>
-                                        </label>
-                                    </div>
-
-                                    <div class="ttcont weather">
-                                        <div class="texts">
-                                            <div class="bigText" id="fahrenheitCelsiusCheckbox">Switch to Fahrenheit
+                                        <div class="ttcont">
+                                            <div class="texts">
+                                                <div class="bigText" id="useGPS">Use GPS</div>
+                                                <div class="infoText" id="useGPSInfo">Enable GPS for live location
+                                                    updates</div>
                                             </div>
-                                            <div class="infoText" id="fahrenheitCelsiusText">Refresh the page to apply
-                                                changes</div>
-                                        </div>
-                                        <label class="switch">
-                                            <input id="fahrenheitCheckbox" type="checkbox">
-                                            <span class="toggle"></span>
-                                        </label>
-                                    </div>
-
-                                    <div class="ttcont unflex weather" id="locationCont">
-                                        <div class="texts">
-                                            <div class="bigText" id="UserLocText">Enter your Location</div>
-                                            <div class="infoText" id="UserLocSubtext">If the weather location isn't
-                                                correct</div>
+                                            <label class="switch">
+                                                <input id="useGPScheckbox" type="checkbox">
+                                                <span class="toggle"></span>
+                                            </label>
                                         </div>
 
-                                        <input id="userLoc" placeholder="Your City or Coordinates (Latitude, Longitude)"
-                                            type="text">
-
-                                        <div id="locationSuggestions" class="location-suggestion-box"></div>
-
-                                        <div class="bottom">
-                                            <a href="https://prem-k-r.github.io/MaterialYouNewTab/privacy-policy.html"
-                                                id="PrivacyPolicy" target="_blank">Privacy policy</a>
-                                            <button class="savebtn" id="saveLoc">Save</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="ttcont weather">
-                                        <div class="texts">
-                                            <div class="bigText" id="useGPS">Use GPS</div>
-                                            <div class="infoText" id="useGPSInfo">Enable GPS for live location updates
+                                        <div class="ttcont unflex">
+                                            <div class="texts">
+                                                <div class="bigText" id="WeatherApiText">Enter your WeatherAPI key</div>
+                                                <div class="infoText" id="WeatherApiSubtext">If the weather
+                                                    functionality isn't working</div>
+                                            </div>
+                                            <input id="userAPI" placeholder="Your weatherAPI key" type="text">
+                                            <div class="bottom">
+                                                <a href="https://prem-k-r.github.io/MaterialYouNewTab/docs/Get_WeatherAPI_Key.html"
+                                                    id="LearnMoreButton" target="_blank">Learn more</a>
+                                                <button class="savebtn" id="saveAPI">Save</button>
                                             </div>
                                         </div>
-                                        <label class="switch">
-                                            <input id="useGPScheckbox" type="checkbox">
-                                            <span class="toggle"></span>
-                                        </label>
                                     </div>
-
-                                    <div class="ttcont unflex weather">
-                                        <div class="texts">
-                                            <div class="bigText" id="WeatherApiText">Enter your WeatherAPI key</div>
-                                            <div class="infoText" id="WeatherApiSubtext">If the weather functionality
-                                                isn't working</div>
-                                        </div>
-                                        <input id="userAPI" placeholder="Your weatherAPI key" type="text">
-                                        <div class="bottom">
-                                            <a href="https://prem-k-r.github.io/MaterialYouNewTab/docs/Get_WeatherAPI_Key.html"
-                                                id="LearnMoreButton" target="_blank">Learn more</a>
-                                            <button class="savebtn" id="saveAPI">Save</button>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -1804,13 +1821,14 @@
                                         <option value="ja">Japanese (日本語)</option>
                                         <option value="ko">Korean (한국어)</option>
                                         <option value="mr">Marathi (मराठी)</option>
-                                        <option value="np">Nepali (नेपाली)</option>
+                                        <option value="ne">Nepali (नेपाली)</option>
                                         <option value="fa">Persian (فارسی)</option>
                                         <option value="pl">Polish (Polski)</option>
                                         <option value="pt">Portuguese (Brazil) (Português)</option>
                                         <option value="ru">Russian (Русский)</option>
                                         <option value="sl">Slovenian (Slovenščina)</option>
                                         <option value="es">Spanish (Español)</option>
+                                        <option value="sv">Swedish (Svenska)</option>
                                         <option value="ta">Tamil (தமிழ்)</option>
                                         <option value="th">Thai (ภาษาไทย)</option>
                                         <option value="tr">Turkish (Türkçe)</option>
@@ -1900,7 +1918,7 @@
                         <div class="icon">
                             <svg id="closeBtnX" height="30px" viewBox="0 0 34 34" width="30px"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <path class="accentColor"
+                                <path id="menuCloseBtnIcon" class="accentColor"
                                     d="m19.404 17 4.81-4.808a1.7 1.7 0 1 0-2.406-2.405L17 14.597l-4.808-4.81a1.7 1.7 0 1 0-2.405 2.405L14.597 17l-4.81 4.808a1.7 1.7 0 1 0 2.405 2.405L17 19.403l4.808 4.81a1.7 1.7 0 1 0 2.405-2.405L19.403 17ZM17 34C7.61 34 0 26.39 0 17S7.61 0 17 0s17 7.61 17 17-7.61 17-17 17Z" />
                             </svg>
                         </div>
@@ -1921,9 +1939,9 @@
                         </button>
                         <div class="rightButtons">
                             <button id="newShortcutButton">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 -1 12 12">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path
-                                        d="M6 1.5a.5.5 0 0 0-1 0V5H1.5a.5.5 0 0 0 0 1H5v3.5a.5.5 0 0 0 1 0V6h3.5a.5.5 0 0 0 0-1H6z" />
+                                        d="M3 13h8v8h2v-8h8v-2h-8V3h-2v8H3z" />
                                 </svg>
                             </button>
                             <button id="resetButton">

@@ -1,5 +1,6 @@
 // English (Default)
 const en = {
+    "newTabTitle": "New Tab",
     // Menu Items
     "github": "GitHub",
     "feedback": "Feedback",
@@ -18,7 +19,7 @@ const en = {
     "editShortcutsText": "Edit Shortcuts",
     "shortcutsInfoText": "Choose which shortcuts get shown",
     "editShortcutsList": "Saved Shortcuts",
-    "editShortcutsListInfo": "You can add new shortcuts by clicking the \"+\" icon or edit existing ones by clicking on the shortcut name or URL.",
+    "editShortcutsListInfo": "You can add new shortcuts by clicking the \"+\" icon or edit existing ones by clicking on the shortcut name or URL.\nTo reset a custom icon, simply clear the image URL.",
     "adaptiveIconText": "Adaptive Icons",
     "adaptiveIconInfoText": "Shortcut icons will adapt to theme",
     "bookmarksText": "Bookmarks",
@@ -30,6 +31,12 @@ const en = {
     "googleAppsMenuText": "Google Apps",
     "googleAppsMenuInfo": "Show shortcuts for Google Apps",
     "googleAppsHover": "Google Apps",    // Keep this shorter
+
+    "shortcutDefaultName": "New Shortcut",
+    "shortcutInputName": "Shortcut Name",
+    "shortcutInputUrl": "Shortcut URL",
+    "shortcutInputIcon": "Custom Icon: URL or SVG (optional)",
+    "recentlyAddedBookmarks": "Recently Added",
 
     // To-do List
     "todoListText": "To Do List",
@@ -66,6 +73,8 @@ const en = {
     "hideSearchWithInfo": "Switch between search engines by clicking its icon",
     "motivationalQuotesText": "Motivational Quotes",
     "motivationalQuotesInfo": "Show quotes below the searchbar",
+    "newQuoteOnRefreshText": "Daily Quote",
+    "newQuoteOnRefreshInfo": "Show one quote per day instead of refreshing each time",
     "search_suggestions_button": "Search Suggestions",
     "search_suggestions_text": "Enable search suggestions",
 
@@ -207,5 +216,10 @@ const en = {
     "invalidBackup": "Invalid backup file selected.",
     "deleteBookmark": "Are you sure you want to delete the bookmark \"{title}\"?",  // Do not translate {title}
     "UnsupportedBrowser": "Bookmarks are not supported in your browser.",
-    "resetShortcutsPrompt": "All saved shortcuts will be deleted and reset to default. Do you want to continue?"
+    "resetShortcutsPrompt": "All saved shortcuts will be deleted and reset to default. Do you want to continue?",
+    "invalidFileTypeMessage": "Please select a valid image file.",
+    "invalidSvgMessage": "Inserted SVG is invalid, or it contains unsafe content and cannot be used as an icon.",
+    "invalidIconUrlMessage": "Please enter a valid image URL (must start with https://, http://, or data:image/).",
+    "iconFileTooLargeMessage": "Selected file is too large: {size} KB. Please use a file smaller than {max} KB.",
+    "iconStorageQuotaMessage": "Icon couldn’t be saved because the storage limit has been reached. Remove some custom icons or use a smaller image."
 };

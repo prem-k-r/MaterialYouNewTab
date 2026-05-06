@@ -1,5 +1,6 @@
 // Hindi
 const hi = {
+    "newTabTitle": "नया टैब",
     // Menu Items
     "github": "गिटहब",
     "feedback": "प्रतिक्रिया",
@@ -18,7 +19,7 @@ const hi = {
     "editShortcutsText": "शॉर्टकट्स संपादित करें",
     "shortcutsInfoText": "निर्धारित करें कि कौन से शॉर्टकट दिखेंगे",
     "editShortcutsList": "सहेजे गए शॉर्टकट",
-    "editShortcutsListInfo": "आप \"+\" आइकन पर क्लिक करके नए शॉर्टकट्स जोड़ सकते हैं या शॉर्टकट के नाम या URL पर क्लिक करके मौजूदा शॉर्टकट्स को संपादित कर सकते हैं।",
+    "editShortcutsListInfo": "आप \"+\" आइकन पर क्लिक करके नए शॉर्टकट्स जोड़ सकते हैं या शॉर्टकट के नाम या URL पर क्लिक करके मौजूदा शॉर्टकट्स को संपादित कर सकते हैं। कस्टम आइकन रीसेट करने के लिए इमेज URL को खाली करें।",
     "adaptiveIconText": "अनुकूलनीय आइकन",
     "adaptiveIconInfoText": "शॉर्टकट आइकन थीम से मेल खाते हुए दिखेंगे",
     "bookmarksText": "बुकमार्क्स",
@@ -31,6 +32,12 @@ const hi = {
     "googleAppsMenuInfo": "गूगल ऐप्स के शॉर्टकट्स प्रदर्शित करें",
     "googleAppsHover": "गूगल ऐप्स",
 
+    "shortcutDefaultName": "नया शॉर्टकट",
+    "shortcutInputName": "शॉर्टकट का नाम",
+    "shortcutInputUrl": "शॉर्टकट का URL",
+    "shortcutInputIcon": "कस्टम आइकन: URL या SVG (वैकल्पिक)",
+    "recentlyAddedBookmarks": "हाल ही में जोड़े गए",
+
     // To-do List
     "todoListText": "कार्य सूची",
     "todoListInfo": "दैनिक कार्यों की सूची देखें",
@@ -39,7 +46,7 @@ const hi = {
 
     // Clock
     "hideClockBox": "घड़ी छिपाएँ",
-    "hideClockBoxInfo": "घड़ी और तारीख दिखाएँ या छिपाएँ",
+    "hideClockBoxInfo": "घड़ी और तारीख छिपाएँ",
     "digitalclocktitle": "डिजिटल घड़ी",
     "digitalclockinfo": "डिजिटल घड़ी पर स्विच करें",
     "timeformattitle": "12 घंटे का प्रारूप",
@@ -66,6 +73,8 @@ const hi = {
     "hideSearchWithInfo": "आइकन पर क्लिक करके सर्च इंजन बदलें",
     "motivationalQuotesText": "प्रेरणादायक उद्धरण",
     "motivationalQuotesInfo": "खोज बार के नीचे उद्धरण दिखाएँ",
+    "newQuoteOnRefreshText": "दैनिक उद्धरण",
+    "newQuoteOnRefreshInfo": "हर बार रिफ्रेश होने के बजाय दिन में एक ही उद्धरण दिखाएँ",
     "search_suggestions_button": "खोज सुझाव",
     "search_suggestions_text": "खोज सुझाव सक्षम करें",
 
@@ -209,5 +218,10 @@ const hi = {
     "invalidBackup": "अमान्य बैकअप फ़ाइल चयनित है।",
     "deleteBookmark": "क्या आप \"{title}\" बुकमार्क डिलीट करना चाहते हैं?",
     "UnsupportedBrowser": "आपके ब्राउज़र में बुकमार्क समर्थित नहीं हैं।",
-    "resetShortcutsPrompt": "सभी सहेजे गए शॉर्टकट हटा दिए जाएंगे और डिफ़ॉल्ट पर रीसेट हो जाएंगे। क्या आप जारी रखना चाहते हैं?"
+    "resetShortcutsPrompt": "सभी सहेजे गए शॉर्टकट हटा दिए जाएंगे और डिफ़ॉल्ट पर रीसेट हो जाएंगे। क्या आप जारी रखना चाहते हैं?",
+    "invalidFileTypeMessage": "कृपया एक मान्य छवि फ़ाइल चुनें।",
+    "invalidSvgMessage": "अमान्य SVG या इसमें असुरक्षित सामग्री है और इसे आइकन के रूप में उपयोग नहीं किया जा सकता।",
+    "invalidIconUrlMessage": "कृपया एक मान्य छवि URL दर्ज करें (https://, http://, या data:image/ से शुरू होना चाहिए)।",
+    "iconFileTooLargeMessage": "चयनित फ़ाइल बहुत बड़ी है: {size} KB। कृपया {max} KB से छोटी फ़ाइल का उपयोग करें।",
+    "iconStorageQuotaMessage": "आइकन सहेजा नहीं जा सका क्योंकि स्टोरेज सीमा पूरी हो गई है। कृपया छोटा चित्र उपयोग करें।"
 };

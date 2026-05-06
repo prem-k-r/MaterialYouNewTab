@@ -4,6 +4,14 @@ const es = {
     "github": "GitHub",
     "feedback": "Comentarios",
 
+    // Section titles
+    "personalizationSectionTitle": "Personalización",
+    "clockSectionTitle": "Reloj",
+    "searchSectionTitle": "Buscar",
+    "weatherSectionTitle": "Clima",
+    "appearanceSectionTitle": "Apariencia",
+    "settingsSectionTitle": "Configuración",
+
     // Shortcuts
     "shortcutsText": "Accesos directos",
     "enableShortcutsText": "Mostrar accesos directos guardados",
@@ -44,10 +52,10 @@ const es = {
     "userTextInfo": "Mostrar texto personalizado debajo del reloj",
     "fahrenheitCelsiusCheckbox": "Cambiar a Fahrenheit",
     "fahrenheitCelsiusText": "Recarga la página para aplicar cambios",
-    "hideWeatherTitle": "Ocultar clima",
+    "hideWeatherTitle": "Ocultar el clima",
     "hideWeatherInfo": "Deshabilitar las widgets del clima",
     "hideWeatherBox": "Ocultar tarjeta del clima",
-    "hideWeatherBoxInfo": "Mostrar solo la etiqueta de temperatura",
+    "hideWeatherBoxInfo": "Mostrar solo la etiqueta del clima",
     "minMaxTempText": "Temperatura Mínima-Máxima",
     "minMaxTempSubText": "Mostrar temperatura mínima y máxima en lugar de \"Sensación\"",
 

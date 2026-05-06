@@ -1,8 +1,17 @@
 // Ukrainian
 const uk = {
+    "newTabTitle": "Нова вкладка",
     // Menu Items
     "github": "GitHub",
     "feedback": "Відгук",
+
+    // Section titles
+    "personalizationSectionTitle": "Персоналізація",
+    "clockSectionTitle": "Годинник",
+    "searchSectionTitle": "Пошук",
+    "weatherSectionTitle": "Погода",
+    "appearanceSectionTitle": "Зовнішній вигляд",
+    "settingsSectionTitle": "Налаштування",
 
     // Shortcuts
     "shortcutsText": "Ярлики",
@@ -199,5 +208,7 @@ const uk = {
     "invalidBackup": "Вибрано недійсний файл резервної копії.",
     "deleteBookmark": "Ви впевнені, що хочете видалити закладку \"{title}\"?",
     "UnsupportedBrowser": "Закладки не підтримуються у вашому браузері.",
-    "resetShortcutsPrompt": "Усі збережені ярлики будуть видалені та скинуті до заводських налаштувань. Чи хочете ви продовжити?"
+    "resetShortcutsPrompt": "Усі збережені ярлики будуть видалені та скинуті до заводських налаштувань. Чи хочете ви продовжити?",
+    "iconFileTooLargeMessage": "Вибраний файл занадто великий: {size} КБ. Будь ласка, використайте файл менше {max} КБ.",
+    "iconStorageQuotaMessage": "Іконку не вдалося зберегти, оскільки було досягнуто ліміт сховища. Видаліть деякі власні іконки або використовуйте менше зображення."
 };
