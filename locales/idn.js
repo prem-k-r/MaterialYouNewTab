@@ -72,7 +72,7 @@ const idn = {
     "hideSearchWith": "Sembunyikan Mesin Pencarian",
     "hideSearchWithInfo": "Ganti mesin pencarian dengan mengeklik ikon-nya",
     "motivationalQuotesText": "Kutipan Motivasi",
-    "motivationalQuotesInfo": "Tampilkan kutipan dibawah bar pencarian",
+    "motivationalQuotesInfo": "Tampilkan kutipan di bawah bar pencarian",
     "newQuoteOnRefreshText": "Kutipan Harian",
     "newQuoteOnRefreshInfo": "Tampilkan 1 kutipan/hari daripada memuat ulang setiap saat",
     "search_suggestions_button": "Saran Pencarian",
