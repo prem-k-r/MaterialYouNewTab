@@ -17,13 +17,14 @@ let currentBgUrl = null;
 
 // To set background image using a Blob
 function setBackground(blob) {
-    if (currentBgUrl) {
-        URL.revokeObjectURL(currentBgUrl);
-    }
+    const previousUrl = currentBgUrl;
     const newUrl = URL.createObjectURL(blob);
     currentBgUrl = newUrl;
     document.body.style.setProperty("--bg-image", `url(${newUrl})`);
     toggleBackgroundType(true);
+    if (previousUrl) {
+        URL.revokeObjectURL(previousUrl);
+    }
 }
 
 // Open IndexedDB database
