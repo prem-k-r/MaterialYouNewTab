@@ -34,8 +34,8 @@ function isLensActiveEngine() {
     return selected?.value === LENS_ENGINE_VALUE;
 }
 
-// Google Lens supports: .jpg/.jpeg, .png, .bmp, .webp
-const DATA_URL_IMAGE_RE = /^data:image\/(jpe?g|png|bmp|webp);base64,/i;
+// Google Lens supports: .jpg/.jpeg, .png, .bmp, .tif/.tiff, .webp
+const DATA_URL_IMAGE_RE = /^data:image\/(jpe?g|png|bmp|tiff?|webp);base64,/i;
 function isDataUrlImage(value) {
     return DATA_URL_IMAGE_RE.test(value);
 }
@@ -72,9 +72,17 @@ function getStorage() {
 }
 
 async function openImageSearchWithBlob(blob, name) {
+    // Open synchronously to preserve the user-gesture: popup blockers reject
+    // window.open after awaits (blobToDataUrl + storage.set). We can't pass
+    // "noopener" here because we need the reference to navigate the tab once
+    // the payload key is ready — null `popup.opener` instead.
+    const popup = window.open("about:blank", "_blank");
+    if (popup) popup.opener = null;
+
     const storage = getStorage();
     if (!storage) {
-        openImageSearchUpload();
+        if (popup) popup.location.href = googleLensUpload;
+        else openImageSearchUpload();
         return;
     }
     try {
@@ -86,9 +94,12 @@ async function openImageSearchWithBlob(blob, name) {
                 if (err) reject(err); else resolve();
             });
         });
-        window.open(`${googleLensUpload}#mynt-image-search=${encodeURIComponent(key)}`, "_blank", "noopener");
+        const url = `${googleLensUpload}#mynt-image-search=${encodeURIComponent(key)}`;
+        if (popup) popup.location.href = url;
+        else window.open(url, "_blank", "noopener");
     } catch {
-        openImageSearchUpload();
+        if (popup) popup.location.href = googleLensUpload;
+        else openImageSearchUpload();
     }
 }
 
@@ -366,6 +377,14 @@ window.handleLensQuery = handleLensQuery;
 document.addEventListener("keydown", (event) => {
     if (!event.ctrlKey || !event.shiftKey || event.altKey || event.metaKey) return;
     if ((event.key || "").toLowerCase() !== "l") return;
+    // Don't intercept while the user is typing in an unrelated editable
+    // (todo input, bookmark fields, etc). The search input is allowed —
+    // switching engines mid-query is the expected use case.
+    const target = event.target;
+    if (target && target !== searchInputEl) {
+        const tag = target.tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA" || target.isContentEditable) return;
+    }
     const lensRadio = document.querySelector(`input[name="search-engine"][value="${LENS_ENGINE_VALUE}"]`);
     if (!lensRadio) return;
     event.preventDefault();

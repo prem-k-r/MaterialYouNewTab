@@ -142,17 +142,34 @@
             const existing = findLensDropZone();
             if (existing) return resolve(existing);
 
-            const observer = new MutationObserver(() => {
+            // Coalesce mutation bursts: Google's homepage triggers many
+            // mutations per frame. Run findLensDropZone (which scans the
+            // DOM) at most once per animation frame.
+            let scheduled = 0;
+            let settled = false;
+
+            const tryFind = () => {
+                scheduled = 0;
+                if (settled) return;
                 const zone = findLensDropZone();
                 if (zone) {
+                    settled = true;
                     observer.disconnect();
                     clearTimeout(timer);
                     resolve(zone);
                 }
+            };
+
+            const observer = new MutationObserver(() => {
+                if (settled || scheduled) return;
+                scheduled = requestAnimationFrame(tryFind);
             });
             observer.observe(document.documentElement, { childList: true, subtree: true });
 
             const timer = setTimeout(() => {
+                if (settled) return;
+                settled = true;
+                if (scheduled) cancelAnimationFrame(scheduled);
                 observer.disconnect();
                 reject(new Error(`Lens drop zone not found within ${timeoutMs}ms`));
             }, timeoutMs);

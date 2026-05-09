@@ -209,8 +209,9 @@ function performSearch(query) {
 
     // Lens (engine6) routes through image-search.js so URLs and base64 data
     // URLs are uploaded to Lens instead of being treated as text queries.
+    // Empty input is a no-op, matching the behaviour of every other engine.
     if (selectedOption === "engine6" && typeof window.handleLensQuery === "function") {
-        window.handleLensQuery(searchTerm);
+        if (searchTerm !== "") window.handleLensQuery(searchTerm);
         return;
     }
 
