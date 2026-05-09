@@ -358,6 +358,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // AI Tools icon click handler
     aiToolsIcon.addEventListener("click", toggleAITools);
 
+    // AI Tools icon right-click handler
+    aiToolsIcon.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        showAIToolsSettings();
+        // Prevent the menu from closing when right-clicking
+        e.stopImmediatePropagation();
+    });
+
     // AI Tools edit button click handler
     aiToolsEditButton.addEventListener("click", function (e) {
         e.preventDefault();
@@ -366,7 +375,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Close button in settings modal
-    closeAISettingsBtn.addEventListener("click", closeAIToolsSettings);
+    closeAISettingsBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeAIToolsSettings();
+    });
 
     // Reset button in settings modal
     resetAISettingsBtn.addEventListener("click", function () {
@@ -423,7 +436,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Save button in settings modal
-    saveAISettingsBtn.addEventListener("click", function () {
+    saveAISettingsBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
         const newSettings = [];
         const toolOptions = document.querySelectorAll(".ai-tool-option");
 
@@ -482,9 +498,10 @@ document.addEventListener("DOMContentLoaded", function () {
         aiToolsEditField.classList.add("inactive");
     }
 
-    // Collapse when clicking outside toolsCont
+    // Collapse when clicking outside toolsCont (but not if settings modal is open)
     document.addEventListener("click", (event) => {
-        if (!aiToolName.contains(event.target) && aiToolName.style.display === "flex") {
+        const isSettingsModalOpen = aiToolsSettingsModal.style.display === "block";
+        if (!aiToolName.contains(event.target) && aiToolName.style.display === "flex" && !isSettingsModalOpen) {
             toggleAITools();
         }
     });

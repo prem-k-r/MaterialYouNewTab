@@ -29,6 +29,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Prevented weather condition and shortcut icons from being color-inverted in dark mode ([@prem-k-r](https://github.com/prem-k-r)) ([#191](https://github.com/prem-k-r/MaterialYouNewTab/pull/191))
 - Improved fallback behavior of shortcut icons to first-letter icons when custom icons fail to load or when offline ([@prem-k-r](https://github.com/prem-k-r)) ([#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/))
 - Disabled dragging for weather and location icons ([@anndiy](https://github.com/anndiy)) ([#183](https://github.com/prem-k-r/MaterialYouNewTab/pull/183))
+- Added support for right-click to access AI Tools settings ([@prem-k-r](https://github.com/prem-k-r)) ([#210](https://github.com/prem-k-r/MaterialYouNewTab/pull/210/))
 
 ### Fixed
 
