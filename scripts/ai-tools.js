@@ -198,8 +198,8 @@ function generateAIToolsForm(settings) {
                 <label for="setting_${toolId}">${toolLabel}</label>
             </div>
             <div class="ai-tool-reorder">
-                <button type="button" class="reorder-up" ${index === 0 ? "disabled" : ""}>▲</button>
-                <button type="button" class="reorder-down" ${index === settings.length - 1 ? "disabled" : ""}>▼</button>
+                <button type="button" class="reorder-up" ${index === 0 ? "disabled" : ""}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M10.974 8.192a1.465 1.465 0 0 1 2.07 0l5.527 5.524a1.465 1.465 0 1 1-2.073 2.072l-4.49-4.488-4.488 4.49a1.465 1.465 0 1 1-2.073-2.072Z"/></svg></button>
+                <button type="button" class="reorder-down" ${index === settings.length - 1 ? "disabled" : ""}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13.047 15.809a1.47 1.47 0 0 1-2.076 0l-5.54-5.54a1.47 1.47 0 1 1 2.077-2.076l4.501 4.5 4.501-4.5a1.469 1.469 0 0 1 2.078 2.076l-5.54 5.54z"/></svg></button>
             </div>
         `;
         aiToolsForm.appendChild(toolOption);

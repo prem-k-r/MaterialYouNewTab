@@ -401,7 +401,7 @@ function applyLanguage(lang) {
     quotesText.style.fontFamily = commonFontStack;
 
     // Save the selected language in localStorage
-    document.documentElement.lang = currentLanguage;
+    document.documentElement.lang = lang;
     saveLanguageStatus("selectedLanguage", lang);
 }
 
