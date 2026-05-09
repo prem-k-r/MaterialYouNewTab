@@ -21,11 +21,23 @@ const googleLensByUrl = (url) => `https://lens.google.com/uploadbyurl?url=${enco
 // the content script's match patterns can be narrower.
 const googleLensUpload = "https://www.google.com/?olud";
 
-const googleEngineValues = new Set(["engine1", "engine6"]);
+const LENS_ENGINE_VALUE = "engine6";
+const googleEngineValues = new Set(["engine1", LENS_ENGINE_VALUE]);
 
 function isGoogleEngineActive() {
     const selected = document.querySelector('input[name="search-engine"]:checked');
     return selected ? googleEngineValues.has(selected.value) : false;
+}
+
+function isLensActiveEngine() {
+    const selected = document.querySelector('input[name="search-engine"]:checked');
+    return selected?.value === LENS_ENGINE_VALUE;
+}
+
+// Google Lens supports: .jpg/.jpeg, .png, .bmp, .webp
+const DATA_URL_IMAGE_RE = /^data:image\/(jpe?g|png|bmp|webp);base64,/i;
+function isDataUrlImage(value) {
+    return DATA_URL_IMAGE_RE.test(value);
 }
 
 function openImageSearchByUrl(url) {
@@ -180,6 +192,11 @@ function hidePopover() {
 
 imageSearchIcon.addEventListener("click", (event) => {
     event.stopPropagation();
+    if (isLensActiveEngine()) {
+        if (popover.style.display !== "none") hidePopover();
+        fileInput.click();
+        return;
+    }
     if (popover.style.display === "none") {
         showPopover();
     } else {
@@ -246,13 +263,19 @@ fileInput.addEventListener("change", () => {
     }
 });
 
+async function dataUrlToBlob(dataUrl) {
+    const res = await fetch(dataUrl);
+    return res.blob();
+}
+
 // Paste image directly into the search bar (only when feature is enabled)
 const searchInputEl = document.getElementById("searchQ");
 searchInputEl.addEventListener("paste", (event) => {
-    if (localStorage.getItem("imageSearchIconVisible") === "false") return;
-    const items = event.clipboardData?.items;
-    if (!items) return;
-    for (const item of items) {
+    if (localStorage.getItem("imageSearchIconVisible") === "false" && !isLensActiveEngine()) return;
+    const cd = event.clipboardData;
+    if (!cd) return;
+    // 1) File items (most common: copied image / screenshot)
+    for (const item of cd.items || []) {
         if (item.kind === "file" && item.type.startsWith("image/")) {
             event.preventDefault();
             const blob = item.getAsFile();
@@ -264,5 +287,96 @@ searchInputEl.addEventListener("paste", (event) => {
             return;
         }
     }
+    // 2) base64 data URL pasted as text (jpg/jpeg/png/bmp/tif/tiff/webp)
+    const text = (cd.getData("text") || "").trim();
+    if (text && isDataUrlImage(text)) {
+        event.preventDefault();
+        dataUrlToBlob(text)
+            .then((blob) => openImageSearchWithBlob(blob, "pasted-image"))
+            .catch(() => openImageSearchUpload());
+    }
+});
+
+// ---- Lens engine integration ----
+// When engine6 (Lens) is the active search engine, the searchbar Lens icon
+// becomes an upload icon (clicking it opens the file picker directly), the
+// input placeholder switches to "Paste an Image or URL", and submitting a
+// query routes to Lens (URL or data URL) instead of a normal text search.
+const lensSvgEl = document.getElementById("imageSearchLensSvg");
+const uploadSvgEl = document.getElementById("imageSearchUploadSvg");
+
+function applyLensModeUi() {
+    const lensActive = isLensActiveEngine();
+    if (lensSvgEl && uploadSvgEl) {
+        lensSvgEl.style.display = lensActive ? "none" : "";
+        uploadSvgEl.style.display = lensActive ? "" : "none";
+    }
+    const lang = (typeof currentLanguage !== "undefined" && currentLanguage) ? currentLanguage : "en";
+    const t = (key) => translations?.[lang]?.[key] || translations?.["en"]?.[key];
+    const placeholderKey = lensActive ? "lensSearchPlaceholder" : "searchPlaceholder";
+    const placeholderText = t(placeholderKey);
+    if (placeholderText) searchInputEl.placeholder = placeholderText;
+    const titleKey = lensActive ? "uploadImage" : "imageSearchHeader";
+    const titleText = t(titleKey);
+    if (titleText) imageSearchIcon.title = titleText;
+    if (lensActive && popover.style.display !== "none") hidePopover();
+}
+
+document.querySelectorAll('input[name="search-engine"]').forEach((radio) => {
+    radio.addEventListener("change", applyLensModeUi);
+});
+// The engine-list click handler in search.js sets `radio.checked = true`
+// programmatically, which doesn't fire a `change` event. Listen on the
+// `.search-engine` divs and the dropdown items so the Lens UI follows
+// engine switches via click, dropdown, swipe, or scroll.
+document.querySelectorAll(".search-engine, .dropdown-item").forEach((el) => {
+    el.addEventListener("click", () => setTimeout(applyLensModeUi, 0));
+});
+const dropdownBtnEl = document.querySelector(".dropdown-btn");
+dropdownBtnEl?.addEventListener("wheel", () => setTimeout(applyLensModeUi, 250), { passive: true });
+dropdownBtnEl?.addEventListener("touchend", () => setTimeout(applyLensModeUi, 250), { passive: true });
+applyLensModeUi();
+
+// Submitting the search bar while Lens is the active engine: route URL/data
+// URL to Lens; empty or unrecognized text falls back to the upload page.
+async function handleLensQuery(rawQuery) {
+    const value = (rawQuery || "").trim();
+    if (!value) {
+        openImageSearchUpload();
+        return;
+    }
+    if (isDataUrlImage(value)) {
+        try {
+            const blob = await dataUrlToBlob(value);
+            await openImageSearchWithBlob(blob, "pasted-image");
+        } catch {
+            openImageSearchUpload();
+        }
+        return;
+    }
+    if (isValidHttpUrl(value)) {
+        openImageSearchByUrl(value);
+        return;
+    }
+    openImageSearchUpload();
+}
+window.handleLensQuery = handleLensQuery;
+
+// Ctrl+Shift+L: switch active search engine to Lens (engine6)
+document.addEventListener("keydown", (event) => {
+    if (!event.ctrlKey || !event.shiftKey || event.altKey || event.metaKey) return;
+    if ((event.key || "").toLowerCase() !== "l") return;
+    const lensRadio = document.querySelector(`input[name="search-engine"][value="${LENS_ENGINE_VALUE}"]`);
+    if (!lensRadio) return;
+    event.preventDefault();
+    const engineDiv = lensRadio.closest(".search-engine");
+    if (engineDiv) {
+        engineDiv.click();
+    } else {
+        lensRadio.checked = true;
+        lensRadio.dispatchEvent(new Event("change"));
+    }
+    if (typeof toggleSearchEngines === "function") toggleSearchEngines("search-on");
+    searchInputEl.focus();
 });
 //  -----------End of Search by Image------------

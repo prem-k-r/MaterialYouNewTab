@@ -16,7 +16,7 @@ const searchQueryURLs = {
     engine3: "https://bing.com/?q=",
     engine4: "https://search.brave.com/search?q=",
     engine5: "https://www.youtube.com/results?search_query=",
-    engine6: "https://www.google.com/search?tbm=isch&q=",
+    engine6: "https://lens.google.com/uploadbyurl?url=", // Google Lens (handled by image-search.js)
     engine7: "https://www.reddit.com/search/?q=",
     engine8: `https://${languageCode}.wikipedia.org/wiki/Special:Search?search=`,
     engine9: "https://www.quora.com/search?q="
@@ -206,6 +206,13 @@ function swapDropdown(selectedElement) {
 function performSearch(query) {
     const selectedOption = document.querySelector('input[name="search-engine"]:checked').value;
     const searchTerm = query || searchInput.value;
+
+    // Lens (engine6) routes through image-search.js so URLs and base64 data
+    // URLs are uploaded to Lens instead of being treated as text queries.
+    if (selectedOption === "engine6" && typeof window.handleLensQuery === "function") {
+        window.handleLensQuery(searchTerm);
+        return;
+    }
 
     if (searchTerm !== "") {
         if (selectedOption === "engine0") {

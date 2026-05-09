@@ -153,7 +153,8 @@ const en = {
     "bingEngine": "Bing",
     "braveEngine": "Brave",
     "youtubeEngine": "YouTube",
-    "gImagesEngine": "Images",  // Google Images, https://www.google.com/search?q=check&hl=bn
+    "lensEngine": "Lens",  // Google Lens, https://lens.google.com/
+    "lensSearchPlaceholder": "Paste an Image or URL",
     "redditEngine": "Reddit",
     "wikipediaEngine": "Wikipedia",
     "quoraEngine": "Quora",

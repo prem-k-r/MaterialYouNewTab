@@ -742,11 +742,11 @@
                                 </span>
                             </div>
 
-                            <div data-engine="6" data-engine-name="gImages" id="gImages-dropdown" class="dropdown-item">
+                            <div data-engine="6" data-engine-name="lens" id="lens-dropdown" class="dropdown-item">
                                 <svg width="30" height="30">
-                                    <use href="#gImages-engine-icon" />
+                                    <use href="#lens-engine-icon" />
                                 </svg>
-                                <span class="engine-name" id="gImagesEngineDD">Images</span>
+                                <span class="engine-name" id="lensEngineDD">Lens</span>
                             </div>
 
                             <div data-engine="7" data-engine-name="reddit" id="reddit-dropdown" class="dropdown-item">
@@ -779,18 +779,22 @@
                     <input id="searchQ" placeholder="Type here..." type="text" autocomplete="off">
 
                     <div class="searchControls">
-                        <!-- Image Search Icon -->
-                        <div class="micIcon imageSearchIcon" id="imageSearchIcon" title="Search by image">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="100%" width="100%">
-                                <path id="imageSearchIconPath" class="accentColor"
-                                    d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v280h-80v-280H200v560h280v80H200Zm480 40-110-110q-23 14-49.5 22T466-160q-83 0-141.5-58.5T266-360q0-83 58.5-141.5T466-560q83 0 141.5 58.5T666-360q0 28-8 54.5T636-256l110 110-66 66ZM466-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Z" />
-                            </svg>
-                        </div>
                         <!-- Mic Icon -->
                         <div class="micIcon" id="micIcon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 24 24" height="100%" width="100%">
                                 <path id="micIconPath" class="accentColor"
                                     d="M12 14q-1.25 0-2.125-.875T9 11V5q0-1.25.875-2.125T12 2t2.125.875T15 5v6q0 1.25-.875 2.125T12 14m-1 7v-3.075q-2.6-.35-4.3-2.325T5 11h2q0 2.075 1.463 3.538T12 16t3.538-1.463T17 11h2q0 2.625-1.7 4.6T13 17.925V21z" />
+                            </svg>
+                        </div>
+                        <!-- Image Search Icon (Google Lens) -->
+                        <div class="micIcon imageSearchIcon" id="imageSearchIcon" title="Search by image">
+                            <svg id="imageSearchLensSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="100%" width="100%">
+                                <path id="imageSearchIconPath" class="accentColor"
+                                    d="M12 17.333q-1.667 0-2.833-1.166Q8 15 8 13.333q0-1.666 1.167-2.833Q10.333 9.333 12 9.333t2.833 1.167T16 13.333t-1.167 2.834Q13.667 17.333 12 17.333m8 5.334q-1.1 0-1.883-.784q-.784-.783-.784-1.883t.784-1.883T20 17.333t1.883.784q.784.783.784 1.883t-.784 1.883t-1.883.784M5.333 24q-2.2 0-3.766-1.567Q0 20.867 0 18.667V16h2.667v2.667q0 1.1.783 1.883t1.883.783H12V24Zm16-10.667V8q0-1.1-.783-1.883q-.783-.784-1.883-.784H5.333q-1.1 0-1.883.784Q2.667 6.9 2.667 8v4H0V8q0-2.2 1.567-3.767t3.766-1.566H8L9.333 0h5.334L16 2.667h2.667q2.2 0 3.766 1.566Q24 5.8 24 8v5.333z" />
+                            </svg>
+                            <svg id="imageSearchUploadSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="100%" width="100%" style="display: none;">
+                                <path class="accentColor"
+                                    d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
                             </svg>
                         </div>
                         <!-- Search Button -->
@@ -845,9 +849,9 @@
             </svg>
 
             <svg style="display: none;">
-                <symbol id="gImages-engine-icon" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                    <path style="transform: scale(0.92); transform-origin: center;"
-                        d="M24.844 0A.998.998 0 0 0 24 1v10H12.906c-.25.02-.484.129-.656.313v.03a.472.472 0 0 0-.063.063L.25 24.312A1.001 1.001 0 0 0 1 26h10v11a.994.994 0 0 0 .313.75l13 12A1.001 1.001 0 0 0 26 49V39h11a.994.994 0 0 0 .75-.313l12-13A1.001 1.001 0 0 0 49 24H39V13a.994.994 0 0 0-.313-.75l-13-12a.996.996 0 0 0-.843-.25ZM26 3.313 36.5 13l-9.25 9.25A5.037 5.037 0 0 1 26 18.937v-7.031ZM13 13.5l9.25 9.25A5.037 5.037 0 0 1 18.937 24H3.313Zm12 9.063A7.135 7.135 0 0 0 27.438 25 7.135 7.135 0 0 0 25 27.438 7.135 7.135 0 0 0 22.562 25 7.135 7.135 0 0 0 25 22.562ZM31.063 26h15.625L37 36.5l-9.25-9.25A5.037 5.037 0 0 1 31.063 26Zm-8.313 1.75c.77.887 1.25 2.04 1.25 3.313v15.624L13.5 37Z" />
+                <symbol id="lens-engine-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 17.333q-1.667 0-2.833-1.166Q8 15 8 13.333q0-1.666 1.167-2.833Q10.333 9.333 12 9.333t2.833 1.167T16 13.333t-1.167 2.834Q13.667 17.333 12 17.333m8 5.334q-1.1 0-1.883-.784q-.784-.783-.784-1.883t.784-1.883T20 17.333t1.883.784q.784.783.784 1.883t-.784 1.883t-1.883.784M5.333 24q-2.2 0-3.766-1.567Q0 20.867 0 18.667V16h2.667v2.667q0 1.1.783 1.883t1.883.783H12V24Zm16-10.667V8q0-1.1-.783-1.883q-.783-.784-1.883-.784H5.333q-1.1 0-1.883.784Q2.667 6.9 2.667 8v4H0V8q0-2.2 1.567-3.767t3.766-1.566H8L9.333 0h5.334L16 2.667h2.667q2.2 0 3.766 1.566Q24 5.8 24 8v5.333z" />
                 </symbol>
             </svg>
 
@@ -929,9 +933,9 @@
 
                     <div class="search-engine bgLightTint" data-category="search-on">
                         <svg width="30" height="30" class="search-engine-icon">
-                            <use href="#gImages-engine-icon" />
+                            <use href="#lens-engine-icon" />
                         </svg>
-                        <label class="engine-name" id="gImagesEngine">Images</label>
+                        <label class="engine-name" id="lensEngine">Lens</label>
                         <input class="radio-button" name="search-engine" type="radio" value="engine6">
                     </div>
 
