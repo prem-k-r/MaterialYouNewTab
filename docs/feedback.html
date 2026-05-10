@@ -4,207 +4,837 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback - MaterialYouNewTab</title>
+    <title>Feedback – MYNT</title>
     <link rel="icon" type="image/png"
         href="https://github.com/user-attachments/assets/48c3a9cb-06fa-4c45-92ec-194cdb7c5661">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,500&family=Nunito:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <style>
-        body,
-        h1,
-        .feedback-message {
+        :root {
+            --forest: #1a3d2b;
+            --moss: #2d5a3d;
+            --sage: #4a7c59;
+            --fern: #6fa678;
+            --mist: #b8d4be;
+            --dew: #e4f0e8;
+            --petal: #f2f8f4;
+            --soil: #6b5240;
+            --cream: #faf7f2;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --forest: #c8e6c9;
+                --moss: #a5d6a7;
+                --sage: #81c784;
+                --fern: #4caf50;
+                --mist: #2e4d35;
+                --dew: #1a2e1f;
+                --petal: #111a13;
+                --soil: #a08060;
+                --cream: #0d1410;
+            }
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #333;
+            font-family: 'Nunito', sans-serif;
+            background: var(--cream);
+            color: var(--forest);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .container {
-            background-color: #fff;
-            padding: 36px 24px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 703px;
-            width: min(703px, calc(100% - 24px));
-            margin: 12px;
-            box-sizing: border-box;
+        /* Blobs */
+        .bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
         }
 
-        h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .feedback-message {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 30px;
-        }
-
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-            gap: 18px;
-            justify-items: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .contact-info a {
-            color: #fff;
-            text-decoration: none;
-            width: 64px;
-            height: 64px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            font-size: 32px;
-            transition: transform 0.3s ease;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                height: auto;
-                min-height: 100vh;
-                padding: 16px 0;
-            }
-
-            .container {
-                padding: 28px 18px;
-                border-radius: 14px;
-            }
-
-            h1 {
-                font-size: 24px;
-                line-height: 1.25;
-            }
-
-            .feedback-message {
-                font-size: 16px;
-                line-height: 1.4;
-                margin-bottom: 22px;
-            }
-
-            .contact-info {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 16px;
-            }
-
-            .contact-info a {
-                width: 58px;
-                height: 58px;
-                font-size: 28px;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .contact-info {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .contact-info a {
-                width: 56px;
-                height: 56px;
-                font-size: 26px;
-            }
-        }
-
-        .contact-info a:hover {
-            transform: scale(1.1);
-        }
-
-        .github {
-            background-color: #333;
-        }
-
-        .telegram {
-            background-color: #0088cc;
-        }
-
-        .email {
-            background-color: #d14836;
-        }
-
-        .chrome {
-            background-color: #25d669;
-        }
-
-        .firefox {
-            background-color: #f9c431;
-        }
-
-        .edge {
-            background-color: #0078d7;
+        .blob {
+            position: absolute;
+            border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+            opacity: 0.11;
         }
 
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #181818;
-                color: #f0f4f8;
+            .blob {
+                opacity: 0.06;
+            }
+        }
+
+        .b1 {
+            width: 800px;
+            height: 700px;
+            background: var(--sage);
+            top: -250px;
+            right: -200px;
+            animation: d1 20s ease-in-out infinite alternate;
+        }
+
+        .b2 {
+            width: 560px;
+            height: 560px;
+            background: var(--fern);
+            bottom: -180px;
+            left: -140px;
+            animation: d2 25s ease-in-out infinite alternate;
+        }
+
+        .b3 {
+            width: 340px;
+            height: 380px;
+            background: var(--mist);
+            top: 38%;
+            left: 46%;
+            animation: d3 30s ease-in-out infinite alternate;
+        }
+
+        @keyframes d1 {
+            to {
+                border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%;
+                transform: translate(24px, 32px);
+            }
+        }
+
+        @keyframes d2 {
+            to {
+                border-radius: 70% 30% 50% 50% / 30% 70% 30% 70%;
+                transform: translate(-20px, 22px);
+            }
+        }
+
+        @keyframes d3 {
+            to {
+                border-radius: 50% 50% 60% 40% / 50% 40% 60% 50%;
+                transform: translate(16px, -28px);
+            }
+        }
+
+        /* Page */
+        .wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 52px 80px;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 36px 0 20px;
+            margin-bottom: 64px;
+            border-bottom: 1.5px solid var(--dew);
+            animation: rise 0.5s ease both;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        .logo-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--forest);
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        nav a {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--soil);
+            text-decoration: none;
+            transition: color .15s;
+        }
+
+        nav a:hover {
+            color: var(--sage);
+        }
+
+        nav a.active {
+            color: var(--moss);
+            font-weight: 600;
+        }
+
+        /* Two-col layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 72px;
+            align-items: start;
+        }
+
+        /* ── LEFT ── */
+        .left {
+            position: sticky;
+            top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            animation: rise 0.5s 0.08s ease both;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--sage);
+            background: var(--dew);
+            border-radius: 20px;
+            padding: 5px 14px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-bottom: 16px;
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--fern);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.06;
+            color: var(--forest);
+            letter-spacing: -0.02em;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--sage);
+        }
+
+        .lead {
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--soil);
+            line-height: 1.75;
+        }
+
+        /* Stats – single row, 4 cols */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--mist);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .stat {
+            background: var(--petal);
+            padding: 16px 8px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--forest);
+            line-height: 1.15;
+            margin-bottom: 3px;
+        }
+
+        .stat-lbl {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--sage);
+        }
+
+        /* Section label */
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .section-label-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            background: var(--dew);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-label-icon svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--sage);
+        }
+
+        .section-label-text {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--sage);
+        }
+
+        /* Donate tiles – single row, 3 cols */
+        .donate-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .donate-card {
+            min-width: 0;
+        }
+
+        .donate-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 18px 10px;
+            background: var(--petal);
+            border: 1.5px solid var(--dew);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--forest);
+            text-align: center;
+            transition: background .2s, border-color .2s,
+                transform .25s cubic-bezier(.34, 1.3, .64, 1), box-shadow .2s;
+        }
+
+        .donate-card:hover {
+            background: var(--dew);
+            border-color: var(--mist);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px -4px rgba(45, 90, 61, .13);
+        }
+
+        .donate-card:active {
+            transform: scale(.98);
+        }
+
+        .donate-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--dew);
+            border: 1.5px solid var(--mist);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .donate-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--forest);
+        }
+
+        .donate-sub {
+            font-size: 11px;
+            color: var(--soil);
+            line-height: 1.3;
+        }
+
+        /* Desktop: donate in left, hide mobile copy */
+        .donate-left {
+            display: block;
+        }
+
+        .donate-mobile {
+            display: none;
+        }
+
+        /* ── RIGHT ── */
+        .sections {
+            display: flex;
+            flex-direction: column;
+            gap: 44px;
+            animation: rise 0.5s 0.14s ease both;
+        }
+
+        /* Link cards */
+        .cards {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 15px 18px;
+            background: var(--petal);
+            border: 1.5px solid var(--dew);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--forest);
+            transition: background .2s, border-color .2s,
+                transform .25s cubic-bezier(.34, 1.3, .64, 1), box-shadow .2s;
+        }
+
+        .card:hover {
+            background: var(--dew);
+            border-color: var(--mist);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px -4px rgba(45, 90, 61, .13);
+        }
+
+        .card:active {
+            transform: scale(.99);
+        }
+
+        .card-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            background: var(--dew);
+            border: 1.5px solid var(--mist);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background .2s;
+        }
+
+        .card:hover .card-icon {
+            background: var(--cream);
+        }
+
+        .card-icon svg {
+            width: 19px;
+            height: 19px;
+            fill: var(--moss);
+        }
+
+        .card-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .card-sub {
+            font-size: 12px;
+            color: var(--soil);
+            margin-top: 2px;
+        }
+
+        .card-arrow {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--mist);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background .2s, transform .2s;
+        }
+
+        .card:hover .card-arrow {
+            background: var(--sage);
+            transform: translateX(2px);
+        }
+
+        .card-arrow svg {
+            width: 13px;
+            height: 13px;
+            fill: var(--cream);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 72px;
+            border-top: 1.5px solid var(--dew);
+            padding-top: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            animation: rise 0.5s 0.28s ease both;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: var(--soil);
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--sage);
+        }
+
+        .footer-right svg {
+            width: 13px;
+            height: 13px;
+            fill: var(--fern);
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
             }
 
-            .container {
-                background-color: #2a2a2a;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .wrap {
+                padding: 0 32px 64px;
             }
 
-            .github {
-                background-color: #1d1d1d;
+            .layout {
+                grid-template-columns: 1fr;
+                gap: 48px;
             }
 
-            h1,
-            .feedback-message {
-                color: #f0f4f8;
+            .left {
+                position: static;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            .donate-left {
+                display: none;
+            }
+
+            .donate-mobile {
+                display: block;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .wrap {
+                padding: 0 20px 56px;
+            }
+
+            nav {
+                gap: 18px;
+            }
+
+            h1 {
+                font-size: 34px;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>We Value Your Feedback</h1>
 
-        <div class="feedback-message">
-            <p>If you have any suggestions or questions, feel free to reach out:</p>
-        </div>
+    <div class="bg">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+    </div>
 
-        <div class="contact-info">
-            <a href="https://github.com/prem-k-r/MaterialYouNewTab/discussions" target="_blank" class="github">
-                <i class="fab fa-github"></i>
+    <div class="wrap">
+
+        <header>
+            <a class="logo" href="#">
+                <svg viewBox="0 0 32 32" fill="none">
+                    <path d="M6 26 C6 26 8 14 16 8 C24 2 28 6 28 6 C28 6 26 18 18 22 C12 25 6 26 6 26Z"
+                        fill="#4a7c59" />
+                    <path d="M6 26 C6 26 12 20 16 14" stroke="#2d5a3d" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                <span class="logo-name">MYNT</span>
             </a>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">Changelog</a>
+                <a href="#" class="active">Feedback</a>
+            </nav>
+        </header>
 
-            <a href="https://t.me/Material_You_NewTab" target="_blank" class="telegram">
-                <i class="fab fa-telegram-plane"></i>
-            </a>
+        <div class="layout">
 
-            <a href="mailto:prem12321kumar@outlook.com" target="_blank" class="email">
-                <i class="fas fa-envelope"></i>
-            </a>
+            <!-- ── LEFT ── -->
+            <div class="left">
 
-            <a href="https://chromewebstore.google.com/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl/reviews"
-                target="_blank" class="chrome">
-                <i class="fab fa-chrome"></i>
-            </a>
+                <div>
+                    <div class="hero-tag">Get in touch</div>
+                    <h1>Your voice<br>helps us <em>grow.</em></h1>
+                </div>
 
-            <a href="https://addons.mozilla.org/en-US/firefox/addon/mynt/reviews/" target="_blank" class="firefox">
-                <i class="fab fa-firefox"></i>
-            </a>
+                <p class="lead">Share a suggestion, report a bug, or leave a kind word. Every piece of feedback helps
+                    MYNT become a little more thoughtful.</p>
 
-            <a href="https://microsoftedge.microsoft.com/addons/detail/mynt-material-you-new-ta/lcgdmfjofmcblocogcabdpfidfbkblcd"
-                target="_blank" class="edge">
-                <i class="fab fa-edge"></i>
-            </a>
-        </div>
+                <!-- Stats single row -->
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-num">Open</div>
+                        <div class="stat-lbl">Source</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">Free</div>
+                        <div class="stat-lbl">Always</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">Privacy</div>
+                        <div class="stat-lbl">Focused</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">No</div>
+                        <div class="stat-lbl">Ads</div>
+                    </div>
+                </div>
+
+                <!-- Donate – desktop left column -->
+                <div class="donate-left">
+                    <div class="section-label">
+                        <div class="section-label-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                            </svg>
+                        </div>
+                        <span class="section-label-text">Support the project</span>
+                    </div>
+                    <div class="donate-grid">
+                        <a href="https://www.buymeacoffee.com" target="_blank" class="donate-card">
+                            <div class="donate-icon">☕</div>
+                            <div class="donate-title">Buy Me a Coffee</div>
+                            <div class="donate-sub">One-time support</div>
+                        </a>
+                        <a href="https://ko-fi.com" target="_blank" class="donate-card">
+                            <div class="donate-icon">🍵</div>
+                            <div class="donate-title">Ko-fi</div>
+                            <div class="donate-sub">Tips &amp; monthly</div>
+                        </a>
+                        <a href="upi://pay" class="donate-card">
+                            <div class="donate-icon">🇮🇳</div>
+                            <div class="donate-title">UPI</div>
+                            <div class="donate-sub">Pay via UPI</div>
+                        </a>
+                    </div>
+                </div>
+
+            </div><!-- /left -->
+
+            <!-- ── RIGHT ── -->
+            <div class="sections">
+
+                <!-- Discuss -->
+                <div>
+                    <div class="section-label">
+                        <div class="section-label-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+                            </svg>
+                        </div>
+                        <span class="section-label-text">Discuss</span>
+                    </div>
+                    <div class="cards">
+                        <a href="https://github.com/prem-k-r/MaterialYouNewTab/discussions" target="_blank"
+                            class="card">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.38 7.86 10.9.57.1.78-.25.78-.55v-1.92c-3.19.69-3.86-1.54-3.86-1.54-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.27-5.23-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.15 1.17a10.97 10.97 0 0 1 5.74 0c2.18-1.48 3.14-1.17 3.14-1.17.63 1.57.23 2.73.11 3.02.74.8 1.18 1.82 1.18 3.07 0 4.41-2.69 5.38-5.25 5.66.41.36.78 1.06.78 2.13v3.16c0 .3.2.66.79.55C20.21 21.38 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z" />
+                                </svg>
+                            </div>
+                            <div class="card-text">
+                                <div class="card-title">GitHub Discussions</div>
+                                <div class="card-sub">Ideas, questions &amp; community</div>
+                            </div>
+                            <div class="card-arrow"><svg viewBox="0 0 24 24">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                                </svg></div>
+                        </a>
+                        <a href="https://t.me/Material_You_NewTab" target="_blank" class="card">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z" />
+                                </svg>
+                            </div>
+                            <div class="card-text">
+                                <div class="card-title">Telegram</div>
+                                <div class="card-sub">@Material_You_NewTab</div>
+                            </div>
+                            <div class="card-arrow"><svg viewBox="0 0 24 24">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                                </svg></div>
+                        </a>
+                        <a href="mailto:prem12321kumar@outlook.com" class="card">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+                                </svg>
+                            </div>
+                            <div class="card-text">
+                                <div class="card-title">Email</div>
+                                <div class="card-sub">prem12321kumar@outlook.com</div>
+                            </div>
+                            <div class="card-arrow"><svg viewBox="0 0 24 24">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                                </svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Rate & Review -->
+                <div>
+                    <div class="section-label">
+                        <div class="section-label-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                            </svg>
+                        </div>
+                        <span class="section-label-text">Rate &amp; Review</span>
+                    </div>
+                    <div class="cards">
+                        <a href="https://chromewebstore.google.com/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl/reviews"
+                            target="_blank" class="card">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 4a6 6 0 0 1 5.22 3H12a3 3 0 0 0-3 3 3 3 0 0 0 .07.65L5.42 8.1A9.94 9.94 0 0 1 12 6zm-6.79 5.5A6.01 6.01 0 0 1 8.62 6.8l2.87 4.97A3 3 0 0 0 12 15a3 3 0 0 0 .43-.04L10 19.76A10 10 0 0 1 5.21 11.5zm8.85 7.58-2.7-4.67A3 3 0 0 0 15 12a3 3 0 0 0-3-3h-.16l2.87-4.97A6 6 0 0 1 18 12a5.99 5.99 0 0 1-3.94 5.08z" />
+                                </svg>
+                            </div>
+                            <div class="card-text">
+                                <div class="card-title">Chrome Web Store</div>
+                                <div class="card-sub">Rate and review MYNT on Chrome</div>
+                            </div>
+                            <div class="card-arrow"><svg viewBox="0 0 24 24">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                                </svg></div>
+                        </a>
+                        <a href="https://addons.mozilla.org/en-US/firefox/addon/mynt/reviews/" target="_blank"
+                            class="card">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 14.19c-.31.31-.66.57-1.04.77-.01-.5-.09-.99-.26-1.46-.44-1.21-1.55-1.96-2.63-2.65-.57-.36-1.17-.75-1.66-1.23-.48-.47-.77-1.02-.77-1.71 0-.84.47-1.64 1.07-2.14a4.64 4.64 0 0 1 3.09-1.06c.33 0 .66.03.97.1-.5.32-.95.73-1.28 1.22-.25.37-.4.79-.4 1.23 0 .55.17 1.07.48 1.51.52.73 1.36 1.19 2.1 1.69.71.48 1.36 1.04 1.7 1.84.17.41.25.84.25 1.28-.19.2-.39.4-.62.61z" />
+                                </svg>
+                            </div>
+                            <div class="card-text">
+                                <div class="card-title">Firefox Add-ons</div>
+                                <div class="card-sub">Rate and review MYNT on Firefox</div>
+                            </div>
+                            <div class="card-arrow"><svg viewBox="0 0 24 24">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                                </svg></div>
+                        </a>
+                        <a href="https://microsoftedge.microsoft.com/addons/detail/mynt-material-you-new-ta/lcgdmfjofmcblocogcabdpfidfbkblcd"
+                            target="_blank" class="card">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M21.86 17.86c-.28.14-.57.27-.87.38A8.57 8.57 0 0 1 18 18.9c-4.7 0-8.57-3.59-8.57-8.02 0-2.63 1.4-5.1 3.59-6.53C8.5 4.82 5 8.77 5 13.5 5 18.75 9.25 23 14.5 23c3.16 0 5.97-1.52 7.76-3.86a.5.5 0 0 0-.4-.28zM18.93 2C16.5 2 14.5 4 14.5 6.5c0 .83.22 1.61.62 2.28.93-1.37 2.31-2.34 3.88-2.71V6c0 3.07-2.14 5.68-5 6.32V16c4.14-.46 7-3.9 7-8 0-2.5-1.2-4.72-3.07-6z" />
+                                </svg>
+                            </div>
+                            <div class="card-text">
+                                <div class="card-title">Microsoft Edge Add-ons</div>
+                                <div class="card-sub">Rate and review MYNT on Edge</div>
+                            </div>
+                            <div class="card-arrow"><svg viewBox="0 0 24 24">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                                </svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Donate – mobile only, at end -->
+                <div class="donate-mobile">
+                    <div class="section-label">
+                        <div class="section-label-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                            </svg>
+                        </div>
+                        <span class="section-label-text">Support the project</span>
+                    </div>
+                    <div class="donate-grid">
+                        <a href="https://www.buymeacoffee.com" target="_blank" class="donate-card">
+                            <div class="donate-icon">☕</div>
+                            <div class="donate-title">Buy Me a Coffee</div>
+                            <div class="donate-sub">One-time support</div>
+                        </a>
+                        <a href="https://ko-fi.com" target="_blank" class="donate-card">
+                            <div class="donate-icon">🍵</div>
+                            <div class="donate-title">Ko-fi</div>
+                            <div class="donate-sub">Tips &amp; monthly</div>
+                        </a>
+                        <a href="upi://pay" class="donate-card">
+                            <div class="donate-icon">🇮🇳</div>
+                            <div class="donate-title">UPI</div>
+                            <div class="donate-sub">Pay via UPI</div>
+                        </a>
+                    </div>
+                </div>
+
+            </div><!-- /sections -->
+        </div><!-- /layout -->
+
+        <footer>
+            <p>© 2025 MaterialYouNewTab · Thoughtfully built</p>
+            <div class="footer-right">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2-8 2-8.354 1.676-9 8-9 8s1.5-1 3.5-1 4.5 1 5.5 3-2 5-5 5a4 4 0 0 1-1.5-.3" />
+                </svg>
+                Open source
+            </div>
+        </footer>
+
     </div>
 </body>
 
