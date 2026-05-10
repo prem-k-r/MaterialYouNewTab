@@ -2901,12 +2901,12 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 #aiToolsForm .ai-tool-reorder button {
 	color: var(--darkColor-blue);
 	background-color: var(--bg-color-blue);
-	border: none;
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 20%, transparent);
 	border-radius: 20%;
 	width: 24px;
 	height: 24px;
 	padding: 1px;
-	opacity: 0.9;
+	opacity: 0.8;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
@@ -2915,6 +2915,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 
 #aiToolsForm .ai-tool-reorder button:hover {
 	color: var(--darkerColor-blue);
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 50%, transparent);
 }
 
 #aiToolsForm .ai-tool-reorder button:active {
