@@ -2915,7 +2915,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 
 #aiToolsForm .ai-tool-reorder button:hover {
 	color: var(--darkerColor-blue);
-	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 50%, transparent);
+	border-color: color-mix(in srgb, var(--darkColor-blue) 50%, transparent);
 }
 
 #aiToolsForm .ai-tool-reorder button:active {
