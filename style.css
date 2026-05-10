@@ -3676,6 +3676,11 @@ input:checked + .toggle:before {
 	opacity: 0.9;
 }
 
+.shortcutSettingsEntry input::placeholder {
+	color: var(--textColorDark-blue);
+	opacity: 0.6;
+}
+
 .shortcutInputRow {
     display: flex;
     align-items: center;
@@ -3683,7 +3688,7 @@ input:checked + .toggle:before {
 }
 
 .shortcutInputRow:last-child {
-	margin-top: 1px;
+	margin-top: 2px;
 }
 
 .shortcutInputRow svg {
