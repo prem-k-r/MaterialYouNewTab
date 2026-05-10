@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Constants
     const MAX_SHORTCUTS = 50;
     const PLACEHOLDER = {
-        get name()      { return translations[currentLanguage]?.shortcutDefaultName || translations["en"].shortcutDefaultName; },
+        get name() { return translations[currentLanguage]?.shortcutDefaultName || translations["en"].shortcutDefaultName; },
         url: "https://github.com/prem-k-r/MaterialYouNewTab",
-        get inputName() { return translations[currentLanguage]?.shortcutInputName   || translations["en"].shortcutInputName; },
-        get inputUrl()  { return translations[currentLanguage]?.shortcutInputUrl    || translations["en"].shortcutInputUrl; },
-        get inputIcon() { return translations[currentLanguage]?.shortcutInputIcon   || translations["en"].shortcutInputIcon; },
+        get inputName() { return translations[currentLanguage]?.shortcutInputName || translations["en"].shortcutInputName; },
+        get inputUrl() { return translations[currentLanguage]?.shortcutInputUrl || translations["en"].shortcutInputUrl; },
+        get inputIcon() { return translations[currentLanguage]?.shortcutInputIcon || translations["en"].shortcutInputIcon; },
     };
 
     // DOM Elements
@@ -820,17 +820,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 try {
                     localStorage.setItem(`shortcutIcon${index}`, item.icon || "");
                 } catch (iconError) {
-                        if (iconError.name === "QuotaExceededError" || iconError.code === 22) {
-                            // Remove icon due to quota
-                            localStorage.removeItem(`shortcutIcon${index}`);
-                            const entry = entries[index];
-                            if (entry) entry.querySelector(".iconURL").value = "";
-                            item.icon = "";
-                        } else {
-                            throw iconError;
-                        }
+                    if (iconError.name === "QuotaExceededError" || iconError.code === 22) {
+                        // Remove icon due to quota
+                        localStorage.removeItem(`shortcutIcon${index}`);
+                        const entry = entries[index];
+                        if (entry) entry.querySelector(".iconURL").value = "";
+                        item.icon = "";
+                    } else {
+                        throw iconError;
                     }
-                });
+                }
+            });
 
             shortcutsCache = newOrder;
             renderAllShortcuts(newOrder);

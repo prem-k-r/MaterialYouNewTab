@@ -236,7 +236,9 @@ html:has(
 	& #darkTheme,
 	& .favicon,
 	& #wIcon,
-	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img[data-icon-type="default"] {
+	&:not(:has(#adaptiveIconToggle:checked))
+		.shortcutLogoContainer
+		img[data-icon-type="default"] {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -276,7 +278,9 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	& #darkTheme,
 	& .favicon,
 	& #wIcon,
-	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img[data-icon-type="default"] {
+	&:not(:has(#adaptiveIconToggle:checked))
+		.shortcutLogoContainer
+		img[data-icon-type="default"] {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -1685,7 +1689,6 @@ html[lang="ta"] .digiclock {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-
 .clock-hidden-left {
 	display: none;
 }
@@ -2572,7 +2575,10 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 }
 
 /* Adaptive Icons styling */
-.adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="default"] {
+.adaptive-icons
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="default"] {
 	height: calc(100% * 0.7071) !important;
 	width: calc(100% * 0.7071) !important;
 	filter: grayscale(1);
@@ -2584,12 +2590,16 @@ html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
 	.shortcuts
 	.shortcutLogoContainer
 	img[data-icon-type="default"],
-html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(:has(#darkTheme:checked))
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(
+		:has(#darkTheme:checked)
+	)
 	.adaptive-icons
 	.shortcuts
 	.shortcutLogoContainer
 	img[data-icon-type="default"],
-body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(
+		:has(#darkTheme:checked)
+	)
 	.adaptive-icons
 	.shortcutLogoContainer
 	img[data-icon-type="default"],
@@ -2603,34 +2613,48 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 }
 
 .shortcutLogoContainer img[data-icon-type="custom"] {
-    filter: none !important;
-    mix-blend-mode: normal !important;
+	filter: none !important;
+	mix-blend-mode: normal !important;
 	border-radius: 10% !important;
 }
 
 html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
-    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
-html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(:has(#darkTheme:checked))
-    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
-body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
-    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
-body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.themeSegment[data-active="system"]):not(:has(#darkTheme:checked))
-    .shortcuts .shortcutLogoContainer img[data-icon-type="custom"] {
-    filter: invert(1) hue-rotate(180deg) !important;
-    mix-blend-mode: normal !important;
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"],
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(
+		:has(#darkTheme:checked)
+	)
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"],
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(
+		:has(#darkTheme:checked)
+	)
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"],
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.themeSegment[data-active="system"]
+	):not(:has(#darkTheme:checked))
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"] {
+	filter: invert(1) hue-rotate(180deg) !important;
+	mix-blend-mode: normal !important;
 }
 
 .adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="custom"] {
-    height: calc(100% * 0.7071) !important;
-    width: calc(100% * 0.7071) !important;
+	height: calc(100% * 0.7071) !important;
+	width: calc(100% * 0.7071) !important;
 }
 
 .adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="letter"] {
 	height: 100% !important;
 	width: 100% !important;
 	filter: none !important;
-    mix-blend-mode: normal !important;
-} 
+	mix-blend-mode: normal !important;
+}
 
 /* ----------end of Shortcuts----------------- */
 
@@ -2875,16 +2899,15 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 }
 
 #aiToolsForm .ai-tool-reorder button {
-	background: color-mix(in srgb, var(--whitishColor-blue) 60%, transparent);
 	color: var(--darkColor-blue);
-	border: 1px solid var(--darkColor-blue);
-	border-radius: 6px;
-	width: 26px;
-	height: 22px;
-	font-size: 0.8rem;
-	line-height: 1;
+	background-color: var(--bg-color-blue);
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 20%, transparent);
+	border-radius: 20%;
+	width: 24px;
+	height: 24px;
+	padding: 1px;
+	opacity: 0.8;
 	cursor: pointer;
-	padding: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -2892,7 +2915,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 
 #aiToolsForm .ai-tool-reorder button:hover {
 	color: var(--darkerColor-blue);
-	border-color: var(--darkerColor-blue);
+	border-color: color-mix(in srgb, var(--darkColor-blue) 50%, transparent);
 }
 
 #aiToolsForm .ai-tool-reorder button:active {
@@ -2905,6 +2928,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 }
 
 #aiToolsForm .ai-tool-reorder button:disabled:hover {
+	color: var(--darkColor-blue);
 	transform: none;
 }
 
@@ -3542,7 +3566,9 @@ input:checked + .toggle:before {
 	padding: 8px;
 	border-radius: 7px;
 	cursor: pointer;
-	transition: background-color 0.3s ease, fill 0.3s ease;
+	transition:
+		background-color 0.3s ease,
+		fill 0.3s ease;
 }
 
 #resetButton:hover,
@@ -3655,11 +3681,13 @@ input:checked + .toggle:before {
 }
 
 .shortcutSettingsEntry input:hover {
-    animation: clipText 0s 150ms forwards;
+	animation: clipText 0s 150ms forwards;
 }
 
 @keyframes clipText {
-    to { text-overflow: clip; }
+	to {
+		text-overflow: clip;
+	}
 }
 
 .shortcutSettingsEntry .shortcutName {
@@ -3682,9 +3710,9 @@ input:checked + .toggle:before {
 }
 
 .shortcutInputRow {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+	display: flex;
+	align-items: center;
+	gap: 4px;
 }
 
 .shortcutInputRow:last-child {
@@ -3692,15 +3720,15 @@ input:checked + .toggle:before {
 }
 
 .shortcutInputRow svg {
-    flex-shrink: 0;
-    opacity: 0.5;
-    color: var(--textColorDark-blue);
-    pointer-events: none;
+	flex-shrink: 0;
+	opacity: 0.5;
+	color: var(--textColorDark-blue);
+	pointer-events: none;
 }
 
 .shortcutInputRow input {
-    flex: 1;
-    min-width: 0;
+	flex: 1;
+	min-width: 0;
 }
 
 /* Drag and drop styles */
@@ -5180,6 +5208,15 @@ body[data-bg="wallpaper"] .dropdown-content {
 	box-shadow: inset 0 0 0 1px var(--darkerColor-dark);
 }
 
+.black-theme #aiToolsForm .ai-tool-option input[type="checkbox"] {
+	accent-color: #212121;
+}
+
+.black-theme #aiToolsForm .ai-tool-reorder button,
+.black-theme #aiToolsForm .ai-tool-reorder button:disabled:hover {
+	color: #909090;
+}
+
 .black-theme .favicon {
 	filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
 }
@@ -5295,7 +5332,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme #resetButton:hover,
-.black-theme #newShortcutButton:hover{
+.black-theme #newShortcutButton:hover {
 	fill: #e4e4e4;
 	background: #282828;
 }
