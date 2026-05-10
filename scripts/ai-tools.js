@@ -363,8 +363,6 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
         e.stopPropagation();
         showAIToolsSettings();
-        // Prevent the menu from closing when right-clicking
-        e.stopImmediatePropagation();
     });
 
     // AI Tools edit button click handler
