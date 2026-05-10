@@ -41,11 +41,58 @@ function isDataUrlImage(value) {
 }
 
 function openImageSearchByUrl(url) {
+    // Always called from a fresh user gesture (URL submit click, paste,
+    // form submit). Use window.open directly so the user activation
+    // doesn't expire while waiting on an async tabs.create probe.
     window.open(googleLensByUrl(url), "_blank", "noopener");
 }
 
 function openImageSearchUpload() {
-    window.open(googleLensUpload, "_blank", "noopener");
+    // Generic fallback — prefer tabs.create when available, fall back to
+    // window.open. Used from paths where the originating gesture may
+    // already have been consumed by an earlier dialog or async hop.
+    openPreparedImageSearchUrl(googleLensUpload);
+}
+
+function getExtensionApi() {
+    try {
+        return (typeof browser !== "undefined" ? browser : chrome);
+    } catch {
+        return null;
+    }
+}
+
+function openUrlFallback(url) {
+    const opened = window.open(url, "_blank", "noopener");
+    if (!opened) window.location.href = url;
+}
+
+function createExtensionTab(url) {
+    const api = getExtensionApi();
+    if (!api?.tabs?.create) return Promise.resolve(false);
+
+    return new Promise((resolve) => {
+        let settled = false;
+        const finish = () => {
+            if (settled) return;
+            settled = true;
+            resolve(!getRuntimeLastError());
+        };
+
+        try {
+            const result = api.tabs.create({ url }, finish);
+            if (result && typeof result.then === "function") {
+                result.then(() => resolve(true), () => resolve(false));
+            }
+        } catch {
+            resolve(false);
+        }
+    });
+}
+
+async function openPreparedImageSearchUrl(url) {
+    if (await createExtensionTab(url)) return;
+    openUrlFallback(url);
 }
 
 // Hand off a Blob/File to the engine's upload page via storage + URL hash.
@@ -64,42 +111,56 @@ function blobToDataUrl(blob) {
 
 function getStorage() {
     try {
-        const api = (typeof browser !== "undefined" ? browser : chrome);
+        const api = getExtensionApi();
         return api?.storage?.local || null;
     } catch {
         return null;
     }
 }
 
-async function openImageSearchWithBlob(blob, name) {
-    // Open synchronously to preserve the user-gesture: popup blockers reject
-    // window.open after awaits (blobToDataUrl + storage.set). We can't pass
-    // "noopener" here because we need the reference to navigate the tab once
-    // the payload key is ready — null `popup.opener` instead.
-    const popup = window.open("about:blank", "_blank");
-    if (popup) popup.opener = null;
+function getRuntimeLastError() {
+    try {
+        const api = getExtensionApi();
+        return api?.runtime?.lastError || null;
+    } catch {
+        return null;
+    }
+}
 
+function storageSet(storage, value) {
+    return new Promise((resolve, reject) => {
+        let settled = false;
+        const finish = () => {
+            if (settled) return;
+            settled = true;
+            const err = getRuntimeLastError();
+            if (err) reject(err); else resolve();
+        };
+        try {
+            const result = storage.set(value, finish);
+            if (result && typeof result.then === "function") {
+                result.then(resolve, reject);
+            }
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+async function openImageSearchWithBlob(blob, name) {
     const storage = getStorage();
     if (!storage) {
-        if (popup) popup.location.href = googleLensUpload;
-        else openImageSearchUpload();
+        await openPreparedImageSearchUrl(googleLensUpload);
         return;
     }
     try {
         const dataUrl = await blobToDataUrl(blob);
         const key = `mynt-img-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-        await new Promise((resolve, reject) => {
-            storage.set({ [key]: { dataUrl, name: name || "image", type: blob.type } }, () => {
-                const err = (typeof browser !== "undefined" ? browser : chrome).runtime?.lastError;
-                if (err) reject(err); else resolve();
-            });
-        });
+        await storageSet(storage, { [key]: { dataUrl, name: name || "image", type: blob.type } });
         const url = `${googleLensUpload}#mynt-image-search=${encodeURIComponent(key)}`;
-        if (popup) popup.location.href = url;
-        else window.open(url, "_blank", "noopener");
+        await openPreparedImageSearchUrl(url);
     } catch {
-        if (popup) popup.location.href = googleLensUpload;
-        else openImageSearchUpload();
+        await openPreparedImageSearchUrl(googleLensUpload);
     }
 }
 
@@ -201,11 +262,15 @@ function hidePopover() {
     popover.style.display = "none";
 }
 
+function triggerUploadPicker() {
+    fileInput.click();
+}
+
 imageSearchIcon.addEventListener("click", (event) => {
     event.stopPropagation();
     if (isLensActiveEngine()) {
         if (popover.style.display !== "none") hidePopover();
-        fileInput.click();
+        triggerUploadPicker();
         return;
     }
     if (popover.style.display === "none") {
@@ -264,7 +329,7 @@ urlInput.addEventListener("keydown", (event) => {
 });
 urlInput.addEventListener("input", () => urlRow.classList.remove("invalid"));
 
-uploadBtn.addEventListener("click", () => fileInput.click());
+uploadBtn.addEventListener("click", triggerUploadPicker);
 fileInput.addEventListener("change", () => {
     if (fileInput.files && fileInput.files.length > 0) {
         const file = fileInput.files[0];

@@ -45,6 +45,12 @@ const searchEngines = document.querySelectorAll(".searchEnginesContainer .search
 const searchEnginesContainer = document.querySelector(".searchEnginesContainer");
 let activeSearchMode = localStorage.getItem("activeSearchMode") || "search-with";
 
+function selectSearchEngineRadio(radioButton) {
+    if (!radioButton) return;
+    radioButton.checked = true;
+    radioButton.dispatchEvent(new Event("change"));
+}
+
 searchWith.addEventListener("click", function (event) {
     activeSearchMode = (activeSearchMode === "search-with") ? "search-on" : "search-with";
     searchEnginesContainer.classList.toggle("show");
@@ -77,8 +83,7 @@ function toggleSearchEngines(category) {
 
         if (engine.lastElementChild.value === checkeditem) {
             const radioBtn = engine.querySelector('input[type="radio"]');
-            radioBtn.checked = true;
-            radioBtn.dispatchEvent(new Event("change"));
+            selectSearchEngineRadio(radioBtn);
         }
     });
 }
@@ -147,7 +152,7 @@ searchDropdowns.forEach(element => {
         const radioButton = document.querySelector(`input[type="radio"][value="engine${engine}"]`);
         const selector = `*[data-engine-name=${element.getAttribute("data-engine-name")}]`;
 
-        radioButton.checked = true;
+        selectSearchEngineRadio(radioButton);
 
         // Swap the dropdown and sort them
         swapDropdown(selector);
@@ -164,7 +169,7 @@ document.querySelectorAll(".search-engine").forEach((engineDiv) => {
         event.stopPropagation();
         const radioButton = engineDiv.querySelector('input[type="radio"]');
 
-        radioButton.checked = true;
+        selectSearchEngineRadio(radioButton);
 
         const radioButtonValue = radioButton.value.charAt(radioButton.value.length - 1);
 
@@ -260,7 +265,7 @@ if (storedSearchEngine) {
 
     const selectedRadioButton = document.querySelector(`input[name="search-engine"][value="${storedSearchEngine}"]`);
     if (selectedRadioButton) {
-        selectedRadioButton.checked = true;
+        selectSearchEngineRadio(selectedRadioButton);
     }
 }
 
@@ -312,13 +317,14 @@ document.querySelector(".dropdown").addEventListener("keydown", function (event)
 
             const engine = selectedItem.getAttribute("data-engine");
             const radioButton = document.querySelector(`input[type="radio"][value="engine${engine}"]`);
-            radioButton.checked = true;
+            selectSearchEngineRadio(radioButton);
 
             // Swap the dropdown and sort them
             swapDropdown(`*[data-engine="${engine}"]`);
             sortDropdown();
 
-            localStorage.setItem("selectedSearchEngine", radioButton.value);
+            localStorage.setItem(`selectedSearchEngine-${radioButton.parentElement.dataset.category}`, radioButton.value);
+            localStorage.setItem(`activeSearchMode`, radioButton.parentElement.dataset.category);
 
             // Close the dropdown after selection
             dropdown.classList.remove("show");
@@ -379,7 +385,7 @@ hideSearchWith.addEventListener("change", (e) => {
 
     // Find the corresponding radio button
     const selectedRadioButton = document.querySelector(`input[name="search-engine"][value="${storedSearchEngine}"]`);
-    selectedRadioButton.checked = true;
+    selectSearchEngineRadio(selectedRadioButton);
 
     // Ensure UI is updated properly
     const storedSearchEngineSN = storedSearchEngine.charAt(storedSearchEngine.length - 1);
@@ -455,7 +461,7 @@ function switchEngine(direction) {
 
     // Delay the actual swap until fade-out completes (45% of 400ms = 180ms)
     setTimeout(() => {
-        radioButton.checked = true;
+        selectSearchEngineRadio(radioButton);
 
         const radioButtonValue = radioButton.value.charAt(radioButton.value.length - 1);
         const selector = `[data-engine="${radioButtonValue}"]`;

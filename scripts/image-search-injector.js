@@ -13,25 +13,30 @@
 // under a random key, then navigates here with `#mynt-image-search=<key>`.
 // We retrieve it, rebuild a File, and inject it into the Lens dialog.
 //
-// Why drag-drop and not <input type="file">:
-// The Lens upload modal does NOT expose a normal `<input type="file">` we
-// can populate. The only file inputs visible on www.google.com/?olud belong
-// to Google's *AI Mode / Search* attachment feature, which sits on the same
-// page. Routing an image into those inputs sends it to Gemini ("JPEG is a
-// digital image format..."), not to the reverse-image-search results we
-// actually want. Earlier attempts to score / nearest-distance the right
-// input still picked AI Mode because Lens's upload is gated behind a
-// custom drag-drop handler, with no inspectable input element.
+// Two injection strategies, picked by browser:
 //
-// So instead we:
-//   1. Find the Lens dialog by anchoring on its visible header text
-//      ("Search any image with Google Lens" / "Drag an image here").
-//   2. Dispatch synthetic dragenter/dragover/drop events with a populated
-//      DataTransfer onto the dialog. Lens's drop handler reads the file
-//      from the event and proceeds to its normal upload flow.
+// Chrome — synthetic drag-drop on the Lens dialog.
+//   www.google.com/?olud hosts BOTH the Lens upload modal and Google's
+//   AI Mode / Search file-attachment input. Populating any visible file
+//   input often routes images to Gemini ("JPEG is a digital image
+//   format...") rather than reverse image search, so we dispatch
+//   synthetic dragenter/dragover/drop with a populated DataTransfer
+//   onto the visible Lens dialog. Lens's drop handler reads the file
+//   and proceeds with its normal upload flow.
 //
-// If we can't find the dialog within INJECT_TIMEOUT_MS we silently give up;
-// the page is already loaded so the user can drop the file manually.
+// Firefox — direct <input type="file"> injection.
+//   Firefox does serve the Lens dialog, but rejects synthetic drop
+//   events with non-trusted DataTransfer files. The drop event fires,
+//   Lens silently discards it, and the dialog closes without a search.
+//   So on Firefox we fall back to populating the most Lens-y file
+//   input on the page (scored by accept attr and surrounding text).
+//   This sometimes lands on Google's AI Mode input instead — a known
+//   limitation, but better than the silent no-op the drag-drop path
+//   produces on Firefox.
+//
+// In both cases, if we can't find a target within INJECT_TIMEOUT_MS we
+// silently give up; the page is already loaded so the user can drop or
+// pick the file manually.
 
 (function () {
     const HASH_PREFIX = "#mynt-image-search=";
@@ -40,8 +45,49 @@
 
     if (!location.hash.startsWith(HASH_PREFIX)) return;
 
+    const IS_FIREFOX = /Firefox\//.test(navigator.userAgent);
+
     const api = (typeof browser !== "undefined" ? browser : chrome);
     const storage = api.storage.local;
+
+    function getRuntimeLastError() {
+        try {
+            return api?.runtime?.lastError || null;
+        } catch {
+            return null;
+        }
+    }
+
+    function storageGet(key) {
+        return new Promise((resolve, reject) => {
+            let settled = false;
+            const finish = (items) => {
+                if (settled) return;
+                settled = true;
+                const err = getRuntimeLastError();
+                if (err) reject(err); else resolve(items || {});
+            };
+            try {
+                const result = storage.get(key, finish);
+                if (result && typeof result.then === "function") {
+                    result.then(resolve, reject);
+                }
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+
+    function storageRemove(key) {
+        try {
+            const result = storage.remove(key);
+            if (result && typeof result.catch === "function") {
+                result.catch(() => {});
+            }
+        } catch {
+            // Best effort cleanup only.
+        }
+    }
 
     const rawKey = location.hash.slice(HASH_PREFIX.length);
     let key;
@@ -50,7 +96,7 @@
     } catch (err) {
         if (err instanceof URIError) {
             // Best-effort cleanup of the stashed payload, then bail.
-            storage.remove(rawKey);
+            storageRemove(rawKey);
             history.replaceState(null, "", location.pathname + location.search);
             return;
         }
@@ -61,24 +107,31 @@
     // Strip the hash so a refresh doesn't re-trigger the injection.
     history.replaceState(null, "", location.pathname + location.search);
 
-    storage.get(key, (items) => {
+    storageGet(key).then((items) => {
         const payload = items?.[key];
-        storage.remove(key);
+        storageRemove(key);
         if (!payload || !payload.dataUrl) {
             console.debug(LOG_PREFIX, "no payload found for key", key);
             return;
         }
 
-        dataUrlToFile(payload.dataUrl, payload.name || "image", payload.type || "image/png")
-            .then((file) => waitForLensDropZone(INJECT_TIMEOUT_MS).then((zone) => {
-                return new Promise((resolve) => setTimeout(() => {
+        const inject = IS_FIREFOX
+            ? (file) => waitForFileInput(INJECT_TIMEOUT_MS).then((input) => {
+                injectFile(input, file);
+                console.debug(LOG_PREFIX, "image injected into file input");
+            })
+            : (file) => waitForLensDropZone(INJECT_TIMEOUT_MS).then((zone) => new Promise((resolve) => {
+                setTimeout(() => {
                     dispatchDrop(zone, file);
+                    console.debug(LOG_PREFIX, "image dropped on Lens dialog");
                     resolve();
-                }, 150));
-            }))
-            .then(() => console.debug(LOG_PREFIX, "image dropped on Lens dialog"))
+                }, 150);
+            }));
+
+        dataUrlToFile(payload.dataUrl, payload.name || "image", payload.type || "image/png")
+            .then(inject)
             .catch((err) => console.debug(LOG_PREFIX, "injection failed, falling back to manual upload:", err.message));
-    });
+    }).catch((err) => console.debug(LOG_PREFIX, "payload lookup failed:", err.message));
 
     async function dataUrlToFile(dataUrl, name, type) {
         const res = await fetch(dataUrl);
@@ -111,15 +164,27 @@
         return matchesLensText(direct);
     }
 
+    function isVisible(el) {
+        if (!el || !el.getBoundingClientRect) return false;
+        const rect = el.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return false;
+        const style = el.ownerDocument.defaultView.getComputedStyle(el);
+        return style.display !== "none" && style.visibility !== "hidden" && style.opacity !== "0";
+    }
+
+    // Match any visible element whose own direct text is a Lens signal.
+    // Visibility alone is enough to reject the original false positive
+    // (a hidden Lens-button label on the homepage), and avoids requiring
+    // a [role="dialog"] wrapper that Firefox's Lens dialog doesn't always
+    // place around the relevant header element.
     function findLensAnchor() {
         if (!document.body) return null;
-        const all = document.body.querySelectorAll("*");
-        for (const el of all) {
-            if (hasOwnLensText(el)) return el;
+        for (const el of document.body.querySelectorAll("*")) {
+            if (hasOwnLensText(el) && isVisible(el)) return el;
         }
-        // Fallback: a dialog labelled "lens" or "image"
-        const dialogs = document.querySelectorAll('[role="dialog"], [aria-modal="true"]');
-        for (const d of dialogs) {
+        // Fallback: a visible dialog labelled "lens" or "image".
+        for (const d of document.querySelectorAll('[role="dialog"], [aria-modal="true"]')) {
+            if (!isVisible(d)) continue;
             const label = (d.getAttribute("aria-label") || "").toLowerCase();
             if (label.includes("lens") || label.includes("image")) return d;
         }
@@ -127,14 +192,12 @@
     }
 
     function findLensDropZone() {
-        const anchor = findLensAnchor();
-        if (!anchor) return null;
-        // Walk up a few levels to find the dotted-border drop zone container.
-        let zone = anchor;
-        for (let i = 0; i < 6 && zone.parentElement && zone.parentElement !== document.body; i += 1) {
-            zone = zone.parentElement;
-        }
-        return zone;
+        // Dispatch directly on the anchor element. Drag events bubble, so
+        // any drop handler attached on an ancestor (the actual dialog
+        // drop zone) will still fire. Walking up blindly used to overshoot
+        // and land on a dialog-dismiss wrapper, which closed the dialog
+        // without triggering the upload.
+        return findLensAnchor();
     }
 
     function waitForLensDropZone(timeoutMs) {
@@ -155,6 +218,7 @@
                 if (zone) {
                     settled = true;
                     observer.disconnect();
+                    clearInterval(poll);
                     clearTimeout(timer);
                     resolve(zone);
                 }
@@ -166,15 +230,104 @@
             });
             observer.observe(document.documentElement, { childList: true, subtree: true });
 
+            // MutationObserver only fires on DOM changes. The Lens dialog
+            // can become visible via a CSS transition without any DOM
+            // mutation, so we also poll for visibility changes.
+            const poll = setInterval(() => {
+                if (settled || scheduled) return;
+                scheduled = requestAnimationFrame(tryFind);
+            }, 250);
+
             const timer = setTimeout(() => {
                 if (settled) return;
                 settled = true;
                 if (scheduled) cancelAnimationFrame(scheduled);
                 observer.disconnect();
+                clearInterval(poll);
                 reject(new Error(`Lens drop zone not found within ${timeoutMs}ms`));
             }, timeoutMs);
         });
     }
+
+    // ---- Firefox file-input strategy ----
+
+    function* walkInputs(root) {
+        if (!root) return;
+        const inputs = root.querySelectorAll ? root.querySelectorAll('input[type="file"]') : [];
+        for (const input of inputs) yield input;
+        const all = root.querySelectorAll ? root.querySelectorAll("*") : [];
+        for (const el of all) {
+            if (el.shadowRoot) yield* walkInputs(el.shadowRoot);
+        }
+    }
+
+    function getInputContext(input) {
+        let node = input;
+        for (let depth = 0; node && depth < 6; depth += 1) {
+            const text = node.textContent?.trim();
+            if (text) return text.toLowerCase();
+            node = node.parentElement || node.getRootNode()?.host;
+        }
+        return "";
+    }
+
+    function scoreFileInput(input) {
+        const accept = (input.accept || "").toLowerCase();
+        const context = getInputContext(input);
+        let score = 0;
+        if (/\.(jpe?g|png|bmp|tiff?|webp)/.test(accept)) score += 4;
+        if (accept.includes("image")) score += 2;
+        if (context.includes("google lens")) score += 5;
+        if (context.includes("search any image")) score += 5;
+        if (context.includes("drag an image")) score += 4;
+        if (context.includes("upload a file")) score += 4;
+        if (input.closest('[role="dialog"], [aria-modal="true"]')) score += 2;
+        return score;
+    }
+
+    function findFileInput() {
+        const candidates = [];
+        for (const input of walkInputs(document)) {
+            const accept = (input.accept || "").toLowerCase();
+            if (input.disabled) continue;
+            if (accept && !accept.includes("image") && accept !== "*/*" && !/\.(jpe?g|png|bmp|tiff?|webp)/.test(accept)) continue;
+            candidates.push({ input, score: scoreFileInput(input) });
+        }
+        candidates.sort((a, b) => b.score - a.score);
+        return candidates[0]?.input || null;
+    }
+
+    function waitForFileInput(timeoutMs) {
+        return new Promise((resolve, reject) => {
+            const existing = findFileInput();
+            if (existing) return resolve(existing);
+
+            const observer = new MutationObserver(() => {
+                const input = findFileInput();
+                if (input) {
+                    observer.disconnect();
+                    clearTimeout(timer);
+                    resolve(input);
+                }
+            });
+            observer.observe(document.documentElement, { childList: true, subtree: true });
+
+            const timer = setTimeout(() => {
+                observer.disconnect();
+                reject(new Error(`file input not found within ${timeoutMs}ms`));
+            }, timeoutMs);
+        });
+    }
+
+    function injectFile(input, file) {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        input.files = dt.files;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+
+    // ---- Chrome drag-drop strategy ----
 
     function dispatchDrop(zone, file) {
         const dt = new DataTransfer();
