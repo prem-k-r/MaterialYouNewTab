@@ -217,11 +217,11 @@ function performSearch(query) {
                 }
             } catch (error) {
                 // Fallback to Google if an error occurs
-                var fallbackUrl = searchQueryURLs.engine1 + encodeURIComponent(searchTerm);
+                const fallbackUrl = searchQueryURLs.engine1 + encodeURIComponent(searchTerm);
                 window.location.href = fallbackUrl;
             }
         } else {
-            var searchUrl = searchQueryURLs[selectedOption] + encodeURIComponent(searchTerm);
+            const searchUrl = searchQueryURLs[selectedOption] + encodeURIComponent(searchTerm);
             window.location.href = searchUrl;
         }
     }
@@ -259,23 +259,23 @@ if (storedSearchEngine) {
 const dropdownItems = document.querySelectorAll(".dropdown-item:not(*[data-default])");
 let selectedIndex = -1;
 
-// Function to update the selected item
+// Attach mouse hover listeners once (not on every keydown)
+dropdownItems.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+        item.classList.add("selected");
+    });
+    item.addEventListener("mouseleave", () => {
+        item.classList.remove("selected");
+    });
+});
+
+// Function to update the selected item (keyboard navigation only)
 function updateSelection() {
-    // let hasSelected = [];
     dropdownItems.forEach((item, index) => {
-
-        item.addEventListener("mouseenter", () => {
-            item.classList.add("selected");
-        })
-        item.addEventListener("mouseleave", () => {
-            item.classList.remove("selected");
-        })
-
         if (index === selectedIndex) {
-            item.focus()
+            item.focus();
             item.classList.add("selected");
         } else {
-            item.focus()
             item.classList.remove("selected");
         }
     });
