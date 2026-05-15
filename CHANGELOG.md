@@ -30,13 +30,14 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Improved fallback behavior of shortcut icons to first-letter icons when custom icons fail to load or when offline ([@prem-k-r](https://github.com/prem-k-r)) ([#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/))
 - Disabled dragging for weather and location icons ([@anndiy](https://github.com/anndiy)) ([#183](https://github.com/prem-k-r/MaterialYouNewTab/pull/183))
 - Added support for right-click to access AI Tools settings ([@prem-k-r](https://github.com/prem-k-r)) ([#210](https://github.com/prem-k-r/MaterialYouNewTab/pull/210/))
-- Added smooth wallpaper fade-in and fixed the widget transparency delay on page load. ([@prem-k-r](https://github.com/prem-k-r)) ([#217](https://github.com/prem-k-r/MaterialYouNewTab/pull/217/))
+- Added smooth wallpaper fade-in on page load ([@prem-k-r](https://github.com/prem-k-r)) ([#217](https://github.com/prem-k-r/MaterialYouNewTab/pull/217/))
 
 ### Fixed
 
 - Fixed an issue where rapid clicks on the AI Tools icon caused race conditions, leading to inconsistent shortcuts panel visibility. ([@prem-k-r](https://github.com/prem-k-r)) ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
 - Fixed shortcut name and URLs hover behavior by replacing ellipsis with clipped text for improved readability ([@prem-k-r](https://github.com/prem-k-r)) ([283f78d](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/changes/283f78d6e4b202a075ca3d670c1b30cbc701c3a4))
 - Fixed wallpaper disappearing on load due to blob URL being revoked too early ([@prem-k-r](https://github.com/prem-k-r)) ([#209](https://github.com/prem-k-r/MaterialYouNewTab/pull/209))
+- Fixed widget transparency delay on page load when wallpaper is set ([@prem-k-r](https://github.com/prem-k-r)) ([#217](https://github.com/prem-k-r/MaterialYouNewTab/pull/217/))
 
 ### Localized
 
