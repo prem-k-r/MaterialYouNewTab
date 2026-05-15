@@ -212,13 +212,25 @@ body {
 	width: 100%;
 	min-height: 100vh;
 	overflow: auto;
-	background-image: var(--bg-image, none);
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-attachment: fixed;
-	height: 100%; /* Ensure the image fits the viewport height */
+	height: 100%;
 	margin: 0;
+}
+
+#bg-img {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	z-index: -1;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+}
+
+#bg-img.bg-visible {
+	opacity: 1;
 }
 
 /* Apply dark mode when: Dark Mode is selected manually, OR System Theme is selected */
