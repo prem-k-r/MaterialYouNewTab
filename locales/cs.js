@@ -150,6 +150,7 @@ const cs = {
     "redditEngine": "Reddit",
     "wikipediaEngine": "Wikipedie",
     "quoraEngine": "Quora",
+    "xEngine": "X",
 
     // AI Tools
     "ai_tools": "AI nástroje",

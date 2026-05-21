@@ -770,6 +770,13 @@
                                 <span class="engine-name" id="quoraEngineDD">Quora</span>
                             </div>
 
+                            <div data-engine="10" data-engine-name="x" id="x-dropdown" class="dropdown-item">
+                                <svg width="30" height="30">
+                                    <use href="#x-engine-icon" />
+                                </svg>
+                                <span class="engine-name" id="xEngineDD">X</span>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -864,6 +871,13 @@
                 </symbol>
             </svg>
 
+            <svg style="display: none;">
+                <symbol id="x-engine-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path style="transform: scale(0.75); transform-origin: center;"
+                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </symbol>
+            </svg>
+
             <!-- ----------search with------------------- -->
             <div class="searchWithCont" style="visibility: hidden;" id="search-with-container">
 
@@ -949,6 +963,14 @@
                         </svg>
                         <label class="engine-name" id="quoraEngine">Quora</label>
                         <input class="radio-button" name="search-engine" type="radio" value="engine9">
+                    </div>
+
+                    <div class="search-engine bgLightTint" data-category="search-on">
+                        <svg width="30" height="30" class="search-engine-icon">
+                            <use href="#x-engine-icon" />
+                        </svg>
+                        <label class="engine-name" id="xEngine">X</label>
+                        <input class="radio-button" name="search-engine" type="radio" value="engine10">
                     </div>
 
                 </div>

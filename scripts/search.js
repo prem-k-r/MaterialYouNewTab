@@ -19,7 +19,8 @@ const searchQueryURLs = {
     engine6: "https://www.google.com/search?tbm=isch&q=",
     engine7: "https://www.reddit.com/search/?q=",
     engine8: `https://${languageCode}.wikipedia.org/wiki/Special:Search?search=`,
-    engine9: "https://www.quora.com/search?q="
+    engine9: "https://www.quora.com/search?q=",
+    engine10: "https://x.com/search?q="
 };
 
 // Showing border or outline when you click on the searchbar

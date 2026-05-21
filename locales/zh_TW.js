@@ -132,6 +132,7 @@ const zh_TW = {
     "redditEngine": "Reddit",
     "wikipediaEngine": "維基百科",
     "quoraEngine": "Quora",
+    "xEngine": "X",
 
     // AI Tools
     "ai_tools": "AI 工具",

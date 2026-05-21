@@ -134,6 +134,7 @@ const el = {
     "redditEngine": "Reddit",
     "wikipediaEngine": "Βικιπαίδεια",
     "quoraEngine": "Quora",
+    "xEngine": "X",
 
     // Εργαλεία AI
     "ai_tools": "Εργαλεία AI",
