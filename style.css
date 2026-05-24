@@ -5488,6 +5488,8 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 #dontShowTips {
+	position: relative;
+	overflow: hidden;
 	border: none;
 	display: block;
 	padding: 6px 10px;
@@ -5497,9 +5499,31 @@ body[data-bg="wallpaper"] .dropdown-content {
 	margin-top: 5px;
 }
 
+#dontShowTips::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.25),
+		transparent
+	);
+	transform: translateX(-100%);
+	animation: dontShowTipsShine 3s infinite;
+	pointer-events: none;
+}
+
 #dontShowTips:hover {
 	background-color: var(--darkerColor-blue);
 }
+
+@keyframes dontShowTipsShine {
+	100% {
+		transform: translateX(100%);
+	}
+}
+
 .tips .ttcont .texts .bigText {
 	font-size: 1rem;
 }

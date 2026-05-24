@@ -10,7 +10,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Hide tips that are not relevant to mobile
     if (!isDesktop) {
-        document.querySelectorAll('.hideOnMobile').forEach(el => el.style.display = 'none');
+        //document.querySelectorAll('.hideOnMobile').forEach(el => el.style.display = 'none');
+        localStorage.setItem("hideTips", "true");
     }
 
     // Determine the correct key for adjustZoomInfo based on OS
