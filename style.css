@@ -3359,8 +3359,8 @@ input:checked + .toggle:before {
 }
 
 /* ===== Unified Section ===== */
-.section {
-	margin-bottom: 20px;
+.section + .section {
+	margin-top: 22px;
 }
 
 /* OUTER container */
@@ -5477,6 +5477,8 @@ body[data-bg="wallpaper"] .dropdown-content {
 	margin-top: 30px;
 	display: grid;
 	gap: 12px;
+	max-height: 900px;
+	overflow: hidden;
 	background-color: var(--bg-color-blue);
 	background-color: color-mix(
 		in srgb,
@@ -5485,6 +5487,21 @@ body[data-bg="wallpaper"] .dropdown-content {
 	);
 	padding: 18px 20px;
 	border-radius: 20px;
+	opacity: 1;
+	transition:
+		max-height 0.35s var(--md-motion-decelerate),
+		padding 0.35s ease,
+		margin 0.35s ease,
+		opacity 0.25s ease;
+}
+
+.tips.tips-hidden {
+	margin-top: 0;
+	max-height: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	opacity: 0;
+	pointer-events: none;
 }
 
 #dontShowTips {
@@ -5512,6 +5529,10 @@ body[data-bg="wallpaper"] .dropdown-content {
 	transform: translateX(-100%);
 	animation: dontShowTipsShine 3s infinite;
 	pointer-events: none;
+}
+
+.tips.tips-hidden #dontShowTips::before {
+	animation: none;
 }
 
 #dontShowTips:hover {

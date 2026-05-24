@@ -47,12 +47,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Check if the user has previously disabled tips
     if (localStorage.getItem("hideTips") === "true") {
-        tips.style.display = "none";
+        tips.classList.add("tips-hidden");
     }
 
     // Hide tips and save preference when button is clicked
     dontShowButton.addEventListener("click", function () {
-        tips.style.display = "none";
+        tips.classList.add("tips-hidden");
         localStorage.setItem("hideTips", "true"); // Save preference
     });
 });
