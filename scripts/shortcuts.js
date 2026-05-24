@@ -354,6 +354,14 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
+    function applyCustomSvgAccentColor(svg) {
+        const color = localStorage.getItem("selectedTheme") === "dark"
+            ? "#bfbfbf"
+            : localStorage.getItem("accentLightTintColor") || "#e2eeff";
+
+        return svg.replace(/\bcurrentColor\b/g, color);
+    }
+
     // Sanitizes raw SVG code, returns data URL or null if unsafe
     function sanitizeSvg(raw) {
         const trimmed = raw.trim();
@@ -376,7 +384,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (pattern.test(normalized)) return null;
         }
 
-        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(normalized);
+        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(applyCustomSvgAccentColor(normalized));
     }
 
     // Normalizes icon input: converts raw SVG code → data URL, passes URLs through
