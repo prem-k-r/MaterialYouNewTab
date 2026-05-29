@@ -2671,6 +2671,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	max-width: calc(100% - 140px);
 	overflow-x: scroll;
 	overflow-y: hidden;
+	scroll-behavior: smooth;
 	scrollbar-width: none; /* Firefox */
 	-ms-overflow-style: none; /* IE and Edge */
 }
