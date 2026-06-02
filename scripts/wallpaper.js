@@ -280,20 +280,14 @@ async function downloadWallpaper() {
             extension = "gif";
         }
 
-        let fileName = "";
-
-        // 1. If custom uploaded, preserve its original name if stored
-        if (imageType === "upload" && blob.name) {
-            fileName = blob.name;
-        }
-        // 2. If random wallpaper, trigger direct high-res uncompressed Unsplash download
-        else if (imageType === "random" && infoData && isValidUnsplashUrl(infoData.url)) {
+        // For random wallpaper with valid Unsplash attribution, trigger direct high-res download
+        if (infoData && isValidUnsplashUrl(infoData.url)) {
             const unsplashMatch = infoData.url.match(/photos\/([a-zA-Z0-9_-]+)/);
             if (unsplashMatch) {
                 const photoId = unsplashMatch[1];
                 const unsplashDownloadUrl = `https://unsplash.com/photos/${photoId}/download?force=true`;
-                
-                // Trigger direct download from Unsplash CDN (bypasses Picsum compression)
+
+                // Trigger direct download from Unsplash (bypasses Picsum compression)
                 const a = document.createElement("a");
                 a.href = unsplashDownloadUrl;
                 a.target = "_blank";
@@ -301,18 +295,16 @@ async function downloadWallpaper() {
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                return; // Exit as download is handled by Unsplash direct CDN link
+                return;
             }
         }
 
-        // 3. Fallback date-based name for local blobs or custom uploads without preserved names
-        if (!fileName) {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            fileName = `wallpaper-${year}-${month}-${day}.${extension}`;
-        }
+        // Fallback: date-based filename for blobs without Unsplash metadata
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const fileName = `wallpaper-${year}-${month}-${day}.${extension}`;
 
         // Create temporary link and trigger download for custom local uploads
         const url = URL.createObjectURL(blob);
