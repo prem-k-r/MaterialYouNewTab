@@ -159,12 +159,23 @@ function updateBackgroundType(bgType) {
     }
 }
 
+// Helper function to validate Unsplash URLs
+function isValidUnsplashUrl(urlStr) {
+    try {
+        if (!urlStr) return false;
+        const parsed = new URL(urlStr);
+        return parsed.protocol === "https:" && (parsed.hostname === "unsplash.com" || parsed.hostname.endsWith(".unsplash.com"));
+    } catch (e) {
+        return false;
+    }
+}
+
 // Function to show/hide the wallpaper source attribution link
 function updateWallpaperSourceUI(infoData) {
     const sourceContainer = document.getElementById("wallpaperSource");
     if (!sourceContainer) return;
 
-    if (infoData && infoData.author && infoData.url) {
+    if (infoData && infoData.author && isValidUnsplashUrl(infoData.url)) {
         const prefixElement = document.getElementById("wallpaperSourcePrefix");
         const linkElement = document.getElementById("wallpaperSourceLink");
         const photoByText = translations[currentLanguage]?.photoBy || translations["en"].photoBy || "Photo by";
@@ -276,7 +287,7 @@ async function downloadWallpaper() {
             fileName = blob.name;
         }
         // 2. If random wallpaper, trigger direct high-res uncompressed Unsplash download
-        else if (imageType === "random" && infoData && infoData.url) {
+        else if (imageType === "random" && infoData && isValidUnsplashUrl(infoData.url)) {
             const unsplashMatch = infoData.url.match(/photos\/([a-zA-Z0-9_-]+)/);
             if (unsplashMatch) {
                 const photoId = unsplashMatch[1];
