@@ -5738,6 +5738,10 @@ body[data-bg="wallpaper"] .dropdown-content {
 	border-radius: 12px;
 	pointer-events: auto;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	max-inline-size: min(250px, 45dvw);
+	display: inline-flex;
+	align-items: center;
+	white-space: nowrap;
 }
 
 #wallpaperSource:hover {
@@ -5754,6 +5758,12 @@ body[data-bg="wallpaper"] .dropdown-content {
 	text-decoration: underline;
 	font-weight: 500;
 	transition: color 0.3s ease;
+	display: inline-block;
+	max-inline-size: 150px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	vertical-align: bottom;
 }
 
 #wallpaperSource a:hover {
