@@ -210,7 +210,7 @@ const en = {
     "confirmWallpaper": "Would you like to set a new image as your wallpaper for the day?",
     "confirmRestore": "Are you sure you want to reset your settings? This action cannot be undone.",
     "Nobackgroundset": "No background image is currently set.",
-    "downloadOnlyRandomWallpaper": "This feature only works with a random wallpaper.",
+    "downloadOnlyRandomWallpaper": "This feature only works with {randomWallpaper}.",
     "clearbackgroundimage": "Are you sure you want to clear the background image?",
     "photoBy": "Photo by",
     "ProxyDisclaimer": "All proxy features are off by default.\n\nIf you enable search suggestions and CORS bypass proxy, it is strongly recommended to host your own proxy for enhanced privacy.\n\nBy default, the proxy will be set to https://mynt-proxy.rhythmcorehq.com, meaning all your data will go through this service, which may pose privacy concerns.",

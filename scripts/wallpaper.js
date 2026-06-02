@@ -265,7 +265,7 @@ async function downloadWallpaper() {
         if (!blob || imageType !== "random") {
             const randomText = translations[currentLanguage]?.randomWallpaperText || translations["en"].randomWallpaperText || "Random Wallpaper";
             const baseAlertMsg = translations[currentLanguage]?.downloadOnlyRandomWallpaper || translations["en"].downloadOnlyRandomWallpaper || "This feature only works with a random wallpaper.";
-            const alertMsg = baseAlertMsg.replace("a random wallpaper", randomText);
+            const alertMsg = baseAlertMsg.replace("{randomWallpaper}", randomText);
             await alertPrompt(alertMsg);
             return;
         }
