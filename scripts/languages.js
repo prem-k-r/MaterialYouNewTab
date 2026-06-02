@@ -332,6 +332,28 @@ function applyLanguage(lang) {
         menuCloseButton.setAttribute("data-lang", hoverText);
     }
 
+    // Update title/tooltip for #downloadWallpaper
+    const downloadBtn = document.getElementById("downloadWallpaper");
+    if (downloadBtn) {
+        const hoverText = translations[lang]?.downloadWallpaperText || translations["en"].downloadWallpaperText;
+        downloadBtn.setAttribute("title", hoverText);
+        downloadBtn.setAttribute("aria-label", hoverText);
+    }
+
+    // Update title/tooltip for #randomImageTrigger
+    const randomBtn = document.getElementById("randomImageTrigger");
+    if (randomBtn) {
+        const hoverText = translations[lang]?.randomWallpaperText || translations["en"].randomWallpaperText;
+        randomBtn.setAttribute("title", hoverText);
+    }
+
+    // Update title/tooltip for #clearImage
+    const clearBtn = document.getElementById("clearImage");
+    if (clearBtn) {
+        const hoverText = translations[lang]?.clearWallpaperText || translations["en"].clearWallpaperText;
+        clearBtn.setAttribute("title", hoverText);
+    }
+
     // Update the width of the menu container based on the language
     const menuCont = document.querySelector(".menuBar .menuCont");
     if (menuCont) {

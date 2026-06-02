@@ -170,6 +170,9 @@ const ar_SA = {
 
     // Wallpaper and settings
     uploadWallpaperText: "تحميل خلفية",
+    downloadWallpaperText: "",
+    randomWallpaperText: "",
+    clearWallpaperText: "",
     rangColor: "اختر لوناً",
     backupText: "نسخ احتياطي",
     restoreText: "استعادة",
@@ -213,8 +216,10 @@ const ar_SA = {
     confirmRestore:
         "هل أنت متأكد أنك تريد إعادة تعيين إعداداتك؟ لا يمكن التراجع عن هذا الإجراء.",
     Nobackgroundset: "لا توجد خلفية معينة حاليًا.",
+    downloadOnlyRandomWallpaper: "",
     clearbackgroundimage:
         "هل أنت متأكد أنك تريد مسح صورة الخلفية؟",
+    photoBy: "",
     ProxyDisclaimer:
         "جميع ميزات الوكيل متوقفة عن التشغيل افتراضياً.\n\nإذا قمت بتمكين اقتراحات البحث ووكيل تجاوز CORS، فمن المستحسن بشدة استضافة وكيلك الخاص لزيادة الخصوصية.\n\nبشكل افتراضي، يتم تعيين الوكيل على https://mynt-proxy.rhythmcorehq.com، مما يعني أن جميع بياناتك ستمر عبر هذه الخدمة، مما قد يثير مخاوف تتعلق بالخصوصية.",
     GPSDisclaimer:

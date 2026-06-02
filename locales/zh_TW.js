@@ -154,6 +154,9 @@ const zh_TW = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "上傳桌布",
+    "downloadWallpaperText": "",
+    "randomWallpaperText": "",
+    "clearWallpaperText": "",
     "rangColor": "選擇顏色",
     "backupText": "備份",
     "restoreText": "還原",
@@ -183,7 +186,9 @@ const zh_TW = {
     "confirmWallpaper": "您想要將新的影像設定為今日的桌布嗎？",
     "confirmRestore": "您確定要重設設定嗎？此動作無法恢復。",
     "Nobackgroundset": "目前尚未設定背景圖片。",
+    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "確定要清除背景圖片嗎？",
+    "photoBy": "",
     "ProxyDisclaimer": "所有代理功能預設為關閉。\n\n如果啟用搜尋建議和 CORS 繞過代理，強烈建議自行代管代理伺服器以提升隱私。\n\n預設情況下，代理會設定為 https://mynt-proxy.rhythmcorehq.com，這表示您的所有資料都會通過此服務，可能會出現隱私疑慮。",
     "GPSDisclaimer": "您的位置資料僅用於提供準確的天氣更新。資料會暫時儲存在瀏覽器內，不會與任何第三方共享或供我們存取。\n\n啟用 GPS 即表示您同意與擴充功能共享您的位置資料。",
     "failedbackup": "備份失敗：",

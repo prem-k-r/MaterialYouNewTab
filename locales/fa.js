@@ -169,6 +169,9 @@ const fa = {
 
     // Wallpaper and settings
     uploadWallpaperText: "آپلود تصویر زمینه",
+    downloadWallpaperText: "",
+    randomWallpaperText: "",
+    clearWallpaperText: "",
     rangColor: "انتخاب رنگ",
     opacityTitle: "شفافیت",
     adjustOpacityDesc: "تنظیم شفافیت رابط کاربری",
@@ -208,8 +211,10 @@ const fa = {
     confirmRestore:
         "آیا مطمئن هستید که می‌خواهید تنظیمات خود را بازنشانی کنید؟ این عمل قابل بازگشت نیست.",
     Nobackgroundset: "در حال حاضر هیچ تصویر پس‌زمینه‌ای تنظیم نشده است.",
+    downloadOnlyRandomWallpaper: "",
     clearbackgroundimage:
         "آیا مطمئن هستید که می‌خواهید تصویر پس‌زمینه را پاک کنید؟",
+    photoBy: "",
     ProxyDisclaimer:
         "تمام ویژگی‌های پروکسی به طور پیش‌فرض خاموش هستند.\n\nاگر پیشنهادات جستجو و پروکسی دور زدن CORS را فعال کنید، به شدت توصیه می‌شود برای افزایش حریم خصوصی، پروکسی شخصی خود را میزبانی کنید.\n\nبه طور پیش‌فرض، پروکسی روی https://mynt-proxy.rhythmcorehq.com تنظیم می‌شود، به این معنی که تمام داده‌های شما از طریق این سرویس عبور می‌کند، که ممکن است نگرانی‌های مربوط به حریم خصوصی را ایجاد کند.",
     GPSDisclaimer:

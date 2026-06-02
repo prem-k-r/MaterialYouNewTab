@@ -168,6 +168,9 @@ const hu = {
 
   // Wallpaper and misc
   "uploadWallpaperText": "Háttérkép feltöltése",
+    "downloadWallpaperText": "",
+    "randomWallpaperText": "",
+    "clearWallpaperText": "",
   "rangColor": "Szín kiválasztása",
   "opacityTitle": "Homályosság",
   "adjustOpacityDesc": "Homályosság beállítása",
@@ -203,7 +206,9 @@ const hu = {
   "confirmWallpaper": "Szeretne egy újabb képet beállítani a napi háttérképének?",
   "confirmRestore": "Biztos, hogy vissza akarja állítani a beállításokat? Ezt a műveletet nem lehet visszacsinálni.",
   "Nobackgroundset": "Jelenleg nincs beállítva háttérkép.",
+    "downloadOnlyRandomWallpaper": "",
   "clearbackgroundimage": "Biztos, hogy törölni szeretné a háttérképet?",
+    "photoBy": "",
   "ProxyDisclaimer": "Alapértelmezés szerint minden proxy funkció ki van kapcsolva.\n\nHa engedélyezi a keresési javaslatokat és a CORS megkerülő proxy-t, erősen ajánlott saját proxy-t üzemeltetni a fokozott adatvédelem érdekében.\n\n\nA proxy alapértelmezés szerint a https://mynt-proxy.rhythmcorehq.com beállítással működik, ami azt jelenti, hogy minden adat ezen a szolgáltatáson keresztül fog átmenni, ami adatvédelmi aggályokat vethet fel.",
   "GPSDisclaimer": "A helyadataid kizárólag a pontos időjárás-előrejelzés biztosítására szolgálnak. Ezeket a böngésző ideiglenesen tárolja, és semmilyen harmadik fél szolgáltatással nem osztjuk meg, illetve számunkra sem hozzáférhetőek.\n\nA GPS engedélyezésével hozzájárulsz ahhoz, hogy a helyadataidat lokálisan, a bővítménnyel megoszd.",
   "failedbackup": "Sikertelen mentés: ",

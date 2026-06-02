@@ -147,6 +147,9 @@ const it = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "Carica immagine",
+    "downloadWallpaperText": "",
+    "randomWallpaperText": "",
+    "clearWallpaperText": "",
     "backupText": "Backup",
     "restoreText": "Ripristina",
     "rangColor": "Scegli colore",
@@ -176,7 +179,9 @@ const it = {
     "confirmWallpaper": "Vuoi impostare una nuova immagine come sfondo per oggi?",
     "confirmRestore": "Sei sicuro di voler reimpostare le impostazioni? Questa azione non può essere annullata.",
     "Nobackgroundset": "Nessuna immagine di sfondo è attualmente impostata.",
+    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "Sei sicuro di voler rimuovere l'immagine di sfondo?",
+    "photoBy": "",
     "ProxyDisclaimer": "Tutte le funzionalità del proxy sono disattivate di default.\n\nSe abiliti i suggerimenti di ricerca e il proxy per il bypass CORS, è fortemente consigliato usare un proprio proxy per una maggiore privacy.\n\nIl proxy predefinito sarà configurato su https://mynt-proxy.rhythmcorehq.com, il che significa che tutti i tuoi dati passeranno attraverso questo servizio, con possibili rischi per la privacy.",
     "GPSDisclaimer": "I dati sulla tua posizione vengono utilizzati esclusivamente per fornire aggiornamenti meteo accurati. Sono temporaneamente memorizzati all'interno del browser e non vengono condivisi con servizi di terze parti né sono accessibili da noi.\n\nAbilitando il GPS, acconsenti alla condivisione della tua posizione con l'estensione a livello locale.",
     "failedbackup": "Backup fallito: ",

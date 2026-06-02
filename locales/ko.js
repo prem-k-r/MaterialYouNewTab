@@ -154,6 +154,9 @@ const ko = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "배경화면 업로드",
+    "downloadWallpaperText": "",
+    "randomWallpaperText": "",
+    "clearWallpaperText": "",
     "rangColor": "색상 선택",
     "opacityTitle": "투명도",
     "adjustOpacityDesc": "인터페이스 투명도 조절",
@@ -185,7 +188,9 @@ const ko = {
     "confirmWallpaper": "이 이미지를 오늘의 배경화면으로 설정할까요?",
     "confirmRestore": "정말 설정을 초기화할까요? 이 작업은 되돌릴 수 없어요.",
     "Nobackgroundset": "현재 설정된 배경 이미지가 없어요.",
+    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "배경 이미지를 지울까요?",
+    "photoBy": "",
     "ProxyDisclaimer": "모든 프록시 기능은 기본적으로 꺼져 있어요.\n\n검색 제안과 CORS 우회 프록시를 켜려면, 개인정보 보호를 위해 직접 프록시를 호스팅하는 걸 강력히 권장해요.\n\n기본 설정으로는 https://mynt-proxy.rhythmcorehq.com 프록시를 사용하는데, 이 경우 모든 데이터가 이 서비스를 거치게 돼서 개인정보 문제가 생길 수 있어요.",
     "GPSDisclaimer": "위치 데이터는 정확한 날씨를 보여주기 위해서만 사용돼요. 브라우저 안에만 임시로 저장되며, 다른 서비스와 공유되지 않고 저희도 볼 수 없어요.\n\nGPS를 켜면 확장 프로그램 내에서만 위치 정보를 공유하는 것에 동의하는 거예요.",
     "failedbackup": "백업 실패: ",

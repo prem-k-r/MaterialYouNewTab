@@ -161,6 +161,9 @@ const sv = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Ladda upp bakgrund",
+    "downloadWallpaperText": "",
+    "randomWallpaperText": "",
+    "clearWallpaperText": "",
     "rangColor": "Välj färg",
     "opacityTitle": "Opacitet",
     "adjustOpacityDesc": "Justera gränssnittets transparens",
@@ -186,5 +189,7 @@ const sv = {
     "yesText": "Ja",
     "noText": "Nej",
     "agreeText": "Jag godkänner",
-    "cancelText": "Avbryt"
+    "cancelText": "Avbryt",
+    "downloadOnlyRandomWallpaper": "",
+    "photoBy": ""
 };

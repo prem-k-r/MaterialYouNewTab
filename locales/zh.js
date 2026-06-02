@@ -154,6 +154,9 @@ const zh = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "上传壁纸",
+    "downloadWallpaperText": "",
+    "randomWallpaperText": "",
+    "clearWallpaperText": "",
     "rangColor": "选择颜色",
     "opacityTitle": "透明度",
     "adjustOpacityDesc": "调整界面透明度",
@@ -183,7 +186,9 @@ const zh = {
     "confirmWallpaper": "要将此图片设为今日壁纸吗？",
     "confirmRestore": "确定要重置设置吗？此操作不可撤销",
     "Nobackgroundset": "当前未设置背景图片",
+    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "确定要清除背景图片吗？",
+    "photoBy": "",
     "ProxyDisclaimer": "所有代理功能默认关闭\n\n启用搜索建议和CORS代理时，建议自建代理以保护隐私\n\n默认代理为 https://mynt-proxy.rhythmcorehq.com，您的数据将经过该服务",
     "GPSDisclaimer": "位置数据仅用于天气功能\n临时存储在浏览器中，不会共享给第三方\n启用GPS即表示同意本地位置共享",
     "failedbackup": "备份失败：",

@@ -173,6 +173,9 @@ const cs = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Nahrát tapetu",
+    "downloadWallpaperText": "",
+    "randomWallpaperText": "",
+    "clearWallpaperText": "",
     "rangColor": "Vybrat barvu",
     "opacityTitle": "Průhlednost",
     "adjustOpacityDesc": "Upraví průhlednost uživatelského rozhraní",
@@ -208,7 +211,9 @@ const cs = {
     "confirmWallpaper": "Přejete si nastavit nový obrázek jako denní tapetu?",
     "confirmRestore": "Opravdu si přejete resetovat nastavení? Tuto akci nelze zvrátit.",
     "Nobackgroundset": "Aktuálně nemáte nastavený žádný obrázek na pozadí.",
+    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "Opravdu si přejete smazat obrázek na pozadí?",
+    "photoBy": "",
     "ProxyDisclaimer": "Všechny funkce proxy jsou ve výchozím nastavení vypnuté.\n\nPokud zapnete našeptávání ve vyhledávání s proxy pro obcházení CORS, pro lepší zabezpečení vám důrazně doporučujeme hostovat si vlastní proxy.\n\nVe výchozím nastavení je proxy nastavena na https://mynt-proxy.rhythmcorehq.com, což znamená, že všechna vaše data procházejí skrz tuto službu. To může vyvolat obavy o soukromí.",
     "GPSDisclaimer": "Data o poloze jsou využívána pouze pro poskytování odpovídajících aktualizací počasí. Jsou dočasně uložena v prohlížeči, přičemž nejsou ani sdílena se třetími stanami, ani přístupná pro nás.\n\nPovolením GPS souhlasíte s tím, že bude poloha lokálně využita tímto rozšířením.",
     "failedbackup": "Zálohování selhalo: ",
