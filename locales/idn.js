@@ -172,6 +172,9 @@ const idn = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Unggah Wallpaper",
+    "downloadWallpaperText": "",
+    "randomWallpaperText": "",
+    "clearWallpaperText": "",
     "rangColor": "Pilih warna",
     "opacityTitle": "Opasitas",
     "adjustOpacityDesc": "Mengatur transparansi antarmuka",
@@ -207,7 +210,9 @@ const idn = {
     "confirmWallpaper": "Apakah Anda ingin memasang gambar baru sebagai wallpaper harian Anda?",
     "confirmRestore": "Apakah Anda yakin ingin mengatur ulang setelan Anda? Tindakan ini tidak dapat dibatalkan.",
     "Nobackgroundset": "Tidak ada gambar latar belakang yang dipasang saat ini.",
+    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "Apakah Anda yakin ingin menghapus gambar latar belakang?",
+    "photoBy": "",
     "ProxyDisclaimer": "Semua fitur proxy dimatikan secara default.\n\nJika Anda mengaktifkan saran pencarian dan bypass proksi CORS, sangat disarankan untuk host proksi Anda sendiri untuk privasi yang lebih baik.\n\nSecara default, proksi akan disetel ke https://mynt-proxy.rhythmcorehq.com, yang berarti semua data Anda akan melewati layanan ini, yang mungkin saja dapat menimbulkan kekhawatiran privasi.",
     "GPSDisclaimer": "Data lokasi Anda digunakan hanya sebatas untuk memberikan pembaruan cuaca yang akurat. Ini tersimpan sementara pada browser dan tidak juga dibagikan pada layanan pihak ketiga apapun dan juga tidak dapat diakses oleh Kami.\n\nDengan mengaktifkan GPS, Anda setuju untuk membagikan lokasi Anda dengan ekstensi ini secara lokal.",
     "failedbackup": "Pencadangan gagal: ",

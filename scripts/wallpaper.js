@@ -16,12 +16,14 @@ const imageTypeKey = "imageType"; // Key to store the type of image ("random" or
 let currentBgUrl = null;
 
 // To set background image using a Blob
-function setBackground(blob) {
+function setBackground(blob, bgType) {
     const previousUrl = currentBgUrl;
     const newUrl = URL.createObjectURL(blob);
     currentBgUrl = newUrl;
     document.body.style.setProperty("--bg-image", `url(${newUrl})`);
-    toggleBackgroundType(true);
+    if (bgType) {
+        updateBackgroundType(bgType);
+    }
     if (previousUrl) {
         URL.revokeObjectURL(previousUrl);
     }
@@ -41,7 +43,7 @@ function openDatabase() {
 }
 
 // Save image Blob, timestamp, and type to IndexedDB
-async function saveImageToIndexedDB(imageBlob, isRandom) {
+async function saveImageToIndexedDB(imageBlob, isRandom, infoData = null) {
     const db = await openDatabase();
     return new Promise((resolve, reject) => {
         const transaction = db.transaction(storeName, "readwrite");
@@ -50,6 +52,11 @@ async function saveImageToIndexedDB(imageBlob, isRandom) {
         store.put(imageBlob, "backgroundImage");
         store.put(new Date().toISOString(), timestampKey);
         store.put(isRandom ? "random" : "upload", imageTypeKey);
+        if (infoData) {
+            store.put(infoData, "imageInfo");
+        } else {
+            store.delete("imageInfo");
+        }
 
         transaction.oncomplete = () => resolve();
         transaction.onerror = (event) => reject("Transaction error: " + event.target.errorCode);
@@ -62,7 +69,8 @@ async function loadImageAndDetails() {
     return Promise.all([
         getFromStore(db, "backgroundImage"),
         getFromStore(db, timestampKey),
-        getFromStore(db, imageTypeKey)
+        getFromStore(db, imageTypeKey),
+        getFromStore(db, "imageInfo")
     ]);
 }
 
@@ -86,6 +94,7 @@ async function clearImageFromIndexedDB() {
         store.delete("backgroundImage");
         store.delete(timestampKey);
         store.delete(imageTypeKey);
+        store.delete("imageInfo");
 
         transaction.oncomplete = () => resolve();
         transaction.onerror = (event) => reject("Delete error: " + event.target.errorCode);
@@ -97,7 +106,10 @@ document.getElementById("imageUpload").addEventListener("change", function (even
     const file = event.target.files[0];
     if (file) {
         saveImageToIndexedDB(file, false)
-            .then(() => setBackground(file))
+            .then(() => {
+                setBackground(file, "upload");
+                updateWallpaperSourceUI(null);
+            })
             .catch(error => console.error(error));
     }
 });
@@ -114,45 +126,84 @@ async function applyRandomImage(showConfirmation = true) {
     try {
         const response = await fetch(RANDOM_IMAGE_URL);
         const blob = await response.blob();
-        await saveImageToIndexedDB(blob, true);
-        setBackground(blob);
+
+        let infoData = null;
+        try {
+            const redirectedUrl = response.url;
+            const match = redirectedUrl.match(/\/id\/(\d+)\//);
+            if (match) {
+                const photoId = match[1];
+                const infoResponse = await fetch(`https://picsum.photos/id/${photoId}/info`);
+                infoData = await infoResponse.json();
+            }
+        } catch (infoError) {
+            console.error("Error fetching wallpaper metadata:", infoError);
+        }
+
+        await saveImageToIndexedDB(blob, true, infoData);
+        setBackground(blob, "random");
+        updateWallpaperSourceUI(infoData);
     } catch (error) {
         console.error("Error fetching random image:", error);
     }
 }
 
-// Function to update the background type attribute
-function toggleBackgroundType(hasWallpaper) {
-    document.body.setAttribute("data-bg", hasWallpaper ? "wallpaper" : "color");
+// Function to update the background type attributes
+function updateBackgroundType(bgType) {
+    document.body.setAttribute("data-bg", bgType === "color" ? "color" : "wallpaper");
+    document.body.setAttribute("data-bg-type", bgType);
+}
+
+// Function to show/hide the wallpaper source attribution link
+function updateWallpaperSourceUI(infoData) {
+    const sourceContainer = document.getElementById("wallpaperSource");
+    if (!sourceContainer) return;
+
+    if (infoData && infoData.author && infoData.url) {
+        const prefixElement = document.getElementById("wallpaperSourcePrefix");
+        const linkElement = document.getElementById("wallpaperSourceLink");
+        const photoByText = translations[currentLanguage]?.photoBy || translations["en"].photoBy || "Photo by";
+
+        prefixElement.textContent = `${photoByText} `;
+        linkElement.textContent = infoData.author;
+        linkElement.href = infoData.url;
+        sourceContainer.style.display = "block";
+    } else {
+        sourceContainer.style.display = "none";
+    }
 }
 
 // Check and update image on page load
 function checkAndUpdateImage() {
     loadImageAndDetails()
-        .then(([blob, savedTimestamp, imageType]) => {
+        .then(([blob, savedTimestamp, imageType, infoData]) => {
             const now = new Date();
             const lastUpdate = new Date(savedTimestamp);
 
             if (!blob || !savedTimestamp || isNaN(lastUpdate)) {
-                toggleBackgroundType(false);
+                updateBackgroundType("color");
+                updateWallpaperSourceUI(null);
                 return;
             }
 
             if (imageType === "upload") {
-                setBackground(blob);
+                setBackground(blob, "upload");
+                updateWallpaperSourceUI(null);
                 return;
             }
 
             if (lastUpdate.toDateString() !== now.toDateString()) {
                 applyRandomImage(false);
             } else {
-                setBackground(blob);
+                setBackground(blob, "random");
+                updateWallpaperSourceUI(infoData);
             }
 
         })
         .catch((error) => {
             console.error("Error loading image details:", error);
-            toggleBackgroundType(false);
+            updateBackgroundType("color");
+            updateWallpaperSourceUI(null);
         });
 }
 
@@ -178,7 +229,8 @@ document.getElementById("clearImage").addEventListener("click", async function (
                     currentBgUrl = null;
                 }
                 document.body.style.removeProperty("--bg-image");
-                toggleBackgroundType(false);
+                updateBackgroundType("color");
+                updateWallpaperSourceUI(null);
             } catch (error) {
                 console.error(error);
             }
@@ -189,6 +241,77 @@ document.getElementById("clearImage").addEventListener("click", async function (
 });
 
 document.getElementById("randomImageTrigger").addEventListener("click", applyRandomImage);
+
+// Function to download the current background image
+async function downloadWallpaper() {
+    try {
+        const [blob, savedTimestamp, imageType, infoData] = await loadImageAndDetails();
+        if (!blob || imageType !== "random") {
+            const randomText = translations[currentLanguage]?.randomWallpaperText || translations["en"].randomWallpaperText || "Random Wallpaper";
+            const baseAlertMsg = translations[currentLanguage]?.downloadOnlyRandomWallpaper || translations["en"].downloadOnlyRandomWallpaper || "This feature only works with a random wallpaper.";
+            const alertMsg = baseAlertMsg.replace("a random wallpaper", randomText);
+            await alertPrompt(alertMsg);
+            return;
+        }
+
+        // Get extension based on blob type (default to jpg)
+        let extension = "jpg";
+        if (blob.type === "image/png") {
+            extension = "png";
+        } else if (blob.type === "image/webp") {
+            extension = "webp";
+        } else if (blob.type === "image/gif") {
+            extension = "gif";
+        }
+
+        let fileName = "";
+
+        // 1. If custom uploaded, preserve its original name if stored
+        if (imageType === "upload" && blob.name) {
+            fileName = blob.name;
+        }
+        // 2. If random wallpaper, trigger direct high-res uncompressed Unsplash download
+        else if (imageType === "random" && infoData && infoData.url) {
+            const unsplashMatch = infoData.url.match(/photos\/([a-zA-Z0-9_-]+)/);
+            if (unsplashMatch) {
+                const photoId = unsplashMatch[1];
+                const unsplashDownloadUrl = `https://unsplash.com/photos/${photoId}/download?force=true`;
+                
+                // Trigger direct download from Unsplash CDN (bypasses Picsum compression)
+                const a = document.createElement("a");
+                a.href = unsplashDownloadUrl;
+                a.target = "_blank";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                return; // Exit as download is handled by Unsplash direct CDN link
+            }
+        }
+
+        // 3. Fallback date-based name for local blobs or custom uploads without preserved names
+        if (!fileName) {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            fileName = `wallpaper-${year}-${month}-${day}.${extension}`;
+        }
+
+        // Create temporary link and trigger download for custom local uploads
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error("Error downloading wallpaper:", error);
+    }
+}
+
+document.getElementById("downloadWallpaper").addEventListener("click", downloadWallpaper);
 
 // Start image check on page load
 checkAndUpdateImage();

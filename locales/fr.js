@@ -169,6 +169,9 @@ const fr = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "Charger un fond d'écran",
+    "downloadWallpaperText": "",
+    "randomWallpaperText": "",
+    "clearWallpaperText": "",
     "backupText": "Sauvegarder",
     "restoreText": "Restaurer",
     "rangColor": "Choisir la couleur",
@@ -202,7 +205,9 @@ const fr = {
     "confirmWallpaper": "Souhaitez-vous définir une nouvelle image comme fond d'écran pour la journée?",
     "confirmRestore": "Êtes-vous sûr de vouloir réinitialiser vos paramètres? Cette action ne peut être annulée.",
     "Nobackgroundset": "Aucune image de fond n'est actuellement définie.",
+    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "Êtes-vous sûr de vouloir effacer l'image de fond?",
+    "photoBy": "",
     "ProxyDisclaimer": "Toutes les fonctions du proxy sont désactivées par défaut.\n\nSi vous activez les suggestions de recherche et le proxy de contournement CORS, il est fortement recommandé d'héberger votre propre proxy pour une meilleure confidentialité.\n\nPar défaut, le proxy sera réglé sur https://mynt-proxy.rhythmcorehq.com, ce qui signifie que toutes vos données passeront par ce service, ce qui peut poser des problèmes de confidentialité.",
     "GPSDisclaimer": "Vos données de localisation sont utilisées uniquement pour fournir des mises à jour météorologiques précises. Elles sont stockées temporairement dans le navigateur et ne sont ni partagées avec des services tiers, ni accessibles à nous.\n\nEn activant le GPS, vous consentez à partager localement votre localisation avec l'extension.",
     "failedbackup": "Échec de la sauvegarde: ",

@@ -118,6 +118,9 @@ const vi = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "Tải hình nền",
+    "downloadWallpaperText": "",
+    "randomWallpaperText": "",
+    "clearWallpaperText": "",
     "backupText": "Sao lưu",
     "restoreText": "Khôi phục",
     "rangColor": "Chọn màu",
@@ -126,7 +129,9 @@ const vi = {
     "confirmWallpaper": "Bạn có muốn đặt một hình ảnh mới làm hình nền cho ngày không?",
     "confirmRestore": "Bạn có chắc chắn muốn đặt lại cài đặt của mình không? Hành động này không thể hoàn tác.",
     "Nobackgroundset": "Hiện tại chưa có hình nền nào được thiết lập.",
+    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "Bạn có chắc chắn muốn xóa hình nền không?",
+    "photoBy": "",
     "ProxyDisclaimer": "Theo mặc định, mọi tính năng của proxy đều bị tắt.\n\nNếu bạn bật gợi ý tìm kiếm và bỏ qua proxy CORS, chúng tôi khuyên bạn nên lưu trữ proxy riêng để tăng cường quyền riêng tư.\n\nTheo mặc định, proxy sẽ được đặt thành https://mynt-proxy.rhythmcorehq.com, nghĩa là mọi dữ liệu của bạn sẽ đi qua dịch vụ này, điều này có thể gây ra lo ngại về quyền riêng tư.",
     "failedbackup": "Sao lưu không thành công: ",
     "restorecompleted": "Đã khôi phục thành công!",

@@ -20,9 +20,13 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
 - Added support for custom shortcut icons via upload, URL, or pasted SVG ([@smurf11k](https://github.com/smurf11k)), ([@prem-k-r](https://github.com/prem-k-r)) ([#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/)), ([#199](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/))
 - Added Daily Quote option to show one quote per day instead of refreshing on every new tab ([@KomeshBathula](https://github.com/KomeshBathula)) ([#141](https://github.com/prem-k-r/MaterialYouNewTab/pull/141))
+- Added a "Download Wallpaper" button that supports saving the randomly-selected Unsplash wallpaper (high-resolution, uncompressed from Unsplash CDN)
+- Added a sleek glassmorphic attribution pill at the bottom-right corner (next to the menu button) referencing the photographer and linking to the source Unsplash page of the active random wallpaper
+- Added localized hover tooltips to settings control buttons (Random Wallpaper, Clear Wallpaper, and Download Wallpaper)
 
 ### Improved
 
+- Restricted wallpaper downloading to random wallpapers only, dynamically graying out the download button and triggering an informative localized popup when non-random modes are active
 - Introduced collapsible sections in the settings menu for improved organization and easier navigation ([@prem-k-r](https://github.com/prem-k-r)) ([#109](https://github.com/prem-k-r/MaterialYouNewTab/pull/109))
 - Redesigned the theme selector from dropdown to buttons for easier switching between Light, Dark, and System modes ([@prem-k-r](https://github.com/prem-k-r)) ([#112](https://github.com/prem-k-r/MaterialYouNewTab/pull/112))
 - Added expanding animations to todo and Google apps panels and some other minor UI changes ([@prem-k-r](https://github.com/prem-k-r)) ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
