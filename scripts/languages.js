@@ -337,6 +337,7 @@ function applyLanguage(lang) {
     if (downloadBtn) {
         const hoverText = translations[lang]?.downloadWallpaperText || translations["en"].downloadWallpaperText;
         downloadBtn.setAttribute("title", hoverText);
+        downloadBtn.setAttribute("aria-label", hoverText);
     }
 
     // Update title/tooltip for #randomImageTrigger

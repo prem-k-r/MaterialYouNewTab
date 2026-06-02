@@ -152,6 +152,11 @@ async function applyRandomImage(showConfirmation = true) {
 function updateBackgroundType(bgType) {
     document.body.setAttribute("data-bg", bgType === "color" ? "color" : "wallpaper");
     document.body.setAttribute("data-bg-type", bgType);
+    
+    const downloadBtn = document.getElementById("downloadWallpaper");
+    if (downloadBtn) {
+        downloadBtn.setAttribute("aria-disabled", bgType === "random" ? "false" : "true");
+    }
 }
 
 // Function to show/hide the wallpaper source attribution link
