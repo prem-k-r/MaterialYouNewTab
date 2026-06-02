@@ -4141,7 +4141,8 @@ option:checked {
 		color 0.3s;
 }
 
-.randomButton {
+.randomButton,
+.downloadButton {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -4174,13 +4175,15 @@ option:checked {
 
 /* Hover Effects */
 .uploadButton:hover,
-.randomButton:hover {
+.randomButton:hover,
+.downloadButton:hover {
 	background-color: var(--darkColor-blue);
 	color: var(--whitishColor-blue);
 }
 
 .uploadButton:active,
-.randomButton:active {
+.randomButton:active,
+.downloadButton:active {
 	background-color: var(--darkerColor-blue);
 }
 
@@ -5114,7 +5117,8 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme .uploadButton,
-.black-theme .randomButton {
+.black-theme .randomButton,
+.black-theme .downloadButton {
 	background-color: var(--darkColor-blue);
 	color: var(--whitishColor-dark);
 }
@@ -5139,12 +5143,14 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme .backupRestoreBtn:hover,
 .black-theme .uploadButton:hover,
 .black-theme .randomButton:hover,
+.black-theme .downloadButton:hover,
 .black-theme #todoAdd:hover {
 	background-color: var(--bg-color-dark);
 }
 
 .black-theme .uploadButton:active,
 .black-theme .randomButton:active,
+.black-theme .downloadButton:active,
 .black-theme .backupRestoreBtn:active,
 .black-theme .resetbtn:active {
 	background-color: #0e0e0e;
@@ -5711,7 +5717,105 @@ body[data-bg="wallpaper"] .dropdown-content {
 	opacity: 0.85;
 }
 
+/* Wallpaper Source Attribution Pill */
+#wallpaperSource {
+	position: fixed;
+	inset-inline-end: calc(var(--gap) + 60px);
+	bottom: calc(var(--gap) + 7px);
+	font-size: 0.78rem;
+	z-index: 10;
+	opacity: 0.7;
+	transition: opacity 0.3s ease, background-color 0.3s ease;
+	background: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 40%,
+		rgba(255, 255, 255, 0.4)
+	);
+	color: var(--darkColor-blue);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	padding: 6px 12px;
+	border-radius: 12px;
+	pointer-events: auto;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	max-inline-size: min(250px, 45dvw);
+	display: inline-flex;
+	align-items: center;
+	white-space: nowrap;
+}
+
+#wallpaperSource:hover {
+	opacity: 1;
+	background: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 60%,
+		rgba(255, 255, 255, 0.6)
+	);
+}
+
+#wallpaperSource a {
+	color: inherit;
+	text-decoration: underline;
+	font-weight: 500;
+	transition: color 0.3s ease;
+	display: inline-block;
+	max-inline-size: 150px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	vertical-align: bottom;
+}
+
+#wallpaperSource a:hover {
+	color: var(--darkerColor-blue);
+}
+
+/* Hide when color mode is active */
+body[data-bg="color"] #wallpaperSource {
+	display: none !important;
+}
+
+/* Black theme override */
+.black-theme #wallpaperSource {
+	background: rgba(30, 30, 30, 0.6);
+	color: var(--whitishColor-dark);
+}
+
+.black-theme #wallpaperSource:hover {
+	background: rgba(30, 30, 30, 0.8);
+}
+
 .black-theme .toast-close svg {
 	color: var(--darkColor-dark);
 }
 /* ------------ End of Toast---------- */
+
+/* Disabled style for the download button when not using a random wallpaper */
+body:not([data-bg-type="random"]) .downloadButton {
+	opacity: 0.4;
+	cursor: not-allowed;
+	pointer-events: auto; /* Allow click so Javascript event handler can show the alert prompt explaining why it's disabled! */
+}
+
+/* Prevent color shifts on hover/active when download button is disabled */
+body:not([data-bg-type="random"]) .downloadButton:hover {
+	background-color: var(--whitishColor-blue) !important;
+	color: var(--darkColor-blue) !important;
+}
+
+body:not([data-bg-type="random"]) .downloadButton:active {
+	background-color: var(--whitishColor-blue) !important;
+	color: var(--darkColor-blue) !important;
+}
+
+/* Black theme disabled overrides */
+.black-theme body:not([data-bg-type="random"]) .downloadButton:hover {
+	background-color: var(--darkColor-blue) !important;
+	color: var(--whitishColor-dark) !important;
+}
+
+.black-theme body:not([data-bg-type="random"]) .downloadButton:active {
+	background-color: var(--darkColor-blue) !important;
+	color: var(--whitishColor-dark) !important;
+}
+
