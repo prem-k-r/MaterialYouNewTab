@@ -168,9 +168,6 @@ const hu = {
 
   // Wallpaper and misc
   "uploadWallpaperText": "Háttérkép feltöltése",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
   "rangColor": "Szín kiválasztása",
   "opacityTitle": "Homályosság",
   "adjustOpacityDesc": "Homályosság beállítása",

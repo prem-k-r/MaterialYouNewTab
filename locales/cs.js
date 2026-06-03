@@ -173,9 +173,6 @@ const cs = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Nahrát tapetu",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "Vybrat barvu",
     "opacityTitle": "Průhlednost",
     "adjustOpacityDesc": "Upraví průhlednost uživatelského rozhraní",

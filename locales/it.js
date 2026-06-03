@@ -147,9 +147,6 @@ const it = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "Carica immagine",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "backupText": "Backup",
     "restoreText": "Ripristina",
     "rangColor": "Scegli colore",

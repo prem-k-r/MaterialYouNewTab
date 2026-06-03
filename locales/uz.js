@@ -164,9 +164,6 @@ const uz = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Fon rasmini yuklash",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "Rang tanlang",
     "opacityTitle": "Shaffoflik",
     "adjustOpacityDesc": "Interfeys shaffofligini sozlash",

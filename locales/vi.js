@@ -118,9 +118,6 @@ const vi = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "Tải hình nền",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "backupText": "Sao lưu",
     "restoreText": "Khôi phục",
     "rangColor": "Chọn màu",

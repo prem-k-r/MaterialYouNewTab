@@ -172,9 +172,6 @@ const ja = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "壁紙をアップロード",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "色を選択",
     "opacityTitle": "不透明度",
     "adjustOpacityDesc": "インターフェースの透明度を調整",

@@ -154,9 +154,6 @@ const zh_TW = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "上傳桌布",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "選擇顏色",
     "backupText": "備份",
     "restoreText": "還原",

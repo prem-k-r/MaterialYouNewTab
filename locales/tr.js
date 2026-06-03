@@ -125,9 +125,6 @@ const tr = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "Duvar Kağıdı Yükle",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "backupText": "Yedekleme",
     "restoreText": "Kurtarma",
     "rangColor": "Renk seç",

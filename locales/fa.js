@@ -169,9 +169,6 @@ const fa = {
 
     // Wallpaper and settings
     uploadWallpaperText: "آپلود تصویر زمینه",
-    downloadWallpaperText: "",
-    randomWallpaperText: "",
-    clearWallpaperText: "",
     rangColor: "انتخاب رنگ",
     opacityTitle: "شفافیت",
     adjustOpacityDesc: "تنظیم شفافیت رابط کاربری",

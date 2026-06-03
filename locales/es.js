@@ -163,9 +163,6 @@ const es = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Subir Wallpaper",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "Elegir color",
     "opacityTitle": "Opacidad",
     "adjustOpacityDesc": "Ajustar transparencia de interfaz",

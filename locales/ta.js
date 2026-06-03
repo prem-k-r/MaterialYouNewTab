@@ -154,9 +154,6 @@ const ta = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "பின்படத்தை பதிவேற்று",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "நிறம் எடு",
     "opacityTitle": "ஒளிபுகாநிலை",
     "adjustOpacityDesc": "இடைமுக வெளிப்படைத்தன்மையை சரிசெய்",

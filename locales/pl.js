@@ -154,9 +154,6 @@ const pl = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Prześlij tapetę",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "Wybierz kolor",
     "opacityTitle": "Przezroczystość",
     "adjustOpacityDesc": "Dostosuj przezroczystość interfejsu",

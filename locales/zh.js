@@ -154,9 +154,6 @@ const zh = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "上传壁纸",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "选择颜色",
     "opacityTitle": "透明度",
     "adjustOpacityDesc": "调整界面透明度",

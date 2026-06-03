@@ -165,9 +165,6 @@ const mr = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "वॉलपेपर सेट करा",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "रंग निवडा",
     "opacityTitle": "अपारदर्शकता",
     "adjustOpacityDesc": "इंटरफेसची अपारदर्शकता समायोजित करा",

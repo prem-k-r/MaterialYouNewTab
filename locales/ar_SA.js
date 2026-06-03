@@ -170,9 +170,6 @@ const ar_SA = {
 
     // Wallpaper and settings
     uploadWallpaperText: "تحميل خلفية",
-    downloadWallpaperText: "",
-    randomWallpaperText: "",
-    clearWallpaperText: "",
     rangColor: "اختر لوناً",
     backupText: "نسخ احتياطي",
     restoreText: "استعادة",

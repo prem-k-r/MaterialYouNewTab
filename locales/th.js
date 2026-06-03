@@ -153,9 +153,6 @@ const th = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "อัปโหลดวอลเปเปอร์",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "เลือกสี",
     "opacityTitle": "ความทึบแสง",
     "adjustOpacityDesc": "ปรับความโปร่งใสของอินเทอร์เฟซ",

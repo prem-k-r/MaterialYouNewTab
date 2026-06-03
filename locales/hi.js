@@ -174,9 +174,6 @@ const hi = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "वॉलपेपर सेट करें",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "रंग चुनें",
     "opacityTitle": "अपारदर्शिता",
     "adjustOpacityDesc": "इंटरफ़ेस की पारदर्शिता समायोजित करें",

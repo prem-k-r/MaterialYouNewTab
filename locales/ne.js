@@ -117,9 +117,6 @@ const ne = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "वालपेपर अपलोड गर्नुहोस्",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "backupText": "ब्याकअप",
     "restoreText": "पुनर्स्थापना गर्नुहोस्",
     "rangColor": "रंग छान्नुहोस्",

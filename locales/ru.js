@@ -164,9 +164,6 @@ const ru = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Загрузить обои",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "Выбрать цвет",
     "opacityTitle": "Прозрачность",
     "adjustOpacityDesc": "Настройка прозрачности интерфейса",

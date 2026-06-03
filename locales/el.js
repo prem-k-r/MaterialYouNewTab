@@ -156,9 +156,6 @@ const el = {
 
     // Ταπετσαρία και ρυθμίσεις
     "uploadWallpaperText": "Μεταφόρτωση Ταπετσαρίας",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "Επιλογή χρώματος",
     "backupText": "Αντίγραφο ασφαλείας",
     "restoreText": "Επαναφορά",

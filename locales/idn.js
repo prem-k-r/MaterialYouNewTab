@@ -172,9 +172,6 @@ const idn = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Unggah Wallpaper",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "Pilih warna",
     "opacityTitle": "Opasitas",
     "adjustOpacityDesc": "Mengatur transparansi antarmuka",

@@ -154,9 +154,6 @@ const de = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Hintergrundbild hochladen",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "Farbe auswählen",
     "opacityTitle": "Opazität",
     "adjustOpacityDesc": "Transparenz der Schnittstelle anpassen",

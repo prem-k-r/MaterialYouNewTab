@@ -116,9 +116,6 @@ const az = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "Divar kağızı yükləyin",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "backupText": "Yedək",
     "restoreText": "Bərpa et",
     "rangColor": "Rəng seçin",

@@ -169,9 +169,6 @@ const fr = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "Charger un fond d'écran",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "backupText": "Sauvegarder",
     "restoreText": "Restaurer",
     "rangColor": "Choisir la couleur",

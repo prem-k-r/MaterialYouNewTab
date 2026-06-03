@@ -116,9 +116,6 @@ const sl = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "Naloži ozadje",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "backupText": "Varnostna kopija",
     "restoreText": "Obnovi",
     "rangColor": "Izberi barvo",

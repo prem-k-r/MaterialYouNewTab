@@ -154,9 +154,6 @@ const ko = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "배경화면 업로드",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "색상 선택",
     "opacityTitle": "투명도",
     "adjustOpacityDesc": "인터페이스 투명도 조절",

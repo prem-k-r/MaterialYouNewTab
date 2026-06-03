@@ -154,9 +154,6 @@ const pt = {
 
     // Wallpaper and misc
     "uploadWallpaperText": "Enviar Papel de Parede",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "Escolher cor",
     "backupText": "Backup",
     "restoreText": "Restaurar",

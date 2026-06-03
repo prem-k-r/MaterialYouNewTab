@@ -164,9 +164,6 @@ const uk = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Завантажити шпалери",
-    "downloadWallpaperText": "",
-    "randomWallpaperText": "",
-    "clearWallpaperText": "",
     "rangColor": "Оберіть колір",
     "opacityTitle": "Прозорість",
     "adjustOpacityDesc": "Налаштування прозорості інтерфейсу",
