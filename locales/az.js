@@ -127,14 +127,12 @@ const az = {
     "confirmWallpaper": "Gün üçün divar kağızı olaraq yeni bir şəkil təyin etmək istərdinizmi?",
     "confirmRestore": "Parametrlərinizi sıfırlamaq istədiyinizə əminsiniz? Bu əməliyyatı geri qaytarmaq mümkün deyil.",
     "Nobackgroundset": "Hazırda heç bir fon şəkli qurulmayıb.",
-    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "Arxa fon şəklini təmizləmək istədiyinizə əminsinizmi?",
-    "photoBy": "",
     "ProxyDisclaimer": "Bütün proksi funksiyaları defolt olaraq deaktivdir.\n\nAxtarış təkliflərini və CORS proksisini yan keçmək imkanını aktiv etsəniz, təkmil məxfilik üçün öz proksinizi yerləşdirmək tövsiyə olunur.\n\nDefolt olaraq, proksi quraşdırılacaq. https://mynt-proxy.rhythmcorehq.com ünvanına, yəni bütün məlumatlarınız bu xidmətdən keçəcək və bu, məxfiliklə bağlı narahatlıq yarada bilər.",
     "failedbackup": "Yedəkləmə uğursuz oldu: ",
     "restorecompleted": "Bərpa uğurla tamamlandı!",
     "restorefailed": "Bərpa uğursuz oldu: ",
     // "invalidBackup": "Invalid backup file selected.",
     // "deleteBookmark": "Are you sure you want to delete the bookmark \"{title}\"?",  // Do not translate {title}
-    // "UnsupportedBrowser": "Bookmarks are not supported in your browser",
+    // "UnsupportedBrowser": "Bookmarks are not supported in your browser"
 };

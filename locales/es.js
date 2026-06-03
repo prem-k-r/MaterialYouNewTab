@@ -201,9 +201,7 @@ const es = {
     "confirmWallpaper": "¿Deseas establecer una nueva imagen como fondo de pantalla para el día?",
     "confirmRestore": "¿Estás seguro de que deseas restablecer la configuración? Esta acción no se puede deshacer.",
     "Nobackgroundset": "No se ha establecido ninguna imagen de fondo.",
-    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "¿Estás seguro de que deseas borrar la imagen de fondo?",
-    "photoBy": "",
     "ProxyDisclaimer": "Todas las funciones de proxy están desactivadas por defecto.\n\nSi habilitas las sugerencias de búsqueda y el proxy de omisión CORS, se recomienda encarecidamente alojar tu propio proxy para mejorar la privacidad.\n\nPor defecto, el proxy se establecerá en https://mynt-proxy.rhythmcorehq.com, lo que significa que todos tus datos pasarán por este servicio, lo que puede plantear preocupaciones de privacidad.",
     "GPSDisclaimer": "Tus datos de ubicación se usan únicamente para ofrecer actualizaciones meteorológicas precisas. Se almacenan temporalmente en el navegador y no se comparten con servicios de terceros ni son accesibles para nosotros.\n\nAl habilitar el GPS, aceptas compartir tu ubicación con la extensión de forma local.",
     "failedbackup": "Error de copia de seguridad: ",
@@ -212,5 +210,5 @@ const es = {
     "invalidBackup": "Archivo de copia de seguridad no válido.",
     "deleteBookmark": "¿Estás seguro de que deseas eliminar el marcador \"{title}\"?",
     "UnsupportedBrowser": "Los marcadores no son compatibles con tu navegador",
-    "resetShortcutsPrompt": "Todos los marcadores guardados serán eliminados y restablecidos ¿Deseas continuar?",
+    "resetShortcutsPrompt": "Todos los marcadores guardados serán eliminados y restablecidos ¿Deseas continuar?"
 };

@@ -189,7 +189,5 @@ const sv = {
     "yesText": "Ja",
     "noText": "Nej",
     "agreeText": "Jag godkänner",
-    "cancelText": "Avbryt",
-    "downloadOnlyRandomWallpaper": "",
-    "photoBy": ""
+    "cancelText": "Avbryt"
 };

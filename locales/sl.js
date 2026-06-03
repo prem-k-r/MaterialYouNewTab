@@ -127,14 +127,12 @@ const sl = {
     "confirmWallpaper": "Ali želite nastaviti novo sliko kot ozadje danes?",
     "confirmRestore": "Ali ste prepričani, da želite ponastaviti nastavitve? To dejanje ni mogoče razveljaviti.",
     "Nobackgroundset": "Trenutno ni nastavljena nobena slika za ozadje.",
-    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "Ali ste prepričani, da želite odstraniti sliko ozadja?",
-    "photoBy": "",
     "ProxyDisclaimer": "Vse funkcije proxyja so privzeto izklopljene.\n\nČe omogočite predloge za iskanje in proxy za obvoz CORS, je močno priporočljivo, da gostite svoj proxy za boljšo zasebnost.\n\nPrivzeto bo proxy nastavljen na https://mynt-proxy.rhythmcorehq.com, kar pomeni, da bodo vsi vaši podatki šli skozi to storitev, kar lahko predstavlja tveganje za zasebnost.",
     "failedbackup": "Varnostna kopija ni uspela: ",
     "restorecompleted": "Obnovitev je bila uspešna!",
     "restorefailed": "Obnovitev ni uspela: ",
     "invalidBackup": "Neveljavna datoteka za varnostno kopijo",
     "deleteBookmark": "Ali ste prepričani, da želite odstraniti zaznamek \"{title}\"?",
-    // "UnsupportedBrowser": "Bookmarks are not supported in your browser",
+    // "UnsupportedBrowser": "Bookmarks are not supported in your browser"
 };

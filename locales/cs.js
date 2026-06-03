@@ -211,9 +211,7 @@ const cs = {
     "confirmWallpaper": "Přejete si nastavit nový obrázek jako denní tapetu?",
     "confirmRestore": "Opravdu si přejete resetovat nastavení? Tuto akci nelze zvrátit.",
     "Nobackgroundset": "Aktuálně nemáte nastavený žádný obrázek na pozadí.",
-    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "Opravdu si přejete smazat obrázek na pozadí?",
-    "photoBy": "",
     "ProxyDisclaimer": "Všechny funkce proxy jsou ve výchozím nastavení vypnuté.\n\nPokud zapnete našeptávání ve vyhledávání s proxy pro obcházení CORS, pro lepší zabezpečení vám důrazně doporučujeme hostovat si vlastní proxy.\n\nVe výchozím nastavení je proxy nastavena na https://mynt-proxy.rhythmcorehq.com, což znamená, že všechna vaše data procházejí skrz tuto službu. To může vyvolat obavy o soukromí.",
     "GPSDisclaimer": "Data o poloze jsou využívána pouze pro poskytování odpovídajících aktualizací počasí. Jsou dočasně uložena v prohlížeči, přičemž nejsou ani sdílena se třetími stanami, ani přístupná pro nás.\n\nPovolením GPS souhlasíte s tím, že bude poloha lokálně využita tímto rozšířením.",
     "failedbackup": "Zálohování selhalo: ",
@@ -227,5 +225,5 @@ const cs = {
     "invalidSvgMessage": "Vložené SVG je nevalidní nebo obsahuje nebezpečný obsah, a nemůže být použito jako ikona.",
     "invalidIconUrlMessage": "Zadejte prosím validní URL adresu obrázku (musí začínat https://, http://, nebo data:image/).",
     "iconFileTooLargeMessage": "Vybraný soubor je příliš velký: {size} KB. Použijte prosím menší soubor do velikosti {max} KB.",
-    "iconStorageQuotaMessage": "Ikonu nebylo možné uložit kvůli překročení kapacity úložiště. Odstraňte některé vlastní ikony nebo použijte menší obrázek.",
+    "iconStorageQuotaMessage": "Ikonu nebylo možné uložit kvůli překročení kapacity úložiště. Odstraňte některé vlastní ikony nebo použijte menší obrázek."
 };

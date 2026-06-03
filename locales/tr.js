@@ -136,14 +136,12 @@ const tr = {
     "confirmWallpaper": "Bugün için yeni bir duvar kağıdı ayarlamak ister misiniz?",
     "confirmRestore": "Ayarlarınızı sıfırlamak istediğinizden emin misiniz? Bu eylem geri alınamaz.",
     "Nobackgroundset": "Şu anda hiçbir arka plan resmi ayarlanmamış.",
-    "downloadOnlyRandomWallpaper": "",
     "clearbackgroundimage": "Arka plan resmini temizlemek istediğinizden emin misiniz?",
-    "photoBy": "",
     "ProxyDisclaimer": "Tüm proxy özellikleri varsayılan olarak kapalıdır.\n\nArama önerilerini ve CORS bypass proxy'sini etkinleştirirseniz, gelişmiş gizlilik için kendi proxy'nizi barındırmanız şiddetle önerilir.\n\nVarsayılan olarak https://mynt-proxy.rhythmcorehq.com ayarlanacaktır, yani tüm verileriniz bu hizmet üzerinden geçecektir, bu da gizlilik endişeleri yaratabilir.",
     "failedbackup": "Yedekleme başarısız oldu: ",
     "restorecompleted": "Geri yükleme başarıyla tamamlandı!",
     "restorefailed": "Geri yükleme başarısız oldu: ",
     "invalidBackup": "Geçersiz yedekleme dosyası seçildi.",
     "deleteBookmark": "\"{title}\" yer imini silmek istediğinizden emin misiniz?",
-    "UnsupportedBrowser": "Yer imleri tarayıcınızda desteklenmiyor.",
+    "UnsupportedBrowser": "Yer imleri tarayıcınızda desteklenmiyor."
 };
