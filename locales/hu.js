@@ -33,6 +33,12 @@ const hu = {
   "googleAppsMenuInfo": "Parancsikonok a Google alkalmazásaihoz",
   "googleAppsHover": "Google Appok",
 
+  "shortcutDefaultName": "Új parancsikon",
+  "shortcutInputName": "Parancsikon neve",
+  "shortcutInputUrl": "Parancsikon URL",
+  "shortcutInputIcon": "Egyéni ikon: URL vagy SVG (opcionális)",
+  "recentlyAddedBookmarks": "Nemrég hozzáadva",
+
   // To-do List
   "todoListText": "Teendő lista",
   "todoListInfo": "Napi teendők lista megjelenítése",
@@ -68,6 +74,8 @@ const hu = {
   "hideSearchWithInfo": "Váltás a keresőmotorok között az ikonra kattintva",
   "motivationalQuotesText": "Motivációs idézetek",
   "motivationalQuotesInfo": "Idézetek megjelenítése a keresősáv alatt",
+  "newQuoteOnRefreshText": "Napi idézet",
+  "newQuoteOnRefreshInfo": "Naponta egy idézet megjelenítése a frissítés helyett",
   "search_suggestions_button": "Keresési javaslatok",
   "search_suggestions_text": "Keresési javaslatok bekapcsolása",
 
@@ -117,7 +125,7 @@ const hu = {
   // New Tab Item
   "conditionText": "Szia! Hogy vagy ma?",
   "humidityLevel": "Páratartalom",
-  "minMaxTemp": "Min / Max",
+  "minMaxTemp": "Min ~ Max",
   "feelsLike": "Hőérzet szerint",
   "location": "Föld",
   "enterBtn": "Keresés",
@@ -213,6 +221,9 @@ const hu = {
   "deleteBookmark": "Biztos, hogy törölni szeretné a könyvjelzőt '{title}'?",
   "UnsupportedBrowser": "A könyvjelzők nem támogatottak a böngészőjében",
   "resetShortcutsPrompt": "Az összes mentett parancsikon törlésre kerül és visszaállításra kerülnek az alapértelmezett beállítások. Szeretné folytatni?",
+  "invalidFileTypeMessage": "Kérjük, adjon meg egy érvényes képfájlt.",
+  "invalidSvgMessage": "A beillesztett SVG érvénytelen, vagy nem biztonságos tartalmat tartalmaz, ezért nem használható ikonként.",
+  "invalidIconUrlMessage": "Kérjük, adjon meg egy érvényes kép URL-t (a következőkkel kell kezdődnie: https://, http:// vagy data:image/).",
   "iconFileTooLargeMessage": "A kiválasztott fájl túl nagy: {size} KB. Kérjük, használjon {max} KB-nál kisebb fájlt.",
   "iconStorageQuotaMessage": "Az ikon mentése nem sikerült, mert elérte a tárhelykeretet. Távolítson el néhány egyéni ikont, vagy használjon kisebb képet."
 };
