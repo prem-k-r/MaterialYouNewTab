@@ -108,7 +108,7 @@ const uk = {
     // Bookmarks
     "bookmarksHeading": "Закладки",
     "bookmarkSortBy": "Сортувати за",
-    "sortAlphabetical": "A-Я",
+    "sortAlphabetical": "А-Я",
     "sortTimeAdded": "Старі-Нові",
     "bookmarkViewAs": "Переглянути як",
     "bookmarkViewGrid": "Сітка",
@@ -202,7 +202,7 @@ const uk = {
     "okText": "OK",
     "yesText": "Так",
     "noText": "Ні",
-    "agreeText": "Я погоджуюсь",
+    "agreeText": "Я погоджуюся",
     "cancelText": "Відмінити",
     "confirmWallpaper": "Хочете встановити нове зображення як шпалери на сьогодні?",
     "confirmRestore": "Ви впевнені, що хочете скинути налаштування? Цю дію неможливо скасувати.",
@@ -219,7 +219,7 @@ const uk = {
     "resetShortcutsPrompt": "Усі збережені ярлики будуть видалені та скинуті до заводських налаштувань. Хочете продовжити?",
     "invalidFileTypeMessage": "Будь ласка, виберіть коректний файл зображення.",
     "invalidSvgMessage": "Вставлений SVG некоректний або містить небезпечний вміст і не може використовуватися як іконка.",
-    "invalidIconUrlMessage": "Будь ласка, введіть коректну URL-адресу зображення (має починатися з https://, http://, or data:image/).",
+    "invalidIconUrlMessage": "Будь ласка, введіть коректну URL-адресу зображення (має починатися з https://, http://, або data:image/).",
     "iconFileTooLargeMessage": "Вибраний файл занадто великий: {size} КБ. Будь ласка, використайте файл менше {max} КБ.",
     "iconStorageQuotaMessage": "Іконку не вдалося зберегти, оскільки було досягнуто ліміт сховища. Видаліть деякі власні іконки або використовуйте менше зображення."
 };
