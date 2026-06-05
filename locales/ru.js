@@ -32,6 +32,12 @@ const ru = {
     "googleAppsMenuInfo": "Показать ярлыки для приложений Google",
     "googleAppsHover": "Приложения Google",
 
+    "shortcutDefaultName": "Новый ярлык",
+    "shortcutInputName": "Название ярлыка",
+    "shortcutInputUrl": "URL ярлыка",
+    "shortcutInputIcon": "Пользовательская иконка: URL или SVG (необязательно)",
+    "recentlyAddedBookmarks": "Недавно добавленные",
+
     // To-do List
     "todoListText": "Список дел",
     "todoListInfo": "Показать ежедневный список дел",
@@ -67,6 +73,8 @@ const ru = {
     "hideSearchWithInfo": "Переключайте поисковые системы, щёлкая по их значку",
     "motivationalQuotesText": "Мотивационные цитаты",
     "motivationalQuotesInfo": "Показывать мотивационные цитаты под панелью поиска",
+    "newQuoteOnRefreshText": "Цитата дня",
+    "newQuoteOnRefreshInfo": "Показывать одну цитату в день вместо обновления каждый раз",
     "search_suggestions_button": "Поисковые подсказки",
     "search_suggestions_text": "Включить/Отключить поисковые подсказки",
 
@@ -100,7 +108,7 @@ const ru = {
     // Bookmarks
     "bookmarksHeading": "Закладки",
     "bookmarkSortBy": "Сортировка",
-    "sortAlphabetical": "A-Z",
+    "sortAlphabetical": "A-Я",
     "sortTimeAdded": "По дате добавления",
     "bookmarkViewAs": "Отображение",
     "bookmarkViewGrid": "Сетка",
@@ -209,6 +217,9 @@ const ru = {
     "deleteBookmark": "Вы уверены, что хотите удалить эту закладку \"{title}\"?",
     "UnsupportedBrowser": "Закладки не поддерживаются в вашем браузере.",
     "resetShortcutsPrompt": "Все сохранённые ярлыки будут удалены, и их значение будет восстановлено по умолчанию. Хотите продолжить?",
+    "invalidFileTypeMessage": "Пожалуйста, выберите корректный файл изображения.",
+    "invalidSvgMessage": "Вставленный SVG недействителен или содержит небезопасный контент и не может быть использован в качестве иконки.",
+    "invalidIconUrlMessage": "Пожалуйста, введите корректный URL изображения (должен начинаться с https://, http://, or data:image/).",
     "iconFileTooLargeMessage": "Выбранный файл слишком большой: {size} КБ. Пожалуйста, используйте файл размером менее {max} КБ.",
     "iconStorageQuotaMessage": "Не удалось сохранить иконку, так как достигнут лимит хранилища. Удалите некоторые пользовательские иконки или используйте изображение меньшего размера."
 };
