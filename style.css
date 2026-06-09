@@ -2658,6 +2658,8 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	mix-blend-mode: normal !important;
 }
 
+/* Browsers without container queries keep the default wrapping layout and the
+   viewport-based media query fallback below. */
 @container (max-width: 48rem) {
 	#shortcuts-section {
 		overflow-x: auto;
