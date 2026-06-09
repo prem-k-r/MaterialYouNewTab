@@ -2407,6 +2407,7 @@ html[lang="ur"] .qtRounder2 {
 	overflow: scroll;
 	scrollbar-width: none;
 	margin: auto;
+	container-type: inline-size;
 }
 
 #shortcuts-section::-webkit-scrollbar {
@@ -2482,6 +2483,7 @@ html[lang="ur"] .qtRounder2 {
 
 .shortcutsContainer .shortcuts {
 	position: relative;
+	flex: 0 0 var(--shortcut-size);
 	transition: all 0.3s;
 	isolation: isolate;
 }
@@ -2654,6 +2656,24 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	width: 100% !important;
 	filter: none !important;
 	mix-blend-mode: normal !important;
+}
+
+@container (max-width: 48rem) {
+	#shortcuts-section {
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+
+	#shortcuts-section .wrapper {
+		width: 100%;
+	}
+
+	.shortcutsContainer {
+		flex-wrap: nowrap;
+		width: max-content;
+		max-width: none;
+		gap: 1.4rem;
+	}
 }
 
 /* ----------end of Shortcuts----------------- */
