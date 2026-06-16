@@ -207,5 +207,5 @@ const es = {
     "invalidBackup": "Archivo de copia de seguridad no válido.",
     "deleteBookmark": "¿Estás seguro de que deseas eliminar el marcador \"{title}\"?",
     "UnsupportedBrowser": "Los marcadores no son compatibles con tu navegador",
-    "resetShortcutsPrompt": "Todos los marcadores guardados serán eliminados y restablecidos ¿Deseas continuar?",
+    "resetShortcutsPrompt": "Todos los marcadores guardados serán eliminados y restablecidos ¿Deseas continuar?"
 };

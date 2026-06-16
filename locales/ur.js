@@ -101,6 +101,9 @@ const ur = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "وال پیپر اپلوڈ کریں",
+    "downloadWallpaperText": "وال پیپر ڈاؤن لوڈ کریں",
+    "randomWallpaperText": "بے ترتیب وال پیپر",
+    "clearWallpaperText": "وال پیپر ہٹائیں",
     "rangColor": "رنگ چنیں",
     "backupText": "بیک اپ",
     "restoreText": "بحال کریں",
@@ -111,7 +114,9 @@ const ur = {
     "confirmWallpaper": "کیا آپ آج کے لیے ایک نئی تصویر کو وال پیپر کے طور پر سیٹ کرنا چاہتے ہیں؟",
     "confirmRestore": "کیا آپ واقعی اپنی ترتیبات ری سیٹ کرنا چاہتے ہیں؟ یہ عمل واپس نہیں ہو سکے گا۔",
     "Nobackgroundset": "اس وقت کوئی پس منظر تصویر سیٹ نہیں ہے۔",
+    "downloadOnlyRandomWallpaper": "یہ خصوصیت صرف {randomWallpaper} کے ساتھ کام کرتی ہے۔",
     "clearbackgroundimage": "کیا آپ واقعی پس منظر کی تصویر کو ہٹانا چاہتے ہیں؟",
+    "photoBy": "تصویر از ",
     "ProxyDisclaimer": "تمام پراکسی فیچرز ڈیفالٹ طور پر بند ہیں۔\n\nاگر آپ سرچ تجاویز اور CORS بائی پاس پراکسی کو فعال کرتے ہیں تو بہتر رازداری کے لیے اپنی پراکسی کو ہوسٹ کرنا سختی سے مشورہ دیا جاتا ہے۔\n\nڈیفالٹ طور پر پراکسی https://mynt-proxy.rhythmcorehq.com پر سیٹ ہوگی، اس کا مطلب ہے کہ آپ کا سارا ڈیٹا اس سروس کے ذریعے گزرے گا، جو رازداری کے مسائل پیدا کر سکتا ہے۔",
     "failedbackup": "بیک اپ ناکام ہوگیا: ",
     "restorecompleted": "بحالی کامیابی سے مکمل ہوگئی!",

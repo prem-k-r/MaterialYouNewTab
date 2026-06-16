@@ -140,5 +140,5 @@ const tr = {
     "restorefailed": "Geri yükleme başarısız oldu: ",
     "invalidBackup": "Geçersiz yedekleme dosyası seçildi.",
     "deleteBookmark": "\"{title}\" yer imini silmek istediğinizden emin misiniz?",
-    "UnsupportedBrowser": "Yer imleri tarayıcınızda desteklenmiyor.",
+    "UnsupportedBrowser": "Yer imleri tarayıcınızda desteklenmiyor."
 };

@@ -172,6 +172,9 @@ const en = {
 
     // Wallpaper and settings
     "uploadWallpaperText": "Upload Wallpaper",    // Keep this short
+    "downloadWallpaperText": "Download Wallpaper",
+    "randomWallpaperText": "Random Wallpaper",
+    "clearWallpaperText": "Clear Wallpaper",
     "rangColor": "Pick color",    // Keep this short
     "opacityTitle": "Opacity",
     "adjustOpacityDesc": "Adjust interface transparency",
@@ -207,7 +210,9 @@ const en = {
     "confirmWallpaper": "Would you like to set a new image as your wallpaper for the day?",
     "confirmRestore": "Are you sure you want to reset your settings? This action cannot be undone.",
     "Nobackgroundset": "No background image is currently set.",
+    "downloadOnlyRandomWallpaper": "This feature only works with {randomWallpaper}.",
     "clearbackgroundimage": "Are you sure you want to clear the background image?",
+    "photoBy": "Photo by",
     "ProxyDisclaimer": "All proxy features are off by default.\n\nIf you enable search suggestions and CORS bypass proxy, it is strongly recommended to host your own proxy for enhanced privacy.\n\nBy default, the proxy will be set to https://mynt-proxy.rhythmcorehq.com, meaning all your data will go through this service, which may pose privacy concerns.",
     "GPSDisclaimer": "Your location data is used solely to provide accurate weather updates. It is temporarily stored within the browser and neither shared with any third-party services nor accessible to us.\n\nBy enabling GPS, you consent to sharing your location with the extension locally.",
     "failedbackup": "Backup failed: ",

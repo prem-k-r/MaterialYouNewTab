@@ -1744,6 +1744,15 @@
                                             </svg>
                                         </button>
 
+                                        <!-- Download Wallpaper Button -->
+                                        <button class="downloadButton" id="downloadWallpaper" title="Download Wallpaper" aria-label="Download Wallpaper" aria-disabled="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                    d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                                            </svg>
+                                        </button>
+
                                         <!-- Clear Background Button -->
                                         <button class="clearButton" id="clearImage">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -1960,7 +1969,11 @@
             </div>
         </div>
     </div>
-    <!-- ------end of Menu-bar----------- -->
+    <!-- Wallpaper Source Attribution -->
+    <div id="wallpaperSource" style="display: none;">
+        <span id="wallpaperSourcePrefix">Photo by </span><a id="wallpaperSourceLink" href="#" target="_blank" rel="noopener noreferrer"></a>
+    </div>
+
     <div id="menuButton"></div>
     <!-- ending-of-body -->
 
