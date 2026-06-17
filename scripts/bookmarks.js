@@ -29,7 +29,7 @@ const sortAlphabetical = document.getElementById("sortAlphabetical");
 const sortTimeAdded = document.getElementById("sortTimeAdded");
 let currentSortMethod = localStorage.getItem("bookmarkSortMethod") || 'title';
 
-var bookmarksAPI;
+let bookmarksAPI;
 if (isFirefox) {
     bookmarksAPI = browser.bookmarks;
 } else if (isChromiumBased) {
@@ -300,7 +300,7 @@ function setBookmarkFavicon(faviconElement, pageUrl) {
     };
 
     // Try browser-specific favicon first (Chromium only)
-    if (!isFirefox || !isOpera) {
+    if (!isFirefox && !isOpera) {
         faviconElement.src = `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent(pageUrl)}&size=32`;
         faviconElement.onerror = googleFallback;
     } else {
