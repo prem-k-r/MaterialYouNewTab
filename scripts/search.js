@@ -19,7 +19,8 @@ const searchQueryURLs = {
     engine6: "https://www.google.com/search?tbm=isch&q=",
     engine7: "https://www.reddit.com/search/?q=",
     engine8: `https://${languageCode}.wikipedia.org/wiki/Special:Search?search=`,
-    engine9: "https://www.quora.com/search?q="
+    engine9: "https://www.quora.com/search?q=",
+    engine10: "https://x.com/search?q="
 };
 
 // Showing border or outline when you click on the searchbar
@@ -166,7 +167,7 @@ document.querySelectorAll(".search-engine").forEach((engineDiv) => {
 
         radioButton.checked = true;
 
-        const radioButtonValue = radioButton.value.charAt(radioButton.value.length - 1);
+        const radioButtonValue = radioButton.value.replace("engine", "");
 
         const selector = `[data-engine="${radioButtonValue}"]`;
 
@@ -237,8 +238,7 @@ const storedSearchEngine = localStorage.getItem(`selectedSearchEngine-${activeSe
 toggleSearchEngines(activeSearchMode);
 
 if (storedSearchEngine) {
-    // Find Serial Number - SN with the help of charAt.
-    const storedSearchEngineSN = storedSearchEngine.charAt(storedSearchEngine.length - 1);
+    const storedSearchEngineSN = storedSearchEngine.replace("engine", "");
     const defaultDropdownSN = document.querySelector("*[data-default]").getAttribute("data-engine");
 
     // check if the default selected search engine is same as the stored one.
@@ -373,8 +373,7 @@ hideSearchWith.addEventListener("change", (e) => {
     const selectedRadioButton = document.querySelector(`input[name="search-engine"][value="${storedSearchEngine}"]`);
     selectedRadioButton.checked = true;
 
-    // Ensure UI is updated properly
-    const storedSearchEngineSN = storedSearchEngine.charAt(storedSearchEngine.length - 1);
+    const storedSearchEngineSN = storedSearchEngine.replace("engine", "");
     const selector = `*[data-engine="${storedSearchEngineSN}"]`;
 
     swapDropdown(selector);
@@ -449,7 +448,7 @@ function switchEngine(direction) {
     setTimeout(() => {
         radioButton.checked = true;
 
-        const radioButtonValue = radioButton.value.charAt(radioButton.value.length - 1);
+        const radioButtonValue = radioButton.value.replace("engine", "");
         const selector = `[data-engine="${radioButtonValue}"]`;
 
         swapDropdown(selector);

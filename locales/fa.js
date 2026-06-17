@@ -147,6 +147,7 @@ const fa = {
     redditEngine: "ردیت",
     wikipediaEngine: "ویکی‌پدیا",
     quoraEngine: "کورا",
+    xEngine: "X",
 
     // AI Tools
     ai_tools: "ابزارهای هوش مصنوعی",
