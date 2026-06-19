@@ -192,20 +192,41 @@
                     which sites the extension can access from your browser settings.</p>
             </li>
 
-            <li><strong>Location Detection (<a href="https://ipinfo.io/" target="_blank">IPinfo</a>):</strong>
+            <li><strong>Location Detection (<a href="https://ipinfo.io/" target="_blank">IPinfo</a> / <a
+                        href="https://geojs.io/" target="_blank">GeoJS</a>):</strong>
                 <ul>
                     <li><code>https://ipinfo.io/json</code> – fetches approximate city-level location based on your IP
                         for local weather display.</li>
+                    <li><code>https://get.geojs.io/v1/ip/geo.json</code> – alternative used for IP-based geolocation
+                        when Open-Meteo is active.</li>
                 </ul>
             </li>
 
-            <li><strong>Weather Updates (<a href="https://www.weatherapi.com/" target="_blank">WeatherAPI</a>):</strong>
+            <li><strong>Weather Updates:</strong>
                 <ul>
-                    <li><code>https://api.weatherapi.com/v1/forecast.json?key=*</code> – retrieves daily forecasts based
-                        on your location and language preferences.</li>
-
-                    <li><code>https://api.weatherapi.com/v1/search.json?key=*</code> – used to fetch location
-                        suggestions when searching for a city.</li>
+                    <li><a href="https://www.weatherapi.com/" target="_blank">WeatherAPI</a>
+                        <ul>
+                            <li><code>https://api.weatherapi.com/v1/forecast.json?key=*</code> – retrieves daily
+                                forecasts based
+                                on your location and language preferences.</li>
+                            <li><code>https://api.weatherapi.com/v1/search.json?key=*</code> – used to fetch location
+                                suggestions when searching for a city.</li>
+                        </ul>
+                    </li>
+                    <li><a href="https://open-meteo.com/" target="_blank">Open-Meteo</a>
+                        <ul>
+                            <li><code>https://api.open-meteo.com/v1/forecast</code> – alternative provider for
+                                retrieving forecasts.</li>
+                            <li><code>https://geocoding-api.open-meteo.com/v1/search</code> – alternative source for
+                                finding location coordinates.</li>
+                        </ul>
+                    </li>
+                    <li><a href="https://nominatim.org/" target="_blank">Nominatim (OpenStreetMap)</a>
+                        <ul>
+                            <li><code>https://nominatim.openstreetmap.org/reverse</code> – converts GPS coordinates to
+                                readable area names when Open-Meteo and Auto Location are enabled.</li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
 
