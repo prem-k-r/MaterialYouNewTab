@@ -387,75 +387,83 @@ async function getWeatherData() {
                 const weatherProvider = localStorage.getItem("weatherProviderSelect") || "weatherapi";
                 let filteredData = null;
 
+                let useWeatherApiFallback = false;
+
                 if (weatherProvider === "openmeteo") {
-                    let lat, lon, nameValue;
-                    nameValue = currentUserLocation;
-                    if (currentUserLocation === "auto:ip") {
-                        const ipGeoRes = await fetch("https://get.geojs.io/v1/ip/geo.json");
-                        const ipGeoData = await ipGeoRes.json();
-                        lat = ipGeoData.latitude;
-                        lon = ipGeoData.longitude;
-                        nameValue = ipGeoData.city || ipGeoData.region || "Current Location";
-                    } else if (/^-?\d+(\.\d+)?(\s*,\s*-?\d+(\.\d+)?)?$/.test(currentUserLocation)) {
-                        [lat, lon] = currentUserLocation.replace(/\s/g, '').split(",");
-                        try {
-                            const revGeoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&accept-language=${lang}`);
-                            const revGeoData = await revGeoResponse.json();
-                            nameValue = revGeoData.name || revGeoData.address?.city || revGeoData.address?.town || revGeoData.address?.village || revGeoData.address?.county || "Current Location";
-                        } catch (e) {
-                            nameValue = "Current Location";
-                        }
-                    } else {
-                        const searchTerm = currentUserLocation.split(',')[0].trim();
-                        const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(searchTerm)}&count=1&language=${lang}&format=json`);
-                        const geoData = await geoResponse.json();
-                        if (geoData.results && geoData.results.length > 0) {
-                            lat = geoData.results[0].latitude;
-                            lon = geoData.results[0].longitude;
-                            nameValue = geoData.results[0].name;
+                    try {
+                        let lat, lon, nameValue;
+                        nameValue = currentUserLocation;
+                        if (currentUserLocation === "auto:ip") {
+                            const ipGeoRes = await fetch("https://get.geojs.io/v1/ip/geo.json");
+                            const ipGeoData = await ipGeoRes.json();
+                            lat = ipGeoData.latitude;
+                            lon = ipGeoData.longitude;
+                            nameValue = ipGeoData.city || ipGeoData.region || "Current Location";
+                        } else if (/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(currentUserLocation)) {
+                            [lat, lon] = currentUserLocation.replace(/\s/g, '').split(",");
+                            try {
+                                const revGeoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&accept-language=${lang}`);
+                                const revGeoData = await revGeoResponse.json();
+                                nameValue = revGeoData.name || revGeoData.address?.city || revGeoData.address?.town || revGeoData.address?.village || revGeoData.address?.county || "Current Location";
+                            } catch (e) {
+                                nameValue = "Current Location";
+                            }
                         } else {
-                            throw new Error("Location not found via Open-Meteo");
+                            const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(currentUserLocation)}&count=1&language=${lang}&format=json`);
+                            const geoData = await geoResponse.json();
+                            if (geoData.results && geoData.results.length > 0) {
+                                lat = geoData.results[0].latitude;
+                                lon = geoData.results[0].longitude;
+                                nameValue = geoData.results[0].name;
+                            } else {
+                                throw new Error("Location not found via Open-Meteo");
+                            }
                         }
+
+                        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
+                        const fApi = await fetch(url);
+                        const oData = await fApi.json();
+
+                        const map = {
+                            0: { text: "Clear", icon: "113" }, 1: { text: "Mainly Clear", icon: "116" }, 2: { text: "Partly Cloudy", icon: "116" }, 3: { text: "Overcast", icon: "122" },
+                            45: { text: "Fog", icon: "248" }, 48: { text: "Depositing rime fog", icon: "248" }, 51: { text: "Drizzle Light", icon: "266" }, 53: { text: "Drizzle Moderate", icon: "266" },
+                            55: { text: "Drizzle Dense", icon: "266" }, 56: { text: "Freezing Drizzle Light", icon: "281" }, 57: { text: "Freezing Drizzle Dense", icon: "281" },
+                            61: { text: "Rain Slight", icon: "296" }, 63: { text: "Rain Moderate", icon: "302" }, 65: { text: "Rain Heavy", icon: "308" }, 66: { text: "Freezing Rain Light", icon: "311" },
+                            67: { text: "Freezing Rain Heavy", icon: "314" }, 71: { text: "Snow Slight", icon: "326" }, 73: { text: "Snow Moderate", icon: "329" }, 75: { text: "Snow Heavy", icon: "332" },
+                            77: { text: "Snow Grains", icon: "338" }, 80: { text: "Rain Showers Slight", icon: "353" }, 81: { text: "Rain Showers Moderate", icon: "356" },
+                            82: { text: "Rain Showers Violent", icon: "359" }, 85: { text: "Snow Showers Slight", icon: "368" }, 86: { text: "Snow Showers Heavy", icon: "371" },
+                            95: { text: "Thunderstorm", icon: "386" }, 96: { text: "Thunderstorm Slight Hail", icon: "389" }, 99: { text: "Thunderstorm Heavy Hail", icon: "392" },
+                        };
+                        const c = map[oData.current.weather_code] || { text: "Unknown", icon: "113" };
+                        const timeOfDay = oData.current.is_day ? "day" : "night";
+                        const mappedCode = { text: c.text, icon: `https://cdn.weatherapi.com/weather/128x128/${timeOfDay}/${c.icon}.png` };
+
+                        const tempC = oData.current.temperature_2m;
+                        const feelsC = oData.current.apparent_temperature;
+                        const minC = oData.daily.temperature_2m_min[0];
+                        const maxC = oData.daily.temperature_2m_max[0];
+
+                        filteredData = {
+                            location: { name: nameValue },
+                            current: {
+                                condition: { text: mappedCode.text, icon: mappedCode.icon },
+                                temp_c: tempC, temp_f: tempC * 9 / 5 + 32,
+                                humidity: oData.current.relative_humidity_2m,
+                                feelslike_c: feelsC, feelslike_f: feelsC * 9 / 5 + 32,
+                            },
+                            forecast: {
+                                forecastday: [{
+                                    day: { mintemp_c: minC, maxtemp_c: maxC, mintemp_f: minC * 9 / 5 + 32, maxtemp_f: maxC * 9 / 5 + 32 }
+                                }]
+                            }
+                        };
+                    } catch (e) {
+                        console.warn("Open-Meteo failed, falling back to WeatherAPI:", e);
+                        useWeatherApiFallback = true;
                     }
+                }
 
-                    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
-                    const fApi = await fetch(url);
-                    const oData = await fApi.json();
-
-                    const map = {
-                        0: { text: "Clear", icon: "113" }, 1: { text: "Mainly Clear", icon: "116" }, 2: { text: "Partly Cloudy", icon: "116" }, 3: { text: "Overcast", icon: "122" },
-                        45: { text: "Fog", icon: "248" }, 48: { text: "Depositing rime fog", icon: "248" }, 51: { text: "Drizzle Light", icon: "266" }, 53: { text: "Drizzle Moderate", icon: "266" },
-                        55: { text: "Drizzle Dense", icon: "266" }, 56: { text: "Freezing Drizzle Light", icon: "281" }, 57: { text: "Freezing Drizzle Dense", icon: "281" },
-                        61: { text: "Rain Slight", icon: "296" }, 63: { text: "Rain Moderate", icon: "302" }, 65: { text: "Rain Heavy", icon: "308" }, 66: { text: "Freezing Rain Light", icon: "311" },
-                        67: { text: "Freezing Rain Heavy", icon: "314" }, 71: { text: "Snow Slight", icon: "326" }, 73: { text: "Snow Moderate", icon: "329" }, 75: { text: "Snow Heavy", icon: "332" },
-                        77: { text: "Snow Grains", icon: "338" }, 80: { text: "Rain Showers Slight", icon: "353" }, 81: { text: "Rain Showers Moderate", icon: "356" },
-                        82: { text: "Rain Showers Violent", icon: "359" }, 85: { text: "Snow Showers Slight", icon: "368" }, 86: { text: "Snow Showers Heavy", icon: "371" },
-                        95: { text: "Thunderstorm", icon: "386" }, 96: { text: "Thunderstorm Slight Hail", icon: "389" }, 99: { text: "Thunderstorm Heavy Hail", icon: "392" },
-                    };
-                    const c = map[oData.current.weather_code] || { text: "Unknown", icon: "113" };
-                    const timeOfDay = oData.current.is_day ? "day" : "night";
-                    const mappedCode = { text: c.text, icon: `https://cdn.weatherapi.com/weather/128x128/${timeOfDay}/${c.icon}.png` };
-
-                    const tempC = oData.current.temperature_2m;
-                    const feelsC = oData.current.apparent_temperature;
-                    const minC = oData.daily.temperature_2m_min[0];
-                    const maxC = oData.daily.temperature_2m_max[0];
-
-                    filteredData = {
-                        location: { name: nameValue },
-                        current: {
-                            condition: { text: mappedCode.text, icon: mappedCode.icon },
-                            temp_c: tempC, temp_f: tempC * 9 / 5 + 32,
-                            humidity: oData.current.relative_humidity_2m,
-                            feelslike_c: feelsC, feelslike_f: feelsC * 9 / 5 + 32,
-                        },
-                        forecast: {
-                            forecastday: [{
-                                day: { mintemp_c: minC, maxtemp_c: maxC, mintemp_f: minC * 9 / 5 + 32, maxtemp_f: maxC * 9 / 5 + 32 }
-                            }]
-                        }
-                    };
-                } else {
+                if (weatherProvider !== "openmeteo" || useWeatherApiFallback) {
                     // Fetch weather data using Weather API
                     let weatherApi = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${currentUserLocation}&days=1&aqi=no&alerts=no&lang=${lang}`;
 

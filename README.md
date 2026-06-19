@@ -243,7 +243,7 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 | <img src='https://flagcdn.com/ru.svg' width=20> &nbsp; **Russian** - Русский                 |  ru   | [giwi](https://github.com/giwih/), [CodWiz](https://github.com/C0dwiz/)               |
 | <img src='https://flagcdn.com/si.svg' width=20> &nbsp; **Slovenian** - Slovenščina           | sl-SI | [Linux-Alex](https://github.com/Linux-Alex/)                                          |
 | <img src='https://flagcdn.com/es.svg' width=20> &nbsp; **Spanish** - Español                 | es-ES | [XengShi](https://github.com/XengShi/), [Isaac Vergara](https://github.com/zRaidev), [Saúl Palacios](https://github.com/palacios22c)  |
-| <img src='https://flagcdn.com/sv.svg' width=20> &nbsp; **Swedish** - Svenska                 | sv | [HELLOEMPO](https://github.com/empohello-imamempogitub/)                                 |
+| <img src='https://flagcdn.com/se.svg' width=20> &nbsp; **Swedish** - Svenska                 | sv | [HELLOEMPO](https://github.com/empohello-imamempogitub/)                                 |
 | <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Tamil** - தமிழ்                 | ta | [தமிழ்நேரம்](https://TamilNeram.github.io/)                                                |
 | <img src='https://flagcdn.com/th.svg' width=20> &nbsp; **Thai** - ภาษาไทย                 | th | [Prin](https://github.com/prinsasina)                                                |
 | <img src='https://flagcdn.com/tr.svg' width=20> &nbsp; **Turkish** - Türkçe                  |  tr   | [Nobody](https://github.com/Nobody9512), [Kerim Ölçer](https://github.com/kerimlcr)   |
