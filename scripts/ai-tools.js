@@ -54,13 +54,19 @@ function mergeAIToolsSettings(savedSettings) {
     const defaultSettings = createDefaultAIToolsSettings();
     if (!Array.isArray(savedSettings)) return defaultSettings;
 
-    const savedToolIds = new Set(savedSettings.map(getAIToolId).filter(Boolean));
+    const validToolIds = new Set(aiToolsRaw.map(tool => tool.id));
+    const normalizedSavedSettings = savedSettings.filter(settingItem => {
+        const toolId = getAIToolId(settingItem);
+        return toolId && validToolIds.has(toolId);
+    });
+
+    const savedToolIds = new Set(normalizedSavedSettings.map(getAIToolId));
     const missingSettings = defaultSettings.filter(settingItem => {
         const toolId = getAIToolId(settingItem);
         return toolId && !savedToolIds.has(toolId);
     });
 
-    return [...savedSettings, ...missingSettings];
+    return [...normalizedSavedSettings, ...missingSettings];
 }
 
 // Animation helper function
