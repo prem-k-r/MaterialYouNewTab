@@ -34,6 +34,7 @@
     <script defer src="scripts/search.js"></script>
     <script defer src="scripts/quotes.js"></script>
     <script defer src="scripts/shortcuts.js"></script>
+    <script defer src="scripts/move-search-up.js"></script>
     <script defer src="scripts/script.js"></script>
     <script defer src="scripts/search-suggestions.js"></script>
     <script defer src="scripts/ai-tools.js"></script>
@@ -1473,6 +1474,17 @@
                                         </div>
                                         <label class="switch">
                                             <input id="shortcut_switchcheckbox" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="ttcont" id="moveSearchUpToggle">
+                                        <div class="texts">
+                                            <div class="bigText" id="moveSearchUpText">Move Search Bar Up</div>
+                                            <div class="infoText" id="moveSearchUpInfo">Automatically move search bar upward when only search bar is visible</div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="moveSearchUpCheckbox" type="checkbox">
                                             <span class="toggle"></span>
                                         </label>
                                     </div>

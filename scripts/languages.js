@@ -150,6 +150,8 @@ function applyLanguage(lang) {
         "micIconInfo",
         "hideSearchWith",
         "hideSearchWithInfo",
+        "moveSearchUpText",
+        "moveSearchUpInfo",
         "motivationalQuotesText",
         "motivationalQuotesInfo",
         "newQuoteOnRefreshText",
