@@ -15,16 +15,31 @@ const imageTypeKey = "imageType"; // Key to store the type of image ("random" or
 
 let currentBgUrl = null;
 
+if (localStorage.getItem("hasWallpaper") === "true") {
+    toggleBackgroundType(true);
+}
+
 // To set background image using a Blob
 function setBackground(blob) {
+    const img = document.getElementById("bg-img");
     const previousUrl = currentBgUrl;
     const newUrl = URL.createObjectURL(blob);
-    currentBgUrl = newUrl;
-    document.body.style.setProperty("--bg-image", `url(${newUrl})`);
+
     toggleBackgroundType(true);
-    if (previousUrl) {
-        URL.revokeObjectURL(previousUrl);
-    }
+    localStorage.setItem("hasWallpaper", "true");
+
+    img.classList.remove("bg-visible"); // reset opacity for the fade-in
+
+    img.onload = () => {
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                currentBgUrl = newUrl;
+                img.classList.add("bg-visible"); // fade in only the image
+                if (previousUrl) URL.revokeObjectURL(previousUrl);
+            });
+        });
+    };
+    img.src = newUrl;
 }
 
 // Open IndexedDB database
@@ -134,6 +149,7 @@ function checkAndUpdateImage() {
             const lastUpdate = new Date(savedTimestamp);
 
             if (!blob || !savedTimestamp || isNaN(lastUpdate)) {
+                localStorage.removeItem("hasWallpaper");
                 toggleBackgroundType(false);
                 return;
             }
@@ -152,6 +168,7 @@ function checkAndUpdateImage() {
         })
         .catch((error) => {
             console.error("Error loading image details:", error);
+            localStorage.removeItem("hasWallpaper");
             toggleBackgroundType(false);
         });
 }
@@ -173,11 +190,15 @@ document.getElementById("clearImage").addEventListener("click", async function (
         if (await confirmPrompt(confirmationMessage)) {
             try {
                 await clearImageFromIndexedDB();
+                localStorage.removeItem("hasWallpaper");
+
+                const img = document.getElementById("bg-img");
+                img.classList.remove("bg-visible");
+
                 if (currentBgUrl) {
                     URL.revokeObjectURL(currentBgUrl);
                     currentBgUrl = null;
                 }
-                document.body.style.removeProperty("--bg-image");
                 toggleBackgroundType(false);
             } catch (error) {
                 console.error(error);
