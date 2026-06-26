@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
@@ -162,18 +162,31 @@ async function getWeatherData() {
         }
     }
 
-    // Fetch location suggestions from weatherAPI
+    // Fetch location suggestions from weatherAPI or Open-Meteo
     async function fetchLocationSuggestions(query) {
-        if (!savedApiKey || query.length < 3) {
+        if (query.length < 3) {
             suggestions = [];
             locationSuggestions.style.display = "none";
             toggleAutocomplete();
             return;
         }
 
+        const weatherProvider = localStorage.getItem("weatherProviderSelect") || "weatherapi";
+
         try {
-            const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${savedApiKey}&q=${query}`);
-            suggestions = await response.json();
+            if (weatherProvider === "openmeteo") {
+                const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${query}&count=5&language=en&format=json`);
+                const data = await response.json();
+                suggestions = data.results ? data.results.map(r => ({
+                    name: r.name,
+                    region: r.admin1 || "",
+                    country: r.country || ""
+                })) : [];
+            } else {
+                // If weatherapi, use the active apiKey
+                const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${query}`);
+                suggestions = await response.json();
+            }
 
             if (suggestions.length > 0) {
                 displaySuggestions(suggestions);
@@ -371,42 +384,125 @@ async function getWeatherData() {
                 // Language code for Weather API
                 let lang = currentLanguage === "zh_TW" ? currentLanguage : currentLanguage.split("_")[0];
 
-                // Fetch weather data using Weather API
-                let weatherApi = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${currentUserLocation}&days=1&aqi=no&alerts=no&lang=${lang}`;
+                const weatherProvider = localStorage.getItem("weatherProviderSelect") || "weatherapi";
+                let filteredData = null;
 
-                let data = await fetch(weatherApi);
-                parsedData = await data.json();
-                if (!parsedData.error) {
-                    // Extract only the necessary fields before saving
-                    const filteredData = {
-                        location: {
-                            name: parsedData.location.name,
-                        },
-                        current: {
-                            condition: {
-                                text: parsedData.current.condition.text,
-                                icon: parsedData.current.condition.icon,
-                            },
-                            temp_c: parsedData.current.temp_c,
-                            temp_f: parsedData.current.temp_f,
-                            humidity: parsedData.current.humidity,
-                            feelslike_c: parsedData.current.feelslike_c,
-                            feelslike_f: parsedData.current.feelslike_f,
-                        },
-                        forecast: {
-                            forecastday: [
-                                {
-                                    day: {
-                                        mintemp_c: parsedData.forecast.forecastday[0].day.mintemp_c,
-                                        maxtemp_c: parsedData.forecast.forecastday[0].day.maxtemp_c,
-                                        mintemp_f: parsedData.forecast.forecastday[0].day.mintemp_f,
-                                        maxtemp_f: parsedData.forecast.forecastday[0].day.maxtemp_f
-                                    }
-                                }
-                            ]
+                let useWeatherApiFallback = false;
+
+                if (weatherProvider === "openmeteo") {
+                    try {
+                        let lat, lon, nameValue;
+                        nameValue = currentUserLocation;
+                        if (currentUserLocation === "auto:ip") {
+                            const ipGeoRes = await fetch("https://get.geojs.io/v1/ip/geo.json");
+                            const ipGeoData = await ipGeoRes.json();
+                            lat = ipGeoData.latitude;
+                            lon = ipGeoData.longitude;
+                            nameValue = ipGeoData.city || ipGeoData.region || "Current Location";
+                        } else if (/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(currentUserLocation)) {
+                            [lat, lon] = currentUserLocation.replace(/\s/g, '').split(",");
+                            try {
+                                const revGeoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&accept-language=${lang}`);
+                                const revGeoData = await revGeoResponse.json();
+                                nameValue = revGeoData.name || revGeoData.address?.city || revGeoData.address?.town || revGeoData.address?.village || revGeoData.address?.county || "Current Location";
+                            } catch (e) {
+                                nameValue = "Current Location";
+                            }
+                        } else {
+                            const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(currentUserLocation)}&count=1&language=${lang}&format=json`);
+                            const geoData = await geoResponse.json();
+                            if (geoData.results && geoData.results.length > 0) {
+                                lat = geoData.results[0].latitude;
+                                lon = geoData.results[0].longitude;
+                                nameValue = geoData.results[0].name;
+                            } else {
+                                throw new Error("Location not found via Open-Meteo");
+                            }
                         }
-                    };
 
+                        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
+                        const fApi = await fetch(url);
+                        const oData = await fApi.json();
+
+                        const map = {
+                            0: { text: "Clear", icon: "113" }, 1: { text: "Mainly Clear", icon: "116" }, 2: { text: "Partly Cloudy", icon: "116" }, 3: { text: "Overcast", icon: "122" },
+                            45: { text: "Fog", icon: "248" }, 48: { text: "Depositing rime fog", icon: "248" }, 51: { text: "Drizzle Light", icon: "266" }, 53: { text: "Drizzle Moderate", icon: "266" },
+                            55: { text: "Drizzle Dense", icon: "266" }, 56: { text: "Freezing Drizzle Light", icon: "281" }, 57: { text: "Freezing Drizzle Dense", icon: "281" },
+                            61: { text: "Rain Slight", icon: "296" }, 63: { text: "Rain Moderate", icon: "302" }, 65: { text: "Rain Heavy", icon: "308" }, 66: { text: "Freezing Rain Light", icon: "311" },
+                            67: { text: "Freezing Rain Heavy", icon: "314" }, 71: { text: "Snow Slight", icon: "326" }, 73: { text: "Snow Moderate", icon: "329" }, 75: { text: "Snow Heavy", icon: "332" },
+                            77: { text: "Snow Grains", icon: "338" }, 80: { text: "Rain Showers Slight", icon: "353" }, 81: { text: "Rain Showers Moderate", icon: "356" },
+                            82: { text: "Rain Showers Violent", icon: "359" }, 85: { text: "Snow Showers Slight", icon: "368" }, 86: { text: "Snow Showers Heavy", icon: "371" },
+                            95: { text: "Thunderstorm", icon: "386" }, 96: { text: "Thunderstorm Slight Hail", icon: "389" }, 99: { text: "Thunderstorm Heavy Hail", icon: "392" },
+                        };
+                        const c = map[oData.current.weather_code] || { text: "Unknown", icon: "113" };
+                        const timeOfDay = oData.current.is_day ? "day" : "night";
+                        const mappedCode = { text: c.text, icon: `https://cdn.weatherapi.com/weather/128x128/${timeOfDay}/${c.icon}.png` };
+
+                        const tempC = oData.current.temperature_2m;
+                        const feelsC = oData.current.apparent_temperature;
+                        const minC = oData.daily.temperature_2m_min[0];
+                        const maxC = oData.daily.temperature_2m_max[0];
+
+                        filteredData = {
+                            location: { name: nameValue },
+                            current: {
+                                condition: { text: mappedCode.text, icon: mappedCode.icon },
+                                temp_c: tempC, temp_f: tempC * 9 / 5 + 32,
+                                humidity: oData.current.relative_humidity_2m,
+                                feelslike_c: feelsC, feelslike_f: feelsC * 9 / 5 + 32,
+                            },
+                            forecast: {
+                                forecastday: [{
+                                    day: { mintemp_c: minC, maxtemp_c: maxC, mintemp_f: minC * 9 / 5 + 32, maxtemp_f: maxC * 9 / 5 + 32 }
+                                }]
+                            }
+                        };
+                    } catch (e) {
+                        console.warn("Open-Meteo failed, falling back to WeatherAPI:", e);
+                        useWeatherApiFallback = true;
+                    }
+                }
+
+                if (weatherProvider !== "openmeteo" || useWeatherApiFallback) {
+                    // Fetch weather data using Weather API
+                    let weatherApi = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${currentUserLocation}&days=1&aqi=no&alerts=no&lang=${lang}`;
+
+                    let data = await fetch(weatherApi);
+                    let rawData = await data.json();
+                    if (!rawData.error) {
+                        filteredData = {
+                            location: {
+                                name: rawData.location.name,
+                            },
+                            current: {
+                                condition: {
+                                    text: rawData.current.condition.text,
+                                    icon: rawData.current.condition.icon,
+                                },
+                                temp_c: rawData.current.temp_c,
+                                temp_f: rawData.current.temp_f,
+                                humidity: rawData.current.humidity,
+                                feelslike_c: rawData.current.feelslike_c,
+                                feelslike_f: rawData.current.feelslike_f,
+                            },
+                            forecast: {
+                                forecastday: [
+                                    {
+                                        day: {
+                                            mintemp_c: rawData.forecast.forecastday[0].day.mintemp_c,
+                                            maxtemp_c: rawData.forecast.forecastday[0].day.maxtemp_c,
+                                            mintemp_f: rawData.forecast.forecastday[0].day.mintemp_f,
+                                            maxtemp_f: rawData.forecast.forecastday[0].day.maxtemp_f
+                                        }
+                                    }
+                                ]
+                            }
+                        };
+                    }
+                }
+
+                if (filteredData) {
+                    parsedData = filteredData;
                     // Save filtered weather data to localStorage
                     localStorage.setItem("weatherParsedData", JSON.stringify(filteredData));
                     localStorage.setItem("weatherParsedTime", Date.now()); // Save time of last fetching
@@ -617,3 +713,13 @@ minMaxTempCheckbox.addEventListener("change", () => {
     localStorage.setItem("minMaxTempEnabled", isChecked);
     location.reload();
 });
+
+const weatherProviderSelect = document.getElementById("weatherProviderSelect");
+if (weatherProviderSelect) {
+    weatherProviderSelect.value = localStorage.getItem("weatherProviderSelect") || "weatherapi";
+    weatherProviderSelect.addEventListener("change", (e) => {
+        localStorage.setItem("weatherProviderSelect", e.target.value);
+        localStorage.setItem("weatherParsedTime", "0");
+        location.reload();
+    });
+}
