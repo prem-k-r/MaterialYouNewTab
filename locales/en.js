@@ -154,6 +154,7 @@ const en = {
     "ai_tools": "AI Tools",
     "chatGPT": "ChatGPT",
     "gemini": "Gemini",
+    "googleAIStudio": "Google AI Studio",
     "copilot": "Copilot",
     "claude": "Claude",
     "grok": "Grok",
