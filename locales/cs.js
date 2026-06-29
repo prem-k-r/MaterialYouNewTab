@@ -222,5 +222,5 @@ const cs = {
     "invalidSvgMessage": "Vložené SVG je nevalidní nebo obsahuje nebezpečný obsah, a nemůže být použito jako ikona.",
     "invalidIconUrlMessage": "Zadejte prosím validní URL adresu obrázku (musí začínat https://, http://, nebo data:image/).",
     "iconFileTooLargeMessage": "Vybraný soubor je příliš velký: {size} KB. Použijte prosím menší soubor do velikosti {max} KB.",
-    "iconStorageQuotaMessage": "Ikonu nebylo možné uložit kvůli překročení kapacity úložiště. Odstraňte některé vlastní ikony nebo použijte menší obrázek.",
+    "iconStorageQuotaMessage": "Ikonu nebylo možné uložit kvůli překročení kapacity úložiště. Odstraňte některé vlastní ikony nebo použijte menší obrázek."
 };

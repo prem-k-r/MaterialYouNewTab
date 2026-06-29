@@ -20,6 +20,9 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
 - Added support for custom shortcut icons via upload, URL, or pasted SVG ([@smurf11k](https://github.com/smurf11k)), ([@prem-k-r](https://github.com/prem-k-r)) ([#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/)), ([#199](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/))
 - Added Daily Quote option to show one quote per day instead of refreshing on every new tab ([@KomeshBathula](https://github.com/KomeshBathula)) ([#141](https://github.com/prem-k-r/MaterialYouNewTab/pull/141))
+- Added a "Download Wallpaper" button that downloads the original high-resolution Unsplash image after resolving the wallpaper's source metadata
+- Added a sleek glassmorphic attribution pill at the bottom-right corner (next to the menu button) referencing the photographer and linking to the source Unsplash page of the active random wallpaper
+- Added localized hover tooltips to settings control buttons (Random Wallpaper, Clear Wallpaper, and Download Wallpaper)
 
 ### Improved
 
@@ -30,6 +33,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Improved fallback behavior of shortcut icons to first-letter icons when custom icons fail to load or when offline ([@prem-k-r](https://github.com/prem-k-r)) ([#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/))
 - Disabled dragging for weather and location icons ([@anndiy](https://github.com/anndiy)) ([#183](https://github.com/prem-k-r/MaterialYouNewTab/pull/183))
 - Added support for right-click to access AI Tools settings ([@prem-k-r](https://github.com/prem-k-r)) ([#210](https://github.com/prem-k-r/MaterialYouNewTab/pull/210/))
+- Restricted wallpaper downloading to random wallpapers only, dynamically graying out the download button and triggering an informative localized popup when non-random modes are active
 
 ### Fixed
 
@@ -53,6 +57,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
   - Hungarian ([@smurf11k](https://github.com/smurf11k))
   - Marathi ([@anndiy](https://github.com/anndiy))
   - French ([@iamwinner422](https://github.com/iamwinner422))
+  - Urdu ([@mian196](https://github.com/mian196))
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 - Added support for Ukrainian ([@lozik4](https://github.com/lozik4)) ([#106](https://github.com/prem-k-r/MaterialYouNewTab/pull/106))
 - Added support for Swedish ([@empohello-imamempogitub](https://github.com/empohello-imamempogitub)) ([#179](https://github.com/prem-k-r/MaterialYouNewTab/pull/179))
