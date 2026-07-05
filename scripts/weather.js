@@ -716,10 +716,21 @@ minMaxTempCheckbox.addEventListener("change", () => {
 
 const weatherProviderSelect = document.getElementById("weatherProviderSelect");
 if (weatherProviderSelect) {
+    const weatherApiKeyField = document.getElementById("weatherApiKeyField");
     weatherProviderSelect.value = localStorage.getItem("weatherProviderSelect") || "weatherapi";
+
+    function applyWeatherApiKeyFieldState() {
+        if (weatherApiKeyField) {
+            weatherApiKeyField.classList.toggle("inactive", weatherProviderSelect.value === "openmeteo");
+        }
+    }
+
+    applyWeatherApiKeyFieldState();
+
     weatherProviderSelect.addEventListener("change", (e) => {
         localStorage.setItem("weatherProviderSelect", e.target.value);
         localStorage.setItem("weatherParsedTime", "0");
+        applyWeatherApiKeyFieldState();
         location.reload();
     });
 }
