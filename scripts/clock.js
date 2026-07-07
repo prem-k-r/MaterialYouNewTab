@@ -107,10 +107,20 @@ async function initializeClock() {
     cumulativeMinuteRotation = initialMinutes * 6 + (initialSeconds / 10);
     cumulativeHourRotation = (30 * initialHours + initialMinutes / 2);
 
-    // Apply initial rotations (no need to wait 1s now)
+    // Apply initial rotations (no need to wait 1s now).
+    // When open animations are off, snap the hands into place with no entrance sweep.
+    const snapClockHands = document.documentElement.classList.contains("no-open-animations");
+    if (snapClockHands) {
+        document.getElementById("second").style.transition = "none";
+        document.getElementById("minute").style.transition = "none";
+        document.getElementById("hour").style.transition = "none";
+    }
     document.getElementById("second").style.transform = `rotate(${cumulativeSecondRotation}deg)`;
     document.getElementById("minute").style.transform = `rotate(${cumulativeMinuteRotation}deg)`;
     document.getElementById("hour").style.transform = `rotate(${cumulativeHourRotation}deg)`;
+    if (snapClockHands) {
+        void document.getElementById("second").offsetHeight; // commit the snap before transitions resume
+    }
 
     function initializeClockType() {
         const savedClockType = localStorage.getItem("clocktype");

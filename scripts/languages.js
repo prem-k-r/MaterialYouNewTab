@@ -138,6 +138,8 @@ function applyLanguage(lang) {
         "googleAppsMenuInfo",
         "todoListText",
         "todoListInfo",
+        "disableAnimationsText",
+        "disableAnimationsInfo",
         "fahrenheitCelsiusCheckbox",
         "fahrenheitCelsiusText",
         "minMaxTempText",

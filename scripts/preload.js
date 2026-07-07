@@ -8,3 +8,8 @@
 
 // Set Loading Screen Color before Everything Loads
 document.documentElement.style.setProperty('--Loading-Screen-Color', localStorage.getItem('LoadingScreenColor') || "#bbd6fd");
+
+// Apply the "disable open animations" preference before paint to avoid a flash
+if (localStorage.getItem('disableOpenAnimations') === "true") {
+    document.documentElement.classList.add("no-open-animations");
+}

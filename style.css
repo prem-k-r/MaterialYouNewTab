@@ -1499,6 +1499,19 @@ body #bookmarkButton.bookmark-button.rotate {
 	}
 }
 
+/* Disable on-open animations when opted out */
+html.no-open-animations #clock svg,
+html.no-open-animations .rightDiv .topDiv .rAndakar {
+	animation: none;
+}
+
+/* These only animate when their value first loads, so snap them into place.
+   The clock hands are handled in clock.js so they keep ticking smoothly. */
+html.no-open-animations .humidityBar .slider,
+html.no-open-animations .authorName {
+	transition: none;
+}
+
 .clock .centerPoint {
 	width: 20px;
 	height: 20px;
