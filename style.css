@@ -234,7 +234,11 @@ html:has(
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
-	& .favicon {
+	& .favicon,
+	& #wIcon,
+	&:not(:has(#adaptiveIconToggle:checked))
+		.shortcutLogoContainer
+		img[data-icon-type="default"] {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -272,7 +276,11 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
-	& .favicon {
+	& .favicon,
+	& #wIcon,
+	&:not(:has(#adaptiveIconToggle:checked))
+		.shortcutLogoContainer
+		img[data-icon-type="default"] {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -297,7 +305,10 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	opacity: 0;
 	z-index: -100;
 	transform: translateY(-70px);
-	transition: opacity 0.5s ease, transform 0.5s ease, z-index 0.5s ease;
+	transition:
+		opacity 0.5s ease,
+		transform 0.5s ease,
+		z-index 0.5s ease;
 	pointer-events: none;
 	backdrop-filter: blur(4px);
 }
@@ -496,7 +507,9 @@ body[data-bg="wallpaper"] .tooltip-text {
 	text-align: center;
 	padding: 10px;
 	border-radius: 15px;
-	transition: transform 0.3s ease, background-color 0.3s ease;
+	transition:
+		transform 0.3s ease,
+		background-color 0.3s ease;
 	text-decoration: none;
 	cursor: pointer;
 	position: relative;
@@ -836,7 +849,9 @@ body #bookmarkButton.bookmark-button.rotate {
 	text-overflow: ellipsis;
 	padding: 4px 8px;
 	color: var(--darkColor-blue);
-	transition: background-color 0.2s, color 0.2s;
+	transition:
+		background-color 0.2s,
+		color 0.2s;
 }
 
 #sortAlphabetical {
@@ -1175,8 +1190,8 @@ body #bookmarkButton.bookmark-button.rotate {
 	border-radius: 30px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 	border: 8px solid var(--bg-color-blue);
-	grid-template-columns: auto;
-	justify-items: stretch;
+	grid-template-columns: 330px;
+	justify-items: center;
 	position: fixed;
 	top: 85px;
 	left: 15px;
@@ -1206,96 +1221,6 @@ body #bookmarkButton.bookmark-button.rotate {
 .todo-container::-webkit-scrollbar-thumb:hover {
 	background-color: var(--darkerColor-blue);
 	border-radius: 3px;
-}
-
-.todo-actions {
-	display: flex;
-	gap: 10px;
-	justify-content: flex-end;
-	width: 100%;
-	padding: 0 10px;
-	box-sizing: border-box;
-}
-
-.todo-actions button {
-	padding: 5px 10px;
-	background-color: var(--accent-color-blue);
-	color: var(--whitishColor-blue);
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 0.8rem;
-	transition: background-color 0.2s ease;
-}
-
-.todo-actions button:hover {
-	background-color: color-mix(in srgb, var(--accent-color-blue) 80%, white);
-}
-
-.todo-filters {
-	display: flex;
-	gap: 10px;
-	width: 100%;
-	padding: 0 10px;
-	box-sizing: border-box;
-}
-
-.todo-filters select {
-	flex: 0 0 auto;
-	width: auto;
-	min-width: 0;
-	padding: 5px 8px;
-	background-color: var(--darkColor-blue);
-	background-color: color-mix(in srgb, var(--darkColor-blue) 90%, transparent);
-	color: var(--whitishColor-blue);
-	border: 1px solid var(--bg-color-blue);
-	border-radius: 5px;
-	font-size: 0.8rem;
-	cursor: pointer;
-	white-space: nowrap;
-}
-
-.todo-filters select option {
-	background-color: var(--bg-color-blue);
-	color: var(--whitishColor-blue);
-}
-
-/* Edit controls styles */
-.todo-edit-controls {
-	display: flex;
-	gap: 10px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	width: 100%;
-}
-
-.todo-category-select,
-.todo-priority-select,
-.todo-due-date-input {
-	flex: 0 0 auto;
-	width: auto;
-	min-width: 0;
-	max-width: none;
-	padding: 3px 6px;
-	background-color: var(--darkColor-blue);
-	background-color: color-mix(in srgb, var(--darkColor-blue) 90%, transparent);
-	color: var(--whitishColor-blue);
-	border: 1px solid var(--bg-color-blue);
-	border-radius: 3px;
-	font-size: 0.8rem;
-	white-space: nowrap;
-}
-
-.edit-input {
-	width: 100%;
-	padding: 5px;
-	background-color: var(--darkColor-blue);
-	background-color: color-mix(in srgb, var(--darkColor-blue) 90%, transparent);
-	color: var(--whitishColor-blue);
-	border: 1px solid var(--bg-color-blue);
-	border-radius: 3px;
-	font-size: 1rem;
-	margin-bottom: 5px;
 }
 
 /* For Firefox */
@@ -1334,13 +1259,13 @@ body #bookmarkButton.bookmark-button.rotate {
 .todo-container .addTaskCont {
 	background: white;
 	background-color: color-mix(in srgb, var(--accentLightTint-blue) 10%, white);
-	padding: 10px;
+	padding: 0;
 	margin-bottom: 4px;
 	border-radius: 20px;
+	height: 42px;
 	width: 100%;
 	display: flex;
-	flex-direction: column;
-	gap: 10px;
+	align-items: center;
 	outline: none;
 }
 
@@ -1356,79 +1281,15 @@ body #bookmarkButton.bookmark-button.rotate {
 	outline: 1px solid var(--accentLightTint-dark);
 }
 
-.task-controls {
-	display: flex;
-	gap: 4px;
-	align-items: center;
-}
-
-.task-controls select,
-.task-controls input[type="date"] {
-	flex: 0 0 auto;
-	width: auto;
-	min-width: 0;
-	max-width: none;
-	padding: 3px 8px;
-	background-color: rgba(255, 255, 255, 0.8);
-	color: var(--darkColor-blue);
-	border: 1px solid var(--bg-color-blue);
-	border-radius: 12px;
-	font-size: 0.7rem;
-	white-space: nowrap;
-}
-
-.task-controls select option {
-	background-color: white;
-	color: var(--darkColor-blue);
-}
-
-.task-controls button {
-	padding: 5px 15px;
-	background-color: var(--darkColor-blue);
-	color: white;
-	border: none;
-	border-radius: 15px;
-	cursor: pointer;
-	font-size: 1.2rem;
-	font-weight: bold;
-}
-
-.task-controls button:hover {
-	background-color: var(--bg-color-blue);
-}
-
-/* Black theme styles */
-.black-theme .task-controls select,
-.black-theme .task-controls input[type="date"] {
-	background-color: rgba(0, 0, 0, 0.5);
-	color: var(--whitishColor-blue);
-	border: 1px solid var(--accentLightTint-dark);
-}
-
-.black-theme .task-controls select option {
-	background-color: #333;
-	color: var(--whitishColor-blue);
-}
-
-.black-theme .task-controls button {
-	background-color: var(--accentLightTint-dark);
-	color: var(--whitishColor-blue);
-}
-
-.black-theme .task-controls button:hover {
-	background-color: var(--bg-color-dark);
-}
-
 #todoAdd {
-	padding: 3px 10px;
-	border-radius: 12px;
+	height: 100%;
+	border-radius: 20px;
+	padding: 0 12px;
 	border: none;
-	font-size: 1.2rem;
+	font-size: 1.8rem;
 	background-color: var(--darkColor-blue);
 	color: white;
-	cursor: pointer;
-	min-width: 30px;
-	text-align: center;
+	scale: 0.78;
 }
 
 #todoAdd:hover {
@@ -1477,7 +1338,6 @@ body #bookmarkButton.bookmark-button.rotate {
 .todolistitem {
 	width: 100%;
 	display: flex;
-	flex-direction: column;
 	background-color: var(--darkColor-blue);
 	background-color: color-mix(in srgb, var(--darkColor-blue) 95%, transparent);
 	color: var(--whitishColor-blue);
@@ -1491,54 +1351,6 @@ body #bookmarkButton.bookmark-button.rotate {
 	cursor: pointer;
 	position: relative;
 	word-break: break-word;
-}
-
-.task-content {
-	margin-bottom: 4px;
-}
-
-.task-meta {
-	display: flex;
-	gap: 8px;
-	font-size: 0.8rem;
-	opacity: 0.8;
-}
-
-.category-badge {
-	background-color: color-mix(in srgb, var(--bg-color-blue) 30%, transparent);
-	padding: 2px 8px;
-	border-radius: 10px;
-}
-
-.priority-badge {
-	padding: 2px 8px;
-	border-radius: 10px;
-}
-
-.priority-高 {
-	background-color: color-mix(in srgb, #ff4757 30%, transparent);
-}
-
-.priority-中 {
-	background-color: color-mix(in srgb, #ffa502 30%, transparent);
-}
-
-.priority-低 {
-	background-color: color-mix(in srgb, #2ed573 30%, transparent);
-}
-
-.due-date-badge {
-	background-color: color-mix(in srgb, var(--bg-color-cyan) 30%, transparent);
-	padding: 2px 8px;
-	border-radius: 10px;
-}
-
-.due-date-badge.overdue {
-	background-color: color-mix(in srgb, #ff4757 30%, transparent);
-}
-
-.due-date-badge.due-today {
-	background-color: color-mix(in srgb, #ffa502 30%, transparent);
 }
 
 .todolistitem::before {
@@ -1857,17 +1669,24 @@ html[lang="ta"] .digiclock {
 
 .clockOptions,
 .proxyOptions,
-.weatherOptions {
+.weatherOptions,
+.quotesOptions {
 	overflow: hidden;
 	max-height: 800px;
 	opacity: 1;
-	transition: max-height 0.4s var(--md-motion-ease), opacity 0.3s ease;
+	transition:
+		max-height 0.4s var(--md-motion-ease),
+		opacity 0.3s ease;
 }
 
 .not-applicable {
 	max-height: 0;
 	opacity: 0;
 	pointer-events: none;
+}
+
+.quotesOptions:not(:last-child) .ttcont:last-child {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .clock-hidden-left {
@@ -1984,7 +1803,10 @@ html[lang="ta"] .digiclock {
 	height: auto;
 	max-height: 0;
 	overflow: hidden;
-	transition: opacity 0.3s ease, transform 0.5s ease, max-height 0.4s ease;
+	transition:
+		opacity 0.3s ease,
+		transform 0.5s ease,
+		max-height 0.4s ease;
 }
 
 body[data-bg="wallpaper"] .opacityBarControl {
@@ -2204,6 +2026,7 @@ body[data-bg="wallpaper"] .searchbar {
 	position: absolute;
 	margin-top: 16px;
 	margin-inline-start: 16px;
+	fill: var(--darkColor-blue);
 }
 
 .searchbar-content {
@@ -2365,7 +2188,9 @@ body[data-bg="wallpaper"] .micIcon {
 	margin-inline-end: 5px;
 	border-radius: var(--round);
 	cursor: pointer;
-	transition: border-radius 0.4s, margin-inline-start 0.4s;
+	transition:
+		border-radius 0.4s,
+		margin-inline-start 0.4s;
 }
 
 :dir(rtl) .searchWithCont .hint {
@@ -2465,7 +2290,9 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 }
 
 .theme-transition .search-engine input[type="radio"] {
-	transition: background-color 0.2s ease, border 0.2s ease;
+	transition:
+		background-color 0.2s ease,
+		border 0.2s ease;
 }
 
 /* ----------- Quotes ------------ */
@@ -2741,18 +2568,94 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 .shortcutsContainer .shortcuts .shortcutLogoContainer img {
 	height: 100%;
 	width: 100%;
-	border-radius: 100%;
+	border-radius: 50%;
+	object-fit: contain;
 	filter: none;
 	mix-blend-mode: normal;
 }
 
 /* Adaptive Icons styling */
-.adaptive-icons .shortcuts .shortcutLogoContainer img {
+.adaptive-icons
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="default"] {
 	height: calc(100% * 0.7071) !important;
 	width: calc(100% * 0.7071) !important;
 	filter: grayscale(1);
 	mix-blend-mode: screen;
 }
+
+html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
+	.adaptive-icons
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="default"],
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(
+		:has(#darkTheme:checked)
+	)
+	.adaptive-icons
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="default"],
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(
+		:has(#darkTheme:checked)
+	)
+	.adaptive-icons
+	.shortcutLogoContainer
+	img[data-icon-type="default"],
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.themeSegment[data-active="system"]
+	):not(:has(#darkTheme:checked))
+	.adaptive-icons
+	.shortcutLogoContainer
+	img[data-icon-type="default"] {
+	filter: grayscale(1) invert(1) !important;
+}
+
+.shortcutLogoContainer img[data-icon-type="custom"] {
+	filter: none !important;
+	mix-blend-mode: normal !important;
+	border-radius: 10% !important;
+}
+
+html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"],
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(
+		:has(#darkTheme:checked)
+	)
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"],
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(
+		:has(#darkTheme:checked)
+	)
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"],
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.themeSegment[data-active="system"]
+	):not(:has(#darkTheme:checked))
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"] {
+	filter: invert(1) hue-rotate(180deg) !important;
+	mix-blend-mode: normal !important;
+}
+
+.adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="custom"] {
+	height: calc(100% * 0.7071) !important;
+	width: calc(100% * 0.7071) !important;
+}
+
+.adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="letter"] {
+	height: 100% !important;
+	width: 100% !important;
+	filter: none !important;
+	mix-blend-mode: normal !important;
+}
+
 /* ----------end of Shortcuts----------------- */
 
 /* -----------Ai-Tools----------------- */
@@ -2768,6 +2671,7 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 	max-width: calc(100% - 140px);
 	overflow-x: scroll;
 	overflow-y: hidden;
+	scroll-behavior: smooth;
 	scrollbar-width: none; /* Firefox */
 	-ms-overflow-style: none; /* IE and Edge */
 }
@@ -2996,16 +2900,15 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 }
 
 #aiToolsForm .ai-tool-reorder button {
-	background: color-mix(in srgb, var(--whitishColor-blue) 60%, transparent);
 	color: var(--darkColor-blue);
-	border: 1px solid var(--darkColor-blue);
-	border-radius: 6px;
-	width: 26px;
-	height: 22px;
-	font-size: 0.8rem;
-	line-height: 1;
+	background-color: var(--bg-color-blue);
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 20%, transparent);
+	border-radius: 20%;
+	width: 24px;
+	height: 24px;
+	padding: 1px;
+	opacity: 0.8;
 	cursor: pointer;
-	padding: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -3013,7 +2916,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 
 #aiToolsForm .ai-tool-reorder button:hover {
 	color: var(--darkerColor-blue);
-	border-color: var(--darkerColor-blue);
+	border-color: color-mix(in srgb, var(--darkColor-blue) 50%, transparent);
 }
 
 #aiToolsForm .ai-tool-reorder button:active {
@@ -3026,6 +2929,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 }
 
 #aiToolsForm .ai-tool-reorder button:disabled:hover {
+	color: var(--darkColor-blue);
 	transform: none;
 }
 
@@ -3456,8 +3360,8 @@ input:checked + .toggle:before {
 }
 
 /* ===== Unified Section ===== */
-.section {
-	margin-bottom: 20px;
+.section + .section {
+	margin-top: 22px;
 }
 
 /* OUTER container */
@@ -3471,7 +3375,8 @@ input:checked + .toggle:before {
 	border-radius: 25px;
 	padding: 7px;
 
-	transition: border-radius 0.25s var(--md-motion-ease),
+	transition:
+		border-radius 0.25s var(--md-motion-ease),
 		background-color 0.25s var(--md-motion-ease);
 }
 
@@ -3525,8 +3430,10 @@ input:checked + .toggle:before {
 	overflow: hidden;
 	max-height: 1000px; /* large enough */
 	opacity: 1;
-	transition: max-height 0.4s var(--md-motion-ease),
-		opacity 0.2s var(--md-motion-ease), margin-top 0.23s var(--md-motion-ease),
+	transition:
+		max-height 0.4s var(--md-motion-ease),
+		opacity 0.2s var(--md-motion-ease),
+		margin-top 0.23s var(--md-motion-ease),
 		padding 0.23s var(--md-motion-ease);
 }
 
@@ -3552,8 +3459,10 @@ input:checked + .toggle:before {
 	padding-top: 0;
 	padding-bottom: 0;
 
-	transition: max-height 0.3s cubic-bezier(0.2, 0, 0, 1),
-		opacity 0.2s var(--md-motion-ease), margin-top 0.23s var(--md-motion-ease),
+	transition:
+		max-height 0.3s cubic-bezier(0.2, 0, 0, 1),
+		opacity 0.2s var(--md-motion-ease),
+		margin-top 0.23s var(--md-motion-ease),
 		padding 0.23s var(--md-motion-ease);
 }
 
@@ -3591,6 +3500,10 @@ input:checked + .toggle:before {
 }
 
 .black-theme .sectionInner .ttcont:not(:last-child) {
+	border-bottom: 1px solid #ffffff1a;
+}
+
+.black-theme .sectionInner .quotesOptions:not(:last-child) .ttcont:last-child {
 	border-bottom: 1px solid #ffffff1a;
 }
 
@@ -3641,15 +3554,28 @@ input:checked + .toggle:before {
 
 .rightButtons {
 	display: flex;
-	gap: 24px;
+	gap: 8px;
 }
 
 #resetButton,
 #newShortcutButton {
 	fill: var(--textColorDark-blue);
 	border: none;
-	background: none;
+	background: color-mix(in srgb, var(--bg-color-blue) 80%, transparent);
+	height: 40px;
+	width: 40px;
+	padding: 8px;
+	border-radius: 7px;
 	cursor: pointer;
+	transition:
+		background-color 0.3s ease,
+		fill 0.3s ease;
+}
+
+#resetButton:hover,
+#newShortcutButton:hover {
+	fill: white;
+	background-color: var(--darkColor-blue);
 }
 
 #newShortcutButton svg {
@@ -3693,35 +3619,54 @@ input:checked + .toggle:before {
 }
 
 .pageTitle {
-	margin-top: 10px;
+	margin-top: 6px;
 	width: 100%;
-	font-size: 1.6rem;
+	font-size: 1.5rem;
 	color: var(--textColorDark-blue);
 }
 
 #editShortcutsListInfo {
-	font-size: 0.8rem;
+	font-size: 0.74rem;
 	margin-top: 5px;
-	margin-bottom: 25px;
+	margin-bottom: 24px;
 	text-align: justify;
 	font-style: italic;
 }
 
+/* 
+#editShortcutsListInfo::before {
+	content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'><g fill='currentColor'><path d='M8 0a.75.75 0 0 1 .75.75v1a.75.75 0 0 1-1.5 0v-1A.75.75 0 0 1 8 0m5.28 2.22a.75.75 0 0 1 0 1.06l-.707.707a.75.75 0 1 1-1.06-1.06l.707-.707a.75.75 0 0 1 1.06 0M2.72 3.28a.75.75 0 0 1 1.06-1.06l.707.707a.75.75 0 0 1-1.06 1.06zM15.5 7.5a.75.75 0 0 1-.75.75h-1a.75.75 0 0 1 0-1.5h1a.75.75 0 0 1 .75.75m-13.25.75a.75.75 0 0 0 0-1.5h-1a.75.75 0 0 0 0 1.5zm4 7A.75.75 0 0 1 7 14.5h2A.75.75 0 0 1 9 16H7a.75.75 0 0 1-.75-.75'/><path fill-rule='evenodd' d='M8 3.5A4.5 4.5 0 0 0 3.5 8c0 1.53.926 2.465 1.718 3.264l.2.203c.05.05.081.124.081.208A1.826 1.826 0 0 0 7.325 13.5H8.69c1 0 1.811-.81 1.811-1.81 0-.083.033-.159.088-.213l.067-.066C11.492 10.592 12.5 9.605 12.5 8A4.5 4.5 0 0 0 8 3.5M5 8a3 3 0 0 1 6 0c0 .928-.54 1.502-1.462 2.406-.347.34-.538.803-.538 1.283a.31.31 0 0 1-.31.311H7.324A.326.326 0 0 1 7 11.674c0-.461-.175-.914-.507-1.255l-.115-.117C5.49 9.397 5 8.894 5 8' clip-rule='evenodd'/></g></svg>");
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin-right: 2px;
+	vertical-align: -2px;
+	opacity: 0.7;
+} */
+
 .shortcutSettingsEntry {
 	width: 100%;
 	display: flex;
-	height: 68px;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 16px;
+	margin-bottom: 14px;
 	background-color: var(--bg-color-blue);
 	border-radius: 13px;
-	padding: 15px 10px;
-	padding-inline-start: 8px;
+	padding: 9px 10px 10px;
+	padding-inline-start: 6px;
 	position: relative;
 	transition: transform 0.3s var(--md-motion-ease) opacity 0.2s ease;
 	/* Enable hardware acceleration */
 	will-change: transform, opacity;
+}
+
+.shortcutInputGroup {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 4px 0 5px;
 }
 
 .shortcutSettingsEntry:last-child {
@@ -3729,12 +3674,21 @@ input:checked + .toggle:before {
 }
 
 .shortcutSettingsEntry input {
-	width: calc(100% - 18px);
+	width: 100%;
 	background: none;
 	border: none;
-	margin-inline-start: 8px;
 	color: var(--textColorDark-blue);
 	text-overflow: ellipsis;
+}
+
+.shortcutSettingsEntry input:hover {
+	animation: clipText 0s 150ms forwards;
+}
+
+@keyframes clipText {
+	to {
+		text-overflow: clip;
+	}
 }
 
 .shortcutSettingsEntry .shortcutName {
@@ -3742,9 +3696,40 @@ input:checked + .toggle:before {
 }
 
 .shortcutSettingsEntry .URL {
-	font-size: 0.84rem;
+	font-size: 0.76rem;
 	opacity: 0.9;
-	margin-top: -3px;
+}
+
+.shortcutSettingsEntry .iconURL {
+	font-size: 0.7rem;
+	opacity: 0.9;
+}
+
+.shortcutSettingsEntry input::placeholder {
+	color: var(--textColorDark-blue);
+	opacity: 0.6;
+}
+
+.shortcutInputRow {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.shortcutInputRow:last-child {
+	margin-top: 2px;
+}
+
+.shortcutInputRow svg {
+	flex-shrink: 0;
+	opacity: 0.5;
+	color: var(--textColorDark-blue);
+	pointer-events: none;
+}
+
+.shortcutInputRow input {
+	flex: 1;
+	min-width: 0;
 }
 
 /* Drag and drop styles */
@@ -3761,11 +3746,11 @@ input:checked + .toggle:before {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 54px;
-	padding: 0 6px;
+	padding: 27px 7px;
 	cursor: grab;
 	color: var(--textColor);
 	opacity: 0.5;
+	height: 54px;
 }
 
 .grip-container:hover {
@@ -3773,12 +3758,13 @@ input:checked + .toggle:before {
 }
 
 .grip-container svg {
+	transform: scale(1.1);
 	pointer-events: none;
 	transition: transform 0.2s ease;
 }
 
 .grip-container:hover svg {
-	transform: scale(1.1);
+	transform: scale(1.2);
 }
 
 .shortcutSettingsEntry.dragging .grip-container {
@@ -3794,13 +3780,21 @@ input:checked + .toggle:before {
 	transform: none;
 }
 
-.delete button {
+.shortcutActions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-inline-start: 8px;
+}
+
+.shortcutDelete button,
+.uploadCustomIconButton {
 	fill: var(--textColorDark-blue);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 46px;
-	height: 46px;
+	width: 42px;
+	height: 42px;
 	background: rgba(255, 255, 255, 0.4);
 	border: none;
 	border-radius: 7px;
@@ -3808,12 +3802,25 @@ input:checked + .toggle:before {
 	transition: 0.3s all;
 }
 
-.delete button:not(.inactive):hover {
+/* Shared hover state for action buttons */
+.uploadCustomIconButton:not(.inactive):hover,
+.shortcutDelete button:not(.inactive):hover {
 	fill: white;
 	background: var(--darkColor-blue);
 }
 
-.delete button.inactive {
+/* Color-specific hover for upload button */
+.uploadCustomIconButton:not(.inactive):hover {
+	color: white;
+}
+
+.uploadCustomIconButton svg {
+	pointer-events: none;
+}
+
+/* Shared inactive state for action buttons */
+.uploadCustomIconButton.inactive,
+.shortcutDelete button.inactive {
 	opacity: 0.5;
 	cursor: not-allowed;
 }
@@ -4129,7 +4136,9 @@ option:checked {
 	border-radius: 23px;
 	cursor: pointer;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-	transition: background-color 0.3s, color 0.3s;
+	transition:
+		background-color 0.3s,
+		color 0.3s;
 }
 
 .randomButton {
@@ -4142,7 +4151,9 @@ option:checked {
 	border-radius: 26px;
 	cursor: pointer;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-	transition: background-color 0.3s, color 0.3s;
+	transition:
+		background-color 0.3s,
+		color 0.3s;
 	padding: 10px;
 }
 
@@ -4156,7 +4167,9 @@ option:checked {
 	border: none;
 	border-radius: 26px;
 	cursor: pointer;
-	transition: background-color 0.3s, color 0.3s;
+	transition:
+		background-color 0.3s,
+		color 0.3s;
 }
 
 /* Hover Effects */
@@ -4256,7 +4269,8 @@ option:checked {
 	background-color: var(--accentLightTint-blue);
 	border-radius: 50%;
 	border: 6px solid var(--accentLightTint-blue);
-	box-shadow: inset 0 0 0 4px var(--darkColor-blue),
+	box-shadow:
+		inset 0 0 0 4px var(--darkColor-blue),
 		inset 0 0 0 9.7px var(--accentLightTint-blue),
 		inset 0 0 0 40px var(--darkColor-blue);
 	cursor: pointer;
@@ -4360,14 +4374,16 @@ option:checked {
 	overflow-y: auto;
 	max-height: 0;
 	opacity: 0;
-	transition: max-height 0.21s var(--md-motion-accelerate),
+	transition:
+		max-height 0.21s var(--md-motion-accelerate),
 		opacity 0.2s var(--md-motion-accelerate);
 }
 
 .dropdown-content.show {
 	max-height: 192px;
 	opacity: 1;
-	transition: max-height 0.32s var(--md-motion-decelerate),
+	transition:
+		max-height 0.32s var(--md-motion-decelerate),
 		opacity 0.12s var(--md-motion-decelerate);
 }
 
@@ -4511,7 +4527,8 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 /* --------- Save button --------- */
 .savebtn {
-	transition: background-color 0.3s var(--md-motion-ease),
+	transition:
+		background-color 0.3s var(--md-motion-ease),
 		transform 0.2s var(--md-motion-ease);
 }
 
@@ -4855,6 +4872,10 @@ body[data-bg="wallpaper"] .dropdown-content {
 	.toggleTextsCont .ttcont:has(#motivationalQuotesCheckbox) {
 		display: none;
 	}
+	.quotesOptions,
+	.toggleTextsCont .ttcont:has(#newQuoteOnRefreshCheckbox) {
+		display: none;
+	}
 	.quotesContainer,
 	.authorWrapper {
 		display: none;
@@ -4907,11 +4928,11 @@ body[data-bg="wallpaper"] .dropdown-content {
 		display: flex !important;
 	}
 	.hangno:has(
-			+ :is(
-					.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
-					.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0;"]
-				)
-		) {
+		+ :is(
+			.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
+			.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0;"]
+		)
+	) {
 		& .icon {
 			margin: 0;
 		}
@@ -5036,11 +5057,15 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme #searchIconDark {
-	fill: #bbb !important;
+	fill: #bbb;
 }
 
 .black-theme .dropdown-item.selected:not(*[data-default]):before {
 	background-color: #707070;
+}
+
+.black-theme #micIconPath {
+	fill: var(--darkColor-dark);
 }
 
 .black-theme .tilesContainer .tiles {
@@ -5048,7 +5073,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme #darkFeelsLikeIcon {
-	fill: #fff !important;
+	fill: #fff;
 }
 
 .black-theme .humidityBar .slider {
@@ -5069,7 +5094,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: #cdcdcd;
 }
 
-.black-theme .shorcutDarkColor {
+.black-theme .shortcutDarkColor {
 	fill: var(--accentLightTint-dark) !important;
 }
 
@@ -5184,6 +5209,15 @@ body[data-bg="wallpaper"] .dropdown-content {
 	box-shadow: inset 0 0 0 1px var(--darkerColor-dark);
 }
 
+.black-theme #aiToolsForm .ai-tool-option input[type="checkbox"] {
+	accent-color: #212121;
+}
+
+.black-theme #aiToolsForm .ai-tool-reorder button,
+.black-theme #aiToolsForm .ai-tool-reorder button:disabled:hover {
+	color: #909090;
+}
+
 .black-theme .favicon {
 	filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
 }
@@ -5234,8 +5268,10 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 .black-theme #menuButton {
 	border: 6px solid var(--accentLightTint-blue);
-	box-shadow: inset 0 0 0 4px #858585,
-		inset 0 0 0 9.7px var(--accentLightTint-blue), inset 0 0 0 40px #bfbfbf;
+	box-shadow:
+		inset 0 0 0 4px #858585,
+		inset 0 0 0 9.7px var(--accentLightTint-blue),
+		inset 0 0 0 40px #bfbfbf;
 }
 
 .black-theme #menuCloseButton,
@@ -5250,6 +5286,10 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme #closeBtnX {
 	border: 2px solid #bdbdbd;
 	border-radius: 100px;
+}
+
+.black-theme #menuCloseBtnIcon {
+	fill: var(--darkColor-dark);
 }
 
 .black-theme body {
@@ -5285,11 +5325,21 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: var(--bg-color-dark);
 }
 
-.black-theme .delete button {
+.black-theme #resetButton,
+.black-theme #newShortcutButton,
+.black-theme .shortcutDelete button,
+.black-theme .uploadCustomIconButton {
 	background: #232221;
 }
 
-.black-theme .delete button:hover {
+.black-theme #resetButton:hover,
+.black-theme #newShortcutButton:hover {
+	fill: #e4e4e4;
+	background: #282828;
+}
+
+.black-theme .uploadCustomIconButton:hover,
+.black-theme .shortcutDelete button:hover {
 	background: #404040;
 }
 
@@ -5428,6 +5478,8 @@ body[data-bg="wallpaper"] .dropdown-content {
 	margin-top: 30px;
 	display: grid;
 	gap: 12px;
+	max-height: 900px;
+	overflow: hidden;
 	background-color: var(--bg-color-blue);
 	background-color: color-mix(
 		in srgb,
@@ -5436,9 +5488,26 @@ body[data-bg="wallpaper"] .dropdown-content {
 	);
 	padding: 18px 20px;
 	border-radius: 20px;
+	opacity: 1;
+	transition:
+		max-height 0.35s var(--md-motion-decelerate),
+		padding 0.35s ease,
+		margin 0.35s ease,
+		opacity 0.25s ease;
+}
+
+.tips.tips-hidden {
+	margin-top: 0;
+	max-height: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	opacity: 0;
+	pointer-events: none;
 }
 
 #dontShowTips {
+	position: relative;
+	overflow: hidden;
 	border: none;
 	display: block;
 	padding: 6px 10px;
@@ -5448,9 +5517,35 @@ body[data-bg="wallpaper"] .dropdown-content {
 	margin-top: 5px;
 }
 
+#dontShowTips::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.25),
+		transparent
+	);
+	transform: translateX(-100%);
+	animation: dontShowTipsShine 3s infinite;
+	pointer-events: none;
+}
+
+.tips.tips-hidden #dontShowTips::before {
+	animation: none;
+}
+
 #dontShowTips:hover {
 	background-color: var(--darkerColor-blue);
 }
+
+@keyframes dontShowTipsShine {
+	100% {
+		transform: translateX(100%);
+	}
+}
+
 .tips .ttcont .texts .bigText {
 	font-size: 1rem;
 }
@@ -5511,7 +5606,9 @@ body[data-bg="wallpaper"] .dropdown-content {
 	overflow: hidden;
 	display: flex;
 	align-items: flex-start;
-	box-shadow: 0 6px 6px rgba(0, 0, 0, 0.25), 0 0 22px rgba(0, 0, 0, 0.16);
+	box-shadow:
+		0 6px 6px rgba(0, 0, 0, 0.25),
+		0 0 22px rgba(0, 0, 0, 0.16);
 }
 
 /* Blur distortion */
@@ -5535,7 +5632,8 @@ body[data-bg="wallpaper"] .dropdown-content {
 .liquidGlass-shine {
 	position: absolute;
 	inset: 0;
-	box-shadow: inset 2px 2px 1px rgba(255, 255, 255, 0.55),
+	box-shadow:
+		inset 2px 2px 1px rgba(255, 255, 255, 0.55),
 		inset -1px -1px 1px rgba(255, 255, 255, 0.45);
 	z-index: 4;
 }

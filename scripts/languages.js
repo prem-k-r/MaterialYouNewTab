@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
@@ -29,7 +29,7 @@ const translations = {
     fr: fr, // French
     az: az, // Azerbaijani
     sl: sl, // Slovenian
-    np: np, // Nepali
+    ne: ne, // Nepali
     ur: ur, // Urdu
     de: de, // German
     fa: fa, // Farsi (Persian)
@@ -61,7 +61,7 @@ const menuWidths = {
     fr: "517px",
     az: "460px",
     sl: "512px",
-    np: "472px",
+    ne: "472px",
     de: "502px",
     fa: "502px",
     ar_SA: "482px",
@@ -76,7 +76,7 @@ const numberMappings = {
     "bn": { "0": "০", "1": "১", "2": "২", "3": "৩", "4": "৪", "5": "৫", "6": "৬", "7": "৭", "8": "৮", "9": "৯" },
     "ta": { "0": "௦", "1": "௧", "2": "௨", "3": "௩", "4": "௪", "5": "௫", "6": "௬", "7": "௭", "8": "௮", "9": "௯" },
     "mr": { "0": "०", "1": "१", "2": "२", "3": "३", "4": "४", "5": "५", "6": "६", "7": "७", "8": "८", "9": "९" },
-    "np": { "0": "०", "1": "१", "2": "२", "3": "३", "4": "४", "5": "५", "6": "६", "7": "७", "8": "८", "9": "९" },
+    "ne": { "0": "०", "1": "१", "2": "२", "3": "३", "4": "४", "5": "५", "6": "६", "7": "७", "8": "८", "9": "९" },
     "fa": { 0: "۰", 1: "۱", 2: "۲", 3: "۳", 4: "۴", 5: "۵", 6: "۶", 7: "۷", 8: "۸", 9: "۹" },
     "ar_SA": { 0: "۰", 1: "۱", 2: "۲", 3: "۳", 4: "٤", 5: "٥", 6: "٦", 7: "۷", 8: "۸", 9: "۹" }
     // Add more languages as needed, Ensure it is supported in the fonts
@@ -156,6 +156,8 @@ function applyLanguage(lang) {
         "hideSearchWithInfo",
         "motivationalQuotesText",
         "motivationalQuotesInfo",
+        "newQuoteOnRefreshText",
+        "newQuoteOnRefreshInfo",
         "search_suggestions_button",
         "search_suggestions_text",
         "hideClockBox",
@@ -241,7 +243,9 @@ function applyLanguage(lang) {
         "searchSectionTitle",
         "weatherSectionTitle",
         "appearanceSectionTitle",
-        "settingsSectionTitle"
+        "settingsSectionTitle",
+        "iconFileTooLargeMessage",
+        "iconStorageQuotaMessage"
     ];
 
     // Specific mapping for placeholders
@@ -316,6 +320,14 @@ function applyLanguage(lang) {
             userTextDiv.innerText = placeholder;
         }
     }
+
+    // Update placeholders on already-rendered shortcut inputs
+    document.querySelectorAll(".shortcutSettingsEntry .shortcutName")
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputName  || translations["en"].shortcutInputName);
+    document.querySelectorAll(".shortcutSettingsEntry .URL")
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputUrl   || translations["en"].shortcutInputUrl);
+    document.querySelectorAll(".shortcutSettingsEntry .iconURL")
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputIcon  || translations["en"].shortcutInputIcon);
 
     // Update hover text for #menuCloseButton
     const menuCloseButton = document.getElementById("menuCloseButton");
@@ -396,7 +408,7 @@ function applyLanguage(lang) {
     updateTodoOptions(lang);
 
     // Save the selected language in localStorage
-    document.documentElement.lang = currentLanguage;
+    document.documentElement.lang = lang;
     saveLanguageStatus("selectedLanguage", lang);
 }
 

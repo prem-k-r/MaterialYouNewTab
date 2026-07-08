@@ -1,5 +1,5 @@
 // Nepali
-const np = {
+const ne = {
     // Menu Items
     "github": "गिटहब",
     "feedback": "प्रतिक्रिया",
@@ -40,14 +40,14 @@ const np = {
     "todoFilterAll": "सबै",
     "todoFilterPending": "पर्खिरहेको",
     "todoFilterCompleted": "पूर्ण",
-    "todoFilterOverdue": "अल标记हेको",
+    "todoFilterOverdue": "म्याद नाघेको",
     "todoFilterToday": "आज",
     "todoSortCreated": "सिर्जना",
     "todoSortPriority": "प्राथमिकता",
     "todoSortDue": "समय सीमा",
     "todoImportSuccess": "आयात सफल!",
     "todoImportFailed": "आयात असफल: अवैध JSON फाइल",
-    "todoDueOverdue": "अल标记हेको",
+    "todoDueOverdue": "म्याद नाघेको",
     "todoDueToday": "आज समय सीमा",
     "todoNotificationTitle": "कार्य सम्झना",
     "todoContextMenuAdd": "सूचीमा थप्नुहोस",
