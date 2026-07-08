@@ -1386,6 +1386,49 @@ body #bookmarkButton.bookmark-button.rotate {
 	background-image: url("./svgs/todo-edit-done.svg");
 }
 
+.task-content {
+	flex: 1;
+	min-width: 0;
+}
+
+.task-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	margin-block-start: 4px;
+	font-size: 0.72rem;
+	line-height: 1;
+}
+
+.category-badge,
+.priority-badge,
+.due-date-badge {
+	border-radius: 999px;
+	padding: 3px 6px;
+	background-color: color-mix(in srgb, white 18%, transparent);
+	text-decoration: none;
+}
+
+.priority-high {
+	background-color: color-mix(in srgb, #ff4757 35%, transparent);
+}
+
+.priority-medium {
+	background-color: color-mix(in srgb, #ffa502 35%, transparent);
+}
+
+.priority-low {
+	background-color: color-mix(in srgb, #2ed573 35%, transparent);
+}
+
+.due-date-badge.overdue {
+	background-color: color-mix(in srgb, #ff4757 40%, transparent);
+}
+
+.due-date-badge.due-today {
+	background-color: color-mix(in srgb, #ffa502 40%, transparent);
+}
+
 .todolist .edit-input {
 	color: inherit;
 	outline: none;
