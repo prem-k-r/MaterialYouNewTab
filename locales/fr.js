@@ -108,7 +108,7 @@ const fr = {
     // Weather
     "WeatherApiText": "Entrez votre clé WeatherAPI",
     "WeatherApiSubtext": "Si la fonctionnalité météo ne fonctionne pas",
-    "userAPI": "Your weatherAPI key",
+    "userAPI": "Votre clé WeatherAPI",
     "LearnMoreButton": "En savoir plus",
     "saveAPI": "Enregistrer",
 

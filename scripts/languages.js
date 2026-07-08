@@ -499,6 +499,19 @@ window.onload = function () {
 // Function to save the language status in localStorage
 function saveLanguageStatus(key, languageStatus) {
     localStorage.setItem(key, languageStatus);
+
+    if (key === "selectedLanguage" && typeof chrome !== "undefined" && chrome.storage?.local) {
+        const translation = translations[languageStatus] || translations.en;
+        chrome.storage.local.set({
+            selectedLanguage: languageStatus,
+            backgroundTodoTranslations: {
+                addTodo: translation.todoContextMenuAdd || translations.en.todoContextMenuAdd,
+                notificationTitle: translation.todoNotificationTitle || translations.en.todoNotificationTitle,
+                overdue: translation.todoDueOverdue || translations.en.todoDueOverdue,
+                dueToday: translation.todoDueToday || translations.en.todoDueToday
+            }
+        });
+    }
 }
 
 // Function to get the language status from localStorage

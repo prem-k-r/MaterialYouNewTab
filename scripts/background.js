@@ -1,132 +1,169 @@
 // Background service worker for Material You New Tab
 
-// Translations for background script
-const bgTranslations = {
-    en: {
-        addTodo: "Add to To Do List",
-        notificationTitle: "To Do Reminder",
-        overdue: "Overdue",
-        dueToday: "Due today"
-    },
-    zh: {
-        addTodo: "添加为待办事项",
-        notificationTitle: "待办事项提醒",
-        overdue: "已逾期",
-        dueToday: "今天到期"
-    }
+const REMINDER_ALARM_NAME = "todoDueTaskReminder";
+
+const defaultBgTranslations = {
+    addTodo: "Add to To Do List",
+    notificationTitle: "To Do Reminder",
+    overdue: "Overdue",
+    dueToday: "Due today"
 };
 
-// Get current language from localStorage
-function getBackgroundLanguage() {
-    return localStorage.getItem("selectedLanguage") || "en";
+function storageGet(keys) {
+    return new Promise((resolve) => chrome.storage.local.get(keys, resolve));
 }
 
-// Get translation for background
-function getBgTranslation(key) {
-    const lang = getBackgroundLanguage();
-    return bgTranslations[lang]?.[key] || bgTranslations["en"][key];
+function storageSet(values) {
+    return new Promise((resolve) => chrome.storage.local.set(values, resolve));
 }
 
-// Create context menu for adding selected text as todo
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.contextMenus.create({
-        id: "addTodo",
-        title: getBgTranslation("addTodo"),
-        contexts: ["selection"]
-    });
-});
-
-// Handle context menu click
-chrome.contextMenus.onClicked.addListener((info, tab) => {
-    if (info.menuItemId === "addTodo" && info.selectionText) {
-        // Get current todo list
-        chrome.storage.local.get("todoList", (result) => {
-            const todoList = result.todoList || {};
-            
-            // Create new todo item (use translation keys internally)
-            const id = "t" + Date.now();
-            todoList[id] = {
-                title: info.selectionText,
-                status: "pending",
-                pinned: false,
-                category: "uncategorized",
-                priority: "medium",
-                createdAt: new Date().toISOString(),
-                dueDate: null
-            };
-            
-            // Save updated todo list
-            chrome.storage.local.set({ todoList }, () => {
-                // Update badge
-                updateBadge();
-            });
-        });
+function getDateKey(value = new Date()) {
+    if (typeof value === "string") {
+        const match = value.match(/^\d{4}-\d{2}-\d{2}/);
+        if (match) return match[0];
+        return null;
     }
-});
 
-// Update badge with pending todo count
+    const date = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(date.getTime())) return null;
+    const localMidnight = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const offset = localMidnight.getTimezoneOffset() * 60000;
+    return new Date(localMidnight.getTime() - offset).toISOString().split("T")[0];
+}
+
+async function getBgTranslations() {
+    const { backgroundTodoTranslations } = await storageGet("backgroundTodoTranslations");
+    return {
+        ...defaultBgTranslations,
+        ...(backgroundTodoTranslations || {})
+    };
+}
+
+async function getBgTranslation(key) {
+    const translations = await getBgTranslations();
+    return translations[key] || defaultBgTranslations[key] || key;
+}
+
+async function refreshContextMenu() {
+    if (!chrome.contextMenus) return;
+
+    const title = await getBgTranslation("addTodo");
+    chrome.contextMenus.remove("addTodo", () => {
+        chrome.contextMenus.create({
+            id: "addTodo",
+            title,
+            contexts: ["selection"]
+        });
+    });
+}
+
+async function addSelectedTextAsTodo(selectionText) {
+    const { todoList = {} } = await storageGet("todoList");
+    const id = "t" + Date.now();
+
+    todoList[id] = {
+        title: selectionText,
+        status: "pending",
+        pinned: false,
+        category: "uncategorized",
+        priority: "medium",
+        createdAt: new Date().toISOString(),
+        dueDate: null
+    };
+
+    await storageSet({ todoList });
+    updateBadge();
+}
+
 function updateBadge() {
     chrome.storage.local.get("todoList", (result) => {
         const todoList = result.todoList || {};
-        let pendingCount = 0;
-        
-        // Count pending todos
-        for (let id in todoList) {
-            if (todoList[id].status === "pending") {
-                pendingCount++;
-            }
-        }
-        
-        // Update badge
+        const pendingCount = Object.values(todoList).filter((todo) => todo.status === "pending").length;
+        const actionApi = chrome.action || chrome.browserAction;
+        if (!actionApi) return;
+
         if (pendingCount > 0) {
-            chrome.action.setBadgeText({ text: pendingCount.toString() });
-            chrome.action.setBadgeBackgroundColor({ color: "#ff4757" });
+            actionApi.setBadgeText({ text: pendingCount.toString() });
+            actionApi.setBadgeBackgroundColor({ color: "#ff4757" });
         } else {
-            chrome.action.setBadgeText({ text: "" });
+            actionApi.setBadgeText({ text: "" });
         }
     });
 }
 
-// Listen for storage changes to update badge
-chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (areaName === "local" && changes.todoList) {
-        updateBadge();
+async function checkDueTasks() {
+    const { todoList = {}, todoReminderState = {} } = await storageGet(["todoList", "todoReminderState"]);
+    const translations = await getBgTranslations();
+    const todayKey = getDateKey();
+    const nextReminderState = {};
+
+    for (const [id, todo] of Object.entries(todoList)) {
+        const dueDateKey = getDateKey(todo.dueDate || "");
+        if (todo.status !== "pending" || !dueDateKey || dueDateKey > todayKey) {
+            continue;
+        }
+
+        const isOverdue = dueDateKey < todayKey;
+        const reminderKey = `${todayKey}:${isOverdue ? "overdue" : "dueToday"}`;
+        nextReminderState[id] = reminderKey;
+
+        if (todoReminderState[id] === reminderKey) {
+            continue;
+        }
+
+        chrome.notifications.create({
+            type: "basic",
+            iconUrl: "./favicon/icon48.png",
+            title: translations.notificationTitle,
+            message: `Task "${todo.title}" - ${isOverdue ? translations.overdue : translations.dueToday}`
+        });
+    }
+
+    await storageSet({ todoReminderState: nextReminderState });
+}
+
+function scheduleDueTaskChecks() {
+    chrome.alarms.create(REMINDER_ALARM_NAME, {
+        delayInMinutes: 1,
+        periodInMinutes: 60
+    });
+}
+
+chrome.runtime.onInstalled.addListener(() => {
+    refreshContextMenu();
+    scheduleDueTaskChecks();
+    updateBadge();
+    checkDueTasks();
+});
+
+chrome.runtime.onStartup?.addListener(() => {
+    scheduleDueTaskChecks();
+    updateBadge();
+    checkDueTasks();
+});
+
+chrome.contextMenus?.onClicked.addListener((info) => {
+    if (info.menuItemId === "addTodo" && info.selectionText) {
+        addSelectedTextAsTodo(info.selectionText);
     }
 });
 
-// Initial badge update
+chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName !== "local") return;
+
+    if (changes.todoList) {
+        updateBadge();
+    }
+
+    if (changes.backgroundTodoTranslations) {
+        refreshContextMenu();
+    }
+});
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === REMINDER_ALARM_NAME) {
+        checkDueTasks();
+    }
+});
+
 updateBadge();
-
-// Check for due tasks and send notifications
-function checkDueTasks() {
-    chrome.storage.local.get("todoList", (result) => {
-        const todoList = result.todoList || {};
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        
-        for (let id in todoList) {
-            const todo = todoList[id];
-            if (todo.status === "pending" && todo.dueDate) {
-                const due = new Date(todo.dueDate);
-                due.setHours(0, 0, 0, 0);
-                
-                // Check if task is due today or overdue
-                if (due <= today) {
-                    const isOverdue = due < today;
-                    chrome.notifications.create({
-                        type: "basic",
-                        iconUrl: "./favicon/icon48.png",
-                        title: getBgTranslation("notificationTitle"),
-                        message: `Task "${todo.title}" - ${isOverdue ? getBgTranslation("overdue") : getBgTranslation("dueToday")}`
-                    });
-                }
-            }
-        }
-    });
-}
-
-// Check for due tasks every hour
-setInterval(checkDueTasks, 3600000);
-
-// Check on service worker start
-checkDueTasks();

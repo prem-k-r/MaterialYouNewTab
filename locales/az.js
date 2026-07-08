@@ -24,7 +24,7 @@ const az = {
     // "googleAppsHover": "Google Apps",    // Keep this shorter
 
     // To-do List
-    // "todoListText": "To Do List",
+    "todoListText": "Tapşırıqlar siyahısı",
     "todoListInfo": "Gündəlik tapşırıqlar siyahısını göstər",
     "todoListHover": "To-Do Siyahısı",
     "todoPlaceholder": "Tapşırıq əlavə et...",

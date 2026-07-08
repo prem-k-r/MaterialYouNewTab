@@ -110,6 +110,59 @@ function sanitizeInput(input) {
     return div.innerHTML;
 }
 
+function getTodoDateKey(value) {
+    const match = String(value || "").match(/^\d{4}-\d{2}-\d{2}/);
+    return match ? match[0] : null;
+}
+
+function getTodayDateKey() {
+    const now = new Date();
+    const localMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const offset = localMidnight.getTimezoneOffset() * 60000;
+    return new Date(localMidnight.getTime() - offset).toISOString().split("T")[0];
+}
+
+function createTaskContent(title) {
+    const taskContent = document.createElement("div");
+    taskContent.className = "task-content";
+    taskContent.textContent = title || "";
+    return taskContent;
+}
+
+function createTaskMeta(category, priority, dueDate) {
+    const taskMeta = document.createElement("div");
+    taskMeta.className = "task-meta";
+
+    const categoryBadge = document.createElement("span");
+    categoryBadge.className = "category-badge";
+    categoryBadge.textContent = getCategoryText(category);
+
+    const priorityBadge = document.createElement("span");
+    priorityBadge.className = `priority-badge priority-${priority}`;
+    priorityBadge.textContent = getPriorityText(priority);
+
+    taskMeta.appendChild(categoryBadge);
+    taskMeta.appendChild(priorityBadge);
+
+    const dueDateKey = getTodoDateKey(dueDate);
+    if (dueDateKey) {
+        const dueDateBadge = document.createElement("span");
+        dueDateBadge.className = "due-date-badge";
+        const todayKey = getTodayDateKey();
+
+        if (dueDateKey < todayKey) {
+            dueDateBadge.classList.add("overdue");
+        } else if (dueDateKey === todayKey) {
+            dueDateBadge.classList.add("due-today");
+        }
+
+        dueDateBadge.textContent = dueDateKey;
+        taskMeta.appendChild(dueDateBadge);
+    }
+
+    return taskMeta;
+}
+
 // Function to add items to the TODO list
 function addtodoItem() {
     const inputText = todoInput.value.trim();
@@ -124,14 +177,7 @@ function addtodoItem() {
     // Use translation keys instead of hardcoded text
     const category = categorySelect ? categorySelect.value : "uncategorized";
     const priority = prioritySelect ? prioritySelect.value : "medium";
-    let dueDate = null;
-    if (dueDateInput && dueDateInput.value) {
-        // 处理时区问题，确保日期正确
-        const date = new Date(dueDateInput.value);
-        // 设置为UTC时间的当天开始，避免时区偏移
-        date.setUTCHours(0, 0, 0, 0);
-        dueDate = date.toISOString();
-    }
+    const dueDate = getTodoDateKey(dueDateInput?.value);
 
     todoList[t] = { 
         title: rawText, 
@@ -142,59 +188,18 @@ function addtodoItem() {
         createdAt: new Date().toISOString(),
         dueDate: dueDate
     }; // Add data to the JSON variable
-    const li = createTodoItemDOM(t, rawText, "pending", false, category, priority, dueDate); // Create List item
-    todoulList.appendChild(li); // Append the new item to the DOM immediately
+    SaveToDoData(); // Save changes
+    renderTodoList(); // Rebuild so active filters and sorting stay correct
     todoInput.value = ""; // Clear Input
     if (dueDateInput) dueDateInput.value = ""; // Clear due date input
-    SaveToDoData(); // Save changes
 }
 
 function createTodoItemDOM(id, title, status, pinned, category, priority, dueDate) {
     let li = document.createElement("li");
     
     // Create task content container
-    const taskContent = document.createElement("div");
-    taskContent.className = "task-content";
-    taskContent.innerHTML = sanitizeInput(title); // Sanitize before rendering in DOM
-    
-    // Create task metadata container
-    const taskMeta = document.createElement("div");
-    taskMeta.className = "task-meta";
-    
-    // Add category and priority with translated text
-    const categoryBadge = document.createElement("span");
-    categoryBadge.className = "category-badge";
-    categoryBadge.textContent = getCategoryText(category);
-    
-    const priorityBadge = document.createElement("span");
-    priorityBadge.className = `priority-badge priority-${priority}`;
-    priorityBadge.textContent = getPriorityText(priority);
-    
-    taskMeta.appendChild(categoryBadge);
-    taskMeta.appendChild(priorityBadge);
-    
-    // Add due date if exists
-        if (dueDate) {
-            const dueDateBadge = document.createElement("span");
-            dueDateBadge.className = "due-date-badge";
-            
-            // Check if overdue
-            const today = new Date();
-            today.setUTCHours(0, 0, 0, 0);
-            const due = new Date(dueDate);
-            due.setUTCHours(0, 0, 0, 0);
-            
-            if (due < today) {
-                dueDateBadge.classList.add("overdue");
-            } else if (due.getTime() === today.getTime()) {
-                dueDateBadge.classList.add("due-today");
-            }
-            
-            // Format date to YYYY-MM-DD
-            const formattedDate = due.toISOString().split('T')[0];
-            dueDateBadge.textContent = formattedDate;
-            taskMeta.appendChild(dueDateBadge);
-        }
+    const taskContent = createTaskContent(title);
+    const taskMeta = createTaskMeta(category, priority, dueDate);
     
     li.appendChild(taskContent);
     li.appendChild(taskMeta);
@@ -237,18 +242,21 @@ todoulList.addEventListener("click", (event) => {
         let id = event.target.dataset.todoitem;
         todoList[id].status = ((todoList[id].status === "completed") ? "pending" : "completed"); // Update status
         SaveToDoData(); // Save Changes
+        renderTodoList();
     }
     else if (event.target.classList.contains("todoremovebtn")) {
         let id = event.target.parentElement.dataset.todoitem;
         event.target.parentElement.remove(); // Remove the clicked LI tag
         delete todoList[id]; // Remove the deleted List item data
         SaveToDoData(); // Save Changes
+        renderTodoList();
     }
     else if (event.target.classList.contains("todopinbtn")) {
         event.target.parentElement.classList.toggle("pinned"); // Check the clicked LI tag
         let id = event.target.parentElement.dataset.todoitem;
         todoList[id].pinned = (todoList[id].pinned !== true); // Update status
         SaveToDoData(); // Save Changes
+        renderTodoList();
     }
     else if (event.target.classList.contains("todoeditbtn")) {
         if (suppressNextClick) return;
@@ -260,7 +268,7 @@ todoulList.addEventListener("click", (event) => {
         // Use translation keys internally
         const previousCategory = todo.category || "uncategorized";
         const previousPriority = todo.priority || "medium";
-        const previousDueDate = todo.dueDate ? new Date(todo.dueDate).toISOString().split('T')[0] : "";
+        const previousDueDate = getTodoDateKey(todo.dueDate) || "";
 
         li.classList.toggle("edit");
         if (li.classList.contains("edit")) {
@@ -331,67 +339,12 @@ todoulList.addEventListener("click", (event) => {
             // Save on blur or Enter
             function saveEdit() {
                 const newTitle = input.value.trim();
-                todo.title = (newTitle !== "") ? sanitizeInput(newTitle) : previousTitle;
+                todo.title = (newTitle !== "") ? newTitle : previousTitle;
                 todo.category = categorySelect.value;
                 todo.priority = prioritySelect.value;
-                let dueDate = null;
-                if (dueDateInput.value) {
-                    // 处理时区问题，确保日期正确
-                    const date = new Date(dueDateInput.value);
-                    // 设置为UTC时间的当天开始，避免时区偏移
-                    date.setUTCHours(0, 0, 0, 0);
-                    dueDate = date.toISOString();
-                }
-                todo.dueDate = dueDate;
-                
-                // Recreate the task content and metadata
-                const newTaskContent = document.createElement("div");
-                newTaskContent.className = "task-content";
-                newTaskContent.innerHTML = sanitizeInput(todo.title);
-                
-                const newTaskMeta = document.createElement("div");
-                newTaskMeta.className = "task-meta";
-                
-                const categoryBadge = document.createElement("span");
-                categoryBadge.className = "category-badge";
-                categoryBadge.textContent = getCategoryText(todo.category);
-                
-                const priorityBadge = document.createElement("span");
-                priorityBadge.className = `priority-badge priority-${todo.priority}`;
-                priorityBadge.textContent = getPriorityText(todo.priority);
-                
-                newTaskMeta.appendChild(categoryBadge);
-                newTaskMeta.appendChild(priorityBadge);
-                
-                // Add due date if exists
-                if (todo.dueDate) {
-                    const dueDateBadge = document.createElement("span");
-                    dueDateBadge.className = "due-date-badge";
-                    
-                    // Check if overdue
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
-                    const due = new Date(todo.dueDate);
-                    due.setHours(0, 0, 0, 0);
-                    
-                    if (due < today) {
-                        dueDateBadge.classList.add("overdue");
-                    } else if (due.toDateString() === today.toDateString()) {
-                        dueDateBadge.classList.add("due-today");
-                    }
-                    
-                    // Format date to YYYY-MM-DD
-                    const formattedDate = due.toISOString().split('T')[0];
-                    dueDateBadge.textContent = formattedDate;
-                    newTaskMeta.appendChild(dueDateBadge);
-                }
-                
-                li.insertBefore(newTaskContent, input);
-                li.insertBefore(newTaskMeta, input);
-                li.removeChild(input);
-                li.removeChild(editControls);
-                li.classList.remove("edit");
+                todo.dueDate = getTodoDateKey(dueDateInput.value);
                 SaveToDoData(); // Save changes
+                renderTodoList();
 
                 // Delay resetting to allow click suppression
                 clearTimeout(suppressTimeout);
@@ -407,53 +360,7 @@ todoulList.addEventListener("click", (event) => {
 
                 // Safe Check: Only remove input if it's still in the DOM
                 if (li.contains(input)) {
-                    // Recreate the task content and metadata
-                    const newTaskContent = document.createElement("div");
-                    newTaskContent.className = "task-content";
-                    newTaskContent.innerHTML = sanitizeInput(previousTitle);
-                    
-                    const newTaskMeta = document.createElement("div");
-                    newTaskMeta.className = "task-meta";
-                    
-                    const categoryBadge = document.createElement("span");
-                    categoryBadge.className = "category-badge";
-                    categoryBadge.textContent = getCategoryText(previousCategory);
-                    
-                    const priorityBadge = document.createElement("span");
-                    priorityBadge.className = `priority-badge priority-${previousPriority}`;
-                    priorityBadge.textContent = getPriorityText(previousPriority);
-                    
-                    newTaskMeta.appendChild(categoryBadge);
-                    newTaskMeta.appendChild(priorityBadge);
-                    
-                    // Add due date if exists
-                    if (todo.dueDate) {
-                        const dueDateBadge = document.createElement("span");
-                        dueDateBadge.className = "due-date-badge";
-                        
-                        // Check if overdue
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        const due = new Date(todo.dueDate);
-                        due.setHours(0, 0, 0, 0);
-                        
-                        if (due < today) {
-                            dueDateBadge.classList.add("overdue");
-                        } else if (due.toDateString() === today.toDateString()) {
-                            dueDateBadge.classList.add("due-today");
-                        }
-                        
-                        // Format date to YYYY-MM-DD
-                        const formattedDate = due.toISOString().split('T')[0];
-                        dueDateBadge.textContent = formattedDate;
-                        newTaskMeta.appendChild(dueDateBadge);
-                    }
-                    
-                    li.insertBefore(newTaskContent, input);
-                    li.insertBefore(newTaskMeta, input);
-                    li.removeChild(input);
-                    li.removeChild(editControls);
-                    li.classList.remove("edit");
+                    renderTodoList();
 
                     clearTimeout(suppressTimeout);
                     suppressTimeout = setTimeout(() => {
@@ -526,6 +433,7 @@ function ShowToDoList() {
 
 // Render todo list
 function renderTodoList() {
+    todoulList.innerHTML = "";
     const fragment = document.createDocumentFragment(); // Create a DocumentFragment
     
     // Get filter and sort options
@@ -554,18 +462,16 @@ function renderTodoList() {
             return todo.status === 'completed';
         } else if (filterOption === 'overdue') {
             if (!dueDate) return false;
-            const today = new Date();
-            today.setUTCHours(0, 0, 0, 0);
-            const due = new Date(dueDate);
-            due.setUTCHours(0, 0, 0, 0);
-            return due < today && todo.status === 'pending';
+            const todayKey = getTodayDateKey();
+            const dueDateKey = getTodoDateKey(dueDate);
+            if (!dueDateKey) return false;
+            return dueDateKey < todayKey && todo.status === 'pending';
         } else if (filterOption === 'today') {
             if (!dueDate) return false;
-            const today = new Date();
-            today.setUTCHours(0, 0, 0, 0);
-            const due = new Date(dueDate);
-            due.setUTCHours(0, 0, 0, 0);
-            return due.getTime() === today.getTime() && todo.status === 'pending';
+            const todayKey = getTodayDateKey();
+            const dueDateKey = getTodoDateKey(dueDate);
+            if (!dueDateKey) return false;
+            return dueDateKey === todayKey && todo.status === 'pending';
         }
         return true;
     });
@@ -578,10 +484,12 @@ function renderTodoList() {
             const priorityOrder = { 'high': 3, 'medium': 2, 'low': 1 };
             return (priorityOrder[b.priority || 'medium'] || 0) - (priorityOrder[a.priority || 'medium'] || 0);
         } else if (sortOption === 'due') {
-            if (!a.dueDate && !b.dueDate) return 0;
-            if (!a.dueDate) return 1;
-            if (!b.dueDate) return -1;
-            return new Date(a.dueDate) - new Date(b.dueDate);
+            const aDueDate = getTodoDateKey(a.dueDate);
+            const bDueDate = getTodoDateKey(b.dueDate);
+            if (!aDueDate && !bDueDate) return 0;
+            if (!aDueDate) return 1;
+            if (!bDueDate) return -1;
+            return aDueDate.localeCompare(bDueDate);
         }
         return 0;
     });
@@ -686,7 +594,7 @@ function importTodoData() {
                             category: todo.category || "uncategorized",
                             priority: todo.priority || "medium",
                             createdAt: todo.createdAt || new Date().toISOString(),
-                            dueDate: todo.dueDate || null
+                            dueDate: getTodoDateKey(todo.dueDate) || null
                         };
                     }
                     SaveToDoData();
@@ -721,15 +629,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (todoFilter) {
         todoFilter.addEventListener('change', function() {
-            todoulList.innerHTML = '';
-            ShowToDoList();
+            renderTodoList();
         });
     }
-    
+
     if (todoSort) {
         todoSort.addEventListener('change', function() {
-            todoulList.innerHTML = '';
-            ShowToDoList();
+            renderTodoList();
         });
     }
 });
@@ -738,35 +644,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function requestNotificationPermission() {
     if ("Notification" in window) {
         Notification.requestPermission();
-    }
-}
-
-// Check for due tasks and send notifications
-function checkDueTasks() {
-    if ("Notification" in window && Notification.permission === "granted") {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        
-        for (let id in todoList) {
-            const todo = todoList[id];
-            if (todo.status === "pending" && todo.dueDate) {
-                const due = new Date(todo.dueDate);
-                due.setHours(0, 0, 0, 0);
-                
-                // Check if task is due today or overdue
-                if (due <= today) {
-                    const isOverdue = due < today;
-                    const notificationTitle = getTodoTranslation('todoNotificationTitle', 'To Do Reminder');
-                    const dueStatus = isOverdue 
-                        ? getTodoTranslation('todoDueOverdue', 'Overdue')
-                        : getTodoTranslation('todoDueToday', 'Due today');
-                    new Notification(notificationTitle, {
-                        body: `Task "${todo.title}" - ${dueStatus}`,
-                        icon: "./favicon/icon48.png"
-                    });
-                }
-            }
-        }
     }
 }
 
@@ -788,12 +665,6 @@ todoListCont.addEventListener("click", function (event) {
         todoListCont.classList.remove("menu-open"); // Restore tooltip
     }
 });
-
-// Check for due tasks every hour
-setInterval(checkDueTasks, 3600000);
-
-// Check on page load
-window.addEventListener("load", checkDueTasks);
 
 // Close menu when clicking outside
 document.addEventListener("click", function (event) {
