@@ -5714,4 +5714,65 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme .toast-close svg {
 	color: var(--darkColor-dark);
 }
-/* ------------ End of Toast---------- */
+/* ================================
+   Glassmorphism
+   ================================ */
+
+:root {
+    --glass-blur: 12px;
+}
+
+.glassmorphism-enabled .searchBar,
+.glassmorphism-enabled .quotesCont,
+.glassmorphism-enabled .todo-container,
+.glassmorphism-enabled .icon-container,
+.glassmorphism-enabled .bookmark-sidebar,
+.glassmorphism-enabled .settings,
+.glassmorphism-enabled .aiToolsCont {
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.glassBlurSliderContainer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#glassBlurSlider {
+    width: 140px;
+    cursor: pointer;
+}
+
+#glassBlurValue {
+    min-width: 42px;
+    font-size: 14px;
+}
+/* ==========================================
+   GLASSMORPHISM
+   ========================================== */
+
+:root {
+    --glass-blur: 12px;
+}
+
+.glassmorphism-enabled .lrectangle,
+.glassmorphism-enabled .rAndakar,
+.glassmorphism-enabled .searchbar,
+.glassmorphism-enabled .searchWithCont,
+.glassmorphism-enabled .hint,
+.glassmorphism-enabled .search-engine,
+.glassmorphism-enabled #analogClock,
+.glassmorphism-enabled #digitalClock {
+    background: rgba(255, 255, 255, 0.25) !important;
+
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}

@@ -1366,9 +1366,45 @@
                                         </label>
                                     </div>
 
+
+                                    <!-- GLASSMORPHISM TOGGLE -->
+                                    <div class="ttcont">
+                                        <div class="texts">
+                                            <div class="bigText">Glassmorphism</div>
+                                            <div class="infoText">Enable transparent glass effect</div>
+                                        </div>
+
+                                        <label class="switch">
+                                            <input id="glassmorphismCheckbox" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+
+                                    <!-- GLASS BLUR SLIDER -->
+                                    <div class="ttcont" id="glassBlurControl">
+                                        <div class="texts">
+                                            <div class="bigText">Blur Intensity</div>
+                                            <div class="infoText">
+                                                Adjust blur:
+                                                <span id="glassBlurValue">12px</span>
+                                            </div>
+                                        </div>
+
+                                        <input
+                                            type="range"
+                                            id="glassBlurSlider"
+                                            min="0"
+                                            max="30"
+                                            value="12"
+                                            step="1"
+                                        >
+                                    </div>
+
+                                    </div>
+
                                 </div>
                             </div>
-                        </div>
 
                         <!-- ---🟡--- -->
 
@@ -1963,7 +1999,9 @@
     <!-- ------end of Menu-bar----------- -->
     <div id="menuButton"></div>
     <!-- ending-of-body -->
+         <!-- Your existing HTML content -->
 
+    <script src=".scripts/glassmorphism.js"></script>
 </body>
 
 </html>
