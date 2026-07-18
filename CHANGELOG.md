@@ -52,7 +52,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
   - Ukrainian ([@smurf11k](https://github.com/smurf11k))
   - Hungarian ([@smurf11k](https://github.com/smurf11k))
   - Marathi ([@anndiy](https://github.com/anndiy))
-  - French ([@iamwinner422](https://github.com/iamwinner422))
+  - French ([@iamwinner422](https://github.com/iamwinner422)), ([@deeferentleeg](https://github.com/deeferentleeg))
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 - Added support for Ukrainian ([@lozik4](https://github.com/lozik4)) ([#106](https://github.com/prem-k-r/MaterialYouNewTab/pull/106))
 - Added support for Swedish ([@empohello-imamempogitub](https://github.com/empohello-imamempogitub)) ([#179](https://github.com/prem-k-r/MaterialYouNewTab/pull/179))
