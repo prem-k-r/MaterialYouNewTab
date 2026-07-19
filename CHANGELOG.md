@@ -42,7 +42,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Translation updated for:
   - Japanese ([@kons10](https://github.com/kons10))
   - Arabic ([@heshamoomar](https://github.com/heshamoomar))
-  - Spanish ([@palacios22c](https://github.com/palacios22c))
+  - Spanish ([@palacios22c](https://github.com/palacios22c)), ([@deeferentleeg](https://github.com/deeferentleeg))
   - Russian ([@C0dwiz](https://github.com/C0dwiz), [@giwih](https://github.com/giwih)), ([@smurf11k](https://github.com/smurf11k))
   - Czech ([@ceskyDJ](https://github.com/ceskyDJ))
   - Hindi ([@prem-k-r](https://github.com/prem-k-r))
