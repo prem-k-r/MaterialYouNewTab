@@ -166,12 +166,16 @@ body[data-bg="wallpaper"] #shortcuts-section .accentColor {
 }
 
 body[data-bg="wallpaper"] .bgLightTint:not(.notTargeted) {
-	fill: color-mix(in srgb,
-			var(--accentLightTint-blue) var(--transparency),
-			transparent);
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) var(--transparency),
-			transparent);
+	fill: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) var(--transparency),
+		transparent
+	);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) var(--transparency),
+		transparent
+	);
 }
 
 .shortcutLogoContainer .bgLightTint {
@@ -179,9 +183,11 @@ body[data-bg="wallpaper"] .bgLightTint:not(.notTargeted) {
 }
 
 body[data-bg="wallpaper"] .lessDark.targeted {
-	fill: color-mix(in srgb,
-			var(--bg-color-blue) calc(var(--transparency) * 1.5),
-			transparent);
+	fill: color-mix(
+		in srgb,
+		var(--bg-color-blue) calc(var(--transparency) * 1.5),
+		transparent
+	);
 }
 
 /* ⚫🟣🟡🔵🔴🟠⚪🟢 */
@@ -218,15 +224,23 @@ body {
 }
 
 /* Apply dark mode when: Dark Mode is selected manually, OR System Theme is selected */
-html:has(body[data-bg="color"] .menuBar .themeSegment[data-active="dark"]):not(:has(#darkTheme:checked)),
-html:has(body[data-bg="color"][sysTheme="systemDark"] .menuBar .themeSegment[data-active="system"]):not(:has(#darkTheme:checked)) {
+html:has(body[data-bg="color"] .menuBar .themeSegment[data-active="dark"]):not(
+		:has(#darkTheme:checked)
+	),
+html:has(
+		body[data-bg="color"][sysTheme="systemDark"]
+			.menuBar
+			.themeSegment[data-active="system"]
+	):not(:has(#darkTheme:checked)) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
 	& .favicon,
 	& #wIcon,
-	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img[data-icon-type="default"] {
+	&:not(:has(#adaptiveIconToggle:checked))
+		.shortcutLogoContainer
+		img[data-icon-type="default"] {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -244,17 +258,29 @@ html:has(body[data-bg="color"][sysTheme="systemDark"] .menuBar .themeSegment[dat
 	--whitishColor-blue: #f2f2f2;
 }
 
-body[data-bg="wallpaper"]:has(.menuBar .themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))>*:not(.menuBar, #bookmarksContainer),
-body[data-bg="wallpaper"]:has(.menuBar .themeSegment[data-active="dark"]):not(:has(#darkTheme:checked)):is(.menuCont, .bookmark-sidebar),
-body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.menuBar .themeSegment[data-active="system"]):not(:has(#darkTheme:checked))>*:not(.menuBar, #bookmarksContainer),
-body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.menuBar .themeSegment[data-active="system"]):not(:has(#darkTheme:checked)):is(.menuCont, .bookmark-sidebar) {
+body[data-bg="wallpaper"]:has(.menuBar .themeSegment[data-active="dark"]):not(
+		:has(#darkTheme:checked)
+	)
+	> *:not(.menuBar, #bookmarksContainer),
+body[data-bg="wallpaper"]:has(.menuBar .themeSegment[data-active="dark"]):not(
+		:has(#darkTheme:checked)
+	):is(.menuCont, .bookmark-sidebar),
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.menuBar .themeSegment[data-active="system"]
+	):not(:has(#darkTheme:checked))
+	> *:not(.menuBar, #bookmarksContainer),
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.menuBar .themeSegment[data-active="system"]
+	):not(:has(#darkTheme:checked)):is(.menuCont, .bookmark-sidebar) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
 	& #darkTheme,
 	& .favicon,
 	& #wIcon,
-	&:not(:has(#adaptiveIconToggle:checked)) .shortcutLogoContainer img[data-icon-type="default"] {
+	&:not(:has(#adaptiveIconToggle:checked))
+		.shortcutLogoContainer
+		img[data-icon-type="default"] {
 		filter: invert(1) hue-rotate(180deg);
 		-webkit-filter: invert(1) hue-rotate(180deg);
 	}
@@ -287,7 +313,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.menuBar .themeSegment[data
 	backdrop-filter: blur(4px);
 }
 
-.searchbar:has(:placeholder-shown)~.resultBox.show {
+.searchbar:has(:placeholder-shown) ~ .resultBox.show {
 	opacity: 0;
 	z-index: -1000;
 	transform: translateY(-70px);
@@ -295,8 +321,9 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.menuBar .themeSegment[data
 	pointer-events: none;
 }
 
-.centerDiv:has(.resultBox.show)~#shortcuts-section,
-.centerDiv:has(.dropdown-content[style="display: block;"])~#shortcuts-section {
+.centerDiv:has(.resultBox.show) ~ #shortcuts-section,
+.centerDiv:has(.dropdown-content[style="display: block;"])
+	~ #shortcuts-section {
 	z-index: -1;
 }
 
@@ -362,9 +389,11 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.menuBar .themeSegment[data
 }
 
 body[data-bg="wallpaper"] .dot-icon {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) calc(var(--transparency) * 2),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) calc(var(--transparency) * 2),
+		transparent
+	);
 	backdrop-filter: blur(4px);
 }
 
@@ -401,9 +430,11 @@ body[data-bg="wallpaper"] .dot-icon {
 }
 
 body[data-bg="wallpaper"] .tooltip-text {
-	background-color: color-mix(in srgb,
-			var(--darkColor-blue) calc(var(--transparency) * 2),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--darkColor-blue) calc(var(--transparency) * 2),
+		transparent
+	);
 }
 
 /* Show tooltip on hover */
@@ -440,9 +471,11 @@ body[data-bg="wallpaper"] .tooltip-text {
 	gap: 10px;
 	padding: 20px 10px;
 	background-color: var(--accentLightTint-blue);
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) 80%,
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 80%,
+		transparent
+	);
 	backdrop-filter: blur(10px);
 	border-radius: 30px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -521,9 +554,11 @@ body[data-bg="wallpaper"] .tooltip-text {
 /* Hover Effect for Icon Item */
 .icon-item:hover {
 	background-color: var(--bg-color-blue);
-	background-color: color-mix(in srgb,
-			var(--bg-color-blue) var(--transparency),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--bg-color-blue) var(--transparency),
+		transparent
+	);
 	transform: translateY(-4px);
 }
 
@@ -601,7 +636,10 @@ body[data-bg="wallpaper"] .tooltip-text {
 	background-color: var(--darkColor-blue);
 	color: rgba(255, 255, 255, 0.9);
 	cursor: pointer;
-	transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+	transition:
+		background-color 0.2s ease,
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
 	padding: 0;
 	flex-shrink: 0;
 }
@@ -676,7 +714,9 @@ body[data-bg="wallpaper"] .tooltip-text {
 	cursor: pointer;
 	z-index: 5;
 	padding: 0;
-	transition: transform 0.15s ease, background-color 0.15s ease;
+	transition:
+		transform 0.15s ease,
+		background-color 0.15s ease;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 	animation: gapps-btn-pop 200ms ease-out;
 }
@@ -708,7 +748,9 @@ body[data-bg="wallpaper"] .tooltip-text {
 	cursor: pointer;
 	z-index: 5;
 	padding: 0;
-	transition: transform 0.15s ease, background-color 0.15s ease;
+	transition:
+		transform 0.15s ease,
+		background-color 0.15s ease;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 	animation: gapps-btn-pop 200ms ease-out;
 }
@@ -740,7 +782,9 @@ body[data-bg="wallpaper"] .tooltip-text {
 	cursor: pointer;
 	z-index: 5;
 	padding: 0;
-	transition: transform 0.15s ease, opacity 0.15s ease;
+	transition:
+		transform 0.15s ease,
+		opacity 0.15s ease;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 	animation: gapps-btn-pop 200ms ease-out;
 }
@@ -767,14 +811,18 @@ body[data-bg="wallpaper"] .tooltip-text {
 .icon-item.dragging {
 	opacity: 0.4;
 	transform: scale(0.95);
-	transition: opacity 0.2s ease, transform 0.2s ease;
+	transition:
+		opacity 0.2s ease,
+		transform 0.2s ease;
 }
 
 .icon-item.drag-over {
 	background-color: var(--bg-color-blue);
-	background-color: color-mix(in srgb,
-			var(--bg-color-blue) var(--transparency),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--bg-color-blue) var(--transparency),
+		transparent
+	);
 	border-radius: 15px;
 	box-shadow: inset 0 0 0 2px var(--darkColor-blue);
 }
@@ -851,9 +899,11 @@ body[data-bg="wallpaper"] .tooltip-text {
 }
 
 body[data-bg="wallpaper"] .bookmark-button {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) calc(var(--transparency) * 2),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) calc(var(--transparency) * 2),
+		transparent
+	);
 }
 
 .bookmark-button:has(~ .googleAppsCont[style="display: flex;"]) {
@@ -1079,8 +1129,8 @@ body #bookmarkButton.bookmark-button.rotate {
 
 /* Active states */
 .bookmark-sort-button.active,
-#bookmarkGridCheckbox:checked~#bookmarkViewGrid,
-#bookmarkGridCheckbox:not(:checked)~#bookmarkViewList {
+#bookmarkGridCheckbox:checked ~ #bookmarkViewGrid,
+#bookmarkGridCheckbox:not(:checked) ~ #bookmarkViewList {
 	background-color: var(--darkColor-blue);
 	color: white;
 }
@@ -1104,7 +1154,7 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 #bookmarkList:is(.grid-view) ul:not(.hidden),
-#bookmarkList:is(.grid-view) .folder.open>ul {
+#bookmarkList:is(.grid-view) .folder.open > ul {
 	display: grid;
 	grid-template-columns: 25% 25% 25% 25%;
 
@@ -1212,7 +1262,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	/* Aligns the icon with the text */
 }
 
-.folder.open>ul {
+.folder.open > ul {
 	display: block;
 }
 
@@ -1252,7 +1302,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	pointer-events: none;
 }
 
-:hover>.bookmark-delete-button {
+:hover > .bookmark-delete-button {
 	opacity: 1;
 	pointer-events: auto;
 }
@@ -1331,8 +1381,8 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 /* Float label when focused or has content */
-.floating-label-field input:focus+label,
-.floating-label-field input:not(:placeholder-shown)+label {
+.floating-label-field input:focus + label,
+.floating-label-field input:not(:placeholder-shown) + label {
 	top: -19px;
 	inset-inline-start: 12px;
 	font-size: 0.8rem;
@@ -1396,9 +1446,11 @@ body #bookmarkButton.bookmark-button.rotate {
 	gap: 10px;
 	padding: 12px 6px 6px 6px;
 	background-color: var(--accentLightTint-blue);
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) 80%,
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 80%,
+		transparent
+	);
 	backdrop-filter: blur(2px);
 	border-radius: 30px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
@@ -1573,7 +1625,8 @@ body #bookmarkButton.bookmark-button.rotate {
 	height: 18px;
 	width: 18px;
 	border-radius: 50%;
-	background: url("./svgs/todo-check-stroke.svg") no-repeat center center / contain;
+	background: url("./svgs/todo-check-stroke.svg") no-repeat center center /
+		contain;
 	top: 50%;
 	transform: translateY(-50%);
 	inset-inline-start: 8px;
@@ -1639,7 +1692,8 @@ body #bookmarkButton.bookmark-button.rotate {
 
 .todolistitem .todopinbtn {
 	inset-inline-end: 28px;
-	background: url("./svgs/todo-pin-stroke.svg") no-repeat center center / contain;
+	background: url("./svgs/todo-pin-stroke.svg") no-repeat center center /
+		contain;
 }
 
 .todolistitem .todoeditbtn {
@@ -1783,7 +1837,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	top: 1.6rem;
 }
 
-#digitalClock[style="display: block;"]+.ttteexxtt {
+#digitalClock[style="display: block;"] + .ttteexxtt {
 	top: 1rem;
 }
 
@@ -1809,9 +1863,11 @@ body #bookmarkButton.bookmark-button.rotate {
 
 /* When wallpaper is active */
 body[data-bg="wallpaper"] #userText {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) var(--transparency),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) var(--transparency),
+		transparent
+	);
 }
 
 #userText::-webkit-scrollbar {
@@ -1828,9 +1884,11 @@ body[data-bg="wallpaper"] #userText {
 
 /* When wallpaper is active */
 body[data-bg="wallpaper"] #date {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) var(--transparency),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) var(--transparency),
+		transparent
+	);
 }
 
 .digidate {
@@ -2094,9 +2152,11 @@ body[data-bg="wallpaper"] .opacityBarControl {
 }
 
 body[data-bg="wallpaper"] .humidityBar .thinLine {
-	background-color: color-mix(in srgb,
-			var(--whitishColor-blue) calc(var(--transparency) * 2),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--whitishColor-blue) calc(var(--transparency) * 2),
+		transparent
+	);
 }
 
 .opacityBar .opacitySlider {
@@ -2216,9 +2276,11 @@ html[lang="ta"] #temp {
 }
 
 body[data-bg="wallpaper"] .searchbar {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) calc(var(--transparency) + 10%),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) calc(var(--transparency) + 10%),
+		transparent
+	);
 }
 
 .searchbar.active {
@@ -2294,9 +2356,11 @@ body[data-bg="wallpaper"] #searchQ::placeholder {
 }
 
 body[data-bg="wallpaper"] .micIcon {
-	background-color: color-mix(in srgb,
-			var(--whitishColor-blue) calc(var(--transparency) * 2),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--whitishColor-blue) calc(var(--transparency) * 2),
+		transparent
+	);
 }
 
 .theme-transition .micIcon {
@@ -2408,9 +2472,11 @@ body[data-bg="wallpaper"] .micIcon {
 }
 
 body[data-bg="wallpaper"] .searchWithCont .hint:hover {
-	background-color: color-mix(in srgb,
-			var(--darkColor-blue) var(--transparency),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--darkColor-blue) var(--transparency),
+		transparent
+	);
 }
 
 .searchWithCont .hint:active {
@@ -2568,9 +2634,11 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 }
 
 body[data-bg="wallpaper"] .quotesContainer {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) var(--transparency),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) var(--transparency),
+		transparent
+	);
 	text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
@@ -2579,9 +2647,11 @@ body[data-bg="wallpaper"] .quotesContainer {
 }
 
 body[data-bg="wallpaper"] .authorName {
-	background-color: color-mix(in srgb,
-			var(--bg-color-blue) calc(var(--transparency) * 1.5),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--bg-color-blue) calc(var(--transparency) * 1.5),
+		transparent
+	);
 }
 
 html[lang="ur"] .qtRounder {
@@ -2636,7 +2706,9 @@ html[lang="ur"] .qtRounder2 {
 #shortcuts-section #defaultMonitor {
 	position: absolute;
 	/* This is the standard height of one row */
-	height: calc(var(--shortcut-size) + var(--gap) + var(--shortcut-bar-gap-and-padding));
+	height: calc(
+		var(--shortcut-size) + var(--gap) + var(--shortcut-bar-gap-and-padding)
+	);
 	visibility: hidden;
 }
 
@@ -2644,8 +2716,13 @@ html[lang="ur"] .qtRounder2 {
 	pointer-events: auto;
 	transition: transform 0.5s;
 	margin-top: calc(var(--gap) - var(--shortcut-bar-gap-and-padding));
-	max-width: calc(var(--max-shortcut-bar-width) - mod(var(--max-shortcut-bar-width) - var(--shortcut-bar-gap-and-padding),
-				var(--shortcut-size) + var(--shortcut-bar-gap-and-padding)));
+	max-width: calc(
+		var(--max-shortcut-bar-width) -
+			mod(
+				var(--max-shortcut-bar-width) - var(--shortcut-bar-gap-and-padding),
+				var(--shortcut-size) + var(--shortcut-bar-gap-and-padding)
+			)
+	);
 	display: flex;
 	flex-wrap: wrap;
 	padding: var(--shortcut-bar-gap-and-padding);
@@ -2712,9 +2789,11 @@ html[lang="ur"] .qtRounder2 {
 }
 
 body[data-bg="wallpaper"] .shortcuts .shortcut-name {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) var(--transparency),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) var(--transparency),
+		transparent
+	);
 	padding: 0 6px;
 	border-radius: 5px;
 }
@@ -2767,17 +2846,40 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 }
 
 /* Adaptive Icons styling */
-.adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="default"] {
+.adaptive-icons
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="default"] {
 	height: calc(100% * 0.7071) !important;
 	width: calc(100% * 0.7071) !important;
 	filter: grayscale(1);
 	mix-blend-mode: screen;
 }
 
-html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked)) .adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="default"],
-html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(:has(#darkTheme:checked)) .adaptive-icons .shortcuts .shortcutLogoContainer img[data-icon-type="default"],
-body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked)) .adaptive-icons .shortcutLogoContainer img[data-icon-type="default"],
-body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.themeSegment[data-active="system"]):not(:has(#darkTheme:checked)) .adaptive-icons .shortcutLogoContainer img[data-icon-type="default"] {
+html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
+	.adaptive-icons
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="default"],
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(
+		:has(#darkTheme:checked)
+	)
+	.adaptive-icons
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="default"],
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(
+		:has(#darkTheme:checked)
+	)
+	.adaptive-icons
+	.shortcutLogoContainer
+	img[data-icon-type="default"],
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.themeSegment[data-active="system"]
+	):not(:has(#darkTheme:checked))
+	.adaptive-icons
+	.shortcutLogoContainer
+	img[data-icon-type="default"] {
 	filter: grayscale(1) invert(1) !important;
 }
 
@@ -2787,10 +2889,28 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.themeSegment[data-active="
 	border-radius: 10% !important;
 }
 
-html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked)) .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
-html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(:has(#darkTheme:checked)) .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
-body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked)) .shortcuts .shortcutLogoContainer img[data-icon-type="custom"],
-body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.themeSegment[data-active="system"]):not(:has(#darkTheme:checked)) .shortcuts .shortcutLogoContainer img[data-icon-type="custom"] {
+html:has(.themeSegment[data-active="dark"]):not(:has(#darkTheme:checked))
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"],
+html:has(body[sysTheme="systemDark"] .themeSegment[data-active="system"]):not(
+		:has(#darkTheme:checked)
+	)
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"],
+body[data-bg="wallpaper"]:has(.themeSegment[data-active="dark"]):not(
+		:has(#darkTheme:checked)
+	)
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"],
+body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
+		.themeSegment[data-active="system"]
+	):not(:has(#darkTheme:checked))
+	.shortcuts
+	.shortcutLogoContainer
+	img[data-icon-type="custom"] {
 	filter: invert(1) hue-rotate(180deg) !important;
 	mix-blend-mode: normal !important;
 }
@@ -2847,9 +2967,11 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(.themeSegment[data-active="
 }
 
 body[data-bg="wallpaper"] .aiToolsCont .hangno {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) calc(var(--transparency) * 1.75),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) calc(var(--transparency) * 1.75),
+		transparent
+	);
 }
 
 .aiToolsCont .hangno .icon {
@@ -2888,9 +3010,11 @@ body[data-bg="wallpaper"] .aiToolsCont .hangno {
 }
 
 body[data-bg="wallpaper"] .aiToolsCont .toolsCont::before {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) calc(var(--transparency) * 1.5),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) calc(var(--transparency) * 1.5),
+		transparent
+	);
 }
 
 .aiToolsCont .toolsCont a {
@@ -2917,9 +3041,11 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont::before {
 }
 
 body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) var(--transparency),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) var(--transparency),
+		transparent
+	);
 }
 
 .aiToolsCont .toolsCont .tIcon {
@@ -3107,7 +3233,6 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 
 /* Reset Animation Styles */
 @keyframes resetShake {
-
 	0%,
 	100% {
 		margin-left: 0;
@@ -3123,7 +3248,6 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 }
 
 @keyframes resetFlash {
-
 	0%,
 	100% {
 		background-color: var(--accentLightTint-blue);
@@ -3131,9 +3255,11 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	}
 
 	50% {
-		background-color: color-mix(in srgb,
-				var(--darkColor-blue) 20%,
-				var(--accentLightTint-blue));
+		background-color: color-mix(
+			in srgb,
+			var(--darkColor-blue) 20%,
+			var(--accentLightTint-blue)
+		);
 		transform: scale(1.02);
 	}
 }
@@ -3367,12 +3493,12 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 }
 
 /* Apply styles when the input is checked (on) */
-input:checked+.toggle {
+input:checked + .toggle {
 	background-color: var(--darkColor-blue);
 	/* Background color when on */
 }
 
-input:checked+.toggle:before {
+input:checked + .toggle:before {
 	height: 24px;
 	width: 24px;
 	inset-inline-start: 5px;
@@ -3515,16 +3641,18 @@ input:checked+.toggle:before {
 }
 
 /* ===== Unified Section ===== */
-.section+.section {
+.section + .section {
 	margin-top: 22px;
 }
 
 /* OUTER container */
 .sectionOuter {
 	background-color: rgba(0, 0, 0, 0.07);
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) 60%,
-			var(--bg-color-blue));
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 60%,
+		var(--bg-color-blue)
+	);
 	border-radius: 25px;
 	padding: 7px;
 
@@ -3534,9 +3662,11 @@ input:checked+.toggle:before {
 }
 
 .sectionOuter:hover {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) 40%,
-			var(--bg-color-blue));
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 40%,
+		var(--bg-color-blue)
+	);
 }
 
 /* Header row */
@@ -3749,7 +3879,6 @@ input:checked+.toggle:before {
 }
 
 @keyframes resetShift {
-
 	0%,
 	100% {
 		margin-left: 0;
@@ -4074,9 +4203,11 @@ option:checked {
 	grid-template-columns: repeat(3, 1fr);
 	padding: 4px;
 	border-radius: 30px;
-	background: color-mix(in srgb,
-			var(--accentLightTint-blue) 60%,
-			var(--bg-color-blue));
+	background: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 60%,
+		var(--bg-color-blue)
+	);
 	transition: background 0.25s var(--md-motion-ease);
 }
 
@@ -4574,9 +4705,11 @@ option:checked {
 }
 
 body[data-bg="wallpaper"] .dropdown-content {
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) var(--transparency),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) var(--transparency),
+		transparent
+	);
 	backdrop-filter: blur(2px);
 }
 
@@ -4627,30 +4760,29 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 /* Vertical carousel for search engine switching */
 /* Main transition wrapper for the icon/content */
-.dropdown-btn>* {
+.dropdown-btn > * {
 	transition: all 0.4s var(--md-motion-ease);
 }
 
 /* Switching state - vertical slide with fade */
-.searchbar.engine-switching .dropdown-btn>* {
+.searchbar.engine-switching .dropdown-btn > * {
 	animation-duration: 0.4s;
 	animation-timing-function: var(--md-motion-ease);
 	animation-fill-mode: both;
 }
 
 /* Next direction - slide up and fade */
-.searchbar.engine-switching[data-switch-direction="next"] .dropdown-btn>* {
+.searchbar.engine-switching[data-switch-direction="next"] .dropdown-btn > * {
 	animation-name: slideUpFade;
 }
 
 /* Previous direction - slide down and fade */
-.searchbar.engine-switching[data-switch-direction="prev"] .dropdown-btn>* {
+.searchbar.engine-switching[data-switch-direction="prev"] .dropdown-btn > * {
 	animation-name: slideDownFade;
 }
 
 /* Slide up with fade (for next) */
 @keyframes slideUpFade {
-
 	0%,
 	100% {
 		transform: translateY(0);
@@ -4670,7 +4802,6 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 /* Slide down with fade (for previous) */
 @keyframes slideDownFade {
-
 	0%,
 	100% {
 		transform: translateY(0);
@@ -4794,8 +4925,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	}
 }
 
-@media screen and (min-width: 1201px),
-screen and (max-width: 500px) {
+@media screen and (min-width: 1201px), screen and (max-width: 500px) {
 	.weather-hidden {
 		visibility: hidden !important;
 		display: flex !important;
@@ -4848,7 +4978,8 @@ screen and (max-width: 500px) {
 		width: 100%;
 	}
 
-	#shortcuts-section:has(~ .menuBar #shortcut_switchcheckbox:checked) .shortcutsContainer {
+	#shortcuts-section:has(~ .menuBar #shortcut_switchcheckbox:checked)
+		.shortcutsContainer {
 		margin-top: 0;
 		flex-wrap: nowrap;
 	}
@@ -5144,8 +5275,12 @@ screen and (max-width: 500px) {
 		display: flex !important;
 	}
 
-	.hangno:has(+ :is(.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
-			.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0;"])) {
+	.hangno:has(
+		+ :is(
+			.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
+			.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0;"]
+		)
+	) {
 		& .icon {
 			margin: 0;
 		}
@@ -5234,7 +5369,7 @@ screen and (max-width: 500px) {
 	background-color: var(--darkColor-dark) !important;
 }
 
-.black-theme input:checked+.toggle {
+.black-theme input:checked + .toggle {
 	background-color: #aaaaaa;
 }
 
@@ -5447,17 +5582,19 @@ screen and (max-width: 500px) {
 }
 
 .black-theme body[data-bg="wallpaper"] .micIcon {
-	background-color: color-mix(in srgb,
-			var(--whitishColor-dark) calc(var(--transparency) * 2),
-			transparent);
+	background-color: color-mix(
+		in srgb,
+		var(--whitishColor-dark) calc(var(--transparency) * 2),
+		transparent
+	);
 }
 
 .black-theme #searchQ::placeholder {
 	color: #909090 !important;
 }
 
-.black-theme .floating-label-field input:focus+label,
-.black-theme .floating-label-field input:not(:placeholder-shown)+label {
+.black-theme .floating-label-field input:focus + label,
+.black-theme .floating-label-field input:not(:placeholder-shown) + label {
 	color: var(--textColorDark-dark);
 }
 
@@ -5700,9 +5837,11 @@ screen and (max-width: 500px) {
 	max-height: 900px;
 	overflow: hidden;
 	background-color: var(--bg-color-blue);
-	background-color: color-mix(in srgb,
-			var(--accentLightTint-blue) 40%,
-			var(--bg-color-blue));
+	background-color: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 40%,
+		var(--bg-color-blue)
+	);
 	padding: 18px 20px;
 	border-radius: 20px;
 	opacity: 1;
@@ -5738,10 +5877,12 @@ screen and (max-width: 500px) {
 	content: "";
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(90deg,
-			transparent,
-			rgba(255, 255, 255, 0.25),
-			transparent);
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.25),
+		transparent
+	);
 	transform: translateX(-100%);
 	animation: dontShowTipsShine 3s infinite;
 	pointer-events: none;
