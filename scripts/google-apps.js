@@ -469,6 +469,7 @@ function createAppElement(app, isFavorite) {
                 e.preventDefault();
                 e.stopPropagation();
                 favoriteIds.push(app.id);
+                hiddenIds = hiddenIds.filter(id => id !== app.id);
                 saveGoogleAppsState(favoriteIds, hiddenIds);
                 renderApps();
             });
@@ -577,14 +578,15 @@ function handleDrop(e) {
         const fromId = dragSrcEl.dataset.appId;
         const toId = this.dataset.appId;
         const fromIdx = favoriteIds.indexOf(fromId);
-        const toIdx = favoriteIds.indexOf(toId);
 
-        if (fromIdx > -1 && toIdx > -1) {
-            // Remove from old position and insert at new position
+        if (fromIdx > -1) {
             favoriteIds.splice(fromIdx, 1);
-            favoriteIds.splice(toIdx, 0, fromId);
-            saveGoogleAppsState(favoriteIds, hiddenIds);
-            renderApps();
+            const toIdx = favoriteIds.indexOf(toId); // recompute after removal
+            if (toIdx > -1) {
+                favoriteIds.splice(toIdx, 0, fromId);
+                saveGoogleAppsState(favoriteIds, hiddenIds);
+                renderApps();
+            }
         }
     }
 }
