@@ -718,4 +718,30 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem(`shortcutName${entry._index}`, entry.querySelector(".shortcutName").value);
         localStorage.setItem(`shortcutURL${entry._index}`, entry.querySelector(".URL").value);
     }
+
+    // Fast access keyboard shortcuts: Alt + 1-9 to open corresponding shortcut
+    function setupKeyboardShortcuts() {
+        document.addEventListener("keydown", (e) => {
+            // Only trigger when Alt is pressed
+            if (!e.altKey) return;
+
+            const num = parseInt(e.key);
+            if (isNaN(num) || num < 1 || num > 9) return;
+
+            // Get the shortcuts in their current rendered order
+            const shortcutLinks = dom.shortcutsContainer.querySelectorAll(".shortcuts a");
+            const targetIndex = num - 1;
+
+            if (targetIndex < shortcutLinks.length) {
+                const link = shortcutLinks[targetIndex];
+                if (link && link.href) {
+                    e.preventDefault(); // Prevent any default browser behavior for Alt+number
+                    // window.open(link.href, "_blank"); // Alternative: Open in new tab
+                    window.location.href = link.href; // Open in the same tab
+                }
+            }
+        });
+    }
+
+    setupKeyboardShortcuts();
 });
