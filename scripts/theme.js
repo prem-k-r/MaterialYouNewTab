@@ -109,6 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Remove Loading Screen when the DOM and the theme has loaded
     document.getElementById("LoadingScreen").style.display = "none";
 
+    // Clean up preload data attributes — DOM-based selectors are now in control
+    document.documentElement.removeAttribute("data-preferred-theme");
+    document.documentElement.removeAttribute("data-system-dark");
+
     // Stop blinking of some elements when the page is reloaded
     setTimeout(() => {
         document.documentElement.classList.add("theme-transition");
