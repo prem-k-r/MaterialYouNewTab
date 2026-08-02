@@ -43,6 +43,8 @@ const en = {
     "todoListInfo": "Show a daily To Do list",
     "todoListHover": "ToDo List",    // Keep this short
     "todoPlaceholder": "Add task...",
+    "disableAnimationsText": "Disable Open Animations",
+    "disableAnimationsInfo": "Turn off the entrance animations when a new tab opens",
 
     // Clock
     "hideClockBox": "Hide Clock",

@@ -28,6 +28,7 @@
     <script defer src="scripts/alert-modal.js"></script>
     <script defer src="scripts/wallpaper.js"></script>
     <script defer src="scripts/widgets-transparency.js"></script>
+    <script defer src="scripts/animations-toggle.js"></script>
     <script defer src="scripts/clock.js"></script>
     <script defer src="scripts/weather.js"></script>
     <script defer src="scripts/custom-text.js"></script>
@@ -1362,6 +1363,17 @@
                                         </div>
                                         <label class="switch">
                                             <input id="todoListCheckbox" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="ttcont" id="disableAnimationsContainer">
+                                        <div class="texts">
+                                            <div class="bigText" id="disableAnimationsText">Disable Open Animations</div>
+                                            <div class="infoText" id="disableAnimationsInfo">Turn off the entrance animations when a new tab opens</div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="disableAnimations" type="checkbox">
                                             <span class="toggle"></span>
                                         </label>
                                     </div>
