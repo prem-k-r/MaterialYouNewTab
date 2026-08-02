@@ -1,21 +1,20 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
-// ============================================================
+// ===============================================================
 // Preload: Apply saved theme BEFORE first paint to prevent flash
 // This script runs synchronously in <head>, before <body> exists.
-// We can only access document.documentElement (<html>).
-// ============================================================
+// ===============================================================
 
 (function () {
     const root = document.documentElement;
 
-    // --- Loading Screen Color (existing behavior) ---
+    // --- Loading Screen Color ---
     root.style.setProperty(
         '--Loading-Screen-Color',
         localStorage.getItem('LoadingScreenColor') || '#bbd6fd'
@@ -50,37 +49,32 @@
     const storedTheme = localStorage.getItem('selectedTheme');
     const storedCustomColor = localStorage.getItem('customThemeColor');
 
-    // Helper: lighten or darken a hex color (mirrors theme.js adjustHexColor)
-    function adjustHexColor(hex, factor, isLighten) {
-        if (isLighten === undefined) isLighten = true;
-        hex = hex.replace('#', '');
-        if (hex.length === 3) {
-            hex = hex.split('').map(function (c) { return c + c; }).join('');
+    window.ThemeHelpers = {
+        adjustHexColor: function (hex, factor, isLighten = true) {
+            hex = hex.replace('#', '');
+            if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+            let r = parseInt(hex.substring(0, 2), 16);
+            let g = parseInt(hex.substring(2, 4), 16);
+            let b = parseInt(hex.substring(4, 6), 16);
+            if (isLighten) {
+                r = Math.floor(r + (255 - r) * factor);
+                g = Math.floor(g + (255 - g) * factor);
+                b = Math.floor(b + (255 - b) * factor);
+            } else {
+                r = Math.floor(r * (1 - factor));
+                g = Math.floor(g * (1 - factor));
+                b = Math.floor(b * (1 - factor));
+            }
+            return '#' + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1).toUpperCase();
+        },
+        isNearWhite: function (hex, threshold = 240) {
+            hex = hex.replace('#', '');
+            let r = parseInt(hex.substring(0, 2), 16);
+            let g = parseInt(hex.substring(2, 4), 16);
+            let b = parseInt(hex.substring(4, 6), 16);
+            return r > threshold && g > threshold && b > threshold;
         }
-        var r = parseInt(hex.substring(0, 2), 16);
-        var g = parseInt(hex.substring(2, 4), 16);
-        var b = parseInt(hex.substring(4, 6), 16);
-        if (isLighten) {
-            r = Math.floor(r + (255 - r) * factor);
-            g = Math.floor(g + (255 - g) * factor);
-            b = Math.floor(b + (255 - b) * factor);
-        } else {
-            r = Math.floor(r * (1 - factor));
-            g = Math.floor(g * (1 - factor));
-            b = Math.floor(b * (1 - factor));
-        }
-        return '#' + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1).toUpperCase();
-    }
-
-    // Helper: check if a color is near white (mirrors theme.js isNearWhite)
-    function isNearWhite(hex, threshold) {
-        if (threshold === undefined) threshold = 240;
-        hex = hex.replace('#', '');
-        var r = parseInt(hex.substring(0, 2), 16);
-        var g = parseInt(hex.substring(2, 4), 16);
-        var b = parseInt(hex.substring(4, 6), 16);
-        return r > threshold && g > threshold && b > threshold;
-    }
+    };
 
     if (storedCustomColor) {
         // --- Custom color theme ---
