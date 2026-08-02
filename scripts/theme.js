@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Remove Loading Screen when the DOM and the theme has loaded
     document.getElementById("LoadingScreen").style.display = "none";
 
-    // Clean up preload data attributes — DOM-based selectors are now in control
+    // Clean up preload data attributes
     document.documentElement.removeAttribute("data-preferred-theme");
     document.documentElement.removeAttribute("data-system-dark");
 

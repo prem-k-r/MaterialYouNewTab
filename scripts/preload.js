@@ -78,12 +78,12 @@
 
     if (storedCustomColor) {
         // --- Custom color theme ---
-        var adjustedColor = isNearWhite(storedCustomColor) ? '#696969' : storedCustomColor;
+        var adjustedColor = window.ThemeHelpers.isNearWhite(storedCustomColor) ? '#696969' : storedCustomColor;
 
-        var lighterColorHex = adjustHexColor(adjustedColor, 0.7);
-        var lightTin = adjustHexColor(adjustedColor, 0.9);
-        var darkerColorHex = adjustHexColor(adjustedColor, 0.3, false);
-        var darkTextColor = adjustHexColor(adjustedColor, 0.8, false);
+        var lighterColorHex = window.ThemeHelpers.adjustHexColor(adjustedColor, 0.7);
+        var lightTin = window.ThemeHelpers.adjustHexColor(adjustedColor, 0.9);
+        var darkerColorHex = window.ThemeHelpers.adjustHexColor(adjustedColor, 0.3, false);
+        var darkTextColor = window.ThemeHelpers.adjustHexColor(adjustedColor, 0.8, false);
 
         root.style.setProperty('--bg-color-blue', lighterColorHex);
         root.style.setProperty('--accentLightTint-blue', lightTin);
@@ -112,5 +112,4 @@
             root.classList.add('black-theme');
         }
     }
-    // If storedTheme is "blue" or absent (and no custom color), CSS defaults are correct — do nothing.
 })();
