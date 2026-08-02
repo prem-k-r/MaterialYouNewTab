@@ -26,6 +26,17 @@
         root.style.setProperty('--transparency', `${Math.round(Number(savedOpacity))}%`);
     }
 
+    // Watch for the <body> to be created and instantly set it to "wallpaper" before the screen paints
+    if (localStorage.getItem('hasWallpaper') === 'true') {
+        const observer = new MutationObserver(function () {
+            if (document.body) {
+                document.body.setAttribute('data-bg', 'wallpaper');
+                observer.disconnect(); // Stop watching once the job is done
+            }
+        });
+        observer.observe(document.documentElement, { childList: true });
+    }
+
     // --- Light/Dark/System mode preference ---
     const preferredTheme = localStorage.getItem('preferredTheme');
     // Migrate legacy dark mode checkbox
