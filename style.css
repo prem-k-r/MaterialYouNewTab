@@ -221,6 +221,18 @@ body {
 	margin: 0;
 }
 
+/* Early-paint dark mode: applied by preload.js before deferred scripts run.
+   Uses data attributes on <html> set synchronously in <head>. */
+html[data-preferred-theme="dark"]:not(:has(#darkTheme:checked)),
+html[data-preferred-theme="system"][data-system-dark="true"]:not(
+		:has(#darkTheme:checked)
+	) {
+	filter: invert(1) hue-rotate(180deg);
+	-webkit-filter: invert(1) hue-rotate(180deg);
+
+	--whitishColor-blue: #f2f2f2;
+}
+
 /* Apply dark mode when: Dark Mode is selected manually, OR System Theme is selected */
 html:has(body[data-bg="color"] .menuBar .themeSegment[data-active="dark"]):not(
 		:has(#darkTheme:checked)
