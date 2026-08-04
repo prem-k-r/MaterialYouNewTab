@@ -33,6 +33,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 
 ### Fixed
 
+- Fixed shortcut dock layout in narrow windows by keeping shortcut tiles at icon size and switching to a horizontal scroller when the dock container gets cramped ([@Procoder1234556](https://github.com/Procoder1234556)) ([#225](https://github.com/prem-k-r/MaterialYouNewTab/pull/225))
 - Fixed an issue where rapid clicks on the AI Tools icon caused race conditions, leading to inconsistent shortcuts panel visibility. ([@prem-k-r](https://github.com/prem-k-r)) ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
 - Fixed shortcut name and URLs hover behavior by replacing ellipsis with clipped text for improved readability ([@prem-k-r](https://github.com/prem-k-r)) ([283f78d](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/changes/283f78d6e4b202a075ca3d670c1b30cbc701c3a4))
 - Fixed wallpaper disappearing on load due to blob URL being revoked too early ([@prem-k-r](https://github.com/prem-k-r)) ([#209](https://github.com/prem-k-r/MaterialYouNewTab/pull/209))

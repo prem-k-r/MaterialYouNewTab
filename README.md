@@ -58,7 +58,7 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 - **Google Apps**: Quickly launch Gmail, Drive, Docs, and other Google services.
 - **Backup & Reset**: Save or restore your setup anytime, or reset everything to default with one click.
 - **Language Support**: Use the extension in your preferred language for better accessibility.
-- **Browser Compatibility**: Supports all Chromium-based browsers, including **Chrome**, **Edge**, **Brave**, and **Opera**, as well as Firefox-based browsers like **Firefox** and **Zen**.
+- **Browser Compatibility**: Supports all Chromium-based browsers, including **Chrome**, **Edge**, **Brave**, and **Opera**, as well as Firefox-based browsers like **Firefox** and **Zen**. The responsive shortcut dock improvements rely on CSS container queries, which are available in **Chrome/Chromium 105+**, **Firefox 110+**, and **Safari 16+**.
 
 ## 📥 Installation Guide
 
