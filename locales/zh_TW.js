@@ -1,8 +1,17 @@
 // Chinese (Traditional)
 const zh_TW = {
+    "newTabTitle": "新分頁",
     // Menu Items
     "github": "GitHub",
     "feedback": "意見回饋",
+
+    // Section titles
+    "personalizationSectionTitle": "個人化",
+    "clockSectionTitle": "時鐘",
+    "searchSectionTitle": "搜尋",
+    "weatherSectionTitle": "天氣",
+    "appearanceSectionTitle": "外觀",
+    "settingsSectionTitle": "設定",
 
     // Shortcuts
     "shortcutsText": "捷徑",
@@ -22,6 +31,12 @@ const zh_TW = {
     "googleAppsMenuText": "Google 應用程式",
     "googleAppsMenuInfo": "顯示 Google 應用程式的捷徑",
     "googleAppsHover": "Google 應用程式",
+
+    "shortcutDefaultName": "新捷徑",
+    "shortcutInputName": "捷徑名稱",
+    "shortcutInputUrl": "捷徑網址",
+    "shortcutInputIcon": "自訂圖示：網址或 SVG（選填）",
+    "recentlyAddedBookmarks": "最近新增",
 
     // To-do List
     "todoListText": "待辦清單",
@@ -58,6 +73,8 @@ const zh_TW = {
     "hideSearchWithInfo": "透過點擊圖示切換搜尋引擎",
     "motivationalQuotesText": "勵志語錄",
     "motivationalQuotesInfo": "在搜尋列下方顯示語錄",
+    "newQuoteOnRefreshText": "每日語錄",
+    "newQuoteOnRefreshInfo": "每天顯示一則語錄，而非每次重新整理時更換",
     "search_suggestions_button": "搜尋建議",
     "search_suggestions_text": "啟用搜尋建議",
 
@@ -149,12 +166,15 @@ const zh_TW = {
     "resetAISettingsBtn": "重設",
 
     // Theme
-    "enableDarkMode": "深色模式（實驗性）",
-    "enableDarkModeInfo": "啟用深色模式主題",
+    "lightThemed": "淺色",
+    "darkThemed": "深色",
+    "systemThemed": "系統",
 
     // Wallpaper and settings
     "uploadWallpaperText": "上傳桌布",
     "rangColor": "選擇顏色",
+    "opacityTitle": "透明度",
+    "adjustOpacityDesc": "調整介面透明度",
     "backupText": "備份",
     "restoreText": "還原",
     "resetsettings": "重設設定",
@@ -174,6 +194,10 @@ const zh_TW = {
     "updateFirefoxHomepageInfo": "若要將首頁更改為與新分頁相同，請造訪 <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">此連結</a> 並按照指示操作。",
     "dontShowTips": "不要再顯示此提示",
 
+    // Footer Toast
+    "footerToastTitle": "看到頁面底部的橫幅了嗎？",
+    "footerToastMessage": "若要隱藏，請在橫幅上按一下滑鼠右鍵，然後選擇「隱藏新分頁的頁尾」。",
+
     // Dialog boxes (alerts)
     "okText": "確定",
     "yesText": "是",
@@ -192,4 +216,10 @@ const zh_TW = {
     "invalidBackup": "選擇的備份檔案無效。",
     "deleteBookmark": "您確定要刪除書籤 \"{title}\" 嗎？",
     "UnsupportedBrowser": "您的瀏覽器不支援書籤功能",
+    "resetShortcutsPrompt": "所有已儲存的捷徑都會被刪除並重設為預設值。是否要繼續？",
+    "invalidFileTypeMessage": "請選擇有效的圖片檔案。",
+    "invalidSvgMessage": "插入的 SVG 無效，或包含不安全的內容，因此無法用作圖示。",
+    "invalidIconUrlMessage": "請輸入有效的圖片網址（開頭必須是 https://、http:// 或 data:image/）。",
+    "iconFileTooLargeMessage": "選取的檔案太大：{size} KB。請使用小於 {max} KB 的檔案。",
+    "iconStorageQuotaMessage": "已達儲存空間上限，無法儲存圖示。請移除部分自訂圖示或使用較小的圖片。"
 };

@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
@@ -26,6 +26,14 @@ const FALLBACK_QUOTE = {
 
 let lastKnownLanguage = null;
 
+// Animate .authorName container width to hug its text content
+function fitAuthorWidth() {
+    requestAnimationFrame(() => {
+        const padding = 16;
+        authorContainer.style.width = (authorName.scrollWidth + padding * 2) + "px";
+    });
+}
+
 // Clear all quotes-related data from localStorage
 function clearQuotesStorage() {
     const keys = Object.keys(localStorage);
@@ -45,7 +53,8 @@ function clearOtherLanguageQuotes(exceptLang) {
     keys.forEach(key => {
         if (
             key.startsWith("quotes_") &&
-            !key.includes(`quotes_${exceptLang}`) &&
+            key !== `quotes_${exceptLang}` &&
+            !key.startsWith(`quotes_${exceptLang}_`) &&
             key !== "quotes_metadata_timestamp"
         ) {
             localStorage.removeItem(key);
@@ -55,7 +64,7 @@ function clearOtherLanguageQuotes(exceptLang) {
 
 // Check if we need to fetch data for a language
 function needsDataFetch(lang) {
-    // Always fetch if offline
+    // Skip fetch if offline
     if (!navigator.onLine) return false;
 
     // Check if language changed
@@ -163,17 +172,56 @@ function getStoredQuotes(lang) {
     return storedQuotes ? JSON.parse(storedQuotes) : null;
 }
 
+// Get today's date in YYYY-MM-DD format
+function getTodayDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// Get the storage key for today's daily quote
+function getDailyQuoteKey(lang) {
+    return `daily_quote_${lang}_${getTodayDate()}`;
+}
+
+// Store the daily quote for today
+function storeDailyQuote(lang, quote) {
+    const key = getDailyQuoteKey(lang);
+    localStorage.setItem(key, JSON.stringify(quote));
+}
+
+// Get the daily quote for today (if it exists)
+function getDailyQuote(lang) {
+    const key = getDailyQuoteKey(lang);
+    const stored = localStorage.getItem(key);
+    return stored ? JSON.parse(stored) : null;
+}
+
+// Clear old daily quotes
+function clearOldDailyQuotes() {
+    const keys = Object.keys(localStorage);
+    const today = getTodayDate();
+    keys.forEach(key => {
+        if (key.startsWith("daily_quote_") && !key.includes(today)) {
+            localStorage.removeItem(key);
+        }
+    });
+}
+
+
 // Display fallback quote
 function displayFallbackQuote() {
     quotesContainer.textContent = FALLBACK_QUOTE.quote;
     authorName.textContent = FALLBACK_QUOTE.author;
+    fitAuthorWidth();
 }
 
 // Get quotes for the current language
 async function getQuotesForLanguage(forceRefresh = false) {
     try {
-        // Check if language has changed
-        const languageChanged = lastKnownLanguage !== null && lastKnownLanguage !== currentLanguage;
+        // Update last known language
         lastKnownLanguage = currentLanguage;
 
         // Check if we need to fetch new data
@@ -242,6 +290,21 @@ function displayRandomQuote(quotes) {
         return;
     }
 
+    // Check if "Daily Quote" is enabled (show one quote per day)
+    const newQuoteOnRefresh = localStorage.getItem("dailyQuoteEnabled") !== "false";
+
+    // If new quote on refresh is disabled, try to use the daily quote
+    if (!newQuoteOnRefresh) {
+        const dailyQuote = getDailyQuote(currentLanguage);
+        if (dailyQuote) {
+            // Display the stored daily quote
+            quotesContainer.textContent = dailyQuote.quote;
+            authorName.textContent = dailyQuote.author;
+            fitAuthorWidth();
+            return;
+        }
+    }
+
     let selectedQuote;
     const maxAttempts = 15; // Prevent infinite loop
 
@@ -256,16 +319,15 @@ function displayRandomQuote(quotes) {
         }
     }
 
+    // Store as daily quote if new quote on refresh is disabled
+    if (!newQuoteOnRefresh) {
+        storeDailyQuote(currentLanguage, selectedQuote);
+    }
+
     // Display the selected quote
     quotesContainer.textContent = selectedQuote.quote;
     authorName.textContent = selectedQuote.author;
-
-    // Animate .authorName width to fit content
-    requestAnimationFrame(() => {
-        const fullWidth = authorName.scrollWidth;
-        const padding = 16;
-        authorContainer.style.width = (fullWidth + padding * 2) + "px";
-    });
+    fitAuthorWidth();
 }
 
 // Main function to load and display a quote
@@ -285,13 +347,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const motivationalQuotesCont = document.getElementById("motivationalQuotesCont");
     const motivationalQuotesCheckbox = document.getElementById("motivationalQuotesCheckbox");
     const searchWithContainer = document.getElementById("search-with-container");
+    const newQuoteOnRefreshCheckbox = document.getElementById("newQuoteOnRefreshCheckbox");
+    const quotesOptions = document.querySelector(".quotesOptions");
 
     // Load states from localStorage
     hideSearchWith.checked = localStorage.getItem("showShortcutSwitch") === "true";
     motivationalQuotesCheckbox.checked = localStorage.getItem("motivationalQuotesVisible") !== "false";
+    newQuoteOnRefreshCheckbox.checked = localStorage.getItem("dailyQuoteEnabled") === "false";
 
     // Initialize language tracking
     lastKnownLanguage = currentLanguage;
+
+    // Clean up old daily quotes on page load
+    if (newQuoteOnRefreshCheckbox.checked) clearOldDailyQuotes();
 
     // Function to update quotes visibility and handle state changes
     const updateMotivationalQuotesState = () => {
@@ -304,6 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Handle visibility based on settings
         if (!isHideSearchWithEnabled) {
             quotesToggle.classList.add("inactive");
+            quotesOptions.classList.add("not-applicable");
             motivationalQuotesCont.style.display = "none";
             clearQuotesStorage();
             return;
@@ -314,6 +383,9 @@ document.addEventListener("DOMContentLoaded", () => {
         searchWithContainer.style.display = isMotivationalQuotesEnabled ? "none" : "flex";
         motivationalQuotesCont.style.display = isMotivationalQuotesEnabled ? "flex" : "none";
 
+        // Show/hide Daily Quote option based on whether quotes are enabled
+        quotesOptions.classList.toggle("not-applicable", !isMotivationalQuotesEnabled);
+
         // Load quotes if motivational quotes are enabled
         if (isMotivationalQuotesEnabled) {
             loadAndDisplayQuote(false);
@@ -321,6 +393,30 @@ document.addEventListener("DOMContentLoaded", () => {
             clearQuotesStorage();
         }
     };
+
+    // Handle daily quote toggle changes
+    newQuoteOnRefreshCheckbox.addEventListener("change", () => {
+        const isDailyQuote = newQuoteOnRefreshCheckbox.checked;
+        // Store as "newQuoteOnRefresh = false" when daily quote is ON (inverted)
+        localStorage.setItem("dailyQuoteEnabled", !isDailyQuote);
+
+        if (isDailyQuote) {
+            // When switching to daily quote, store the current quote as the daily quote
+            const currentQuote = quotesContainer.textContent;
+            const currentAuthor = authorName.textContent;
+            if (currentQuote && currentAuthor) {
+                storeDailyQuote(currentLanguage, {
+                    quote: currentQuote,
+                    author: currentAuthor
+                });
+            }
+        } else {
+            clearOldDailyQuotes();
+            localStorage.removeItem(getDailyQuoteKey(currentLanguage));
+            // When switching off daily quote, load a new quote
+            loadAndDisplayQuote(false);
+        }
+    });
 
     // Apply initial state
     updateMotivationalQuotesState();
@@ -333,3 +429,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     motivationalQuotesCheckbox.addEventListener("change", updateMotivationalQuotesState);
 });
+

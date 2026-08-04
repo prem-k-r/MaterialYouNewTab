@@ -198,8 +198,8 @@ function generateAIToolsForm(settings) {
                 <label for="setting_${toolId}">${toolLabel}</label>
             </div>
             <div class="ai-tool-reorder">
-                <button type="button" class="reorder-up" ${index === 0 ? "disabled" : ""}>▲</button>
-                <button type="button" class="reorder-down" ${index === settings.length - 1 ? "disabled" : ""}>▼</button>
+                <button type="button" class="reorder-up" ${index === 0 ? "disabled" : ""}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M10.974 8.192a1.465 1.465 0 0 1 2.07 0l5.527 5.524a1.465 1.465 0 1 1-2.073 2.072l-4.49-4.488-4.488 4.49a1.465 1.465 0 1 1-2.073-2.072Z"/></svg></button>
+                <button type="button" class="reorder-down" ${index === settings.length - 1 ? "disabled" : ""}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13.047 15.809a1.47 1.47 0 0 1-2.076 0l-5.54-5.54a1.47 1.47 0 1 1 2.077-2.076l4.501 4.5 4.501-4.5a1.469 1.469 0 0 1 2.078 2.076l-5.54 5.54z"/></svg></button>
             </div>
         `;
         aiToolsForm.appendChild(toolOption);
@@ -358,6 +358,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // AI Tools icon click handler
     aiToolsIcon.addEventListener("click", toggleAITools);
 
+    // AI Tools icon right-click handler
+    aiToolsIcon.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        showAIToolsSettings();
+    });
+
     // AI Tools edit button click handler
     aiToolsEditButton.addEventListener("click", function (e) {
         e.preventDefault();
@@ -366,7 +373,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Close button in settings modal
-    closeAISettingsBtn.addEventListener("click", closeAIToolsSettings);
+    closeAISettingsBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeAIToolsSettings();
+    });
 
     // Reset button in settings modal
     resetAISettingsBtn.addEventListener("click", function () {
@@ -423,7 +434,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Save button in settings modal
-    saveAISettingsBtn.addEventListener("click", function () {
+    saveAISettingsBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
         const newSettings = [];
         const toolOptions = document.querySelectorAll(".ai-tool-option");
 
@@ -482,9 +496,10 @@ document.addEventListener("DOMContentLoaded", function () {
         aiToolsEditField.classList.add("inactive");
     }
 
-    // Collapse when clicking outside toolsCont
+    // Collapse when clicking outside toolsCont (but not if settings modal is open)
     document.addEventListener("click", (event) => {
-        if (!aiToolName.contains(event.target) && aiToolName.style.display === "flex") {
+        const isSettingsModalOpen = aiToolsSettingsModal.style.display === "block";
+        if (!aiToolName.contains(event.target) && aiToolName.style.display === "flex" && !isSettingsModalOpen) {
             toggleAITools();
         }
     });

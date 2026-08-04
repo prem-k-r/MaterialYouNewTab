@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback - MaterialYouNewTab</title>
+    <link rel="icon" type="image/png"
+        href="https://github.com/user-attachments/assets/48c3a9cb-06fa-4c45-92ec-194cdb7c5661">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <style>
         body,
         h1,
@@ -26,12 +29,14 @@
 
         .container {
             background-color: #fff;
-            padding: 40px;
+            padding: 36px 24px;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             max-width: 703px;
-            width: 100%;
+            width: min(703px, calc(100% - 24px));
+            margin: 12px;
+            box-sizing: border-box;
         }
 
         h1 {
@@ -46,23 +51,72 @@
         }
 
         .contact-info {
-            display: flex;
-            justify-content: space-around;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 18px;
+            justify-items: center;
             align-items: center;
-            flex-wrap: wrap;
+            margin-top: 20px;
         }
 
         .contact-info a {
             color: #fff;
             text-decoration: none;
-            width: 70px;
-            height: 70px;
+            width: 64px;
+            height: 64px;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            font-size: 38px;
+            font-size: 32px;
             transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                padding: 16px 0;
+            }
+
+            .container {
+                padding: 28px 18px;
+                border-radius: 14px;
+            }
+
+            h1 {
+                font-size: 24px;
+                line-height: 1.25;
+            }
+
+            .feedback-message {
+                font-size: 16px;
+                line-height: 1.4;
+                margin-bottom: 22px;
+            }
+
+            .contact-info {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+
+            .contact-info a {
+                width: 58px;
+                height: 58px;
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .contact-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-info a {
+                width: 56px;
+                height: 56px;
+                font-size: 26px;
+            }
         }
 
         .contact-info a:hover {
@@ -89,13 +143,8 @@
             background-color: #f9c431;
         }
 
-        @media (max-width: 600px) {
-            .contact-info a {
-                font-size: 30px;
-                width: 60px;
-                height: 60px;
-                margin: 20px;
-            }
+        .edge {
+            background-color: #0078d7;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -124,20 +173,37 @@
 <body>
     <div class="container">
         <h1>We Value Your Feedback</h1>
+
         <div class="feedback-message">
             <p>If you have any suggestions or questions, feel free to reach out:</p>
         </div>
+
         <div class="contact-info">
-            <a href="https://github.com/prem-k-r/MaterialYouNewTab/discussions" target="_blank" class="github"><i
-                    class="fab fa-github"></i></a>
-            <a href="https://t.me/Material_You_NewTab" target="_blank" class="telegram"><i
-                    class="fab fa-telegram-plane"></i></a>
-            <a href="mailto:prem12321kumar@outlook.com" target="_blank" class="email"><i
-                    class="fas fa-envelope"></i></a>
+            <a href="https://github.com/prem-k-r/MaterialYouNewTab/discussions" target="_blank" class="github">
+                <i class="fab fa-github"></i>
+            </a>
+
+            <a href="https://t.me/Material_You_NewTab" target="_blank" class="telegram">
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+
+            <a href="mailto:prem12321kumar@outlook.com" target="_blank" class="email">
+                <i class="fas fa-envelope"></i>
+            </a>
+
             <a href="https://chromewebstore.google.com/detail/mynt-material-you-new-tab/jjpokbgpiljgndebfoljdeihhkpcpfgl/reviews"
-                target="_blank" class="chrome"><i class="fab fa-chrome"></i></a>
-            <a href="https://addons.mozilla.org/en-US/firefox/addon/mynt/reviews/" target="_blank" class="firefox"><i
-                    class="fab fa-firefox"></i></a>
+                target="_blank" class="chrome">
+                <i class="fab fa-chrome"></i>
+            </a>
+
+            <a href="https://addons.mozilla.org/en-US/firefox/addon/mynt/reviews/" target="_blank" class="firefox">
+                <i class="fab fa-firefox"></i>
+            </a>
+
+            <a href="https://microsoftedge.microsoft.com/addons/detail/mynt-material-you-new-ta/lcgdmfjofmcblocogcabdpfidfbkblcd"
+                target="_blank" class="edge">
+                <i class="fab fa-edge"></i>
+            </a>
         </div>
     </div>
 </body>

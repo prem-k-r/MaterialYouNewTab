@@ -144,7 +144,7 @@ async function initializeClock() {
             const dateDisplay = {
                 bn: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
                 mr: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
-                np: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
+                ne: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
                 zh: `${month + 1}月${dayOfMonth}日，${dayName}`,
                 zh_TW: `${month + 1}月${dayOfMonth}日，${dayName}`,
                 cs: `${dayName}, ${dayOfMonth}. ${monthName}`,
@@ -282,7 +282,7 @@ async function initializeClock() {
             az: `${dayName} ${dayOfMonth}`,
             bn: `${dayName}, ${localizedDayOfMonth}`,
             mr: `${dayName}, ${localizedDayOfMonth}`,
-            np: `${dayName}, ${localizedDayOfMonth}`,
+            ne: `${dayName}, ${localizedDayOfMonth}`,
             zh: `${dayOfMonth}日${dayName}`,
             zh_TW: `${dayOfMonth}日${dayName}`,
             cs: `${dayName}, ${dayOfMonth}.`,
@@ -357,7 +357,7 @@ async function initializeClock() {
         if (hourformat && (specialLanguages.includes(currentLanguage) || localizedLanguages.includes(currentLanguage))) {
             let realHours = new Date().getHours();
 
-            // lANGUAGE-SPECIFIC AM/PM 
+            // LANGUAGE-SPECIFIC AM/PM
             if (currentLanguage === "fa") {
                 period = realHours < 12 ? "ق.ظ" : "ب.ظ"; // قبل از ظهر / بعد از ظهر
             } else if (currentLanguage === "ar_SA") {
@@ -554,4 +554,3 @@ async function initializeClock() {
         loadActiveStatus("greetingField", greetingField);
     });
 }
-
