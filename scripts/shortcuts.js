@@ -302,6 +302,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const link = document.createElement("a");
         link.href = normalizedUrl;
 
+        if (index < 9) {
+            link.dataset.shortcut = index + 1;
+        }
+
         const logoContainer = document.createElement("div");
         logoContainer.className = "shortcutLogoContainer";
 
@@ -1008,7 +1012,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Fast access keyboard shortcuts: Alt + 1-9 to open corresponding shortcut
+    // Keyboard shortcuts: Alt + 1-9 to open corresponding shortcut
     function setupKeyboardShortcuts() {
         document.addEventListener("keydown", (e) => {
             if (!e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
@@ -1029,6 +1033,20 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    let altHoldTimer;
+    document.addEventListener("keydown", (e) => {
+        if (e.key !== "Alt" || e.repeat) return;
+        altHoldTimer = setTimeout(() => {
+            dom.shortcutsContainer.classList.add("show-shortcut-numbers");
+        }, 300);
+    });
+
+    document.addEventListener("keyup", (e) => {
+        if (e.key !== "Alt") return;
+        clearTimeout(altHoldTimer);
+        dom.shortcutsContainer.classList.remove("show-shortcut-numbers");
+    });
 
     setupKeyboardShortcuts();
 });
