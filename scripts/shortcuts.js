@@ -722,8 +722,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Fast access keyboard shortcuts: Alt + 1-9 to open corresponding shortcut
     function setupKeyboardShortcuts() {
         document.addEventListener("keydown", (e) => {
-            // Only trigger when Alt is pressed
-            if (!e.altKey) return;
+            if (!e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
 
             const num = parseInt(e.key);
             if (isNaN(num) || num < 1 || num > 9) return;
@@ -735,9 +734,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (targetIndex < shortcutLinks.length) {
                 const link = shortcutLinks[targetIndex];
                 if (link && link.href) {
-                    e.preventDefault(); // Prevent any default browser behavior for Alt+number
-                    // window.open(link.href, "_blank"); // Alternative: Open in new tab
-                    window.location.href = link.href; // Open in the same tab
+                    e.preventDefault();
+                    window.location.href = link.href;
                 }
             }
         });
