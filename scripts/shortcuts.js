@@ -1035,6 +1035,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     let altHoldTimer;
+    function hideShortcutNumbers() {
+        clearTimeout(altHoldTimer);
+        dom.shortcutsContainer.classList.remove("show-shortcut-numbers");
+    }
+
     document.addEventListener("keydown", (e) => {
         if (e.key !== "Alt" || e.repeat) return;
         altHoldTimer = setTimeout(() => {
@@ -1044,9 +1049,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.addEventListener("keyup", (e) => {
         if (e.key !== "Alt") return;
-        clearTimeout(altHoldTimer);
-        dom.shortcutsContainer.classList.remove("show-shortcut-numbers");
+        hideShortcutNumbers();
     });
+
+    window.addEventListener("blur", hideShortcutNumbers);
 
     setupKeyboardShortcuts();
 });
