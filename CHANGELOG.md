@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
+- Added keyboard shortcuts (`Alt + 1`–`9`) to quickly open the first nine shortcuts ([@smurf11k](https://github.com/smurf11k)) ([#237](https://github.com/prem-k-r/MaterialYouNewTab/pull/237))
 
 ### Improved
 
@@ -28,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed an issue where rapid clicks on the AI Tools icon caused race conditions, leading to inconsistent shortcuts panel visibility. ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
+- Fixed an issue where rapid clicks on the AI Tools icon caused race conditions, leading to inconsistent shortcuts panel visibility. ([@prem-k-r](https://github.com/prem-k-r)) ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
 
 ### Localized
 
