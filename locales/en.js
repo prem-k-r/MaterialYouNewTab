@@ -69,6 +69,14 @@ const en = {
     // Search
     "micIconTitle": "Hide Microphone Icon",
     "micIconInfo": "If voice typing is not working",
+    "imageSearchIconTitle": "Hide Image Search Icon",
+    "imageSearchIconInfo": "Search by image URL, file or paste",
+    "imageSearchHeader": "Search by image",
+    "pasteImageURL": "Paste image URL",
+    "uploadImage": "Upload image",
+    "imageSearchOr": "or",
+    "imageSearchHint": "Tip: paste an image (Ctrl+V) into the search bar.",
+    "imageSearchNonGoogleNotice": "Uses Google Lens regardless of your selected search engine.",
     "hideSearchWith": "Hide Search Engines",
     "hideSearchWithInfo": "Switch between search engines by clicking its icon",
     "motivationalQuotesText": "Motivational Quotes",
@@ -145,7 +153,8 @@ const en = {
     "bingEngine": "Bing",
     "braveEngine": "Brave",
     "youtubeEngine": "YouTube",
-    "gImagesEngine": "Images",  // Google Images, https://www.google.com/search?q=check&hl=bn
+    "lensEngine": "Lens",  // Google Lens, https://lens.google.com/
+    "lensSearchPlaceholder": "Paste an Image or URL",
     "redditEngine": "Reddit",
     "wikipediaEngine": "Wikipedia",
     "quoraEngine": "Quora",

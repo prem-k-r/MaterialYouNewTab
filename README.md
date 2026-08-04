@@ -46,6 +46,7 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 ## ✨ Features
 
 - **Integrated Search**: Search directly from the New Tab using your preferred search engine — Google, DuckDuckGo, Bing, Brave Search, YouTube, Wikipedia, and more, with integrated voice typing.
+- **Search by Image**: Click the image-search icon to paste an image URL, pick a local file, or paste an image (Ctrl+V) into the search bar. Powered by Google Lens regardless of the active search engine.
 - **Customizable Themes**: Choose from a selection of themes or use the built-in color picker to match your style.
 - **Wallpaper**: Upload your own wallpapers or enable daily random images sourced from [Lorem Picsum](https://picsum.photos).
 - **Personalized Greeting**: Add a custom message or your name, so you're greeted each time you open a new tab.

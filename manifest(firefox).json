@@ -6,10 +6,18 @@
 	"permissions": [
 		"search",
 		"bookmarks",
+		"storage",
 		"https://www.google.com/complete/search?client=*",
 		"https://duckduckgo.com/ac/?q=*",
 		"https://search.brave.com/api/suggest?q=*",
 		"https://*.wikipedia.org/w/api.php?action=opensearch&search=*"
+	],
+	"content_scripts": [
+		{
+			"matches": ["https://lens.google.com/*", "https://www.google.com/*"],
+			"js": ["scripts/image-search-injector.js"],
+			"run_at": "document_idle"
+		}
 	],
 	"background": {
 		"scripts": ["scripts/background.js"]
