@@ -2496,6 +2496,7 @@ html[lang="ur"] .qtRounder2 {
 	position: relative;
 	transition: all 0.3s;
 	isolation: isolate;
+	flex-shrink: 0;
 }
 
 .shortcutsContainer .shortcuts:hover {
