@@ -69,6 +69,8 @@ const en = {
     // Search
     "micIconTitle": "Hide Microphone Icon",
     "micIconInfo": "If voice typing is not working",
+    "aiModeIconTitle": "Hide AI Mode Icon",
+    "aiModeIconInfo": "Hide Google AI Mode search button",
     "hideSearchWith": "Hide Search Engines",
     "hideSearchWithInfo": "Switch between search engines by clicking its icon",
     "motivationalQuotesText": "Motivational Quotes",

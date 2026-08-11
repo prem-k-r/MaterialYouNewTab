@@ -2150,6 +2150,49 @@ body[data-bg="wallpaper"] .micIcon {
 
 /* ---------End of .micIcon------------- */
 
+/* --------- .aiModeIcon------------- */
+
+.aiModeIcon {
+	width: 40px;
+	height: 40px;
+	margin-inline-end: 10px;
+	display: flex;
+	align-items: center;
+	position: relative;
+	justify-content: center;
+	color: var(--darkColor-blue);
+	cursor: pointer;
+	border-radius: 50%;
+	padding: 8px;
+	box-sizing: border-box;
+	background-color: var(--whitishColor-blue);
+	border: 2px solid transparent;
+	transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+body[data-bg="wallpaper"] .aiModeIcon {
+	background-color: color-mix(
+		in srgb,
+		var(--whitishColor-blue) calc(var(--transparency) * 2),
+		transparent
+	);
+}
+
+.theme-transition .aiModeIcon {
+	transition: all 0.5s;
+}
+
+.aiModeIcon:hover {
+	transform: scale(1.05);
+	background-color: var(--accentLightTint-blue);
+}
+
+.aiModeIcon:active {
+	transform: scale(0.95);
+}
+
+/* ---------End of .aiModeIcon------------- */
+
 #enterBtn {
 	height: 40px;
 	border-radius: 100px;
