@@ -273,9 +273,10 @@ function updateAiModeIconVisibility() {
     const savedAiModeState = localStorage.getItem("aiModeIconVisible");
     const isUserAllowed = savedAiModeState !== null ? savedAiModeState === "true" : true;
     const isGoogle = isGoogleSelected();
+    const shouldShow = isUserAllowed && isGoogle;
 
     if (aiModeIcon) {
-        aiModeIcon.style.display = (isUserAllowed && isGoogle) ? "flex" : "none";
+        aiModeIcon.classList.toggle("hidden", !shouldShow);
     }
 }
 

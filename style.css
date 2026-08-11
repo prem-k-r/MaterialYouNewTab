@@ -2167,7 +2167,30 @@ body[data-bg="wallpaper"] .micIcon {
 	box-sizing: border-box;
 	background-color: var(--whitishColor-blue);
 	border: 2px solid transparent;
-	transition: transform 0.2s ease, background-color 0.2s ease;
+	overflow: hidden;
+	opacity: 1;
+	transform: scale(1);
+	transform-origin: center center;
+	transition: width 0.35s cubic-bezier(0.2, 0, 0, 1),
+		margin-inline-end 0.35s cubic-bezier(0.2, 0, 0, 1),
+		padding 0.35s cubic-bezier(0.2, 0, 0, 1),
+		opacity 0.25s cubic-bezier(0.2, 0, 0, 1),
+		transform 0.35s cubic-bezier(0.2, 0, 0, 1),
+		background-color 0.2s ease,
+		border-color 0.2s ease;
+}
+
+.aiModeIcon.hidden {
+	width: 0;
+	margin-inline-end: 0;
+	padding-inline: 0;
+	opacity: 0;
+	transform: scale(0.6);
+	pointer-events: none;
+}
+
+.aiModeIcon svg {
+	flex-shrink: 0;
 }
 
 body[data-bg="wallpaper"] .aiModeIcon {
@@ -2182,12 +2205,12 @@ body[data-bg="wallpaper"] .aiModeIcon {
 	transition: all 0.5s;
 }
 
-.aiModeIcon:hover {
+.aiModeIcon:not(.hidden):hover {
 	transform: scale(1.05);
 	background-color: var(--accentLightTint-blue);
 }
 
-.aiModeIcon:active {
+.aiModeIcon:not(.hidden):active {
 	transform: scale(0.95);
 }
 
