@@ -264,9 +264,9 @@ if (aiModeIcon) {
 // AI Mode Icon visibility control
 function isGoogleSelected() {
     const selectedRadio = document.querySelector('input[name="search-engine"]:checked');
-    if (!selectedRadio) return true;
+    if (!selectedRadio) return false;
     const value = selectedRadio.value;
-    return value === "engine1" || value === "engine0";
+    return value === "engine1";
 }
 
 function updateAiModeIconVisibility() {
