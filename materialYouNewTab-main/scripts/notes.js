@@ -40,27 +40,40 @@ function escapeHtml(input) {
 
 // Strip anything that could execute script content (script/style tags, event handlers, javascript: urls)
 // This is only a defensive layer for pasted content inside the contenteditable editor.
+// Strict allowlist of tags and attributes produced by the note editor.
+// Anything not on these lists is stripped or replaced with its children.
+const ALLOWED_TAGS = new Set(["p", "h1", "h2", "h3", "h4", "b", "strong", "i", "em", "u", "br", "div", "span"]);
+// No URL-bearing attributes are needed for plain rich-text editing.
+const ALLOWED_ATTRS = new Set([]); // editor uses no attributes
+
 function sanitizeNoteContent(html) {
     const template = document.createElement("template");
+    // Assigning to innerHTML of an inert <template> is the standard safe
+    // parsing technique — the browser never executes scripts inside it.
     template.innerHTML = html;
 
     const walk = (node) => {
-        // Copy childNodes to an array since we may remove nodes while iterating
         Array.from(node.childNodes).forEach((child) => {
             if (child.nodeType === Node.ELEMENT_NODE) {
                 const tag = child.tagName.toLowerCase();
-                if (tag === "script" || tag === "style" || tag === "iframe" || tag === "object" || tag === "embed") {
+
+                if (!ALLOWED_TAGS.has(tag)) {
+                    // Replace the element with its own (recursively sanitized) children
+                    walk(child);
+                    while (child.firstChild) {
+                        node.insertBefore(child.firstChild, child);
+                    }
                     child.remove();
                     return;
                 }
-                // Remove event handler attributes and javascript: URLs
+
+                // Strip every attribute not on the allowlist
                 Array.from(child.attributes).forEach((attr) => {
-                    const name = attr.name.toLowerCase();
-                    const value = attr.value.trim().toLowerCase();
-                    if (name.startsWith("on") || ((name === "href" || name === "src") && value.startsWith("javascript:"))) {
+                    if (!ALLOWED_ATTRS.has(attr.name.toLowerCase())) {
                         child.removeAttribute(attr.name);
                     }
                 });
+
                 walk(child);
             }
         });
@@ -89,9 +102,32 @@ function formatNoteDate(timestamp) {
 
 // ---------------------- Load / Save ----------------------
 
+function isValidNote(note) {
+    return (
+        note !== null &&
+        typeof note === "object" &&
+        typeof note.title === "string" &&
+        typeof note.content === "string" &&
+        typeof note.created === "number" &&
+        typeof note.updated === "number"
+    );
+}
+
 function loadNotes() {
     try {
-        notesData = JSON.parse(localStorage.getItem("notesData")) || {};
+        const raw = JSON.parse(localStorage.getItem("notesData"));
+        if (raw === null || typeof raw !== "object" || Array.isArray(raw)) {
+            throw new Error("Invalid notes root");
+        }
+        // Filter out any individual records that are null / malformed
+        notesData = {};
+        for (const [id, note] of Object.entries(raw)) {
+            if (isValidNote(note)) {
+                notesData[id] = note;
+            } else {
+                console.warn("Discarding malformed note:", id, note);
+            }
+        }
     } catch (error) {
         console.error("Error loading notes from localStorage:", error);
         notesData = {};
@@ -219,6 +255,7 @@ function openNoteEditor(id) {
     });
 
     updateToolbarButtons();
+    syncEmptyClass();
     setTimeout(() => noteTitleInput.focus(), 50);
 }
 
@@ -316,6 +353,14 @@ noteFormatSelect.addEventListener("change", () => {
 noteContentEditor.addEventListener("keyup", updateToolbarButtons);
 noteContentEditor.addEventListener("mouseup", updateToolbarButtons);
 
+// Keep placeholder visible even when a lone <br> remains after deleting all content
+function syncEmptyClass() {
+    const isEmpty = noteContentEditor.textContent.trim() === "" &&
+        noteContentEditor.innerHTML.replace(/<br\s*\/?>/gi, "").trim() === "";
+    noteContentEditor.classList.toggle("is-empty", isEmpty);
+}
+noteContentEditor.addEventListener("input", syncEmptyClass);
+
 // ---------------------- Panel toggle ----------------------
 
 notesListCont.addEventListener("click", function () {
@@ -326,6 +371,13 @@ notesListCont.addEventListener("click", function () {
     if (!isMenuVisible) {
         notesListCont.classList.add("menu-open"); // Hide tooltip
         renderNotesList();
+        // Close To-Do panel if it's open to prevent overlap
+        const todoContainer = document.getElementById("todoContainer");
+        const todoListCont = document.getElementById("todoListCont");
+        if (todoContainer && todoContainer.style.display === "grid") {
+            todoContainer.style.display = "none";
+            todoListCont && todoListCont.classList.remove("menu-open");
+        }
     } else {
         notesListCont.classList.remove("menu-open"); // Restore tooltip
     }
@@ -366,6 +418,8 @@ document.addEventListener("DOMContentLoaded", function () {
             saveDisplayStatus("notesDisplayStatus", "flex");
         } else {
             notesListCont.style.display = "none";
+            notesContainer.style.display = "none";
+            notesListCont.classList.remove("menu-open");
             saveDisplayStatus("notesDisplayStatus", "none");
         }
     });

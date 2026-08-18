@@ -30,11 +30,11 @@ const az = {
     // "todoPlaceholder": "Add task...",
 
     // Notes
-    // "notesText": "Qeydlər",
-    // "notesInfo": "Qeydlər panelini göstər",
-    // "notesHover": "Qeydlər",
-    // "deleteNotePrompt": "\"{title}\" qeydini silmək istəyirsiniz? Bu geri qaytarıla bilməz.",
-    // "notesContentPlaceholder": "Nəsə yazın...",
+    "notesText": "Qeydlər",
+    "notesInfo": "Qeydlər panelini göstər",
+    "notesHover": "Qeydlər",
+    "deleteNotePrompt": "\"{title}\" qeydini silmək istəyirsiniz? Bu geri qaytarıla bilməz.",
+    "notesContentPlaceholder": "Nəsə yazın...",
     // Digital Clock
     "digitalclocktitle": "Rəqəmsal saat",
     "digitalclockinfo": "Rəqəmsal saata keç",

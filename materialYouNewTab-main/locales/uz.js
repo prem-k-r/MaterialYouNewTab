@@ -30,11 +30,11 @@ const uz = {
     // "todoPlaceholder": "Add task...",
 
     // Notes
-    // "notesText": "Eslatmalar",
-    // "notesInfo": "Eslatmalar panelini ko'rsatish",
-    // "notesHover": "Eslatmalar",
-    // "deleteNotePrompt": "\"{title}\" eslatmasini o'chirasizmi? Buni bekor qilib bo'lmaydi.",
-    // "notesContentPlaceholder": "Biror narsa yozing...",
+    "notesText": "Eslatmalar",
+    "notesInfo": "Eslatmalar panelini ko'rsatish",
+    "notesHover": "Eslatmalar",
+    "deleteNotePrompt": "\"{title}\" eslatmasini o'chirasizmi? Buni bekor qilib bo'lmaydi.",
+    "notesContentPlaceholder": "Biror narsa yozing...",
     // Digital Clock
     "digitalclocktitle": "Digital Clock",
     "digitalclockinfo": "Digital Clockga o'tish",

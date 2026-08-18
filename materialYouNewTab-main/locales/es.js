@@ -30,11 +30,11 @@ const es = {
     // "todoPlaceholder": "Add task...",
 
     // Notes
-    // "notesText": "Notas",
-    // "notesInfo": "Mostrar panel de notas",
-    // "notesHover": "Notas",
-    // "deleteNotePrompt": "¿Eliminar la nota \"{title}\"? Esto no se puede deshacer.",
-    // "notesContentPlaceholder": "Escribe algo...",
+    "notesText": "Notas",
+    "notesInfo": "Mostrar panel de notas",
+    "notesHover": "Notas",
+    "deleteNotePrompt": "¿Eliminar la nota \"{title}\"? Esto no se puede deshacer.",
+    "notesContentPlaceholder": "Escribe algo...",
     // Digital Clock
     "digitalclocktitle": "Reloj digital",
     "digitalclockinfo": "Cambiar a reloj digital",

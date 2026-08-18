@@ -30,11 +30,11 @@ const ko = {
     // "todoPlaceholder": "Add task...",
 
     // Notes
-    // "notesText": "메모",
-    // "notesInfo": "메모 패널 표시",
-    // "notesHover": "메모",
-    // "deleteNotePrompt": "\"{title}\" 메모를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
-    // "notesContentPlaceholder": "내용을 입력하세요...",
+    "notesText": "메모",
+    "notesInfo": "메모 패널 표시",
+    "notesHover": "메모",
+    "deleteNotePrompt": "\"{title}\" 메모를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+    "notesContentPlaceholder": "내용을 입력하세요...",
     // Digital Clock
     "digitalclocktitle": "디지털 시계",
     "digitalclockinfo": "디지털 시계로 전환",

@@ -1439,13 +1439,14 @@ body #bookmarkButton.bookmark-button.rotate {
 	justify-items: center;
 	position: fixed;
 	top: 85px;
-	left: 15px;
+	inset-inline-start: 15px;
 	max-height: calc(40px * 3 + 10px * 2 + 290px);
 	overflow-y: auto;
 	scroll-behavior: smooth;
 	box-sizing: border-box;
 	z-index: 3;
 }
+
 
 .notes-container::-webkit-scrollbar {
 	width: 5px;
@@ -1736,7 +1737,8 @@ body #bookmarkButton.bookmark-button.rotate {
 	margin: 0.5em 0 0.3em;
 }
 
-.note-content-editor:empty::before {
+.note-content-editor:empty::before,
+.note-content-editor.is-empty::before {
 	content: attr(data-placeholder);
 	color: var(--textColorDark-blue);
 	opacity: 0.45;
@@ -1775,11 +1777,42 @@ body #bookmarkButton.bookmark-button.rotate {
 	color: var(--textColorDark-blue);
 }
 
-.dark-theme .note-item-delete {
-	color: var(--bg-color-blue);
+/* Dark-theme overrides for note editor */
+.dark-theme .note-editor-content {
+	background-color: color-mix(
+		in srgb,
+		var(--bg-color-blue) var(--editor-bg-opacity, 70%),
+		transparent
+	);
+	color: var(--whitishColor-blue);
 }
 
-.dark-theme .note-item-delete:hover {
+.dark-theme .note-title-input {
+	color: var(--whitishColor-blue);
+	border-bottom-color: var(--darkColor-blue);
+}
+
+.dark-theme .editor-toolbar select,
+.dark-theme .fmt-btn {
+	background-color: var(--darkColor-blue);
+	color: var(--whitishColor-blue);
+}
+
+.dark-theme .fmt-btn.active {
+	background-color: var(--darkerColor-blue);
+}
+
+.dark-theme #noteDeleteBtn {
+	border-color: var(--darkColor-blue);
+	color: var(--whitishColor-blue);
+}
+
+.dark-theme #noteDeleteBtn:hover {
+	background-color: var(--darkColor-blue);
+}
+
+.dark-theme .note-content-editor:empty::before,
+.dark-theme .note-content-editor.is-empty::before {
 	color: var(--whitishColor-blue);
 }
 /* ------------------ End of Notes Section -------------------- */
