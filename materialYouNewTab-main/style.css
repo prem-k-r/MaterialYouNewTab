@@ -3740,7 +3740,7 @@ input:checked + .toggle:before {
 	padding: 15px 10px;
 	padding-inline-start: 8px;
 	position: relative;
-	transition: transform 0.3s var(--md-motion-ease) opacity 0.2s ease;
+	transition: transform 0.3s var(--md-motion-ease), opacity 0.2s ease;
 	/* Enable hardware acceleration */
 	will-change: transform, opacity;
 }

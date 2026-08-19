@@ -353,10 +353,9 @@ noteFormatSelect.addEventListener("change", () => {
 noteContentEditor.addEventListener("keyup", updateToolbarButtons);
 noteContentEditor.addEventListener("mouseup", updateToolbarButtons);
 
-// Keep placeholder visible even when a lone <br> remains after deleting all content
+// Keep placeholder visible even when a lone <br> or <p><br></p> remains after deleting all content
 function syncEmptyClass() {
-    const isEmpty = noteContentEditor.textContent.trim() === "" &&
-        noteContentEditor.innerHTML.replace(/<br\s*\/?>/gi, "").trim() === "";
+    const isEmpty = noteContentEditor.textContent.trim() === "";
     noteContentEditor.classList.toggle("is-empty", isEmpty);
 }
 noteContentEditor.addEventListener("input", syncEmptyClass);
