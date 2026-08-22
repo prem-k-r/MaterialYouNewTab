@@ -6,14 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>What's New - MYNT</title>
     <link rel="icon" type="image/png" href="../favicon/icon128.png">
+
     <style>
         :root {
+            /* Light theme */
             --background: #bbd6fd;
             --card: #e2eeff;
             --primary: #4382ec;
             --secondary: #3569b2;
             --text: #26364d;
             --muted: #68788f;
+
+            --timeline: rgba(67, 130, 236, 0.35);
+            --code-background: rgba(67, 130, 236, 0.13);
+            --icon-shadow: rgba(38, 75, 130, 0.3);
+        }
+
+        /* Follow system dark theme */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #101827;
+                --card: #1c2a3d;
+                --primary: #6da0ff;
+                --secondary: #8db6ff;
+                --text: #e5edf9;
+                --muted: #9aaac0;
+
+                --timeline: rgba(109, 160, 255, 0.38);
+                --code-background: rgba(109, 160, 255, 0.14);
+                --icon-shadow: rgba(0, 0, 0, 0.45);
+            }
         }
 
         * {
@@ -35,6 +57,10 @@
                 "Segoe UI",
                 sans-serif;
             -webkit-font-smoothing: antialiased;
+
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
         }
 
         .page {
@@ -54,7 +80,7 @@
             width: 38px;
             height: 38px;
             border-radius: 11px;
-            filter: drop-shadow(2px 2px 0 rgba(38, 75, 130, 0.3));
+            filter: drop-shadow(2px 2px 0 var(--icon-shadow));
         }
 
         header h1 {
@@ -82,7 +108,7 @@
             top: 9px;
             bottom: 9px;
             width: 2px;
-            background: rgba(67, 130, 236, 0.35);
+            background: var(--timeline);
             border-radius: 2px;
         }
 
@@ -127,8 +153,7 @@
             font-size: 10px;
             line-height: 1;
             font-weight: 700;
-            letter-spacing: 1.0px;
-            vertical-align: 3px;
+            letter-spacing: 1px;
         }
 
         .changes {
@@ -147,7 +172,7 @@
             display: inline-block;
             padding: 2px 6px;
             border-radius: 6px;
-            background: rgba(67, 130, 236, 0.13);
+            background: var(--code-background);
             color: var(--primary);
             font-family:
                 ui-monospace,
@@ -243,11 +268,13 @@
                         v3.3.823
                         <span class="current">CURRENT</span>
                     </h2>
+
                     <ul class="changes">
                         <li>
                             Quickly open your shortcuts with keyboard shortcuts.
                             Use <strong><code>Alt + 1</code></strong> through
-                            <strong><code>Alt + 9</code></strong> to open the first nine shortcuts.
+                            <strong><code>Alt + 9</code></strong> to open the
+                            first nine shortcuts.
                         </li>
                     </ul>
                 </section>
