@@ -12,28 +12,20 @@
         rel="stylesheet">
     <style>
         :root {
-            --forest: #1a3d2b;
-            --moss: #2d5a3d;
-            --sage: #4a7c59;
-            --fern: #6fa678;
-            --mist: #b8d4be;
-            --dew: #e4f0e8;
-            --petal: #f2f8f4;
-            --soil: #6b5240;
-            --cream: #faf7f2;
+            --background: #bbd6fd;
+            --card: #e2eeff;
+            --primary: #3569b2;
+            --secondary: #4382ec;
+            --text: #1b3041;
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --forest: #c8e6c9;
-                --moss: #a5d6a7;
-                --sage: #81c784;
-                --fern: #4caf50;
-                --mist: #2e4d35;
-                --dew: #1a2e1f;
-                --petal: #111a13;
-                --soil: #a08060;
-                --cream: #0d1410;
+                --background: #101827;
+                --card: #1c2a3d;
+                --primary: #6da0ff;
+                --secondary: #8db6ff;
+                --text: #e5edf9;
             }
         }
 
@@ -47,8 +39,8 @@
 
         body {
             font-family: 'Nunito', sans-serif;
-            background: var(--cream);
-            color: var(--forest);
+            background: var(--background);
+            color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -77,7 +69,7 @@
         .b1 {
             width: 800px;
             height: 700px;
-            background: var(--sage);
+            background: var(--secondary);
             top: -250px;
             right: -200px;
             animation: d1 20s ease-in-out infinite alternate;
@@ -86,7 +78,7 @@
         .b2 {
             width: 560px;
             height: 560px;
-            background: var(--fern);
+            background: var(--primary);
             bottom: -180px;
             left: -140px;
             animation: d2 25s ease-in-out infinite alternate;
@@ -95,7 +87,7 @@
         .b3 {
             width: 340px;
             height: 380px;
-            background: var(--mist);
+            background: var(--primary);
             top: 38%;
             left: 46%;
             animation: d3 30s ease-in-out infinite alternate;
@@ -138,7 +130,7 @@
             justify-content: space-between;
             padding: 36px 0 20px;
             margin-bottom: 64px;
-            border-bottom: 1.5px solid var(--dew);
+            border-bottom: 1.5px solid var(--background);
             animation: rise 0.5s ease both;
         }
 
@@ -158,7 +150,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 20px;
             font-weight: 700;
-            color: var(--forest);
+            color: var(--text);
         }
 
         nav {
@@ -169,17 +161,17 @@
         nav a {
             font-size: 13px;
             font-weight: 500;
-            color: var(--soil);
+            color: var(--text);
             text-decoration: none;
             transition: color .15s;
         }
 
         nav a:hover {
-            color: var(--sage);
+            color: var(--secondary);
         }
 
         nav a.active {
-            color: var(--moss);
+            color: var(--primary);
             font-weight: 600;
         }
 
@@ -207,8 +199,8 @@
             gap: 6px;
             font-size: 11px;
             font-weight: 600;
-            color: var(--sage);
-            background: var(--dew);
+            color: var(--secondary);
+            background: var(--background);
             border-radius: 20px;
             padding: 5px 14px;
             letter-spacing: 0.08em;
@@ -222,7 +214,7 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: var(--fern);
+            background: var(--primary);
         }
 
         h1 {
@@ -230,19 +222,19 @@
             font-size: 52px;
             font-weight: 700;
             line-height: 1.06;
-            color: var(--forest);
+            color: var(--text);
             letter-spacing: -0.02em;
         }
 
         h1 em {
             font-style: italic;
-            color: var(--sage);
+            color: var(--secondary);
         }
 
         .lead {
             font-size: 15px;
             font-weight: 300;
-            color: var(--soil);
+            color: var(--text);
             line-height: 1.75;
         }
 
@@ -251,13 +243,13 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1px;
-            background: var(--mist);
+            background: var(--primary);
             border-radius: 16px;
             overflow: hidden;
         }
 
         .stat {
-            background: var(--petal);
+            background: var(--card);
             padding: 16px 8px;
             text-align: center;
         }
@@ -266,7 +258,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 15px;
             font-weight: 700;
-            color: var(--forest);
+            color: var(--text);
             line-height: 1.15;
             margin-bottom: 3px;
         }
@@ -276,7 +268,7 @@
             font-weight: 600;
             letter-spacing: 0.07em;
             text-transform: uppercase;
-            color: var(--sage);
+            color: var(--secondary);
         }
 
         /* Section label */
@@ -291,7 +283,7 @@
             width: 26px;
             height: 26px;
             border-radius: 8px;
-            background: var(--dew);
+            background: var(--background);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -300,7 +292,7 @@
         .section-label-icon svg {
             width: 14px;
             height: 14px;
-            fill: var(--sage);
+            fill: var(--secondary);
         }
 
         .section-label-text {
@@ -308,7 +300,7 @@
             font-weight: 600;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--sage);
+            color: var(--secondary);
         }
 
         /* Donate tiles – single row, 3 cols */
@@ -330,21 +322,21 @@
             justify-content: center;
             gap: 8px;
             padding: 18px 10px;
-            background: var(--petal);
-            border: 1.5px solid var(--dew);
+            background: var(--card);
+            border: 1.5px solid var(--background);
             border-radius: 14px;
             text-decoration: none;
-            color: var(--forest);
+            color: var(--text);
             text-align: center;
             transition: background .2s, border-color .2s,
                 transform .25s cubic-bezier(.34, 1.3, .64, 1), box-shadow .2s;
         }
 
         .donate-card:hover {
-            background: var(--dew);
-            border-color: var(--mist);
+            background: var(--background);
+            border-color: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px -4px rgba(45, 90, 61, .13);
+            box-shadow: 0 6px 18px -4px rgba(53, 105, 178, .13);
         }
 
         .donate-card:active {
@@ -355,8 +347,8 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: var(--dew);
-            border: 1.5px solid var(--mist);
+            background: var(--background);
+            border: 1.5px solid var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -366,12 +358,12 @@
         .donate-title {
             font-size: 12px;
             font-weight: 600;
-            color: var(--forest);
+            color: var(--text);
         }
 
         .donate-sub {
             font-size: 11px;
-            color: var(--soil);
+            color: var(--text);
             line-height: 1.3;
         }
 
@@ -404,20 +396,20 @@
             align-items: center;
             gap: 16px;
             padding: 15px 18px;
-            background: var(--petal);
-            border: 1.5px solid var(--dew);
+            background: var(--card);
+            border: 1.5px solid var(--background);
             border-radius: 16px;
             text-decoration: none;
-            color: var(--forest);
+            color: var(--text);
             transition: background .2s, border-color .2s,
                 transform .25s cubic-bezier(.34, 1.3, .64, 1), box-shadow .2s;
         }
 
         .card:hover {
-            background: var(--dew);
-            border-color: var(--mist);
+            background: var(--background);
+            border-color: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px -4px rgba(45, 90, 61, .13);
+            box-shadow: 0 6px 20px -4px rgba(53, 105, 178, .13);
         }
 
         .card:active {
@@ -428,8 +420,8 @@
             width: 42px;
             height: 42px;
             border-radius: 13px;
-            background: var(--dew);
-            border: 1.5px solid var(--mist);
+            background: var(--background);
+            border: 1.5px solid var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -438,13 +430,13 @@
         }
 
         .card:hover .card-icon {
-            background: var(--cream);
+            background: var(--background);
         }
 
         .card-icon svg {
             width: 19px;
             height: 19px;
-            fill: var(--moss);
+            fill: var(--primary);
         }
 
         .card-text {
@@ -459,7 +451,7 @@
 
         .card-sub {
             font-size: 12px;
-            color: var(--soil);
+            color: var(--text);
             margin-top: 2px;
         }
 
@@ -467,7 +459,7 @@
             width: 26px;
             height: 26px;
             border-radius: 50%;
-            background: var(--mist);
+            background: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -476,20 +468,20 @@
         }
 
         .card:hover .card-arrow {
-            background: var(--sage);
+            background: var(--secondary);
             transform: translateX(2px);
         }
 
         .card-arrow svg {
             width: 13px;
             height: 13px;
-            fill: var(--cream);
+            fill: var(--background);
         }
 
         /* Footer */
         footer {
             margin-top: 72px;
-            border-top: 1.5px solid var(--dew);
+            border-top: 1.5px solid var(--background);
             padding-top: 22px;
             display: flex;
             align-items: center;
@@ -501,7 +493,7 @@
 
         footer p {
             font-size: 12px;
-            color: var(--soil);
+            color: var(--text);
         }
 
         .footer-right {
@@ -509,13 +501,13 @@
             align-items: center;
             gap: 6px;
             font-size: 12px;
-            color: var(--sage);
+            color: var(--secondary);
         }
 
         .footer-right svg {
             width: 13px;
             height: 13px;
-            fill: var(--fern);
+            fill: var(--primary);
         }
 
         @keyframes rise {
@@ -588,8 +580,8 @@
             <a class="logo" href="#">
                 <svg viewBox="0 0 32 32" fill="none">
                     <path d="M6 26 C6 26 8 14 16 8 C24 2 28 6 28 6 C28 6 26 18 18 22 C12 25 6 26 6 26Z"
-                        fill="#4a7c59" />
-                    <path d="M6 26 C6 26 12 20 16 14" stroke="#2d5a3d" stroke-width="1.5" stroke-linecap="round" />
+                        fill="#4382ec" />
+                    <path d="M6 26 C6 26 12 20 16 14" stroke="#3569b2" stroke-width="1.5" stroke-linecap="round" />
                 </svg>
                 <span class="logo-name">MYNT</span>
             </a>
