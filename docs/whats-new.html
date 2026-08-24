@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's New - MYNT</title>
+    <link rel="icon" type="image/png" href="../favicon/icon128.png">
+
+    <style>
+        :root {
+            /* Light theme */
+            --background: #bbd6fd;
+            --card: #e2eeff;
+            --primary: #4382ec;
+            --secondary: #3569b2;
+            --text: #26364d;
+            --muted: #68788f;
+
+            --timeline: rgba(67, 130, 236, 0.35);
+            --code-background: rgba(67, 130, 236, 0.13);
+            --icon-shadow: rgba(38, 75, 130, 0.3);
+        }
+
+        /* Follow system dark theme */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #101827;
+                --card: #1c2a3d;
+                --primary: #6da0ff;
+                --secondary: #8db6ff;
+                --text: #e5edf9;
+                --muted: #9aaac0;
+
+                --timeline: rgba(109, 160, 255, 0.38);
+                --code-background: rgba(109, 160, 255, 0.14);
+                --icon-shadow: rgba(0, 0, 0, 0.45);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family:
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .page {
+            width: min(760px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 48px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            filter: drop-shadow(2px 2px 0 var(--icon-shadow));
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--secondary);
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .changelog-card {
+            background: var(--card);
+            border-radius: 30px;
+            padding: 30px 34px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 42px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 8px;
+            top: 9px;
+            bottom: 9px;
+            width: 2px;
+            background: var(--timeline);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 38px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -42px;
+            top: 6px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 3.5px solid var(--primary);
+        }
+
+        .version {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 12px;
+            color: var(--primary);
+            font-size: 22px;
+            line-height: 1.25;
+            font-weight: 700;
+        }
+
+        .current {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 9px;
+            border-radius: 999px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 10px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .changes {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text);
+            font-size: 15px;
+            line-height: 1.65;
+        }
+
+        .changes li {
+            padding-left: 2px;
+        }
+
+        code {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: var(--code-background);
+            color: var(--primary);
+            font-family:
+                ui-monospace,
+                SFMono-Regular,
+                Menlo,
+                Monaco,
+                Consolas,
+                monospace;
+            font-size: 0.88em;
+            font-weight: 600;
+        }
+
+        .full-changelog {
+            margin: 20px 4px 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .full-changelog a {
+            color: var(--primary);
+            font-weight: 650;
+            text-decoration: none;
+        }
+
+        .full-changelog a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                width: calc(100% - 24px);
+                padding: 20px 0 40px;
+            }
+
+            header {
+                margin-bottom: 16px;
+            }
+
+            .logo {
+                width: 35px;
+                height: 35px;
+                border-radius: 10px;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+
+            .changelog-card {
+                padding: 26px 22px;
+                border-radius: 26px;
+            }
+
+            .timeline {
+                padding-left: 34px;
+            }
+
+            .timeline::before {
+                left: 7px;
+            }
+
+            .timeline-dot {
+                left: -34px;
+            }
+
+            .version {
+                font-size: 20px;
+            }
+
+            .changes {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page">
+
+        <header>
+            <img class="logo" src="../favicon/icon128.png" alt="MYNT">
+            <h1>What's New</h1>
+        </header>
+
+        <div class="changelog-card">
+            <div class="timeline">
+                <section class="timeline-item">
+                    <span class="timeline-dot"></span>
+                    <h2 class="version">
+                        v3.3.825
+                        <span class="current">CURRENT</span>
+                    </h2>
+
+                    <ul class="changes">
+                        <li>
+                            Quickly open your shortcuts with keyboard shortcuts.
+                            Use <strong><code>Alt + 1</code></strong> through
+                            <strong><code>Alt + 9</code></strong> to open the
+                            first nine shortcuts.
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="timeline-item">
+                    <span class="timeline-dot"></span>
+                    <h2 class="version">v3.3.802</h2>
+                </section>
+            </div>
+        </div>
+
+
+        <div class="full-changelog">
+            For all other changes, see the
+            <a href="https://github.com/prem-k-r/MaterialYouNewTab/blob/main/CHANGELOG.md" target="_blank"
+                rel="noopener noreferrer">
+                full changelog on GitHub
+            </a>.
+        </div>
+
+    </main>
+
+</body>
+
+</html>
