@@ -2163,7 +2163,7 @@ body[data-bg="wallpaper"] .micIcon {
 	color: var(--darkColor-blue);
 	cursor: pointer;
 	border-radius: 50%;
-	padding: 8px;
+	padding: 6px;
 	box-sizing: border-box;
 	background-color: var(--whitishColor-blue);
 	border: 2px solid transparent;
@@ -2171,7 +2171,8 @@ body[data-bg="wallpaper"] .micIcon {
 	opacity: 1;
 	transform: scale(1);
 	transform-origin: center center;
-	transition: width 0.35s cubic-bezier(0.2, 0, 0, 1),
+	transition:
+		width 0.35s cubic-bezier(0.2, 0, 0, 1),
 		margin-inline-end 0.35s cubic-bezier(0.2, 0, 0, 1),
 		padding 0.35s cubic-bezier(0.2, 0, 0, 1),
 		opacity 0.25s cubic-bezier(0.2, 0, 0, 1),
