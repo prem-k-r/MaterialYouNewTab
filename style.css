@@ -4024,6 +4024,7 @@ option:checked {
 	top: 6px;
 	bottom: 6px;
 	width: 1px;
+	border-radius: 1px;
 	background: #ffffffe6;
 	opacity: 0;
 	transition: opacity 0.2s var(--md-motion-ease);
