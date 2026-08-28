@@ -2171,7 +2171,7 @@ body[data-bg="wallpaper"] .micIcon {
 .aiModeIcon::before {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: -2px;
     border-radius: 50%;
     background-color: var(--whitishColor-blue);
     z-index: 0;
