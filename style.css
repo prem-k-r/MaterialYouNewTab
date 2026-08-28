@@ -2083,7 +2083,7 @@ body[data-bg="wallpaper"] #searchQ::placeholder {
 
 /* --------- .micIcon------------- */
 
-.micIcon {
+.micIcon, .aiModeIcon {
 	width: 40px;
 	height: 40px;
 	margin-inline-end: 10px;
@@ -2153,21 +2153,8 @@ body[data-bg="wallpaper"] .micIcon {
 /* --------- .aiModeIcon------------- */
 
 .aiModeIcon {
-	width: 40px;
-	height: 40px;
-	margin-inline-end: 10px;
-	display: flex;
-	align-items: center;
-	position: relative;
-	justify-content: center;
-	color: var(--darkColor-blue);
-	cursor: pointer;
-	border-radius: 50%;
 	padding: 6px;
-	box-sizing: border-box;
-	background-color: var(--whitishColor-blue);
-	border: 2px solid transparent;
-	overflow: hidden;
+	background-color: transparent; 
 	opacity: 1;
 	transform: scale(1);
 	transform-origin: center center;
@@ -2179,6 +2166,20 @@ body[data-bg="wallpaper"] .micIcon {
 		transform 0.35s var(--md-motion-decelerate),
 		background-color 0.2s var(--md-motion-ease),
 		border-color 0.2s var(--md-motion-ease);
+}
+
+.aiModeIcon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: var(--whitishColor-blue);
+    z-index: 0;
+	transform: scale(1); 
+    transform-origin: center center;
+    transition:
+        transform 0.3s var(--md-motion-ease),
+        background-color 0.3s var(--md-motion-ease);
 }
 
 .aiModeIcon.hidden {
@@ -2199,11 +2200,13 @@ body[data-bg="wallpaper"] .micIcon {
 }
 
 .aiModeIcon svg {
-	flex-shrink: 0;
-	min-width: 24px;
+    flex-shrink: 0;
+    min-width: 24px;
+    position: relative;
+    z-index: 1;
 }
 
-body[data-bg="wallpaper"] .aiModeIcon {
+body[data-bg="wallpaper"] .aiModeIcon::before {
 	background-color: color-mix(
 		in srgb,
 		var(--whitishColor-blue) calc(var(--transparency) * 2),
@@ -2211,17 +2214,25 @@ body[data-bg="wallpaper"] .aiModeIcon {
 	);
 }
 
+.black-theme body[data-bg="wallpaper"] .aiModeIcon::before {
+	background-color:var(--whitishColor-dark);
+}
+
+.aiModeIcon:not(.hidden):hover::before {
+    transform: scale(1.1);
+    background-color: color-mix(
+		in srgb,
+		var(--whitishColor-blue) calc(var(--transparency) * 3),
+		transparent
+	);
+}
+
+.aiModeIcon:not(.hidden):active::before {
+    transform: scale(0.95);
+}
+
 .theme-transition .aiModeIcon {
 	transition: all 0.5s;
-}
-
-.aiModeIcon:not(.hidden):hover {
-	transform: scale(1.05);
-	background-color: white;
-}
-
-.aiModeIcon:not(.hidden):active {
-	transform: scale(0.95);
 }
 
 /* ---------End of .aiModeIcon------------- */
@@ -5353,7 +5364,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme .micIcon,
-.black-theme .aiModeIcon,
+.black-theme .aiModeIcon::before ,
 .black-theme .floating-label-field input {
 	background-color: var(--whitishColor-dark);
 }

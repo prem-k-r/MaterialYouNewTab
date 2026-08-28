@@ -277,14 +277,13 @@ function updateAiModeIconVisibility() {
 
     if (aiModeIcon) {
         aiModeIcon.classList.toggle("hidden", !shouldShow);
-    }
-
-    if (!shouldShow) {
-        aiModeIcon.setAttribute("tabindex", "-1");
-        // aiModeIcon.disabled = true;
-    } else {
-        aiModeIcon.removeAttribute("tabindex");
-        // aiModeIcon.disabled = false;
+        aiModeIcon.style.display = ""; 
+        
+        if (!shouldShow) {
+            aiModeIcon.setAttribute("tabindex", "-1");
+        } else {
+            aiModeIcon.removeAttribute("tabindex");
+        }
     }
 }
 
@@ -303,9 +302,6 @@ if (aiModeIconCheckbox) {
 document.querySelectorAll('input[name="search-engine"]').forEach(radio => {
     radio.addEventListener("change", updateAiModeIconVisibility);
 });
-
-// Set initial display of AI mode icon
-updateAiModeIconVisibility();
 
 // Set selected search engine from local storage
 const storedSearchEngine = localStorage.getItem(`selectedSearchEngine-${activeSearchMode}`);
