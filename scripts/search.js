@@ -278,6 +278,14 @@ function updateAiModeIconVisibility() {
     if (aiModeIcon) {
         aiModeIcon.classList.toggle("hidden", !shouldShow);
     }
+
+    if (!shouldShow) {
+        aiModeIcon.setAttribute("tabindex", "-1");
+        // aiModeIcon.disabled = true;
+    } else {
+        aiModeIcon.removeAttribute("tabindex");
+        // aiModeIcon.disabled = false;
+    }
 }
 
 const savedAiModeState = localStorage.getItem("aiModeIconVisible");
