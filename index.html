@@ -779,12 +779,19 @@
 
                     <div class="searchControls">
                         <!-- Mic Icon -->
-                        <div class="micIcon" id="micIcon">
+                        <button class="micIcon" id="micIcon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 24 24" height="100%" width="100%">
                                 <path id="micIconPath" class="accentColor"
                                     d="M12 14q-1.25 0-2.125-.875T9 11V5q0-1.25.875-2.125T12 2t2.125.875T15 5v6q0 1.25-.875 2.125T12 14m-1 7v-3.075q-2.6-.35-4.3-2.325T5 11h2q0 2.075 1.463 3.538T12 16t3.538-1.463T17 11h2q0 2.625-1.7 4.6T13 17.925V21z" />
                             </svg>
-                        </div>
+                        </button>
+                        <!-- AI Mode Icon -->
+                        <button class="aiModeIcon" id="aiModeIcon" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="100%" width="100%">
+                                <path class="accentColor"
+                                    d="M17.518 1a.254.254 0 0 0-.245.201 5.75 5.75 0 0 1-1.56 2.86 5.75 5.75 0 0 1-2.902 1.57.24.24 0 0 0-.196.236.246.246 0 0 0 .196.237 5.75 5.75 0 0 1 2.902 1.568 5.75 5.75 0 0 1 1.568 2.902.246.246 0 0 0 .237.196.246.246 0 0 0 .236-.196 5.75 5.75 0 0 1 1.57-2.902 5.75 5.75 0 0 1 2.86-1.56.254.254 0 0 0 .2-.245.254.254 0 0 0-.2-.246 5.75 5.75 0 0 1-2.862-1.56 5.75 5.75 0 0 1-1.558-2.86.25.25 0 0 0-.246-.201M9.5 2.8c-3.754 0-6.7 2.946-6.7 6.7s2.946 6.7 6.7 6.7c.556 0 2.22-.081 3.771-1.249l6.188 6.19a.2.2 0 0 0 .281 0l1.4-1.4a.2.2 0 0 0 0-.282l-6.185-6.184a6.2 6.2 0 0 0 .883-1.627 6.1 6.1 0 0 0 .322-1.634.2.2 0 0 0-.2-.213h-2a.2.2 0 0 0-.198.18 4.06 4.06 0 0 1-1.213 2.566c-.847.837-1.846 1.254-3.049 1.254-2.366 0-4.3-1.836-4.3-4.301 0-2.366 1.835-4.3 4.3-4.3.437 0 .848.075 1.244.19a.2.2 0 0 0 .197-.05L12.5 3.78a.2.2 0 0 0-.053-.32A6.6 6.6 0 0 0 9.5 2.8" />
+                            </svg>
+                        </button>
                         <!-- Search Button -->
                         <button id="enterBtn">Search</button>
                     </div>
@@ -1456,11 +1463,23 @@
                                 <div class="sectionInner">
                                     <div class="ttcont">
                                         <div class="texts">
-                                            <div class="bigText" id="micIconTitle">Hide Microphone Icon</div>
+                                            <div class="bigText" id="micIconTitle">Hide Microphone Button</div>
                                             <div class="infoText" id="micIconInfo">If voice typing is not working</div>
                                         </div>
                                         <label class="switch">
                                             <input id="micIconCheckbox" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="ttcont">
+                                        <div class="texts">
+                                            <div class="bigText" id="aiModeIconTitle">Hide AI Mode Button</div>
+                                            <div class="infoText" id="aiModeIconInfo">Hide Google AI Mode search button
+                                            </div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="aiModeIconCheckbox" type="checkbox">
                                             <span class="toggle"></span>
                                         </label>
                                     </div>
