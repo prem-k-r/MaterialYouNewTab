@@ -4875,6 +4875,9 @@ body[data-bg="wallpaper"] .dropdown-content {
 			min-width: 0;
 		}
 	}
+	.searchbar-content {
+		padding-inline-end: 0;
+	}
 	#enterBtn {
 		display: none;
 	}
