@@ -65,6 +65,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 ### Other
 
 - Miscellaneous improvements ([@prem-k-r](https://github.com/prem-k-r))
+- Docs: Fixed broken star history chart link in README ([@FaintFlower](https://github.com/FaintFlower)) ([#248](https://github.com/prem-k-r/MaterialYouNewTab/pull/248))
 
 ## [v3.3](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...v3.3) - Nov 23, 2025
 
