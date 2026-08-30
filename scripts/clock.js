@@ -97,10 +97,10 @@ async function initializeClock() {
     let isFirstLoad = true;
 
     // Retrieve current time and calculate initial angles
-    var currentTime = new Date();
-    var initialSeconds = currentTime.getSeconds();
-    var initialMinutes = currentTime.getMinutes();
-    var initialHours = currentTime.getHours();
+    const currentTime = new Date();
+    const initialSeconds = currentTime.getSeconds();
+    const initialMinutes = currentTime.getMinutes();
+    const initialHours = currentTime.getHours();
 
     // Initialize cumulative rotations
     cumulativeSecondRotation = initialSeconds * 6;
@@ -123,22 +123,22 @@ async function initializeClock() {
 
     function updateDate() {
         if (clocktype === "analog") {
-            var currentTime = new Date();
-            var dayOfWeek = currentTime.getDay();
-            var dayOfMonth = currentTime.getDate();
-            var month = currentTime.getMonth();
+            const currentTime = new Date();
+            const dayOfWeek = currentTime.getDay();
+            const dayOfMonth = currentTime.getDate();
+            const month = currentTime.getMonth();
 
             // Define the current language
             const currentLanguage = getLanguageStatus("selectedLanguage") || "en";
 
             // Get the translated name of the day
-            var dayName = translations[currentLanguage]?.days?.[dayOfWeek] ?? translations["en"].days[dayOfWeek];
+            const dayName = translations[currentLanguage]?.days?.[dayOfWeek] ?? translations["en"].days[dayOfWeek];
 
             // Get the translated name of the month
-            var monthName = translations[currentLanguage]?.months?.[month] ?? translations["en"].months[month];
+            const monthName = translations[currentLanguage]?.months?.[month] ?? translations["en"].months[month];
 
             // Localize the day of the month
-            var localizedDayOfMonth = localizeNumbers(dayOfMonth.toString(), currentLanguage);
+            const localizedDayOfMonth = localizeNumbers(dayOfMonth.toString(), currentLanguage);
 
             // DATE DISPLAY FOR ANALOG CLOCK
             const dateDisplay = {
@@ -211,10 +211,10 @@ async function initializeClock() {
     }
 
     function updateanalogclock() {
-        var currentTime = new Date();
-        var currentSeconds = currentTime.getSeconds();
-        var currentMinutes = currentTime.getMinutes();
-        var currentHours = currentTime.getHours();
+        const currentTime = new Date();
+        const currentSeconds = currentTime.getSeconds();
+        const currentMinutes = currentTime.getMinutes();
+        const currentHours = currentTime.getHours();
 
         // Calculate the new rotation values
         let newSecondRotation = currentSeconds * 6; // 6° per second
