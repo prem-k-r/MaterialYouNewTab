@@ -6,13 +6,16 @@
 	"permissions": [
 		"search",
 		"bookmarks",
+		"topSites",
 		"https://www.google.com/complete/search?client=*",
 		"https://duckduckgo.com/ac/?q=*",
 		"https://search.brave.com/api/suggest?q=*",
 		"https://*.wikipedia.org/w/api.php?action=opensearch&search=*"
 	],
 	"background": {
-		"scripts": ["scripts/background.js"]
+		"scripts": [
+			"scripts/background.js"
+		]
 	},
 	"icons": {
 		"16": "favicon/icon16.png",
@@ -30,7 +33,9 @@
 		"gecko": {
 			"id": "{c30c387e-cd01-42b4-b5c7-6af2d820535b}",
 			"data_collection_permissions": {
-				"required": ["none"]
+				"required": [
+					"none"
+				]
 			}
 		}
 	}
