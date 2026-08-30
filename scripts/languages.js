@@ -236,6 +236,8 @@ function applyLanguage(lang) {
         "adjustOpacityDesc",
         "footerToastTitle",
         "footerToastMessage",
+        "cloudSyncTitle",
+        "cloudSyncInfo",
         "personalizationSectionTitle",
         "clockSectionTitle",
         "searchSectionTitle",

@@ -4339,6 +4339,15 @@ option:checked {
 	display: none;
 }
 
+/* --------- Style for Cloud Sync toggle --------- */
+#cloudSyncToggleCont {
+	display: flex;
+	min-height: 50px;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+
 /* --------- Style for Backup and Restore buttons --------- */
 .backupRestoreContainer {
 	width: 100%;
