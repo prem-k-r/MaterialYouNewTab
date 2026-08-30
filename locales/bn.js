@@ -151,6 +151,7 @@ const bn = {
     "redditEngine": "রেডিট",
     "wikipediaEngine": "উইকিপিডিয়া",
     "quoraEngine": "কোরা",
+    "xEngine": "X",
 
     // AI Tools
     "ai_tools": "এআই টুলস",

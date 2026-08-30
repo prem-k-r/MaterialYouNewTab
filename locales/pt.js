@@ -132,6 +132,7 @@ const pt = {
     "redditEngine": "Reddit",
     "wikipediaEngine": "Wikipédia",
     "quoraEngine": "Quora",
+    "xEngine": "X",
 
     // AI Tools
     "ai_tools": "Ferramentas de IA",

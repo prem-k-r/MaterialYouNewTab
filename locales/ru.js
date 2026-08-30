@@ -149,6 +149,7 @@ const ru = {
     "redditEngine": "Reddit",
     "wikipediaEngine": "Википедия",
     "quoraEngine": "Quora",
+    "xEngine": "X",
 
     // AI Tools
     "ai_tools": "Нейросети",
