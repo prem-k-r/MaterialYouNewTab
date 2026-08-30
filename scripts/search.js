@@ -148,6 +148,7 @@ searchDropdowns.forEach(element => {
         const selector = `*[data-engine-name=${element.getAttribute("data-engine-name")}]`;
 
         radioButton.checked = true;
+        updateAiModeIconVisibility();
 
         // Swap the dropdown and sort them
         swapDropdown(selector);
@@ -165,6 +166,7 @@ document.querySelectorAll(".search-engine").forEach((engineDiv) => {
         const radioButton = engineDiv.querySelector('input[type="radio"]');
 
         radioButton.checked = true;
+        updateAiModeIconVisibility();
 
         const radioButtonValue = radioButton.value.charAt(radioButton.value.length - 1);
 
@@ -231,6 +233,76 @@ function performSearch(query) {
 enterBTN.addEventListener("click", () => performSearch());
 // Enter key handling is managed in the search suggestions keydown listener
 
+// Function to perform Google AI Mode search
+function performAISearch() {
+    const searchTerm = searchInput.value.trim();
+    if (searchTerm !== "") {
+        window.location.href = "https://www.google.com/ai?q=" + encodeURIComponent(searchTerm);
+    } else {
+        window.location.href = "https://www.google.com/ai";
+    }
+}
+
+// AI Mode Button setup
+const aiModeIcon = document.getElementById("aiModeIcon");
+const aiModeIconCheckbox = document.getElementById("aiModeIconCheckbox");
+
+if (aiModeIcon) {
+    aiModeIcon.addEventListener("click", (event) => {
+        event.stopPropagation();
+        performAISearch();
+    });
+    aiModeIcon.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            event.stopPropagation();
+            performAISearch();
+        }
+    });
+}
+
+// AI Mode Icon visibility control
+function isGoogleSelected() {
+    const selectedRadio = document.querySelector('input[name="search-engine"]:checked');
+    if (!selectedRadio) return false;
+    const value = selectedRadio.value;
+    return value === "engine1";
+}
+
+function updateAiModeIconVisibility() {
+    const savedAiModeState = localStorage.getItem("aiModeIconVisible");
+    const isUserAllowed = savedAiModeState !== null ? savedAiModeState === "true" : true;
+    const isGoogle = isGoogleSelected();
+    const shouldShow = isUserAllowed && isGoogle;
+
+    if (aiModeIcon) {
+        aiModeIcon.classList.toggle("hidden", !shouldShow);
+        aiModeIcon.style.display = ""; 
+        
+        if (!shouldShow) {
+            aiModeIcon.setAttribute("tabindex", "-1");
+        } else {
+            aiModeIcon.removeAttribute("tabindex");
+        }
+    }
+}
+
+const savedAiModeState = localStorage.getItem("aiModeIconVisible");
+let isAiModeIconVisible = savedAiModeState !== null ? savedAiModeState === "true" : true;
+
+if (aiModeIconCheckbox) {
+    aiModeIconCheckbox.checked = !isAiModeIconVisible; // Checked hides the AI mode icon
+    aiModeIconCheckbox.addEventListener("change", () => {
+        const isChecked = aiModeIconCheckbox.checked;
+        localStorage.setItem("aiModeIconVisible", (!isChecked).toString());
+        updateAiModeIconVisibility();
+    });
+}
+
+document.querySelectorAll('input[name="search-engine"]').forEach(radio => {
+    radio.addEventListener("change", updateAiModeIconVisibility);
+});
+
 // Set selected search engine from local storage
 const storedSearchEngine = localStorage.getItem(`selectedSearchEngine-${activeSearchMode}`);
 
@@ -255,6 +327,7 @@ if (storedSearchEngine) {
         selectedRadioButton.checked = true;
     }
 }
+updateAiModeIconVisibility();
 
 const dropdownItems = document.querySelectorAll(".dropdown-item:not(*[data-default])");
 let selectedIndex = -1;

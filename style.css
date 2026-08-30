@@ -223,6 +223,18 @@ body {
 	margin: 0;
 }
 
+/* Early-paint dark mode: applied by preload.js before deferred scripts run.
+   Uses data attributes on <html> set synchronously in <head>. */
+html[data-preferred-theme="dark"]:not(:has(#darkTheme:checked)),
+html[data-preferred-theme="system"][data-system-dark="true"]:not(
+		:has(#darkTheme:checked)
+	) {
+	filter: invert(1) hue-rotate(180deg);
+	-webkit-filter: invert(1) hue-rotate(180deg);
+
+	--whitishColor-blue: #f2f2f2;
+}
+
 /* Apply dark mode when: Dark Mode is selected manually, OR System Theme is selected */
 html:has(body[data-bg="color"] .menuBar .themeSegment[data-active="dark"]):not(
 		:has(#darkTheme:checked)
@@ -2338,7 +2350,7 @@ body[data-bg="wallpaper"] #searchQ::placeholder {
 
 /* --------- .micIcon------------- */
 
-.micIcon {
+.micIcon, .aiModeIcon {
 	width: 40px;
 	height: 40px;
 	margin-inline-end: 10px;
@@ -2404,6 +2416,92 @@ body[data-bg="wallpaper"] .micIcon {
 }
 
 /* ---------End of .micIcon------------- */
+
+/* --------- .aiModeIcon------------- */
+
+.aiModeIcon {
+	padding: 6px;
+	background-color: transparent;
+	border: none;
+	opacity: 1;
+	transform: scale(1);
+	transform-origin: center center;
+	transition:
+		width 0.35s var(--md-motion-decelerate),
+		margin-inline-end 0.35s var(--md-motion-decelerate),
+		padding 0.35s var(--md-motion-decelerate),
+		opacity 0.3s var(--md-motion-decelerate) 0.05s,
+		transform 0.35s var(--md-motion-decelerate),
+		background-color 0.2s var(--md-motion-ease),
+}
+
+.aiModeIcon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: var(--whitishColor-blue);
+    z-index: 0;
+	transform: scale(1); 
+    transform-origin: center center;
+    transition:
+        transform 0.3s var(--md-motion-ease),
+        background-color 0.3s var(--md-motion-ease);
+}
+
+.aiModeIcon.hidden {
+	width: 0;
+	margin-inline-end: 0;
+	padding: 0;
+	opacity: 0;
+	transform: scale(0.5);
+	pointer-events: none;
+	transition:
+		opacity 0.15s var(--md-motion-accelerate),
+		transform 0.2s var(--md-motion-accelerate),
+		width 0.3s var(--md-motion-accelerate) 0.1s,
+		margin-inline-end 0.3s var(--md-motion-accelerate) 0.1s,
+		padding 0.3s var(--md-motion-accelerate) 0.1s,
+		background-color 0.2s var(--md-motion-ease),
+}
+
+.aiModeIcon svg {
+    flex-shrink: 0;
+    min-width: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+body[data-bg="wallpaper"] .aiModeIcon::before {
+	background-color: color-mix(
+		in srgb,
+		var(--whitishColor-blue) calc(var(--transparency) * 2),
+		transparent
+	);
+}
+
+.black-theme body[data-bg="wallpaper"] .aiModeIcon::before {
+	background-color:var(--whitishColor-dark);
+}
+
+.aiModeIcon:not(.hidden):hover::before {
+    transform: scale(1.1);
+    background-color: color-mix(
+		in srgb,
+		var(--whitishColor-blue) calc(var(--transparency) * 3),
+		transparent
+	);
+}
+
+.aiModeIcon:not(.hidden):active::before {
+    transform: scale(0.95);
+}
+
+.theme-transition .aiModeIcon {
+	transition: all 0.5s;
+}
+
+/* ---------End of .aiModeIcon------------- */
 
 #enterBtn {
 	height: 40px;
@@ -2753,7 +2851,7 @@ html[lang="ur"] .qtRounder2 {
 
 .shortcutsContainer .shortcuts {
 	position: relative;
-	transition: all 0.3s;
+	transition: transform 0.3s;
 	isolation: isolate;
 }
 
@@ -2812,6 +2910,7 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 	display: block;
 	height: var(--shortcut-size);
 	width: var(--shortcut-size);
+	position: relative;
 }
 
 .shortcutsContainer .shortcuts a:has(svg) {
@@ -2825,6 +2924,47 @@ body[data-bg="wallpaper"] .shortcuts .shortcut-name {
 .shortcutsContainer .shortcuts a svg {
 	height: 100%;
 	width: 100%;
+}
+
+.shortcuts a[data-shortcut]::after {
+	content: attr(data-shortcut);
+	position: absolute;
+	top: -7px;
+	right: -7px;
+	width: 19px;
+	height: 18px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 11px;
+	font-weight: 600;
+	padding-top: 1px;
+	color: var(--darkColor-blue);
+	background-color: var(--accentLightTint-blue);
+	box-shadow: 0 1px 2px rgb(0 0 0 / 0.2);
+	pointer-events: none;
+	opacity: 0;
+	visibility: hidden;
+	transform: scale(0.8);
+	transform-origin: center center;
+	transition:
+		opacity 0.18s var(--md-motion-accelerate),
+		transform 0.18s var(--md-motion-accelerate),
+		visibility 0s linear 0.18s;
+}
+
+.black-theme .shortcuts a[data-shortcut]::after {
+	background-color: #bfbfbf;
+}
+
+.show-shortcut-numbers .shortcuts a[data-shortcut]::after {
+	opacity: 1;
+	visibility: visible;
+	transform: scale(1);
+	transition:
+		opacity 0.18s var(--md-motion-decelerate),
+		transform 0.18s var(--md-motion-decelerate);
 }
 
 .shortcutsContainer .shortcuts .shortcutLogoContainer {
@@ -4257,6 +4397,7 @@ option:checked {
 	top: 6px;
 	bottom: 6px;
 	width: 1px;
+	border-radius: 1px;
 	background: #ffffffe6;
 	opacity: 0;
 	transition: opacity 0.2s var(--md-motion-ease);
@@ -4890,7 +5031,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 	.rightDiv {
 		/* position: relative;
-        width: 640px; */
+		width: 640px; */
 		transform: translateX(0px);
 		/* background-color: rgba(0, 0, 255, 0.159); */
 	}
@@ -5045,6 +5186,9 @@ body[data-bg="wallpaper"] .dropdown-content {
 		}
 	}
 
+	.searchbar-content {
+		padding-inline-end: 0;
+	}
 	#enterBtn {
 		display: none;
 	}
@@ -5577,6 +5721,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme .micIcon,
+.black-theme .aiModeIcon::before ,
 .black-theme .floating-label-field input {
 	background-color: var(--whitishColor-dark);
 }

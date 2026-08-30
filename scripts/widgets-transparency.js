@@ -29,7 +29,7 @@ function handleDrag(e) {
         ? rect.right - clientX  // distance from right edge
         : clientX - rect.left;  // distance from left edge
     newPos = Math.max(0, Math.min(rect.width, newPos));
-    const percentage = +((newPos / rect.width) * 100).toFixed(2);
+    const percentage = +((newPos / rect.width) * 100).toFixed(1);
     setSliderPosition(percentage);
 }
 
