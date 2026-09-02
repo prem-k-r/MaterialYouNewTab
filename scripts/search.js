@@ -206,15 +206,28 @@ function swapDropdown(selectedElement) {
 
 // Validates strict URLs so they bypass the search engine
 function getValidUrl(text) {
-    if (text.includes(" ")) return null;
+    if (!text || text.includes(" ")) return null;
+
     const lowerText = text.toLowerCase();
+    let candidate = null;
+
     if (lowerText.startsWith("http://") || lowerText.startsWith("https://")) {
-        return text; 
+        candidate = text;
+    } else if (lowerText.startsWith("www.")) {
+        candidate = "https://" + text;
+    } else {
+        return null;
     }
-    if (lowerText.startsWith("www.")) {
-        return "https://" + text;
+
+    try {
+        const parsed = new URL(candidate);
+        if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+            return null;
+        }
+        return parsed.href;
+    } catch (error) {
+        return null;
     }
-    return null;
 }
 
 // Function to perform search
