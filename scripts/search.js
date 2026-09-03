@@ -204,12 +204,44 @@ function swapDropdown(selectedElement) {
     });
 }
 
+// Validates strict URLs so they bypass the search engine
+function getValidUrl(text) {
+    if (!text || text.includes(" ")) return null;
+
+    const lowerText = text.toLowerCase();
+    let candidate = null;
+
+    if (lowerText.startsWith("http://") || lowerText.startsWith("https://")) {
+        candidate = text;
+    } else if (lowerText.startsWith("www.")) {
+        candidate = "https://" + text;
+    } else {
+        return null;
+    }
+
+    try {
+        const parsed = new URL(candidate);
+        if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+            return null;
+        }
+        return parsed.href;
+    } catch (error) {
+        return null;
+    }
+}
+
 // Function to perform search
 function performSearch(query) {
     const selectedOption = document.querySelector('input[name="search-engine"]:checked').value;
-    const searchTerm = query || searchInput.value;
+    const searchTerm = (query || searchInput.value).trim();
 
     if (searchTerm !== "") {
+        const directUrl = getValidUrl(searchTerm);
+        if (directUrl) {
+            window.location.href = directUrl;
+            return;
+        }
+
         if (selectedOption === "engine0") {
             try {
                 if (isFirefox) {
