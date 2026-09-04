@@ -1,8 +1,17 @@
 // Ukrainian
 const uk = {
+    "newTabTitle": "Нова вкладка",
     // Menu Items
     "github": "GitHub",
     "feedback": "Відгук",
+
+    // Section titles
+    "personalizationSectionTitle": "Персоналізація",
+    "clockSectionTitle": "Годинник",
+    "searchSectionTitle": "Пошук",
+    "weatherSectionTitle": "Погода",
+    "appearanceSectionTitle": "Зовнішній вигляд",
+    "settingsSectionTitle": "Налаштування",
 
     // Shortcuts
     "shortcutsText": "Ярлики",
@@ -22,6 +31,12 @@ const uk = {
     "googleAppsMenuText": "Google Apps",
     "googleAppsMenuInfo": "Показати ярлики для Google Apps",
     "googleAppsHover": "Google Apps",
+
+    "shortcutDefaultName": "Новий ярлик",
+    "shortcutInputName": "Назва ярлика",
+    "shortcutInputUrl": "URL ярлика",
+    "shortcutInputIcon": "Користувацька іконка: URL або SVG (опціонально)",
+    "recentlyAddedBookmarks": "Нещодавно додані",
 
     // To-do List
     "todoListText": "Список справ",
@@ -58,6 +73,8 @@ const uk = {
     "hideSearchWithInfo": "Перемикайтеся між пошуковими системами, натискаючи на їхні значки.",
     "motivationalQuotesText": "Мотиваційні цитати",
     "motivationalQuotesInfo": "Показати цитати під рядком пошуку",
+    "newQuoteOnRefreshText": "Щоденна цитата",
+    "newQuoteOnRefreshInfo": "Показувати одну цитату на день замість оновлення щоразу",
     "search_suggestions_button": "Пошукові пропозиції",
     "search_suggestions_text": "Увімкнути підказки для пошуку",
 
@@ -91,7 +108,7 @@ const uk = {
     // Bookmarks
     "bookmarksHeading": "Закладки",
     "bookmarkSortBy": "Сортувати за",
-    "sortAlphabetical": "A-Z",
+    "sortAlphabetical": "А-Я",
     "sortTimeAdded": "Старі-Нові",
     "bookmarkViewAs": "Переглянути як",
     "bookmarkViewGrid": "Сітка",
@@ -102,9 +119,9 @@ const uk = {
     "editBookmarkURL": "Посилання закладки",
 
     // New Tab Item
-    "conditionText": "Привіт! Ти як сьогодні?",
+    "conditionText": "Привіт! Що нового за сьогодні?",
     "humidityLevel": "Вологість",
-    "feelsLike": "Відчувається як: ",
+    "feelsLike": "Відчувається як",
     "minMaxTemp": "Мін ~ Макс",
     "location": "Земля",
     "enterBtn": "Пошук",
@@ -134,7 +151,7 @@ const uk = {
     "quoraEngine": "Quora",
 
     // AI Tools
-    "ai_tools": "AI Інструменти",
+    "ai_tools": "ШІ Інструменти",
     "chatGPT": "ChatGPT",
     "gemini": "Gemini",
     "copilot": "Copilot",
@@ -185,7 +202,7 @@ const uk = {
     "okText": "OK",
     "yesText": "Так",
     "noText": "Ні",
-    "agreeText": "Я згоден",
+    "agreeText": "Я погоджуюся",
     "cancelText": "Відмінити",
     "confirmWallpaper": "Хочете встановити нове зображення як шпалери на сьогодні?",
     "confirmRestore": "Ви впевнені, що хочете скинути налаштування? Цю дію неможливо скасувати.",
@@ -199,5 +216,10 @@ const uk = {
     "invalidBackup": "Вибрано недійсний файл резервної копії.",
     "deleteBookmark": "Ви впевнені, що хочете видалити закладку \"{title}\"?",
     "UnsupportedBrowser": "Закладки не підтримуються у вашому браузері.",
-    "resetShortcutsPrompt": "Усі збережені ярлики будуть видалені та скинуті до заводських налаштувань. Чи хочете ви продовжити?"
+    "resetShortcutsPrompt": "Усі збережені ярлики будуть видалені та скинуті до заводських налаштувань. Хочете продовжити?",
+    "invalidFileTypeMessage": "Будь ласка, виберіть коректний файл зображення.",
+    "invalidSvgMessage": "Вставлений SVG некоректний або містить небезпечний вміст і не може використовуватися як іконка.",
+    "invalidIconUrlMessage": "Будь ласка, введіть коректну URL-адресу зображення (має починатися з https://, http://, або data:image/).",
+    "iconFileTooLargeMessage": "Вибраний файл занадто великий: {size} КБ. Будь ласка, використайте файл менше {max} КБ.",
+    "iconStorageQuotaMessage": "Іконку не вдалося зберегти, оскільки було досягнуто ліміт сховища. Видаліть деякі власні іконки або використовуйте менше зображення."
 };

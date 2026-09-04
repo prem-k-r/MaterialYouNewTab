@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
@@ -66,7 +66,7 @@ function toggleSearchEngines(category) {
     };
     const checkeditem = localStorage.getItem(`selectedSearchEngine-${category}`) || defaultItems[category];
     const searchModeName = category === "search-with" ? "searchWithHint" : "searchOnHint";
-    searchWith.innerText = translations[currentLanguage][searchModeName] || translations["en"][searchModeName];
+    searchWith.innerText = translations[currentLanguage]?.[searchModeName] || translations["en"][searchModeName];
 
     searchEngines.forEach(engine => {
         if (engine.getAttribute("data-category") === category) {
@@ -148,6 +148,7 @@ searchDropdowns.forEach(element => {
         const selector = `*[data-engine-name=${element.getAttribute("data-engine-name")}]`;
 
         radioButton.checked = true;
+        updateAiModeIconVisibility();
 
         // Swap the dropdown and sort them
         swapDropdown(selector);
@@ -165,6 +166,7 @@ document.querySelectorAll(".search-engine").forEach((engineDiv) => {
         const radioButton = engineDiv.querySelector('input[type="radio"]');
 
         radioButton.checked = true;
+        updateAiModeIconVisibility();
 
         const radioButtonValue = radioButton.value.charAt(radioButton.value.length - 1);
 
@@ -202,12 +204,44 @@ function swapDropdown(selectedElement) {
     });
 }
 
+// Validates strict URLs so they bypass the search engine
+function getValidUrl(text) {
+    if (!text || text.includes(" ")) return null;
+
+    const lowerText = text.toLowerCase();
+    let candidate = null;
+
+    if (lowerText.startsWith("http://") || lowerText.startsWith("https://")) {
+        candidate = text;
+    } else if (lowerText.startsWith("www.")) {
+        candidate = "https://" + text;
+    } else {
+        return null;
+    }
+
+    try {
+        const parsed = new URL(candidate);
+        if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+            return null;
+        }
+        return parsed.href;
+    } catch (error) {
+        return null;
+    }
+}
+
 // Function to perform search
 function performSearch(query) {
     const selectedOption = document.querySelector('input[name="search-engine"]:checked').value;
-    const searchTerm = query || searchInput.value;
+    const searchTerm = (query || searchInput.value).trim();
 
     if (searchTerm !== "") {
+        const directUrl = getValidUrl(searchTerm);
+        if (directUrl) {
+            window.location.href = directUrl;
+            return;
+        }
+
         if (selectedOption === "engine0") {
             try {
                 if (isFirefox) {
@@ -230,6 +264,76 @@ function performSearch(query) {
 // Event listeners
 enterBTN.addEventListener("click", () => performSearch());
 // Enter key handling is managed in the search suggestions keydown listener
+
+// Function to perform Google AI Mode search
+function performAISearch() {
+    const searchTerm = searchInput.value.trim();
+    if (searchTerm !== "") {
+        window.location.href = "https://www.google.com/ai?q=" + encodeURIComponent(searchTerm);
+    } else {
+        window.location.href = "https://www.google.com/ai";
+    }
+}
+
+// AI Mode Button setup
+const aiModeIcon = document.getElementById("aiModeIcon");
+const aiModeIconCheckbox = document.getElementById("aiModeIconCheckbox");
+
+if (aiModeIcon) {
+    aiModeIcon.addEventListener("click", (event) => {
+        event.stopPropagation();
+        performAISearch();
+    });
+    aiModeIcon.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            event.stopPropagation();
+            performAISearch();
+        }
+    });
+}
+
+// AI Mode Icon visibility control
+function isGoogleSelected() {
+    const selectedRadio = document.querySelector('input[name="search-engine"]:checked');
+    if (!selectedRadio) return false;
+    const value = selectedRadio.value;
+    return value === "engine1";
+}
+
+function updateAiModeIconVisibility() {
+    const savedAiModeState = localStorage.getItem("aiModeIconVisible");
+    const isUserAllowed = savedAiModeState !== null ? savedAiModeState === "true" : true;
+    const isGoogle = isGoogleSelected();
+    const shouldShow = isUserAllowed && isGoogle;
+
+    if (aiModeIcon) {
+        aiModeIcon.classList.toggle("hidden", !shouldShow);
+        aiModeIcon.style.display = ""; 
+        
+        if (!shouldShow) {
+            aiModeIcon.setAttribute("tabindex", "-1");
+        } else {
+            aiModeIcon.removeAttribute("tabindex");
+        }
+    }
+}
+
+const savedAiModeState = localStorage.getItem("aiModeIconVisible");
+let isAiModeIconVisible = savedAiModeState !== null ? savedAiModeState === "true" : true;
+
+if (aiModeIconCheckbox) {
+    aiModeIconCheckbox.checked = !isAiModeIconVisible; // Checked hides the AI mode icon
+    aiModeIconCheckbox.addEventListener("change", () => {
+        const isChecked = aiModeIconCheckbox.checked;
+        localStorage.setItem("aiModeIconVisible", (!isChecked).toString());
+        updateAiModeIconVisibility();
+    });
+}
+
+document.querySelectorAll('input[name="search-engine"]').forEach(radio => {
+    radio.addEventListener("change", updateAiModeIconVisibility);
+});
 
 // Set selected search engine from local storage
 const storedSearchEngine = localStorage.getItem(`selectedSearchEngine-${activeSearchMode}`);
@@ -255,6 +359,7 @@ if (storedSearchEngine) {
         selectedRadioButton.checked = true;
     }
 }
+updateAiModeIconVisibility();
 
 const dropdownItems = document.querySelectorAll(".dropdown-item:not(*[data-default])");
 let selectedIndex = -1;
@@ -446,6 +551,120 @@ if (localStorage.getItem("showShortcutSwitch")) {
 }
 
 initShortCutSwitch(hideSearchWith);
+
+// Swipe/Scroll to change search engines
+let engineSwipeStartY = 0;
+let engineSwipeEndY = 0;
+let isEngineSwiping = false;
+let isEngineSwitching = false;
+let engineSwitchTimeout = null;
+let currentSearchEngineIndex = 0;
+const dropdownBtn = document.querySelector('.dropdown-btn');
+
+// Get all search engines from both modes combined
+function getAllEngines() {
+    return Array.from(searchEngines);
+}
+
+// Get current selected engine index from all engines
+function getCurrentSearchEngineIndex() {
+    const allEngines = getAllEngines();
+    const selectedOption = document.querySelector('input[name="search-engine"]:checked');
+    return allEngines.findIndex(engine =>
+        engine.querySelector('input[type="radio"]').value === selectedOption.value
+    );
+}
+
+// Switch to next or previous engine
+function switchEngine(direction) {
+    if (isEngineSwitching) return;
+
+    const allEngines = getAllEngines();
+    if (allEngines.length <= 1) return;
+
+    currentSearchEngineIndex = getCurrentSearchEngineIndex();
+    let newIndex;
+
+    if (direction === 'next') {
+        newIndex = (currentSearchEngineIndex + 1) % allEngines.length;
+    } else {
+        newIndex = (currentSearchEngineIndex - 1 + allEngines.length) % allEngines.length;
+    }
+
+    const newEngine = allEngines[newIndex];
+    const radioButton = newEngine.querySelector('input[type="radio"]');
+
+    // Store direction for CSS animation
+    searchbar.setAttribute('data-switch-direction', direction);
+
+    // Add transition class to searchbar
+    searchbar.classList.add('engine-switching');
+
+    // Delay the actual swap until fade-out completes (45% of 400ms = 180ms)
+    setTimeout(() => {
+        radioButton.checked = true;
+
+        const radioButtonValue = radioButton.value.charAt(radioButton.value.length - 1);
+        const selector = `[data-engine="${radioButtonValue}"]`;
+
+        swapDropdown(selector);
+        sortDropdown();
+
+        localStorage.setItem(`selectedSearchEngine-${radioButton.parentElement.dataset.category}`, radioButton.value);
+        localStorage.setItem(`activeSearchMode`, radioButton.parentElement.dataset.category);
+
+        // Update the search mode hint text
+        const newCategory = radioButton.parentElement.dataset.category;
+        toggleSearchEngines(newCategory);
+    }, 180);
+
+    // Remove transition class after animation
+    setTimeout(() => {
+        searchbar.classList.remove('engine-switching');
+        searchbar.removeAttribute('data-switch-direction');
+    }, 400);
+
+    // Prevent rapid scrolling
+    isEngineSwitching = true;
+    clearTimeout(engineSwitchTimeout);
+    engineSwitchTimeout = setTimeout(() => {
+        isEngineSwitching = false;
+    }, 400);
+}
+
+// Touch event handlers for swipe
+dropdownBtn?.addEventListener('touchstart', (e) => {
+    if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
+    e.stopPropagation();
+    engineSwipeStartY = e.changedTouches[0].screenY;
+    isEngineSwiping = false;
+}, { passive: true });
+
+dropdownBtn?.addEventListener('touchmove', (e) => {
+    if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
+    e.preventDefault();
+    isEngineSwiping = true;
+}, { passive: false });
+
+dropdownBtn?.addEventListener('touchend', (e) => {
+    if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
+    e.stopPropagation();
+    engineSwipeEndY = e.changedTouches[0].screenY;
+
+    const swipeDistance = engineSwipeStartY - engineSwipeEndY;
+    const swipeThreshold = 50; // Minimum distance for swipe
+    if (isEngineSwiping && Math.abs(swipeDistance) >= swipeThreshold) {
+        switchEngine(swipeDistance > 0 ? 'next' : 'prev');
+    }
+}, { passive: true });
+
+// Mouse wheel event handler for scroll
+dropdownBtn?.addEventListener('wheel', (e) => {
+    if (!hideSearchWith.checked || dropdown.classList.contains("show")) return;
+    e.preventDefault();
+    e.stopPropagation();
+    switchEngine(e.deltaY > 0 ? 'next' : 'prev'); // Scroll down = next, Scroll up = previous
+}, { passive: false });
 
 document.addEventListener("keydown", function (event) {
     // Prevent shortcut if modal, menu, or bookmarks sidebar is open

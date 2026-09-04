@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  */
 
@@ -109,6 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Remove Loading Screen when the DOM and the theme has loaded
     document.getElementById("LoadingScreen").style.display = "none";
 
+    // Clean up preload data attributes
+    document.documentElement.removeAttribute("data-preferred-theme");
+    document.documentElement.removeAttribute("data-system-dark");
+
     // Stop blinking of some elements when the page is reloaded
     setTimeout(() => {
         document.documentElement.classList.add("theme-transition");
@@ -124,22 +128,6 @@ function ApplyLoadingColor() {
 const resetDarkTheme = () => {
     // Remove the dark theme class
     document.documentElement.classList.remove("black-theme");
-
-    // Reset inline styles that were applied specifically for dark mode
-    const resetElements = ["searchQ", "searchIconDark", "darkFeelsLikeIcon", "menuButton", "menuCloseButton", "closeBtnX"];
-
-    resetElements.forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.removeAttribute("style");
-        }
-    });
-
-    // Reset fill color for elements with the class "accentColor"
-    const accentElements = document.querySelectorAll(".accentColor");
-    accentElements.forEach((element) => {
-        element.style.fill = ""; // Reset fill color
-    });
 };
 
 // Function to apply the selected theme
@@ -176,9 +164,6 @@ const applySelectedTheme = (colorValue) => {
     // Handle dark mode specific changes
     if (isDarkMode) {
         document.documentElement.classList.add("black-theme");
-        document.querySelectorAll(".accentColor").forEach(el => {
-            el.style.fill = "#212121";
-        });
     }
 
     changeFaviconColor();
@@ -190,6 +175,8 @@ function changeFaviconColor() {
     const rootStyles = getComputedStyle(document.documentElement);
     const darkColor = rootStyles.getPropertyValue("--darkColor-blue");
     //const bgColor = rootStyles.getPropertyValue("--bg-color-blue");
+    let accentLightTintColor = rootStyles.getPropertyValue("--accentLightTint-blue");
+    localStorage.setItem("accentLightTintColor", accentLightTintColor);
 
     const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -205,41 +192,13 @@ function changeFaviconColor() {
 changeFaviconColor();
 
 // --------------------- Color Picker ---------------------
-function adjustHexColor(hex, factor, isLighten = true) {
-    hex = hex.replace("#", "");
-    if (hex.length === 3) {
-        hex = hex.split("").map(c => c + c).join("");
-    }
-    let r = parseInt(hex.substring(0, 2), 16);
-    let g = parseInt(hex.substring(2, 4), 16);
-    let b = parseInt(hex.substring(4, 6), 16);
-    if (isLighten) {
-        r = Math.floor(r + (255 - r) * factor);
-        g = Math.floor(g + (255 - g) * factor);
-        b = Math.floor(b + (255 - b) * factor);
-    } else {
-        r = Math.floor(r * (1 - factor));
-        g = Math.floor(g * (1 - factor));
-        b = Math.floor(b * (1 - factor));
-    }
-    return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1).toUpperCase()}`;
-}
-
-function isNearWhite(hex, threshold = 240) {
-    hex = hex.replace("#", "");
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-    return r > threshold && g > threshold && b > threshold;
-}
-
 const applyCustomTheme = (color) => {
-    let adjustedColor = isNearWhite(color) ? "#696969" : color;
+    let adjustedColor = window.ThemeHelpers.isNearWhite(color) ? "#696969" : color;
 
-    const lighterColorHex = adjustHexColor(adjustedColor, 0.7);
-    const lightTin = adjustHexColor(adjustedColor, 0.9);
-    const darkerColorHex = adjustHexColor(adjustedColor, 0.3, false);
-    const darkTextColor = adjustHexColor(adjustedColor, 0.8, false);
+    const lighterColorHex = window.ThemeHelpers.adjustHexColor(adjustedColor, 0.7);
+    const lightTin = window.ThemeHelpers.adjustHexColor(adjustedColor, 0.9);
+    const darkerColorHex = window.ThemeHelpers.adjustHexColor(adjustedColor, 0.3, false);
+    const darkTextColor = window.ThemeHelpers.adjustHexColor(adjustedColor, 0.8, false);
 
     document.documentElement.style.setProperty("--bg-color-blue", lighterColorHex);
     document.documentElement.style.setProperty("--accentLightTint-blue", lightTin);

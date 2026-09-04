@@ -1,10 +1,19 @@
 // French
 const fr = {
+    "newTabTitle": "Nouvel Onglet",
     // Menu Items
     "github": "GitHub",
     "feedback": "Feedback",
     "resetsettings": "Réinitialiser les paramètres",
     "menuCloseText": "Fermer",
+
+    // Section titles
+    "personalizationSectionTitle": "Personnalisation",
+    "clockSectionTitle": "Horloge",
+    "searchSectionTitle": "Recherche",
+    "weatherSectionTitle": "Météo",
+    "appearanceSectionTitle": "Apparence",
+    "settingsSectionTitle": "Paramètres",
 
     // Shortcuts
     "shortcutsText": "Raccourcis",
@@ -24,6 +33,12 @@ const fr = {
     "googleAppsMenuText": "Apps Google",
     "googleAppsMenuInfo": "Afficher les raccourcis pour les Applications Google",
     "googleAppsHover": "Apps Google",
+
+    "shortcutDefaultName": "Nouveau Raccourci",
+    "shortcutInputName": "Nom du raccourci",
+    "shortcutInputUrl": "URL du raccourci",
+    "shortcutInputIcon": "Icône personnalisée: URL ou SVG (facultatif)",
+    "recentlyAddedBookmarks": "Ajouts récents",
 
     // To-do List
     "todoListText": "Liste To-Do",
@@ -62,6 +77,8 @@ const fr = {
     "hideSearchWithInfo": "Passez d'un moteur de recherche à l'autre en cliquant sur son icône",
     "motivationalQuotesText": "Citations de motivation",
     "motivationalQuotesInfo": "Afficher les citations sous la barre de recherche",
+    "newQuoteOnRefreshText": "Citation du jour",
+    "newQuoteOnRefreshInfo": "Afficher une citation par jour au lieu de changer à chaque actualisation",
     "search_suggestions_button": "Suggestions de Recherche",
     "search_suggestions_text": "Activer les suggestions de recherche",
 
@@ -83,7 +100,7 @@ const fr = {
     // Weather
     "WeatherApiText": "Entrez votre clé WeatherAPI",
     "WeatherApiSubtext": "Si la fonctionnalité météo ne fonctionne pas",
-    "userAPI": "Your weatherAPI key",
+    "userAPI": "Votre clé WeatherAPI",
     "LearnMoreButton": "En savoir plus",
     "saveAPI": "Enregistrer",
 
@@ -159,7 +176,7 @@ const fr = {
 
 
     // Wallpaper and misc
-    "uploadWallpaperText": "Uploader un fond d'ecran",
+    "uploadWallpaperText": "Charger un fond d'écran",
     "backupText": "Sauvegarder",
     "restoreText": "Restaurer",
     "rangColor": "Choisir la couleur",
@@ -180,6 +197,10 @@ const fr = {
     "updateFirefoxHomepageInfo": "Pour changer votre page d'accueil comme le nouvel onglet, visitez <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">ce lien</a> et suivez les instructions.",
     "dontShowTips": "Ne plus afficher",
 
+    // Footer Toast
+    "footerToastTitle": "En train de voir une bannière?",
+    "footerToastMessage": "Pour masquer la bannière, faites un clic droit dessus et sélectionnez 'Masquer le pied de page sur un nouvel onglet'.",
+
     // Dialog boxes (alerts)
     "okText": "OK",
     "yesText": "Oui",
@@ -198,5 +219,10 @@ const fr = {
     "invalidBackup": "Fichier de sauvegarde invalide",
     "deleteBookmark": "Êtes-vous sûr de vouloir supprimer le favori \"{title}\"?",
     "UnsupportedBrowser": "Les favoris ne sont pas supportés dans votre navigateur.",
-    "resetShortcutsPrompt": "Tous les raccourcis enregistrés seront supprimés et réinitialisés par défaut. Voulez-vous continuer?"
+    "resetShortcutsPrompt": "Tous les raccourcis enregistrés seront supprimés et réinitialisés par défaut. Voulez-vous continuer?",
+    "invalidFileTypeMessage": "Veuillez sélectionner un fichier image valide.",
+    "invalidSvgMessage": "Le SVG inséré est invalide ou contient du contenu non sécurisé et ne peut pas être utilisé comme icône.",
+    "invalidIconUrlMessage": "Veuillez saisir une URL d'image valide (doit commencer par https://, http://, ou data:image/).",
+    "iconFileTooLargeMessage": "Le fichier sélectionné est trop volumineux : {size} Ko. Veuillez utiliser un fichier inférieur à {max} Ko.",
+    "iconStorageQuotaMessage": "L'icône n'a pas pu être enregistrée car la limite de stockage a été atteinte. Supprimez quelques icônes personnalisées ou utilisez une image plus petite."
 };
