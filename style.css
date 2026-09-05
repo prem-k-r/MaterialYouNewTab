@@ -196,7 +196,8 @@ html {
 	height: 100%;
 	width: 100%;
 	margin: 0;
-	scrollbar-width: none; /* For Firefox */
+	scrollbar-width: none;
+	/* For Firefox */
 }
 
 .html::-webkit-scrollbar {
@@ -217,7 +218,8 @@ body {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-attachment: fixed;
-	height: 100%; /* Ensure the image fits the viewport height */
+	height: 100%;
+	/* Ensure the image fits the viewport height */
 	margin: 0;
 }
 
@@ -274,16 +276,14 @@ body[data-bg="wallpaper"]:has(.menuBar .themeSegment[data-active="dark"]):not(
 	> *:not(.menuBar, #bookmarksContainer),
 body[data-bg="wallpaper"]:has(.menuBar .themeSegment[data-active="dark"]):not(
 		:has(#darkTheme:checked)
-	)
-	:is(.menuCont, .bookmark-sidebar),
+	):is(.menuCont, .bookmark-sidebar),
 body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 		.menuBar .themeSegment[data-active="system"]
 	):not(:has(#darkTheme:checked))
 	> *:not(.menuBar, #bookmarksContainer),
 body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 		.menuBar .themeSegment[data-active="system"]
-	):not(:has(#darkTheme:checked))
-	:is(.menuCont, .bookmark-sidebar) {
+	):not(:has(#darkTheme:checked)):is(.menuCont, .bookmark-sidebar) {
 	filter: invert(1) hue-rotate(180deg);
 	-webkit-filter: invert(1) hue-rotate(180deg);
 
@@ -506,19 +506,22 @@ body[data-bg="wallpaper"] .tooltip-text {
 	overflow-y: scroll;
 	scroll-behavior: smooth;
 	box-sizing: border-box;
-	z-index: 3; /* This should be higher that z-index of [.googleAppsCont] */
+	z-index: 3;
+	/* This should be higher that z-index of [.googleAppsCont] */
 	transform-origin: top right;
 }
 
 /* Individual Icon Item Styling */
 .icon-item {
-	gap: 0.5rem; /* Item Gap*/
+	gap: 0.5rem;
+	/* Item Gap*/
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
 	padding: 10px;
 	border-radius: 15px;
+	border: 2px solid transparent;
 	transition:
 		transform 0.3s ease,
 		background-color 0.3s ease;
@@ -538,27 +541,14 @@ body[data-bg="wallpaper"] .tooltip-text {
 	justify-content: center;
 }
 
-/* Label Styling */
+/* Label Styling — single label with ellipsis truncation */
 .label {
 	font-size: 14px;
 	color: var(--textColorDark-blue);
-}
-
-/* Short Label (Default) */
-.label.short {
-	display: block;
-}
-
-/* Full Label (Hidden by Default) */
-.label.full {
-	display: none;
-	white-space: pre-line;
-	/* Ensure text retains line breaks */
-	text-align: center;
-	/* Center align text */
-	position: absolute;
-	font-size: 0.8rem;
-	bottom: 0;
+	max-width: 90px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 /* Hover Effect for Icon Item */
@@ -572,19 +562,11 @@ body[data-bg="wallpaper"] .tooltip-text {
 	transform: translateY(-4px);
 }
 
-/* Show Full Label on Hover for Multi-word Labels */
-.icon-item:hover .label.full {
-	display: block;
-}
-
-.icon-item:hover .label.short {
-	display: block;
-	/* Ensure single-word labels remain visible */
-}
-
-.icon-item:hover .label.short.one {
-	display: none;
-	/* Ensure single-word labels remain visible */
+/* Expand label on hover to show full name */
+.icon-item:hover .label {
+	white-space: normal;
+	overflow: visible;
+	word-break: break-word;
 }
 
 /* Customize scrollbar to appear on the border */
@@ -615,6 +597,309 @@ body[data-bg="wallpaper"] .tooltip-text {
 		scrollbar-color: var(--darkColor-blue) transparent;
 	}
 }
+
+/* --- Google Apps Header --- */
+.gapps-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	grid-column: span 3;
+	width: 100%;
+	padding: 0 6px 4px;
+	box-sizing: border-box;
+}
+
+.gapps-header-title {
+	font-size: 1rem;
+	font-weight: 800;
+	color: var(--textColorDark-blue);
+	letter-spacing: 0.02em;
+	opacity: 0.7;
+}
+
+.gapps-edit-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	border: none;
+	background-color: var(--bg-color-blue);
+	color: var(--darkColor-blue);
+	cursor: pointer;
+	transition:
+		background-color 0.2s ease,
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
+	padding: 0;
+	flex-shrink: 0;
+}
+
+.gapps-edit-btn:hover {
+	transform: scale(1.1);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.gapps-edit-btn:active {
+	transform: scale(0.95);
+}
+
+.gapps-edit-btn.active {
+	background-color: var(--darkerColor-blue);
+	box-shadow: 0 0 0 2px var(--accentLightTint-blue);
+}
+
+.gapps-edit-btn svg {
+	fill: currentColor;
+	pointer-events: none;
+}
+
+/* --- Edit Mode: Cancel / Done Actions --- */
+.gapps-edit-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-inline-start: auto;
+}
+
+.gapps-cancel-btn,
+.gapps-done-btn {
+	border: none;
+	background: none;
+	font-size: 0.85rem;
+	font-weight: 600;
+	cursor: pointer;
+	padding: 4px 10px;
+	border-radius: 16px;
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease;
+}
+
+.gapps-cancel-btn {
+	color: var(--textColorDark-blue);
+	opacity: 0.7;
+}
+
+.gapps-cancel-btn:hover {
+	background-color: var(--bg-color-blue);
+	opacity: 1;
+}
+
+.gapps-done-btn {
+	color: var(--darkColor-blue);
+	font-weight: 700;
+}
+
+.gapps-done-btn:hover {
+	background-color: var(--bg-color-blue);
+}
+
+/* --- Favorites & Others Grids --- */
+.gapps-favorites-grid,
+.gapps-others-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+	width: 100%;
+	justify-items: center;
+}
+
+.gapps-favorites-grid {
+	grid-column: span 3;
+}
+
+.gapps-others-grid {
+	grid-column: span 3;
+}
+
+/* --- Edit Mode: Item Overlays --- */
+.icon-item.editing {
+	cursor: default;
+	position: relative;
+}
+
+.icon-item.editing::after {
+	content: "";
+	position: absolute;
+	inset: -2px;
+	border-radius: 15px;
+	border: 2px dashed var(--darkColor-blue);
+	opacity: 0.3;
+	pointer-events: none;
+}
+
+/* Remove from favorites button */
+.gapps-remove-btn {
+	position: absolute;
+	top: 2px;
+	inset-inline-end: 2px;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	border: none;
+	background-color: #d93025;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	z-index: 5;
+	padding: 0;
+	transition:
+		transform 0.15s ease,
+		background-color 0.15s ease;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	animation: gapps-btn-pop 200ms ease-out;
+}
+
+.gapps-remove-btn:hover {
+	transform: scale(1.15);
+	background-color: #c5221f;
+}
+
+.gapps-remove-btn svg {
+	fill: currentColor;
+	pointer-events: none;
+}
+
+/* Add to favorites button */
+.gapps-add-btn {
+	position: absolute;
+	top: 2px;
+	inset-inline-end: 2px;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	border: none;
+	background-color: #1a73e8;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	z-index: 5;
+	padding: 0;
+	transition:
+		transform 0.15s ease,
+		background-color 0.15s ease;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	animation: gapps-btn-pop 200ms ease-out;
+}
+
+.gapps-add-btn:hover {
+	transform: scale(1.15);
+	background-color: #1765cc;
+}
+
+.gapps-add-btn svg {
+	fill: currentColor;
+	pointer-events: none;
+}
+
+/* Hide/Show toggle button */
+.gapps-hide-btn {
+	position: absolute;
+	top: 2px;
+	inset-inline-start: 2px;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	border: none;
+	background-color: var(--darkColor-blue);
+	color: rgba(255, 255, 255, 0.9);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	z-index: 5;
+	padding: 0;
+	transition:
+		transform 0.15s ease,
+		opacity 0.15s ease;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+	animation: gapps-btn-pop 200ms ease-out;
+}
+
+.gapps-hide-btn:hover {
+	transform: scale(1.15);
+}
+
+.gapps-hide-btn svg {
+	fill: currentColor;
+	pointer-events: none;
+}
+
+/* Hidden app style */
+.icon-item.hidden-app {
+	opacity: 0.35;
+}
+
+.icon-item.hidden-app:hover {
+	opacity: 0.6;
+}
+
+/* Keep unhide (show) button fully visible on hidden apps */
+.icon-item.hidden-app .gapps-hide-btn {
+	opacity: 1;
+	/* Override parent's reduced opacity to keep the button actionable-looking */
+	filter: brightness(calc(1 / 0.35));
+}
+
+/* --- Drag & Drop States --- */
+.icon-item.dragging {
+	opacity: 0.4;
+	transform: scale(0.95);
+	transition:
+		opacity 0.2s ease,
+		transform 0.2s ease;
+}
+
+.icon-item.drag-over {
+	background-color: var(--bg-color-blue);
+	background-color: color-mix(
+		in srgb,
+		var(--bg-color-blue) var(--transparency),
+		transparent
+	);
+	border-radius: 15px;
+	box-shadow: inset 0 0 0 2px var(--darkColor-blue);
+}
+
+/* Edit mode cursor for draggable items */
+.edit-mode .gapps-favorites-grid .icon-item {
+	cursor: grab;
+}
+
+.edit-mode .gapps-favorites-grid .icon-item:active {
+	cursor: grabbing;
+}
+
+/* --- Button Pop Animation --- */
+@keyframes gapps-btn-pop {
+	0% {
+		transform: scale(0);
+		opacity: 0;
+	}
+
+	60% {
+		transform: scale(1.2);
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+/* --- Edit mode container tweaks --- */
+.icon-container.edit-mode .separator {
+	border-top: 1px dashed var(--darkColor-blue);
+	background-color: transparent;
+	opacity: 0.4;
+}
+
 /* ----------------- End of Google App Menu ----------------- */
 
 /* ----------------- Start of Bookmark System ----------------- */
@@ -779,7 +1064,8 @@ body #bookmarkButton.bookmark-button.rotate {
 	border: none;
 	color: var(--textColorDark-blue);
 	cursor: pointer;
-	display: none; /* Hidden by default */
+	display: none;
+	/* Hidden by default */
 }
 
 #bookmarkList {
@@ -788,7 +1074,8 @@ body #bookmarkButton.bookmark-button.rotate {
 	margin: 0;
 	text-align: start;
 	height: calc(100% - 242px);
-	overflow-y: auto; /* Add vertical scrollbar */
+	overflow-y: auto;
+	/* Add vertical scrollbar */
 	scroll-behavior: smooth;
 	overflow-x: hidden;
 }
@@ -822,7 +1109,8 @@ body #bookmarkButton.bookmark-button.rotate {
 .bookmark-controls-container {
 	display: flex;
 	justify-content: space-between;
-	gap: 40px; /* Space between Sort by and View as sections */
+	gap: 40px;
+	/* Space between Sort by and View as sections */
 	padding: 6px 32px;
 }
 
@@ -1003,12 +1291,15 @@ body #bookmarkButton.bookmark-button.rotate {
 
 .ui {
 	display: block;
-	pointer-events: none; /* Make ui class button unclickable */
+	pointer-events: none;
+	/* Make ui class button unclickable */
 }
 
 .folder svg {
-	margin-inline-end: 5px; /* Adjust this value for more or less space */
-	vertical-align: middle; /* Aligns the icon with the text */
+	margin-inline-end: 5px;
+	/* Adjust this value for more or less space */
+	vertical-align: middle;
+	/* Aligns the icon with the text */
 }
 
 .folder.open > ul {
@@ -1043,7 +1334,8 @@ body #bookmarkButton.bookmark-button.rotate {
 	color: var(--darkColor-blue);
 	cursor: pointer;
 	position: absolute;
-	inset-inline-end: 10px; /* Position it to the right */
+	inset-inline-end: 10px;
+	/* Position it to the right */
 	top: 50%;
 	transform: translateY(-50%);
 	opacity: 0;
@@ -1166,6 +1458,7 @@ body #bookmarkButton.bookmark-button.rotate {
 #editBookmarkModal button:hover {
 	background: var(--darkerColor-blue);
 }
+
 /* ----------------- End of Bookmark System ----------------- */
 
 /* ------------------ To Do List Section -------------------- */
@@ -1248,6 +1541,7 @@ body #bookmarkButton.bookmark-button.rotate {
 		transform: scale(0.8);
 		opacity: 0;
 	}
+
 	to {
 		transform: scale(1);
 		opacity: 1;
@@ -1926,6 +2220,7 @@ body[data-bg="wallpaper"] .humidityBar .thinLine {
 	border-bottom: 0;
 	padding: 8px 4px 6px;
 }
+
 /* End of _____________________- */
 
 /* ------------Weather Pill------------- */
@@ -2268,8 +2563,10 @@ body[data-bg="wallpaper"] .aiModeIcon::before {
 	position: relative;
 	display: flex;
 	font-size: 1rem;
-	z-index: 2; /* Ensures it's above the engines container */
-	overflow: hidden; /* Prevents child elements from overflowing outside */
+	z-index: 2;
+	/* Ensures it's above the engines container */
+	overflow: hidden;
+	/* Prevents child elements from overflowing outside */
 	max-width: 100%;
 }
 
@@ -2333,6 +2630,7 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 		transform: translateX(20px);
 		opacity: 0.2;
 	}
+
 	to {
 		transform: translateX(0);
 		opacity: 1;
@@ -2399,7 +2697,8 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 	position: relative;
 	display: flex;
 	font-size: 1rem;
-	direction: ltr; /* Remove when multilingual quote is supported */
+	direction: ltr;
+	/* Remove when multilingual quote is supported */
 	unicode-bidi: isolate;
 }
 
@@ -2815,12 +3114,15 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	overflow-x: scroll;
 	overflow-y: hidden;
 	scroll-behavior: smooth;
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none;
+	/* Firefox */
+	-ms-overflow-style: none;
+	/* IE and Edge */
 }
 
 .aiToolsCont::-webkit-scrollbar {
-	display: none; /* Chrome, Safari, Edge, Opera */
+	display: none;
+	/* Chrome, Safari, Edge, Opera */
 }
 
 .aiToolsCont .hangno {
@@ -2899,6 +3201,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont::before {
 	color: var(--textColorDark-blue);
 	font-size: 1rem;
 	transition: all 0.3s ease;
+
 	& div {
 		text-wrap-mode: nowrap;
 	}
@@ -2988,8 +3291,10 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 }
 
 .ai-settings-modal .ai-tools-list #aiToolsForm .ai-tool-option {
-	margin-block: 0 10px; /* top and bottom */
-	margin-inline: 0 4px; /* start and end */
+	margin-block: 0 10px;
+	/* top and bottom */
+	margin-inline: 0 4px;
+	/* start and end */
 	padding: 10px 16px;
 	display: flex;
 	justify-content: space-between;
@@ -3103,9 +3408,11 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	100% {
 		margin-left: 0;
 	}
+
 	25% {
 		margin-left: -1px;
 	}
+
 	75% {
 		margin-left: 1px;
 	}
@@ -3117,6 +3424,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 		background-color: var(--accentLightTint-blue);
 		transform: scale(1);
 	}
+
 	50% {
 		background-color: color-mix(
 			in srgb,
@@ -3126,6 +3434,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 		transform: scale(1.02);
 	}
 }
+
 /* -----------End of Ai-Tools---------- */
 
 /* ---------------Menu-bar-css---------------- */
@@ -3571,7 +3880,8 @@ input:checked + .toggle:before {
 	margin-top: 10px;
 
 	overflow: hidden;
-	max-height: 1000px; /* large enough */
+	max-height: 1000px;
+	/* large enough */
 	opacity: 1;
 	transition:
 		max-height 0.4s var(--md-motion-ease),
@@ -3653,6 +3963,7 @@ input:checked + .toggle:before {
 .black-theme body[data-bg="wallpaper"] .opacityBarControl {
 	border-top: 1px solid #ffffff1a;
 }
+
 /* ----------- End of section ------------ */
 
 .resetbtn {
@@ -3743,6 +4054,7 @@ input:checked + .toggle:before {
 	100% {
 		margin-left: 0;
 	}
+
 	50% {
 		margin-left: 3px;
 	}
@@ -3756,6 +4068,7 @@ input:checked + .toggle:before {
 	from {
 		transform: rotate(0deg);
 	}
+
 	to {
 		transform: rotate(-360deg);
 	}
@@ -4014,11 +4327,13 @@ input:checked + .toggle:before {
 	padding-inline-start: 20px;
 	font-size: 0.82rem;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
 	@-moz-document url-prefix() {
 		/* Scrollbar styles for Firefox */
 		scrollbar-width: thin;
 		scrollbar-color: var(--darkColor-blue) transparent;
 	}
+
 	transition: border 0.25s var(--md-motion-ease);
 }
 
@@ -4135,6 +4450,7 @@ option:checked {
 .themeSegment[data-active="dark"] .themeSegBtn[data-theme="dark"]::after {
 	content: none;
 }
+
 /* Segmented Control ended */
 
 .themingStuff {
@@ -4269,7 +4585,8 @@ option:checked {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: 9px; /* Space between SVG and text */
+	gap: 9px;
+	/* Space between SVG and text */
 	background-color: var(--whitishColor-blue);
 	color: var(--darkColor-blue);
 	width: -webkit-fill-available;
@@ -4400,6 +4717,7 @@ option:checked {
 .colorPickerLabel:hover {
 	background: var(--bg-color-blue);
 }
+
 /* <!-- ----End of Color Picker || ColorPicker---- --> */
 
 /* -----------End of theming stuff---------------- */
@@ -4642,10 +4960,12 @@ body[data-bg="wallpaper"] .dropdown-content {
 		transform: translateY(0);
 		opacity: 1;
 	}
+
 	45% {
 		transform: translateY(-15px);
 		opacity: 0;
 	}
+
 	55% {
 		transform: translateY(15px);
 		opacity: 0;
@@ -4659,10 +4979,12 @@ body[data-bg="wallpaper"] .dropdown-content {
 		transform: translateY(0);
 		opacity: 1;
 	}
+
 	45% {
 		transform: translateY(15px);
 		opacity: 0;
 	}
+
 	55% {
 		transform: translateY(-15px);
 		opacity: 0;
@@ -4758,9 +5080,11 @@ body[data-bg="wallpaper"] .dropdown-content {
 		margin-inline-start: var(--gap);
 		margin-inline-end: auto;
 	}
+
 	.shortcutsContainer {
 		row-gap: 2rem;
 	}
+
 	#shortcuts-section {
 		padding-inline-start: 30px;
 		margin: 0 auto;
@@ -4797,6 +5121,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	.clock-shifted-right {
 		transform: translateX(30px);
 	}
+
 	.clock-shifted-right-wide {
 		transform: translateX(100px);
 	}
@@ -4806,6 +5131,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	:root {
 		--gap: 1rem;
 	}
+
 	#shortcuts-section {
 		position: fixed;
 		bottom: 62px;
@@ -4814,21 +5140,26 @@ body[data-bg="wallpaper"] .dropdown-content {
 		overflow-x: scroll;
 		overflow-y: clip;
 	}
+
 	.shortcutsContainer {
 		max-width: none;
 		flex-wrap: nowrap;
 	}
+
 	#shortcuts-section .wrapper {
 		width: 100%;
 	}
+
 	#shortcuts-section:has(~ .menuBar #shortcut_switchcheckbox:checked)
 		.shortcutsContainer {
 		margin-top: 0;
 		flex-wrap: nowrap;
 	}
+
 	.menuBar {
 		--gap: 30px;
 	}
+
 	.centerDiv {
 		width: calc(100% - 4rem);
 		margin-bottom: 10rem;
@@ -4838,6 +5169,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 		align-items: center;
 		justify-content: center;
 	}
+
 	.leftDiv {
 		display: flex;
 		align-items: center;
@@ -4845,12 +5177,15 @@ body[data-bg="wallpaper"] .dropdown-content {
 		position: relative;
 		top: 30px;
 	}
+
 	.clock-hidden-left {
 		display: none;
 	}
+
 	.rightDiv {
 		scale: 0.75;
 	}
+
 	.ttteexxtt {
 		display: none;
 	}
@@ -4864,9 +5199,11 @@ body[data-bg="wallpaper"] .dropdown-content {
 		justify-content: start;
 		padding-top: 60px;
 	}
+
 	.menuBar {
 		top: 0;
 	}
+
 	.searchbar {
 		width: 94vw;
 		transform-origin: top left;
@@ -4879,12 +5216,14 @@ body[data-bg="wallpaper"] .dropdown-content {
 			min-width: 0;
 		}
 	}
+
 	.searchbar-content {
 		padding-inline-end: 0;
 	}
 	#enterBtn {
 		display: none;
 	}
+
 	#shortcuts-section {
 		height: auto;
 		position: relative;
@@ -4895,37 +5234,45 @@ body[data-bg="wallpaper"] .dropdown-content {
 		max-width: unset;
 		bottom: 0;
 	}
+
 	.todoListCont {
 		transform-origin: top left;
 		scale: 0.8;
 	}
+
 	.todo-container {
 		transform-origin: top left;
 		scale: 0.85;
 		position: fixed;
 	}
+
 	.googleAppsCont {
 		transform-origin: top right;
 		scale: 0.8;
 	}
+
 	.bookmark-button {
 		transform-origin: top right;
 		scale: 0.8;
 	}
+
 	.icon-container {
 		transform-origin: top right;
 		scale: 0.85;
 		position: fixed;
 	}
+
 	#menuButton {
 		transform-origin: bottom right;
 		scale: 0.8;
 	}
+
 	.aiToolsCont {
 		transform-origin: bottom left;
 		scale: 0.8;
 		max-width: calc(100% - 30px);
 	}
+
 	.leftDiv {
 		display: flex;
 		width: calc(100vw / 0.5);
@@ -4938,32 +5285,38 @@ body[data-bg="wallpaper"] .dropdown-content {
 		align-items: end;
 		justify-content: flex-start;
 	}
+
 	.clock .centerPoint {
 		width: calc(20% / 3);
 		height: calc(20% / 3);
 	}
+
 	.clock .centerPoint .sui {
 		height: 500%;
 		width: 100%;
 		top: -450%;
 		border-radius: 60px;
 	}
+
 	#hour {
 		height: 400%;
 		top: -350%;
 	}
+
 	#second::after {
 		width: 100%;
 		aspect-ratio: 1;
 		height: auto;
 		top: calc(-160% / 7);
 	}
+
 	#minute::after,
 	#hour::after {
 		width: 100%;
 		aspect-ratio: 0.5;
 		height: auto;
 	}
+
 	#analogClock,
 	#digitalClock {
 		width: 45%;
@@ -4971,6 +5324,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 		aspect-ratio: 1;
 		height: auto;
 	}
+
 	.rightDiv {
 		scale: 0.5;
 		margin-top: -64px;
@@ -4997,9 +5351,11 @@ body[data-bg="wallpaper"] .dropdown-content {
 				transform-origin: center;
 			}
 		}
+
 		#temp {
 			font-size: 16vw;
 		}
+
 		#wIcon {
 			width: 25vw;
 			height: 25vw;
@@ -5007,73 +5363,93 @@ body[data-bg="wallpaper"] .dropdown-content {
 			margin-left: -13vw;
 		}
 	}
+
 	.toggleTextsCont .ttcont:has(#hideWeatherBox) {
 		display: flex;
 	}
+
 	.toggleTextsCont .ttcont:has(#hideClock) {
 		display: none;
 	}
+
 	.toggleTextsCont .ttcont:has(#shortcut_switchcheckbox) {
 		display: none;
 	}
+
 	.toggleTextsCont .ttcont:has(#motivationalQuotesCheckbox) {
 		display: none;
 	}
+
 	.quotesOptions,
 	.toggleTextsCont .ttcont:has(#newQuoteOnRefreshCheckbox) {
 		display: none;
 	}
+
 	.quotesContainer,
 	.authorWrapper {
 		display: none;
 	}
+
 	.searchbar .searchIcon:nth-of-type(1) {
 		display: none !important;
 	}
+
 	.searchbar .searchIcon:nth-of-type(2) {
 		display: block !important;
 	}
+
 	.centerDiv:has(~ .menuBar #digitalCheckbox:checked) {
 		& .leftDiv {
 			margin-top: -6vw;
 		}
+
 		& .rAndakar {
 			scale: 0.8;
 		}
 	}
+
 	.centerDiv:has(~ .menuBar #hideWeatherCard:checked) .topDiv .lrectangle {
 		display: none;
 	}
+
 	.centerDiv {
 		position: relative;
 		margin-bottom: 6rem;
 		padding-top: 0;
 	}
+
 	.resultBox {
 		scale: 1.5;
 		width: calc(94vw / 0.75);
 		margin-left: calc(320px - 94vw);
 		transform-origin: top left;
+
 		&:dir(rtl) {
 			margin-right: calc(320px - 31vw);
 		}
 	}
+
 	.resultBox {
 		top: 120px;
 		bottom: unset;
 	}
+
 	.resultBox.show {
 		transform: translateY(36px);
 	}
+
 	.searchWithCont {
 		display: none !important;
 	}
+
 	.searchEnginesContainer {
 		display: none;
 	}
+
 	.shortcutsContainer[style="display: none;"] {
 		display: flex !important;
 	}
+
 	.hangno:has(
 		+ :is(
 			.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
@@ -5083,12 +5459,14 @@ body[data-bg="wallpaper"] .dropdown-content {
 		& .icon {
 			margin: 0;
 		}
+
 		& .label {
 			width: 0;
 			opacity: 0;
 			pointer-events: none;
 		}
 	}
+
 	.shortcutsContainer {
 		margin: 0;
 		width: fit-content;
@@ -5097,6 +5475,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 		max-width: unset;
 		padding: 20px 0;
 	}
+
 	#shortcuts-section {
 		padding-left: 30px;
 		overflow-x: scroll;
@@ -5106,9 +5485,11 @@ body[data-bg="wallpaper"] .dropdown-content {
 		max-width: unset;
 		left: 0;
 	}
+
 	#shortcuts-section .wrapper {
 		width: 100%;
 	}
+
 	#prompt-modal-container {
 		width: 86% !important;
 	}
@@ -5251,6 +5632,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 .black-theme .shortcutsContainer .shortcuts .shortcutLogoContainer {
 	background: radial-gradient(circle, #bfbfbf 66%, transparent 66%);
+
 	&:not(:has(svg)) {
 		background: var(--accentLightTint-blue);
 	}
@@ -5524,6 +5906,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme #dontShowTips:hover {
 	background-color: var(--accentLightTint-dark);
 }
+
 /* ---------------- End of Dark(Black) theme ---------------- */
 
 /* Alert & Confirm Modal */
@@ -5620,6 +6003,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 	outline: 2px solid var(--darkerColor-blue);
 	outline-offset: 3px;
 }
+
 /* ---------------- End of Alert & Confirm Modal ---------------- */
 
 .tips {
@@ -5862,4 +6246,5 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme .toast-close svg {
 	color: var(--darkColor-dark);
 }
+
 /* ------------ End of Toast---------- */
