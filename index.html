@@ -205,13 +205,17 @@
     <div id="iconContainer" class="icon-container" style="display: none;">
         <!-- Favorites header -->
         <div class="gapps-header">
-            <span class="gapps-header-title" id="gappsHeaderTitle">Google Apps</span>
+            <span class="gapps-header-title" id="gappsHeaderTitle">Your favorites</span>
             <button class="gapps-edit-btn" id="gappsEditBtn" title="Edit favorites">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
                     <path fill="currentColor"
                         d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z" />
                 </svg>
             </button>
+            <div class="gapps-edit-actions" id="gappsEditActions" style="display: none;">
+                <button class="gapps-cancel-btn" id="gappsCancelBtn">Cancel</button>
+                <button class="gapps-done-btn" id="gappsDoneBtn">Done</button>
+            </div>
         </div>
 
         <!-- Favorites grid (drag-and-drop enabled) -->

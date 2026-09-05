@@ -521,6 +521,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 	text-align: center;
 	padding: 10px;
 	border-radius: 15px;
+	border: 2px solid transparent;
 	transition:
 		transform 0.3s ease,
 		background-color 0.3s ease;
@@ -540,27 +541,14 @@ body[data-bg="wallpaper"] .tooltip-text {
 	justify-content: center;
 }
 
-/* Label Styling */
+/* Label Styling — single label with ellipsis truncation */
 .label {
 	font-size: 14px;
 	color: var(--textColorDark-blue);
-}
-
-/* Short Label (Default) */
-.label.short {
-	display: block;
-}
-
-/* Full Label (Hidden by Default) */
-.label.full {
-	display: none;
-	white-space: pre-line;
-	/* Ensure text retains line breaks */
-	text-align: center;
-	/* Center align text */
-	position: absolute;
-	font-size: 0.8rem;
-	bottom: 0;
+	max-width: 90px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 /* Hover Effect for Icon Item */
@@ -574,19 +562,11 @@ body[data-bg="wallpaper"] .tooltip-text {
 	transform: translateY(-4px);
 }
 
-/* Show Full Label on Hover for Multi-word Labels */
-.icon-item:hover .label.full {
-	display: block;
-}
-
-.icon-item:hover .label.short {
-	display: block;
-	/* Ensure single-word labels remain visible */
-}
-
-.icon-item:hover .label.short.one {
-	display: none;
-	/* Ensure single-word labels remain visible */
+/* Expand label on hover to show full name */
+.icon-item:hover .label {
+	white-space: normal;
+	overflow: visible;
+	word-break: break-word;
 }
 
 /* Customize scrollbar to appear on the border */
@@ -645,8 +625,8 @@ body[data-bg="wallpaper"] .tooltip-text {
 	height: 32px;
 	border-radius: 50%;
 	border: none;
-	background-color: var(--darkColor-blue);
-	color: rgba(255, 255, 255, 0.9);
+	background-color: var(--bg-color-blue);
+	color: var(--darkColor-blue);
 	cursor: pointer;
 	transition:
 		background-color 0.2s ease,
@@ -673,6 +653,47 @@ body[data-bg="wallpaper"] .tooltip-text {
 .gapps-edit-btn svg {
 	fill: currentColor;
 	pointer-events: none;
+}
+
+/* --- Edit Mode: Cancel / Done Actions --- */
+.gapps-edit-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-inline-start: auto;
+}
+
+.gapps-cancel-btn,
+.gapps-done-btn {
+	border: none;
+	background: none;
+	font-size: 0.85rem;
+	font-weight: 600;
+	cursor: pointer;
+	padding: 4px 10px;
+	border-radius: 16px;
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease;
+}
+
+.gapps-cancel-btn {
+	color: var(--textColorDark-blue);
+	opacity: 0.7;
+}
+
+.gapps-cancel-btn:hover {
+	background-color: var(--bg-color-blue);
+	opacity: 1;
+}
+
+.gapps-done-btn {
+	color: var(--darkColor-blue);
+	font-weight: 700;
+}
+
+.gapps-done-btn:hover {
+	background-color: var(--bg-color-blue);
 }
 
 /* --- Favorites & Others Grids --- */
@@ -702,7 +723,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 .icon-item.editing::after {
 	content: "";
 	position: absolute;
-	inset: 0;
+	inset: -2px;
 	border-radius: 15px;
 	border: 2px dashed var(--darkColor-blue);
 	opacity: 0.3;
@@ -817,6 +838,13 @@ body[data-bg="wallpaper"] .tooltip-text {
 
 .icon-item.hidden-app:hover {
 	opacity: 0.6;
+}
+
+/* Keep unhide (show) button fully visible on hidden apps */
+.icon-item.hidden-app .gapps-hide-btn {
+	opacity: 1;
+	/* Override parent's reduced opacity to keep the button actionable-looking */
+	filter: brightness(calc(1 / 0.35));
 }
 
 /* --- Drag & Drop States --- */
