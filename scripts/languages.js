@@ -152,6 +152,8 @@ function applyLanguage(lang) {
         "aiModeIconInfo",
         "hideSearchWith",
         "hideSearchWithInfo",
+        "moveSearchUpText",
+        "moveSearchUpInfo",
         "motivationalQuotesText",
         "motivationalQuotesInfo",
         "newQuoteOnRefreshText",
