@@ -105,7 +105,7 @@ async function initializeClock() {
     // Initialize cumulative rotations
     cumulativeSecondRotation = initialSeconds * 6;
     cumulativeMinuteRotation = initialMinutes * 6 + (initialSeconds / 10);
-    cumulativeHourRotation = (30 * initialHours + initialMinutes / 2);
+    cumulativeHourRotation = (30 * (initialHours % 12) + initialMinutes / 2);
 
     // Apply initial rotations (no need to wait 1s now).
     // When open animations are off, snap the hands into place with no entrance sweep.
