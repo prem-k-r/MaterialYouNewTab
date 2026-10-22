@@ -70,6 +70,7 @@ const ko = {
     "micIconTitle": "마이크 아이콘 숨기기",
     "micIconInfo": "음성 입력이 안 될 때",
     "aiModeIconInfo": "구글 AI 검색 버튼 숨기기",
+    "aiModeIconTitle": "Google AI 검색 버튼 숨기기",
     "hideSearchWith": "검색 엔진 숨기기",
     "hideSearchWithInfo": "아이콘을 클릭해서 검색 엔진 바꾸기",
     "motivationalQuotesText": "동기부여 명언",
@@ -199,7 +200,7 @@ const ko = {
     // Footer Toast
     "footerToastTitle": "하단에 배너가 보이시나요?",
     "footerToastMessage": "배너를 없애려면 오른쪽 마우스 클릭 후 '새 탭의 하단바 숨기기'를 누르세요.",
-    
+
     // Dialog boxes (alerts)
     "okText": "확인",
     "yesText": "예",
