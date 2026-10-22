@@ -270,11 +270,11 @@ Contributions are welcome! If you’d like to contribute:
 
 Here is the star history chart for the **MYNT: Material You New Tab** repository. It shows the growth of stars over time, reflecting the increasing interest and support for the project.
 
-<a href="https://star-history.dera.page/#prem-k-r/MaterialYouNewTab&type=Date">
+<a href="https://star-history.dera.page/prem-k-r/MaterialYouNewTab">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=prem-k-r/MaterialYouNewTab&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=prem-k-r/MaterialYouNewTab&type=Date" />
-    <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=prem-k-r/MaterialYouNewTab&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=prem-k-r/MaterialYouNewTab&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=prem-k-r/MaterialYouNewTab" />
+    <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=prem-k-r/MaterialYouNewTab" />
   </picture>
 </a>
 
