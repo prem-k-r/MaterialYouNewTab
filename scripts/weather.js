@@ -183,7 +183,7 @@ async function getWeatherData() {
                 toggleAutocomplete();
             }
         } catch (error) {
-            console.error("Error fetching location suggestions:", error);
+            console.warn("Unable to fetch location suggestions:", error);
             suggestions = [];
             toggleAutocomplete();
         }
@@ -327,7 +327,7 @@ async function getWeatherData() {
             const { latitude, longitude } = await getLocationFromGPS();
             return `${latitude},${longitude}`;
         } catch (error) {
-            console.error("Failed to retrieve GPS Location:", error);
+            console.warn("Unable to retrieve GPS location:", error);
         }
     }
 
@@ -347,7 +347,7 @@ async function getWeatherData() {
             // Fetch weather data
             fetchWeather();
         } catch (error) {
-            console.error("Failed to retrieve IP-based location:", error);
+            console.warn("Unable to retrieve IP-based location:", error);
             currentUserLocation = "auto:ip";
             fetchWeather();
         }
@@ -591,7 +591,7 @@ async function getWeatherData() {
                 });
             }
         } catch (error) {
-            console.error("Error fetching weather data:", error);
+            console.warn("Unable to fetch weather data:", error);
         }
     }
 }

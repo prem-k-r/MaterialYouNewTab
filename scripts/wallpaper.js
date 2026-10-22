@@ -151,7 +151,7 @@ function checkAndUpdateImage() {
 
         })
         .catch((error) => {
-            console.error("Error loading image details:", error);
+            console.warn("Unable to load image details:", error);
             toggleBackgroundType(false);
         });
 }
