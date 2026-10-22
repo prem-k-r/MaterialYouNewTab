@@ -213,21 +213,30 @@ async function initializeClock() {
     function updateanalogclock() {
         var currentTime = new Date();
         var currentSeconds = currentTime.getSeconds();
+        var currentMilliseconds = currentTime.getMilliseconds();
         var currentMinutes = currentTime.getMinutes();
         var currentHours = currentTime.getHours();
 
         // Calculate the new rotation values
-        let newSecondRotation = currentSeconds * 6; // 6° per second
+        let newSecondRotation = (currentSeconds + (currentMilliseconds / 1000)) * 6; // 6° per second with millisecond precision
         let newMinuteRotation = currentMinutes * 6 + (currentSeconds / 10); // 6° per minute + adjustment for seconds
         let newHourRotation = (30 * (currentHours % 12) + currentMinutes / 2); // 30° per hour + adjustment for minutes, 12-hour cycle
 
         // Define reset conditions
-        const secondReset = currentSeconds === 0;
         const minuteReset = currentMinutes === 0 && currentSeconds === 0;
         const hourReset = currentHours % 12 === 0 && currentMinutes === 0 && currentSeconds === 0;
 
-        // Update each hand using the helper function
-        cumulativeSecondRotation = updateHandRotation("second", newSecondRotation, cumulativeSecondRotation, secondReset);
+        // Update second hand continuously while preserving forward motion across minute boundaries
+        const currentSecondTurn = Math.floor(cumulativeSecondRotation / 360) * 360;
+        let continuousSecondRotation = currentSecondTurn + newSecondRotation;
+        if (!isFirstLoad && continuousSecondRotation < cumulativeSecondRotation)
+            continuousSecondRotation += 360;
+
+        cumulativeSecondRotation = continuousSecondRotation;
+        document.getElementById("second").style.transition = "transform 0.05s linear";
+        document.getElementById("second").style.transform = `rotate(${cumulativeSecondRotation}deg)`;
+
+        // Keep existing smooth behavior for minute and hour hands
         cumulativeMinuteRotation = updateHandRotation("minute", newMinuteRotation, cumulativeMinuteRotation, minuteReset);
         cumulativeHourRotation = updateHandRotation("hour", newHourRotation, cumulativeHourRotation, hourReset);
 
@@ -407,7 +416,7 @@ async function initializeClock() {
     // Function to start the analog clock
     function startAnalogClock() {
         if (!analogIntervalId) { // Only set interval if not already set
-            analogIntervalId = setInterval(updateanalogclock, 500);
+            analogIntervalId = setInterval(updateanalogclock, 50);
         }
     }
 
