@@ -1867,7 +1867,7 @@ body[data-bg="wallpaper"] .opacityBarControl {
 		visibility 0s linear 0.35s;
 }
 
-body[data-bg="wallpaper"] .wallpaperOptionRow {
+body[data-bg-type="random"] .wallpaperOptionRow {
 	opacity: 1;
 	visibility: visible;
 	pointer-events: auto;
@@ -1882,12 +1882,17 @@ body[data-bg="wallpaper"] .wallpaperOptionRow {
 		visibility 0s linear 0s;
 }
 
-body[data-bg="wallpaper"] .wallpaperOptionRow:last-child {
+body[data-bg-type="random"] .wallpaperOptionRow:last-child {
 	border-bottom: none !important;
 }
 
-.black-theme body[data-bg="wallpaper"] .wallpaperOptionRow {
+.black-theme body[data-bg-type="random"] .wallpaperOptionRow {
 	border-bottom: 1px solid #ffffff1a;
+}
+
+/* When custom wallpaper is uploaded, opacity bar is the bottom-most item in the card */
+body[data-bg-type="upload"] .opacityBarControl {
+	border-bottom-color: transparent !important;
 }
 
 #randomWallpaperRow {

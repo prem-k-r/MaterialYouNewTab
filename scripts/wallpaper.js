@@ -14,6 +14,7 @@ const timestampKey = "lastUpdateTime"; // Key to store last update time
 const imageTypeKey = "imageType"; // Key to store the type of image ("random" or "upload")
 
 let currentBgUrl = null;
+let pendingSavePromise = null;
 
 // To set background image using a Blob
 function setBackground(blob, bgType) {
@@ -105,10 +106,14 @@ async function clearImageFromIndexedDB() {
 document.getElementById("imageUpload").addEventListener("change", function (event) {
     const file = event.target.files[0];
     if (file) {
-        setBackground(file, "upload");
+        const blob = file.slice(0, file.size, file.type);
+        setBackground(blob, "upload");
         updateWallpaperSourceUI(null);
-        saveImageToIndexedDB(file, false).catch(error => console.error("Error saving image:", error));
+        pendingSavePromise = saveImageToIndexedDB(blob, false)
+            .catch(error => console.error("Error saving image:", error))
+            .finally(() => { pendingSavePromise = null; });
     }
+    event.target.value = "";
 });
 
 // Helper to get wallpaper fetch configuration based on quality and source
@@ -219,7 +224,7 @@ function updateBackgroundType(bgType) {
     ];
     optionControls.forEach((ctrl) => {
         if (ctrl) {
-            if (!hasWallpaper) {
+            if (!isRandom) {
                 ctrl.setAttribute("tabindex", "-1");
                 ctrl.setAttribute("aria-hidden", "true");
             } else {
@@ -307,8 +312,17 @@ document.getElementById("uploadTrigger").addEventListener("click", () =>
 
 document.getElementById("clearImage").addEventListener("click", async function () {
     try {
+        if (pendingSavePromise) {
+            try {
+                await pendingSavePromise;
+            } catch (e) {
+                console.warn("Pending save error:", e);
+            }
+        }
+
+        const hasBgSet = currentBgUrl || document.body.getAttribute("data-bg") === "wallpaper";
         const [blob] = await loadImageAndDetails();
-        if (!blob) {
+        if (!blob && !hasBgSet) {
             await alertPrompt(translations[currentLanguage]?.Nobackgroundset || translations["en"].Nobackgroundset);
             return;
         }
@@ -324,6 +338,8 @@ document.getElementById("clearImage").addEventListener("click", async function (
                 document.body.style.removeProperty("--bg-image");
                 updateBackgroundType("color");
                 updateWallpaperSourceUI(null);
+                const fileInput = document.getElementById("imageUpload");
+                if (fileInput) fileInput.value = "";
             } catch (error) {
                 console.error(error);
             }
