@@ -1765,7 +1765,7 @@
                                     </div>
 
                                     <!-- Random Wallpaper Row -->
-                                    <div class="ttcont wallpaperRow">
+                                    <div class="ttcont wallpaperRow" id="randomWallpaperRow">
                                         <div class="texts">
                                             <div class="bigText" id="randomWallpaperTitle">Random Wallpaper</div>
                                         </div>
@@ -1814,7 +1814,7 @@
                                             <div class="bigText" id="wallpaperQualityTitle">Quality</div>
                                             <div class="infoText" id="wallpaperQualityDesc">Select preferred image resolution</div>
                                         </div>
-                                        <select class="m3Select" id="wallpaperQuality">
+                                        <select class="m3Select" id="wallpaperQuality" tabindex="-1" aria-hidden="true">
                                             <option value="720p">720p (HD)</option>
                                             <option value="1080p" selected>1080p (FHD)</option>
                                             <option value="original">Original</option>
@@ -1827,7 +1827,7 @@
                                             <div class="bigText" id="wallpaperSourceSelectTitle">Source</div>
                                             <div class="infoText" id="wallpaperSourceSelectDesc">Choose the service for randomized image</div>
                                         </div>
-                                        <select class="m3Select" id="wallpaperSourceSelect">
+                                        <select class="m3Select" id="wallpaperSourceSelect" tabindex="-1" aria-hidden="true">
                                             <option value="picsum">Picsum</option>
                                             <option value="bing">Bing</option>
                                             <option value="unsplash">Unsplash</option>
@@ -1841,7 +1841,7 @@
                                             <div class="infoText" id="wallpaperAttributionDesc">Show photographer name for randomized image</div>
                                         </div>
                                         <label class="switch">
-                                            <input id="showAttributionCheckbox" type="checkbox">
+                                            <input id="showAttributionCheckbox" type="checkbox" tabindex="-1" aria-hidden="true">
                                             <span class="toggle"></span>
                                         </label>
                                     </div>

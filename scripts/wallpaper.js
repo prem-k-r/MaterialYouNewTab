@@ -211,6 +211,23 @@ function updateBackgroundType(bgType) {
     if (randomToggle) {
         randomToggle.checked = localStorage.getItem("autoDailyWallpaper") !== "false";
     }
+
+    const optionControls = [
+        document.getElementById("wallpaperQuality"),
+        document.getElementById("wallpaperSourceSelect"),
+        document.getElementById("showAttributionCheckbox")
+    ];
+    optionControls.forEach((ctrl) => {
+        if (ctrl) {
+            if (!hasWallpaper) {
+                ctrl.setAttribute("tabindex", "-1");
+                ctrl.setAttribute("aria-hidden", "true");
+            } else {
+                ctrl.removeAttribute("tabindex");
+                ctrl.removeAttribute("aria-hidden");
+            }
+        }
+    });
 }
 
 // Helper function to validate Unsplash URLs

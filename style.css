@@ -1817,10 +1817,10 @@ html[lang="ta"] .digiclock {
 	overflow: hidden;
 	border-bottom: 1px solid transparent;
 	transition:
-		opacity 0.2s var(--md-motion-accelerate),
-		max-height 0.35s var(--md-motion-accelerate),
-		padding-bottom 0.35s var(--md-motion-accelerate),
-		border-color 0.2s var(--md-motion-accelerate);
+		opacity 0.15s var(--md-motion-accelerate),
+		max-height 0.3s var(--md-motion-accelerate) 0.05s,
+		padding-bottom 0.3s var(--md-motion-accelerate) 0.05s,
+		border-color 0.15s var(--md-motion-accelerate);
 }
 
 body[data-bg="wallpaper"] .opacityBarControl {
@@ -1847,6 +1847,56 @@ body[data-bg="wallpaper"] .opacityBarControl {
 
 .black-theme body[data-bg="wallpaper"] .opacityBarControl {
 	border-bottom: 1px solid #ffffff1a;
+}
+
+/* Wallpaper Options (Quality, Source, Attribution) */
+.wallpaperOptionRow {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	max-height: 0;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	overflow: hidden;
+	border-bottom: 1px solid transparent !important;
+	transition:
+		opacity 0.15s var(--md-motion-accelerate),
+		max-height 0.3s var(--md-motion-accelerate) 0.05s,
+		padding 0.3s var(--md-motion-accelerate) 0.05s,
+		border-color 0.15s var(--md-motion-accelerate),
+		visibility 0s linear 0.35s;
+}
+
+body[data-bg="wallpaper"] .wallpaperOptionRow {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+	max-height: 80px;
+	padding: 14px 4px !important;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+	transition:
+		opacity 0.3s var(--md-motion-decelerate) 0.05s,
+		max-height 0.35s var(--md-motion-decelerate),
+		padding 0.35s var(--md-motion-decelerate),
+		border-color 0.3s var(--md-motion-decelerate),
+		visibility 0s linear 0s;
+}
+
+body[data-bg="wallpaper"] .wallpaperOptionRow:last-child {
+	border-bottom: none !important;
+}
+
+.black-theme body[data-bg="wallpaper"] .wallpaperOptionRow {
+	border-bottom: 1px solid #ffffff1a;
+}
+
+#randomWallpaperRow {
+	transition: border-color 0.3s var(--md-motion-decelerate);
+}
+
+body:not([data-bg="wallpaper"]) #randomWallpaperRow {
+	border-bottom-color: transparent !important;
+	transition: border-color 0.15s var(--md-motion-accelerate);
 }
 
 .humidityBar,
