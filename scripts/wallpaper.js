@@ -105,12 +105,9 @@ async function clearImageFromIndexedDB() {
 document.getElementById("imageUpload").addEventListener("change", function (event) {
     const file = event.target.files[0];
     if (file) {
-        saveImageToIndexedDB(file, false)
-            .then(() => {
-                setBackground(file, "upload");
-                updateWallpaperSourceUI(null);
-            })
-            .catch(error => console.error(error));
+        setBackground(file, "upload");
+        updateWallpaperSourceUI(null);
+        saveImageToIndexedDB(file, false).catch(error => console.error("Error saving image:", error));
     }
 });
 
@@ -186,7 +183,28 @@ function updateBackgroundType(bgType) {
     
     const downloadBtn = document.getElementById("downloadWallpaper");
     if (downloadBtn) {
-        downloadBtn.setAttribute("aria-disabled", bgType === "random" ? "false" : "true");
+        const isRandom = bgType === "random";
+        downloadBtn.classList.toggle("hidden", !isRandom);
+        if (!isRandom) {
+            downloadBtn.setAttribute("tabindex", "-1");
+            downloadBtn.setAttribute("aria-hidden", "true");
+        } else {
+            downloadBtn.removeAttribute("tabindex");
+            downloadBtn.removeAttribute("aria-hidden");
+        }
+    }
+
+    const clearBtn = document.getElementById("clearImage");
+    if (clearBtn) {
+        const hasWallpaper = bgType !== "color";
+        clearBtn.classList.toggle("hidden", !hasWallpaper);
+        if (!hasWallpaper) {
+            clearBtn.setAttribute("tabindex", "-1");
+            clearBtn.setAttribute("aria-hidden", "true");
+        } else {
+            clearBtn.removeAttribute("tabindex");
+            clearBtn.removeAttribute("aria-hidden");
+        }
     }
 
     const randomToggle = document.getElementById("randomWallpaperToggle");
@@ -348,10 +366,6 @@ async function downloadWallpaper() {
     try {
         const [blob, savedTimestamp, imageType, infoData] = await loadImageAndDetails();
         if (!blob || imageType !== "random") {
-            const randomText = translations[currentLanguage]?.randomWallpaperText || translations["en"].randomWallpaperText || "Random Wallpaper";
-            const baseAlertMsg = translations[currentLanguage]?.downloadOnlyRandomWallpaper || translations["en"].downloadOnlyRandomWallpaper || "This feature only works with a random wallpaper.";
-            const alertMsg = baseAlertMsg.replace("{randomWallpaper}", randomText);
-            await alertPrompt(alertMsg);
             return;
         }
 

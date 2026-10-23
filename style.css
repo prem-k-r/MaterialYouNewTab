@@ -1809,21 +1809,22 @@ html[lang="ta"] .digiclock {
 
 .opacityBarControl {
 	opacity: 0;
-	transform: translateY(20px);
 	pointer-events: none;
 	position: relative;
 	height: auto;
 	max-height: 0;
+	padding-bottom: 0;
 	overflow: hidden;
+	border-bottom: 1px solid transparent;
 	transition:
-		opacity 0.3s ease,
-		transform 0.5s ease,
-		max-height 0.4s ease;
+		opacity 0.2s var(--md-motion-accelerate),
+		max-height 0.35s var(--md-motion-accelerate),
+		padding-bottom 0.35s var(--md-motion-accelerate),
+		border-color 0.2s var(--md-motion-accelerate);
 }
 
 body[data-bg="wallpaper"] .opacityBarControl {
 	opacity: 1;
-	transform: translateY(0);
 	pointer-events: auto;
 	max-height: 180px;
 	overflow: hidden;
@@ -1831,6 +1832,11 @@ body[data-bg="wallpaper"] .opacityBarControl {
 	border-top: none;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 	padding-bottom: 14px;
+	transition:
+		opacity 0.3s var(--md-motion-decelerate) 0.05s,
+		max-height 0.35s var(--md-motion-decelerate),
+		padding-bottom 0.35s var(--md-motion-decelerate),
+		border-color 0.3s var(--md-motion-decelerate);
 }
 
 .opacityBarControl .ttcont {
@@ -4321,9 +4327,47 @@ option:checked {
 	background-color: var(--darkColor-blue);
 }
 
-body:not([data-bg="wallpaper"]) .destructiveBtn {
-	display: none !important;
+/* --------- .clearButton show/hide animation ------------- */
+
+.clearButton {
+	opacity: 1;
+	transform: scale(1);
+	transform-origin: center center;
+	overflow: hidden;
+	transition:
+		width 0.35s var(--md-motion-decelerate),
+		margin-inline-start 0.35s var(--md-motion-decelerate),
+		padding 0.35s var(--md-motion-decelerate),
+		opacity 0.3s var(--md-motion-decelerate) 0.05s,
+		transform 0.35s var(--md-motion-decelerate),
+		background-color 0.25s ease,
+		color 0.25s ease;
 }
+
+.clearButton svg {
+	flex-shrink: 0;
+	min-width: 18px;
+}
+
+.clearButton.hidden,
+body:not([data-bg="wallpaper"]) .clearButton {
+	width: 0;
+	margin-inline-start: -8px;
+	padding: 0;
+	opacity: 0;
+	transform: scale(0.5);
+	pointer-events: none;
+	box-shadow: none;
+	transition:
+		opacity 0.15s var(--md-motion-accelerate),
+		transform 0.2s var(--md-motion-accelerate),
+		width 0.3s var(--md-motion-accelerate) 0.1s,
+		margin-inline-start 0.3s var(--md-motion-accelerate) 0.1s,
+		padding 0.3s var(--md-motion-accelerate) 0.1s,
+		background-color 0.25s ease;
+}
+
+/* --------- End of .clearButton ------------- */
 
 /* Material 3 Pill Button */
 .m3PillButton {
@@ -6010,32 +6054,44 @@ body[data-bg="color"] #wallpaperSource {
 }
 /* ------------ End of Toast---------- */
 
-/* Disabled style for the download button when not using a random wallpaper */
+/* --------- .downloadButton show/hide animation ------------- */
+
+.downloadButton {
+	opacity: 1;
+	transform: scale(1);
+	transform-origin: center center;
+	overflow: hidden;
+	transition:
+		width 0.35s var(--md-motion-decelerate),
+		margin-inline-end 0.35s var(--md-motion-decelerate),
+		padding 0.35s var(--md-motion-decelerate),
+		opacity 0.3s var(--md-motion-decelerate) 0.05s,
+		transform 0.35s var(--md-motion-decelerate),
+		background-color 0.25s ease,
+		color 0.25s ease;
+}
+
+.downloadButton svg {
+	flex-shrink: 0;
+	min-width: 18px;
+}
+
+.downloadButton.hidden,
 body:not([data-bg-type="random"]) .downloadButton {
-	opacity: 0.4;
-	cursor: not-allowed;
-	pointer-events: auto; /* Allow click so Javascript event handler can show the alert prompt explaining why it's disabled! */
+	width: 0;
+	margin-inline-end: -8px;
+	padding: 0;
+	opacity: 0;
+	transform: scale(0.5);
+	pointer-events: none;
+	box-shadow: none;
+	transition:
+		opacity 0.15s var(--md-motion-accelerate),
+		transform 0.2s var(--md-motion-accelerate),
+		width 0.3s var(--md-motion-accelerate) 0.1s,
+		margin-inline-end 0.3s var(--md-motion-accelerate) 0.1s,
+		padding 0.3s var(--md-motion-accelerate) 0.1s,
+		background-color 0.25s ease;
 }
 
-/* Prevent color shifts on hover/active when download button is disabled */
-body:not([data-bg-type="random"]) .downloadButton:hover {
-	background-color: var(--whitishColor-blue) !important;
-	color: var(--darkColor-blue) !important;
-}
-
-body:not([data-bg-type="random"]) .downloadButton:active {
-	background-color: var(--whitishColor-blue) !important;
-	color: var(--darkColor-blue) !important;
-}
-
-/* Black theme disabled overrides */
-.black-theme body:not([data-bg-type="random"]) .downloadButton:hover {
-	background-color: var(--darkColor-blue) !important;
-	color: var(--whitishColor-dark) !important;
-}
-
-.black-theme body:not([data-bg-type="random"]) .downloadButton:active {
-	background-color: var(--darkColor-blue) !important;
-	color: var(--whitishColor-dark) !important;
-}
-
+/* --------- End of .downloadButton ------------- */
