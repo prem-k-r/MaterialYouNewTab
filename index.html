@@ -1742,48 +1742,62 @@
 
                                 <!-- ----Custom Wallpaper uploading things------------- -->
                                 <div class="innerSurface">
-                                    <div class="uploadClearContainer">
-                                        <!-- Upload Wallpaper Button -->
-                                        <button class="uploadButton" id="uploadTrigger">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24">
-                                                <path fill="currentColor"
-                                                    d="m11.558 13.646l-.084.071l-6.927 6.8a3.23 3.23 0 0 0 1.703.481h4.914l.356-1.423c.162-.648.497-1.24.97-1.712l2.11-2.11l-2.075-2.036l-.094-.078a.75.75 0 0 0-.873.007m4.945-5.394a.752.752 0 1 0-1.504 0a.752.752 0 0 0 1.504 0m-.843 6.441l-2.085-2.046l-.128-.117a2.25 2.25 0 0 0-2.888-.006l-.136.123l-6.938 6.81A3.23 3.23 0 0 1 3 17.75V6.25A3.25 3.25 0 0 1 6.25 3h11.499a3.25 3.25 0 0 1 3.25 3.25v4.762a3.28 3.28 0 0 0-2.608.95zM13.5 8.252a2.252 2.252 0 1 0 4.503 0a2.252 2.252 0 0 0-4.504 0m5.598 4.417l-5.901 5.901a2.7 2.7 0 0 0-.707 1.248l-.457 1.83c-.2.797.522 1.518 1.318 1.319l1.83-.458a2.7 2.7 0 0 0 1.248-.706L22.33 15.9a2.286 2.286 0 0 0-3.233-3.232" />
-                                            </svg>
-                                            <span id="uploadWallpaperText">Upload Wallpaper</span>
-                                        </button>
-
-                                        <!-- Random Wallpaper Button -->
-                                        <button class="randomButton" id="randomImageTrigger">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24">
-                                                <path fill="currentColor"
-                                                    style="transform: scale(0.9); transform-origin: center;"
-                                                    d="M8.92 7.3c-.537.82-1.148 2.04-1.836 3.655-.723-1.48-1.584-3.24-3.656-3.24h-3A.41.41 0 0 1 0 7.284v-2.57a.41.41 0 0 1 .429-.429h3c2.231 0 4.062 1.004 5.49 3.013m14.96 11.009-4.286 4.285c-.26.26-.737.077-.737-.308v-2.571c-.056 0-2.52.03-3.2.007-1.604-.054-3.816-.29-5.706-3.02.527-.83 1.134-2.05 1.822-3.656.726 1.485 1.588 3.24 3.656 3.24h3.428v-2.57c0-.367.4-.587.75-.295l4.272 4.272a.45.45 0 0 1 0 .616zm0-12-4.286 4.286c-.256.256-.737.08-.737-.308V7.714h-3.428c-1.99 0-2.882 1.312-4.42 4.956-1.38 3.14-3.098 7.044-7.58 7.044h-3A.41.41 0 0 1 0 19.285v-2.571a.41.41 0 0 1 .429-.429h3c3.675 0 3.907-5.574 6.662-9.187.804-1.055 2.353-2.812 5.337-2.812h3.428V1.715c0-.371.404-.583.75-.295l4.272 4.272a.45.45 0 0 1 0 .616z" />
-                                            </svg>
-                                        </button>
-
-                                        <!-- Clear Background Button -->
-                                        <button class="clearButton" id="clearImage">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24">
-                                                <path fill="currentColor"
-                                                    d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
-                                            </svg>
-                                        </button>
-
+                                    <!-- Custom Wallpaper Row -->
+                                    <div class="ttcont wallpaperRow">
+                                        <div class="texts">
+                                            <div class="bigText" id="customWallpaperTitle">Custom Wallpaper</div>
+                                        </div>
+                                        <div class="customWallpaperActions">
+                                            <button class="uploadButton m3PillButton" id="uploadTrigger">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                                                    <path fill="currentColor" d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                                                </svg>
+                                                <span id="uploadWallpaperText">Upload</span>
+                                            </button>
+                                            <button class="clearButton iconButton destructiveBtn" id="clearImage" title="Clear Wallpaper" aria-label="Clear Wallpaper">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                                                    <path fill="currentColor" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                         <!-- Hidden File Input -->
                                         <input type="file" id="imageUpload" accept="image/*" />
                                     </div>
-                                    <!-- ----End of Custom Wallpaper uploading thingsss------------- -->
+
+                                    <!-- Random Wallpaper Row -->
+                                    <div class="ttcont wallpaperRow">
+                                        <div class="texts">
+                                            <div class="bigText" id="randomWallpaperTitle">Random Wallpaper</div>
+                                        </div>
+                                        <div class="randomControlsGroup">
+                                            <!-- Random Wallpaper Button -->
+                                            <button class="randomButton iconButton" id="randomImageTrigger" title="Fetch Random Wallpaper" aria-label="Fetch Random Wallpaper">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                                                    <path fill="currentColor" style="transform: scale(0.9); transform-origin: center;"
+                                                        d="M8.92 7.3c-.537.82-1.148 2.04-1.836 3.655-.723-1.48-1.584-3.24-3.656-3.24h-3A.41.41 0 0 1 0 7.284v-2.57a.41.41 0 0 1 .429-.429h3c2.231 0 4.062 1.004 5.49 3.013m14.96 11.009-4.286 4.285c-.26.26-.737.077-.737-.308v-2.571c-.056 0-2.52.03-3.2.007-1.604-.054-3.816-.29-5.706-3.02.527-.83 1.134-2.05 1.822-3.656.726 1.485 1.588 3.24 3.656 3.24h3.428v-2.57c0-.367.4-.587.75-.295l4.272 4.272a.45.45 0 0 1 0 .616zm0-12-4.286 4.286c-.256.256-.737.08-.737-.308V7.714h-3.428c-1.99 0-2.882 1.312-4.42 4.956-1.38 3.14-3.098 7.044-7.58 7.044h-3A.41.41 0 0 1 0 19.285v-2.571a.41.41 0 0 1 .429-.429h3c3.675 0 3.907-5.574 6.662-9.187.804-1.055 2.353-2.812 5.337-2.812h3.428V1.715c0-.371.404-.583.75-.295l4.272 4.272a.45.45 0 0 1 0 .616z" />
+                                                </svg>
+                                            </button>
+
+                                            <!-- Download Wallpaper Button -->
+                                            <button class="downloadButton iconButton" id="downloadWallpaper" title="Download Wallpaper" aria-label="Download Wallpaper" aria-disabled="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                                                    <path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                                                </svg>
+                                            </button>
+
+                                            <label class="switch">
+                                                <input id="randomWallpaperToggle" type="checkbox" checked>
+                                                <span class="toggle"></span>
+                                            </label>
+                                        </div>
+                                    </div>
 
                                     <!-- Opacity Bar Control  -->
                                     <div id="opacityBarControl" class="opacityBarControl">
                                         <div class="ttcont" id="opacityTextContainer">
                                             <div class="texts">
                                                 <div class="bigText" id="opacityTitle">Opacity</div>
-                                                <div class="infoText" id="adjustOpacityDesc">Adjust interface
-                                                    transparency</div>
+                                                <div class="infoText" id="adjustOpacityDesc">Adjust interface transparency</div>
                                             </div>
                                         </div>
                                         <div class="opacityBar">
@@ -1793,7 +1807,45 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End of opacity Bar Control -->
+
+                                    <!-- Quality Setting Row -->
+                                    <div class="ttcont wallpaperOptionRow">
+                                        <div class="texts">
+                                            <div class="bigText" id="wallpaperQualityTitle">Quality</div>
+                                            <div class="infoText" id="wallpaperQualityDesc">Select preferred image resolution</div>
+                                        </div>
+                                        <select class="m3Select" id="wallpaperQuality">
+                                            <option value="720p">720p (HD)</option>
+                                            <option value="1080p" selected>1080p (FHD)</option>
+                                            <option value="original">Original</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Source Setting Row -->
+                                    <div class="ttcont wallpaperOptionRow">
+                                        <div class="texts">
+                                            <div class="bigText" id="wallpaperSourceSelectTitle">Source</div>
+                                            <div class="infoText" id="wallpaperSourceSelectDesc">Choose the service for randomized image</div>
+                                        </div>
+                                        <select class="m3Select" id="wallpaperSourceSelect">
+                                            <option value="picsum">Picsum</option>
+                                            <option value="bing">Bing</option>
+                                            <option value="unsplash">Unsplash</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Photographer Attribution Toggle Row -->
+                                    <div class="ttcont wallpaperOptionRow">
+                                        <div class="texts">
+                                            <div class="bigText" id="wallpaperAttributionTitle">Photographer Attribution</div>
+                                            <div class="infoText" id="wallpaperAttributionDesc">Show photographer name for randomized image</div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="showAttributionCheckbox" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+                                    <!-- ----End of Custom Wallpaper uploading thingsss------------- -->
                                 </div>
                             </div>
                         </div>
@@ -1979,7 +2031,11 @@
             </div>
         </div>
     </div>
-    <!-- ------end of Menu-bar----------- -->
+    <!-- Wallpaper Source Attribution -->
+    <div id="wallpaperSource" style="display: none;">
+        <span id="wallpaperSourcePrefix">Photo by </span><a id="wallpaperSourceLink" href="#" target="_blank" rel="noopener noreferrer"></a>
+    </div>
+
     <div id="menuButton"></div>
     <!-- ending-of-body -->
 

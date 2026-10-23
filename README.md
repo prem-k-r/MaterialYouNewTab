@@ -47,7 +47,7 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
 
 - **Integrated Search**: Search directly from the New Tab using your preferred search engine — Google, DuckDuckGo, Bing, Brave Search, YouTube, Wikipedia, and more, with integrated voice typing.
 - **Customizable Themes**: Choose from a selection of themes or use the built-in color picker to match your style.
-- **Wallpaper**: Upload your own wallpapers or enable daily random images sourced from [Lorem Picsum](https://picsum.photos).
+- **Wallpaper**: Upload custom wallpapers, download current backgrounds, or enable daily random wallpapers with customizable sources ([Lorem Picsum](https://picsum.photos), [Bing](https://www.bing.com), [Unsplash](https://unsplash.com)), resolution quality (720p, 1080p, Original), and optional photographer attribution.
 - **Personalized Greeting**: Add a custom message or your name, so you're greeted each time you open a new tab.
 - **Clock & Time Display**: Choose between a modern analog or digital clock.
 - **Live Weather Updates**: View real-time temperature, conditions, humidity, feels like, and max-min temperature values. Supports °C and °F with location customization.

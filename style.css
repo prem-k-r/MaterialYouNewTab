@@ -1825,10 +1825,22 @@ body[data-bg="wallpaper"] .opacityBarControl {
 	opacity: 1;
 	transform: translateY(0);
 	pointer-events: auto;
-	max-height: 150px;
+	max-height: 180px;
 	overflow: hidden;
-	margin-top: 20px;
-	border-top: 1px solid rgba(0, 0, 0, 0.06);
+	margin-top: 0;
+	border-top: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+	padding-bottom: 14px;
+}
+
+.opacityBarControl .ttcont {
+	border-bottom: none !important;
+	padding-top: 14px !important;
+	padding-bottom: 4px !important;
+}
+
+.black-theme body[data-bg="wallpaper"] .opacityBarControl {
+	border-bottom: 1px solid #ffffff1a;
 }
 
 .humidityBar,
@@ -3571,7 +3583,7 @@ input:checked + .toggle:before {
 	margin-top: 10px;
 
 	overflow: hidden;
-	max-height: 1000px; /* large enough */
+	max-height: 2000px; /* large enough for all expanded rows */
 	opacity: 1;
 	transition:
 		max-height 0.4s var(--md-motion-ease),
@@ -3613,6 +3625,7 @@ input:checked + .toggle:before {
 	background-color: transparent;
 	border-radius: 0;
 	padding: 0;
+	max-height: 2000px;
 }
 
 .appearanceSection .innerSurface {
@@ -3623,7 +3636,7 @@ input:checked + .toggle:before {
 }
 
 .appearanceSection .innerSurface:last-child {
-	padding: 18px 14px;
+	padding: 18px 14px 22px;
 	margin-bottom: 0;
 }
 
@@ -4256,85 +4269,147 @@ option:checked {
 	padding: 2px;
 }
 
-/* --------- Styling for Upload/Random/Clear Buttons --------- */
-/* Upload/Clear Buttons */
-.uploadClearContainer {
-	display: flex;
-	justify-content: space-between;
-	gap: 10px;
-}
-
-.uploadButton {
-	font-size: 0.95rem;
+/* --------- Styling for Wallpaper Section (M3 Layout) --------- */
+.customWallpaperActions {
 	display: flex;
 	align-items: center;
+	gap: 8px;
+}
+
+/* Material 3 Action Group */
+.customWallpaperActions,
+.randomControlsGroup {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+/* Material 3 Icon Buttons */
+.iconButton {
+	display: inline-flex;
+	align-items: center;
 	justify-content: center;
-	gap: 9px; /* Space between SVG and text */
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	border: none;
 	background-color: var(--whitishColor-blue);
 	color: var(--darkColor-blue);
-	width: -webkit-fill-available;
-	width: -moz-available;
-	padding: 10px 12px;
-	/*white-space: nowrap; */
-	border: none;
-	border-radius: 23px;
 	cursor: pointer;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 	transition:
-		background-color 0.3s,
-		color 0.3s;
+		background-color 0.25s ease,
+		transform 0.15s ease,
+		color 0.25s ease,
+		opacity 0.25s ease;
 }
 
-.randomButton {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: var(--whitishColor-blue);
-	color: var(--darkColor-blue);
-	border: none;
-	border-radius: 26px;
-	cursor: pointer;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-	transition:
-		background-color 0.3s,
-		color 0.3s;
-	padding: 10px;
-}
-
-.clearButton {
-	padding: 10px;
-	color: var(--whitishColor-blue);
-	background-color: var(--darkColor-blue);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: none;
-	border-radius: 26px;
-	cursor: pointer;
-	transition:
-		background-color 0.3s,
-		color 0.3s;
-}
-
-/* Hover Effects */
-.uploadButton:hover,
-.randomButton:hover {
+.iconButton:hover {
 	background-color: var(--darkColor-blue);
 	color: var(--whitishColor-blue);
+	transform: scale(1.05);
 }
 
-.uploadButton:active,
-.randomButton:active {
+.iconButton:active {
+	transform: scale(0.95);
 	background-color: var(--darkerColor-blue);
 }
 
-.clearButton:hover {
-	color: var(--darkColor-blue);
-	background-color: var(--whitishColor-blue);
+/* Destructive Button for Clearing Wallpaper */
+.destructiveBtn {
+	color: var(--whitishColor-blue);
+	background-color: var(--darkColor-blue);
 }
 
-.clearButton:active {
-	color: var(--darkerColor-blue);
+body:not([data-bg="wallpaper"]) .destructiveBtn {
+	display: none !important;
+}
+
+/* Material 3 Pill Button */
+.m3PillButton {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 18px;
+	border-radius: 20px;
+	font-size: 0.9rem;
+	font-weight: 500;
+	border: none;
+	background-color: var(--darkColor-blue);
+	color: var(--whitishColor-blue);
+	cursor: pointer;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+	transition:
+		background-color 0.25s ease,
+		transform 0.15s ease,
+		opacity 0.2s ease;
+}
+
+.m3PillButton:hover {
+	opacity: 0.92;
+	transform: translateY(-1px);
+}
+
+.m3PillButton:active {
+	transform: translateY(0);
+}
+
+/* Material 3 Select Dropdown */
+.m3Select {
+	padding: 7px 14px;
+	border-radius: 12px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	background-color: var(--whitishColor-blue);
+	color: var(--textColorDark-blue);
+	font-size: 0.85rem;
+	font-family: inherit;
+	cursor: pointer;
+	outline: none;
+	transition:
+		border-color 0.2s ease,
+		box-shadow 0.2s ease;
+}
+
+.m3Select:focus {
+	border-color: var(--darkColor-blue);
+}
+
+/* Appearance section inner surface rows */
+.appearanceSection .innerSurface .ttcont {
+	padding: 14px 4px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.appearanceSection .innerSurface .ttcont:not(:last-child) {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Black theme overrides */
+.black-theme .iconButton {
+	background-color: var(--darkColor-blue);
+	color: var(--whitishColor-dark);
+}
+
+.black-theme .iconButton:hover {
+	background-color: var(--darkerColor-blue);
+	color: #fff;
+}
+
+.black-theme .m3PillButton {
+	background-color: var(--darkColor-blue);
+	color: var(--whitishColor-dark);
+}
+
+.black-theme .m3Select {
+	background-color: #2a2a2a;
+	color: var(--whitishColor-dark);
+	border-color: rgba(255, 255, 255, 0.15);
+}
+
+.black-theme .appearanceSection .innerSurface .ttcont:not(:last-child) {
+	border-bottom: 1px solid #ffffff1a;
 }
 
 /* File input remains hidden */
@@ -5261,7 +5336,8 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme .uploadButton,
-.black-theme .randomButton {
+.black-theme .randomButton,
+.black-theme .downloadButton {
 	background-color: var(--darkColor-blue);
 	color: var(--whitishColor-dark);
 }
@@ -5286,12 +5362,14 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme .backupRestoreBtn:hover,
 .black-theme .uploadButton:hover,
 .black-theme .randomButton:hover,
+.black-theme .downloadButton:hover,
 .black-theme #todoAdd:hover {
 	background-color: var(--bg-color-dark);
 }
 
 .black-theme .uploadButton:active,
 .black-theme .randomButton:active,
+.black-theme .downloadButton:active,
 .black-theme .backupRestoreBtn:active,
 .black-theme .resetbtn:active {
 	background-color: #0e0e0e;
@@ -5859,7 +5937,105 @@ body[data-bg="wallpaper"] .dropdown-content {
 	opacity: 0.85;
 }
 
+/* Wallpaper Source Attribution Pill */
+#wallpaperSource {
+	position: fixed;
+	inset-inline-end: calc(var(--gap) + 60px);
+	bottom: calc(var(--gap) + 7px);
+	font-size: 0.78rem;
+	z-index: 10;
+	opacity: 0.7;
+	transition: opacity 0.3s ease, background-color 0.3s ease;
+	background: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 40%,
+		rgba(255, 255, 255, 0.4)
+	);
+	color: var(--darkColor-blue);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	padding: 6px 12px;
+	border-radius: 12px;
+	pointer-events: auto;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	max-inline-size: min(250px, 45dvw);
+	display: inline-flex;
+	align-items: center;
+	white-space: nowrap;
+}
+
+#wallpaperSource:hover {
+	opacity: 1;
+	background: color-mix(
+		in srgb,
+		var(--accentLightTint-blue) 60%,
+		rgba(255, 255, 255, 0.6)
+	);
+}
+
+#wallpaperSource a {
+	color: inherit;
+	text-decoration: underline;
+	font-weight: 500;
+	transition: color 0.3s ease;
+	display: inline-block;
+	max-inline-size: 150px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	vertical-align: bottom;
+}
+
+#wallpaperSource a:hover {
+	color: var(--darkerColor-blue);
+}
+
+/* Hide when color mode is active */
+body[data-bg="color"] #wallpaperSource {
+	display: none !important;
+}
+
+/* Black theme override */
+.black-theme #wallpaperSource {
+	background: rgba(30, 30, 30, 0.6);
+	color: var(--whitishColor-dark);
+}
+
+.black-theme #wallpaperSource:hover {
+	background: rgba(30, 30, 30, 0.8);
+}
+
 .black-theme .toast-close svg {
 	color: var(--darkColor-dark);
 }
 /* ------------ End of Toast---------- */
+
+/* Disabled style for the download button when not using a random wallpaper */
+body:not([data-bg-type="random"]) .downloadButton {
+	opacity: 0.4;
+	cursor: not-allowed;
+	pointer-events: auto; /* Allow click so Javascript event handler can show the alert prompt explaining why it's disabled! */
+}
+
+/* Prevent color shifts on hover/active when download button is disabled */
+body:not([data-bg-type="random"]) .downloadButton:hover {
+	background-color: var(--whitishColor-blue) !important;
+	color: var(--darkColor-blue) !important;
+}
+
+body:not([data-bg-type="random"]) .downloadButton:active {
+	background-color: var(--whitishColor-blue) !important;
+	color: var(--darkColor-blue) !important;
+}
+
+/* Black theme disabled overrides */
+.black-theme body:not([data-bg-type="random"]) .downloadButton:hover {
+	background-color: var(--darkColor-blue) !important;
+	color: var(--whitishColor-dark) !important;
+}
+
+.black-theme body:not([data-bg-type="random"]) .downloadButton:active {
+	background-color: var(--darkColor-blue) !important;
+	color: var(--whitishColor-dark) !important;
+}
+

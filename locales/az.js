@@ -131,5 +131,5 @@ const az = {
     "restorefailed": "Bərpa uğursuz oldu: ",
     // "invalidBackup": "Invalid backup file selected.",
     // "deleteBookmark": "Are you sure you want to delete the bookmark \"{title}\"?",  // Do not translate {title}
-    // "UnsupportedBrowser": "Bookmarks are not supported in your browser",
+    // "UnsupportedBrowser": "Bookmarks are not supported in your browser"
 };
