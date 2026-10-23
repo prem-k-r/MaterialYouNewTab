@@ -226,7 +226,7 @@ async function toggleBookmarkSidebar() {
 // Function to load bookmarks
 function loadBookmarks() {
     if (!bookmarksAPI?.getTree) {
-        console.error("Bookmarks API is unavailable. Please check permissions or context.");
+        console.info("Bookmarks API is unavailable. Please check permissions or context.");
         return;
     }
 
@@ -284,7 +284,7 @@ function loadBookmarks() {
             });
         }
     }).catch(err => {
-        console.error("Error loading bookmarks:", err);
+        console.warn("Unable to load bookmarks:", err);
     });
 }
 

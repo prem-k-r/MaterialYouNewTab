@@ -103,7 +103,7 @@ function initializeSpeechRecognition() {
 
         // When an error occurs during speech recognition
         recognition.onerror = (event) => {
-            console.error("Speech recognition error: ", event.error);
+            console.warn("Speech recognition ended:", event.error);
             isRecognizing = false; // Reset flag on error
         };
 
