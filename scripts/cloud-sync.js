@@ -237,7 +237,13 @@ window.addEventListener("keydown", () => { userInteracted = true; }, { once: tru
  * @returns {Promise<void>}
  */
 async function pullIfRemoteNewer() {
-    const remote = await readRemoteSnapshot();
+    let remote;
+    try {
+        remote = await readRemoteSnapshot();
+    } catch (error) {
+        console.error("Cloud sync: reading the remote snapshot failed.", error);
+        return;
+    }
     if (!remote) return;
 
     const lastSynced = Number(localStorage.getItem(SYNC_LAST_SYNCED_KEY) || 0);
@@ -304,12 +310,22 @@ if (!syncStorage) {
             return;
         }
 
-        const firstSync = !localStorage.getItem(SYNC_LAST_SYNCED_KEY);
+        // Read before enabling: if the cloud can't be read, pushing would overwrite it unseen
+        let remote;
+        try {
+            remote = await readRemoteSnapshot();
+        } catch (error) {
+            console.error("Cloud sync: reading the remote snapshot failed.", error);
+            cloudSyncCheckbox.checked = false;
+            await alertPrompt(translations[currentLanguage]?.cloudSyncReadError || translations["en"].cloudSyncReadError);
+            return;
+        }
         localStorage.setItem(SYNC_ENABLED_KEY, "checked");
 
-        // First enable on this device with data already in the cloud: let the user choose which side wins
-        const remote = firstSync ? await readRemoteSnapshot() : null;
-        if (remote) {
+        // Cloud data is newer than this device's last sync (always true on a first enable),
+        // e.g. another device pushed while sync was off here: let the user choose which side wins
+        const lastSynced = Number(localStorage.getItem(SYNC_LAST_SYNCED_KEY) || 0);
+        if (remote && remote.timestamp > lastSynced) {
             const message = translations[currentLanguage]?.cloudSyncPullConfirm || translations["en"].cloudSyncPullConfirm;
             if (await confirmPrompt(message)) {
                 applyRemoteSnapshot(remote);

@@ -214,6 +214,7 @@ const en = {
     "cloudSyncInfo": "Syncs through your browser account. Wallpaper images stay on this device.",
     "cloudSyncPullConfirm": "Synced settings from another device were found. Load them on this device? This will replace your current settings here.",
     "cloudSyncQuotaError": "Sync failed: your settings are too large to sync.",
+    "cloudSyncReadError": "Couldn't read synced settings, so sync was not turned on. Please try again.",
     "failedbackup": "Backup failed: ",
     "restorecompleted": "Restore completed successfully!",
     "restorefailed": "Restore failed: ",
