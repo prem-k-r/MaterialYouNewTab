@@ -304,7 +304,11 @@ if (!syncStorage) {
 } else {
     cloudSyncCheckbox.checked = isCloudSyncEnabled();
 
+    // Bumped on every toggle so an enable flow still awaiting stops if the user toggles again
+    let toggleRequest = 0;
+
     cloudSyncCheckbox.addEventListener("change", async () => {
+        const request = ++toggleRequest;
         if (!cloudSyncCheckbox.checked) {
             localStorage.setItem(SYNC_ENABLED_KEY, "unchecked");
             return;
@@ -315,11 +319,13 @@ if (!syncStorage) {
         try {
             remote = await readRemoteSnapshot();
         } catch (error) {
+            if (request !== toggleRequest) return;
             console.error("Cloud sync: reading the remote snapshot failed.", error);
             cloudSyncCheckbox.checked = false;
             await alertPrompt(translations[currentLanguage]?.cloudSyncReadError || translations["en"].cloudSyncReadError);
             return;
         }
+        if (request !== toggleRequest) return;
         localStorage.setItem(SYNC_ENABLED_KEY, "checked");
 
         // Cloud data is newer than this device's last sync (always true on a first enable),
@@ -327,7 +333,9 @@ if (!syncStorage) {
         const lastSynced = Number(localStorage.getItem(SYNC_LAST_SYNCED_KEY) || 0);
         if (remote && remote.timestamp > lastSynced) {
             const message = translations[currentLanguage]?.cloudSyncPullConfirm || translations["en"].cloudSyncPullConfirm;
-            if (await confirmPrompt(message)) {
+            const loadRemote = await confirmPrompt(message);
+            if (request !== toggleRequest) return;
+            if (loadRemote) {
                 applyRemoteSnapshot(remote);
                 return;
             }
