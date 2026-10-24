@@ -151,6 +151,7 @@ const hi = {
     "redditEngine": "रेडिट",
     "wikipediaEngine": "विकिपीडिया",
     "quoraEngine": "क्वोरा",
+    "xEngine": "X",
 
     // AI Tools
     "ai_tools": "AI उपकरण",

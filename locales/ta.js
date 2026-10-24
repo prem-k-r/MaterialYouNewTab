@@ -132,6 +132,7 @@ const ta = {
     "redditEngine": "ரெடிட்",
     "wikipediaEngine": "விக்கிப்பீடியா",
     "quoraEngine": "கோரா",
+    "xEngine": "X",
 
     // AI Tools
     "ai_tools": "செஅ கருவிகள்",

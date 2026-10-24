@@ -151,6 +151,7 @@ const ko = {
     "redditEngine": "Reddit",
     "wikipediaEngine": "Wikipedia",
     "quoraEngine": "Quora",
+    "xEngine": "X",
 
     // AI Tools
     "ai_tools": "AI 도구",
