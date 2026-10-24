@@ -21,6 +21,7 @@ const SYNC_META_KEY = "syncMeta";
 const SYNC_CHUNK_PREFIX = "syncChunk_";
 const SYNC_CHUNK_BYTE_LIMIT = 7000; // Per-item sync quota is 8192 bytes of key + JSON-escaped value
 const SYNC_DEBOUNCE_MS = 2500; // Sync storage limits sustained writes (~120/min)
+const SYNC_FRESH_PAGE_MS = 1500; // A visible page may still reload this soon after opening
 
 /**
  * Promise-based storage.sync area, or null when not running as an extension.
@@ -232,7 +233,7 @@ window.addEventListener("keydown", () => { userInteracted = true; }, { once: tru
 
 /**
  * Apply the cloud snapshot if it is newer than the last one this device pushed or applied (newest-wins).
- * If the user is interacting with a visible tab, defer until the tab is hidden.
+ * A visible tab only reloads right after opening, before it is in use; otherwise defer until the tab is hidden.
  * @returns {Promise<void>}
  */
 async function pullIfRemoteNewer() {
@@ -242,7 +243,9 @@ async function pullIfRemoteNewer() {
     const lastSynced = Number(localStorage.getItem(SYNC_LAST_SYNCED_KEY) || 0);
     if (remote.timestamp <= lastSynced) return;
 
-    if (!document.hidden && userInteracted) {
+    // performance.now() is measured from page navigation, so this also covers slow storage reads
+    const pageInUse = userInteracted || performance.now() > SYNC_FRESH_PAGE_MS;
+    if (!document.hidden && pageInUse) {
         pendingRemoteCheck = true;
         return;
     }
