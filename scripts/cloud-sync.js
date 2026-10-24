@@ -1,0 +1,367 @@
+/*
+ * Material You NewTab
+ * Copyright (c) 2023-2025 XengShi
+ * Licensed under the GNU General Public License v3.0 (GPL-3.0)
+ * You should have received a copy of the GNU General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+// -------------------- Cloud Sync ----------------------
+// Mirrors localStorage settings to storage.sync (synced through the user's browser account).
+// Wallpaper images (IndexedDB) exceed the ~100 KB sync quota and stay on-device.
+
+const cloudSyncCheckbox = document.getElementById("cloudSyncCheckbox");
+
+const SYNC_ENABLED_KEY = "cloudSyncEnabled";
+const SYNC_LAST_SYNCED_KEY = "cloudSyncLastSynced";
+// Device-local keys: "hasWallpaper" refers to an image that only exists in this device's IndexedDB
+const SYNC_EXCLUDED_KEYS = [SYNC_ENABLED_KEY, SYNC_LAST_SYNCED_KEY, "hasWallpaper"];
+
+const SYNC_META_KEY = "syncMeta";
+const SYNC_CHUNK_PREFIX = "syncChunk_";
+const SYNC_CHUNK_BYTE_LIMIT = 7000; // Per-item sync quota is 8192 bytes of key + JSON-escaped value
+const SYNC_DEBOUNCE_MS = 2500; // Sync storage limits sustained writes (~120/min)
+const SYNC_FRESH_PAGE_MS = 1500; // A visible page may still reload this soon after opening
+
+/**
+ * Promise-based storage.sync area, or null when not running as an extension.
+ * Firefox's browser.* is promise-based; Chromium's chrome.* may be callback-only.
+ * @type {{get: Function, set: Function, remove: Function} | null}
+ */
+const syncStorage = (() => {
+    if (typeof browser !== "undefined" && browser.storage?.sync) return browser.storage.sync;
+    if (typeof chrome !== "undefined" && chrome.storage?.sync) {
+        const api = chrome.storage.sync;
+        /**
+         * Wrap a callback-style chrome.storage.sync method so it returns a promise.
+         * @param {Function} method - The chrome.storage.sync method to wrap.
+         * @returns {(arg: any) => Promise<any>} The promise-returning version.
+         */
+        const promisify = (method) => (arg) => new Promise((resolve, reject) => {
+            method.call(api, arg, (result) => {
+                const error = chrome.runtime.lastError;
+                error ? reject(new Error(error.message)) : resolve(result);
+            });
+        });
+        return { get: promisify(api.get), set: promisify(api.set), remove: promisify(api.remove) };
+    }
+    return null;
+})();
+
+/**
+ * Check whether the user has turned on Cloud Sync on this device.
+ * @returns {boolean} True if Cloud Sync is enabled.
+ */
+function isCloudSyncEnabled() {
+    return localStorage.getItem(SYNC_ENABLED_KEY) === "checked";
+}
+
+/**
+ * Collect every syncable localStorage entry, skipping device-local and bookkeeping keys.
+ * @returns {Object<string, string>} Map of localStorage keys to their values.
+ */
+function collectSnapshot() {
+    const snapshot = {};
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!SYNC_EXCLUDED_KEYS.includes(key)) {
+            snapshot[key] = localStorage.getItem(key);
+        }
+    }
+    return snapshot;
+}
+
+/**
+ * Worst-case UTF-8 byte size of one UTF-16 code unit after JSON escaping.
+ * @param {number} code - A UTF-16 code unit from String.prototype.charCodeAt.
+ * @returns {number} Bytes this code unit can take once stored.
+ */
+function jsonByteCost(code) {
+    if (code === 0x22 || code === 0x5C) return 2; // " and \ escape to two chars
+    if (code < 0x20) return 6; // Control chars escape to \u00XX
+    if (code < 0x80) return 1;
+    if (code < 0x800) return 2;
+    if (code >= 0xD800 && code <= 0xDFFF) return 6; // Lone surrogates escape to \uXXXX
+    return 3;
+}
+
+/**
+ * Split a payload into chunks that each fit under the per-item sync quota.
+ * Splits by encoded byte size, since quotas count bytes, not string length.
+ * @param {string} payload - The JSON-serialized snapshot.
+ * @returns {string[]} Chunks that concatenate back into the original payload.
+ */
+function splitIntoChunks(payload) {
+    const chunks = [];
+    let start = 0;
+    let bytes = 0;
+    for (let i = 0; i < payload.length; i++) {
+        const cost = jsonByteCost(payload.charCodeAt(i));
+        if (bytes + cost > SYNC_CHUNK_BYTE_LIMIT) {
+            chunks.push(payload.slice(start, i));
+            start = i;
+            bytes = 0;
+        }
+        bytes += cost;
+    }
+    chunks.push(payload.slice(start));
+    return chunks;
+}
+
+/**
+ * Check that remote data has the shape of a snapshot: a plain object of string values.
+ * @param {*} data - The parsed remote payload.
+ * @returns {boolean} True if the data can be safely written to localStorage.
+ */
+function isValidSnapshotData(data) {
+    if (!data || typeof data !== "object" || Array.isArray(data)) return false;
+    return Object.values(data).every((value) => typeof value === "string");
+}
+
+/**
+ * Read and reassemble the snapshot stored in storage.sync.
+ * @returns {Promise<{timestamp: number, data: Object<string, string>} | null>}
+ *   The remote snapshot, or null if none exists or it is incomplete or invalid.
+ */
+async function readRemoteSnapshot() {
+    const meta = (await syncStorage.get(SYNC_META_KEY))[SYNC_META_KEY];
+    if (!meta || typeof meta.timestamp !== "number" || typeof meta.gen !== "string"
+        || !Number.isInteger(meta.chunks) || meta.chunks < 1) return null;
+
+    const chunkKeys = Array.from({ length: meta.chunks }, (_, i) => SYNC_CHUNK_PREFIX + meta.gen + "_" + i);
+    const stored = await syncStorage.get(chunkKeys);
+
+    let payload = "";
+    for (const key of chunkKeys) {
+        if (typeof stored[key] !== "string") return null;
+        payload += stored[key];
+    }
+
+    try {
+        const data = JSON.parse(payload);
+        if (!isValidSnapshotData(data)) return null;
+        return { timestamp: meta.timestamp, data };
+    } catch (error) {
+        console.error("Cloud sync: stored snapshot is corrupt.", error);
+        return null;
+    }
+}
+
+let pushTimer = null;
+let applyingRemote = false;
+let pendingRemoteCheck = false;
+
+/**
+ * Debounce a push so bursts of settings changes produce a single sync write.
+ */
+function schedulePush() {
+    if (!syncStorage || !isCloudSyncEnabled() || applyingRemote) return;
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(() => {
+        pushTimer = null;
+        pushSnapshot();
+    }, SYNC_DEBOUNCE_MS);
+}
+
+/**
+ * Upload the current settings snapshot to storage.sync and remove orphaned chunks.
+ * Shows an alert if the snapshot exceeds the sync quota.
+ * @returns {Promise<void>}
+ */
+async function pushSnapshot() {
+    if (!syncStorage || !isCloudSyncEnabled()) return;
+    try {
+        const chunks = splitIntoChunks(JSON.stringify(collectSnapshot()));
+        const timestamp = Date.now();
+        const gen = timestamp.toString(36);
+
+        // Chunk keys are generation-specific so concurrent pushes from two devices never
+        // reference each other's chunks; meta and chunks land together in one set()
+        const data = { [SYNC_META_KEY]: { version: 1, timestamp, gen, chunks: chunks.length } };
+        chunks.forEach((chunk, i) => {
+            data[SYNC_CHUNK_PREFIX + gen + "_" + i] = chunk;
+        });
+        await syncStorage.set(data);
+        localStorage.setItem(SYNC_LAST_SYNCED_KEY, String(timestamp));
+
+        // Chunks from any generation not referenced by current meta (and not just written) are orphans
+        const all = await syncStorage.get(null);
+        const activeGen = all[SYNC_META_KEY]?.gen;
+        const stale = Object.keys(all).filter((key) =>
+            key.startsWith(SYNC_CHUNK_PREFIX)
+            && !key.startsWith(SYNC_CHUNK_PREFIX + gen + "_")
+            && !(activeGen && key.startsWith(SYNC_CHUNK_PREFIX + activeGen + "_")));
+        if (stale.length) {
+            await syncStorage.remove(stale);
+        }
+    } catch (error) {
+        console.error("Cloud sync push failed:", error);
+        if (String(error?.message || error).toLowerCase().includes("quota")) {
+            await alertPrompt(translations[currentLanguage]?.cloudSyncQuotaError || translations["en"].cloudSyncQuotaError);
+        }
+    }
+}
+
+/**
+ * Replace the syncable localStorage entries with a remote snapshot, then reload the page.
+ * @param {{timestamp: number, data: Object<string, string>}} remote - The snapshot to apply.
+ */
+function applyRemoteSnapshot(remote) {
+    applyingRemote = true;
+    try {
+        for (const key of Object.keys(localStorage)) {
+            if (!SYNC_EXCLUDED_KEYS.includes(key) && !(key in remote.data)) {
+                localStorage.removeItem(key);
+            }
+        }
+        for (const [key, value] of Object.entries(remote.data)) {
+            if (!SYNC_EXCLUDED_KEYS.includes(key)) {
+                localStorage.setItem(key, value);
+            }
+        }
+        localStorage.setItem(SYNC_LAST_SYNCED_KEY, String(remote.timestamp));
+    } finally {
+        applyingRemote = false;
+    }
+    location.reload();
+}
+
+// Reloading is fine on a fresh page, but never yank the tab once the user has started using it
+let userInteracted = false;
+window.addEventListener("pointerdown", () => { userInteracted = true; }, { once: true });
+window.addEventListener("keydown", () => { userInteracted = true; }, { once: true });
+
+/**
+ * Apply the cloud snapshot if it is newer than the last one this device pushed or applied (newest-wins).
+ * A visible tab only reloads right after opening, before it is in use; otherwise defer until the tab is hidden.
+ * @returns {Promise<void>}
+ */
+async function pullIfRemoteNewer() {
+    let remote;
+    try {
+        remote = await readRemoteSnapshot();
+    } catch (error) {
+        console.error("Cloud sync: reading the remote snapshot failed.", error);
+        return;
+    }
+    if (!remote) return;
+
+    const lastSynced = Number(localStorage.getItem(SYNC_LAST_SYNCED_KEY) || 0);
+    if (remote.timestamp <= lastSynced) return;
+
+    // performance.now() is measured from page navigation, so this also covers slow storage reads
+    const pageInUse = userInteracted || performance.now() > SYNC_FRESH_PAGE_MS;
+    if (!document.hidden && pageInUse) {
+        pendingRemoteCheck = true;
+        return;
+    }
+    applyRemoteSnapshot(remote);
+}
+
+// Every setting is persisted through localStorage, so wrapping the Storage
+// methods catches all settings changes without touching each feature
+const originalSetItem = Storage.prototype.setItem;
+const originalRemoveItem = Storage.prototype.removeItem;
+const originalClear = Storage.prototype.clear;
+
+/**
+ * Store a value, then schedule a sync push if it is a syncable localStorage key.
+ * @param {string} key - The storage key.
+ * @param {string} value - The value to store.
+ */
+Storage.prototype.setItem = function (key, value) {
+    originalSetItem.call(this, key, value);
+    if (this === window.localStorage && !SYNC_EXCLUDED_KEYS.includes(key)) schedulePush();
+};
+/**
+ * Remove a value, then schedule a sync push if it is a syncable localStorage key.
+ * @param {string} key - The storage key.
+ */
+Storage.prototype.removeItem = function (key) {
+    originalRemoveItem.call(this, key);
+    if (this === window.localStorage && !SYNC_EXCLUDED_KEYS.includes(key)) schedulePush();
+};
+/**
+ * Clear the storage, then schedule a sync push if it is localStorage.
+ */
+Storage.prototype.clear = function () {
+    originalClear.call(this);
+    if (this === window.localStorage) schedulePush();
+};
+
+// Flush a pending push when the tab is closed
+window.addEventListener("pagehide", () => {
+    if (pushTimer !== null) {
+        clearTimeout(pushTimer);
+        pushTimer = null;
+        pushSnapshot();
+    }
+});
+
+if (!syncStorage) {
+    // Not running as an extension: hide the toggle
+    document.getElementById("cloudSyncToggleCont").style.display = "none";
+} else {
+    cloudSyncCheckbox.checked = isCloudSyncEnabled();
+
+    // Bumped on every toggle so an enable flow still awaiting stops if the user toggles again
+    let toggleRequest = 0;
+
+    cloudSyncCheckbox.addEventListener("change", async () => {
+        const request = ++toggleRequest;
+        if (!cloudSyncCheckbox.checked) {
+            localStorage.setItem(SYNC_ENABLED_KEY, "unchecked");
+            return;
+        }
+
+        // Read before enabling: if the cloud can't be read, pushing would overwrite it unseen
+        let remote;
+        try {
+            remote = await readRemoteSnapshot();
+        } catch (error) {
+            if (request !== toggleRequest) return;
+            console.error("Cloud sync: reading the remote snapshot failed.", error);
+            cloudSyncCheckbox.checked = false;
+            await alertPrompt(translations[currentLanguage]?.cloudSyncReadError || translations["en"].cloudSyncReadError);
+            return;
+        }
+        if (request !== toggleRequest) return;
+        localStorage.setItem(SYNC_ENABLED_KEY, "checked");
+
+        // Cloud data is newer than this device's last sync (always true on a first enable),
+        // e.g. another device pushed while sync was off here: let the user choose which side wins
+        const lastSynced = Number(localStorage.getItem(SYNC_LAST_SYNCED_KEY) || 0);
+        if (remote && remote.timestamp > lastSynced) {
+            const message = translations[currentLanguage]?.cloudSyncPullConfirm || translations["en"].cloudSyncPullConfirm;
+            const loadRemote = await confirmPrompt(message);
+            if (request !== toggleRequest) return;
+            if (loadRemote) {
+                applyRemoteSnapshot(remote);
+                return;
+            }
+        }
+        pushSnapshot();
+    });
+
+    // Another device pushed while this tab is open: apply once the tab is
+    // hidden, so an in-use new tab is never reloaded mid-interaction
+    const storageEvents = (typeof browser !== "undefined" ? browser : chrome).storage.onChanged;
+    storageEvents.addListener((changes, areaName) => {
+        if (areaName !== "sync" || !changes[SYNC_META_KEY] || !isCloudSyncEnabled()) return;
+        if (document.hidden) {
+            pullIfRemoteNewer();
+        } else {
+            pendingRemoteCheck = true;
+        }
+    });
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden && pendingRemoteCheck && isCloudSyncEnabled()) {
+            pendingRemoteCheck = false;
+            pullIfRemoteNewer();
+        }
+    });
+
+    if (isCloudSyncEnabled()) {
+        pullIfRemoteNewer();
+    }
+}
