@@ -22,11 +22,20 @@ const SYNC_CHUNK_PREFIX = "syncChunk_";
 const SYNC_CHUNK_BYTE_LIMIT = 7000; // Per-item sync quota is 8192 bytes of key + JSON-escaped value
 const SYNC_DEBOUNCE_MS = 2500; // Sync storage limits sustained writes (~120/min)
 
-// Firefox's browser.* is promise-based; Chromium's chrome.* may be callback-only
+/**
+ * Promise-based storage.sync area, or null when not running as an extension.
+ * Firefox's browser.* is promise-based; Chromium's chrome.* may be callback-only.
+ * @type {{get: Function, set: Function, remove: Function} | null}
+ */
 const syncStorage = (() => {
     if (typeof browser !== "undefined" && browser.storage?.sync) return browser.storage.sync;
     if (typeof chrome !== "undefined" && chrome.storage?.sync) {
         const api = chrome.storage.sync;
+        /**
+         * Wrap a callback-style chrome.storage.sync method so it returns a promise.
+         * @param {Function} method - The chrome.storage.sync method to wrap.
+         * @returns {(arg: any) => Promise<any>} The promise-returning version.
+         */
         const promisify = (method) => (arg) => new Promise((resolve, reject) => {
             method.call(api, arg, (result) => {
                 const error = chrome.runtime.lastError;
@@ -38,10 +47,18 @@ const syncStorage = (() => {
     return null;
 })();
 
+/**
+ * Check whether the user has turned on Cloud Sync on this device.
+ * @returns {boolean} True if Cloud Sync is enabled.
+ */
 function isCloudSyncEnabled() {
     return localStorage.getItem(SYNC_ENABLED_KEY) === "checked";
 }
 
+/**
+ * Collect every syncable localStorage entry, skipping device-local and bookkeeping keys.
+ * @returns {Object<string, string>} Map of localStorage keys to their values.
+ */
 function collectSnapshot() {
     const snapshot = {};
     for (let i = 0; i < localStorage.length; i++) {
@@ -53,7 +70,11 @@ function collectSnapshot() {
     return snapshot;
 }
 
-// Worst-case UTF-8 byte size of one UTF-16 code unit after JSON escaping
+/**
+ * Worst-case UTF-8 byte size of one UTF-16 code unit after JSON escaping.
+ * @param {number} code - A UTF-16 code unit from String.prototype.charCodeAt.
+ * @returns {number} Bytes this code unit can take once stored.
+ */
 function jsonByteCost(code) {
     if (code === 0x22 || code === 0x5C) return 2; // " and \ escape to two chars
     if (code < 0x20) return 6; // Control chars escape to \u00XX
@@ -63,7 +84,12 @@ function jsonByteCost(code) {
     return 3;
 }
 
-// Split by encoded byte size: quotas count bytes, not string length
+/**
+ * Split a payload into chunks that each fit under the per-item sync quota.
+ * Splits by encoded byte size, since quotas count bytes, not string length.
+ * @param {string} payload - The JSON-serialized snapshot.
+ * @returns {string[]} Chunks that concatenate back into the original payload.
+ */
 function splitIntoChunks(payload) {
     const chunks = [];
     let start = 0;
@@ -81,11 +107,21 @@ function splitIntoChunks(payload) {
     return chunks;
 }
 
+/**
+ * Check that remote data has the shape of a snapshot: a plain object of string values.
+ * @param {*} data - The parsed remote payload.
+ * @returns {boolean} True if the data can be safely written to localStorage.
+ */
 function isValidSnapshotData(data) {
     if (!data || typeof data !== "object" || Array.isArray(data)) return false;
     return Object.values(data).every((value) => typeof value === "string");
 }
 
+/**
+ * Read and reassemble the snapshot stored in storage.sync.
+ * @returns {Promise<{timestamp: number, data: Object<string, string>} | null>}
+ *   The remote snapshot, or null if none exists or it is incomplete or invalid.
+ */
 async function readRemoteSnapshot() {
     const meta = (await syncStorage.get(SYNC_META_KEY))[SYNC_META_KEY];
     if (!meta || typeof meta.timestamp !== "number" || typeof meta.gen !== "string"
@@ -114,6 +150,9 @@ let pushTimer = null;
 let applyingRemote = false;
 let pendingRemoteCheck = false;
 
+/**
+ * Debounce a push so bursts of settings changes produce a single sync write.
+ */
 function schedulePush() {
     if (!syncStorage || !isCloudSyncEnabled() || applyingRemote) return;
     clearTimeout(pushTimer);
@@ -123,6 +162,11 @@ function schedulePush() {
     }, SYNC_DEBOUNCE_MS);
 }
 
+/**
+ * Upload the current settings snapshot to storage.sync and remove orphaned chunks.
+ * Shows an alert if the snapshot exceeds the sync quota.
+ * @returns {Promise<void>}
+ */
 async function pushSnapshot() {
     if (!syncStorage || !isCloudSyncEnabled()) return;
     try {
@@ -157,6 +201,10 @@ async function pushSnapshot() {
     }
 }
 
+/**
+ * Replace the syncable localStorage entries with a remote snapshot, then reload the page.
+ * @param {{timestamp: number, data: Object<string, string>}} remote - The snapshot to apply.
+ */
 function applyRemoteSnapshot(remote) {
     applyingRemote = true;
     try {
@@ -182,7 +230,11 @@ let userInteracted = false;
 window.addEventListener("pointerdown", () => { userInteracted = true; }, { once: true });
 window.addEventListener("keydown", () => { userInteracted = true; }, { once: true });
 
-// Newest-wins: apply the cloud snapshot only if newer than the last one this device pushed or applied
+/**
+ * Apply the cloud snapshot if it is newer than the last one this device pushed or applied (newest-wins).
+ * If the user is interacting with a visible tab, defer until the tab is hidden.
+ * @returns {Promise<void>}
+ */
 async function pullIfRemoteNewer() {
     const remote = await readRemoteSnapshot();
     if (!remote) return;
@@ -203,14 +255,26 @@ const originalSetItem = Storage.prototype.setItem;
 const originalRemoveItem = Storage.prototype.removeItem;
 const originalClear = Storage.prototype.clear;
 
+/**
+ * Store a value, then schedule a sync push if it is a syncable localStorage key.
+ * @param {string} key - The storage key.
+ * @param {string} value - The value to store.
+ */
 Storage.prototype.setItem = function (key, value) {
     originalSetItem.call(this, key, value);
     if (this === window.localStorage && !SYNC_EXCLUDED_KEYS.includes(key)) schedulePush();
 };
+/**
+ * Remove a value, then schedule a sync push if it is a syncable localStorage key.
+ * @param {string} key - The storage key.
+ */
 Storage.prototype.removeItem = function (key) {
     originalRemoveItem.call(this, key);
     if (this === window.localStorage && !SYNC_EXCLUDED_KEYS.includes(key)) schedulePush();
 };
+/**
+ * Clear the storage, then schedule a sync push if it is localStorage.
+ */
 Storage.prototype.clear = function () {
     originalClear.call(this);
     if (this === window.localStorage) schedulePush();
