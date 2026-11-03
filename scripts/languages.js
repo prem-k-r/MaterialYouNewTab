@@ -89,6 +89,16 @@ const numberMappings = {
 
 const LRM = "\u200E"; // Left-to-Right Mark
 
+/**
+ * Localizes numbers in a string for the given language.
+ * Replaces the decimal point with a comma for languages that use a decimal comma,
+ * maps Western digits to native numerals when a mapping exists, and wraps the
+ * result in Left-to-Right Marks for RTL languages that need it.
+ *
+ * @param {string} text - Text containing the number(s) to localize.
+ * @param {string} language - Language code (e.g. "en", "hy", "ar_SA").
+ * @returns {string} The localized text.
+ */
 function localizeNumbers(text, language) {
     const map = numberMappings[language]; // Get the numeral map for the current language
 
@@ -116,7 +126,15 @@ function localizeNumbers(text, language) {
 // Right-to-left languages
 const rtlLanguages = ["ur", "fa", "ar_SA"];
 
-// Function to apply the language to the page
+/**
+ * Applies the selected language to the page.
+ * Translates all text, placeholders and hover titles, loads a language-specific
+ * font when needed, sets the text direction for RTL languages, and saves the
+ * choice to localStorage.
+ *
+ * @param {string} lang - Language code to apply (a key of `translations`).
+ * @returns {void}
+ */
 function applyLanguage(lang) {
     document.title = translations[lang]?.newTabTitle || translations["en"].newTabTitle;
 

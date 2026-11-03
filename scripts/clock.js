@@ -75,6 +75,13 @@ handleClockVisibility();
 window.addEventListener("resize", handleClockVisibility);
 
 // ---------------------- Clock func ----------------------
+/**
+ * Initializes the analog and digital clocks.
+ * Clears running clock intervals, sets the initial hand rotations, restores the
+ * saved clock type and 12-hour setting, and wires up the related settings toggles.
+ *
+ * @returns {Promise<void>}
+ */
 async function initializeClock() {
     // Clear any existing intervals first
     if (analogIntervalId) {
@@ -121,6 +128,13 @@ async function initializeClock() {
     // Call this function to initialize the clock type
     initializeClockType();
 
+    /**
+     * Updates the date shown under the analog clock using the selected
+     * language's day and month names and date format.
+     * Only touches the DOM when the date string has changed.
+     *
+     * @returns {void}
+     */
     function updateDate() {
         if (clocktype === "analog") {
             var currentTime = new Date();
@@ -259,6 +273,12 @@ async function initializeClock() {
         return translations[currentLanguage]?.greeting?.[greetingKey] ?? translations["en"].greeting[greetingKey];
     }
 
+    /**
+     * Updates the digital clock: the localized date line, the time in 12- or
+     * 24-hour format, and the AM/PM label for the selected language.
+     *
+     * @returns {void}
+     */
     function updatedigiClock() {
         const hourformatstored = localStorage.getItem("hourformat");
         let hourformat = hourformatstored === "true"; // Default to false if null
