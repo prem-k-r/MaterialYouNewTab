@@ -30,7 +30,7 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
   <a href="#-features">Features</a> •
   <a href="#-installation-guide">Installation Guide</a> •
   <a href="#download">Download</a> •
-  <a href="#-currently-supported-languages-32">Currently Supported Languages</a>
+  <a href="#-currently-supported-languages-33">Currently Supported Languages</a>
 <br>
   <a href="#-contributing">Contributing</a> •
   <a href="#-star-history">Star History</a> •
@@ -214,12 +214,13 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 
 [![Watch the video](https://img.youtube.com/vi/P4ryQPixfw8/0.jpg)](https://youtu.be/P4ryQPixfw8) -->
 
-## 🌐 Currently Supported Languages (32)
+## 🌐 Currently Supported Languages (33)
 
 | Language                                                                                     | Code  | Translator(s)                                                                         |
 | -------------------------------------------------------------------------------------------- | :---: | ------------------------------------------------------------------------------------- |
 | <img src='https://flagcdn.com/us.svg' width=20> &nbsp; **English**                           |  en   | [XengShi](https://t.me/XengShi), [Prem](https://github.com/prem-k-r/)          |
 | <img src='https://flagcdn.com/sa.svg' width=20> &nbsp; **Arabic** - العربية                     | ar-SA | [Mazen](https://github.com/Mazen3Alharbi)                                             |
+| <img src='https://flagcdn.com/am.svg' width=20> &nbsp; **Armenian** - Հայերեն              |  hy   | [Robert Levonyan](https://github.com/robertlevonyan)                                  |
 | <img src='https://flagcdn.com/az.svg' width=20> &nbsp; **Azerbaijani** - Azərbaycanca        |  az   | [Hasan Bakhtiar](https://github.com/hasanbakhtiar/)                                   |
 | <img src='https://flagcdn.com/bd.svg' width=20> &nbsp; **Bangla** - বাংলা                     |  bn   | [It'z RJ](https://github.com/itz-rj-here/), [Prem](https://github.com/prem-k-r/)      |
 | <img src='https://flagcdn.com/cn.svg' width=20> &nbsp; **Chinese** (Simplified) - 简体中文    | zh-CN | [Guy Berryman](https://github.com/Guy-Berryman), [Tianli](https://github.com/TIANLI0), [Konsento](http://github.com/kons10), [HdShare](https://github.com/HdShare) |

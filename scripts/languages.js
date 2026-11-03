@@ -40,6 +40,7 @@ const translations = {
     pl: pl, // Polish
     uk: uk, // Ukrainian
     sv: sv, // Swedish
+    hy: hy, // Armenian
 };
 
 // Define the width of the menu container for each language
@@ -72,6 +73,7 @@ const menuWidths = {
     th: "497px",
     pl: "497px",
     uk: "497px",
+    hy: "512px",
     // Add more languages and widths as needed
 };
 
@@ -91,7 +93,7 @@ function localizeNumbers(text, language) {
     const map = numberMappings[language]; // Get the numeral map for the current language
 
     // Define languages that use a comma as the decimal separator instead of a dot
-    const specialDecimalLanguages = ["cs", "it", "pt", "ru", "tr", "vi", "uz", "es", "ko", "idn", "fr", "az", "sl", "hu", "de", "fa", "el", "uk", "sv"]; // Add more languages here as needed
+    const specialDecimalLanguages = ["cs", "it", "pt", "ru", "tr", "vi", "uz", "es", "ko", "idn", "fr", "az", "sl", "hu", "de", "fa", "el", "uk", "sv", "hy"]; // Add more languages here as needed
 
     if (specialDecimalLanguages.includes(language)) {
         // Replace decimal point with a comma for specific languages
@@ -375,6 +377,9 @@ function applyLanguage(lang) {
     } else if (lang === "fa") {
         loadFont("https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap"); // Using Vazirmatn for Farsi
         root.style.setProperty("--main-font-family", `"Vazirmatn", ${commonFontStack}`);
+    } else if (lang === "hy") {
+        loadFont("https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian&display=swap"); // Poppins has no Armenian glyphs; Latin text keeps Poppins
+        root.style.setProperty("--main-font-family", "'poppins', 'Poppins', 'Noto Sans Armenian', sans-serif");
     } else {
         root.style.setProperty("--main-font-family", commonFontStack);
     }
