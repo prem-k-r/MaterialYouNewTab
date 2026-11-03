@@ -63,6 +63,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 - Added support for Ukrainian ([@lozik4](https://github.com/lozik4)) ([#106](https://github.com/prem-k-r/MaterialYouNewTab/pull/106))
 - Added support for Swedish ([@empohello-imamempogitub](https://github.com/empohello-imamempogitub)) ([#179](https://github.com/prem-k-r/MaterialYouNewTab/pull/179))
+- Added support for Armenian ([@robertlevonyan](https://github.com/robertlevonyan))
 - Localized New Tab title ([@prem-k-r](https://github.com/prem-k-r))
 
 ### Other
