@@ -22,6 +22,37 @@ const dimColorPicker = document.getElementById("dimColorPicker");
 const dimColorSwatch = document.getElementById("dimColorSwatch");
 
 /**
+ * Reads a value from localStorage without throwing when storage is unavailable.
+ *
+ * @param {string} key - Storage key.
+ * @returns {string|null} The stored value, or null if missing or unreadable.
+ */
+function readDimSetting(key) {
+    try {
+        return localStorage.getItem(key);
+    } catch (error) {
+        console.warn(`Unable to read ${key}:`, error);
+        return null;
+    }
+}
+
+/**
+ * Saves a value to localStorage, logging a warning instead of throwing when
+ * storage is unavailable or full. The setting still applies for this page.
+ *
+ * @param {string} key - Storage key.
+ * @param {string|number} value - Value to save.
+ * @returns {void}
+ */
+function saveDimSetting(key, value) {
+    try {
+        localStorage.setItem(key, value);
+    } catch (error) {
+        console.warn(`Unable to save ${key}; the setting will not persist:`, error);
+    }
+}
+
+/**
  * Sets the dim strength, updates the slider UI and the CSS variable, and saves it.
  *
  * @param {number} dim - Dim strength in percent; clamped to 0–DIM_MAX.
@@ -32,7 +63,9 @@ function setDimLevel(dim) {
     dimSlider.style.width = `${value + DIM_SLIDER_OFFSET}%`;
     dimLevel.textContent = `${localizeNumbers(value.toString(), currentLanguage)}%`;
     document.documentElement.style.setProperty("--wallpaper-dim-opacity", `${value}%`);
-    localStorage.setItem("wallpaperDimOpacity", value);
+    dimBar.setAttribute("aria-valuenow", value);
+    dimBar.setAttribute("aria-valuetext", `${value}%`);
+    saveDimSetting("wallpaperDimOpacity", value);
 }
 
 /**
@@ -46,7 +79,7 @@ function setDimColor(color) {
     dimColorPicker.value = value;
     dimColorSwatch.style.backgroundColor = value;
     document.documentElement.style.setProperty("--wallpaper-dim-color", value);
-    localStorage.setItem("wallpaperDimColor", value);
+    saveDimSetting("wallpaperDimColor", value);
 }
 
 /**
@@ -81,6 +114,36 @@ function handleDimDrag(e) {
     }, { passive: false });
 });
 
+/**
+ * Keyboard support for the dim slider: arrow keys change by 1% (10% with Shift),
+ * Page Up/Down by 10%, Home/End jump to 0% and the maximum.
+ * Left/Right are mirrored in RTL layouts.
+ *
+ * @param {KeyboardEvent} e - The keydown event.
+ * @returns {void}
+ */
+function handleDimKeydown(e) {
+    const current = Number(dimBar.getAttribute("aria-valuenow")) || 0;
+    const step = e.shiftKey ? 10 : 1;
+    const forward = isRTL ? "ArrowLeft" : "ArrowRight";
+    const backward = isRTL ? "ArrowRight" : "ArrowLeft";
+    const actions = {
+        ArrowUp: current + step,
+        [forward]: current + step,
+        ArrowDown: current - step,
+        [backward]: current - step,
+        PageUp: current + 10,
+        PageDown: current - 10,
+        Home: 0,
+        End: DIM_MAX,
+    };
+    if (!(e.key in actions)) return;
+    e.preventDefault();
+    setDimLevel(actions[e.key]);
+}
+
+dimBar.addEventListener("keydown", handleDimKeydown);
+
 // Live-update while picking, save on every change
 dimColorPicker.addEventListener("input", e => setDimColor(e.target.value));
 
@@ -88,5 +151,5 @@ dimColorPicker.addEventListener("input", e => setDimColor(e.target.value));
 dimColorSwatch.title = translations[currentLanguage]?.rangColor || translations["en"].rangColor;
 
 // Initialize from saved values (default: off, black)
-setDimLevel(Number(localStorage.getItem("wallpaperDimOpacity")) || 0);
-setDimColor(localStorage.getItem("wallpaperDimColor") || DIM_DEFAULT_COLOR);
+setDimLevel(Number(readDimSetting("wallpaperDimOpacity")) || 0);
+setDimColor(readDimSetting("wallpaperDimColor") || DIM_DEFAULT_COLOR);

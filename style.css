@@ -1949,8 +1949,17 @@ body[data-bg="wallpaper"] .humidityBar .thinLine {
 	gap: 12px;
 }
 
+/* Visually hidden but still focusable and exposed to assistive technology */
 #dimColorPicker {
-	display: none;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+	white-space: nowrap;
 }
 
 .dimColorSwatch {
@@ -1967,6 +1976,18 @@ body[data-bg="wallpaper"] .humidityBar .thinLine {
 
 .dimColorSwatch:hover {
 	transform: scale(1.1);
+}
+
+/* Keyboard focus indicators */
+#dimTextContainer:has(#dimColorPicker:focus-visible) .dimColorSwatch,
+#dimBar:focus-visible {
+	outline: 2px solid var(--darkColor-blue);
+	outline-offset: 2px;
+}
+
+/* Draw the slider ring inside the bar so the control's overflow doesn't clip it */
+#dimBar:focus-visible {
+	outline-offset: -2px;
 }
 /* End of _____________________- */
 

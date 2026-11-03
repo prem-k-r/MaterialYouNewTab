@@ -1805,9 +1805,12 @@
                                                     wallpaper behind widgets</div>
                                             </div>
                                             <label class="dimColorSwatch" id="dimColorSwatch" for="dimColorPicker"></label>
-                                            <input type="color" id="dimColorPicker" autocomplete="off" value="#000000" />
+                                            <input type="color" id="dimColorPicker" autocomplete="off" value="#000000"
+                                                aria-labelledby="dimWallpaperTitle" />
                                         </div>
-                                        <div class="opacityBar" id="dimBar">
+                                        <div class="opacityBar" id="dimBar" role="slider" tabindex="0"
+                                            aria-labelledby="dimWallpaperTitle" aria-valuemin="0" aria-valuemax="80"
+                                            aria-valuenow="0" aria-valuetext="0%">
                                             <div class="thinLine"></div>
                                             <div class="opacitySlider" id="dimSlider">
                                                 <div id="dimLevel">0%</div>
