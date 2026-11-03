@@ -1823,6 +1823,8 @@ html[lang="ta"] .digiclock {
 	opacity: 0;
 	transform: translateY(20px);
 	pointer-events: none;
+	/* Hidden controls must not be reachable with Tab; hide only after the collapse animation */
+	visibility: hidden;
 	position: relative;
 	height: auto;
 	max-height: 0;
@@ -1830,10 +1832,17 @@ html[lang="ta"] .digiclock {
 	transition:
 		opacity 0.3s ease,
 		transform 0.5s ease,
-		max-height 0.4s ease;
+		max-height 0.4s ease,
+		visibility 0s linear 0.4s;
 }
 
 body[data-bg="wallpaper"] .opacityBarControl {
+	visibility: visible;
+	transition:
+		opacity 0.3s ease,
+		transform 0.5s ease,
+		max-height 0.4s ease,
+		visibility 0s;
 	opacity: 1;
 	transform: translateY(0);
 	pointer-events: auto;
