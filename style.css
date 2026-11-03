@@ -221,6 +221,18 @@ body {
 	margin: 0;
 }
 
+/* Wallpaper dim: a solid color layer drawn on top of the wallpaper (below all widgets) */
+body[data-bg="wallpaper"] {
+	--wallpaper-dim-layer: color-mix(
+		in srgb,
+		var(--wallpaper-dim-color, #000000) var(--wallpaper-dim-opacity, 0%),
+		transparent
+	);
+	background-image:
+		linear-gradient(var(--wallpaper-dim-layer), var(--wallpaper-dim-layer)),
+		var(--bg-image, none);
+}
+
 /* Early-paint dark mode: applied by preload.js before deferred scripts run.
    Uses data attributes on <html> set synchronously in <head>. */
 html[data-preferred-theme="dark"]:not(:has(#darkTheme:checked)),
@@ -1910,7 +1922,8 @@ body[data-bg="wallpaper"] .humidityBar .thinLine {
 }
 
 #humidityLevel,
-#opacityLevel {
+#opacityLevel,
+#dimLevel {
 	color: var(--whitishColor-blue);
 	width: fit-content;
 	position: absolute;
@@ -1922,9 +1935,38 @@ body[data-bg="wallpaper"] .humidityBar .thinLine {
 	font-size: 1rem;
 }
 
-#opacityTextContainer {
+#opacityTextContainer,
+#dimTextContainer {
 	border-bottom: 0;
 	padding: 8px 4px 6px;
+}
+
+/* Wallpaper dim control */
+#dimTextContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+#dimColorPicker {
+	display: none;
+}
+
+.dimColorSwatch {
+	flex-shrink: 0;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background-color: #000000;
+	border: 3px solid var(--whitishColor-blue);
+	box-shadow: 0 0 0 1px var(--darkColor-blue);
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+.dimColorSwatch:hover {
+	transform: scale(1.1);
 }
 /* End of _____________________- */
 
