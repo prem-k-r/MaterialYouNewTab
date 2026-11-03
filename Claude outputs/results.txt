@@ -1,0 +1,18 @@
+PASS  1. Fresh load, no wallpaper: body[data-bg] is "color"  — color
+PASS  1. Fresh load, no wallpaper: control is hidden (visibility/opacity/height/pointer-events)  — {"dataBg":"color","visibility":"hidden","opacity":"0","pointerEvents":"none","height":0}
+PASS  1. Fresh load, no wallpaper: Tab skips #dimColorPicker and #dimBar  — languageSelector → backupBtn → restoreBtn → resetsettings
+PASS  2. After uploading a wallpaper: body[data-bg] is "wallpaper"  — wallpaper
+PASS  2. After uploading a wallpaper: control is shown (visibility/opacity/height/pointer-events)  — {"dataBg":"wallpaper","visibility":"visible","opacity":"1","pointerEvents":"auto","height":131}
+PASS  2. After uploading a wallpaper: Tab reaches #dimColorPicker then #dimBar  — dimColorPicker → dimBar → languageSelector → backupBtn
+PASS  3. After reload with saved wallpaper: body[data-bg] is "wallpaper"  — wallpaper
+PASS  3. After reload with saved wallpaper: control is shown (visibility/opacity/height/pointer-events)  — {"dataBg":"wallpaper","visibility":"visible","opacity":"1","pointerEvents":"auto","height":131}
+PASS  3. After reload with saved wallpaper: Tab reaches #dimColorPicker then #dimBar  — dimColorPicker → dimBar → languageSelector → backupBtn
+PASS  4. After deleting the wallpaper: body[data-bg] is "color"  — color
+PASS  4. After deleting the wallpaper: control is hidden (visibility/opacity/height/pointer-events)  — {"dataBg":"color","visibility":"hidden","opacity":"0","pointerEvents":"none","height":0}
+PASS  4. After deleting the wallpaper: Tab skips #dimColorPicker and #dimBar  — languageSelector → backupBtn → restoreBtn → resetsettings
+PASS  5. After reload with no wallpaper: body[data-bg] is "color"  — color
+PASS  5. After reload with no wallpaper: control is hidden (visibility/opacity/height/pointer-events)  — {"dataBg":"color","visibility":"hidden","opacity":"0","pointerEvents":"none","height":0}
+PASS  5. After reload with no wallpaper: Tab skips #dimColorPicker and #dimBar  — languageSelector → backupBtn → restoreBtn → resetsettings
+PASS  No page errors during the run
+
+ALL CHECKS PASSED

@@ -121,9 +121,22 @@ async function applyRandomImage(showConfirmation = true) {
     }
 }
 
-// Function to update the background type attribute
+// Controls that only apply to a wallpaper (shown/hidden by CSS via body[data-bg])
+const wallpaperOnlyControls = ["opacityBarControl", "dimBarControl"];
+
+/**
+ * Switches the page between wallpaper and solid-color background mode.
+ * Also makes the wallpaper-only controls inert while there is no wallpaper,
+ * so they can't be focused or changed during (or after) their collapse animation.
+ *
+ * @param {boolean} hasWallpaper - Whether a wallpaper is currently applied.
+ * @returns {void}
+ */
 function toggleBackgroundType(hasWallpaper) {
     document.body.setAttribute("data-bg", hasWallpaper ? "wallpaper" : "color");
+    wallpaperOnlyControls.forEach(id => {
+        document.getElementById(id)?.toggleAttribute("inert", !hasWallpaper);
+    });
 }
 
 // Check and update image on page load
