@@ -457,6 +457,11 @@
             outline: none;
         }
 
+        .theme-mode-btn:focus-visible {
+            outline: 2px solid var(--md-primary);
+            outline-offset: 2px;
+        }
+
         .theme-mode-btn:hover {
             background: var(--md-primary-container);
             transform: rotate(20deg) scale(1.05);
@@ -578,6 +583,11 @@
             transition: all var(--md-duration) var(--md-ease);
             position: relative;
             outline: none;
+        }
+
+        .color-dot:focus-visible {
+            outline: 2px solid var(--md-primary);
+            outline-offset: 3px;
         }
 
         .color-dot:hover {
@@ -1169,7 +1179,7 @@
                                 <path
                                     d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                             </svg>
-                            <span class="rating-label">5.0 Star Rating</span>
+                            <span class="rating-label">Leave a review</span>
                         </div>
                     </div>
                 </a>
@@ -1215,7 +1225,7 @@
                                 <path
                                     d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                             </svg>
-                            <span class="rating-label">5.0 Star Rating</span>
+                            <span class="rating-label">Leave a review</span>
                         </div>
                     </div>
                 </a>
@@ -1260,7 +1270,7 @@
                                 <path
                                     d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                             </svg>
-                            <span class="rating-label">5.0 Star Rating</span>
+                            <span class="rating-label">Leave a review</span>
                         </div>
                     </div>
                 </a>
@@ -1473,12 +1483,20 @@
 
             // 4. UPI Click to Copy with MD3 Snackbar
             const UPI_ID = 'prem12321kumar@outlook.com';
+            let toastTimeout = null;
+            let descTimeout = null;
 
             function triggerToast(text) {
                 snackbarText.textContent = text;
                 snackbar.classList.add('active');
-                setTimeout(() => {
+
+                if (toastTimeout) {
+                    clearTimeout(toastTimeout);
+                }
+
+                toastTimeout = setTimeout(() => {
                     snackbar.classList.remove('active');
+                    toastTimeout = null;
                 }, 2800);
             }
 
@@ -1493,9 +1511,14 @@
                         triggerToast(`UPI ID: ${UPI_ID}`);
                     }
 
-                    setTimeout(() => {
+                    if (descTimeout) {
+                        clearTimeout(descTimeout);
+                    }
+
+                    descTimeout = setTimeout(() => {
                         upiCardDesc.textContent = 'Pay directly via any UPI app (GPay, PhonePe, Paytm). Click to copy ID.';
                         upiCardDesc.style.color = '';
+                        descTimeout = null;
                     }, 3000);
                 };
 
