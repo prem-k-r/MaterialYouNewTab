@@ -28,6 +28,7 @@
     <script defer src="scripts/alert-modal.js"></script>
     <script defer src="scripts/wallpaper.js"></script>
     <script defer src="scripts/widgets-transparency.js"></script>
+    <script defer src="scripts/wallpaper-dim.js"></script>
     <script defer src="scripts/clock.js"></script>
     <script defer src="scripts/weather.js"></script>
     <script defer src="scripts/custom-text.js"></script>
@@ -1778,7 +1779,7 @@
                                     <!-- ----End of Custom Wallpaper uploading thingsss------------- -->
 
                                     <!-- Opacity Bar Control  -->
-                                    <div id="opacityBarControl" class="opacityBarControl">
+                                    <div id="opacityBarControl" class="opacityBarControl" inert>
                                         <div class="ttcont" id="opacityTextContainer">
                                             <div class="texts">
                                                 <div class="bigText" id="opacityTitle">Opacity</div>
@@ -1794,6 +1795,29 @@
                                         </div>
                                     </div>
                                     <!-- End of opacity Bar Control -->
+
+                                    <!-- Wallpaper Dim Control -->
+                                    <div id="dimBarControl" class="opacityBarControl" inert>
+                                        <div class="ttcont" id="dimTextContainer">
+                                            <div class="texts">
+                                                <div class="bigText" id="dimWallpaperTitle">Dim Wallpaper</div>
+                                                <div class="infoText" id="dimWallpaperInfo">Darken or tint the
+                                                    wallpaper behind widgets</div>
+                                            </div>
+                                            <label class="dimColorSwatch" id="dimColorSwatch" for="dimColorPicker"></label>
+                                            <input type="color" id="dimColorPicker" autocomplete="off" value="#000000"
+                                                aria-labelledby="dimWallpaperTitle" />
+                                        </div>
+                                        <div class="opacityBar" id="dimBar" role="slider" tabindex="0"
+                                            aria-labelledby="dimWallpaperTitle" aria-valuemin="0" aria-valuemax="80"
+                                            aria-valuenow="0" aria-valuetext="0%">
+                                            <div class="thinLine"></div>
+                                            <div class="opacitySlider" id="dimSlider">
+                                                <div id="dimLevel">0%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End of Wallpaper Dim Control -->
                                 </div>
                             </div>
                         </div>

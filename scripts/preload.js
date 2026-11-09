@@ -26,6 +26,20 @@
         root.style.setProperty('--transparency', `${Math.round(Number(savedOpacity))}%`);
     }
 
+    // --- Wallpaper dim ---
+    try {
+        const savedDim = localStorage.getItem('wallpaperDimOpacity');
+        if (savedDim) {
+            root.style.setProperty('--wallpaper-dim-opacity', `${Math.round(Number(savedDim))}%`);
+        }
+        const savedDimColor = localStorage.getItem('wallpaperDimColor');
+        if (savedDimColor) {
+            root.style.setProperty('--wallpaper-dim-color', savedDimColor);
+        }
+    } catch (error) {
+        console.warn('Unable to read wallpaper dim settings:', error);
+    }
+
     // Watch for the <body> to be created and instantly set it to "wallpaper" before the screen paints
     // if (localStorage.getItem('hasWallpaper') === 'true') {
     //     const observer = new MutationObserver(function () {

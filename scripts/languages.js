@@ -234,6 +234,8 @@ function applyLanguage(lang) {
         "resetAISettingsBtn",
         "opacityTitle",
         "adjustOpacityDesc",
+        "dimWallpaperTitle",
+        "dimWallpaperInfo",
         "footerToastTitle",
         "footerToastMessage",
         "personalizationSectionTitle",
