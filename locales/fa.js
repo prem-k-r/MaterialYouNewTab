@@ -31,7 +31,7 @@ const fa = {
   aiToolsSettingsInfo: "مدیریت میانبرهای ابزارهای هوش مصنوعی",
   googleAppsMenuText: "برنامه‌های گوگل",
   googleAppsMenuInfo: "نمایش میانبرهای برنامه‌های گوگل",
-  googleAppsHover: "برنامه‌های گوگل", // Keep this shorter
+  googleAppsHover: "برنامه‌های گوگل",
 
   shortcutDefaultName: "میانبر جدید",
   shortcutInputName: "نام میانبر",
@@ -42,7 +42,7 @@ const fa = {
   // To-do List
   todoListText: "لیست کارها",
   todoListInfo: "نمایش لیست کارهای روزانه",
-  todoListHover: "لیست کارها", // Keep this short
+  todoListHover: "لیست کارها",
   todoPlaceholder: "افزودن کار...",
 
   // Clock
@@ -62,7 +62,7 @@ const fa = {
   fahrenheitCelsiusText: "برای اعمال تغییرات، صفحه را بازخوانی کنید",
   hideWeatherTitle: "پنهان کردن آب و هوا",
   hideWeatherInfo: "غیرفعال کردن ویجت‌های آب و هوا",
-  hideWeatherBox: "پنهان کردن کارت آب و هوا", // Toggle for mobile devices only
+  hideWeatherBox: "پنهان کردن کارت آب و هوا",
   hideWeatherBoxInfo: "نمایش فقط نشانگر دما",
   minMaxTempText: "دمای حداقل-حداکثر",
   minMaxTempSubText: "جایگزینی 'دمای محسوس' با دمای حداقل و حداکثر",
@@ -97,7 +97,7 @@ const fa = {
   PrivacyPolicy: "سیاست حفظ حریم خصوصی",
 
   // Weather
-  WeatherApiText: "کلید WeatherAPI خود را وارد کنید", // For 'WeatherAPI' string, only transliterate
+  WeatherApiText: "کلید WeatherAPI خود را وارد کنید",
   WeatherApiSubtext: "اگر عملکرد آب و هوا کار نمی‌کند",
   userAPI: "کلید weatherAPI شما",
   LearnMoreButton: "بیشتر بدانید",
@@ -127,8 +127,8 @@ const fa = {
   sortAlphabetical: "الف-ی",
   sortTimeAdded: "قدیمی-جدید",
   bookmarkViewAs: "نمایش به صورت",
-  bookmarkViewGrid: "شبکه‌ای", // Keep this shorter
-  bookmarkViewList: "لیستی", // Keep this shorter
+  bookmarkViewGrid: "شبکه‌ای",
+  bookmarkViewList: "لیستی",
   bookmarkSearch: "جستجوی نشانک",
   editBookmarkHeading: "ویرایش نشانک",
   editBookmarkName: "نام نشانک",
@@ -157,11 +157,11 @@ const fa = {
   // Search Engines
   defaultEngine: "پیش‌فرض",
   googleEngine: "گوگل",
-  duckEngine: "داک‌داک‌گو", // DuckDuckGo
+  duckEngine: "داک‌داک‌گو",
   bingEngine: "بینگ",
   braveEngine: "بریو",
   youtubeEngine: "یوتیوب",
-  gImagesEngine: "تصاویر", // Google Images, https://www.google.com/search?q=check&hl=bn
+  gImagesEngine: "تصاویر",
   redditEngine: "ردیت",
   wikipediaEngine: "ویکی‌پدیا",
   quoraEngine: "کورا",
@@ -187,8 +187,8 @@ const fa = {
   systemThemed: "سیستم",
 
   // Wallpaper and settings
-  uploadWallpaperText: "آپلود تصویر زمینه", // Keep this short
-  rangColor: "انتخاب رنگ", // Keep this short
+  uploadWallpaperText: "آپلود تصویر زمینه",
+  rangColor: "انتخاب رنگ",
   opacityTitle: "شفافیت",
   adjustOpacityDesc: "تنظیم شفافیت رابط کاربری",
   backupText: "پشتیبان‌گیری",
@@ -242,7 +242,7 @@ const fa = {
   restorecompleted: "بازیابی با موفقیت انجام شد!",
   restorefailed: "بازیابی ناموفق بود: ",
   invalidBackup: "فایل پشتیبان نامعتبر انتخاب شده است.",
-  deleteBookmark: 'آیا مطمئن هستید که می‌خواهید نشانک "{title}" را حذف کنید؟', // Do not translate {title}
+  deleteBookmark: 'آیا مطمئن هستید که می‌خواهید نشانک "{title}" را حذف کنید؟',
   UnsupportedBrowser: "نشانک‌ها در مرورگر شما پشتیبانی نمی‌شوند.",
   resetShortcutsPrompt:
     "همه میانبرهای ذخیره‌شده حذف و به حالت پیش‌فرض بازنشانی خواهند شد. آیا می‌خواهید ادامه دهید؟",
