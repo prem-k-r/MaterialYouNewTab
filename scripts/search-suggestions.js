@@ -210,7 +210,7 @@ let lastRedditRequestTime = 0;
 
 async function getAutocompleteSuggestions(query) {
     const clientParam = getClientParam(); // Get the browser client parameter dynamically
-    var selectedOption = document.querySelector('input[name="search-engine"]:checked').value;
+    const selectedOption = document.querySelector('input[name="search-engine"]:checked').value;
 
     // 🔒 Throttle Reddit API calls
     const now = Date.now();
