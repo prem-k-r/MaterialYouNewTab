@@ -196,6 +196,7 @@ function applyLanguage(lang) {
         "quoraEngine",
         "chatGPT",
         "gemini",
+        "googleAIStudio",
         "copilot",
         "claude",
         "grok",
