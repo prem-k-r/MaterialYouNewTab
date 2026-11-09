@@ -179,7 +179,7 @@ Below are screenshots of the process to guide you through each step visually.
      ```
 
    - This will update both your homepage and new tab to the extension.
-  
+
 3. **Additional Steps ONLY for Zen Browser** <img height="16" src="https://cdn.simpleicons.org/zenbrowser"/> :
 
    - Open a new tab and go to `about:config`.
@@ -236,7 +236,7 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 | <img src='https://flagcdn.com/kr.svg' width=20> &nbsp; **Korean** - 한국어                   |  ko   | [XengShi](https://t.me/XengShi), [eunsunglee7385](https://github.com/eunsunglee7385/), [channel101](https://github.com/channel101/) |
 | <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Marathi** - मराठी                   |  mr   | [Prem](https://github.com/prem-k-r/), [Pratik Lokhande](https://github.com/konprtk), [Anand Naik Gaonkar](https://github.com/anndiy)   |
 | <img src='https://flagcdn.com/np.svg' width=20> &nbsp; **Nepali** - नेपाली                    |  ne   | [Bikash Shresha](https://github.com/sthaB-kash/)                                      |
-| <img src='https://flagcdn.com/ir.svg' width=20> &nbsp; **Persian** - فارسی                    |  fa   | [AMIRHOSSEIN](https://github.com/AMIRHOSSEIN-AHMADI-IR)                               |
+| <img src='https://flagcdn.com/ir.svg' width=20> &nbsp; **Persian** - فارسی                  |  fa   | [AMIRHOSSEIN](https://github.com/AMIRHOSSEIN-AHMADI-IRAN)                               |
 | <img src='https://flagcdn.com/pl.svg' width=20> &nbsp; **Polish** - Polski                  | pl | [Dawid Warkowski](https://github.com/dawid9707/)                                         |
 | <img src='https://flagcdn.com/br.svg' width=20> &nbsp; **Portuguese** - Português            | pt-BR | [Maycon Vitor Correa](https://github.com/MestreWalla/)                                |
 | <img src='https://flagcdn.com/ru.svg' width=20> &nbsp; **Russian** - Русский                 |  ru   | [giwi](https://github.com/giwih/), [CodWiz](https://github.com/C0dwiz/)               |
