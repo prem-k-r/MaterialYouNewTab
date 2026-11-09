@@ -2395,34 +2395,82 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 }
 
 /* ----------- Quotes ------------ */
+/* Every visible outer edge of this box is drawn exactly once, by the rounded
+   clip on .quotesCont. Both children overhang that clip on purpose: the light
+   box background on all four sides, the author pill on its block-end and
+   inline-end sides. When a child's own edge instead lines up with the clip
+   edge, both fade out across the same device pixel at fractional zoom and the
+   outline gets a faint fringe (a pale line of the box between the pill and the
+   page, a dark line around the box itself). */
 .quotesCont {
+	--overhang: 4px; /* how far the children extend past the clip */
 	margin-top: var(--gap);
 	position: relative;
 	display: flex;
 	font-size: 1rem;
-	direction: ltr; /* Remove when multilingual quote is supported */
+	/* Direction comes from the dir attribute that languages.js sets per language. */
 	unicode-bidi: isolate;
+	border-radius: 20px;
+	/* clip, not hidden: hidden would make this a scroll container and the
+	   overhang would become scrollable content. */
+	overflow: clip;
 }
 
 .quotesContainer {
 	position: relative;
 	background-color: var(--accentLightTint-blue);
-	height: 100px;
-	width: 100%;
-	border-radius: 20px;
-	padding: 20px;
+	/* Overhang the clip on every side; the padding grows by the same amount so
+	   the text does not move. The visible box is still 100px tall. */
+	margin: calc(var(--overhang) * -1);
+	width: calc(100% + var(--overhang) * 2);
+	height: calc(100px + var(--overhang) * 2);
+	padding: calc(20px + var(--overhang));
 	line-height: 28px;
 }
 
+/* The author pill and its two concave fillets are ONE shape cut from one element
+   with a mask. Separate layers (SVGs, pseudo-elements) that merely touch always
+   leave partly-covered pixels along the join, and on a semi-transparent wallpaper
+   background every overlap between layers shows up as a darker line. A single
+   masked shape has no internal joins to leak. */
 .authorWrapper {
 	position: absolute;
-	bottom: 0;
-	inset-inline-end: 0;
+	bottom: calc(var(--overhang) * -1);
+	inset-inline-end: calc(var(--overhang) * -1);
 	display: flex;
 	align-items: flex-end;
+	justify-content: flex-end;
+	box-sizing: content-box;
+	/* 20px of room for the fillets on the block-start / inline-start sides, plus
+	   the overhang on the block-end / inline-end sides. */
+	padding-block: 20px var(--overhang);
+	padding-inline: 20px var(--overhang);
 	background: var(--bg-color-blue);
-	border-start-start-radius: 20px;
-	border-end-end-radius: 20px;
+	/* Mask pieces: two overlapping rectangles for the pill body, a disc that
+	   rounds its top-start corner, and the two concave fillets. White = keep,
+	   transparent = cut; that reads the same whether an engine applies the mask
+	   by alpha or by luminance. The pieces overlap heavily on purpose so that no
+	   two edges merely touch. */
+	--notch-mask:
+		linear-gradient(#fff, #fff) 40px 20px / calc(100% - 40px) calc(100% - 20px) no-repeat,
+		linear-gradient(#fff, #fff) 20px 40px / calc(100% - 20px) calc(100% - 40px) no-repeat,
+		radial-gradient(circle 20px at 40px 40px, #fff 0 20px, transparent 20px) 0 0 / 100% 100% no-repeat,
+		radial-gradient(circle 20px at 0 0, transparent 0 20px, #fff 20px) left 0 top 40px / 60px calc(100% - 40px) no-repeat,
+		radial-gradient(circle 20px at 0 0, transparent 0 20px, #fff 20px) right 0 top 0 / calc(20px + var(--overhang)) 40px no-repeat;
+	-webkit-mask: var(--notch-mask);
+	mask: var(--notch-mask);
+}
+
+/* RTL: the pill sits at the bottom-start (bottom-left). The layout already
+   mirrors through the logical padding and inset above; only the mask's physical
+   positions need flipping. */
+.quotesCont[dir="rtl"] .authorWrapper {
+	--notch-mask:
+		linear-gradient(#fff, #fff) right 40px top 20px / calc(100% - 40px) calc(100% - 20px) no-repeat,
+		linear-gradient(#fff, #fff) right 20px top 40px / calc(100% - 20px) calc(100% - 40px) no-repeat,
+		radial-gradient(circle 20px at calc(100% - 40px) 40px, #fff 0 20px, transparent 20px) 0 0 / 100% 100% no-repeat,
+		radial-gradient(circle 20px at 100% 0, transparent 0 20px, #fff 20px) right 0 top 40px / 60px calc(100% - 40px) no-repeat,
+		radial-gradient(circle 20px at 100% 0, transparent 0 20px, #fff 20px) left 0 top 0 / calc(20px + var(--overhang)) 40px no-repeat;
 }
 
 .authorName {
@@ -2433,8 +2481,6 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 	justify-content: center;
 	height: 40px;
 	width: 40px;
-	border-start-start-radius: 20px;
-	border-end-end-radius: 20px;
 	white-space: nowrap;
 	overflow: hidden;
 	transition: width 0.4s var(--md-motion-ease);
@@ -2444,23 +2490,6 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 .authorName span {
 	display: inline-block;
 	padding: 0;
-}
-
-.qtRounder {
-	position: absolute;
-	width: 20px;
-	height: 20px;
-	inset-inline-start: -20px;
-	transform: rotate(90deg);
-}
-
-.qtRounder2 {
-	position: absolute;
-	width: 20px;
-	height: 20px;
-	inset-inline-end: 0;
-	top: -20px;
-	transform: rotate(90deg);
 }
 
 body[data-bg="wallpaper"] .quotesContainer {
@@ -2482,14 +2511,6 @@ body[data-bg="wallpaper"] .authorWrapper {
 		var(--bg-color-blue) calc(var(--transparency) * 1.5),
 		transparent
 	);
-}
-
-html[lang="ur"] .qtRounder {
-	left: -18.5px;
-}
-
-html[lang="ur"] .qtRounder2 {
-	right: -1.5px;
 }
 
 /* ----------Shortcuts----------------- */
