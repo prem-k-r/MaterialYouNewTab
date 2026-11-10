@@ -124,28 +124,99 @@ document.getElementById("imageUpload").addEventListener("change", function (even
     event.target.value = "";
 });
 
-// Helper to get wallpaper fetch configuration based on quality and source
-function getRandomImageFetchConfig() {
-    const quality = localStorage.getItem("wallpaperQuality") || "1080p";
-    const source = localStorage.getItem("wallpaperSource") || "picsum";
-
-    const dimensions = {
-        "720p": { width: 1280, height: 720, bingRes: "1366" },
-        "1080p": { width: 1920, height: 1080, bingRes: "1920" },
-        "original": { width: 3840, height: 2160, bingRes: "3840" }
-    }[quality] || { width: 1920, height: 1080, bingRes: "1920" };
-
-    if (source === "bing") {
-        return {
-            url: `https://bing.biturl.top/?resolution=${dimensions.bingRes}&format=image`,
-            source: "bing"
-        };
-    } else {
-        return {
-            url: `https://picsum.photos/${dimensions.width}/${dimensions.height}`,
-            source: source
-        };
+// Fetch Bing wallpaper using official Image Archive API with 8-day rotation
+async function fetchBingWallpaper() {
+    const hasPerm = await hasBingPermission();
+    if (!hasPerm) {
+        const granted = await requestBingPermission();
+        if (!granted) {
+            throw new Error("Bing host permission not granted");
+        }
     }
+
+    const archiveResponse = await fetch("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8&mkt=en-US");
+    if (!archiveResponse.ok) {
+        throw new Error(`Bing API returned status ${archiveResponse.status}`);
+    }
+    const archiveData = await archiveResponse.json();
+    const images = archiveData?.images;
+    if (!images || images.length === 0) {
+        throw new Error("No images found in Bing archive response");
+    }
+
+    const todayStr = new Date().toDateString();
+    const lastBingDate = localStorage.getItem("bingWallpaperDate");
+    const lastBingIndexStr = localStorage.getItem("bingWallpaperIndex");
+
+    let selectedIndex = 0;
+    // First fetch should always select today's wallpaper (idx=0).
+    // Subsequent random selections rotate through the available 8 images.
+    if (lastBingDate === todayStr && lastBingIndexStr !== null) {
+        const prevIndex = parseInt(lastBingIndexStr, 10);
+        selectedIndex = (!isNaN(prevIndex) ? (prevIndex + 1) : 1) % images.length;
+    } else {
+        selectedIndex = 0;
+    }
+
+    localStorage.setItem("bingWallpaperDate", todayStr);
+    localStorage.setItem("bingWallpaperIndex", String(selectedIndex));
+
+    const selectedImage = images[selectedIndex];
+    const quality = localStorage.getItem("wallpaperQuality") || "1080p";
+    const resSuffix = {
+        "720p": "_1366x768.jpg",
+        "1080p": "_1920x1080.jpg",
+        "original": "_UHD.jpg"
+    }[quality] || "_1920x1080.jpg";
+
+    const imageUrl = `https://www.bing.com${selectedImage.urlbase}${resSuffix}`;
+    const imageResponse = await fetch(imageUrl);
+    if (!imageResponse.ok) {
+        throw new Error(`Failed to fetch Bing image file: ${imageResponse.status}`);
+    }
+    const blob = await imageResponse.blob();
+
+    const infoData = {
+        author: selectedImage.copyright || "Bing Wallpaper",
+        url: selectedImage.copyrightlink || (selectedImage.quiz ? `https://www.bing.com${selectedImage.quiz}` : "https://www.bing.com"),
+        title: selectedImage.title || "",
+        isBing: true
+    };
+
+    return { blob, infoData };
+}
+
+// Fetch random wallpaper from Picsum
+async function fetchPicsumWallpaper() {
+    const quality = localStorage.getItem("wallpaperQuality") || "1080p";
+    const dimensions = {
+        "720p": { width: 1280, height: 720 },
+        "1080p": { width: 1920, height: 1080 },
+        "original": { width: 3840, height: 2160 }
+    }[quality] || { width: 1920, height: 1080 };
+
+    const response = await fetch(`https://picsum.photos/${dimensions.width}/${dimensions.height}`);
+    if (!response.ok) {
+        throw new Error(`Picsum request failed: ${response.status}`);
+    }
+    const blob = await response.blob();
+
+    let infoData = null;
+    try {
+        const redirectedUrl = response.url;
+        const match = redirectedUrl.match(/\/id\/(\d+)\//);
+        if (match) {
+            const photoId = match[1];
+            const infoResponse = await fetch(`https://picsum.photos/id/${photoId}/info`);
+            if (infoResponse.ok) {
+                infoData = await infoResponse.json();
+            }
+        }
+    } catch (infoError) {
+        console.error("Error fetching wallpaper metadata:", infoError);
+    }
+
+    return { blob, infoData };
 }
 
 // Fetch and apply random image as background
@@ -156,31 +227,15 @@ async function applyRandomImage(showConfirmation = true) {
         return;
     }
     try {
-        const config = getRandomImageFetchConfig();
-        const response = await fetch(config.url);
-        const blob = await response.blob();
-
-        let infoData = null;
-        if (config.source === "bing") {
-            infoData = {
-                author: "Bing Daily Wallpaper",
-                url: "https://www.bing.com",
-                isBing: true
-            };
+        const source = localStorage.getItem("wallpaperSource") || "picsum";
+        let result;
+        if (source === "bing") {
+            result = await fetchBingWallpaper();
         } else {
-            try {
-                const redirectedUrl = response.url;
-                const match = redirectedUrl.match(/\/id\/(\d+)\//);
-                if (match) {
-                    const photoId = match[1];
-                    const infoResponse = await fetch(`https://picsum.photos/id/${photoId}/info`);
-                    infoData = await infoResponse.json();
-                }
-            } catch (infoError) {
-                console.error("Error fetching wallpaper metadata:", infoError);
-            }
+            result = await fetchPicsumWallpaper();
         }
 
+        const { blob, infoData } = result;
         await saveImageToIndexedDB(blob, true, infoData);
         setBackground(blob, "random");
         updateWallpaperSourceUI(infoData);
@@ -357,6 +412,8 @@ document.getElementById("clearImage").addEventListener("click", async function (
                     randomToggle.checked = false;
                     localStorage.setItem("autoDailyWallpaper", "false");
                 }
+                localStorage.removeItem("bingWallpaperIndex");
+                localStorage.removeItem("bingWallpaperDate");
             } catch (error) {
                 console.error(error);
             }
@@ -495,7 +552,9 @@ async function downloadWallpaper() {
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
         const day = String(now.getDate()).padStart(2, '0');
-        const fileName = `wallpaper-${year}-${month}-${day}.${extension}`;
+        const fileName = (infoData && infoData.isBing && infoData.title)
+            ? `bing-${infoData.title.toLowerCase().replace(/[^a-z0-9_-]+/g, "-")}.${extension}`
+            : `wallpaper-${year}-${month}-${day}.${extension}`;
 
         // Create temporary link and trigger download for custom local uploads
         const url = URL.createObjectURL(blob);
