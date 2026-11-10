@@ -109,6 +109,14 @@ document.getElementById("imageUpload").addEventListener("change", function (even
         const blob = file.slice(0, file.size, file.type);
         setBackground(blob, "upload");
         updateWallpaperSourceUI(null);
+
+        // Turn off daily random wallpaper toggle when custom wallpaper is uploaded
+        const randomToggle = document.getElementById("randomWallpaperToggle");
+        if (randomToggle && randomToggle.checked) {
+            randomToggle.checked = false;
+            localStorage.setItem("autoDailyWallpaper", "false");
+        }
+
         pendingSavePromise = saveImageToIndexedDB(blob, false)
             .catch(error => console.error("Error saving image:", error))
             .finally(() => { pendingSavePromise = null; });
@@ -183,12 +191,14 @@ async function applyRandomImage(showConfirmation = true) {
 
 // Function to update the background type attributes
 function updateBackgroundType(bgType) {
-    document.body.setAttribute("data-bg", bgType === "color" ? "color" : "wallpaper");
+    const isRandom = bgType === "random";
+    const hasWallpaper = bgType !== "color";
+
+    document.body.setAttribute("data-bg", hasWallpaper ? "wallpaper" : "color");
     document.body.setAttribute("data-bg-type", bgType);
     
     const downloadBtn = document.getElementById("downloadWallpaper");
     if (downloadBtn) {
-        const isRandom = bgType === "random";
         downloadBtn.classList.toggle("hidden", !isRandom);
         if (!isRandom) {
             downloadBtn.setAttribute("tabindex", "-1");
@@ -201,7 +211,6 @@ function updateBackgroundType(bgType) {
 
     const clearBtn = document.getElementById("clearImage");
     if (clearBtn) {
-        const hasWallpaper = bgType !== "color";
         clearBtn.classList.toggle("hidden", !hasWallpaper);
         if (!hasWallpaper) {
             clearBtn.setAttribute("tabindex", "-1");
@@ -214,7 +223,7 @@ function updateBackgroundType(bgType) {
 
     const randomToggle = document.getElementById("randomWallpaperToggle");
     if (randomToggle) {
-        randomToggle.checked = localStorage.getItem("autoDailyWallpaper") !== "false";
+        randomToggle.checked = localStorage.getItem("autoDailyWallpaper") === "true";
     }
 
     const optionControls = [
@@ -290,7 +299,7 @@ function checkAndUpdateImage() {
                 return;
             }
 
-            const autoDaily = localStorage.getItem("autoDailyWallpaper") !== "false";
+            const autoDaily = localStorage.getItem("autoDailyWallpaper") === "true";
             if (autoDaily && lastUpdate.toDateString() !== now.toDateString()) {
                 applyRandomImage(false);
             } else {
@@ -301,7 +310,8 @@ function checkAndUpdateImage() {
         })
         .catch((error) => {
             console.warn("Unable to load image details:", error);
-            toggleBackgroundType(false);
+            updateBackgroundType("color");
+            updateWallpaperSourceUI(null);
         });
 }
 
@@ -340,6 +350,13 @@ document.getElementById("clearImage").addEventListener("click", async function (
                 updateWallpaperSourceUI(null);
                 const fileInput = document.getElementById("imageUpload");
                 if (fileInput) fileInput.value = "";
+
+                // Turn off random wallpaper toggle when wallpaper is deleted
+                const randomToggle = document.getElementById("randomWallpaperToggle");
+                if (randomToggle && randomToggle.checked) {
+                    randomToggle.checked = false;
+                    localStorage.setItem("autoDailyWallpaper", "false");
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -354,9 +371,19 @@ document.getElementById("randomImageTrigger").addEventListener("click", applyRan
 // Random Wallpaper Daily Auto-Fetch Toggle switch listener
 const randomToggle = document.getElementById("randomWallpaperToggle");
 if (randomToggle) {
-    randomToggle.checked = localStorage.getItem("autoDailyWallpaper") !== "false";
-    randomToggle.addEventListener("change", (e) => {
-        localStorage.setItem("autoDailyWallpaper", e.target.checked ? "true" : "false");
+    randomToggle.checked = localStorage.getItem("autoDailyWallpaper") === "true";
+    randomToggle.addEventListener("change", async (e) => {
+        const isEnabled = e.target.checked;
+        localStorage.setItem("autoDailyWallpaper", isEnabled ? "true" : "false");
+
+        if (isEnabled) {
+            const currentBgType = document.body.getAttribute("data-bg-type") || "color";
+            // If no wallpaper is set or an upload is set, fetch a random wallpaper immediately.
+            // If a random wallpaper is already active, keep it until tomorrow's auto daily update.
+            if (currentBgType === "color" || currentBgType === "upload") {
+                await applyRandomImage(false);
+            }
+        }
     });
 }
 
