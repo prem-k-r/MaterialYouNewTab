@@ -30,7 +30,7 @@ MYNT: Material You New Tab is a versatile browser extension that personalizes yo
   <a href="#-features">Features</a> •
   <a href="#-installation-guide">Installation Guide</a> •
   <a href="#download">Download</a> •
-  <a href="#-currently-supported-languages-32">Currently Supported Languages</a>
+  <a href="#-currently-supported-languages-33">Currently Supported Languages</a>
 <br>
   <a href="#-contributing">Contributing</a> •
   <a href="#-star-history">Star History</a> •
@@ -179,7 +179,7 @@ Below are screenshots of the process to guide you through each step visually.
      ```
 
    - This will update both your homepage and new tab to the extension.
-  
+
 3. **Additional Steps ONLY for Zen Browser** <img height="16" src="https://cdn.simpleicons.org/zenbrowser"/> :
 
    - Open a new tab and go to `about:config`.
@@ -214,12 +214,13 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 
 [![Watch the video](https://img.youtube.com/vi/P4ryQPixfw8/0.jpg)](https://youtu.be/P4ryQPixfw8) -->
 
-## 🌐 Currently Supported Languages (32)
+## 🌐 Currently Supported Languages (33)
 
 | Language                                                                                     | Code  | Translator(s)                                                                         |
 | -------------------------------------------------------------------------------------------- | :---: | ------------------------------------------------------------------------------------- |
 | <img src='https://flagcdn.com/us.svg' width=20> &nbsp; **English**                           |  en   | [XengShi](https://t.me/XengShi), [Prem](https://github.com/prem-k-r/)          |
 | <img src='https://flagcdn.com/sa.svg' width=20> &nbsp; **Arabic** - العربية                     | ar-SA | [Mazen](https://github.com/Mazen3Alharbi)                                             |
+| <img src='https://flagcdn.com/am.svg' width=20> &nbsp; **Armenian** - Հայերեն              |  hy   | [Robert Levonyan](https://github.com/robertlevonyan)                                  |
 | <img src='https://flagcdn.com/az.svg' width=20> &nbsp; **Azerbaijani** - Azərbaycanca        |  az   | [Hasan Bakhtiar](https://github.com/hasanbakhtiar/)                                   |
 | <img src='https://flagcdn.com/bd.svg' width=20> &nbsp; **Bangla** - বাংলা                     |  bn   | [It'z RJ](https://github.com/itz-rj-here/), [Prem](https://github.com/prem-k-r/)      |
 | <img src='https://flagcdn.com/cn.svg' width=20> &nbsp; **Chinese** (Simplified) - 简体中文    | zh-CN | [Guy Berryman](https://github.com/Guy-Berryman), [Tianli](https://github.com/TIANLI0), [Konsento](http://github.com/kons10), [HdShare](https://github.com/HdShare) |
@@ -236,7 +237,7 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 | <img src='https://flagcdn.com/kr.svg' width=20> &nbsp; **Korean** - 한국어                   |  ko   | [XengShi](https://t.me/XengShi), [eunsunglee7385](https://github.com/eunsunglee7385/), [channel101](https://github.com/channel101/) |
 | <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Marathi** - मराठी                   |  mr   | [Prem](https://github.com/prem-k-r/), [Pratik Lokhande](https://github.com/konprtk), [Anand Naik Gaonkar](https://github.com/anndiy)   |
 | <img src='https://flagcdn.com/np.svg' width=20> &nbsp; **Nepali** - नेपाली                    |  ne   | [Bikash Shresha](https://github.com/sthaB-kash/)                                      |
-| <img src='https://flagcdn.com/ir.svg' width=20> &nbsp; **Persian** - فارسی                    |  fa   | [AMIRHOSSEIN](https://github.com/AMIRHOSSEIN-AHMADI-IR)                               |
+| <img src='https://flagcdn.com/ir.svg' width=20> &nbsp; **Persian** - فارسی                  |  fa   | [AMIRHOSSEIN](https://github.com/AMIRHOSSEIN-AHMADI-IRAN)                               |
 | <img src='https://flagcdn.com/pl.svg' width=20> &nbsp; **Polish** - Polski                  | pl | [Dawid Warkowski](https://github.com/dawid9707/)                                         |
 | <img src='https://flagcdn.com/br.svg' width=20> &nbsp; **Portuguese** - Português            | pt-BR | [Maycon Vitor Correa](https://github.com/MestreWalla/)                                |
 | <img src='https://flagcdn.com/ru.svg' width=20> &nbsp; **Russian** - Русский                 |  ru   | [giwi](https://github.com/giwih/), [CodWiz](https://github.com/C0dwiz/)               |
