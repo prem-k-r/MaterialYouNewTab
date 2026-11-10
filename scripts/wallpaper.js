@@ -413,10 +413,42 @@ if (qualitySelect) {
     });
 }
 
+// Helper to check and request host permissions for Bing (Chrome MV3 optional host permissions)
+async function hasBingPermission() {
+    const permissionsApi = window.chrome?.permissions || window.browser?.permissions;
+    if (!permissionsApi?.contains) return true;
+    return new Promise((resolve) => {
+        permissionsApi.contains({ origins: ["https://www.bing.com/*"] }, (granted) => {
+            resolve(Boolean(granted));
+        });
+    });
+}
+
+async function requestBingPermission() {
+    const permissionsApi = window.chrome?.permissions || window.browser?.permissions;
+    if (!permissionsApi?.request) return true;
+    return new Promise((resolve) => {
+        permissionsApi.request({ origins: ["https://www.bing.com/*"] }, (granted) => {
+            resolve(Boolean(granted));
+        });
+    });
+}
+
 const sourceSelect = document.getElementById("wallpaperSourceSelect");
 if (sourceSelect) {
     sourceSelect.value = localStorage.getItem("wallpaperSource") || "picsum";
-    sourceSelect.addEventListener("change", (e) => {
+    sourceSelect.addEventListener("change", async (e) => {
+        const previousSource = localStorage.getItem("wallpaperSource") || "picsum";
+        if (e.target.value === "bing") {
+            const hasPerm = await hasBingPermission();
+            if (!hasPerm) {
+                const granted = await requestBingPermission();
+                if (!granted) {
+                    sourceSelect.value = previousSource;
+                    return;
+                }
+            }
+        }
         localStorage.setItem("wallpaperSource", e.target.value);
     });
 }
