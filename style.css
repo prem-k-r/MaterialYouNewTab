@@ -514,7 +514,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 /* Individual Icon Item Styling */
 .icon-item {
 	gap: 0.5rem;
-	/* Item Gap*/
+	/* Item Gap */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -651,7 +651,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 }
 
 .gapps-edit-btn svg {
-	fill: currentColor;
+	fill: currentcolor;
 	pointer-events: none;
 }
 
@@ -760,7 +760,53 @@ body[data-bg="wallpaper"] .tooltip-text {
 }
 
 .gapps-remove-btn svg {
-	fill: currentColor;
+	fill: currentcolor;
+	pointer-events: none;
+}
+
+/* Move controls for favorites */
+.gapps-move-btn {
+	position: absolute;
+	inset-inline-start: 2px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: none;
+	background-color: var(--darkColor-blue);
+	color: rgba(255, 255, 255, 0.9);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	z-index: 5;
+	padding: 0;
+	transition:
+		transform 0.15s ease,
+		opacity 0.15s ease;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+	animation: gapps-btn-pop 200ms ease-out;
+}
+
+.gapps-move-up-btn {
+	top: 2px;
+}
+
+.gapps-move-down-btn {
+	bottom: 2px;
+}
+
+.gapps-move-btn:hover:not(:disabled) {
+	transform: scale(1.15);
+}
+
+.gapps-move-btn:disabled {
+	opacity: 0.25;
+	cursor: default;
+	pointer-events: none;
+}
+
+.gapps-move-btn svg {
+	fill: currentcolor;
 	pointer-events: none;
 }
 
@@ -794,7 +840,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 }
 
 .gapps-add-btn svg {
-	fill: currentColor;
+	fill: currentcolor;
 	pointer-events: none;
 }
 
@@ -827,7 +873,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 }
 
 .gapps-hide-btn svg {
-	fill: currentColor;
+	fill: currentcolor;
 	pointer-events: none;
 }
 
@@ -4328,11 +4374,9 @@ input:checked + .toggle:before {
 	font-size: 0.82rem;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
-	@-moz-document url-prefix() {
-		/* Scrollbar styles for Firefox */
-		scrollbar-width: thin;
-		scrollbar-color: var(--darkColor-blue) transparent;
-	}
+	/* Scrollbar styles for Firefox */
+	scrollbar-width: thin;
+	scrollbar-color: var(--darkColor-blue) transparent;
 
 	transition: border 0.25s var(--md-motion-ease);
 }
@@ -4945,16 +4989,16 @@ body[data-bg="wallpaper"] .dropdown-content {
 
 /* Next direction - slide up and fade */
 .searchbar.engine-switching[data-switch-direction="next"] .dropdown-btn > * {
-	animation-name: slideUpFade;
+	animation-name: slide-up-fade;
 }
 
 /* Previous direction - slide down and fade */
 .searchbar.engine-switching[data-switch-direction="prev"] .dropdown-btn > * {
-	animation-name: slideDownFade;
+	animation-name: slide-down-fade;
 }
 
 /* Slide up with fade (for next) */
-@keyframes slideUpFade {
+@keyframes slide-up-fade {
 	0%,
 	100% {
 		transform: translateY(0);
@@ -4973,7 +5017,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 /* Slide down with fade (for previous) */
-@keyframes slideDownFade {
+@keyframes slide-down-fade {
 	0%,
 	100% {
 		transform: translateY(0);

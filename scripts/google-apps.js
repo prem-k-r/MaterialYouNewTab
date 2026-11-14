@@ -350,6 +350,7 @@ function createAppElement(app, isFavorite) {
             const removeBtn = document.createElement("button");
             removeBtn.className = "gapps-remove-btn";
             removeBtn.title = "Remove from favorites";
+            removeBtn.setAttribute("aria-label", "Remove from favorites");
             removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M19 13H5v-2h14z"/></svg>`;
             removeBtn.addEventListener("click", function (e) {
                 e.preventDefault();
@@ -358,6 +359,49 @@ function createAppElement(app, isFavorite) {
                 renderApps();
             });
             el.appendChild(removeBtn);
+
+            // Keyboard-accessible move-up and move-down controls
+            const favIdx = favoriteIds.indexOf(app.id);
+
+            const moveUpBtn = document.createElement("button");
+            moveUpBtn.className = "gapps-move-btn gapps-move-up-btn";
+            moveUpBtn.title = "Move up";
+            moveUpBtn.setAttribute("aria-label", `Move ${app.name} up`);
+            if (favIdx <= 0) {
+                moveUpBtn.disabled = true;
+            }
+            moveUpBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentcolor" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>`;
+            moveUpBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const currentIdx = favoriteIds.indexOf(app.id);
+                if (currentIdx > 0) {
+                    favoriteIds.splice(currentIdx, 1);
+                    favoriteIds.splice(currentIdx - 1, 0, app.id);
+                    renderApps();
+                }
+            });
+            el.appendChild(moveUpBtn);
+
+            const moveDownBtn = document.createElement("button");
+            moveDownBtn.className = "gapps-move-btn gapps-move-down-btn";
+            moveDownBtn.title = "Move down";
+            moveDownBtn.setAttribute("aria-label", `Move ${app.name} down`);
+            if (favIdx === -1 || favIdx >= favoriteIds.length - 1) {
+                moveDownBtn.disabled = true;
+            }
+            moveDownBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentcolor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>`;
+            moveDownBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const currentIdx = favoriteIds.indexOf(app.id);
+                if (currentIdx > -1 && currentIdx < favoriteIds.length - 1) {
+                    favoriteIds.splice(currentIdx, 1);
+                    favoriteIds.splice(currentIdx + 1, 0, app.id);
+                    renderApps();
+                }
+            });
+            el.appendChild(moveDownBtn);
 
             // Drag handle
             el.setAttribute("draggable", "true");
@@ -372,6 +416,7 @@ function createAppElement(app, isFavorite) {
             const addBtn = document.createElement("button");
             addBtn.className = "gapps-add-btn";
             addBtn.title = "Add to favorites";
+            addBtn.setAttribute("aria-label", "Add to favorites");
             addBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg>`;
             addBtn.addEventListener("click", function (e) {
                 e.preventDefault();
@@ -385,7 +430,9 @@ function createAppElement(app, isFavorite) {
             // Hide/Show toggle
             const hideBtn = document.createElement("button");
             hideBtn.className = "gapps-hide-btn";
-            hideBtn.title = isHidden ? "Show app" : "Hide app";
+            const hideLabel = isHidden ? "Show app" : "Hide app";
+            hideBtn.title = hideLabel;
+            hideBtn.setAttribute("aria-label", hideLabel);
             hideBtn.innerHTML = isHidden
                 ? `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5m0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>`
                 : `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7M2 4.27l2.28 2.28.46.46A11.8 11.8 0 0 0 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2m4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3z"/></svg>`;
@@ -395,8 +442,12 @@ function createAppElement(app, isFavorite) {
                 if (isHidden) {
                     // Unhide: only remove from hiddenIds, do NOT add to favorites
                     hiddenIds = hiddenIds.filter(id => id !== app.id);
+                    hideBtn.title = "Hide app";
+                    hideBtn.setAttribute("aria-label", "Hide app");
                 } else {
                     hiddenIds.push(app.id);
+                    hideBtn.title = "Show app";
+                    hideBtn.setAttribute("aria-label", "Show app");
                 }
                 renderApps();
             });
@@ -448,9 +499,11 @@ function renderApps() {
         if (isEditMode) {
             editBtn.classList.add("active");
             editBtn.title = "Done editing";
+            editBtn.setAttribute("aria-label", "Done editing");
         } else {
             editBtn.classList.remove("active");
             editBtn.title = "Edit favorites";
+            editBtn.setAttribute("aria-label", "Edit favorites");
         }
     }
 
@@ -497,18 +550,18 @@ function handleDrop(e) {
     e.preventDefault();
     this.classList.remove("drag-over");
 
-    if (dragSrcEl !== this) {
-        const fromId = dragSrcEl.dataset.appId;
-        const toId = this.dataset.appId;
-        const fromIdx = favoriteIds.indexOf(fromId);
+    const fromId = e.dataTransfer ? e.dataTransfer.getData("text/plain") : null;
+    const toId = this.dataset.appId;
 
-        if (fromIdx > -1) {
-            favoriteIds.splice(fromIdx, 1);
-            const toIdx = favoriteIds.indexOf(toId); // recompute after removal
-            if (toIdx > -1) {
-                favoriteIds.splice(toIdx, 0, fromId);
-                renderApps();
-            }
+    if (!fromId || !toId || fromId === toId) return;
+
+    const fromIdx = favoriteIds.indexOf(fromId);
+    if (fromIdx > -1) {
+        favoriteIds.splice(fromIdx, 1);
+        const toIdx = favoriteIds.indexOf(toId); // recompute after removal
+        if (toIdx > -1) {
+            favoriteIds.splice(toIdx, 0, fromId);
+            renderApps();
         }
     }
 }
