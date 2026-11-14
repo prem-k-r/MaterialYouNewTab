@@ -7,7 +7,6 @@
  */
 
 // ------------------------Google App Menu-----------------------------------
-
 // ---- App Registry: all Google apps with SVG icons ----
 const GOOGLE_APPS_REGISTRY = [
     {
