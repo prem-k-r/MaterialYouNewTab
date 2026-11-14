@@ -31,6 +31,9 @@ const en = {
     "googleAppsMenuText": "Google Apps",
     "googleAppsMenuInfo": "Show shortcuts for Google Apps",
     "googleAppsHover": "Google Apps",    // Keep this shorter
+    "gappsHeaderTitle": "Your favorites",
+    "gappsCancelBtn": "Cancel",
+    "gappsDoneBtn": "Done",
 
     "shortcutDefaultName": "New Shortcut",
     "shortcutInputName": "Shortcut Name",
