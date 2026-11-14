@@ -267,7 +267,7 @@ async function getAutocompleteSuggestions(query) {
             return data[1];
         }
     } catch (error) {
-        console.error("Error fetching autocomplete suggestions:", error);
+        console.warn("Unable to fetch autocomplete suggestions:", error);
         return [];
     }
 }

@@ -122,7 +122,7 @@ async function fetchMetadata() {
         const response = await fetch(metadataUrl);
         return await response.json();
     } catch (error) {
-        console.error("Error fetching metadata:", error);
+        console.warn("Unable to fetch quote metadata:", error);
         throw error;
     }
 }
@@ -134,7 +134,7 @@ async function fetchQuotes(lang) {
         const response = await fetch(url);
         return await response.json();
     } catch (error) {
-        console.error(`Error fetching quotes for ${lang}:`, error);
+        console.warn(`Unable to fetch quotes for ${lang}:`, error);
         throw error;
     }
 }
@@ -269,7 +269,7 @@ async function getQuotesForLanguage(forceRefresh = false) {
             return getStoredQuotes(currentLanguage);
         }
     } catch (error) {
-        console.error("Error getting quotes:", error);
+        console.warn("Unable to get quotes; using stored or fallback quotes:", error);
 
         // Try to use any stored data as fallback
         let quotes = getStoredQuotes(currentLanguage) || getStoredQuotes("en");
@@ -336,7 +336,7 @@ async function loadAndDisplayQuote(forceRefresh = false) {
         const quotes = await getQuotesForLanguage(forceRefresh);
         displayRandomQuote(quotes);
     } catch (error) {
-        console.error("Error loading quote:", error);
+        console.warn("Unable to load quote; using fallback quote:", error);
         displayFallbackQuote();
     }
 }

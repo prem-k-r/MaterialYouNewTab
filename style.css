@@ -2378,7 +2378,8 @@ body[data-bg="wallpaper"] #searchQ::placeholder {
 
 /* --------- .micIcon------------- */
 
-.micIcon, .aiModeIcon {
+.micIcon,
+.aiModeIcon {
 	width: 40px;
 	height: 40px;
 	margin-inline-end: 10px;
@@ -2460,21 +2461,21 @@ body[data-bg="wallpaper"] .micIcon {
 		padding 0.35s var(--md-motion-decelerate),
 		opacity 0.3s var(--md-motion-decelerate) 0.05s,
 		transform 0.35s var(--md-motion-decelerate),
-		background-color 0.2s var(--md-motion-ease),
+		background-color 0.2s var(--md-motion-ease);
 }
 
 .aiModeIcon::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background-color: var(--whitishColor-blue);
-    z-index: 0;
-	transform: scale(1); 
-    transform-origin: center center;
-    transition:
-        transform 0.3s var(--md-motion-ease),
-        background-color 0.3s var(--md-motion-ease);
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: 50%;
+	background-color: var(--whitishColor-blue);
+	z-index: 0;
+	transform: scale(1);
+	transform-origin: center center;
+	transition:
+		transform 0.3s var(--md-motion-ease),
+		background-color 0.3s var(--md-motion-ease);
 }
 
 .aiModeIcon.hidden {
@@ -2490,14 +2491,14 @@ body[data-bg="wallpaper"] .micIcon {
 		width 0.3s var(--md-motion-accelerate) 0.1s,
 		margin-inline-end 0.3s var(--md-motion-accelerate) 0.1s,
 		padding 0.3s var(--md-motion-accelerate) 0.1s,
-		background-color 0.2s var(--md-motion-ease),
+		background-color 0.2s var(--md-motion-ease);
 }
 
 .aiModeIcon svg {
-    flex-shrink: 0;
-    min-width: 24px;
-    position: relative;
-    z-index: 1;
+	flex-shrink: 0;
+	min-width: 24px;
+	position: relative;
+	z-index: 1;
 }
 
 body[data-bg="wallpaper"] .aiModeIcon::before {
@@ -2509,12 +2510,12 @@ body[data-bg="wallpaper"] .aiModeIcon::before {
 }
 
 .black-theme body[data-bg="wallpaper"] .aiModeIcon::before {
-	background-color:var(--whitishColor-dark);
+	background-color: var(--whitishColor-dark);
 }
 
 .aiModeIcon:not(.hidden):hover::before {
-    transform: scale(1.1);
-    background-color: color-mix(
+	transform: scale(1.1);
+	background-color: color-mix(
 		in srgb,
 		var(--whitishColor-blue) calc(var(--transparency) * 3),
 		transparent
@@ -2522,7 +2523,7 @@ body[data-bg="wallpaper"] .aiModeIcon::before {
 }
 
 .aiModeIcon:not(.hidden):active::before {
-    transform: scale(0.95);
+	transform: scale(0.95);
 }
 
 .theme-transition .aiModeIcon {
@@ -2718,10 +2719,12 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 	inset-inline-end: 0;
 	display: flex;
 	align-items: flex-end;
+	background: var(--bg-color-blue);
+	border-start-start-radius: 20px;
+	border-end-end-radius: 20px;
 }
 
 .authorName {
-	background: var(--bg-color-blue);
 	position: relative;
 	padding: 6px 16px;
 	display: flex;
@@ -2772,7 +2775,7 @@ body[data-bg="wallpaper"] .quotesContainer {
 	text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 }
 
-body[data-bg="wallpaper"] .authorName {
+body[data-bg="wallpaper"] .authorWrapper {
 	background-color: color-mix(
 		in srgb,
 		var(--bg-color-blue) calc(var(--transparency) * 1.5),
@@ -5749,7 +5752,7 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme .micIcon,
-.black-theme .aiModeIcon::before ,
+.black-theme .aiModeIcon::before,
 .black-theme .floating-label-field input {
 	background-color: var(--whitishColor-dark);
 }
