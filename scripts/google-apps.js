@@ -379,6 +379,7 @@ function createAppElement(app, isFavorite) {
                     favoriteIds.splice(currentIdx, 1);
                     favoriteIds.splice(currentIdx - 1, 0, app.id);
                     renderApps();
+                    restoreMoveFocus(app.id, "up");
                 }
             });
             el.appendChild(moveUpBtn);
@@ -399,6 +400,7 @@ function createAppElement(app, isFavorite) {
                     favoriteIds.splice(currentIdx, 1);
                     favoriteIds.splice(currentIdx + 1, 0, app.id);
                     renderApps();
+                    restoreMoveFocus(app.id, "down");
                 }
             });
             el.appendChild(moveDownBtn);
@@ -456,6 +458,22 @@ function createAppElement(app, isFavorite) {
     }
 
     return el;
+}
+
+function restoreMoveFocus(appId, preferredDirection) {
+    const appEl = document.querySelector(`#gappsFavoritesGrid .icon-item[data-app-id="${appId}"]`);
+    if (!appEl) return;
+    const upBtn = appEl.querySelector(".gapps-move-up-btn");
+    const downBtn = appEl.querySelector(".gapps-move-down-btn");
+
+    const preferredBtn = preferredDirection === "up" ? upBtn : downBtn;
+    const fallbackBtn = preferredDirection === "up" ? downBtn : upBtn;
+
+    if (preferredBtn && !preferredBtn.disabled) {
+        preferredBtn.focus();
+    } else if (fallbackBtn && !fallbackBtn.disabled) {
+        fallbackBtn.focus();
+    }
 }
 
 function renderApps() {
@@ -557,10 +575,17 @@ function handleDrop(e) {
 
     const fromIdx = favoriteIds.indexOf(fromId);
     if (fromIdx > -1) {
+        const rect = this.getBoundingClientRect();
+        const isRtl = getComputedStyle(this).direction === "rtl";
+        const isTrailingX = isRtl ? (e.clientX < rect.left + rect.width / 2) : (e.clientX > rect.left + rect.width / 2);
+        const isLowerY = e.clientY > rect.top + rect.height / 2;
+        const dropAfter = isTrailingX || isLowerY;
+
         favoriteIds.splice(fromIdx, 1);
         const toIdx = favoriteIds.indexOf(toId); // recompute after removal
         if (toIdx > -1) {
-            favoriteIds.splice(toIdx, 0, fromId);
+            const insertIdx = toIdx + (dropAfter ? 1 : 0);
+            favoriteIds.splice(insertIdx, 0, fromId);
             renderApps();
         }
     }
@@ -673,6 +698,28 @@ document.addEventListener("DOMContentLoaded", function () {
         doneBtn.addEventListener("click", function (e) {
             e.stopPropagation();
             doneEditMode();
+        });
+    }
+
+    const favGrid = document.getElementById("gappsFavoritesGrid");
+    if (favGrid) {
+        favGrid.addEventListener("dragover", function (e) {
+            if (!isEditMode) return;
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "move";
+        });
+        favGrid.addEventListener("drop", function (e) {
+            if (!isEditMode) return;
+            if (e.target !== favGrid) return;
+            e.preventDefault();
+            const fromId = e.dataTransfer ? e.dataTransfer.getData("text/plain") : null;
+            if (!fromId) return;
+            const fromIdx = favoriteIds.indexOf(fromId);
+            if (fromIdx > -1) {
+                favoriteIds.splice(fromIdx, 1);
+                favoriteIds.push(fromId);
+                renderApps();
+            }
         });
     }
 });
