@@ -10,20 +10,53 @@
 const aiToolsRaw = [
     { id: "chatGPT", visible: true, order: 0 },
     { id: "gemini", visible: true, order: 1 },
-    { id: "copilot", visible: true, order: 2 },
-    { id: "claude", visible: true, order: 3 },
-    { id: "deepseek", visible: true, order: 4 },
-    { id: "perplexity", visible: false, order: 5 },
-    { id: "grok", visible: false, order: 6 },
-    { id: "metaAI", visible: false, order: 7 },
-    { id: "qwen", visible: false, order: 8 },
-    { id: "firefly", visible: false, order: 9 }
+    { id: "googleAIStudio", visible: true, order: 2 },
+    { id: "copilot", visible: true, order: 3 },
+    { id: "claude", visible: true, order: 4 },
+    { id: "deepseek", visible: true, order: 5 },
+    { id: "perplexity", visible: false, order: 6 },
+    { id: "grok", visible: false, order: 7 },
+    { id: "metaAI", visible: false, order: 8 },
+    { id: "qwen", visible: false, order: 9 },
+    { id: "firefly", visible: false, order: 10 }
 ];
 // Translations for AI tools
 const aiTools = aiToolsRaw.map(tool => ({
     ...tool,
     label: translations[currentLanguage]?.[tool.id] || translations["en"][tool.id]
 }));
+
+function mergeAIToolsSettings(savedSettings) {
+    const normalizedSettings = [];
+    const seenToolIds = new Set();
+
+    if (Array.isArray(savedSettings)) {
+        savedSettings.forEach((item) => {
+            let toolId;
+            let isVisible = true;
+
+            if (typeof item === "string") {
+                toolId = item;
+            } else {
+                toolId = Object.keys(item)[0];
+                isVisible = false;
+            }
+
+            if (aiTools.some(tool => tool.id === toolId)) {
+                seenToolIds.add(toolId);
+                normalizedSettings.push(isVisible ? toolId : { [toolId]: false });
+            }
+        });
+    }
+
+    aiTools.forEach((tool) => {
+        if (!seenToolIds.has(tool.id)) {
+            normalizedSettings.push(tool.visible ? tool.id : { [tool.id]: false });
+        }
+    });
+
+    return normalizedSettings;
+}
 
 // DOM Elements
 const aiToolName = document.getElementById("toolsCont");
@@ -131,12 +164,10 @@ function applyAIToolsSettings() {
     const savedSettings = JSON.parse(localStorage.getItem("aiToolsSettings") || "null");
     let settingsToApply;
 
-    if (!savedSettings || !Array.isArray(savedSettings)) {
-        // Initialize with default values if no settings exist
-        settingsToApply = aiTools.map(tool => tool.visible ? tool.id : { [tool.id]: false });
+    settingsToApply = mergeAIToolsSettings(savedSettings);
+
+    if (!savedSettings || !Array.isArray(savedSettings) || JSON.stringify(settingsToApply) !== JSON.stringify(savedSettings)) {
         localStorage.setItem("aiToolsSettings", JSON.stringify(settingsToApply));
-    } else {
-        settingsToApply = savedSettings;
     }
 
     // Create a map of current tool elements for quick lookup
@@ -243,23 +274,11 @@ function showAIToolsSettings() {
     aiToolsForm.innerHTML = "";
 
     // Load saved tool order and visibility or initialize from defaults
-    let savedSettings = JSON.parse(localStorage.getItem("aiToolsSettings") || "null");
-
-    // If no settings exist, create from aiTools
-    if (!savedSettings || !Array.isArray(savedSettings)) {
-        savedSettings = aiTools.map(tool => {
-            if (tool.visible) {
-                return tool.id;
-            } else {
-                const hiddenTool = {};
-                hiddenTool[tool.id] = false;
-                return hiddenTool;
-            }
-        });
-    }
+    const savedSettings = JSON.parse(localStorage.getItem("aiToolsSettings") || "null");
+    const normalizedSettings = mergeAIToolsSettings(savedSettings);
 
     // Generate the form with the saved settings
-    generateAIToolsForm(savedSettings);
+    generateAIToolsForm(normalizedSettings);
 
     // Show modal and overlay
     aiToolsSettingsModal.style.display = "block";
