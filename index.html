@@ -109,13 +109,81 @@
         </ul>
     </div>
 
-    <!-- --------------------- Bookmark System --------------------- -->
-    <div style="display: none;">
-        <svg id="folderIconTemplate" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M3 6v10.8c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874c.427.218.987.218 2.105.218h11.606c1.118 0 1.677 0 2.104-.218c.377-.192.683-.498.875-.874C21 18.48 21 17.92 21 16.8V9.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C19.48 6 18.92 6 17.8 6H12M3 6h9M3 6a2 2 0 0 1 2-2h3.675c.489 0 .734 0 .964.055q.308.075.578.24c.202.124.375.297.72.643L12 6" />
-        </svg>
-    </div>
+    <!-- --------------------- Bookmarks --------------------- -->
+    <svg id="bookmarkIconSprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+        style="position: absolute; width: 0; height: 0; overflow: hidden;">
+        <symbol id="bmi-dots" viewBox="0 0 52 52">
+            <circle cx="26" cy="10.4" r="5.2" />
+            <circle cx="26" cy="26" r="5.2" />
+            <circle cx="26" cy="41.6" r="5.2" />
+        </symbol>
+        <symbol id="bmi-add" viewBox="0 0 520 520">
+            <path
+                d="M300 290h165c8 0 15-7 15-15v-30c0-8-7-15-15-15H300c-6 0-10-4-10-10V55c0-8-7-15-15-15h-30c-8 0-15 7-15 15v165c0 6-4 10-10 10H55c-8 0-15 7-15 15v30c0 8 7 15 15 15h165c6 0 10 4 10 10v165c0 8 7 15 15 15h30c8 0 15-7 15-15V300c0-6 4-10 10-10z" />
+        </symbol>
+        <symbol id="bmi-chevrondown" viewBox="0 0 520 520">
+            <path
+                d="M476 178 271 385c-6 6-16 6-22 0L44 178c-6-6-6-16 0-22l22-22c6-6 16-6 22 0l161 163c6 6 16 6 22 0l161-162c6-6 16-6 22 0l22 22c5 6 5 15 0 21z" />
+        </symbol>
+        <symbol id="bmi-star" viewBox="0 0 52 52">
+            <path
+                d="M26.0 5.5 L31.6 19.7 L46.9 20.7 L35.1 30.5 L38.9 45.3 L26.0 37.1 L13.1 45.3 L16.9 30.5 L5.1 20.7 L20.4 19.7Z" />
+        </symbol>
+        <symbol id="bmi-folder" viewBox="0 0 52 52">
+            <path d="M4 14q0-5 5-5h11l5 5h18q5 0 5 5v21q0 5-5 5H9q-5 0-5-5z" />
+        </symbol>
+        <symbol id="bmi-arrowup" viewBox="0 0 52 52">
+            <path d="M26 44V9M10 25l16-16 16 16" fill="none" stroke="currentColor" stroke-width="5"
+                stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="bmi-arrowdown" viewBox="0 0 52 52">
+            <path d="M26 8v35M10 27l16 16 16-16" fill="none" stroke="currentColor" stroke-width="5"
+                stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="bmi-sort" viewBox="0 0 52 52">
+            <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 14h20m10 0h10M6 26h6m10 0h24M6 38h24m10 0h6" />
+                <circle cx="31" cy="14" r="5" />
+                <circle cx="17" cy="26" r="5" />
+                <circle cx="35" cy="38" r="5" />
+            </g>
+        </symbol>
+        <symbol id="bmi-clock" viewBox="0 0 52 52">
+            <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="26" cy="26" r="19" />
+                <path d="M26 14v12l8 5" />
+            </g>
+        </symbol>
+        <symbol id="bmi-hide" viewBox="0 0 52 52">
+            <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 26s9-15 22-15 22 15 22 15-9 15-22 15S4 26 4 26z" />
+                <circle cx="26" cy="26" r="6" />
+                <path d="M8 44L44 8" />
+            </g>
+        </symbol>
+        <symbol id="bmi-shortcut" viewBox="0 0 52 52">
+            <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="6" y="6" width="40" height="40" rx="9" />
+                <path d="M26 17v18M17 26h18" />
+            </g>
+        </symbol>
+        <symbol id="bmi-check" viewBox="0 0 52 52">
+            <path d="M10 27l11 11 21-23" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="bmi-close" viewBox="0 0 52 52">
+            <path d="M12 12l28 28M40 12L12 40" fill="none" stroke="currentColor" stroke-width="5"
+                stroke-linecap="round" />
+        </symbol>
+        <symbol id="bmi-edit" viewBox="0 0 520 520">
+            <path
+                d="m95 334 89 89c4 4 10 4 14 0l222-223c4-4 4-10 0-14l-88-88a10 10 0 0 0-14 0L95 321c-4 4-4 10 0 13zM361 57a10 10 0 0 0 0 14l88 88c4 4 10 4 14 0l25-25a38 38 0 0 0 0-55l-47-47a40 40 0 0 0-57 0zM21 482c-2 10 7 19 17 17l109-26c4-1 7-3 9-5l2-2c2-2 3-9-1-13l-90-90c-4-4-11-3-13-1l-2 2a20 20 0 0 0-5 9z" />
+        </symbol>
+        <symbol id="bmi-delete" viewBox="0 0 52 52">
+            <path
+                d="M45.5 10H33V6a4 4 0 0 0-4-4h-6a4 4 0 0 0-4 4v4H6.5c-.8 0-1.5.7-1.5 1.5v3c0 .8.7 1.5 1.5 1.5h39c.8 0 1.5-.7 1.5-1.5v-3c0-.8-.7-1.5-1.5-1.5zM23 7c0-.6.4-1 1-1h4c.6 0 1 .4 1 1v3h-6zm18.5 13h-31c-.8 0-1.5.7-1.5 1.5V45a5 5 0 0 0 5 5h24a5 5 0 0 0 5-5V21.5c0-.8-.7-1.5-1.5-1.5zM23 42c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1V28c0-.6.4-1 1-1h2c.6 0 1 .4 1 1zm10 0c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1V28c0-.6.4-1 1-1h2c.6 0 1 .4 1 1z" />
+        </symbol>
+    </svg>
 
     <div class="bookmark-button" id="bookmarkButton">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -129,39 +197,193 @@
     <div id="bookmarksContainer">
         <div id="bookmarkSidebar" class="bookmark-sidebar">
 
-            <div class="topOutRoundCorner">
-                <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                    <path class="lessDark" d="M30 0L0 0C16.5685 0 30 13.4315 30 30L30 0Z" />
-                </svg>
-            </div>
-
             <div class="bookmark-sidebar-header">
                 <h2 id="bookmarksHeading">Bookmarks</h2>
             </div>
             <div class="bookmark-search-container">
-                <input type="text" id="bookmarkSearch" placeholder="Search bookmark" />
-                <button id="clearSearchButton">✖</button>
-            </div>
-            <!-- Adding Sorting buttons along with View Container -->
-            <div class="bookmark-controls-container">
-                <div class="bookmark-control-group">
-                    <h3 id="bookmarkSortBy">Sort by</h3>
-                    <div class="button-group">
-                        <button id="sortAlphabetical" class="bookmark-sort-button active">A-Z</button>
-                        <button id="sortTimeAdded" class="bookmark-sort-button">Old-New</button>
-                    </div>
+                <div class="bookmark-search-field">
+                    <input type="text" id="bookmarkSearch" placeholder="Search bookmark" />
+                    <button id="clearSearchButton" type="button" aria-label="Clear search">✖</button>
                 </div>
+                <button id="bookmarkMenuButton" class="bookmark-icon-button" type="button" aria-label="More options"
+                    aria-haspopup="true" aria-expanded="false">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-dots"></use>
+                    </svg>
+                </button>
 
-                <div class="bookmark-control-group">
-                    <h3 id="bookmarkViewAs">View as</h3>
-                    <div class="button-group">
-                        <input type="checkbox" id="bookmarkGridCheckbox" hidden />
-                        <button id="bookmarkViewGrid" class="bookmark-view-as-button">Grid</button>
-                        <button id="bookmarkViewList" class="bookmark-view-as-button">List</button>
+                <!-- Options menu (three dots next to the search bar) -->
+                <div id="bookmarkMenu" class="bookmark-menu" role="menu">
+                    <button id="bookmarkMenuDisplay" class="bookmark-menu-item" type="button" role="menuitem"
+                        aria-expanded="false">
+                        <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-sort"></use>
+                        </svg>
+                        <span id="bookmarkMenuDisplayLabel">Display</span>
+                        <svg class="bm-icon bookmark-menu-chevron" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-chevrondown"></use>
+                        </svg>
+                    </button>
+                    <div id="bookmarkDisplaySub" class="bookmark-menu-sub">
+                        <div class="bookmark-menu-sub-inner">
+                            <div class="bookmark-control-group">
+                                <h3 id="bookmarkSortBy">Sort by</h3>
+                                <div class="button-group" id="bookmarkSortGroup" role="group"
+                                    aria-labelledby="bookmarkSortBy">
+                                    <button id="sortDefault" class="bookmark-sort-button active bm-icon-btn"
+                                        data-icon="default" data-sort="default">Browser order</button>
+                                    <button id="sortAlphabetical" class="bookmark-sort-button bm-icon-btn"
+                                        data-icon="az" data-sort="title">A-Z</button>
+                                    <button id="sortAlphabeticalDesc" class="bookmark-sort-button bm-icon-btn"
+                                        data-icon="za" data-sort="title-desc">Z-A</button>
+                                    <button id="sortTimeAdded" class="bookmark-sort-button bm-icon-btn"
+                                        data-icon="old-new" data-sort="date">Old-New</button>
+                                    <button id="sortTimeAddedDesc" class="bookmark-sort-button bm-icon-btn"
+                                        data-icon="new-old" data-sort="date-desc">New-Old</button>
+                                </div>
+                            </div>
+                            <div class="bookmark-control-group">
+                                <h3 id="bookmarkViewAs">View as</h3>
+                                <div class="button-group" id="bookmarkViewGroup" role="group"
+                                    aria-labelledby="bookmarkViewAs">
+                                    <input type="checkbox" id="bookmarkGridCheckbox" hidden />
+                                    <button id="bookmarkViewGrid" class="bookmark-view-as-button bm-icon-btn"
+                                        data-icon="grid">Grid</button>
+                                    <button id="bookmarkViewList" class="bookmark-view-as-button bm-icon-btn"
+                                        data-icon="list">List</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <button id="bookmarkMenuAdd" class="bookmark-menu-item" type="button" role="menuitem">
+                        <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-add"></use>
+                        </svg>
+                        <span id="bookmarkMenuAddLabel">Add bookmark</span>
+                    </button>
+
+                    <div class="bookmark-menu-divider"></div>
+
+                    <label class="bookmark-menu-item bookmark-menu-toggle">
+                        <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-clock"></use>
+                        </svg>
+                        <span id="bookmarkShowRecentLabel">Show recent</span>
+                        <span class="switch">
+                            <input type="checkbox" id="bookmarkShowRecent" role="menuitemcheckbox" />
+                            <span class="toggle"></span>
+                        </span>
+                    </label>
+                    <div id="bookmarkRecentCountRow" class="bookmark-menu-item bookmark-menu-row">
+                        <span class="bm-icon-spacer"></span>
+                        <span id="bookmarkRecentCountLabel">Recent count</span>
+                        <div class="bookmark-stepper">
+                            <button class="bm-recent-minus" type="button" role="menuitem"
+                                aria-label="Decrease">−</button>
+                            <span class="bm-recent-count">8</span>
+                            <button class="bm-recent-plus" type="button" role="menuitem"
+                                aria-label="Increase">+</button>
+                        </div>
+                    </div>
+                    <label class="bookmark-menu-item bookmark-menu-toggle">
+                        <svg class="bm-icon bm-star" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-star"></use>
+                        </svg>
+                        <span id="bookmarkShowFavoritesLabel">Show favorite</span>
+                        <span class="switch">
+                            <input type="checkbox" id="bookmarkShowFavorites" role="menuitemcheckbox" />
+                            <span class="toggle"></span>
+                        </span>
+                    </label>
                 </div>
             </div>
             <ul id="bookmarkList"></ul>
+
+            <!-- Per-bookmark / per-folder options menu -->
+            <div id="bookmarkItemMenu" class="bookmark-menu bookmark-item-menu" role="menu">
+                <button class="bookmark-menu-item" type="button" role="menuitem" data-action="favorite">
+                    <svg class="bm-icon bm-star" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-star"></use>
+                    </svg>
+                    <span id="bookmarkFavoriteActionLabel">Add to favorite</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-move" type="button" role="menuitem" data-action="moveUp">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-arrowup"></use>
+                    </svg>
+                    <span id="bookmarkMoveUpLabel">Move up</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-move" type="button" role="menuitem" data-action="moveDown">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-arrowdown"></use>
+                    </svg>
+                    <span id="bookmarkMoveDownLabel">Move down</span>
+                </button>
+                <!-- TODO: Remove display: none once "Add to shortcuts" is implemented -->
+                <button class="bookmark-menu-item bm-action-bookmark" type="button" role="menuitem"
+                    data-action="shortcut" style="display: none;">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-shortcut"></use>
+                    </svg>
+                    <span>Add to shortcuts</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-bookmark" type="button" role="menuitem" data-action="edit">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-edit"></use>
+                    </svg>
+                    <span>Edit bookmark</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-bookmark danger" type="button" role="menuitem"
+                    data-action="delete">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-delete"></use>
+                    </svg>
+                    <span>Delete bookmark</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-folder" type="button" role="menuitem" data-action="addHere">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-add"></use>
+                    </svg>
+                    <span id="bookmarkAddHereLabel">Add bookmark</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-folder danger" type="button" role="menuitem"
+                    data-action="deleteFolder">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-delete"></use>
+                    </svg>
+                    <span id="bookmarkDeleteFolderLabel">Delete folder and bookmarks</span>
+                </button>
+            </div>
+
+            <!-- Options menu of the "Favorites" section header -->
+            <div id="bookmarkFavoritesMenu" class="bookmark-menu bookmark-item-menu" role="menu">
+                <button class="bookmark-menu-item" type="button" role="menuitem" data-action="hideFavorites">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-hide"></use>
+                    </svg>
+                    <span id="bookmarkHideFavoritesLabel">Hide favorites</span>
+                </button>
+            </div>
+
+            <!-- Options menu of the "Recent" section header -->
+            <div id="bookmarkRecentMenu" class="bookmark-menu bookmark-item-menu" role="menu">
+                <button class="bookmark-menu-item" type="button" role="menuitem" data-action="hideRecent">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-hide"></use>
+                    </svg>
+                    <span id="bookmarkHideRecentLabel">Hide recent</span>
+                </button>
+                <div class="bookmark-menu-item bookmark-menu-row">
+                    <span class="bm-icon-spacer"></span>
+                    <span>Recent count</span>
+                    <div class="bookmark-stepper">
+                        <button class="bm-recent-minus" type="button" role="menuitem" aria-label="Decrease">−</button>
+                        <span class="bm-recent-count">8</span>
+                        <button class="bm-recent-plus" type="button" role="menuitem" aria-label="Increase">+</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -173,13 +395,56 @@
             <img id="editBookmarkFavicon" src="" alt="Favicon">
 
             <div class="floating-label-field">
-                <input type="text" id="editBookmarkName" autocomplete="off" />
+                <input type="text" id="editBookmarkName" autocomplete="off" placeholder=" " />
                 <label for="editBookmarkName" id="editBookmarkNameLabel">Bookmark Name</label>
             </div>
 
             <div class="floating-label-field">
-                <input type="url" id="editBookmarkURL" autocomplete="off" />
+                <input type="url" id="editBookmarkURL" autocomplete="off" placeholder=" " />
                 <label for="editBookmarkURL" id="editBookmarkURLLabel">Bookmark URL</label>
+            </div>
+
+            <div class="folder-block">
+                <div class="folder-field-row">
+                    <div class="floating-label-field">
+                        <select id="editBookmarkFolder" autocomplete="off" data-custom-select></select>
+                        <label for="editBookmarkFolder" id="editBookmarkFolderLabel">Folder</label>
+                    </div>
+                    <button id="newBookmarkFolderButton" class="bm-folder-action" type="button" title="New folder"
+                        aria-label="New folder" aria-expanded="false" aria-controls="newBookmarkFolderRow">
+                        <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-add"></use>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Collapsed until "+" is clicked -->
+                <div id="newBookmarkFolderRow" class="new-folder">
+                    <div class="new-folder-inner">
+                        <div class="new-folder-content">
+                            <div class="new-folder-controls">
+                                <div class="floating-label-field">
+                                    <input type="text" id="newBookmarkFolderName" autocomplete="off" placeholder=" " />
+                                    <label for="newBookmarkFolderName" id="newBookmarkFolderLabel">New folder
+                                        name</label>
+                                </div>
+                                <button id="createBookmarkFolder" class="bm-folder-action" type="button"
+                                    title="Create folder" aria-label="Create folder">
+                                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                                        <use href="#bmi-check"></use>
+                                    </svg>
+                                </button>
+                                <button id="cancelBookmarkFolder" class="bm-folder-action" type="button" title="Cancel"
+                                    aria-label="Cancel">
+                                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                                        <use href="#bmi-close"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div id="newBookmarkFolderHint" class="new-folder-hint"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="modal-buttons">
@@ -189,7 +454,7 @@
         </div>
     </div>
 
-    <!----------------------- End of Bookmark System ----------------------->
+    <!----------------------- End of Bookmarks ----------------------->
 
     <!----------------------- Google App Menu Setup Starting ----------------------->
     <!-- 9 Dot Icon -->
@@ -1824,7 +2089,8 @@
                                     </div>
 
                                     <!-- LANGUAGE SELECTION OPTIONS -->
-                                    <select class="languageSelector" id="languageSelector">
+                                    <select class="languageSelector" id="languageSelector" aria-label="Language"
+                                        data-custom-select>
                                         <option value="ar_SA">Arabic (العربية)</option>
                                         <option value="hy">Armenian (Հայերեն)</option>
                                         <option value="az">Azerbaijani (Azərbaycanca)</option>
@@ -1832,7 +2098,7 @@
                                         <option value="zh">Chinese (Simplified) (简体中文)</option>
                                         <option value="zh_TW">Chinese (Traditional) (繁體中文)</option>
                                         <option value="cs">Czech (Čeština)</option>
-                                        <option value="en">English (ENGLISH)</option>
+                                        <option value="en" class="cs-option-bold">English (ENGLISH)</option>
                                         <option value="fr">French (Français)</option>
                                         <option value="de">German (Deutsch)</option>
                                         <option value="el">Greek (Ελληνικά)</option>
