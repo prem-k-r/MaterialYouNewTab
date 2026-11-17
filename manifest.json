@@ -9,7 +9,8 @@
 		"https://www.google.com/complete/search?client=*",
 		"https://duckduckgo.com/ac/?q=*",
 		"https://search.brave.com/api/suggest?q=*",
-		"https://*.wikipedia.org/w/api.php?action=opensearch&search=*"
+		"https://*.wikipedia.org/w/api.php?action=opensearch&search=*",
+		"https://www.bing.com/*"
 	],
 	"icons": {
 		"16": "favicon/icon16.png",

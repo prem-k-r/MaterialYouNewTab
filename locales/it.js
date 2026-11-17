@@ -184,5 +184,5 @@ const it = {
     "restorefailed": "Ripristino fallito: ",
     "invalidBackup": "File di backup non valido",
     "deleteBookmark": "Sei sicuro di voler eliminare il segnalibro",
-    "UnsupportedBrowser": "I segnalibri non sono supportati nel tuo browser \"{title}\"?",
+    "UnsupportedBrowser": "I segnalibri non sono supportati nel tuo browser \"{title}\"?"
 };
