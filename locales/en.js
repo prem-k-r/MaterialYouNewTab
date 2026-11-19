@@ -73,6 +73,12 @@ const en = {
     "shortcutInputUrl": "Shortcut URL",
     "shortcutInputIcon": "Custom Icon: URL or SVG (optional)",
 
+    // Shortcuts Tooltips
+    "addShortcut": "Add shortcut",
+    "resetShortcuts": "Reset shortcuts",
+    "deleteShortcut": "Delete shortcut",
+    "uploadIcon": "Upload icon",
+
     // Shortcuts Alerts
     "resetShortcutsPrompt": "All saved shortcuts will be deleted and reset to default. Do you want to continue?",
     "invalidFileTypeMessage": "Please select a valid image file.",
@@ -161,6 +167,17 @@ const en = {
     "firefly": "Adobe Firefly",
     "aiSettingsIntro": "Select which AI tools to display",
     "resetAISettingsBtn": "Reset",
+
+    // AI Tools - Custom tools
+    "aiToolAddButton": "Add tool",
+    "aiToolAddTitle": "Add a custom AI tool",
+    "aiToolEditTitle": "Edit custom AI tool",
+    "aiToolAddConfirm": "Add",
+    "aiToolName": "Name",
+    "aiToolUrl": "URL",
+    "aiToolIcon": "Icon URL or SVG (optional)",
+    "aiToolEditLabel": "Edit {name}",    // Do not translate {name}
+    "aiToolDeleteLabel": "Delete {name}",    // Do not translate {name}
 
     // To-do List
     "todoListHover": "ToDo List",    // Keep this short

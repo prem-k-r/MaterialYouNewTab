@@ -24,6 +24,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Added Google AI Mode search button to the search bar when using Google as the search engine ([@KomeshBathula](https://github.com/KomeshBathula))
 - Updated the search bar to bypass search engines and navigate directly to webpages when the input contains no spaces and begins strictly with `http://`, `https://`, or `www.` ([@prem-k-r](https://github.com/prem-k-r)) ([#255](https://github.com/prem-k-r/MaterialYouNewTab/pull/255))
 - Added option to favorites the bookmarks ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
+- Added option to add custom AI tool shortcuts ([@prem-k-r](https://github.com/prem-k-r)) ([#276](https://github.com/prem-k-r/MaterialYouNewTab/pull/276))
 
 ### Improved
 

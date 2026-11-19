@@ -1015,8 +1015,13 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 /* Tooltip (text is filled from the button label by JS) */
+.has-tooltip {
+	position: relative;
+}
+
 .bm-icon-btn::after,
-.bm-folder-action::after {
+.bm-folder-action::after,
+.has-tooltip::after {
 	content: attr(data-tooltip);
 	position: absolute;
 	bottom: calc(100% + 10px);
@@ -1024,7 +1029,7 @@ body #bookmarkButton.bookmark-button.rotate {
 	z-index: 5;
 	padding: 5px 9px;
 	border-radius: 8px;
-	background: rgba(25, 25, 25, 0.92);
+	background: var(--darkerColor-blue);
 	color: #fff;
 	font-size: 0.72rem;
 	line-height: 1.2;
@@ -1040,17 +1045,51 @@ body #bookmarkButton.bookmark-button.rotate {
 /* In RTL the tooltip shifts the other way to stay centred; hover / focus use the same variable
    (a plain transform there would override the RTL offset) */
 [dir="rtl"] .bm-icon-btn,
-[dir="rtl"] .bm-folder-action {
+[dir="rtl"] .bm-folder-action,
+[dir="rtl"] .has-tooltip {
 	--bm-tip-x: 50%;
+}
+
+/* --darkerColor is light in the black theme, so keep the dark tooltip there */
+.black-theme :is(.bm-icon-btn, .bm-folder-action, .has-tooltip)::after {
+	background: rgba(25, 25, 25, 0.92);
 }
 
 .bm-icon-btn:hover::after,
 .bm-icon-btn:focus-visible::after,
 .bm-folder-action:hover::after,
-.bm-folder-action:focus-visible::after {
+.bm-folder-action:focus-visible::after,
+.has-tooltip:hover::after,
+.has-tooltip:focus-visible::after {
 	opacity: 1;
 	transform: translate(var(--bm-tip-x, -50%), 0);
 	transition-delay: 0.35s;
+}
+
+/* Top bar buttons: the menu clips above them, so the tooltip opens below, aligned to the button's end edge (the menu clips the sides too) */
+.topBar .has-tooltip::after {
+	bottom: auto;
+	top: calc(100% + 10px);
+	inset-inline-start: auto;
+	inset-inline-end: 0;
+	transform: translateY(-4px);
+}
+
+.topBar .has-tooltip:hover::after,
+.topBar .has-tooltip:focus-visible::after {
+	transform: translateY(0);
+}
+
+/* Delete button sits at the end of the row, so its tooltip is aligned to its end edge as well */
+.shortcutDelete .has-tooltip::after {
+	inset-inline-start: auto;
+	inset-inline-end: 0;
+	transform: translateY(4px);
+}
+
+.shortcutDelete .has-tooltip:hover::after,
+.shortcutDelete .has-tooltip:focus-visible::after {
+	transform: translateY(0);
 }
 
 .bm-icon-btn[data-tooltip=""]::after,
@@ -3908,7 +3947,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 0 16px;
+	padding: 12px 14px;
 	border-radius: 100px;
 	z-index: 2;
 	cursor: pointer;
@@ -3923,17 +3962,28 @@ body[data-bg="wallpaper"] .aiToolsCont .hangno {
 }
 
 .aiToolsCont .hangno .icon {
-	width: 26px;
-	height: 26px;
-	margin-inline-end: 12px;
+	width: 24px;
+	height: 24px;
 }
 
-.aiToolsCont .hangno .label {
-	font-size: 1rem;
-	color: var(--textColorDark-blue);
-	cursor: pointer;
-	width: fit-content;
-	text-wrap-mode: nowrap;
+/* Tooltip sits outside .aiToolsCont, which clips its overflow */
+.aiToolsTooltip {
+	position: fixed;
+	top: auto;
+	bottom: calc(var(--gap) + 58px);
+	inset-inline-start: calc(var(--gap) + 25px);
+	pointer-events: none;
+}
+
+.aiToolsCont:not([data-open]):has(.hangno:hover) + .aiToolsTooltip {
+	visibility: visible;
+	opacity: 1;
+}
+
+@media (hover: none) {
+	.aiToolsTooltip {
+		display: none;
+	}
 }
 
 .aiToolsCont .toolsCont {
@@ -3999,6 +4049,28 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	width: 30px;
 	height: 30px;
 	margin-inline-end: 10px;
+}
+
+/* Custom tool icon, shared by the tools bar and the editor preview */
+.customToolIcon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	border-radius: 50%;
+	overflow: hidden;
+	background-color: var(--darkColor-blue);
+}
+
+.customToolIcon img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	border-radius: 50%;
+}
+
+.customToolIcon img[data-icon-type="custom"] {
+	border-radius: 10%;
 }
 
 /* Settings Modal Styles */
@@ -4090,12 +4162,219 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	accent-color: var(--darkColor-blue);
 	height: 15px;
 	width: 15px;
+	flex-shrink: 0;
+}
+
+.ai-settings-modal .ai-tool-controls {
+	display: flex;
+	align-items: center;
+	min-width: 0;
+}
+
+.ai-settings-modal .ai-tool-controls label {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Add/edit view: replaces the list while open */
+.ai-settings-modal .ai-tool-editor {
+	display: none;
+	flex-direction: column;
+	gap: 0;
+	margin-top: 4px;
+}
+
+.ai-settings-modal[data-view="editor"] .ai-tool-editor {
+	display: flex;
+}
+
+.ai-settings-modal[data-view="editor"]
+	:is(#aiSettingsIntro, .ai-tools-list, .ai-add-button, .ai-modal-footer) {
+	display: none;
+}
+
+.ai-settings-modal .ai-tool-editor h4 {
+	margin: 0 0 10px;
+	font-size: 0.94rem;
+	font-weight: 500;
+	opacity: 0.96;
+}
+
+/* Text field whose label sits inside the box, then moves above and outside it on focus or when filled */
+.ai-settings-modal .ai-field {
+	position: relative;
+	display: block;
+	flex: 1;
+	min-width: 0;
+	padding-top: 24px;
+}
+
+.ai-settings-modal .ai-field input {
+	width: 100%;
+	height: 48px;
+	box-sizing: border-box;
+	padding: 0 12px;
+	border: 1.5px solid transparent;
+	border-radius: 12px;
+	outline: none;
+	background-color: var(--accentLightTint-blue);
+	color: var(--textColorDark-blue);
+	font-size: 0.95rem;
+	text-overflow: ellipsis;
+	transition: border-color 0.2s;
+}
+
+.ai-settings-modal .ai-field input:focus {
+	border-color: var(--darkColor-blue);
+}
+
+.ai-settings-modal .ai-field input.invalid {
+	border-color: #d93025;
+}
+
+.ai-settings-modal .ai-field label {
+	position: absolute;
+	inset-inline: 12px;
+	top: 48px; /* vertical centre of the box: 24px padding + half of 48px */
+	transform: translateY(-50%);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 0.95rem;
+	color: var(--textColorDark-blue);
+	opacity: 0.6;
+	pointer-events: none;
+	transition: all 0.2s ease;
+}
+
+.ai-settings-modal .ai-field input:focus + label,
+.ai-settings-modal .ai-field input:not(:placeholder-shown) + label {
+	top: 4px;
+	inset-inline: 4px;
+	transform: none;
+	font-size: 0.75rem;
+}
+
+.ai-settings-modal .ai-field input:focus + label {
+	color: var(--darkColor-blue);
+	opacity: 1;
+}
+
+.ai-settings-modal .ai-field input.invalid + label {
+	color: #d93025;
+	opacity: 1;
+}
+
+.ai-settings-modal .ai-tool-icon-row .ai-field input {
+	height: 40px;
+	font-size: 0.75rem;
+}
+
+.ai-settings-modal .ai-tool-icon-row .ai-field label {
+	top: 44px; /* vertical centre of the box: 24px padding + half of 40px */
+	font-size: 0.75rem;
+}
+
+.ai-settings-modal .ai-tool-icon-row {
+	display: flex;
+	align-items: flex-end; /* line up with the input box, not its label space */
+	gap: 10px;
+}
+
+.ai-settings-modal .ai-tool-preview {
+	width: 40px;
+	height: 40px;
+}
+
+.ai-settings-modal .ai-icon-upload {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border: none;
+	border-radius: 12px;
+	background-color: var(--accentLightTint-blue);
+	fill: var(--textColorDark-blue);
+	cursor: pointer;
+	transition: 0.3s all;
+}
+
+.ai-settings-modal .ai-icon-upload:hover {
+	background-color: var(--darkColor-blue);
+	fill: var(--whitishColor-blue);
+}
+
+.ai-settings-modal .ai-icon-upload svg {
+	pointer-events: none;
+}
+
+.ai-settings-modal .ai-tool-editor-actions {
+	display: flex;
+	gap: 12px;
+	margin-top: 24px;
+}
+
+.ai-settings-modal .ai-editor-button {
+	flex: 1;
+	padding: 10px 15px;
+	font-size: 0.9rem;
+	border-radius: 20px;
+	background: var(--darkColor-blue);
+	color: var(--whitishColor-blue);
+	border: none;
+	cursor: pointer;
+}
+
+.ai-settings-modal .ai-add-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	width: 100%;
+	margin-top: 16px;
+	padding: 9px 15px;
+	font-size: 0.9rem;
+	border-radius: 20px;
+	background: none;
+	color: var(--darkColor-blue);
+	border: 1.5px dashed var(--darkColor-blue);
+	cursor: pointer;
+	transition: 0.3s all;
+}
+
+.ai-settings-modal .ai-add-button svg {
+	width: 14px;
+	height: 14px;
+	fill: currentColor;
+}
+
+.ai-settings-modal .ai-editor-button:hover,
+.ai-settings-modal .ai-add-button:hover,
+.ai-settings-modal .ai-add-button:active,
+.ai-settings-modal .ai-add-button:focus-visible {
+	background: var(--darkerColor-blue);
+	color: var(--whitishColor-blue);
+	border-color: var(--darkerColor-blue);
+}
+
+.ai-settings-modal .ai-add-button:hover,
+.ai-settings-modal .ai-add-button:active,
+.ai-settings-modal .ai-add-button:focus-visible {
+	border-style: solid;
+}
+
+.ai-settings-modal .ai-add-button:disabled {
+	opacity: 0.5;
+	pointer-events: none;
 }
 
 .ai-settings-modal .ai-modal-footer {
 	display: flex;
 	justify-content: space-between;
-	margin-top: 22px;
+	margin-top: 16px;
 }
 
 .ai-settings-modal .ai-reset-button,
@@ -6005,6 +6284,10 @@ body[data-bg="wallpaper"] .dropdown-content {
 		scale: 0.8;
 		max-width: calc(100% - 30px);
 	}
+	.aiToolsTooltip {
+		bottom: calc(var(--gap) + 48px);
+		inset-inline-start: calc(var(--gap) + 20px);
+	}
 	.leftDiv {
 		display: flex;
 		width: calc(100vw / 0.5);
@@ -6152,21 +6435,6 @@ body[data-bg="wallpaper"] .dropdown-content {
 	}
 	.shortcutsContainer[style="display: none;"] {
 		display: flex !important;
-	}
-	.hangno:has(
-		+ :is(
-			.toolsCont[style="display: flex; opacity: 1; transform: translateX(0px); gap: 12px;"],
-			.toolsCont[style="display: flex; opacity: 0; transform: translateX(-100%); gap: 0;"]
-		)
-	) {
-		& .icon {
-			margin: 0;
-		}
-		& .label {
-			width: 0;
-			opacity: 0;
-			pointer-events: none;
-		}
 	}
 	.shortcutsContainer {
 		margin: 0;
@@ -6524,8 +6792,38 @@ body[data-bg="wallpaper"] .dropdown-content {
 }
 
 .black-theme .ai-settings-modal .ai-reset-button:hover,
-.black-theme .ai-settings-modal .ai-save-button:hover {
+.black-theme .ai-settings-modal .ai-save-button:hover,
+.black-theme .ai-settings-modal .ai-editor-button:hover,
+.black-theme .ai-settings-modal .ai-icon-upload:hover,
+.black-theme .ai-settings-modal .ai-add-button:hover,
+.black-theme .ai-settings-modal .ai-add-button:active,
+.black-theme .ai-settings-modal .ai-add-button:focus-visible {
 	background: #353535;
+}
+
+/* --darkColor is near-black here, so it's invisible on the dark modal */
+.black-theme .ai-settings-modal .ai-add-button {
+	color: var(--textColorDark-dark);
+	border-color: var(--textColorDark-dark);
+}
+
+.black-theme .ai-settings-modal .ai-add-button:hover,
+.black-theme .ai-settings-modal .ai-add-button:active,
+.black-theme .ai-settings-modal .ai-add-button:focus-visible {
+	color: var(--whitishColor-dark);
+	border-color: #353535;
+}
+
+.black-theme .ai-settings-modal .ai-field input:focus {
+	border-color: var(--textColorDark-dark);
+}
+
+.black-theme .ai-settings-modal .ai-field input:focus + label {
+	color: var(--textColorDark-dark);
+}
+
+.black-theme .customToolIcon {
+	background-color: var(--accentLightTint-blue);
 }
 
 .black-theme .aiToolsCont .toolsCont a:hover {

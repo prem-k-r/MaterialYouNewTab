@@ -75,6 +75,12 @@ const hi = {
     "shortcutInputUrl": "शॉर्टकट का URL",
     "shortcutInputIcon": "कस्टम आइकन: URL या SVG (वैकल्पिक)",
 
+    // Shortcuts Tooltips
+    "addShortcut": "शॉर्टकट जोड़ें",
+    "resetShortcuts": "शॉर्टकट रीसेट करें",
+    "deleteShortcut": "शॉर्टकट डिलीट करें",
+    "uploadIcon": "आइकन अपलोड करें",
+
     // Shortcuts Alerts
     "resetShortcutsPrompt": "सभी सहेजे गए शॉर्टकट हटा दिए जाएंगे और डिफ़ॉल्ट पर रीसेट हो जाएंगे। क्या आप जारी रखना चाहते हैं?",
     "invalidFileTypeMessage": "कृपया एक मान्य छवि फ़ाइल चुनें।",
@@ -163,6 +169,17 @@ const hi = {
     "firefly": "एडोबी फायरफ्लाई",
     "aiSettingsIntro": "चुनें की कौन से AI शॉर्टकट्स रखने हैं",
     "resetAISettingsBtn": "रीसेट करें",
+
+    // AI Tools - Custom tools
+    "aiToolAddButton": "टूल जोड़ें",
+    "aiToolAddTitle": "कस्टम AI टूल जोड़ें",
+    "aiToolEditTitle": "कस्टम AI टूल संपादित करें",
+    "aiToolAddConfirm": "जोड़ें",
+    "aiToolName": "नाम",
+    "aiToolUrl": "URL",
+    "aiToolIcon": "आइकन URL या SVG (वैकल्पिक)",
+    "aiToolEditLabel": "{name} संपादित करें",    // Do not translate {name}
+    "aiToolDeleteLabel": "{name} डिलीट करें",    // Do not translate {name}
 
     // To-do List
     "todoListHover": "कार्य सूची",
