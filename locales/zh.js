@@ -1,10 +1,17 @@
 // Chinese (Simplified)
 const zh = {
+    "newTabTitle": "新标签页",
     // Menu Items
     "github": "GitHub",
     "feedback": "反馈",
-    "resetsettings": "重置设置",
-    "menuCloseText": "关闭",
+
+    // Section titles
+    "personalizationSectionTitle": "个性化",
+    "clockSectionTitle": "时钟",
+    "searchSectionTitle": "搜索",
+    "weatherSectionTitle": "天气",
+    "appearanceSectionTitle": "外观",
+    "settingsSectionTitle": "设置",
 
     // Shortcuts
     "shortcutsText": "快捷方式",
@@ -24,6 +31,12 @@ const zh = {
     "googleAppsMenuText": "谷歌应用",
     "googleAppsMenuInfo": "显示谷歌应用快捷方式",
     "googleAppsHover": "谷歌应用",
+
+    "shortcutDefaultName": "新快捷方式",
+    "shortcutInputName": "快捷方式名称",
+    "shortcutInputUrl": "快捷方式URL",
+    "shortcutInputIcon": "自定义图标：URL或SVG（可选）",
+    "recentlyAddedBookmarks": "最近添加",
 
     // To-do List
     "todoListText": "待办事项",
@@ -50,7 +63,7 @@ const zh = {
     "hideWeatherInfo": "禁用天气组件",
     "hideWeatherBox": "隐藏天气卡片",
     "hideWeatherBoxInfo": "仅显示温度标签",
-    "minMaxTempText": "最低~最高温度",
+    "minMaxTempText": "最低与最高温度",
     "minMaxTempSubText": "用最低和最高温度替换“体感温度”",
     "micIconTitle": "隐藏麦克风图标",
     "micIconInfo": "若语音输入无法使用",
@@ -58,6 +71,8 @@ const zh = {
     "hideSearchWithInfo": "点击图标切换搜索引擎",
     "motivationalQuotesText": "励志名言",
     "motivationalQuotesInfo": "在搜索栏下方显示名言",
+    "newQuoteOnRefreshText": "每日名言",
+    "newQuoteOnRefreshInfo": "每天显示一条名言，而不是每次刷新时更换",
     "search_suggestions_button": "搜索建议",
     "search_suggestions_text": "启用搜索建议",
 
@@ -73,7 +88,7 @@ const zh = {
     "useGPSInfo": "启用GPS获取实时位置更新",
     "UserLocText": "输入您的位置",
     "UserLocSubtext": "若天气位置不准确",
-    "userLoc": "城市或坐标（纬度, 经度）",
+    "userLoc": "城市或坐标（纬度，经度）",
     "PrivacyPolicy": "隐私政策",
 
     // Weather
@@ -149,8 +164,9 @@ const zh = {
     "resetAISettingsBtn": "重置",
 
     // Theme
-    "enableDarkMode": "深色模式（实验性）",
-    "enableDarkModeInfo": "启用深色主题",
+    "lightThemed": "浅色",
+    "darkThemed": "深色",
+    "systemThemed": "跟随系统",
 
     // Wallpaper and settings
     "uploadWallpaperText": "上传壁纸",
@@ -159,6 +175,8 @@ const zh = {
     "adjustOpacityDesc": "调整界面透明度",
     "backupText": "备份",
     "restoreText": "恢复",
+    "resetsettings": "重置设置",
+    "menuCloseText": "关闭",
 
     // Tips
     "switchSearchModes": "切换搜索模式",
@@ -168,11 +186,15 @@ const zh = {
     "changeBrowserTheme": "更改浏览器主题",
     "chromeThemeInfo": "点击 ⋮ > 更多工具 > 自定义 Chrome，选择匹配主题的颜色",
     "edgeThemeInfo": "前往 设置 > 外观，选择匹配主题的颜色",
-    "braveThemeInfo": "访问 <a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome主题商店</a>下载匹配主题",
-    "firefoxThemeInfo": "访问 <a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Firefox主题</a>下载匹配主题",
+    "braveThemeInfo": "访问 <a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome主题商店</a> 下载匹配主题",
+    "firefoxThemeInfo": "访问 <a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Firefox主题</a> 下载匹配主题",
     "updateFirefoxHomepage": "更新主页",
     "updateFirefoxHomepageInfo": "<a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">点击此处</a>查看主页设置指南",
     "dontShowTips": "不再显示",
+
+    // Footer Toast
+    "footerToastTitle": "看到底部横幅了吗？",
+    "footerToastMessage": "要隐藏它，请右键点击并选择“在新标签页中隐藏页脚”",
 
     // Dialog boxes (alerts)
     "okText": "确定",
@@ -192,5 +214,10 @@ const zh = {
     "invalidBackup": "无效的备份文件",
     "deleteBookmark": "确定要删除书签“{title}”吗？",
     "UnsupportedBrowser": "您的浏览器不支持书签功能",
-    "resetShortcutsPrompt": "所有快捷方式将重置为默认值，是否继续？"
+    "resetShortcutsPrompt": "所有快捷方式将重置为默认值，是否继续？",
+    "invalidFileTypeMessage": "请选择有效的图片文件",
+    "invalidSvgMessage": "输入的SVG无效或包含不安全内容，无法用作图标",
+    "invalidIconUrlMessage": "请输入有效的图片URL（必须以https://、http://或data:image/开头）",
+    "iconFileTooLargeMessage": "所选文件过大：{size}KB。请选择小于{max}KB的文件",
+    "iconStorageQuotaMessage": "存储空间已满，无法保存图标。请删除一些自定义图标或使用更小的图片"
 };

@@ -68,8 +68,10 @@ const cs = {
     "minMaxTempSubText": "Nahradí pocitovou teplotu rozsahem minimální a maximální teploty",
 
     // Search
-    "micIconTitle": "Skrýt ikonu mikrofonu",
+    "micIconTitle": "Skrýt tlačítko s mikrofonem",
     "micIconInfo": "Pokud nefunguje hlasové vyhledávání",
+    "aiModeIconTitle": "Skrýt tlačítko pro Režim AI",
+    "aiModeIconInfo": "Skryje tlačítko pro vyhledávání pomocí Režimu AI od Google",
     "hideSearchWith": "Skrýt vyhledávače",
     "hideSearchWithInfo": "Mezi vyhledávači přepnete klepnutím na jejich ikonky",
     "motivationalQuotesText": "Motivační citáty",

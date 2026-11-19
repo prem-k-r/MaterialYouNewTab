@@ -1,8 +1,17 @@
 // Japanese
 const ja = {
+    "newTabTitle": "新しいタブ",
     // Menu Items
     "github": "GitHub",
     "feedback": "フィードバック",
+
+    // Section titles
+    "personalizationSectionTitle": "パーソナライズ",
+    "clockSectionTitle": "時計",
+    "searchSectionTitle": "検索",
+    "weatherSectionTitle": "天気",
+    "appearanceSectionTitle": "外観",
+    "settingsSectionTitle": "設定",
 
     // Shortcuts
     "shortcutsText": "ショートカット",
@@ -10,9 +19,9 @@ const ja = {
     "editShortcutsText": "ショートカットを編集",
     "shortcutsInfoText": "表示するショートカットを選択",
     "editShortcutsList": "保存されたショートカット",
-    "editShortcutsListInfo": "\"+\" アイコンをクリックして新しいショートカットを追加したり、ショートカット名またはURLをクリックして既存のショートカットを編集できます。",
+    "editShortcutsListInfo": "\"+\" アイコンをクリックして新しいショートカットを追加したり、名前やURLをクリックして既存のものを編集できます。\nアイコンをリセットするには、画像のURLを空にしてください。",
     "adaptiveIconText": "アダプティブアイコン",
-    "adaptiveIconInfoText": "ショートカットアイコンはテーマに適応します",
+    "adaptiveIconInfoText": "ショートカットアイコンをテーマに適応させます",
     "bookmarksText": "ブックマーク",
     "bookmarksInfo": "ブックマークのサイドバーを表示",
     "ai_tools_button": "AIツール",
@@ -22,6 +31,12 @@ const ja = {
     "googleAppsMenuText": "Googleアプリ",
     "googleAppsMenuInfo": "Googleアプリのショートカットを表示",
     "googleAppsHover": "Googleアプリ",
+
+    "shortcutDefaultName": "新しいショートカット",
+    "shortcutInputName": "ショートカット名",
+    "shortcutInputUrl": "ショートカットのURL",
+    "shortcutInputIcon": "カスタムアイコン: URL または SVG (任意)",
+    "recentlyAddedBookmarks": "最近追加された項目",
 
     // To-do List
     "todoListText": "To Doリスト",
@@ -33,23 +48,23 @@ const ja = {
     "hideClockBox": "時計を非表示",
     "hideClockBoxInfo": "時計と日付を非表示にする",
     "digitalclocktitle": "デジタル時計",
-    "digitalclockinfo": "デジタル時計に変更",
+    "digitalclockinfo": "デジタル時計に切り替え",
     "timeformattitle": "12時間形式",
-    "timeformatinfo": "12時間形式を使用",
+    "timeformatinfo": "12時間形式を使用する",
     "greetingtitle": "あいさつ",
     "greetinginfo": "カスタムテキストの下にあいさつを表示",
 
     // Misc
     "userTextTitle": "カスタムテキスト",
     "userTextInfo": "時計の下にカスタムテキストを表示",
-    "fahrenheitCelsiusCheckbox": "華氏に変更",
-    "fahrenheitCelsiusText": "変更を適用するにはページを再読み込み",
+    "fahrenheitCelsiusCheckbox": "華氏に切り替え",
+    "fahrenheitCelsiusText": "変更を適用するにはページを再読み込みしてください",
     "hideWeatherTitle": "天気を非表示",
     "hideWeatherInfo": "天気ウィジェットを無効にする",
     "hideWeatherBox": "天気カードを非表示",
-    "hideWeatherBoxInfo": "気温だけを表示",
+    "hideWeatherBoxInfo": "気温のピルのみを表示",
     "minMaxTempText": "最低・最高気温",
-    "minMaxTempSubText": "「体感温度」の代わりに最低・最高気温を表示",
+    "minMaxTempSubText": "「体感温度」を最低・最高気温に置き換える",
 
     // Search
     "micIconTitle": "マイクアイコンを非表示",
@@ -58,6 +73,8 @@ const ja = {
     "hideSearchWithInfo": "アイコンをクリックして検索エンジンを切り替える",
     "motivationalQuotesText": "モチベーションの名言",
     "motivationalQuotesInfo": "検索バーの下に名言を表示",
+    "newQuoteOnRefreshText": "毎日の名言",
+    "newQuoteOnRefreshInfo": "更新のたびではなく、1日1つの名言を表示",
     "search_suggestions_button": "検索候補",
     "search_suggestions_text": "検索候補を有効にする",
 
@@ -70,7 +87,7 @@ const ja = {
 
     // Location
     "useGPS": "GPSを使う",
-    "useGPSInfo": "ライブ位置情報更新用にGPSを有効化",
+    "useGPSInfo": "ライブ位置情報更新用にGPSを有効にする",
     "UserLocText": "場所を入力",
     "UserLocSubtext": "天気の地域が正しくない場合",
     "userLoc": "都市または座標（緯度、経度）",
@@ -93,7 +110,7 @@ const ja = {
     "bookmarkSortBy": "並び替え",
     "sortAlphabetical": "A-Z",
     "sortTimeAdded": "追加順",
-    "bookmarkViewAs": "表示方法",
+    "bookmarkViewAs": "表示形式",
     "bookmarkViewGrid": "グリッド",
     "bookmarkViewList": "リスト",
     "bookmarkSearch": "ブックマークを検索",
@@ -104,13 +121,13 @@ const ja = {
     // New Tab Item
     "conditionText": "こんにちは！本日の調子はいかがですか？",
     "humidityLevel": "湿度",
-    "feelsLike": "体感温度",
+    "feelsLike": "体感",
     "minMaxTemp": "最低 ~ 最高",
-    "location": "場所",
+    "location": "地球",
     "enterBtn": "検索",
     "searchPlaceholder": "検索キーワードを入力...",
     "listenPlaceholder": "聴き取り中...",
-    "searchWithHint": "検索エンジン",
+    "searchWithHint": "検索モード",
     "searchOnHint": "次で検索",
     "userText": "ここをクリックして編集",
 
@@ -128,7 +145,7 @@ const ja = {
     "bingEngine": "Bing",
     "braveEngine": "Brave",
     "youtubeEngine": "YouTube",
-    "gImagesEngine": "Google 画像検索",
+    "gImagesEngine": "画像",
     "redditEngine": "Reddit",
     "wikipediaEngine": "Wikipedia",
     "quoraEngine": "Quora",
@@ -165,21 +182,21 @@ const ja = {
 
     // Tips
     "switchSearchModes": "検索モードを切り替え",
-    "switchSearchModesInfo": "「検索エンジン」をクリックしてモードを変更",
+    "switchSearchModesInfo": "「検索モード」をクリックしてモードを変更できます。",
     "adjustZoom": "ズーム調整",
-    "adjustZoomInfo": "Ctrl + 「+」またはCtrl + 「-」でズーム調整",
+    "adjustZoomInfo": "Ctrl + 「+」またはCtrl + 「-」でズームを調整できます。",
     "changeBrowserTheme": "ブラウザテーマを変更",
-    "chromeThemeInfo": "右上の三点リーダー（⋮）＞その他のツール＞Chromeのカスタマイズから拡張機能のテーマに合った色を選択",
-    "edgeThemeInfo": "設定＞外観から拡張機能のテーマに合った色を選択",
-    "braveThemeInfo": "<a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome テーマストア</a>でテーマをダウンロードして適用",
-    "firefoxThemeInfo": "<a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Firefox テーマ</a>でテーマをダウンロードして適用",
+    "chromeThemeInfo": "「⋮」＞その他のツール＞Chromeのカスタマイズから、テーマに合った色を選択してください。",
+    "edgeThemeInfo": "設定＞外観から、テーマに合った色を選択してください。",
+    "braveThemeInfo": "<a href=\"https://chromewebstore.google.com/category/themes/\" target=\"_blank\">Chrome テーマストア</a>からテーマを適用してください。",
+    "firefoxThemeInfo": "<a href=\"https://addons.mozilla.org/firefox/themes/\" target=\"_blank\">Firefox テーマ</a>からテーマを適用してください。",
     "updateFirefoxHomepage": "ホームページを更新",
-    "updateFirefoxHomepageInfo": "新しいタブと同じようにホームページも変更するには<a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">このリンク</a>を見て手順に従ってください",
+    "updateFirefoxHomepageInfo": "ホームページも新しいタブと同じように変更するには、<a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">こちらのリンク</a>の手順に従ってください。",
     "dontShowTips": "今後表示しない",
 
     // Footer Toast
-    "footerToastTitle": "下部にバナーが表示されていますか?",
-    "footerToastMessage": "バナーを非表示にするには、右下の「カスタマイズ」をクリックして、「新しいタブページにフッターを表示する」をオフにしてください。",
+    "footerToastTitle": "下部にバナーが表示されていますか？",
+    "footerToastMessage": "非表示にするには、右クリックして「新しいタブページでフッターを隠す」を選択してください。",
 
     // Dialog boxes (alerts)
     "okText": "OK",
@@ -187,17 +204,22 @@ const ja = {
     "noText": "いいえ",
     "agreeText": "同意する",
     "cancelText": "キャンセル",
-    "confirmWallpaper": "新しい画像を現在の壁紙として設定しますか?",
-    "confirmRestore": "設定をリセットしてもよろしいですか? この操作は元に戻せません。",
-    "Nobackgroundset": "現在の背景画像がありません。",
-    "clearbackgroundimage": "背景の画像を削除しますか？",
-    "ProxyDisclaimer": "すべてのプロキシ機能はデフォルトでオフになっています。\n\n検索候補と CORS バイパス プロキシを有効にする場合は、プライバシー保護のために独自のプロキシをホストすることを強くお勧めします。\n\nデフォルトでは、プロキシは https://mynt-proxy.rhythmcorehq.com に設定されます。つまり、すべてのデータがこのサービスを通過するため、プライバシー上の懸念が生じる可能性があります。",
-    "GPSDisclaimer": "位置情報は天気の精度向上のためだけに使われ、ブラウザ内に一時保存されます。第三者サービスや他の拡張機能には共有されません。\n\nGPSを有効にすることで、位置情報を拡張機能とローカルで共有することに同意したものとみなされます。",
+    "confirmWallpaper": "新しい画像を今日の壁紙として設定しますか？",
+    "confirmRestore": "設定をリセットしてもよろしいですか？この操作は元に戻せません。",
+    "Nobackgroundset": "背景画像が設定されていません。",
+    "clearbackgroundimage": "背景画像を削除してもよろしいですか？",
+    "ProxyDisclaimer": "すべてのプロキシ機能はデフォルトでオフになっています。\n\n検索候補やCORSバイパスプロキシを有効にする場合は、プライバシー保護のために独自のプロキシをホストすることを強くお勧めします。\n\nデフォルトでは https://mynt-proxy.rhythmcorehq.com が使用され、すべてのデータがこのサービスを通過するため、プライバシー上の懸念が生じる可能性があります。",
+    "GPSDisclaimer": "位置情報は天気の更新のためだけに使用されます。データはブラウザ内に一時保存され、第三者に共有されたり、開発者がアクセスしたりすることはありません。\n\nGPSを有効にすることで、ローカルでの位置情報の共有に同意したものとみなされます。",
     "failedbackup": "バックアップに失敗しました: ",
     "restorecompleted": "復元が完了しました！",
     "restorefailed": "復元に失敗しました: ",
-    "invalidBackup": "このバックアップファイルは無効です。",
-    "deleteBookmark": "ブックマーク「{title}」を削除しますか?",
-    "UnsupportedBrowser": "お使いのブラウザではブックマークはサポートされていません",
-    "resetShortcutsPrompt": "すべての保存済みショートカットが削除されデフォルトにリセットされます。続行しますか？"
+    "invalidBackup": "無効なバックアップファイルが選択されました。",
+    "deleteBookmark": "ブックマーク「{title}」を削除してもよろしいですか？",
+    "UnsupportedBrowser": "お使いのブラウザではブックマークはサポートされていません。",
+    "resetShortcutsPrompt": "すべての保存済みショートカットが削除され、デフォルトにリセットされます。続行しますか？",
+    "invalidFileTypeMessage": "有効な画像ファイルを選択してください。",
+    "invalidSvgMessage": "挿入されたSVGが無効か、安全でないコンテンツが含まれているため、アイコンとして使用できません。",
+    "invalidIconUrlMessage": "有効な画像のURLを入力してください（https://、http://、またはdata:image/で始まる必要があります）。",
+    "iconFileTooLargeMessage": "選択されたファイルが大きすぎます: {size} KB。{max} KB 未満のファイルを使用してください。",
+    "iconStorageQuotaMessage": "ストレージ制限に達したため、アイコンを保存できませんでした。いくつかのカスタムアイコンを削除するか、より小さな画像を使用してください。"
 };

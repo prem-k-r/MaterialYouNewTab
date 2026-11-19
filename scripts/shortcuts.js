@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Constants
     const MAX_SHORTCUTS = 50;
     const PLACEHOLDER = {
-        get name()      { return translations[currentLanguage]?.shortcutDefaultName || translations["en"].shortcutDefaultName; },
+        get name() { return translations[currentLanguage]?.shortcutDefaultName || translations["en"].shortcutDefaultName; },
         url: "https://github.com/prem-k-r/MaterialYouNewTab",
-        get inputName() { return translations[currentLanguage]?.shortcutInputName   || translations["en"].shortcutInputName; },
-        get inputUrl()  { return translations[currentLanguage]?.shortcutInputUrl    || translations["en"].shortcutInputUrl; },
-        get inputIcon() { return translations[currentLanguage]?.shortcutInputIcon   || translations["en"].shortcutInputIcon; },
+        get inputName() { return translations[currentLanguage]?.shortcutInputName || translations["en"].shortcutInputName; },
+        get inputUrl() { return translations[currentLanguage]?.shortcutInputUrl || translations["en"].shortcutInputUrl; },
+        get inputIcon() { return translations[currentLanguage]?.shortcutInputIcon || translations["en"].shortcutInputIcon; },
     };
 
     // DOM Elements
@@ -302,6 +302,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const link = document.createElement("a");
         link.href = normalizedUrl;
 
+        if (index < 9) {
+            link.dataset.shortcut = index + 1;
+        }
+
         const logoContainer = document.createElement("div");
         logoContainer.className = "shortcutLogoContainer";
 
@@ -354,6 +358,14 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
+    function applyCustomSvgAccentColor(svg) {
+        const color = localStorage.getItem("selectedTheme") === "dark"
+            ? "#bfbfbf"
+            : localStorage.getItem("accentLightTintColor") || "#e2eeff";
+
+        return svg.replace(/\bcurrentColor\b/g, color);
+    }
+
     // Sanitizes raw SVG code, returns data URL or null if unsafe
     function sanitizeSvg(raw) {
         const trimmed = raw.trim();
@@ -376,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (pattern.test(normalized)) return null;
         }
 
-        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(normalized);
+        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(applyCustomSvgAccentColor(normalized));
     }
 
     // Normalizes icon input: converts raw SVG code → data URL, passes URLs through
@@ -820,17 +832,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 try {
                     localStorage.setItem(`shortcutIcon${index}`, item.icon || "");
                 } catch (iconError) {
-                        if (iconError.name === "QuotaExceededError" || iconError.code === 22) {
-                            // Remove icon due to quota
-                            localStorage.removeItem(`shortcutIcon${index}`);
-                            const entry = entries[index];
-                            if (entry) entry.querySelector(".iconURL").value = "";
-                            item.icon = "";
-                        } else {
-                            throw iconError;
-                        }
+                    if (iconError.name === "QuotaExceededError" || iconError.code === 22) {
+                        // Remove icon due to quota
+                        localStorage.removeItem(`shortcutIcon${index}`);
+                        const entry = entries[index];
+                        if (entry) entry.querySelector(".iconURL").value = "";
+                        item.icon = "";
+                    } else {
+                        throw iconError;
                     }
-                });
+                }
+            });
 
             shortcutsCache = newOrder;
             renderAllShortcuts(newOrder);
@@ -999,4 +1011,48 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
+
+    // Keyboard shortcuts: Alt + 1-9 to open corresponding shortcut
+    function setupKeyboardShortcuts() {
+        document.addEventListener("keydown", (e) => {
+            if (!e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+
+            const num = parseInt(e.key);
+            if (isNaN(num) || num < 1 || num > 9) return;
+
+            // Get the shortcuts in their current rendered order
+            const shortcutLinks = dom.shortcutsContainer.querySelectorAll(".shortcuts a");
+            const targetIndex = num - 1;
+
+            if (targetIndex < shortcutLinks.length) {
+                const link = shortcutLinks[targetIndex];
+                if (link && link.href) {
+                    e.preventDefault();
+                    window.location.href = link.href;
+                }
+            }
+        });
+    }
+
+    let altHoldTimer;
+    function hideShortcutNumbers() {
+        clearTimeout(altHoldTimer);
+        dom.shortcutsContainer.classList.remove("show-shortcut-numbers");
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key !== "Alt" || e.repeat) return;
+        altHoldTimer = setTimeout(() => {
+            dom.shortcutsContainer.classList.add("show-shortcut-numbers");
+        }, 300);
+    });
+
+    document.addEventListener("keyup", (e) => {
+        if (e.key !== "Alt") return;
+        hideShortcutNumbers();
+    });
+
+    window.addEventListener("blur", hideShortcutNumbers);
+
+    setupKeyboardShortcuts();
 });

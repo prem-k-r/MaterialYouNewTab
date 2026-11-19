@@ -29,7 +29,7 @@ const translations = {
     fr: fr, // French
     az: az, // Azerbaijani
     sl: sl, // Slovenian
-    np: np, // Nepali
+    ne: ne, // Nepali
     ur: ur, // Urdu
     de: de, // German
     fa: fa, // Farsi (Persian)
@@ -40,6 +40,7 @@ const translations = {
     pl: pl, // Polish
     uk: uk, // Ukrainian
     sv: sv, // Swedish
+    hy: hy, // Armenian
 };
 
 // Define the width of the menu container for each language
@@ -64,7 +65,7 @@ const menuWidths = {
     fr: "517px",
     az: "460px",
     sl: "512px",
-    np: "472px",
+    ne: "472px",
     de: "502px",
     fa: "502px",
     ar_SA: "482px",
@@ -72,6 +73,7 @@ const menuWidths = {
     th: "497px",
     pl: "497px",
     uk: "497px",
+    hy: "512px",
     // Add more languages and widths as needed
 };
 
@@ -79,7 +81,7 @@ const numberMappings = {
     "bn": { "0": "০", "1": "১", "2": "২", "3": "৩", "4": "৪", "5": "৫", "6": "৬", "7": "৭", "8": "৮", "9": "৯" },
     "ta": { "0": "௦", "1": "௧", "2": "௨", "3": "௩", "4": "௪", "5": "௫", "6": "௬", "7": "௭", "8": "௮", "9": "௯" },
     "mr": { "0": "०", "1": "१", "2": "२", "3": "३", "4": "४", "5": "५", "6": "६", "7": "७", "8": "८", "9": "९" },
-    "np": { "0": "०", "1": "१", "2": "२", "3": "३", "4": "४", "5": "५", "6": "६", "7": "७", "8": "८", "9": "९" },
+    "ne": { "0": "०", "1": "१", "2": "२", "3": "३", "4": "४", "5": "५", "6": "६", "7": "७", "8": "८", "9": "९" },
     "fa": { 0: "۰", 1: "۱", 2: "۲", 3: "۳", 4: "۴", 5: "۵", 6: "۶", 7: "۷", 8: "۸", 9: "۹" },
     "ar_SA": { 0: "۰", 1: "۱", 2: "۲", 3: "۳", 4: "٤", 5: "٥", 6: "٦", 7: "۷", 8: "۸", 9: "۹" }
     // Add more languages as needed, Ensure it is supported in the fonts
@@ -87,11 +89,21 @@ const numberMappings = {
 
 const LRM = "\u200E"; // Left-to-Right Mark
 
+/**
+ * Localizes numbers in a string for the given language.
+ * Replaces the decimal point with a comma for languages that use a decimal comma,
+ * maps Western digits to native numerals when a mapping exists, and wraps the
+ * result in Left-to-Right Marks for RTL languages that need it.
+ *
+ * @param {string} text - Text containing the number(s) to localize.
+ * @param {string} language - Language code (e.g. "en", "hy", "ar_SA").
+ * @returns {string} The localized text.
+ */
 function localizeNumbers(text, language) {
     const map = numberMappings[language]; // Get the numeral map for the current language
 
     // Define languages that use a comma as the decimal separator instead of a dot
-    const specialDecimalLanguages = ["cs", "it", "pt", "ru", "tr", "vi", "uz", "es", "ko", "idn", "fr", "az", "sl", "hu", "de", "fa", "el", "uk", "sv"]; // Add more languages here as needed
+    const specialDecimalLanguages = ["cs", "it", "pt", "ru", "tr", "vi", "uz", "es", "ko", "idn", "fr", "az", "sl", "hu", "de", "fa", "el", "uk", "sv", "hy"]; // Add more languages here as needed
 
     if (specialDecimalLanguages.includes(language)) {
         // Replace decimal point with a comma for specific languages
@@ -114,7 +126,15 @@ function localizeNumbers(text, language) {
 // Right-to-left languages
 const rtlLanguages = ["ur", "fa", "ar_SA"];
 
-// Function to apply the language to the page
+/**
+ * Applies the selected language to the page.
+ * Translates all text, placeholders and hover titles, loads a language-specific
+ * font when needed, sets the text direction for RTL languages, and saves the
+ * choice to localStorage.
+ *
+ * @param {string} lang - Language code to apply (a key of `translations`).
+ * @returns {void}
+ */
 function applyLanguage(lang) {
     document.title = translations[lang]?.newTabTitle || translations["en"].newTabTitle;
 
@@ -148,6 +168,8 @@ function applyLanguage(lang) {
         "hideWeatherBoxInfo",
         "micIconTitle",
         "micIconInfo",
+        "aiModeIconTitle",
+        "aiModeIconInfo",
         "hideSearchWith",
         "hideSearchWithInfo",
         "motivationalQuotesText",
@@ -373,6 +395,9 @@ function applyLanguage(lang) {
     } else if (lang === "fa") {
         loadFont("https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap"); // Using Vazirmatn for Farsi
         root.style.setProperty("--main-font-family", `"Vazirmatn", ${commonFontStack}`);
+    } else if (lang === "hy") {
+        loadFont("https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian&display=swap"); // Poppins has no Armenian glyphs; Latin text keeps Poppins
+        root.style.setProperty("--main-font-family", "'poppins', 'Poppins', 'Noto Sans Armenian', sans-serif");
     } else {
         root.style.setProperty("--main-font-family", commonFontStack);
     }
@@ -401,7 +426,7 @@ function applyLanguage(lang) {
     quotesText.style.fontFamily = commonFontStack;
 
     // Save the selected language in localStorage
-    document.documentElement.lang = currentLanguage;
+    document.documentElement.lang = lang;
     saveLanguageStatus("selectedLanguage", lang);
 }
 

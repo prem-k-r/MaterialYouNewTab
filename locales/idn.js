@@ -3,27 +3,27 @@ const idn = {
     "newTabTitle": "Tab Baru",
     // Menu Items
     "github": "GitHub",
-    "feedback": "Umpan Balik",
+    "feedback": "Masukan",
 
     // Section titles
     "personalizationSectionTitle": "Personalisasi",
     "clockSectionTitle": "Jam",
     "searchSectionTitle": "Pencarian",
     "weatherSectionTitle": "Cuaca",
-    "appearanceSectionTitle": "Penampilan",
+    "appearanceSectionTitle": "Tampilan",
     "settingsSectionTitle": "Pengaturan",
 
     // Shortcuts
     "shortcutsText": "Pintasan",
-    "enableShortcutsText": "Menampilkan Pintasan",
-    "editShortcutsText": "Ubah Pintasan",
-    "shortcutsInfoText": "Pilih pintasan apa yang akan ditampilkan",
+    "enableShortcutsText": "Tampilkan Pintasan",
+    "editShortcutsText": "Edit Pintasan",
+    "shortcutsInfoText": "Pilih pintasan apa yang dapat ditampilkan",
     "editShortcutsList": "Pintasan Tersimpan",
-    'editShortcutsListInfo': 'Anda dapat menambahkan pintasan baru dengan mengeklik ikon \"+\" atau mengedit yang sudah ada dengan mengeklik nama pintasan atau URL',
+    'editShortcutsListInfo': 'Anda dapat menambahkan pintasan baru dengan mengeklik ikon \"+\" atau mengedit yang sudah ada dengan mengeklik nama pintasan atau URL.\nUntuk mengatur ulang ikon kustom, cukup kosongkan URL gambar',
     "adaptiveIconText": "Ikon Adaptif",
-    "adaptiveIconInfoText": "Ikon pintasan akan sesuai dengan warna tema dan tampak lebih kecil",
+    "adaptiveIconInfoText": "Ikon pintasan akan menyesuaikan dengan tema",
     "bookmarksText": "Markah Buku",
-    "bookmarksInfo": "Tampilkan sisi markah buku",
+    "bookmarksInfo": "Tampilkan sidebar markah buku",
     "ai_tools_button": "Utilitas AI",
     "enable_ai_tools": "Tampilkan pintasan untuk utilitas AI",
     "aiToolsSettingsText": "Setelan Utilitas AI",
@@ -31,6 +31,12 @@ const idn = {
     "googleAppsMenuText": "Google Apps",
     "googleAppsMenuInfo": "Tampilkan pintasan untuk Google Apps",
     "googleAppsHover": "Google Apps",    // Keep this shorter
+
+    "shortcutDefaultName": "Pintasan Baru",
+    "shortcutInputName": "Nama Pintasan",
+    "shortcutInputUrl": "URL Pintasan",
+    "shortcutInputIcon": "Ikon Kustom: URL atau SVG (opsional)",
+    "recentlyAddedBookmarks": "Terbaru",
 
     // To-do List
     "todoListText": "To-Do List",
@@ -40,46 +46,48 @@ const idn = {
 
     // Clock
     "hideClockBox": "Sembunyikan Jam",
-    "hideClockBoxInfo": "Tampilkan atau sembunyikan jam dan tanggal",
+    "hideClockBoxInfo": "Sembunyikan jam dan tanggal",
     "digitalclocktitle": "Jam Digital",
-    "digitalclockinfo": "Ubah menjadi jam digital",
+    "digitalclockinfo": "Ganti dengan jam digital",
     "timeformattitle": "Format 12-Jam",
-    "timeformatinfo": "Menggunakan format 12-jam",
+    "timeformatinfo": "Gunakan format waktu 12-jam",
     "greetingtitle": "Sapaan",
     "greetinginfo": "Tampilkan sapaan di bawah teks kustom",
 
     // Misc
-    "userTextTitle": "Teks Kostumisasi",
+    "userTextTitle": "Teks Kostum",
     "userTextInfo": "Tampilkan teks kustom di bawah jam",
-    "fahrenheitCelsiusCheckbox": "Ubah menjadi Fahrenheit",
+    "fahrenheitCelsiusCheckbox": "Ganti dengan Fahrenheit",
     "fahrenheitCelsiusText": "Muat ulang halaman untuk mengaplikasikan perubahan",
     "hideWeatherTitle": "Sembunyikan Cuaca",
-    "hideWeatherInfo": "Menonaktifkan widget cuaca",
+    "hideWeatherInfo": "Nonaktifkan widget cuaca",
     "hideWeatherBox": "Sembunyikan Kartu Cuaca", // Toggle for mobile devices only
     "hideWeatherBoxInfo": "Hanya tampilkan kapsul suhu",
     "minMaxTempText": "Suhu Min-Maks",
     "minMaxTempSubText": "Ganti 'Terasa Seperti' dengan suhu minimum dan maksimum",
 
     // Search
-    "micIconTitle": "Sembunyikan Ikon Microfon",
-    "micIconInfo": "Jika voice typing tidak berfungsi",
+    "micIconTitle": "Sembunyikan Ikon Mikrofon",
+    "micIconInfo": "Jika pengenalan suara tidak berfungsi",
     "hideSearchWith": "Sembunyikan Mesin Pencarian",
-    "hideSearchWithInfo": "Ubah mesin pencarian dengan mengeklik ikon-nya",
-    "motivationalQuotesText": "Kata-kata Motivasi",
-    "motivationalQuotesInfo": "Tampilkan kata-kata dibawah kotak pencarian",
+    "hideSearchWithInfo": "Ganti mesin pencarian dengan mengeklik ikon-nya",
+    "motivationalQuotesText": "Kutipan Motivasi",
+    "motivationalQuotesInfo": "Tampilkan kutipan di bawah bar pencarian",
+    "newQuoteOnRefreshText": "Kutipan Harian",
+    "newQuoteOnRefreshInfo": "Tampilkan 1 kutipan/hari daripada memuat ulang setiap saat",
     "search_suggestions_button": "Saran Pencarian",
-    "search_suggestions_text": "Mengaktifkan saran pencarian",
+    "search_suggestions_text": "Aktifkan saran pencarian",
 
     // Proxy
-    "useproxytitletext": "Pemintas Proksi",
+    "useproxytitletext": "Bypass Proksi",
     "useproxyText": "Jika saran pencarian tidak berfungsi",
-    "ProxyText": "Pemintas proksi CORS",
-    "ProxySubtext": "Tambahkan pemintas proksi CORS Anda sendiri",
+    "ProxyText": "Bypass proksi CORS",
+    "ProxySubtext": "Tambahkan bypass proksi CORS Anda sendiri",
     "HostproxyButton": "Host proksi Anda sendiri",
 
     // Location
     "useGPS": "Gunakan GPS",
-    "useGPSInfo": "Mengaktifkan GPS untuk pembaruan lokasi secara langsung",
+    "useGPSInfo": "Aktifkan GPS untuk pembaruan lokasi secara langsung",
     "UserLocText": "Masukkan Lokasi Anda",
     "UserLocSubtext": "Jika lokasi cuaca tidak berfungsi",
     "userLoc": "Kota atau Koordinat Anda (Lintang, Bujur)",
@@ -102,11 +110,11 @@ const idn = {
     "bookmarkSortBy": "Urutkan berdasarkan",
     "sortAlphabetical": "A-Z",
     "sortTimeAdded": "Lama-Baru",
-    "bookmarkViewAs": "Lihat sebagai",
-    "bookmarkViewGrid": "Kisi-kisi",
+    "bookmarkViewAs": "Kisi-kisi",
+    "bookmarkViewGrid": "Tata Letak",
     "bookmarkViewList": "Daftar",
     "bookmarkSearch": "Cari markah buku",
-    "editBookmarkHeading": "Ubah Markah Buku",
+    "editBookmarkHeading": "Edit Markah Buku",
     "editBookmarkName": "Nama Markah Buku",
     "editBookmarkURL": "URL Markah Buku",
 
@@ -188,7 +196,7 @@ const idn = {
 
     // Footer Toast
     "footerToastTitle": "Melihat banner di bawah?",
-    "footerToastMessage": "Untuk menyembunyikannya, klik kanan padanya dan pilih 'Sembunyikan Footer Pada Halaman Tab Baru'.",
+    "footerToastMessage": "Untuk menyembunyikannya, klik kanan pada banner dan pilih 'Sembunyikan Footer Pada Halaman Tab Baru'.",
 
     // Dialog boxes (alerts)
     "okText": "OK",
@@ -200,15 +208,18 @@ const idn = {
     "confirmRestore": "Apakah Anda yakin ingin mengatur ulang setelan Anda? Tindakan ini tidak dapat dibatalkan.",
     "Nobackgroundset": "Tidak ada gambar latar belakang yang dipasang saat ini.",
     "clearbackgroundimage": "Apakah Anda yakin ingin menghapus gambar latar belakang?",
-    "ProxyDisclaimer": "Semua fitur proxy dimatikan secara default.\n\nJika Anda mengaktifkan saran pencarian dan pemintas proksi CORS, sangat disarankan untuk meng-host proksi Anda sendiri untuk privasi yang lebih baik.\n\nSecara default, proksi akan disetel ke https://mynt-proxy.rhythmcorehq.com, yang berarti semua data Anda akan melewati layanan ini, yang mungkin saja dapat menimbulkan kekhawatiran privasi.",
-    "GPSDisclaimer": "Data lokasi Anda digunakan hanya untuk memberikan pembaruan cuaca yang akurat. Ini tersimpan sementara pada browser dan tidak juga dibagikan pada layanan pihak ketiga apapun dan juga tidak dapat diakses oleh Kami.\n\nDengan mengaktifkan GPS, Anda setuju untuk membagikan lokasi Anda dengan ekstensi ini secara lokal.",
+    "ProxyDisclaimer": "Semua fitur proxy dimatikan secara default.\n\nJika Anda mengaktifkan saran pencarian dan bypass proksi CORS, sangat disarankan untuk host proksi Anda sendiri untuk privasi yang lebih baik.\n\nSecara default, proksi akan disetel ke https://mynt-proxy.rhythmcorehq.com, yang berarti semua data Anda akan melewati layanan ini, yang mungkin saja dapat menimbulkan kekhawatiran privasi.",
+    "GPSDisclaimer": "Data lokasi Anda digunakan hanya sebatas untuk memberikan pembaruan cuaca yang akurat. Ini tersimpan sementara pada browser dan tidak juga dibagikan pada layanan pihak ketiga apapun dan juga tidak dapat diakses oleh Kami.\n\nDengan mengaktifkan GPS, Anda setuju untuk membagikan lokasi Anda dengan ekstensi ini secara lokal.",
     "failedbackup": "Pencadangan gagal: ",
     "restorecompleted": "Pemulihan berhasil dengan sukses!",
     "restorefailed": "Pemulihan gagal: ",
     "invalidBackup": "File cadangan yang dipilih tidak valid",
     "deleteBookmark": "Apakah Anda yakin untuk menghapus markah buku \"{title}\"?",
     "UnsupportedBrowser": "Markah buku tidak didukung oleh browser Anda",
-    "resetShortcutsPrompt": "Semua pintasan yang tersimpan akan terhapus dan diatur ke default. Apakah Anda ingin melanjutkannya?",
+    "resetShortcutsPrompt": "Semua pintasan yang tersimpan akan terhapus dan diatur ulang ke default. Apakah Anda ingin melanjutkannya?",
+    "invalidFileTypeMessage": "Pilih file gambar yang valid.",
+    "invalidSvgMessage": "SVG yang dipilih tidak valid, atau mengandung konten tidak pantas dan tidak bisa digunakan sebagai ikon.",
+    "invalidIconUrlMessage": "Masukkan URL gambar yang valid (perlu diawali dengan https://, http://, atau data:image/).",
     "iconFileTooLargeMessage": "File yang terpilih terlalu besar: {size} KB. Tolong gunakan file yang kurang dari {max} KB.",
     "iconStorageQuotaMessage": "Ikon tidak bisa tersimpan karena menyentuh batas maksimal penyimpanan. Hapus beberapa ikon kustom atau gunakan gambar yang lebih kecil."
 };

@@ -158,8 +158,10 @@ const en = {
 
     // Search
     "searchSectionTitle": "Search",
-    "micIconTitle": "Hide Microphone Icon",
+    "micIconTitle": "Hide Microphone Button",
     "micIconInfo": "If voice typing is not working",
+    "aiModeIconTitle": "Hide AI Mode Button",
+    "aiModeIconInfo": "Hide Google AI Mode search button",
     "hideSearchWith": "Hide Search Engines",
     "hideSearchWithInfo": "Switch between search engines by clicking its icon",
 

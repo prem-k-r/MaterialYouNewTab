@@ -67,8 +67,10 @@ const hi = {
     "minMaxTempSubText": "अनुभूत तापमान की जगह न्यूनतम और अधिकतम तापमान दिखाएँ",
 
     // Search
-    "micIconTitle": "माइक्रोफोन आइकन छिपाएँ",
-    "micIconInfo": "अगर वॉइस टाइपिंग काम नहीं कर रहा है",
+    "micIconTitle": "माइक्रोफ़ोन बटन छिपाएँ",
+    "micIconInfo": "अगर वॉइस टाइपिंग काम नहीं कर रही है",
+    "aiModeIconTitle": "AI मोड बटन छिपाएँ",
+    "aiModeIconInfo": "Google AI मोड सर्च बटन छिपाएँ",
     "hideSearchWith": "सर्च इंजन छिपाएँ",
     "hideSearchWithInfo": "आइकन पर क्लिक करके सर्च इंजन बदलें",
     "motivationalQuotesText": "प्रेरणादायक उद्धरण",

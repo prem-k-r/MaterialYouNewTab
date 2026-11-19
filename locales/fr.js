@@ -34,6 +34,12 @@ const fr = {
     "googleAppsMenuInfo": "Afficher les raccourcis pour les Applications Google",
     "googleAppsHover": "Apps Google",
 
+    "shortcutDefaultName": "Nouveau Raccourci",
+    "shortcutInputName": "Nom du raccourci",
+    "shortcutInputUrl": "URL du raccourci",
+    "shortcutInputIcon": "Icône personnalisée: URL ou SVG (facultatif)",
+    "recentlyAddedBookmarks": "Ajouts récents",
+
     // To-do List
     "todoListText": "Liste To-Do",
     "todoListInfo": "Afficher une liste de tâches quotidiennes",
@@ -71,6 +77,8 @@ const fr = {
     "hideSearchWithInfo": "Passez d'un moteur de recherche à l'autre en cliquant sur son icône",
     "motivationalQuotesText": "Citations de motivation",
     "motivationalQuotesInfo": "Afficher les citations sous la barre de recherche",
+    "newQuoteOnRefreshText": "Citation du jour",
+    "newQuoteOnRefreshInfo": "Afficher une citation par jour au lieu de changer à chaque actualisation",
     "search_suggestions_button": "Suggestions de Recherche",
     "search_suggestions_text": "Activer les suggestions de recherche",
 
@@ -211,5 +219,10 @@ const fr = {
     "invalidBackup": "Fichier de sauvegarde invalide",
     "deleteBookmark": "Êtes-vous sûr de vouloir supprimer le favori \"{title}\"?",
     "UnsupportedBrowser": "Les favoris ne sont pas supportés dans votre navigateur.",
-    "resetShortcutsPrompt": "Tous les raccourcis enregistrés seront supprimés et réinitialisés par défaut. Voulez-vous continuer?"
+    "resetShortcutsPrompt": "Tous les raccourcis enregistrés seront supprimés et réinitialisés par défaut. Voulez-vous continuer?",
+    "invalidFileTypeMessage": "Veuillez sélectionner un fichier image valide.",
+    "invalidSvgMessage": "Le SVG inséré est invalide ou contient du contenu non sécurisé et ne peut pas être utilisé comme icône.",
+    "invalidIconUrlMessage": "Veuillez saisir une URL d'image valide (doit commencer par https://, http://, ou data:image/).",
+    "iconFileTooLargeMessage": "Le fichier sélectionné est trop volumineux : {size} Ko. Veuillez utiliser un fichier inférieur à {max} Ko.",
+    "iconStorageQuotaMessage": "L'icône n'a pas pu être enregistrée car la limite de stockage a été atteinte. Supprimez quelques icônes personnalisées ou utilisez une image plus petite."
 };

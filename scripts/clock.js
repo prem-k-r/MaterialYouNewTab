@@ -75,6 +75,13 @@ handleClockVisibility();
 window.addEventListener("resize", handleClockVisibility);
 
 // ---------------------- Clock func ----------------------
+/**
+ * Initializes the analog and digital clocks.
+ * Clears running clock intervals, sets the initial hand rotations, restores the
+ * saved clock type and 12-hour setting, and wires up the related settings toggles.
+ *
+ * @returns {Promise<void>}
+ */
 async function initializeClock() {
     // Clear any existing intervals first
     if (analogIntervalId) {
@@ -121,6 +128,13 @@ async function initializeClock() {
     // Call this function to initialize the clock type
     initializeClockType();
 
+    /**
+     * Updates the date shown under the analog clock using the selected
+     * language's day and month names and date format.
+     * Only touches the DOM when the date string has changed.
+     *
+     * @returns {void}
+     */
     function updateDate() {
         if (clocktype === "analog") {
             var currentTime = new Date();
@@ -144,7 +158,7 @@ async function initializeClock() {
             const dateDisplay = {
                 bn: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
                 mr: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
-                np: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
+                ne: `${dayName}, ${localizedDayOfMonth} ${monthName}`,
                 zh: `${month + 1}月${dayOfMonth}日，${dayName}`,
                 zh_TW: `${month + 1}月${dayOfMonth}日，${dayName}`,
                 cs: `${dayName}, ${dayOfMonth}. ${monthName}`,
@@ -173,6 +187,7 @@ async function initializeClock() {
                 th: `วัน${dayName}ที่ ${dayOfMonth} ${monthName}`, // วันอาทิตย์ที่ 22 ธันวาคม
                 uk: `${dayName}, ${dayOfMonth} ${monthName.substring(0, 4)}`,
                 sv: `${dayName.substring(0, 3)} ${dayOfMonth} ${monthName.substring(0, 3)}`, // Sön 19 Apr
+                hy: `${dayName}, ${dayOfMonth} ${monthName}`, // Երեքշաբթի, 3 նոյեմբերի
                 default: `${dayName.substring(0, 3)}, ${monthName.substring(0, 3)} ${dayOfMonth}`	// Sun, Dec 22
             };
 
@@ -258,6 +273,12 @@ async function initializeClock() {
         return translations[currentLanguage]?.greeting?.[greetingKey] ?? translations["en"].greeting[greetingKey];
     }
 
+    /**
+     * Updates the digital clock: the localized date line, the time in 12- or
+     * 24-hour format, and the AM/PM label for the selected language.
+     *
+     * @returns {void}
+     */
     function updatedigiClock() {
         const hourformatstored = localStorage.getItem("hourformat");
         let hourformat = hourformatstored === "true"; // Default to false if null
@@ -282,7 +303,7 @@ async function initializeClock() {
             az: `${dayName} ${dayOfMonth}`,
             bn: `${dayName}, ${localizedDayOfMonth}`,
             mr: `${dayName}, ${localizedDayOfMonth}`,
-            np: `${dayName}, ${localizedDayOfMonth}`,
+            ne: `${dayName}, ${localizedDayOfMonth}`,
             zh: `${dayOfMonth}日${dayName}`,
             zh_TW: `${dayOfMonth}日${dayName}`,
             cs: `${dayName}, ${dayOfMonth}.`,
@@ -304,6 +325,7 @@ async function initializeClock() {
             el: `${dayName.substring(0, 3)} ${dayOfMonth}`, // Κυρ 22
             th: `${dayName}ที่ ${dayOfMonth}`,
             uk: `${dayOfMonth} ${dayName}`,
+            hy: `${dayName}, ${dayOfMonth}`, // Երեքշաբթի, 3
             default: `${dayOfMonth} ${dayName.substring(0, 3)}`,	// 24 Thu
         };
 
@@ -357,7 +379,7 @@ async function initializeClock() {
         if (hourformat && (specialLanguages.includes(currentLanguage) || localizedLanguages.includes(currentLanguage))) {
             let realHours = new Date().getHours();
 
-            // lANGUAGE-SPECIFIC AM/PM 
+            // LANGUAGE-SPECIFIC AM/PM
             if (currentLanguage === "fa") {
                 period = realHours < 12 ? "ق.ظ" : "ب.ظ"; // قبل از ظهر / بعد از ظهر
             } else if (currentLanguage === "ar_SA") {
@@ -554,4 +576,3 @@ async function initializeClock() {
         loadActiveStatus("greetingField", greetingField);
     });
 }
-
