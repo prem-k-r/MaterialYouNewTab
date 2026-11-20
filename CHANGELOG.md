@@ -40,6 +40,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Fixed shortcut name and URLs hover behavior by replacing ellipsis with clipped text for improved readability ([@prem-k-r](https://github.com/prem-k-r)) ([283f78d](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/changes/283f78d6e4b202a075ca3d670c1b30cbc701c3a4))
 - Fixed wallpaper disappearing on load due to blob URL being revoked too early ([@prem-k-r](https://github.com/prem-k-r)) ([#209](https://github.com/prem-k-r/MaterialYouNewTab/pull/209))
 - Fixed the page briefly flashing blue (FOUC) when opening a new tab by applying saved themes before the page renders ([@itz-rj-here](https://github.com/itz-rj-here)) ([#238](https://github.com/prem-k-r/MaterialYouNewTab/pull/238))
+- Fixed shortcuts wrapping onto a second row falling below the visible screen, centered the shortcuts dock vertically when "Hide Search Engines" is enabled on small screens, and collapsed the AI Tools label into a compact button at screen widths up to 1200px ([@Manan1511](https://github.com/Manan1511)) ([#278](https://github.com/prem-k-r/MaterialYouNewTab/pull/278))
 
 ### Localized
 
