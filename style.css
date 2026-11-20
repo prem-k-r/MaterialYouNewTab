@@ -2499,7 +2499,8 @@ html[lang="ur"] .qtRounder2 {
 	display: flex;
 	justify-content: center;
 	width: 100%;
-	height: calc(var(--shortcut-size) + var(--gap) * 2);
+	/* Grows upwards when shortcuts wrap, so extra rows stay visible */
+	height: auto;
 	position: fixed;
 	/* background: gold; */
 	inset-inline-start: 0;
@@ -2545,7 +2546,7 @@ html[lang="ur"] .qtRounder2 {
 .shortcutsContainer {
 	pointer-events: auto;
 	transition: transform 0.5s;
-	margin-top: calc(var(--gap) - var(--shortcut-bar-gap-and-padding));
+	margin-block: calc(var(--gap) - var(--shortcut-bar-gap-and-padding));
 	max-width: calc(
 		var(--max-shortcut-bar-width) -
 			mod(
@@ -4761,6 +4762,18 @@ body[data-bg="wallpaper"] .dropdown-content {
 	.shortcutsContainer {
 		row-gap: 2rem;
 	}
+	.aiToolsCont .hangno {
+		padding: 0 12px;
+	}
+	.aiToolsCont .hangno .icon {
+		margin-inline-end: 0;
+	}
+	.aiToolsCont .hangno .label {
+		width: 0;
+		opacity: 0;
+		pointer-events: none;
+		overflow: hidden;
+	}
 	#shortcuts-section {
 		padding-inline-start: 30px;
 		margin: 0 auto;
@@ -4823,7 +4836,6 @@ body[data-bg="wallpaper"] .dropdown-content {
 	}
 	#shortcuts-section:has(~ .menuBar #shortcut_switchcheckbox:checked)
 		.shortcutsContainer {
-		margin-top: 0;
 		flex-wrap: nowrap;
 	}
 	.menuBar {
