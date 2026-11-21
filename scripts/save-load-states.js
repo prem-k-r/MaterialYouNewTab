@@ -18,14 +18,6 @@ const bookmarkGridCheckbox = document.getElementById("bookmarkGridCheckbox");
 function loadCheckboxState(key, checkbox) {
     const savedState = localStorage.getItem(key);
     checkbox.checked = savedState === "checked";
-    if (key === "bookmarkGridCheckboxState") {
-        if (!savedState) {
-            bookmarkGridCheckbox.click();
-        } else {
-            bookmarkGridCheckbox.click();
-            bookmarkGridCheckbox.click();
-        }
-    }
 }
 
 // Function to save display status to localStorage

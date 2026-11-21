@@ -14,6 +14,14 @@
 	"background": {
 		"scripts": ["scripts/background.js"]
 	},
+	"commands": {
+		"open-bookmarks": {
+			"suggested_key": {
+				"default": "Alt+B"
+			},
+			"description": "Open bookmarks"
+		}
+	},
 	"icons": {
 		"16": "favicon/icon16.png",
 		"48": "favicon/icon48.png",
