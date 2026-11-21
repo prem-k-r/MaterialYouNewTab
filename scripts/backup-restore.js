@@ -39,8 +39,6 @@ async function backupData() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-
-        console.log("Backup completed successfully!");
     } catch (error) {
         await alertPrompt((translations[currentLanguage]?.failedbackup || translations["en"].failedbackup) + error.message);
     }
