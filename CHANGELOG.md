@@ -26,6 +26,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 
 ### Improved
 
+- Redesigned the feedback page into an authentic Material Design 3 community hub with live dynamic color palette switching, light/dark mode support, store reviews, and contribution links ([@itz-rj-here](https://github.com/itz-rj-here))
 - Introduced collapsible sections in the settings menu for improved organization and easier navigation ([@prem-k-r](https://github.com/prem-k-r)) ([#109](https://github.com/prem-k-r/MaterialYouNewTab/pull/109))
 - Redesigned the theme selector from dropdown to buttons for easier switching between Light, Dark, and System modes ([@prem-k-r](https://github.com/prem-k-r)) ([#112](https://github.com/prem-k-r/MaterialYouNewTab/pull/112))
 - Added expanding animations to todo and Google apps panels and some other minor UI changes ([@prem-k-r](https://github.com/prem-k-r)) ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
