@@ -1,8 +1,17 @@
 // Portuguese (Brazil)
 const pt = {
+    "newTabTitle": "Nova Guia",
     // Menu Items
     "github": "GitHub",
     "feedback": "Feedback",
+
+    // Section titles
+    "personalizationSectionTitle": "Personalização",
+    "clockSectionTitle": "Relógio",
+    "searchSectionTitle": "Pesquisa",
+    "weatherSectionTitle": "Clima",
+    "appearanceSectionTitle": "Aparência",
+    "settingsSectionTitle": "Configurações",
 
     // Shortcuts
     "shortcutsText": "Atalhos",
@@ -22,6 +31,12 @@ const pt = {
     "googleAppsMenuText": "Apps Google",
     "googleAppsMenuInfo": "Mostrar atalhos para Apps Google",
     "googleAppsHover": "Apps do Google",
+
+    "shortcutDefaultName": "Novo Atalho",
+    "shortcutInputName": "Nome do Atalho",
+    "shortcutInputUrl": "URL do Atalho",
+    "shortcutInputIcon": "Ícone Personalizado: URL ou SVG (opcional)",
+    "recentlyAddedBookmarks": "Adicionados Recentemente",
 
     // To-do List
     "todoListText": "Lista de Tarefas",
@@ -54,10 +69,14 @@ const pt = {
     // Search
     "micIconTitle": "Ocultar Ícone do Microfone",
     "micIconInfo": "Se o ditado por voz não estiver funcionando",
+    "aiModeIconTitle": "Ocultar Botão do Modo IA",
+    "aiModeIconInfo": "Ocultar o botão de pesquisa do Modo IA do Google",
     "hideSearchWith": "Ocultar o Motor de Busca",
     "hideSearchWithInfo": "Alternar entre os motores de busca clicando no ícone",
     "motivationalQuotesText": "Frases Motivacionais",
     "motivationalQuotesInfo": "Mostrar frases motivacionais abaixo do texto personalizado",
+    "newQuoteOnRefreshText": "Frase do Dia",
+    "newQuoteOnRefreshInfo": "Mostrar uma frase por dia em vez de atualizar a cada vez",
     "search_suggestions_button": "Sugestões de Pesquisa",
     "search_suggestions_text": "Ativar sugestões de pesquisa",
 
@@ -149,12 +168,15 @@ const pt = {
     "resetAISettingsBtn": "Redefinir",
 
     // Theme
-    "enableDarkMode": "Modo Escuro",
-    "enableDarkModeInfo": "Ativar temas em modo escuro",
+    "lightThemed": "Claro",
+    "darkThemed": "Escuro",
+    "systemThemed": "Sistema",
 
     // Wallpaper and misc
     "uploadWallpaperText": "Enviar Papel de Parede",
     "rangColor": "Escolher cor",
+    "opacityTitle": "Opacidade",
+    "adjustOpacityDesc": "Ajustar a transparência da interface",
     "backupText": "Backup",
     "restoreText": "Restaurar",
     "resetsettings": "Redefinir Configurações",
@@ -174,6 +196,10 @@ const pt = {
     "updateFirefoxHomepageInfo": "Para mudar sua página inicial como o NewTab, visite <a href=\"https://github.com/prem-k-r/MaterialYouNewTab#-firefox\" target=\"_blank\">este link</a> e siga as instruções.",
     "dontShowTips": "Não mostrar novamente",
 
+    // Footer Toast
+    "footerToastTitle": "Vendo um banner na parte inferior?",
+    "footerToastMessage": "Para ocultá-lo, clique com o botão direito nele e selecione 'Ocultar rodapé na página Nova guia'.",
+
     // Dialog boxes (alerts)
     "okText": "OK",
     "yesText": "Sim",
@@ -192,4 +218,10 @@ const pt = {
     "invalidBackup": "Arquivo de backup inválido",
     "deleteBookmark": "Você tem certeza de que deseja excluir o favorito \"{title}\"?",
     "UnsupportedBrowser": "Bookmarks não são suportados no seu navegador.",
+    "resetShortcutsPrompt": "Todos os atalhos salvos serão excluídos e redefinidos para o padrão. Deseja continuar?",
+    "invalidFileTypeMessage": "Selecione um arquivo de imagem válido.",
+    "invalidSvgMessage": "O SVG inserido é inválido ou contém conteúdo inseguro e não pode ser usado como ícone.",
+    "invalidIconUrlMessage": "Digite uma URL de imagem válida (deve começar com https://, http:// ou data:image/).",
+    "iconFileTooLargeMessage": "O arquivo selecionado é muito grande: {size} KB. Use um arquivo menor que {max} KB.",
+    "iconStorageQuotaMessage": "Não foi possível salvar o ícone porque o limite de armazenamento foi atingido. Remova alguns ícones personalizados ou use uma imagem menor.",
 };

@@ -62,6 +62,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
   - Traditional Chinese ([@Eddie40802](https://github.com/Eddie40802))
   - Korean ([@channel101](https://github.com/channel101))
   - Persian ([@AMIRHOSSEIN-AHMADI-IRAN](https://github.com/AMIRHOSSEIN-AHMADI-IRAN))
+  - Portuguese (Brazil) ([@arthurhguedes](https://github.com/arthurhguedes))
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 - Added support for Ukrainian ([@lozik4](https://github.com/lozik4)) ([#106](https://github.com/prem-k-r/MaterialYouNewTab/pull/106))
 - Added support for Swedish ([@empohello-imamempogitub](https://github.com/empohello-imamempogitub)) ([#179](https://github.com/prem-k-r/MaterialYouNewTab/pull/179))
