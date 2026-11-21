@@ -236,7 +236,7 @@
         .mynt-lka .key-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
             padding: 0.75rem 1rem;
             margin-bottom: 0.5rem;
             border-radius: 12px;
@@ -248,12 +248,7 @@
             background: var(--bg-color-red);
             border-left: 4px solid var(--darkerColor-red);
             color: var(--textColorDark-red);
-        }
-
-        .mynt-lka .key-item.missing label {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
+            cursor: pointer;
         }
 
         .mynt-lka .key-item.extra {
@@ -285,6 +280,27 @@
             padding: 0.25rem 0.5rem;
             border-radius: 6px;
             font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            user-select: text;
+            -webkit-user-select: text;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .mynt-lka .key-item code:hover {
+            background-color: rgba(0, 0, 0, 0.12);
+        }
+
+        .mynt-lka .copied-badge {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--darkerColor-green);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .mynt-lka .copied-badge.show {
+            opacity: 1;
         }
 
         /* ── Checkbox ── */
@@ -686,7 +702,7 @@
                 for (const [lang] of completedLangs) {
                     list.appendChild(createElmnt("li", {
                         className: "key-item complete",
-                        innerHTML: `${completeIcon}<span><strong>${lang}</strong>​​ ​ fully aligned with English (no missing or extra keys)</span>`,
+                        innerHTML: `${completeIcon}<span><strong>${lang}</strong> fully aligned with English (no missing or extra keys)</span>`,
                     }));
                 }
             }
@@ -732,10 +748,10 @@
                 const li = createElmnt("li", {
                     className: "key-item missing",
                     innerHTML: `
-                    <label>
                         <input type="checkbox" data-lang="${lang}" data-key="${key}">
-                        Missing: <code>${key}</code>
-                    </label>
+                        <span>Missing:</span>
+                        <code data-key="${key}" title="Click to copy">${key}</code>
+                        <span class="copied-badge" aria-live="polite">Copied!</span>
                     `,
                 });
 
@@ -746,7 +762,11 @@
             extra.forEach((key, i) => {
                 const li = createElmnt("li", {
                     className: "key-item extra",
-                    innerHTML: `<span>Extra: <code>${key}</code></span>`,
+                    innerHTML: `
+                        <span>Extra:</span>
+                        <code data-key="${key}" title="Click to copy">${key}</code>
+                        <span class="copied-badge" aria-live="polite">Copied!</span>
+                    `,
                 });
                 li.style.setProperty("--i", missing.length + i);
                 list.appendChild(li);
@@ -780,6 +800,32 @@
         resultsDiv.addEventListener("change", (e) => {
             if (e.target.type === "checkbox") {
                 e.target.closest("li").classList.toggle("checked", e.target.checked);
+            }
+        });
+
+        // Click key → copy | Click anywhere else on missing row → toggle checkbox
+        resultsDiv.addEventListener("click", (e) => {
+            const codeEl = e.target.closest(".key-item code");
+            if (codeEl) {
+                const key = codeEl.dataset.key;
+                const badge = codeEl.nextElementSibling;
+
+                navigator.clipboard.writeText(key).then(() => {
+                    if (!badge) return;
+                    clearTimeout(badge._copyTimer);
+                    badge.classList.add("show");
+                    badge._copyTimer = setTimeout(() => {
+                        badge.classList.remove("show");
+                    }, 900);
+                });
+                return;
+            }
+
+            const missingRow = e.target.closest(".key-item.missing");
+            if (missingRow && e.target.type !== "checkbox") {
+                const checkbox = missingRow.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+                missingRow.classList.toggle("checked", checkbox.checked);
             }
         });
 
