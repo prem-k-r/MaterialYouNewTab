@@ -239,7 +239,7 @@ bookmarkAllMenus.forEach(menu => menu.addEventListener("keydown", function (even
 
 function updateRecentCountUI() {
     const count = getRecentCount();
-    bookmarkRecentCountEls.forEach(el => { el.textContent = count; });
+    bookmarkRecentCountEls.forEach(el => { el.textContent = localizeNumbers(String(count), currentLanguage); });
     // While Recent is hidden the whole stepper is disabled (a disabled button is also skipped by the keyboard).
     const recentShown = bookmarkShowRecent.checked;
     bookmarkRecentMinusEls.forEach(button => { button.disabled = !recentShown || count <= RECENT_COUNT_MIN; });
@@ -381,9 +381,7 @@ function openBookmarkItemMenu(button, node, context = {}) {
     bookmarkItemMenu.classList.toggle("is-favorite", favorite);
     bookmarkItemMenu.classList.toggle("is-folder", !node.url);
     bookmarkItemMenu.classList.toggle("in-favorites", Boolean(context.inFavorites));
-    bookmarkFavoriteActionLabel.textContent = favorite
-        ? getTranslation("removeFromFavorite", "Remove from favorite")
-        : getTranslation("addToFavorite", "Add to favorite");
+    bookmarkFavoriteActionLabel.textContent = getTranslation(favorite ? "removeFromFavorite" : "addToFavorite");
 
     bookmarkItemMenu.querySelector('[data-action="moveUp"]').disabled = !context.inFavorites || context.index <= 0;
     bookmarkItemMenu.querySelector('[data-action="moveDown"]').disabled =
@@ -552,10 +550,7 @@ async function deleteBookmarkFolder(folder) {
 
     const descendants = collectBookmarkDescendants(folder);
     const count = descendants.filter(node => node.url).length;
-    const message = getTranslation(
-        "deleteBookmarkFolder",
-        'Delete the folder "{title}" and the {count} bookmark(s) inside it? This cannot be undone.'
-    ).replace("{title}", folder.title || getTranslation("untitledFolder", "Untitled folder")).replace("{count}", count);
+    const message = getTranslation("deleteBookmarkFolder").replace("{title}", folder.title || getTranslation("untitledFolder")).replace("{count}", localizeNumbers(String(count), currentLanguage));
 
     if (!(await confirmPrompt(message))) return;
 
@@ -597,7 +592,7 @@ function openBookmarkModal(mode, node, folderId = null) {
     // Keep the original "Edit" heading so it can be restored
     if (mode === "add") {
         if (heading.dataset.editText === undefined) heading.dataset.editText = heading.textContent;
-        heading.textContent = getTranslation("addBookmarkHeading", "Add Bookmark");
+        heading.textContent = getTranslation("addBookmarkHeading");
     } else if (heading.dataset.editText !== undefined) {
         heading.textContent = heading.dataset.editText;
         delete heading.dataset.editText;
@@ -659,7 +654,7 @@ async function populateBookmarkFolderSelect(selectedId, keepId, token = ++bookma
         editBookmarkFolder.replaceChildren(...options.map(option => {
             const element = document.createElement("option");
             element.value = option.id;
-            const name = option.title || getTranslation("untitledFolder", "Untitled folder");
+            const name = option.title || getTranslation("untitledFolder");
             element.textContent = "\u2003".repeat(option.depth) + name + (option.readOnly ? " 🔒" : "");
             element.title = name;
             return element;
@@ -695,7 +690,7 @@ async function loadEditBookmarkFolder(node, token) {
 function updateNewBookmarkFolderHint() {
     const selected = editBookmarkFolder.selectedOptions[0];
     const parentName = selected ? selected.title : "";
-    newBookmarkFolderHint.textContent = `${getTranslation("newFolderIn", "Will be created in")}: ${parentName}`;
+    newBookmarkFolderHint.textContent = `${getTranslation("newFolderIn")}: ${parentName}`;
 }
 
 function showNewBookmarkFolderRow() {
@@ -995,7 +990,7 @@ function applyBookmarkSearch() {
             if (section.dataset.section !== "folders") {
                 setSectionOpen(section, !bookmarkCollapsedSections.has(section.dataset.section));
             }
-            section.querySelector(".bm-badge").textContent = section.dataset.count;
+            section.querySelector(".bm-badge").textContent = localizeNumbers(String(section.dataset.count), currentLanguage);
         });
     } else {
         // A bookmark matches on its name or its URL
@@ -1018,7 +1013,7 @@ function applyBookmarkSearch() {
             section.classList.toggle("bm-hidden", visibleRows.length === 0);
             // Matches are shown even in a collapsed section; the badge counts the rows that still match
             if (visibleRows.length && section.dataset.section !== "folders") setSectionOpen(section, true);
-            section.querySelector(".bm-badge").textContent = visibleRows.length;
+            section.querySelector(".bm-badge").textContent = localizeNumbers(String(visibleRows.length), currentLanguage);
         });
     }
 
@@ -1188,7 +1183,7 @@ async function loadBookmarks() {
         if (bookmarkShowFavorites.checked && favoriteNodes.length > 0) {
             bookmarkList.appendChild(createBookmarkSection(
                 "favorites",
-                getTranslation("favoriteBookmarks", "Favorites"),
+                getTranslation("favoriteBookmarks"),
                 favoriteNodes.length,
                 displayBookmarks(favoriteNodes, { sort: false, section: "favorites" }),
                 { hasMenu: true }
@@ -1199,7 +1194,7 @@ async function loadBookmarks() {
         if (recentBookmarks.length > 0) {
             bookmarkList.appendChild(createBookmarkSection(
                 "recent",
-                getTranslation("recentlyAddedBookmarks", "Recently added"),
+                getTranslation("recentlyAddedBookmarks"),
                 recentBookmarks.length,
                 displayBookmarks(recentBookmarks, { sort: false, section: "recent" }),
                 { hasMenu: true }
@@ -1216,7 +1211,7 @@ async function loadBookmarks() {
         if (rootFolders.length > 0) {
             bookmarkList.appendChild(createBookmarkSection(
                 "folders",
-                getTranslation("foldersSection", "Folders"),
+                getTranslation("foldersSection"),
                 rootFolders.length,
                 displayBookmarks(rootFolders, { sort: false, section: "folders" })
             ));
@@ -1273,7 +1268,7 @@ function createMoreButton() {
         const button = document.createElement("button");
         button.type = "button";
         button.classList.add("bookmark-more-button");
-        button.setAttribute("aria-label", getTranslation("bookmarkOptions", "Bookmark options"));
+        button.setAttribute("aria-label", "Bookmark options");
         button.setAttribute("aria-haspopup", "true");
         button.innerHTML = bmIcon("dots");
         bookmarkMoreButtonTemplate = button;
@@ -1286,7 +1281,7 @@ function createChevronButton(isOpen) {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "bm-chevron-btn";
-        button.setAttribute("aria-label", getTranslation("toggleFolderOrSection", "Expand / collapse"));
+        button.setAttribute("aria-label", "Expand / collapse");
         button.innerHTML = bmIcon("chevrondown", "bm-chevron");
         bookmarkChevronButtonTemplate = button;
     }
@@ -1310,13 +1305,13 @@ function createBookmarkSection(key, title, count, list, { hasMenu = false } = {}
     toggle.className = "bm-section-toggle";
     toggle.innerHTML = '<span class="bm-section-title"></span><span class="bm-badge"></span>';
     toggle.querySelector(".bm-section-title").textContent = title;
-    toggle.querySelector(".bm-badge").textContent = count;
+    toggle.querySelector(".bm-badge").textContent = localizeNumbers(String(count), currentLanguage);
     header.appendChild(toggle);
 
     if (hasMenu) {
         const more = createMoreButton();
         more.classList.add("bm-section-more");
-        more.setAttribute("aria-label", getTranslation("sectionOptions", "Section options"));
+        more.setAttribute("aria-label", "Section options");
         header.appendChild(more);
     }
     header.appendChild(createChevronButton(true));
@@ -1513,7 +1508,7 @@ saveBookmarkChanges.onclick = async function () {
 
     const href = toBookmarkHref(rawUrl);
     if (!href) {
-        editBookmarkURL.setCustomValidity(getTranslation("invalidBookmarkUrl", "Enter a valid URL"));
+        editBookmarkURL.setCustomValidity(getTranslation("invalidBookmarkUrl"));
         editBookmarkURL.reportValidity();
         return;
     }
@@ -1591,7 +1586,6 @@ document.addEventListener("DOMContentLoaded", function () {
     loadCheckboxState("bookmarkGridCheckboxState", bookmarkGridCheckbox, true);
     updateViewButtons();
     syncBookmarkMenuState();
-    applyBookmarkLabels();
 });
 
 // Tooltips of the Sort by / View as icon buttons come from their label text (so translations still apply)
@@ -1601,25 +1595,6 @@ function setIconButtonTooltip(event) {
 }
 bookmarkMenu.addEventListener("mouseover", setIconButtonTooltip);
 bookmarkMenu.addEventListener("focusin", setIconButtonTooltip);
-
-// Labels added with the favorites / sorting update (English until the locale files get these keys)
-function applyBookmarkLabels() {
-    const setText = (id, key, fallback) => {
-        const element = document.getElementById(id);
-        if (element) element.textContent = getTranslation(key, fallback);
-    };
-    setText("bookmarkAddHereLabel", "addBookmarkHere", "Add bookmark");
-    setText("bookmarkDeleteFolderLabel", "deleteBookmarkFolderLabel", "Delete folder and bookmarks");
-    setText("bookmarkMoveUpLabel", "moveFavoriteUp", "Move up");
-    setText("bookmarkMoveDownLabel", "moveFavoriteDown", "Move down");
-    setText("bookmarkHideRecentLabel", "hideRecent", "Hide recent");
-    setText("bookmarkHideFavoritesLabel", "hideFavorites", "Hide favorites");
-    setText("editBookmarkFolderLabel", "bookmarkFolder", "Folder");
-    setText("newBookmarkFolderLabel", "newFolderName", "New folder name");
-    setText("sortDefault", "sortDefault", "Browser order");
-    setText("sortAlphabeticalDesc", "sortAlphabeticalDesc", "Z-A");
-    setText("sortTimeAddedDesc", "sortTimeAddedDesc", "New-Old");
-}
 
 // Keyboard shortcut for bookmarks
 document.addEventListener("keydown", function (event) {

@@ -237,10 +237,28 @@ function applyLanguage(lang) {
         "bookmarkSortBy",
         "sortAlphabetical",
         "sortTimeAdded",
+        "sortDefault",
+        "sortAlphabeticalDesc",
+        "sortTimeAddedDesc",
         "bookmarkViewAs",
         "bookmarkViewGrid",
         "bookmarkViewList",
         "editBookmarkHeading",
+        "bookmarkDisplay",
+        "showRecent",
+        "showFavorites",
+        "hideFavorites",
+        "hideRecent",
+        "moveFavoriteUp",
+        "moveFavoriteDown",
+        "addToShortcuts",
+        "editBookmarkLabel",
+        "deleteBookmarkLabel",
+        "deleteBookmarkFolderLabel",
+        "bookmarkFolder",
+        "newFolderName",
+        "addBookmark",
+        "recentCount",
         "lightThemed",
         "darkThemed",
         "systemThemed",
@@ -300,10 +318,19 @@ function applyLanguage(lang) {
         { id: "editBookmarkNameLabel", key: "editBookmarkName" },
         { id: "editBookmarkURLLabel", key: "editBookmarkURL" },
         { id: "shortcutsSectionTitle", key: "shortcutsText" },
+        { id: "bookmarkAddHereLabel", key: "addBookmark" },
+        { id: "bookmarkRecentMenuCountLabel", key: "recentCount" },
+    ];
+
+    // Tooltips (title attribute)
+    const titleMap = [
+        { id: "newBookmarkFolderButton", key: "newFolderButton" },
+        { id: "createBookmarkFolder", key: "createFolderButton" },
+        { id: "cancelBookmarkFolder", key: "cancelText" }
     ];
 
     // Function to apply translations
-    function applyTranslations(items, isPlaceholder) {
+    function applyTranslations(items, isPlaceholder, isTitle = false) {
         items.forEach(item => {
             // Get the element by its ID
             const element = document.getElementById(item.id || item);
@@ -316,6 +343,8 @@ function applyLanguage(lang) {
                 // Apply the translation to either placeholder or innerText
                 if (isPlaceholder) {
                     element.placeholder = translation;
+                } else if (isTitle) {
+                    element.title = translation;
                 } else {
                     element.innerText = translation;
                 }
@@ -325,6 +354,7 @@ function applyLanguage(lang) {
 
     // Apply the translations
     applyTranslations(placeholderMap, true);   // For placeholders
+    applyTranslations(titleMap, false, true);  // For tooltips (title attribute)
     applyTranslations(elementsMap, false);     // For innerTexts with different IDs and keys
     applyTranslations(translationMap, false);  // For innerTexts with same ID and keys
 

@@ -91,20 +91,55 @@ const en = {
 
     // Bookmarks - Sidebar
     "bookmarksHeading": "Bookmarks",
-    "bookmarkSortBy": "Sort by",
-    "sortAlphabetical": "A-Z",
-    "sortTimeAdded": "Old-New",
-    "bookmarkViewAs": "View as",
-    "bookmarkViewGrid": "Grid",    // Keep this shorter
-    "bookmarkViewList": "List",    // Keep this shorter
     "bookmarkSearch": "Search bookmark",
+    "favoriteBookmarks": "Favorites",
     "recentlyAddedBookmarks": "Recently Added",
+    "foldersSection": "Folders",
+
+    // Bookmarks - Options menu
+    "bookmarkDisplay": "Display",
+    "bookmarkSortBy": "Sort by",
+    "sortDefault": "Browser order",
+    "sortAlphabetical": "A-Z",
+    "sortAlphabeticalDesc": "Z-A",
+    "sortTimeAdded": "Old-New",
+    "sortTimeAddedDesc": "New-Old",
+    "bookmarkViewAs": "View as",
+    "bookmarkViewGrid": "Grid",
+    "bookmarkViewList": "List",
+    "addBookmark": "Add bookmark",
+    "showRecent": "Show recent",
+    "recentCount": "Recent count",
+    "showFavorites": "Show favorites",
+
+    // Bookmarks - Item and section menus
+    "hideFavorites": "Hide favorites",
+    "hideRecent": "Hide recent",
+    "addToFavorite": "Add to favorite",
+    "removeFromFavorite": "Remove from favorite",
+    "moveFavoriteUp": "Move up",
+    "moveFavoriteDown": "Move down",
+    "addToShortcuts": "Add to shortcuts",
+    "editBookmarkLabel": "Edit bookmark",
+    "deleteBookmarkLabel": "Delete bookmark",
+    "deleteBookmarkFolderLabel": "Delete folder and bookmarks",
 
     // Bookmarks - Modal
     "editBookmarkHeading": "Edit Bookmark",
     "editBookmarkName": "Bookmark Name",
     "editBookmarkURL": "Bookmark URL",
     "deleteBookmark": "Are you sure you want to delete the bookmark \"{title}\"?",  // Do not translate {title}
+
+    // Bookmarks - Folder picker
+    "addBookmarkHeading": "Add Bookmark",
+    "bookmarkFolder": "Folder",
+    "newFolderName": "New folder name",
+    "newFolderIn": "Will be created in",
+    "untitledFolder": "Untitled folder",
+    "deleteBookmarkFolder": "Are you sure you want to delete the folder \"{title}\" and the {count} bookmark(s) inside it? This cannot be undone.",
+    "invalidBookmarkUrl": "Please enter a valid URL",
+    "newFolderButton": "New folder",        // Tooltip of the "+" button next to the folder picker
+    "createFolderButton": "Create folder",  // Tooltip of the tick button
 
     // AI Tools
     "ai_tools": "AI Tools", // Visible in the new tab
