@@ -5880,16 +5880,6 @@ body[data-bg="wallpaper"] .dropdown-content {
 	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-#m3ExpressiveSettingsField {
-	padding: 12px 4px;
-	margin-bottom: 14px;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.black-theme #m3ExpressiveSettingsField {
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 /* --- M3 Expressive Design Tokens --- */
 :root {
 	/* Motion Physics (Spring-converted cubic-bezier curves from M3 tokens) */
@@ -6468,5 +6458,24 @@ body[data-bg="wallpaper"].m3-expressive .aiToolsCont {
 	backdrop-filter: blur(24px) saturate(180%);
 	-webkit-backdrop-filter: blur(24px) saturate(180%);
 	border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Accessibility: Respect Reduced Motion (WCAG & Material 3 Guideline) */
+@media (prefers-reduced-motion: reduce) {
+	.m3-expressive,
+	.m3-expressive * {
+		--m3-spring-fast-spatial: linear !important;
+		--m3-spring-default-spatial: linear !important;
+		--m3-spring-slow-spatial: linear !important;
+		--m3-spring-fast-effects: linear !important;
+		--m3-spring-default-effects: linear !important;
+		--m3-spring-slow-effects: linear !important;
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+	}
+
+	.m3-expressive #digicolon {
+		animation: none !important;
+	}
 }
 
