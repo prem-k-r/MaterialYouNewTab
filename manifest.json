@@ -11,6 +11,15 @@
 		"https://search.brave.com/api/suggest?q=*",
 		"https://*.wikipedia.org/w/api.php?action=opensearch&search=*"
 	],
+	"commands": {
+		"random-wallpaper": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+U",
+				"mac": "Command+Shift+U"
+			},
+			"description": "Choose a random wallpaper"
+		}
+	},
 	"icons": {
 		"16": "favicon/icon16.png",
 		"48": "favicon/icon48.png",

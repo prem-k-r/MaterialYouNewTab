@@ -190,5 +190,37 @@ document.getElementById("clearImage").addEventListener("click", async function (
 
 document.getElementById("randomImageTrigger").addEventListener("click", applyRandomImage);
 
+// Keyboard shortcut for random wallpaper
+let randomWallpaperRunning = false;
+let lastRandomWallpaperTime = 0;
+
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.action !== "random-wallpaper") {
+        return;
+    }
+
+    const now = Date.now();
+
+    // Ignore if previous request is still loading
+    if (randomWallpaperRunning) {
+        return;
+    }
+
+    // Ignore if less than 1 second since previous wallpaper change
+    if (now - lastRandomWallpaperTime < 1000) {
+        return;
+    }
+
+    randomWallpaperRunning = true;
+
+    applyRandomImage(false)
+        .then(() => {
+            lastRandomWallpaperTime = Date.now();
+        })
+        .finally(() => {
+            randomWallpaperRunning = false;
+        });
+});
+
 // Start image check on page load
 checkAndUpdateImage();
