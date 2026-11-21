@@ -4,6 +4,225 @@
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  */
 
+// Icon helpers shared with ai-tools.js (loaded after this file)
+const iconUtils = (() => {
+    // Validates custom icon URL
+    function isValidCustomIconUrl(url) {
+        if (typeof url !== "string") return false;
+        const trimmedUrl = url.trim();
+        if (trimmedUrl.includes(" ")) return false;
+        const lowercaseUrl = trimmedUrl.toLowerCase();
+        return (
+            lowercaseUrl.startsWith("data:image/") ||
+            lowercaseUrl.startsWith("https://") ||
+            lowercaseUrl.startsWith("http://")
+        );
+    }
+
+    // Normalizes URLs to ensure they're valid
+    function normalizeUrl(url) {
+        url = url.trim();
+        return encodeURI(
+            url.startsWith("https://") || url.startsWith("http://") ? url : `https://${url}`
+        );
+    }
+
+    function applyCustomSvgAccentColor(svg) {
+        const color = localStorage.getItem("selectedTheme") === "dark"
+            ? "#bfbfbf"
+            : localStorage.getItem("accentLightTintColor") || "#e2eeff";
+
+        return svg.replace(/\bcurrentColor\b/g, color);
+    }
+
+    // Sanitizes raw SVG code, returns data URL or null if unsafe
+    function sanitizeSvg(raw) {
+        const trimmed = raw.trim();
+        const normalized = trimmed
+            .replace(/^<\?xml[\s\S]*?\?>\s*/i, "")
+            .replace(/^<!doctype[\s\S]*?>\s*/i, "")
+            .replace(/^<!--[\s\S]*?-->\s*/i, "");
+        if (!normalized.toLowerCase().startsWith("<svg")) return null;
+
+        const forbidden = [
+            /<script[\s>]/i,                // <script> tags
+            /\bon\w+\s*=/i,                 // event handlers: onload=, onclick=, onerror=, …
+            /<iframe[\s>]/i,                // iframes
+            /<foreignObject[\s>]/i,         // foreignObject (can embed HTML)
+            /javascript\s*:/i,              // javascript: URIs
+            /data:(?!image\/[a-z]+;base64,)[^"'\s]*/i, // non-image data URIs
+        ];
+
+        for (const pattern of forbidden) {
+            if (pattern.test(normalized)) return null;
+        }
+
+        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(applyCustomSvgAccentColor(normalized));
+    }
+
+    // Normalizes icon input: converts raw SVG code → data URL, passes URLs through
+    function processIconInput(raw) {
+        const trimmed = raw.trim();
+        if (!trimmed) return { value: "", error: null };
+
+        if (/<svg[\s>]/i.test(trimmed)) {
+            const dataUrl = sanitizeSvg(trimmed);
+            return { value: dataUrl ?? "", error: null };
+        }
+
+        return { value: trimmed, error: null };
+    }
+
+    // Validates the icon input field on blur
+    function validateIconInput(input) {
+        const raw = input.value.trim();
+        if (!raw) return;
+
+        if (/<svg[\s>]/i.test(raw)) {
+            const { value } = processIconInput(raw);
+            if (!value) {
+                alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
+                input.value = "";
+            } else {
+                input.value = value;
+            }
+        } else {
+            if (!isValidCustomIconUrl(raw)) {
+                alertPrompt(translations[currentLanguage]?.invalidIconUrlMessage || translations["en"]?.invalidIconUrlMessage);
+                input.value = "";
+            }
+        }
+    }
+
+    // Reads an uploaded icon file, returns a data URL or null (after alerting the user) if unusable
+    async function readIconFile(file) {
+        if (!file.type.startsWith("image/")) {
+            const invalidFileTypeMessage = translations[currentLanguage]?.invalidFileTypeMessage || translations["en"]?.invalidFileTypeMessage;
+            alertPrompt(invalidFileTypeMessage);
+            return null;
+        }
+
+        const maxIconBytes = 100 * 1024;
+        if (file.size > maxIconBytes) {
+            const iconFileTooLargeMessage = translations[currentLanguage]?.iconFileTooLargeMessage || translations["en"].iconFileTooLargeMessage;
+            const fileSizeKB = localizeNumbers((file.size / 1024).toFixed(1), currentLanguage);
+            const maxSizeKB = localizeNumbers((maxIconBytes / 1024).toFixed(0), currentLanguage);
+
+            const message = iconFileTooLargeMessage
+                .replace("{size}", fileSizeKB)
+                .replace("{max}", maxSizeKB);
+            alertPrompt(message);
+            return null;
+        }
+
+        try {
+            if (file.type === "image/svg+xml") {
+                const sanitized = sanitizeSvg(await file.text());
+                if (!sanitized) {
+                    alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
+                    return null;
+                }
+                return sanitized;
+            }
+
+            return await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error);
+                reader.readAsDataURL(file);
+            });
+        } catch (error) {
+            console.error("Failed to read selected file:", error);
+            return null;
+        }
+    }
+
+    function setIconType(element, type) {
+        element.setAttribute("data-icon-type", type);
+        return element;
+    }
+
+    // Gets the appropriate logo element for a given URL.
+    // getPresetLogo(hostname) can return a custom element for known sites, or null.
+    function getLogoHtml(name, url, customIcon = "", getPresetLogo = null) {
+        let hostname;
+
+        function createLetterFallback() {
+            let letter = "?";
+
+            if (name.trim()) {
+                letter = name.trim().charAt(0).toUpperCase();
+            } else {
+                try {
+                    hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
+                    letter = hostname.charAt(0).toUpperCase() || "?";
+                } catch {
+                    letter = (url.trim()?.charAt(0) || "?").toUpperCase();
+                }
+            }
+
+            // TODO: MutationObserver to update colors when theme changes
+            const selectedTheme = localStorage.getItem("selectedTheme");
+            const color = selectedTheme === "dark"
+                ? "#bfbfbf"
+                : localStorage.getItem("accentLightTintColor") || "#ffffff";
+            const svg = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <text x="50%" y="58%" text-anchor="middle" dominant-baseline="middle"
+                        font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700"
+                        fill="${color}">
+                        ${letter}
+                    </text>
+                </svg>
+            `;
+
+            const img = document.createElement("img");
+            img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+            img.alt = "";
+            return img;
+        }
+
+        if (customIcon && isValidCustomIconUrl(customIcon)) {
+            const customIconImg = document.createElement("img");
+            customIconImg.src = customIcon.trim();
+            customIconImg.alt = "";
+            customIconImg.referrerPolicy = "no-referrer";
+            setIconType(customIconImg, "custom");
+            customIconImg.addEventListener("error", () => {
+                customIconImg.src = createLetterFallback().src;
+                setIconType(customIconImg, "letter");
+            }, { once: true });
+
+            return customIconImg;
+        }
+
+        try {
+            hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
+        } catch (error) {
+            return createLetterFallback();
+        }
+
+        const presetLogo = getPresetLogo?.(hostname);
+        if (presetLogo) return presetLogo;
+
+        // Fetch favicon from Google
+        const img = document.createElement("img");
+
+        img.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256`;
+        img.alt = "";
+        img.referrerPolicy = "no-referrer";
+        setIconType(img, "default");
+        img.addEventListener("error", () => {
+            img.src = createLetterFallback().src;
+            setIconType(img, "letter");
+        }, { once: true });
+
+        return img;
+    }
+
+    return { normalizeUrl, validateIconInput, readIconFile, setIconType, getLogoHtml };
+})();
+
 document.addEventListener("DOMContentLoaded", function () {
     // Constants
     const MAX_SHORTCUTS = 50;
@@ -14,6 +233,8 @@ document.addEventListener("DOMContentLoaded", function () {
         get inputUrl() { return translations[currentLanguage]?.shortcutInputUrl || translations["en"].shortcutInputUrl; },
         get inputIcon() { return translations[currentLanguage]?.shortcutInputIcon || translations["en"].shortcutInputIcon; },
     };
+
+    const { normalizeUrl, validateIconInput, getLogoHtml, setIconType, readIconFile } = iconUtils;
 
     // DOM Elements
     const dom = {
@@ -219,71 +440,23 @@ document.addEventListener("DOMContentLoaded", function () {
         fileInput.addEventListener("change", async e => {
             const selectedFile = e.target.files?.[0];
             if (!selectedFile) return;
-            if (!selectedFile.type.startsWith("image/")) {
-                const invalidFileTypeMessage = translations[currentLanguage]?.invalidFileTypeMessage || translations["en"]?.invalidFileTypeMessage;
-                alertPrompt(invalidFileTypeMessage);
-                fileInput.value = "";
-                return;
-            }
 
-            const maxIconBytes = 100 * 1024;
-            if (selectedFile.size > maxIconBytes) {
-                const iconFileTooLargeMessage = translations[currentLanguage]?.iconFileTooLargeMessage || translations["en"].iconFileTooLargeMessage;
-                const fileSizeKB = localizeNumbers((selectedFile.size / 1024).toFixed(1), currentLanguage);
-                const maxSizeKB = localizeNumbers((maxIconBytes / 1024).toFixed(0), currentLanguage);
+            const iconValue = await readIconFile(selectedFile);
+            fileInput.value = "";
+            if (iconValue === null) return;
 
-                const message = iconFileTooLargeMessage
-                    .replace("{size}", fileSizeKB)
-                    .replace("{max}", maxSizeKB);
-                alertPrompt(message);
-                fileInput.value = "";
-                return;
-            }
-
-            function applyIcon(iconValue) {
-                iconInput.value = iconValue;
-                try {
-                    saveShortcut(entry);
-                    renderShortcut(
-                        entry.querySelector(".shortcutName").value,
-                        entry.querySelector(".URL").value,
-                        iconInput.value,
-                        entry._index
-                    );
-                } catch (err) {
-                    console.error("Failed to save icon:", err);
-                    iconInput.value = "";
-                } finally {
-                    fileInput.value = "";
-                }
-            }
-
-            const isSvgFile = selectedFile.type === "image/svg+xml";
-
-            if (isSvgFile) {
-                const textReader = new FileReader();
-                textReader.onload = () => {
-                    const sanitized = sanitizeSvg(textReader.result);
-                    if (!sanitized) {
-                        alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
-                        fileInput.value = "";
-                        return;
-                    }
-                    applyIcon(sanitized);
-                };
-                textReader.onerror = () => {
-                    console.error("Failed to read SVG file:", textReader.error);
-                    fileInput.value = "";
-                };
-                textReader.readAsText(selectedFile);
-            } else {
-                const reader = new FileReader();
-                reader.onload = () => applyIcon(reader.result);
-                reader.onerror = () => {
-                    console.error("Failed to read selected file:", reader.error);
-                    fileInput.value = "";
-                };
-                reader.readAsDataURL(selectedFile);
+            iconInput.value = iconValue;
+            try {
+                saveShortcut(entry);
+                renderShortcut(
+                    entry.querySelector(".shortcutName").value,
+                    entry.querySelector(".URL").value,
+                    iconInput.value,
+                    entry._index
+                );
+            } catch (err) {
+                console.error("Failed to save icon:", err);
+                iconInput.value = "";
             }
         });
 
@@ -309,7 +482,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const logoContainer = document.createElement("div");
         logoContainer.className = "shortcutLogoContainer";
 
-        const logo = getLogoHtml(name, normalizedUrl, icon);
+        const logo = getLogoHtml(name, normalizedUrl, icon, getPresetLogo);
         if (logo) logoContainer.appendChild(logo);
 
         const span = document.createElement("span");
@@ -345,137 +518,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }[match]));
     }
 
-    // Validates custom icon URL
-    function isValidCustomIconUrl(url) {
-        if (typeof url !== "string") return false;
-        const trimmedUrl = url.trim();
-        if (trimmedUrl.includes(" ")) return false;
-        const lowercaseUrl = trimmedUrl.toLowerCase();
-        return (
-            lowercaseUrl.startsWith("data:image/") ||
-            lowercaseUrl.startsWith("https://") ||
-            lowercaseUrl.startsWith("http://")
-        );
-    }
-
-    function applyCustomSvgAccentColor(svg) {
-        const color = localStorage.getItem("selectedTheme") === "dark"
-            ? "#bfbfbf"
-            : localStorage.getItem("accentLightTintColor") || "#e2eeff";
-
-        return svg.replace(/\bcurrentColor\b/g, color);
-    }
-
-    // Sanitizes raw SVG code, returns data URL or null if unsafe
-    function sanitizeSvg(raw) {
-        const trimmed = raw.trim();
-        const normalized = trimmed
-            .replace(/^<\?xml[\s\S]*?\?>\s*/i, "")
-            .replace(/^<!doctype[\s\S]*?>\s*/i, "")
-            .replace(/^<!--[\s\S]*?-->\s*/i, "");
-        if (!normalized.toLowerCase().startsWith("<svg")) return null;
-
-        const forbidden = [
-            /<script[\s>]/i,                // <script> tags
-            /\bon\w+\s*=/i,                 // event handlers: onload=, onclick=, onerror=, …
-            /<iframe[\s>]/i,                // iframes
-            /<foreignObject[\s>]/i,         // foreignObject (can embed HTML)
-            /javascript\s*:/i,              // javascript: URIs
-            /data:(?!image\/[a-z]+;base64,)[^"'\s]*/i, // non-image data URIs
-        ];
-
-        for (const pattern of forbidden) {
-            if (pattern.test(normalized)) return null;
-        }
-
-        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(applyCustomSvgAccentColor(normalized));
-    }
-
-    // Normalizes icon input: converts raw SVG code → data URL, passes URLs through
-    function processIconInput(raw) {
-        const trimmed = raw.trim();
-        if (!trimmed) return { value: "", error: null };
-
-        if (/<svg[\s>]/i.test(trimmed)) {
-            const dataUrl = sanitizeSvg(trimmed);
-            return { value: dataUrl ?? "", error: null };
-        }
-
-        return { value: trimmed, error: null };
-    }
-
-    // Normalizes URLs to ensure they're valid
-    function normalizeUrl(url) {
-        url = url.trim();
-        return encodeURI(
-            url.startsWith("https://") || url.startsWith("http://") ? url : `https://${url}`
-        );
-    }
-
-    // Gets the appropriate logo HTML for a given URL
-    function getLogoHtml(name, url, customIcon = "") {
-        let hostname;
-
-        function setIconType(element, type) {
-            element.setAttribute("data-icon-type", type);
-            return element;
-        }
-
-        function createLetterFallback() {
-            let letter = "?";
-
-            if (name.trim()) {
-                letter = name.trim().charAt(0).toUpperCase();
-            } else {
-                try {
-                    hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
-                    letter = hostname.charAt(0).toUpperCase() || "?";
-                } catch {
-                    letter = (url.trim()?.charAt(0) || "?").toUpperCase();
-                }
-            }
-
-            // TODO: MutationObserver to update colors when theme changes
-            const selectedTheme = localStorage.getItem("selectedTheme");
-            const color = selectedTheme === "dark"
-                ? "#bfbfbf"
-                : localStorage.getItem("accentLightTintColor") || "#ffffff";
-            const svg = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-                    <text x="50%" y="58%" text-anchor="middle" dominant-baseline="middle"
-                        font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700"
-                        fill="${color}">
-                        ${letter}
-                    </text>
-                </svg>
-            `;
-
-            const img = document.createElement("img");
-            img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
-            img.alt = "";
-            return img;
-        }
-
-        if (customIcon && isValidCustomIconUrl(customIcon)) {
-            const customIconImg = document.createElement("img");
-            customIconImg.src = customIcon.trim();
-            customIconImg.alt = "";
-            customIconImg.referrerPolicy = "no-referrer";
-            setIconType(customIconImg, "custom");
-            customIconImg.addEventListener("error", () => {
-                customIconImg.src = createLetterFallback().src;
-                setIconType(customIconImg, "letter");
-            }, { once: true });
-
-            return customIconImg;
-        }
-
-        try {
-            hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
-        } catch (error) {
-            return createLetterFallback();
-        }
-
+    // Shortcut-specific logos (GitHub and presets), used by getLogoHtml
+    function getPresetLogo(hostname) {
         // GitHub shortcut
         if (hostname === "github.com") {
             const img = document.createElement("img");
@@ -495,40 +539,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return svgElement;
         }
 
-        // Fetch favicon from Google
-        const img = document.createElement("img");
-
-        img.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256`;
-        img.alt = "";
-        img.referrerPolicy = "no-referrer";
-        setIconType(img, "default");
-        img.addEventListener("error", () => {
-            img.src = createLetterFallback().src;
-            setIconType(img, "letter");
-        }, { once: true });
-
-        return img;
-    }
-
-    // Validates the icon input field on blur
-    function validateIconInput(input) {
-        const raw = input.value.trim();
-        if (!raw) return;
-
-        if (/<svg[\s>]/i.test(raw)) {
-            const { value } = processIconInput(raw);
-            if (!value) {
-                alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
-                input.value = "";
-            } else {
-                input.value = value;
-            }
-        } else {
-            if (!isValidCustomIconUrl(raw)) {
-                alertPrompt(translations[currentLanguage]?.invalidIconUrlMessage || translations["en"]?.invalidIconUrlMessage);
-                input.value = "";
-            }
-        }
+        return null;
     }
 
     // Attaches event listeners to shortcut input fields
