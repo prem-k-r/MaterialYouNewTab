@@ -5863,3 +5863,610 @@ body[data-bg="wallpaper"] .dropdown-content {
 	color: var(--darkColor-dark);
 }
 /* ------------ End of Toast---------- */
+
+/* ==========================================================================
+   Material 3 Expressive Design System
+   Implementation of Google M3 Expressive Tokens, Motion Physics & Geometry
+   ========================================================================== */
+
+/* Settings Option styling for M3 Expressive Switches in Drawer */
+#m3ExpressiveField {
+	padding: 2px 0 14px 0;
+	margin-bottom: 14px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.black-theme #m3ExpressiveField {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#m3ExpressiveSettingsField {
+	padding: 12px 4px;
+	margin-bottom: 14px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.black-theme #m3ExpressiveSettingsField {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- M3 Expressive Design Tokens --- */
+:root {
+	/* Motion Physics (Spring-converted cubic-bezier curves from M3 tokens) */
+	--m3-spring-fast-spatial: cubic-bezier(0.42, 1.67, 0.21, 0.9);
+	--m3-spring-default-spatial: cubic-bezier(0.38, 1.21, 0.22, 1);
+	--m3-spring-slow-spatial: cubic-bezier(0.39, 1.29, 0.35, 0.98);
+	--m3-spring-fast-effects: cubic-bezier(0.31, 0.94, 0.34, 1);
+	--m3-spring-default-effects: cubic-bezier(0.34, 0.8, 0.34, 1);
+	--m3-spring-slow-effects: cubic-bezier(0.34, 0.88, 0.34, 1);
+
+	/* Corner Radius Scale (10-step M3 Scale) */
+	--m3-corner-none: 0px;
+	--m3-corner-extra-small: 4px;
+	--m3-corner-small: 8px;
+	--m3-corner-medium: 12px;
+	--m3-corner-large: 16px;
+	--m3-corner-large-increased: 20px;
+	--m3-corner-extra-large: 28px;
+	--m3-corner-extra-large-increased: 32px;
+	--m3-corner-extra-extra-large: 48px;
+	--m3-corner-full: 9999px;
+}
+
+/* ==========================================================================
+   Active M3 Expressive Styles (.m3-expressive scoped)
+   ========================================================================== */
+
+/* Smooth global page transition when toggling modes */
+.m3-expressive,
+.m3-expressive * {
+	--md-motion-ease: var(--m3-spring-default-spatial);
+	--md-motion-decelerate: var(--m3-spring-fast-spatial);
+}
+
+/* --- M3 Expressive Selection Controls: Switch --- */
+.m3-expressive .switch {
+	min-width: 52px;
+	width: 52px;
+	height: 32px;
+}
+
+.m3-expressive .toggle {
+	border-radius: var(--m3-corner-full);
+	border: 2px solid var(--darkColor-blue);
+	background-color: transparent;
+	transition: background-color 200ms var(--m3-spring-default-effects),
+		border-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .toggle:before {
+	height: 16px;
+	width: 16px;
+	inset-inline-start: 6px;
+	bottom: 6px;
+	border-radius: 50%;
+	background-color: var(--darkColor-blue);
+	transition: transform 350ms var(--m3-spring-fast-spatial),
+		width 200ms var(--m3-spring-default-spatial),
+		height 200ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .switch:active .toggle:before {
+	width: 28px;
+	border-radius: 14px;
+}
+
+.m3-expressive input:checked + .toggle {
+	background-color: var(--darkColor-blue);
+	border-color: var(--darkColor-blue);
+}
+
+.m3-expressive input:checked + .toggle:before {
+	height: 24px;
+	width: 24px;
+	inset-inline-start: 4px;
+	bottom: 4px;
+	background-color: var(--whitishColor-blue);
+	transform: translateX(20px);
+}
+
+.m3-expressive .switch:active input:checked + .toggle:before {
+	width: 28px;
+	transform: translateX(16px);
+}
+
+/* --- M3 Expressive Search Bar --- */
+.m3-expressive .searchbar {
+	height: 64px;
+	border-radius: var(--m3-corner-full);
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 16%, transparent);
+	box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+	transition: transform 350ms var(--m3-spring-fast-spatial),
+		box-shadow 300ms var(--m3-spring-default-effects),
+		border-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .searchbar:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 28px -4px rgba(0, 0, 0, 0.1);
+}
+
+.m3-expressive .searchbar.active,
+.m3-expressive .searchbar:focus-within {
+	outline: none;
+	border-color: var(--darkColor-blue);
+	transform: translateY(-2px) scale(1.008);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--darkColor-blue) 25%, transparent),
+		0 14px 36px -6px rgba(0, 0, 0, 0.14);
+}
+
+.m3-expressive #searchQ {
+	font-weight: 500;
+	font-size: 1.05rem;
+}
+
+.m3-expressive #enterBtn {
+	border-radius: var(--m3-corner-full);
+	font-weight: 700;
+	padding: 0 22px;
+	height: 42px;
+	background-color: var(--darkColor-blue);
+	color: #ffffff;
+	border: none;
+	cursor: pointer;
+	letter-spacing: 0.02em;
+	transition: transform 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive #enterBtn:hover {
+	transform: scale(1.06);
+}
+
+.m3-expressive #enterBtn:active {
+	transform: scale(0.93);
+}
+
+.m3-expressive .micIcon,
+.m3-expressive .aiModeIcon {
+	border-radius: var(--m3-corner-full);
+	width: 42px;
+	height: 42px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .micIcon:hover,
+.m3-expressive .aiModeIcon:hover {
+	transform: scale(1.12);
+	background-color: color-mix(in srgb, var(--darkColor-blue) 12%, transparent);
+}
+
+.m3-expressive .micIcon:active,
+.m3-expressive .aiModeIcon:active {
+	transform: scale(0.92);
+}
+
+.m3-expressive #default-dropdown-item {
+	border-radius: var(--m3-corner-large-increased);
+	transition: transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive #default-dropdown-item:hover {
+	transform: scale(1.05);
+}
+
+/* --- M3 Expressive Search Suggestions --- */
+.m3-expressive #resultBox {
+	border-radius: var(--m3-corner-extra-large);
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 15%, transparent);
+	box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.14);
+	padding: 8px;
+}
+
+.m3-expressive #resultBox li,
+.m3-expressive #resultBox .suggestionItem {
+	border-radius: var(--m3-corner-large);
+	margin: 3px 6px;
+	padding: 10px 16px;
+	transition: transform 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive #resultBox li:hover,
+.m3-expressive #resultBox .suggestionItem:hover {
+	background-color: color-mix(in srgb, var(--darkColor-blue) 12%, transparent);
+	transform: translateX(6px);
+}
+
+/* Search With Container */
+.m3-expressive .searchWithCont {
+	border-radius: var(--m3-corner-full);
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 14%, transparent);
+	box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+}
+
+.m3-expressive .searchEnginesContainer .engine {
+	border-radius: var(--m3-corner-medium);
+	transition: transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive .searchEnginesContainer .engine:hover {
+	transform: scale(1.2);
+}
+
+/* --- M3 Expressive Weather Widget --- */
+.m3-expressive .rightDiv .topDiv .lrectangle {
+	border-radius: var(--m3-corner-extra-large-increased);
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 14%, transparent);
+	box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+	transition: transform 500ms var(--m3-spring-default-spatial),
+		box-shadow 300ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .rightDiv .topDiv .lrectangle:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.12);
+}
+
+.m3-expressive #conditionText {
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.m3-expressive .tilesContainer .tiles {
+	border-radius: var(--m3-corner-large);
+	padding: 6px 12px;
+	background-color: color-mix(in srgb, var(--darkColor-blue) 8%, transparent);
+	transition: transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive .tilesContainer .tiles:hover {
+	transform: translateY(-2px);
+}
+
+.m3-expressive .rightDiv .topDiv .rAndakar {
+	border-radius: var(--m3-corner-extra-large-increased);
+	transition: transform 500ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .rightDiv .topDiv .rAndakar:hover {
+	transform: translateY(-4px) scale(1.03);
+}
+
+.m3-expressive #temp {
+	font-weight: 800;
+	letter-spacing: -0.04em;
+}
+
+/* --- M3 Expressive Clock & Date --- */
+.m3-expressive #digitalClock {
+	transition: transform 500ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive #digitalClock:hover {
+	transform: scale(1.02);
+}
+
+.m3-expressive .digiclock {
+	font-weight: 800;
+	letter-spacing: -0.04em;
+}
+
+@keyframes m3ColonBreathe {
+	0%, 100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.35;
+		transform: scale(0.92);
+	}
+}
+
+.m3-expressive #digicolon {
+	animation: m3ColonBreathe 2s var(--m3-spring-default-effects) infinite;
+	transform-origin: center;
+}
+
+.m3-expressive .digidate,
+.m3-expressive .amPm {
+	font-weight: 700;
+	letter-spacing: 0.04em;
+}
+
+.m3-expressive #userText {
+	font-weight: 700;
+	font-size: 1.55rem;
+	letter-spacing: -0.02em;
+}
+
+.m3-expressive #date {
+	font-weight: 500;
+	font-size: 1.15rem;
+}
+
+/* --- M3 Expressive Shortcuts Grid --- */
+.m3-expressive .shortcutsContainer {
+	border-radius: var(--m3-corner-extra-large-increased);
+	padding: 14px 22px;
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 12%, transparent);
+	box-shadow: 0 8px 28px -4px rgba(0, 0, 0, 0.08);
+}
+
+.m3-expressive .shortcutsContainer .shortcuts {
+	border-radius: var(--m3-corner-large-increased);
+	transition: transform 350ms var(--m3-spring-fast-spatial),
+		box-shadow 300ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .shortcutsContainer .shortcuts:hover {
+	transform: translateY(-8px) scale(1.12);
+	box-shadow: 0 14px 28px -4px color-mix(in srgb, var(--darkerColor-blue) 25%, transparent);
+	border-radius: var(--m3-corner-large-increased);
+}
+
+.m3-expressive .shortcutsContainer .shortcuts:active {
+	transform: translateY(-2px) scale(0.93);
+}
+
+.m3-expressive .shortcuts .shortcutLogoContainer {
+	border-radius: var(--m3-corner-large-increased);
+}
+
+.m3-expressive .shortcuts .shortcut-name {
+	border-radius: var(--m3-corner-medium);
+	font-weight: 700;
+	font-size: 0.82rem;
+	padding: 4px 10px;
+	background-color: var(--darkColor-blue);
+	color: var(--whitishColor-blue);
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* --- M3 Expressive Floating Action Buttons (FAB) --- */
+.m3-expressive #menuButton {
+	border-radius: var(--m3-corner-large-increased);
+	box-shadow: 0 8px 24px -2px rgba(0, 0, 0, 0.16);
+	transition: transform 350ms var(--m3-spring-fast-spatial),
+		box-shadow 300ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive #menuButton:hover {
+	transform: scale(1.12) rotate(15deg);
+	box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.22);
+}
+
+.m3-expressive #menuButton:active {
+	transform: scale(0.92);
+}
+
+.m3-expressive #bookmarkButton,
+.m3-expressive #aiToolsIcon,
+.m3-expressive .hangno {
+	border-radius: var(--m3-corner-large-increased);
+	transition: transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive #bookmarkButton:hover,
+.m3-expressive #aiToolsIcon:hover,
+.m3-expressive .hangno:hover {
+	transform: scale(1.08) translateY(-2px);
+}
+
+.m3-expressive #bookmarkButton:active,
+.m3-expressive #aiToolsIcon:active,
+.m3-expressive .hangno:active {
+	transform: scale(0.93);
+}
+
+/* --- M3 Expressive Settings Drawer / Sidebar --- */
+.m3-expressive .menuCont {
+	border-radius: var(--m3-corner-extra-large-increased) 0 0 var(--m3-corner-extra-large-increased);
+	border-left: 1px solid color-mix(in srgb, var(--darkColor-blue) 14%, transparent);
+	box-shadow: -14px 0 40px rgba(0, 0, 0, 0.14);
+}
+
+html[dir="rtl"].m3-expressive .menuCont {
+	border-radius: 0 var(--m3-corner-extra-large-increased) var(--m3-corner-extra-large-increased) 0;
+	border-left: none;
+	border-right: 1px solid color-mix(in srgb, var(--darkColor-blue) 14%, transparent);
+	box-shadow: 14px 0 40px rgba(0, 0, 0, 0.14);
+}
+
+.m3-expressive .section {
+	border-radius: var(--m3-corner-extra-large);
+}
+
+.m3-expressive .sectionHeader {
+	border-radius: var(--m3-corner-large-increased);
+	font-weight: 600;
+	padding: 14px 18px;
+	transition: background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .sectionChevron {
+	transition: transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive .appearanceSection .innerSurface {
+	border-radius: var(--m3-corner-extra-large);
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 10%, transparent);
+	box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
+}
+
+.m3-expressive .themeSegment {
+	border-radius: var(--m3-corner-full);
+	padding: 4px;
+	background-color: color-mix(in srgb, var(--darkColor-blue) 10%, transparent);
+}
+
+.m3-expressive .themeIndicator {
+	border-radius: var(--m3-corner-full);
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+	transition: transform 400ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .themeSegBtn {
+	border-radius: var(--m3-corner-full);
+	font-weight: 700;
+}
+
+.m3-expressive .colorPlate {
+	border-radius: 14px;
+	transition: transform 350ms var(--m3-spring-fast-spatial),
+		box-shadow 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .colorPlate:hover {
+	transform: scale(1.15);
+}
+
+.m3-expressive .colorPlate:checked {
+	transform: scale(1.2);
+	box-shadow: 0 0 0 3px var(--darkColor-blue);
+}
+
+.m3-expressive .backupRestoreBtn,
+.m3-expressive .resetbtn,
+.m3-expressive #dontShowTips {
+	border-radius: var(--m3-corner-full);
+	font-weight: 700;
+	padding: 12px 22px;
+	transition: transform 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .backupRestoreBtn:hover,
+.m3-expressive .resetbtn:hover,
+.m3-expressive #dontShowTips:hover {
+	transform: scale(1.04);
+}
+
+.m3-expressive .backupRestoreBtn:active,
+.m3-expressive .resetbtn:active,
+.m3-expressive #dontShowTips:active {
+	transform: scale(0.95);
+}
+
+/* --- M3 Expressive Todo List, Bookmarks & Popovers --- */
+.m3-expressive #todoListCont {
+	border-radius: var(--m3-corner-extra-large-increased);
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 14%, transparent);
+	box-shadow: 0 16px 40px -4px rgba(0, 0, 0, 0.15);
+}
+
+.m3-expressive #todoInput {
+	border-radius: var(--m3-corner-full);
+}
+
+.m3-expressive .bookmark-sidebar {
+	border-radius: var(--m3-corner-extra-large-increased) 0 0 var(--m3-corner-extra-large-increased);
+	border-left: 1px solid color-mix(in srgb, var(--darkColor-blue) 14%, transparent);
+	box-shadow: -14px 0 40px rgba(0, 0, 0, 0.15);
+}
+
+html[dir="rtl"].m3-expressive .bookmark-sidebar {
+	border-radius: 0 var(--m3-corner-extra-large-increased) var(--m3-corner-extra-large-increased) 0;
+	border-left: none;
+	border-right: 1px solid color-mix(in srgb, var(--darkColor-blue) 14%, transparent);
+	box-shadow: 14px 0 40px rgba(0, 0, 0, 0.15);
+}
+
+.m3-expressive .bookmark-item {
+	border-radius: var(--m3-corner-large);
+	transition: transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive .bookmark-item:hover {
+	transform: translateY(-2px) scale(1.015);
+}
+
+.m3-expressive .googleAppsCont,
+.m3-expressive .aiToolsCont {
+	border-radius: var(--m3-corner-extra-large-increased);
+	border: 1px solid color-mix(in srgb, var(--darkColor-blue) 14%, transparent);
+	box-shadow: 0 16px 40px -4px rgba(0, 0, 0, 0.15);
+}
+
+.m3-expressive .googleAppsCont .icon-item,
+.m3-expressive .aiToolsCont .icon-item {
+	border-radius: var(--m3-corner-large-increased);
+	transition: transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive .googleAppsCont .icon-item:hover,
+.m3-expressive .aiToolsCont .icon-item:hover {
+	transform: translateY(-4px) scale(1.08);
+}
+
+.m3-expressive .ai-modal-content,
+.m3-expressive .modal-content {
+	border-radius: var(--m3-corner-extra-large-increased);
+	box-shadow: 0 24px 60px -8px rgba(0, 0, 0, 0.22);
+}
+
+.m3-expressive .ai-save-button,
+.m3-expressive .ai-reset-button,
+.m3-expressive .save-bookmark-button,
+.m3-expressive .cancel-bookmark-button {
+	border-radius: var(--m3-corner-full);
+	font-weight: 700;
+	transition: transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive .ai-save-button:hover,
+.m3-expressive .ai-reset-button:hover,
+.m3-expressive .save-bookmark-button:hover,
+.m3-expressive .cancel-bookmark-button:hover {
+	transform: scale(1.05);
+}
+
+.m3-expressive .ai-save-button:active,
+.m3-expressive .ai-reset-button:active,
+.m3-expressive .save-bookmark-button:active,
+.m3-expressive .cancel-bookmark-button:active {
+	transform: scale(0.94);
+}
+
+/* --- Dark Theme specific tuning for M3 Expressive --- */
+.black-theme.m3-expressive .searchbar,
+.black-theme.m3-expressive .rightDiv .topDiv .lrectangle,
+.black-theme.m3-expressive .shortcutsContainer,
+.black-theme.m3-expressive #resultBox,
+.black-theme.m3-expressive .searchWithCont,
+.black-theme.m3-expressive #todoListCont,
+.black-theme.m3-expressive .googleAppsCont,
+.black-theme.m3-expressive .aiToolsCont {
+	border-color: rgba(255, 255, 255, 0.1);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.black-theme.m3-expressive .appearanceSection .innerSurface {
+	border-color: rgba(255, 255, 255, 0.08);
+}
+
+.black-theme.m3-expressive .menuCont,
+.black-theme.m3-expressive .bookmark-sidebar {
+	border-color: rgba(255, 255, 255, 0.1);
+	box-shadow: -14px 0 44px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Wallpaper Mode specific tuning for M3 Expressive --- */
+body[data-bg="wallpaper"].m3-expressive .searchbar,
+body[data-bg="wallpaper"].m3-expressive .rightDiv .topDiv .lrectangle,
+body[data-bg="wallpaper"].m3-expressive .shortcutsContainer,
+body[data-bg="wallpaper"].m3-expressive #resultBox,
+body[data-bg="wallpaper"].m3-expressive .searchWithCont,
+body[data-bg="wallpaper"].m3-expressive #todoListCont,
+body[data-bg="wallpaper"].m3-expressive .googleAppsCont,
+body[data-bg="wallpaper"].m3-expressive .aiToolsCont {
+	backdrop-filter: blur(24px) saturate(180%);
+	-webkit-backdrop-filter: blur(24px) saturate(180%);
+	border: 1px solid rgba(255, 255, 255, 0.25);
+}
+

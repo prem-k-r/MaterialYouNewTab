@@ -266,3 +266,52 @@ const throttle = (func, limit) => {
 // Add listeners for color picker
 colorPicker.removeEventListener("input", handleColorPickerChange); // Ensure no duplicate listeners
 colorPicker.addEventListener("input", throttle(handleColorPickerChange, 10));
+
+// ===============================================================
+// ===== Material 3 Expressive Design Toggle =====
+// ===============================================================
+(function () {
+    const m3ExpressiveKey = "m3ExpressiveCheckboxState";
+    const m3ExpressiveCheckbox = document.getElementById("m3ExpressiveCheckbox");
+
+    function applyM3Expressive(enabled) {
+        if (enabled) {
+            document.documentElement.classList.add("m3-expressive");
+            document.documentElement.setAttribute("data-m3-expressive", "true");
+            if (document.body) {
+                document.body.classList.add("m3-expressive");
+                document.body.setAttribute("data-m3-expressive", "true");
+            }
+        } else {
+            document.documentElement.classList.remove("m3-expressive");
+            document.documentElement.removeAttribute("data-m3-expressive");
+            if (document.body) {
+                document.body.classList.remove("m3-expressive");
+                document.body.removeAttribute("data-m3-expressive");
+            }
+        }
+        if (m3ExpressiveCheckbox) m3ExpressiveCheckbox.checked = enabled;
+    }
+
+    function handleM3ExpressiveChange() {
+        const isChecked = this.checked;
+        localStorage.setItem(m3ExpressiveKey, isChecked ? "checked" : "unchecked");
+        applyM3Expressive(isChecked);
+    }
+
+    if (m3ExpressiveCheckbox) {
+        m3ExpressiveCheckbox.addEventListener("change", handleM3ExpressiveChange);
+    }
+
+    // Initialize toggle state from localStorage
+    function initM3Expressive() {
+        const savedState = localStorage.getItem(m3ExpressiveKey);
+        applyM3Expressive(savedState === "checked");
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initM3Expressive);
+    } else {
+        initM3Expressive();
+    }
+})();

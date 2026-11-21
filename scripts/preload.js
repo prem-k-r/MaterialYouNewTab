@@ -26,6 +26,13 @@
         root.style.setProperty('--transparency', `${Math.round(Number(savedOpacity))}%`);
     }
 
+    // --- Material 3 Expressive Design Preload ---
+    const savedM3Expressive = localStorage.getItem('m3ExpressiveCheckboxState');
+    if (savedM3Expressive === 'checked') {
+        root.classList.add('m3-expressive');
+        root.setAttribute('data-m3-expressive', 'true');
+    }
+
     // Watch for the <body> to be created and instantly set it to "wallpaper" before the screen paints
     // if (localStorage.getItem('hasWallpaper') === 'true') {
     //     const observer = new MutationObserver(function () {

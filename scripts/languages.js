@@ -262,6 +262,8 @@ function applyLanguage(lang) {
         "weatherSectionTitle",
         "appearanceSectionTitle",
         "settingsSectionTitle",
+        "m3ExpressiveText",
+        "m3ExpressiveInfo",
         "iconFileTooLargeMessage",
         "iconStorageQuotaMessage"
     ];

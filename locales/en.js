@@ -172,6 +172,10 @@ const en = {
     "darkThemed": "Dark",
     "systemThemed": "System",
 
+    // M3 Expressive
+    "m3ExpressiveText": "Material 3 Expressive",
+    "m3ExpressiveInfo": "Enable M3 Expressive design with spring physics and expressive shapes",
+
     // Wallpaper and settings
     "uploadWallpaperText": "Upload Wallpaper",    // Keep this short
     "rangColor": "Pick color",    // Keep this short
