@@ -237,10 +237,30 @@ function applyLanguage(lang) {
         "bookmarkSortBy",
         "sortAlphabetical",
         "sortTimeAdded",
+        "sortDefault",
+        "sortAlphabeticalDesc",
+        "sortTimeAddedDesc",
         "bookmarkViewAs",
         "bookmarkViewGrid",
         "bookmarkViewList",
         "editBookmarkHeading",
+        "bookmarkDisplay",
+        "showRecent",
+        "showFavorites",
+        "hideFavorites",
+        "hideRecent",
+        "moveFavoriteUp",
+        "moveFavoriteDown",
+        "addToShortcuts",
+        "editBookmarkLabel",
+        "deleteBookmarkLabel",
+        "deleteBookmarkFolderLabel",
+        "bookmarkFolder",
+        "newFolderName",
+        "newFolderButton",
+        "createFolderButton",
+        "addBookmark",
+        "recentCount",
         "lightThemed",
         "darkThemed",
         "systemThemed",
@@ -300,6 +320,9 @@ function applyLanguage(lang) {
         { id: "editBookmarkNameLabel", key: "editBookmarkName" },
         { id: "editBookmarkURLLabel", key: "editBookmarkURL" },
         { id: "shortcutsSectionTitle", key: "shortcutsText" },
+        { id: "cancelBookmarkFolderLabel", key: "cancelText" },
+        { id: "bookmarkAddHereLabel", key: "addBookmark" },
+        { id: "bookmarkRecentMenuCountLabel", key: "recentCount" },
     ];
 
     // Function to apply translations
@@ -341,11 +364,11 @@ function applyLanguage(lang) {
 
     // Update placeholders on already-rendered shortcut inputs
     document.querySelectorAll(".shortcutSettingsEntry .shortcutName")
-        .forEach(el => el.placeholder = translations[lang]?.shortcutInputName  || translations["en"].shortcutInputName);
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputName || translations["en"].shortcutInputName);
     document.querySelectorAll(".shortcutSettingsEntry .URL")
-        .forEach(el => el.placeholder = translations[lang]?.shortcutInputUrl   || translations["en"].shortcutInputUrl);
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputUrl || translations["en"].shortcutInputUrl);
     document.querySelectorAll(".shortcutSettingsEntry .iconURL")
-        .forEach(el => el.placeholder = translations[lang]?.shortcutInputIcon  || translations["en"].shortcutInputIcon);
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputIcon || translations["en"].shortcutInputIcon);
 
     // Update hover text for #menuCloseButton
     const menuCloseButton = document.getElementById("menuCloseButton");
@@ -451,4 +474,9 @@ function saveLanguageStatus(key, languageStatus) {
 // Function to get the language status from localStorage
 function getLanguageStatus(key) {
     return localStorage.getItem(key);
+}
+
+// Function to get the translation for a given key
+function getTranslation(key, fallback = "") {
+    return translations?.[currentLanguage]?.[key] || translations?.["en"]?.[key] || fallback;
 }

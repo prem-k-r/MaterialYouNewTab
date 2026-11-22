@@ -309,8 +309,8 @@ function updateAiModeIconVisibility() {
 
     if (aiModeIcon) {
         aiModeIcon.classList.toggle("hidden", !shouldShow);
-        aiModeIcon.style.display = ""; 
-        
+        aiModeIcon.style.display = "";
+
         if (!shouldShow) {
             aiModeIcon.setAttribute("tabindex", "-1");
         } else {
