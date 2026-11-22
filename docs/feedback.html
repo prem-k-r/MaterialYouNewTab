@@ -10,6 +10,24 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <style>
+        :root {
+            --background: #bbd6fd;
+            --card: #e2eeff;
+            --primary: #3569b2;
+            --secondary: #4382ec;
+            --text: #1b3041;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #101827;
+                --card: #1c2a3d;
+                --primary: #6da0ff;
+                --secondary: #8db6ff;
+                --text: #e5edf9;
+            }
+        }
+
         body,
         h1,
         .feedback-message {
@@ -19,19 +37,19 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f4f8;
+            background-color: var(--background);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            color: #333;
+            color: var(--text);
         }
 
         .container {
-            background-color: #fff;
+            background-color: var(--card);
             padding: 36px 24px;
             border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(27, 48, 65, 0.15);
             text-align: center;
             max-width: 703px;
             width: min(703px, calc(100% - 24px));
@@ -42,11 +60,13 @@
         h1 {
             font-size: 28px;
             margin-bottom: 20px;
+            color: var(--text);
         }
 
         .feedback-message {
             font-size: 18px;
-            color: #555;
+            color: var(--text);
+            opacity: 0.8;
             margin-bottom: 30px;
         }
 
@@ -70,6 +90,34 @@
             border-radius: 50%;
             font-size: 32px;
             transition: transform 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            transform: scale(1.1);
+        }
+
+        .github {
+            background-color: #333;
+        }
+
+        .telegram {
+            background-color: #0088cc;
+        }
+
+        .email {
+            background-color: #d14836;
+        }
+
+        .chrome {
+            background-color: #25d669;
+        }
+
+        .firefox {
+            background-color: #f9c431;
+        }
+
+        .edge {
+            background-color: #0078d7;
         }
 
         @media (max-width: 600px) {
@@ -119,52 +167,13 @@
             }
         }
 
-        .contact-info a:hover {
-            transform: scale(1.1);
-        }
-
-        .github {
-            background-color: #333;
-        }
-
-        .telegram {
-            background-color: #0088cc;
-        }
-
-        .email {
-            background-color: #d14836;
-        }
-
-        .chrome {
-            background-color: #25d669;
-        }
-
-        .firefox {
-            background-color: #f9c431;
-        }
-
-        .edge {
-            background-color: #0078d7;
-        }
-
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #181818;
-                color: #f0f4f8;
-            }
-
             .container {
-                background-color: #2a2a2a;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
             }
 
             .github {
-                background-color: #1d1d1d;
-            }
-
-            h1,
-            .feedback-message {
-                color: #f0f4f8;
+                background-color: #0f0f0f;
             }
         }
     </style>

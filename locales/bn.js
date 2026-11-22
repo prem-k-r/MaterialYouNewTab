@@ -67,8 +67,10 @@ const bn = {
     "minMaxTempSubText": "অনুভূতি তাপমাত্রার পরিবর্তে সর্বনিম্ন ও সর্বাধিক তাপমাত্রা দেখান",
 
     // Search
-    "micIconTitle": "মাইক্রোফোন আইকন লুকান",
+    "micIconTitle": "মাইক্রোফোন বোতাম লুকান",
     "micIconInfo": "যদি ভয়েস টাইপিং কাজ না করে",
+    "aiModeIconTitle": "AI মোড বোতাম লুকান",
+    "aiModeIconInfo": "Google AI মোড সার্চ বোতাম লুকান",
     "hideSearchWith": "সার্চ ইঞ্জিন লুকান",
     "hideSearchWithInfo": "সার্চ ইঞ্জিনের আইকনে ক্লিক করে সার্চ ইঞ্জিন পরিবর্তন করুন",
     "motivationalQuotesText": "অনুপ্রেরণামূলক উক্তি",

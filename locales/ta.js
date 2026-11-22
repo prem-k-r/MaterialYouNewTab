@@ -148,10 +148,6 @@ const ta = {
     "aiSettingsIntro": "எந்த செஅ கருவிகளைக் காட்ட வேண்டும் என்பதைத் தேர்ந்தெடு",
     "resetAISettingsBtn": "மீட்டமை",
 
-    // Theme
-    "enableDarkMode": "இருள் முறை(பரிசோதனை)",
-    "enableDarkModeInfo": "இருள் முறை கருப்பொருள்கள் இயக்கு",
-
     // Wallpaper and settings
     "uploadWallpaperText": "பின்படத்தை பதிவேற்று",
     "rangColor": "நிறம் எடு",

@@ -20,6 +20,9 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
 - Added support for custom shortcut icons via upload, URL, or pasted SVG ([@smurf11k](https://github.com/smurf11k)), ([@prem-k-r](https://github.com/prem-k-r)) ([#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/)), ([#199](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/))
 - Added Daily Quote option to show one quote per day instead of refreshing on every new tab ([@KomeshBathula](https://github.com/KomeshBathula)) ([#141](https://github.com/prem-k-r/MaterialYouNewTab/pull/141))
+- Added keyboard shortcuts (`Alt + 1`–`9`) to quickly open the first nine shortcuts ([@smurf11k](https://github.com/smurf11k)) ([#237](https://github.com/prem-k-r/MaterialYouNewTab/pull/237))
+- Added Google AI Mode search button to the search bar when using Google as the search engine ([@KomeshBathula](https://github.com/KomeshBathula))
+- Updated the search bar to bypass search engines and navigate directly to webpages when the input contains no spaces and begins strictly with `http://`, `https://`, or `www.` ([@prem-k-r](https://github.com/prem-k-r)) ([#255](https://github.com/prem-k-r/MaterialYouNewTab/pull/255))
 
 ### Improved
 
@@ -56,14 +59,19 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
   - French ([@iamwinner422](https://github.com/iamwinner422)), ([@deeferentleeg](https://github.com/deeferentleeg))
   - Simplified Chinese ([@HdShare](https://github.com/HdShare))
   - Traditional Chinese ([@Eddie40802](https://github.com/Eddie40802))
+  - Korean ([@channel101](https://github.com/channel101))
+  - Persian ([@AMIRHOSSEIN-AHMADI-IRAN](https://github.com/AMIRHOSSEIN-AHMADI-IRAN))
+  - Portuguese (Brazil) ([@arthurhguedes](https://github.com/arthurhguedes))
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 - Added support for Ukrainian ([@lozik4](https://github.com/lozik4)) ([#106](https://github.com/prem-k-r/MaterialYouNewTab/pull/106))
 - Added support for Swedish ([@empohello-imamempogitub](https://github.com/empohello-imamempogitub)) ([#179](https://github.com/prem-k-r/MaterialYouNewTab/pull/179))
+- Added support for Armenian ([@robertlevonyan](https://github.com/robertlevonyan))
 - Localized New Tab title ([@prem-k-r](https://github.com/prem-k-r))
 
 ### Other
 
 - Miscellaneous improvements ([@prem-k-r](https://github.com/prem-k-r))
+- Docs: Fixed broken star history chart link in README ([@FaintFlower](https://github.com/FaintFlower)) ([#248](https://github.com/prem-k-r/MaterialYouNewTab/pull/248))
 
 ## [v3.3](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...v3.3) - Nov 23, 2025
 
@@ -202,7 +210,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Added support for Traditional Chinese ([@shmps40802](https://github.com/shmps40802)) ([#499](https://github.com/XengShi/materialYouNewTab/pull/499))
 - Added support for Urdu ([@prem-k-r](https://github.com/prem-k-r)), ([@asfand-dev](https://github.com/asfand-dev)) ([#548](https://github.com/XengShi/materialYouNewTab/pull/548))
 - Added support for German ([@prem-k-r](https://github.com/prem-k-r)) ([#641](https://github.com/XengShi/materialYouNewTab/pull/641))
-- Added support for Persian ([@AMIRHOSSEIN-AHMADI-IR](https://github.com/AMIRHOSSEIN-AHMADI-IR)) ([#645](https://github.com/XengShi/materialYouNewTab/pull/645))
+- Added support for Persian ([@AMIRHOSSEIN-AHMADI-IRAN](https://github.com/AMIRHOSSEIN-AHMADI-IRAN)) ([#645](https://github.com/XengShi/materialYouNewTab/pull/645))
 - Added support for Arabic ([@Mazen3Alharbi](https://github.com/Mazen3Alharbi)) ([#659](https://github.com/XengShi/materialYouNewTab/pull/659))
 - Added support for Greek ([@trlef19](https://github.com/trlef19)) ([#674](https://github.com/XengShi/materialYouNewTab/pull/674))
 - Added support for Tamil ([@TamilNeram](https://github.com/TamilNeram)) ([#682](https://github.com/XengShi/materialYouNewTab/pull/682))
