@@ -766,17 +766,16 @@ body #bookmarkButton.bookmark-button.rotate {
 	align-items: center;
 }
 
-.bookmark-search-field::after {
-	content: "";
-	background: url("./svgs/bookmarksSearch.svg") no-repeat center / contain;
-	width: 16px;
-	filter: invert(1);
-	height: 16px;
-	opacity: 0.5;
+.bm-search-icon {
+	position: absolute;
 	inset-inline-start: 14px;
 	top: 50%;
 	transform: translateY(-50%);
-	position: absolute;
+	width: 16px;
+	height: 16px;
+	fill: currentColor;
+	color: var(--textColorDark-blue);
+	opacity: 0.7;
 	pointer-events: none;
 }
 
@@ -805,7 +804,7 @@ body #bookmarkButton.bookmark-button.rotate {
 
 #clearSearchButton {
 	position: absolute;
-	inset-inline-end: 12px;
+	inset-inline-end: 10px;
 	top: 50%;
 	transform: translateY(-50%);
 	background: none;
@@ -813,6 +812,18 @@ body #bookmarkButton.bookmark-button.rotate {
 	color: var(--textColorDark-blue);
 	cursor: pointer;
 	display: none;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	padding: 0;
+}
+
+#clearSearchButton .bm-icon {
+	width: 18px;
+	height: 18px;
+	fill: currentColor;
+	pointer-events: none;
 }
 
 /* Three-dots button next to the search bar */
@@ -2194,16 +2205,10 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 #editBookmarkModal .bm-folder-action svg {
-	width: 18px;
-	height: 18px;
-	fill: currentColor;
-	pointer-events: none;
-}
-
-#editBookmarkModal #createBookmarkFolder svg,
-#editBookmarkModal #cancelBookmarkFolder svg {
 	width: 20px;
 	height: 20px;
+	fill: currentColor;
+	pointer-events: none;
 }
 
 #editBookmarkModal .new-folder-hint {
@@ -6401,8 +6406,9 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background-color: var(--darkColor-dark) !important;
 }
 
-.black-theme .bookmark-search-field::after {
-	filter: none;
+.black-theme .bm-search-icon {
+	fill: white;
+	opacity: 0.7;
 }
 
 .black-theme .bookmark-button svg {

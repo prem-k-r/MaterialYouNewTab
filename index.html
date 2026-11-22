@@ -119,7 +119,7 @@
         </symbol>
         <symbol id="bmi-add" viewBox="0 0 520 520">
             <path
-                d="M300 290h165c8 0 15-7 15-15v-30c0-8-7-15-15-15H300c-6 0-10-4-10-10V55c0-8-7-15-15-15h-30c-8 0-15 7-15 15v165c0 6-4 10-10 10H55c-8 0-15 7-15 15v30c0 8 7 15 15 15h165c6 0 10 4 10 10v165c0 8 7 15 15 15h30c8 0 15-7 15-15V300c0-6 4-10 10-10z" />
+                d="M260 40a23.34 23.34 0 0 0-23.342 23.342v173.316H63.342A23.34 23.34 0 0 0 40 260a23.34 23.34 0 0 0 23.342 23.342h173.316v173.316A23.34 23.34 0 0 0 260 480a23.34 23.34 0 0 0 23.342-23.342V283.342h173.316A23.34 23.34 0 0 0 480 260a23.34 23.34 0 0 0-23.342-23.342H283.342V63.342A23.34 23.34 0 0 0 260 40" />
         </symbol>
         <symbol id="bmi-chevrondown" viewBox="0 0 520 520">
             <path
@@ -183,6 +183,10 @@
             <path
                 d="M45.5 10H33V6a4 4 0 0 0-4-4h-6a4 4 0 0 0-4 4v4H6.5c-.8 0-1.5.7-1.5 1.5v3c0 .8.7 1.5 1.5 1.5h39c.8 0 1.5-.7 1.5-1.5v-3c0-.8-.7-1.5-1.5-1.5zM23 7c0-.6.4-1 1-1h4c.6 0 1 .4 1 1v3h-6zm18.5 13h-31c-.8 0-1.5.7-1.5 1.5V45a5 5 0 0 0 5 5h24a5 5 0 0 0 5-5V21.5c0-.8-.7-1.5-1.5-1.5zM23 42c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1V28c0-.6.4-1 1-1h2c.6 0 1 .4 1 1zm10 0c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1V28c0-.6.4-1 1-1h2c.6 0 1 .4 1 1z" />
         </symbol>
+        <symbol id="bmi-search" viewBox="0 0 520 520">
+            <path
+                d="M496 453 362 320a189 189 0 1 0-340-92 190 190 0 0 0 298 135l133 133a14 14 0 0 0 21 0l21-21a17 17 0 0 0 1-22ZM210 338a129 129 0 1 1 130-130 129 129 0 0 1-130 130Z" />
+        </symbol>
     </svg>
 
     <div class="bookmark-button" id="bookmarkButton">
@@ -203,7 +207,14 @@
             <div class="bookmark-search-container">
                 <div class="bookmark-search-field">
                     <input type="text" id="bookmarkSearch" placeholder="Search bookmark" />
-                    <button id="clearSearchButton" type="button" aria-label="Clear search">✖</button>
+                    <svg class="bm-search-icon" viewBox="0 0 520 520" width="16" height="16" aria-hidden="true">
+                        <use href="#bmi-search"></use>
+                    </svg>
+                    <button id="clearSearchButton" type="button" aria-label="Clear search">
+                        <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-close"></use>
+                        </svg>
+                    </button>
                 </div>
                 <button id="bookmarkMenuButton" class="bookmark-icon-button" type="button" aria-label="More options"
                     aria-haspopup="true" aria-expanded="false">
