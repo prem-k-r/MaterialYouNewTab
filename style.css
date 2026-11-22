@@ -1050,7 +1050,6 @@ body #bookmarkButton.bookmark-button.rotate {
 	--bm-tip-x: 50%;
 }
 
-/* --darkerColor is light in the black theme, so keep the dark tooltip there */
 .black-theme :is(.bm-icon-btn, .bm-folder-action, .has-tooltip)::after {
 	background: rgba(25, 25, 25, 0.92);
 }
@@ -3947,7 +3946,7 @@ body[data-bg="wallpaper"][sysTheme="systemDark"]:has(
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 12px 14px;
+	padding: 12px 13px;
 	border-radius: 100px;
 	z-index: 2;
 	cursor: pointer;
@@ -4085,7 +4084,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	padding: 30px 35px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	z-index: 1001;
-	width: 380px;
+	width: 400px;
 }
 
 .ai-settings-modal .ai-modal-header {
@@ -6801,7 +6800,6 @@ body[data-bg="wallpaper"] .dropdown-content {
 	background: #353535;
 }
 
-/* --darkColor is near-black here, so it's invisible on the dark modal */
 .black-theme .ai-settings-modal .ai-add-button {
 	color: var(--textColorDark-dark);
 	border-color: var(--textColorDark-dark);

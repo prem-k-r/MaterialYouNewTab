@@ -178,14 +178,17 @@ function normalizeAIToolsSettings(saved, customTools) {
 }
 
 function createCustomToolLink(tool) {
+    const safeUrl = parseToolUrl(String(tool.url));
+    if (!safeUrl) return null;
+
     const link = document.createElement("a");
-    link.href = tool.url;
+    link.href = safeUrl;
     link.dataset.custom = "true";
     link.dataset.toolId = tool.id;
 
     const icon = document.createElement("div");
     icon.className = "tIcon customToolIcon";
-    icon.appendChild(iconUtils.getLogoHtml(tool.name, tool.url, tool.icon));
+    icon.appendChild(iconUtils.getLogoHtml(tool.name, safeUrl, tool.icon));
 
     const label = document.createElement("div");
     label.className = "tLabel";
@@ -226,7 +229,10 @@ function applyAIToolsSettings() {
         const toolId = [...link.children].find(el => aiToolsRaw.some(t => t.id === el.id))?.id;
         if (toolId) toolElements.set(toolId, link);
     });
-    customTools.forEach(tool => toolElements.set(tool.id, createCustomToolLink(tool)));
+    customTools.forEach(tool => {
+        const customLink = createCustomToolLink(tool);
+        if (customLink) toolElements.set(tool.id, customLink);
+    });
 
     // Clear container
     aiToolName.innerHTML = "";
@@ -257,8 +263,8 @@ function createToolOption(toolId, isVisible) {
     toolOption.dataset.toolId = toolId;
     toolOption.innerHTML = `
         <div class="ai-tool-controls">
-            <input type="checkbox" id="setting_${toolId}" ${isVisible ? "checked" : ""}>
-            <label for="setting_${toolId}"></label>
+            <input type="checkbox">
+            <label></label>
         </div>
         <div class="ai-tool-reorder">
             ${isCustom ? `
@@ -268,8 +274,15 @@ function createToolOption(toolId, isVisible) {
             <button type="button" class="reorder-down"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13.047 15.809a1.47 1.47 0 0 1-2.076 0l-5.54-5.54a1.47 1.47 0 1 1 2.077-2.076l4.501 4.5 4.501-4.5a1.469 1.469 0 0 1 2.078 2.076l-5.54 5.54z"/></svg></button>
         </div>
     `;
+    // Set from the DOM (not the template) so the id is never parsed as HTML
+    const checkbox = toolOption.querySelector('input[type="checkbox"]');
+    const label = toolOption.querySelector("label");
+    checkbox.id = `setting_${toolId}`;
+    checkbox.checked = isVisible;
+    label.htmlFor = checkbox.id;
+
     const name = getToolLabel(toolId);
-    toolOption.querySelector("label").textContent = name;
+    label.textContent = name;
     toolOption.querySelector(".tool-edit")?.setAttribute("aria-label", getTranslation("aiToolEditLabel").replace("{name}", name));
     toolOption.querySelector(".tool-delete")?.setAttribute("aria-label", getTranslation("aiToolDeleteLabel").replace("{name}", name));
     return toolOption;
@@ -287,7 +300,7 @@ function generateAIToolsForm(settings) {
     updateReorderButtonStates();
 }
 
-// Handles edit, delete and reorder buttons (single listener, registered once)
+// Handles edit, delete and reorder buttons
 async function handleAIToolsFormClick(event) {
     const button = event.target.closest("button");
     const toolOption = button?.closest(".ai-tool-option");
