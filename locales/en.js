@@ -138,8 +138,8 @@ const en = {
     "untitledFolder": "Untitled folder",
     "deleteBookmarkFolder": "Are you sure you want to delete the folder \"{title}\" and the {count} bookmark(s) inside it? This cannot be undone.",
     "invalidBookmarkUrl": "Please enter a valid URL",
-    "newFolderButton": "New folder",        // Tooltip of the "+" button next to the folder picker
-    "createFolderButton": "Create folder",  // Tooltip of the tick button
+    "newFolderButton": "New folder",
+    "createFolderButton": "Create folder",
 
     // AI Tools
     "ai_tools": "AI Tools", // Visible in the new tab

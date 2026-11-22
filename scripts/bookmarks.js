@@ -752,7 +752,7 @@ newBookmarkFolderName.addEventListener("keydown", function (event) {
     field.addEventListener("keydown", event => event.stopPropagation()));
 
 function normalizeBookmarkUrl(raw) {
-    const hasScheme = /^[a-z][a-z0-9+.-]*:\/\//i.test(raw) || /^(about|mailto|data|javascript|view-source):/i.test(raw);
+    const hasScheme = /^[a-z][a-z0-9+.-]*:\/\//i.test(raw) || /^(about|mailto|data|javascript|view-source|file):/i.test(raw);
     return hasScheme ? raw : "https://" + raw;
 }
 

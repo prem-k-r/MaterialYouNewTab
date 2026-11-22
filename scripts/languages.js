@@ -322,15 +322,15 @@ function applyLanguage(lang) {
         { id: "bookmarkRecentMenuCountLabel", key: "recentCount" },
     ];
 
-    // Tooltips (title attribute)
-    const titleMap = [
+    // Icon-only buttons: the translation sets both the tooltip (title) and the accessible name (aria-label)
+    const tooltipMap = [
         { id: "newBookmarkFolderButton", key: "newFolderButton" },
         { id: "createBookmarkFolder", key: "createFolderButton" },
         { id: "cancelBookmarkFolder", key: "cancelText" }
     ];
 
     // Function to apply translations
-    function applyTranslations(items, isPlaceholder, isTitle = false) {
+    function applyTranslations(items, isPlaceholder, isTooltip = false) {
         items.forEach(item => {
             // Get the element by its ID
             const element = document.getElementById(item.id || item);
@@ -343,8 +343,9 @@ function applyLanguage(lang) {
                 // Apply the translation to either placeholder or innerText
                 if (isPlaceholder) {
                     element.placeholder = translation;
-                } else if (isTitle) {
+                } else if (isTooltip) {
                     element.title = translation;
+                    element.setAttribute("aria-label", translation);
                 } else {
                     element.innerText = translation;
                 }
@@ -354,7 +355,7 @@ function applyLanguage(lang) {
 
     // Apply the translations
     applyTranslations(placeholderMap, true);   // For placeholders
-    applyTranslations(titleMap, false, true);  // For tooltips (title attribute)
+    applyTranslations(tooltipMap, false, true);  // For icon-only buttons (title + aria-label)
     applyTranslations(elementsMap, false);     // For innerTexts with different IDs and keys
     applyTranslations(translationMap, false);  // For innerTexts with same ID and keys
 
