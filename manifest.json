@@ -25,5 +25,13 @@
 	"background": {
 		"service_worker": "scripts/background.js"
 	},
+	"commands": {
+		"open-bookmarks": {
+			"suggested_key": {
+				"default": "Alt+B"
+			},
+			"description": "Open bookmarks"
+		}
+	},
 	"incognito": "split"
 }
