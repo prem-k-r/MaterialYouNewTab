@@ -410,11 +410,12 @@
                         <select id="editBookmarkFolder" autocomplete="off" data-custom-select></select>
                         <label for="editBookmarkFolder" id="bookmarkFolder">Folder</label>
                     </div>
-                    <button id="newBookmarkFolderButton" class="bm-folder-action" type="button" title="New folder"
-                        aria-label="New folder" aria-expanded="false" aria-controls="newBookmarkFolderRow">
+                    <button id="newBookmarkFolderButton" class="bm-folder-action" type="button" aria-expanded="false"
+                        aria-controls="newBookmarkFolderRow">
                         <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
                             <use href="#bmi-add"></use>
                         </svg>
+                        <span id="newFolderButton">New folder</span>
                     </button>
                 </div>
 
@@ -428,17 +429,17 @@
                                     <label for="newBookmarkFolderName" id="newFolderName">New folder
                                         name</label>
                                 </div>
-                                <button id="createBookmarkFolder" class="bm-folder-action" type="button"
-                                    title="Create folder" aria-label="Create folder">
+                                <button id="createBookmarkFolder" class="bm-folder-action" type="button">
                                     <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
                                         <use href="#bmi-check"></use>
                                     </svg>
+                                    <span id="createFolderButton">Create folder</span>
                                 </button>
-                                <button id="cancelBookmarkFolder" class="bm-folder-action" type="button" title="Cancel"
-                                    aria-label="Cancel">
+                                <button id="cancelBookmarkFolder" class="bm-folder-action" type="button">
                                     <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
                                         <use href="#bmi-close"></use>
                                     </svg>
+                                    <span id="cancelBookmarkFolderLabel">Cancel</span>
                                 </button>
                             </div>
                             <div id="newBookmarkFolderHint" class="new-folder-hint"></div>

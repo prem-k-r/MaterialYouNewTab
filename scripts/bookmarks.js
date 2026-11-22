@@ -693,8 +693,15 @@ function updateNewBookmarkFolderHint() {
     newBookmarkFolderHint.textContent = `${getTranslation("newFolderIn")}: ${parentName}`;
 }
 
+// Like the Display panel: once fully open, the clip is lifted so the button tooltips are not cut off
+newBookmarkFolderRow.addEventListener("transitionend", function (event) {
+    if (event.target !== newBookmarkFolderRow || event.propertyName !== "grid-template-rows") return;
+    newBookmarkFolderRow.classList.toggle("settled", newBookmarkFolderRow.classList.contains("open"));
+});
+
 function showNewBookmarkFolderRow() {
     newBookmarkFolderRow.classList.add("open");
+    if (globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches) newBookmarkFolderRow.classList.add("settled");
     newBookmarkFolderButton.setAttribute("aria-expanded", "true");
     newBookmarkFolderName.value = "";
     updateNewBookmarkFolderHint();
@@ -702,7 +709,7 @@ function showNewBookmarkFolderRow() {
 }
 
 function hideNewBookmarkFolderRow() {
-    newBookmarkFolderRow.classList.remove("open");
+    newBookmarkFolderRow.classList.remove("open", "settled");
     newBookmarkFolderButton.setAttribute("aria-expanded", "false");
     newBookmarkFolderName.value = "";
 }
@@ -1588,13 +1595,15 @@ document.addEventListener("DOMContentLoaded", function () {
     syncBookmarkMenuState();
 });
 
-// Tooltips of the Sort by / View as icon buttons come from their label text (so translations still apply)
+// Tooltips of the Sort by / View as icon buttons and the folder picker buttons come from their label text (so translations still apply)
 function setIconButtonTooltip(event) {
-    const button = event.target.closest?.(".bm-icon-btn");
+    const button = event.target.closest?.(".bm-icon-btn, .bm-folder-action");
     if (button) button.dataset.tooltip = button.textContent.trim();
 }
 bookmarkMenu.addEventListener("mouseover", setIconButtonTooltip);
 bookmarkMenu.addEventListener("focusin", setIconButtonTooltip);
+editBookmarkModal.addEventListener("mouseover", setIconButtonTooltip);
+editBookmarkModal.addEventListener("focusin", setIconButtonTooltip);
 
 // Keyboard shortcut for bookmarks
 document.addEventListener("keydown", function (event) {

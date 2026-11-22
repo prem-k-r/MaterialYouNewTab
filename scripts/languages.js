@@ -257,6 +257,8 @@ function applyLanguage(lang) {
         "deleteBookmarkFolderLabel",
         "bookmarkFolder",
         "newFolderName",
+        "newFolderButton",
+        "createFolderButton",
         "addBookmark",
         "recentCount",
         "lightThemed",
@@ -318,19 +320,13 @@ function applyLanguage(lang) {
         { id: "editBookmarkNameLabel", key: "editBookmarkName" },
         { id: "editBookmarkURLLabel", key: "editBookmarkURL" },
         { id: "shortcutsSectionTitle", key: "shortcutsText" },
+        { id: "cancelBookmarkFolderLabel", key: "cancelText" },
         { id: "bookmarkAddHereLabel", key: "addBookmark" },
         { id: "bookmarkRecentMenuCountLabel", key: "recentCount" },
     ];
 
-    // Icon-only buttons: the translation sets both the tooltip (title) and the accessible name (aria-label)
-    const tooltipMap = [
-        { id: "newBookmarkFolderButton", key: "newFolderButton" },
-        { id: "createBookmarkFolder", key: "createFolderButton" },
-        { id: "cancelBookmarkFolder", key: "cancelText" }
-    ];
-
     // Function to apply translations
-    function applyTranslations(items, isPlaceholder, isTooltip = false) {
+    function applyTranslations(items, isPlaceholder) {
         items.forEach(item => {
             // Get the element by its ID
             const element = document.getElementById(item.id || item);
@@ -343,9 +339,6 @@ function applyLanguage(lang) {
                 // Apply the translation to either placeholder or innerText
                 if (isPlaceholder) {
                     element.placeholder = translation;
-                } else if (isTooltip) {
-                    element.title = translation;
-                    element.setAttribute("aria-label", translation);
                 } else {
                     element.innerText = translation;
                 }
@@ -355,7 +348,6 @@ function applyLanguage(lang) {
 
     // Apply the translations
     applyTranslations(placeholderMap, true);   // For placeholders
-    applyTranslations(tooltipMap, false, true);  // For icon-only buttons (title + aria-label)
     applyTranslations(elementsMap, false);     // For innerTexts with different IDs and keys
     applyTranslations(translationMap, false);  // For innerTexts with same ID and keys
 

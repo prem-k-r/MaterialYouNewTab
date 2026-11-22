@@ -1004,7 +1004,8 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 /* Tooltip (text is filled from the button label by JS) */
-.bm-icon-btn::after {
+.bm-icon-btn::after,
+.bm-folder-action::after {
 	content: attr(data-tooltip);
 	position: absolute;
 	bottom: calc(100% + 10px);
@@ -1027,18 +1028,22 @@ body #bookmarkButton.bookmark-button.rotate {
 
 /* In RTL the tooltip shifts the other way to stay centred; hover / focus use the same variable
    (a plain transform there would override the RTL offset) */
-[dir="rtl"] .bm-icon-btn {
+[dir="rtl"] .bm-icon-btn,
+[dir="rtl"] .bm-folder-action {
 	--bm-tip-x: 50%;
 }
 
 .bm-icon-btn:hover::after,
-.bm-icon-btn:focus-visible::after {
+.bm-icon-btn:focus-visible::after,
+.bm-folder-action:hover::after,
+.bm-folder-action:focus-visible::after {
 	opacity: 1;
 	transform: translate(var(--bm-tip-x, -50%), 0);
 	transition-delay: 0.35s;
 }
 
-.bm-icon-btn[data-tooltip=""]::after {
+.bm-icon-btn[data-tooltip=""]::after,
+.bm-folder-action[data-tooltip=""]::after {
 	display: none;
 }
 
@@ -2150,6 +2155,10 @@ body #bookmarkButton.bookmark-button.rotate {
 	overflow: hidden;
 }
 
+#editBookmarkModal .new-folder.open.settled .new-folder-inner {
+	overflow: visible; /* fully open: let the create / cancel tooltips show */
+}
+
 #editBookmarkModal .new-folder-content {
 	padding-top: 18px;
 }
@@ -2162,6 +2171,7 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 #editBookmarkModal .bm-folder-action {
+	position: relative;
 	flex: none;
 	/* margin-top 12px = .floating-label-field margin-top; 44px = height of the field next to it
 	   (12px + 12px padding + text), so the button lines up with the input / select. Keep them in sync. */
@@ -2172,6 +2182,15 @@ body #bookmarkButton.bookmark-button.rotate {
 	display: grid;
 	place-items: center;
 	border-radius: 14px;
+}
+
+#editBookmarkModal .bm-folder-action > span {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
 }
 
 #editBookmarkModal .bm-folder-action svg {
