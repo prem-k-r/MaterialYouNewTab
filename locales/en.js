@@ -148,7 +148,7 @@ const en = {
     "createFolderButton": "Create folder",
 
     // AI Tools
-    "ai_tools": "AI Tools", // Visible in the new tab
+    "ai_tools": "AI Tools", // Tooltip in the new tab
     "ai_tools_button": "AI Tools",
     "enable_ai_tools": "Show shortcuts for AI tools",
     "aiToolsSettingsText": "AI Tools Settings",
