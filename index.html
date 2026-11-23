@@ -1276,14 +1276,13 @@
     <!-- -----------AI-Tools------------------ -->
     <div class="aiToolsCont" id="aiToolsCont">
 
-        <div class="hangno" id="aiToolsIcon">
+        <div class="hangno" id="aiToolsIcon" aria-labelledby="ai_tools">
             <div class="icon">
                 <svg height="100%" viewBox="0 0 280 280" width="100%" xmlns="http://www.w3.org/2000/svg">
                     <path id="aiIcon" class="accentColor"
                         d="M152 178c0-14.359 11.641-26 26-26h76c14.359 0 26.275 11.76 23.393 25.827-10.238 49.97-49.596 89.328-99.566 99.566C163.76 280.275 152 268.359 152 254v-76Zm-24 5.26c0 23.163-28.006 34.764-44.385 18.385L8.782 126.811c-5.35-5.35-8.252-12.794-6.994-20.255 8.778-52.04 48.96-93.412 100.382-103.949C116.237-.275 128 11.641 128 26v157.26ZM0 214.74c0-23.163 28.006-34.764 44.385-18.385l83.609 83.609c.004.004.006.01.006.015a.02.02 0 0 1-.021.021H26c-14.36 0-26-11.641-26-26v-39.26ZM152 26c0-14.36 11.641-26 26-26h76c14.359 0 26 11.64 26 26v76c0 14.359-11.641 26-26 26h-76c-14.359 0-26-11.641-26-26V26Z" />
                 </svg>
             </div>
-            <div class="label" id="ai_tools">AI Tools</div>
         </div>
         <!-- --------tools-------- -->
 
@@ -1402,6 +1401,7 @@
             </a>
         </div>
     </div>
+    <span class="tooltip-text aiToolsTooltip" id="ai_tools">AI Tools</span>
 
     <!-- Settings Modal (hidden by default) -->
     <div id="aiToolsSettingsModal" class="ai-settings-modal" style="display: none;">
@@ -1422,6 +1422,42 @@
                     <!-- These checkboxes will be populated/managed by JavaScript -->
                 </form>
             </div>
+            <div class="ai-tool-editor" id="aiToolEditor">
+                <h4 id="aiToolEditorTitle">Add a custom AI tool</h4>
+                <div class="ai-field">
+                    <input type="text" id="aiToolNameInput" maxlength="30" placeholder=" " autocomplete="off"
+                        spellcheck="false">
+                    <label for="aiToolNameInput" id="aiToolNameLabel">Name</label>
+                </div>
+                <div class="ai-field">
+                    <input type="text" id="aiToolUrlInput" placeholder=" " autocomplete="off" spellcheck="false">
+                    <label for="aiToolUrlInput" id="aiToolUrlLabel">URL</label>
+                </div>
+                <div class="ai-tool-icon-row">
+                    <div class="ai-tool-preview customToolIcon" id="aiToolIconPreview"></div>
+                    <div class="ai-field">
+                        <input type="text" id="aiToolIconInput" placeholder=" " autocomplete="off" spellcheck="false">
+                        <label for="aiToolIconInput" id="aiToolIconLabel">Icon URL or SVG (optional)</label>
+                    </div>
+                    <button type="button" class="ai-icon-upload has-tooltip" id="aiToolIconUploadBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path
+                                d="M12 3.5a.89.89 0 0 0-.641.27l-3.57 3.571a.895.895 0 0 0 1.265 1.265l2.051-2.051v8.577a.895.895 0 1 0 1.79 0V6.555l2.051 2.051a.895.895 0 0 0 1.266-1.265l-3.57-3.57A.91.91 0 0 0 12 3.5m-6.263 9.842c-.494 0-.895.4-.895.895v3.579A2.7 2.7 0 0 0 7.526 20.5h8.948a2.7 2.7 0 0 0 2.684-2.684v-3.58a.895.895 0 1 0-1.79 0v3.58c0 .505-.39.895-.894.895H7.526a.88.88 0 0 1-.894-.895v-3.58c0-.493-.401-.894-.895-.894" />
+                        </svg>
+                    </button>
+                    <input type="file" id="aiToolIconFileInput" accept="image/*" hidden>
+                </div>
+                <div class="ai-tool-editor-actions">
+                    <button type="button" id="aiToolEditorCancelBtn" class="ai-editor-button">Cancel</button>
+                    <button type="button" id="aiToolEditorSaveBtn" class="ai-editor-button">Add</button>
+                </div>
+            </div>
+            <button type="button" id="aiToolAddBtn" class="ai-add-button">
+                <svg viewBox="0 0 520 520" aria-hidden="true">
+                    <use href="#bmi-add"></use>
+                </svg>
+                <span id="aiToolAddBtnText">Add tool</span>
+            </button>
             <div class="ai-modal-footer">
                 <button id="resetAISettingsBtn" class="ai-reset-button">Reset</button>
                 <button id="saveAISettingsBtn" class="ai-save-button">Save</button>
@@ -2238,12 +2274,12 @@
                             </svg>
                         </button>
                         <div class="rightButtons">
-                            <button id="newShortcutButton">
+                            <button id="newShortcutButton" class="has-tooltip">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path d="M3 13h8v8h2v-8h8v-2h-8V3h-2v8H3z" />
                                 </svg>
                             </button>
-                            <button id="resetButton">
+                            <button id="resetButton" class="has-tooltip">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path
                                         d="M13 15.75v-1.5h4v1.5zM14.5 21v-1.25H13v-1.5h1.5V17H16v4zm2.5-1.25v-1.5h4v1.5zM18 17v-4h1.5v1.25H21v1.5h-1.5V17zm2.775-7H18.7q-.65-2.2-2.475-3.6T12 5Q9.075 5 7.037 7.038T5 12q0 1.8.813 3.3T8 17.75V15h2v6H4v-2h2.35Q4.8 17.75 3.9 15.938T3 12q0-1.875.713-3.512t1.924-2.85t2.85-1.925T12 3q3.225 0 5.663 1.988T20.775 10" />
