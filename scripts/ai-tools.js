@@ -333,8 +333,9 @@ async function handleAIToolsFormClick(event) {
 }
 
 function updateAddToolButtonState() {
-    // Stored tools count too: add/edit saves straight to storage, while deletes stay pending until the list Save
-    aiToolAddBtn.disabled = Math.max(customToolsDraft.length, getCustomTools().length) >= MAX_CUSTOM_AI_TOOLS;
+    // Count the draft, not storage: a delete still pending Save already frees a slot for a replacement.
+    // If the modal is then cancelled, storage can end up slightly over the limit, which is harmless
+    aiToolAddBtn.disabled = customToolsDraft.length >= MAX_CUSTOM_AI_TOOLS;
 }
 
 // Live preview of the icon in the editor (debounced, as it may fetch a favicon)
