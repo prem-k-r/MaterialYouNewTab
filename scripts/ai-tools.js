@@ -333,7 +333,8 @@ async function handleAIToolsFormClick(event) {
 }
 
 function updateAddToolButtonState() {
-    aiToolAddBtn.disabled = customToolsDraft.length >= MAX_CUSTOM_AI_TOOLS;
+    // Stored tools count too: add/edit saves straight to storage, while deletes stay pending until the list Save
+    aiToolAddBtn.disabled = Math.max(customToolsDraft.length, getCustomTools().length) >= MAX_CUSTOM_AI_TOOLS;
 }
 
 // Live preview of the icon in the editor (debounced, as it may fetch a favicon)

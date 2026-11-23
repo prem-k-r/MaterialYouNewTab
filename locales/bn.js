@@ -178,8 +178,8 @@ const bn = {
     "aiToolName": "নাম",
     "aiToolUrl": "URL",
     "aiToolIcon": "আইকন URL অথবা SVG (ঐচ্ছিক)",
-    "aiToolEditLabel": "{name} সম্পাদনা করুন",    // Do not translate {name}
-    "aiToolDeleteLabel": "{name} মুছুন",    // Do not translate {name}
+    "aiToolEditLabel": "{name} সম্পাদনা করুন",
+    "aiToolDeleteLabel": "{name} মুছুন",
 
     // To-do List
     "todoListHover": "টু ডু লিস্ট",

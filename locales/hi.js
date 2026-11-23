@@ -178,8 +178,8 @@ const hi = {
     "aiToolName": "नाम",
     "aiToolUrl": "URL",
     "aiToolIcon": "आइकन URL या SVG (वैकल्पिक)",
-    "aiToolEditLabel": "{name} संपादित करें",    // Do not translate {name}
-    "aiToolDeleteLabel": "{name} डिलीट करें",    // Do not translate {name}
+    "aiToolEditLabel": "{name} संपादित करें",
+    "aiToolDeleteLabel": "{name} डिलीट करें",
 
     // To-do List
     "todoListHover": "कार्य सूची",

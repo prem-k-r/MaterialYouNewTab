@@ -22,7 +22,7 @@ const iconUtils = (() => {
     // Normalizes URLs to ensure they're valid
     function normalizeUrl(url) {
         url = url.trim();
-        const withScheme = url.startsWith("https://") || url.startsWith("http://") ? url : `https://${url}`;
+        const withScheme = /^https?:\/\//i.test(url) ? url : `https://${url}`;
         // encodeURI re-encodes the "%" of existing escapes (%20 -> %2520), so undo that
         return encodeURI(withScheme).replace(/%25([0-9a-f]{2})/gi, "%$1");
     }
@@ -171,7 +171,7 @@ const iconUtils = (() => {
                     <text x="50%" y="58%" text-anchor="middle" dominant-baseline="middle"
                         font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700"
                         fill="${color}">
-                        ${letter}
+                        ${letter.replace(/&/g, "&amp;").replace(/</g, "&lt;")}
                     </text>
                 </svg>
             `;
