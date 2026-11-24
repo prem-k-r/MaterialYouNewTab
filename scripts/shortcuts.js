@@ -23,8 +23,10 @@ const iconUtils = (() => {
     function normalizeUrl(url) {
         url = url.trim();
         const withScheme = /^https?:\/\//i.test(url) ? url : `https://${url}`;
-        // encodeURI re-encodes the "%" of existing escapes (%20 -> %2520), so undo that
-        return encodeURI(withScheme).replace(/%25([0-9a-f]{2})/gi, "%$1");
+        // encodeURI re-encodes the "%" of existing escapes (%20 -> %2520) and the brackets of an IPv6 host, so undo that
+        return encodeURI(withScheme)
+            .replace(/%25([0-9a-f]{2})/gi, "%$1")
+            .replace(/^(https?:\/\/)%5B([0-9a-f:.]*)%5D/i, "$1[$2]");
     }
 
     function applyCustomSvgAccentColor(svg) {

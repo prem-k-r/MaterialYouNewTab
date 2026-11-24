@@ -161,11 +161,9 @@ const en = {
     "copilot": "Copilot",
     "claude": "Claude",
     "grok": "Grok",
-    "qwen": "Qwen",
     "perplexity": "Perplexity",
     "deepseek": "DeepSeek",
     "metaAI": "Meta AI",
-    "firefly": "Adobe Firefly",
     "aiSettingsIntro": "Select which AI tools to display",
     "resetAISettingsBtn": "Reset",
 

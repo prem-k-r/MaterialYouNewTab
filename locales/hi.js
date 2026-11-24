@@ -163,11 +163,9 @@ const hi = {
     "copilot": "कोपायलट",
     "claude": "क्लॉड",
     "grok": "ग्रोक",
-    "qwen": "क्वेन",
     "perplexity": "पर्प्लेक्सिटी",
     "deepseek": "डीपसीक",
     "metaAI": "मेटा AI",
-    "firefly": "एडोबी फायरफ्लाई",
     "aiSettingsIntro": "चुनें की कौन से AI शॉर्टकट्स रखने हैं",
     "resetAISettingsBtn": "रीसेट करें",
 
