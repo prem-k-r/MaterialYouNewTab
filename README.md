@@ -239,7 +239,7 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 | <img src='https://flagcdn.com/np.svg' width=20> &nbsp; **Nepali** - नेपाली                    |  ne   | [Bikash Shresha](https://github.com/sthaB-kash/)                                      |
 | <img src='https://flagcdn.com/ir.svg' width=20> &nbsp; **Persian** - فارسی                  |  fa   | [AMIRHOSSEIN](https://github.com/AMIRHOSSEIN-AHMADI-IRAN)                               |
 | <img src='https://flagcdn.com/pl.svg' width=20> &nbsp; **Polish** - Polski                  | pl | [Dawid Warkowski](https://github.com/dawid9707/)                                         |
-| <img src='https://flagcdn.com/br.svg' width=20> &nbsp; **Portuguese** - Português            | pt-BR | [Maycon Vitor Correa](https://github.com/MestreWalla/)                                |
+| <img src='https://flagcdn.com/br.svg' width=20> &nbsp; **Portuguese** - Português            | pt-BR | [Maycon Vitor Correa](https://github.com/MestreWalla/), [Arthur Guedes](https://github.com/arthurhguedes)    |
 | <img src='https://flagcdn.com/ru.svg' width=20> &nbsp; **Russian** - Русский                 |  ru   | [giwi](https://github.com/giwih/), [CodWiz](https://github.com/C0dwiz/)               |
 | <img src='https://flagcdn.com/si.svg' width=20> &nbsp; **Slovenian** - Slovenščina           | sl-SI | [Linux-Alex](https://github.com/Linux-Alex/)                                          |
 | <img src='https://flagcdn.com/es.svg' width=20> &nbsp; **Spanish** - Español                 | es-ES | [XengShi](https://t.me/XengShi), [Isaac Vergara](https://github.com/zRaidev), [Saúl Palacios](https://github.com/palacios22c)  |

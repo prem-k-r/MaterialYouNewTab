@@ -141,10 +141,6 @@ const it = {
     "metaAI": "Meta AI",
     "firefly": "Adobe Firefly",
 
-    // Theme
-    "enableDarkMode": "Modalità Scura (Sperimentale)",
-    "enableDarkModeInfo": "Abilita i temi in modalità scura",
-
     // Wallpaper and misc
     "uploadWallpaperText": "Carica immagine",
     "backupText": "Backup",
