@@ -387,6 +387,9 @@ function openBookmarkItemMenu(button, node, context = {}) {
     bookmarkItemMenu.querySelector('[data-action="moveDown"]').disabled =
         !context.inFavorites || context.index >= context.total - 1;
 
+    // Shortcuts are plain links, which can't open chrome://, mailto:, javascript: etc. (only http / https)
+    bookmarkItemMenu.querySelector('[data-action="shortcut"]').disabled = !/^https?:\/\//i.test(node.url || "");
+
     // Folder actions: new bookmarks can't go into read-only folders, and top folders can't be deleted
     bookmarkItemMenu.querySelector('[data-action="addHere"]').disabled = Boolean(node.unmodifiable);
     bookmarkItemMenu.querySelector('[data-action="deleteFolder"]').disabled = !node.url && !canDeleteBookmarkFolder(node);
