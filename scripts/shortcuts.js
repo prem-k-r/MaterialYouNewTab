@@ -915,9 +915,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Adds a new shortcut
-    function addNewShortcut() {
+    function addNewShortcut(name = PLACEHOLDER.name, url = PLACEHOLDER.url) {
         const currentAmount = parseInt(localStorage.getItem("shortcutAmount")) || shortcutsCache.length;
-        if (currentAmount >= MAX_SHORTCUTS) return;
+        if (currentAmount >= MAX_SHORTCUTS) {
+            alertPrompt(getTranslation("shortcutLimitReached").replace("{max}", localizeNumbers(String(MAX_SHORTCUTS), currentLanguage)));
+            return;
+        }
 
         const newAmount = currentAmount + 1;
         localStorage.setItem("shortcutAmount", newAmount.toString());
@@ -932,11 +935,11 @@ document.addEventListener("DOMContentLoaded", function () {
             dom.newShortcutButton.classList.add("inactive");
         }
 
-        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, "", false, currentAmount);
+        const entry = createShortcutEntry(name, url, "", false, currentAmount);
         dom.shortcutSettingsContainer.appendChild(entry);
 
         saveShortcut(entry);
-        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, "", currentAmount);
+        renderShortcut(name, url, "", currentAmount);
     }
 
     // Deletes a shortcut
@@ -1073,4 +1076,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("blur", hideShortcutNumbers);
 
     setupKeyboardShortcuts();
+
+    // Used by "Add to shortcuts" in bookmarks.js
+    globalThis.addNewShortcut = addNewShortcut;
 });

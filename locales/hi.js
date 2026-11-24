@@ -128,6 +128,7 @@ const hi = {
     "moveFavoriteUp": "ऊपर ले जाएँ",
     "moveFavoriteDown": "नीचे ले जाएँ",
     "addToShortcuts": "शॉर्टकट्स में जोड़ें",
+    "shortcutLimitReached": "शॉर्टकट्स में नहीं जोड़ा जा सका। आप {max} शॉर्टकट्स की सीमा तक पहुँच चुके हैं।",
     "editBookmarkLabel": "बुकमार्क संपादित करें",
     "deleteBookmarkLabel": "बुकमार्क डिलीट करें",
     "deleteBookmarkFolderLabel": "फ़ोल्डर और बुकमार्क डिलीट करें",

@@ -128,6 +128,7 @@ const bn = {
     "moveFavoriteUp": "উপরে সরান",
     "moveFavoriteDown": "নিচে সরান",
     "addToShortcuts": "শর্টকাটে যোগ করুন",
+    "shortcutLimitReached": "শর্টকাটে যোগ করা যায়নি। আপনি সর্বোচ্চ {max}টি শর্টকাটের সীমায় পৌঁছে গেছেন।",
     "editBookmarkLabel": "বুকমার্ক সম্পাদনা করুন",
     "deleteBookmarkLabel": "বুকমার্ক মুছুন",
     "deleteBookmarkFolderLabel": "ফোল্ডার ও বুকমার্ক মুছুন",

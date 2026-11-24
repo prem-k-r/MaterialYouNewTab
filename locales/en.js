@@ -126,6 +126,7 @@ const en = {
     "moveFavoriteUp": "Move up",
     "moveFavoriteDown": "Move down",
     "addToShortcuts": "Add to shortcuts",
+    "shortcutLimitReached": "Couldn't add to shortcuts. You've reached the limit of {max} shortcuts.",
     "editBookmarkLabel": "Edit bookmark",
     "deleteBookmarkLabel": "Delete bookmark",
     "deleteBookmarkFolderLabel": "Delete folder and bookmarks",

@@ -496,9 +496,8 @@ bookmarkFavoritesMenu.addEventListener("click", function (event) {
     }
 });
 
-// Placeholder: to be connected to the shortcuts feature later
 function addBookmarkToShortcuts(node) {
-    console.info("Add to shortcuts (not connected yet):", { id: node.id, title: node.title, url: node.url });
+    globalThis.addNewShortcut(node.title || bmHost(node.url), node.url);
 }
 
 // ---- Bookmarks API wrapper (Firefox: promises, Chromium: callbacks) ----
