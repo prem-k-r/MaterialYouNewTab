@@ -23,8 +23,10 @@ const iconUtils = (() => {
     function normalizeUrl(url) {
         url = url.trim();
         const withScheme = /^https?:\/\//i.test(url) ? url : `https://${url}`;
-        // encodeURI re-encodes the "%" of existing escapes (%20 -> %2520), so undo that
-        return encodeURI(withScheme).replace(/%25([0-9a-f]{2})/gi, "%$1");
+        // encodeURI re-encodes the "%" of existing escapes (%20 -> %2520) and the brackets of an IPv6 host, so undo that
+        return encodeURI(withScheme)
+            .replace(/%25([0-9a-f]{2})/gi, "%$1")
+            .replace(/^(https?:\/\/(?:[^/?#@]*@)?)%5B([0-9a-f:.]*)%5D/i, "$1[$2]");
     }
 
     function applyCustomSvgAccentColor(svg) {
@@ -915,9 +917,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Adds a new shortcut
-    function addNewShortcut() {
+    function addNewShortcut(name = PLACEHOLDER.name, url = PLACEHOLDER.url) {
         const currentAmount = parseInt(localStorage.getItem("shortcutAmount")) || shortcutsCache.length;
-        if (currentAmount >= MAX_SHORTCUTS) return;
+        if (currentAmount >= MAX_SHORTCUTS) {
+            alertPrompt(getTranslation("shortcutLimitReached").replace("{max}", localizeNumbers(String(MAX_SHORTCUTS), currentLanguage)));
+            return;
+        }
 
         const newAmount = currentAmount + 1;
         localStorage.setItem("shortcutAmount", newAmount.toString());
@@ -932,11 +937,11 @@ document.addEventListener("DOMContentLoaded", function () {
             dom.newShortcutButton.classList.add("inactive");
         }
 
-        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, "", false, currentAmount);
+        const entry = createShortcutEntry(name, url, "", false, currentAmount);
         dom.shortcutSettingsContainer.appendChild(entry);
 
         saveShortcut(entry);
-        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, "", currentAmount);
+        renderShortcut(name, url, "", currentAmount);
     }
 
     // Deletes a shortcut
@@ -1073,4 +1078,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("blur", hideShortcutNumbers);
 
     setupKeyboardShortcuts();
+
+    // Used by "Add to shortcuts" in bookmarks.js
+    globalThis.addNewShortcut = addNewShortcut;
 });

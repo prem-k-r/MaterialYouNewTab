@@ -387,6 +387,9 @@ function openBookmarkItemMenu(button, node, context = {}) {
     bookmarkItemMenu.querySelector('[data-action="moveDown"]').disabled =
         !context.inFavorites || context.index >= context.total - 1;
 
+    // Shortcuts are plain links, which can't open chrome://, mailto:, javascript: etc. (only http / https)
+    bookmarkItemMenu.querySelector('[data-action="shortcut"]').disabled = !/^https?:\/\//i.test(node.url || "");
+
     // Folder actions: new bookmarks can't go into read-only folders, and top folders can't be deleted
     bookmarkItemMenu.querySelector('[data-action="addHere"]').disabled = Boolean(node.unmodifiable);
     bookmarkItemMenu.querySelector('[data-action="deleteFolder"]').disabled = !node.url && !canDeleteBookmarkFolder(node);
@@ -496,9 +499,8 @@ bookmarkFavoritesMenu.addEventListener("click", function (event) {
     }
 });
 
-// Placeholder: to be connected to the shortcuts feature later
 function addBookmarkToShortcuts(node) {
-    console.info("Add to shortcuts (not connected yet):", { id: node.id, title: node.title, url: node.url });
+    globalThis.addNewShortcut(node.title || bmHost(node.url), node.url);
 }
 
 // ---- Bookmarks API wrapper (Firefox: promises, Chromium: callbacks) ----

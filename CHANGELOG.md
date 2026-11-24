@@ -25,6 +25,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Updated the search bar to bypass search engines and navigate directly to webpages when the input contains no spaces and begins strictly with `http://`, `https://`, or `www.` ([@prem-k-r](https://github.com/prem-k-r)) ([#255](https://github.com/prem-k-r/MaterialYouNewTab/pull/255))
 - Added option to favorites the bookmarks ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
 - Added option to add custom AI tool shortcuts ([@prem-k-r](https://github.com/prem-k-r)) ([#276](https://github.com/prem-k-r/MaterialYouNewTab/pull/276))
+- Added option to add bookmarks to shortcuts ([@prem-k-r](https://github.com/prem-k-r)) ([#280](https://github.com/prem-k-r/MaterialYouNewTab/pull/280))
 
 ### Improved
 
