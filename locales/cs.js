@@ -214,7 +214,7 @@ const cs = {
     "aiModeIconTitle": "Skrýt tlačítko pro Režim AI",
     "aiModeIconInfo": "Skryje tlačítko pro vyhledávání pomocí Režimu AI od Google",
     "hideSearchWith": "Skrýt vyhledávače",
-    "hideSearchWithInfo": "Mezi vyhledávači přepnete klepnutím na jejich ikonky",
+    "hideSearchWithInfo": "Mezi vyhledávači přepnete klepnutím na jejich ikony",
 
     // Quotes
     "motivationalQuotesText": "Motivační citáty",
@@ -223,8 +223,8 @@ const cs = {
     "newQuoteOnRefreshInfo": "Místo neustálé obměny citátů zobrazí jeden citát na celý den",
 
     // Search Suggestions
-    "search_suggestions_button": "Návrhy ve vyhledávání",
-    "search_suggestions_text": "Zapne návrhy vyhledávání",
+    "search_suggestions_button": "Našeptávání při vyhledávání",
+    "search_suggestions_text": "Zapne návrhy při zadávání vyhledávacího dotazu",
 
     // Proxy
     "useproxytitletext": "Obcházení proxy",
@@ -256,7 +256,7 @@ const cs = {
     // GPS
     "useGPS": "Použít GPS",
     "useGPSInfo": "Zapne GPS pro průběžnou aktualizaci polohy",
-    "GPSDisclaimer": "Data o poloze jsou využívána pouze pro poskytování odpovídajících aktualizací počasí. Jsou dočasně uložena v prohlížeči, přičemž nejsou ani sdílena se třetími stanami, ani přístupná pro nás.\n\nPovolením GPS souhlasíte s tím, že bude poloha lokálně využita tímto rozšířením.",
+    "GPSDisclaimer": "Data o poloze jsou využívána pouze pro poskytování odpovídajících aktualizací počasí. Jsou dočasně uložena v prohlížeči, přičemž nejsou ani sdílena se třetími stranami, ani přístupná pro nás.\n\nPovolením GPS souhlasíte s tím, že bude poloha lokálně využita tímto rozšířením.",
 
 
     // WeatherAPI
@@ -282,13 +282,13 @@ const cs = {
     // Wallpaper Alerts
     "confirmWallpaper": "Přejete si nastavit nový obrázek jako denní tapetu?",
     "Nobackgroundset": "Aktuálně nemáte nastavený žádný obrázek na pozadí.",
-    "clearbackgroundimage": "Opravdu si přejete smazat obrázek na pozadí?",
+    "clearbackgroundimage": "Opravdu si přejete odstranit obrázek z pozadí?",
 
     // Settings
     "settingsSectionTitle": "Nastavení",
     "backupText": "Zálohovat",
     "restoreText": "Obnovit",
-    "resetsettings": "Resetovat nastavení",
+    "resetsettings": "Obnovit výchozí nastavení",
     "menuCloseText": "Zavřít",
 
     // Backup and Restore Alerts
@@ -296,7 +296,7 @@ const cs = {
     "restorecompleted": "Obnova ze zálohy byla úspěšně dokončena!",
     "restorefailed": "Obnova ze zálohy selhala: ",
     "invalidBackup": "Vybrali jste neplatný soubor se zálohou.",
-    "confirmRestore": "Opravdu si přejete resetovat nastavení? Tuto akci nelze zvrátit.",
+    "confirmRestore": "Opravdu si přejete obnovit výchozí nastavení? Tato akce je nevratná.",
 
 
     // Tips
