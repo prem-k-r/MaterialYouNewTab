@@ -13,6 +13,9 @@
             --background: #bbd6fd;
             --card: #e2eeff;
             --primary: #4382ec;
+            --on-primary: #ffffff;
+            --heart: #ff5c98;
+            --heart-shine: #ffc4da;
             --secondary: #3569b2;
             --text: #26364d;
             --muted: #68788f;
@@ -28,6 +31,9 @@
                 --background: #101827;
                 --card: #1c2a3d;
                 --primary: #6da0ff;
+                --on-primary: #101827;
+                --heart: #e12d6c;
+                --heart-shine: #ffa8c7;
                 --secondary: #8db6ff;
                 --text: #e5edf9;
                 --muted: #9aaac0;
@@ -66,7 +72,7 @@
         .page {
             width: min(760px, calc(100% - 32px));
             margin: 0 auto;
-            padding: 28px 0 48px;
+            padding: 28px 0;
         }
 
         header {
@@ -88,6 +94,110 @@
             color: var(--secondary);
             font-size: 26px;
             font-weight: 700;
+        }
+
+        header h1 .subtitle {
+            color: var(--primary);
+            font-size: 0.65em;
+            font-weight: 500;
+            opacity: 0.85;
+        }
+
+        header h1 .subtitle strong {
+            font-size: 1.23em;
+            font-weight: 650;
+        }
+
+        .header-actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .header-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 16px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 650;
+            text-decoration: none;
+            flex-shrink: 0;
+            transition:
+                transform 0.15s ease,
+                opacity 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+        .header-btn:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--icon-shadow);
+        }
+
+        .header-btn:active {
+            transform: translateY(0);
+        }
+
+        .feedback-btn {
+            background: var(--card);
+            color: var(--primary);
+        }
+
+        .donate-btn {
+            background: var(--primary);
+            color: var(--on-primary);
+        }
+
+        .donate-btn svg {
+            width: 17px;
+            height: 17px;
+            transform: translateY(1px);
+        }
+
+        .donate-btn .heart-body {
+            fill: var(--heart);
+        }
+
+        .donate-btn .heart-shine {
+            fill: var(--heart-shine);
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: translateY(1px) scale(1);
+            }
+
+            20% {
+                transform: translateY(1px) scale(1.18);
+            }
+
+            40% {
+                transform: translateY(1px) scale(1);
+            }
+
+            60% {
+                transform: translateY(1px) scale(1.14);
+            }
+
+            80% {
+                transform: translateY(1px) scale(1);
+            }
+        }
+
+        .donate-btn:hover svg {
+            animation: heartbeat 0.9s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .donate-btn:hover svg {
+                animation: none;
+            }
         }
 
         .changelog-card {
@@ -149,7 +259,7 @@
             padding: 6px 9px;
             border-radius: 999px;
             background: var(--primary);
-            color: #fff;
+            color: var(--on-primary);
             font-size: 10px;
             line-height: 1;
             font-weight: 700;
@@ -214,6 +324,8 @@
             }
 
             header {
+                flex-wrap: wrap;
+                gap: 12px;
                 margin-bottom: 16px;
             }
 
@@ -224,7 +336,22 @@
             }
 
             header h1 {
-                font-size: 23px;
+                font-size: 21px;
+            }
+
+            .header-actions {
+                gap: 8px;
+            }
+
+            .header-btn {
+                padding: 7px 13px;
+                font-size: 13px;
+                gap: 5px;
+            }
+
+            .donate-btn svg {
+                width: 15px;
+                height: 15px;
             }
 
             .changelog-card {
@@ -261,7 +388,24 @@
 
         <header>
             <img class="logo" src="../favicon/icon128.png" alt="MYNT">
-            <h1>What's New</h1>
+            <h1>What's New <span class="subtitle">in <strong>MYNT</strong></span></h1>
+            <div class="header-actions">
+                <a class="header-btn feedback-btn"
+                    href="https://prem-k-r.github.io/MaterialYouNewTab/docs/feedback.html" target="_blank"
+                    rel="noopener noreferrer">
+                    Feedback
+                </a>
+                <a class="header-btn donate-btn" href="https://prem-k-r.github.io/donate" target="_blank"
+                    rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+                        <path class="heart-body"
+                            d="M63.841 18.646c-.246-3.85-1.072-6.977-3.752-10.198c-5.369-6.439-17.71-7.511-23.23-1.312c-.963.912-1.872 2.01-2.785 3.322l-2.066 2.969l-2.067-2.969c-.916-1.312-1.827-2.411-2.79-3.322C21.627.937 9.287 2.008 3.921 8.448C1.237 11.669.412 14.796.166 18.646C-.184 30.092 8.122 39.257 9.147 40.6c5.637 6.613 11.786 12.866 18.03 18.627c1.13.989 2.106 1.812 3.082 2.628c.587.479 1.166.964 1.749 1.44c.582-.477 1.159-.961 1.743-1.44c.98-.816 1.956-1.639 3.082-2.628c6.247-5.761 12.397-12.01 18.04-18.627c1.025-1.343 9.332-10.508 8.979-21.954" />
+                        <path class="heart-shine"
+                            d="M60.39 16.604a10.1 10.1 0 0 0-.457-2.909a9 9 0 0 0-1.169-2.42c-2.973-4.369-9.451-5.943-14.863-4.837c-2.111.508-4.225 1.302-5.197 3.318c-.331.865.365 1.281 1.44 1.228c3.894-.435 8.202-.043 11.645 1.63c.858.42 1.661.918 2.395 1.503c2.47 1.913 3.537 4.887 4.02 7.837c1.201-.242 1.854-1.683 2.01-2.965a10.5 10.5 0 0 0 .177-2.385" />
+                    </svg>
+                    Donate
+                </a>
+            </div>
         </header>
 
         <div class="changelog-card">
@@ -269,24 +413,56 @@
                 <section class="timeline-item">
                     <span class="timeline-dot"></span>
                     <h2 class="version">
-                        v3.3.1023
+                        v3.3.1125
                         <span class="current">CURRENT</span>
                     </h2>
 
                     <ul class="changes">
                         <li>
-                            When entering a link, the search bar now opens the website directly instead of searching for
-                            it.
+                            Added an option to <strong>add bookmarks to shortcuts</strong>.
+                        </li>
+                        <li>
+                            Added an option to add <strong>custom AI tool shortcuts</strong>.
+                        </li>
+                        <li>
+                            Redesigned the <strong>bookmarks UI</strong> with an improved layout, new options, and
+                            additional sort modes (<strong>Browser order</strong>, <strong>Z–A</strong>, and
+                            <strong>New–Old</strong>).
+                        </li>
+                        <li>
+                            Added the ability to <strong>create new bookmarks</strong> and <strong>choose a
+                                folder</strong> when adding or editing them.
+                        </li>
+                        <li>
+                            Added an option to <strong>favorite</strong> bookmarks.
+                        </li>
+                        <li>
+                            Added a customizable <strong><code>Alt + B</code></strong> shortcut to open the bookmarks
+                            sidebar.
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="timeline-item">
+                    <span class="timeline-dot"></span>
+                    <h2 class="version">v3.3.1115</h2>
+
+                    <ul class="changes">
+                        <li>
+                            Added support for <strong>Armenian</strong> language.
+                        </li>
+                        <li>
+                            When entering a link, the search bar now <strong>opens the website directly</strong> instead
+                            of searching for it.
                         </li>
                         <li>
                             Added a <strong>Google AI Mode</strong> search button to the search bar when using Google as
                             the search engine.
                         </li>
                         <li>
-                            Quickly open your shortcuts with keyboard shortcuts.
-                            Use <strong><code>Alt + 1</code></strong> through
-                            <strong><code>Alt + 9</code></strong> to open the
-                            first nine shortcuts.
+                            Quickly open your shortcuts with keyboard shortcuts. Use
+                            <strong><code>Alt + 1</code></strong> through <strong><code>Alt + 9</code></strong> to
+                            open the first nine shortcuts.
                         </li>
                     </ul>
                 </section>
@@ -297,7 +473,6 @@
                 </section>
             </div>
         </div>
-
 
         <div class="full-changelog">
             For all other changes, see the

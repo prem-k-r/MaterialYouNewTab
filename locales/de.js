@@ -148,10 +148,6 @@ const de = {
     "aiSettingsIntro": "Wählen Sie aus, welche KI-Tools angezeigt werden sollen",
     "resetAISettingsBtn": "Zurücksetzen",
 
-    // Theme
-    "enableDarkMode": "Dunkelmodus (experimentell)",
-    "enableDarkModeInfo": "Themen für den dunklen Modus aktivieren",
-
     // Wallpaper and settings
     "uploadWallpaperText": "Hintergrundbild hochladen",
     "rangColor": "Farbe auswählen",

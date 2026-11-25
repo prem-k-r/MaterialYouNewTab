@@ -6,6 +6,227 @@
  * If not, see <https://www.gnu.org/licenses/>.
  */
 
+// Icon helpers
+const iconUtils = (() => {
+    // Validates custom icon URL
+    function isValidCustomIconUrl(url) {
+        if (typeof url !== "string") return false;
+        const trimmedUrl = url.trim();
+        if (trimmedUrl.includes(" ")) return false;
+        const lowercaseUrl = trimmedUrl.toLowerCase();
+        return (
+            lowercaseUrl.startsWith("data:image/") ||
+            lowercaseUrl.startsWith("https://") ||
+            lowercaseUrl.startsWith("http://")
+        );
+    }
+
+    // Normalizes URLs to ensure they're valid
+    function normalizeUrl(url) {
+        url = url.trim();
+        const withScheme = /^https?:\/\//i.test(url) ? url : `https://${url}`;
+        // encodeURI re-encodes the "%" of existing escapes (%20 -> %2520) and the brackets of an IPv6 host, so undo that
+        return encodeURI(withScheme)
+            .replace(/%25([0-9a-f]{2})/gi, "%$1")
+            .replace(/^(https?:\/\/(?:[^/?#@]*@)?)%5B([0-9a-f:.]*)%5D/i, "$1[$2]");
+    }
+
+    function applyCustomSvgAccentColor(svg) {
+        const color = localStorage.getItem("selectedTheme") === "dark"
+            ? "#bfbfbf"
+            : localStorage.getItem("accentLightTintColor") || "#e2eeff";
+
+        return svg.replace(/\bcurrentColor\b/g, color);
+    }
+
+    // Sanitizes raw SVG code, returns data URL or null if unsafe
+    function sanitizeSvg(raw) {
+        const trimmed = raw.trim();
+        const normalized = trimmed
+            .replace(/^<\?xml[\s\S]*?\?>\s*/i, "")
+            .replace(/^<!doctype[\s\S]*?>\s*/i, "")
+            .replace(/^<!--[\s\S]*?-->\s*/i, "");
+        if (!normalized.toLowerCase().startsWith("<svg")) return null;
+
+        const forbidden = [
+            /<script[\s>]/i,                // <script> tags
+            /\bon\w+\s*=/i,                 // event handlers: onload=, onclick=, onerror=, …
+            /<iframe[\s>]/i,                // iframes
+            /<foreignObject[\s>]/i,         // foreignObject (can embed HTML)
+            /javascript\s*:/i,              // javascript: URIs
+            /data:(?!image\/[a-z]+;base64,)[^"'\s]*/i, // non-image data URIs
+        ];
+
+        for (const pattern of forbidden) {
+            if (pattern.test(normalized)) return null;
+        }
+
+        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(applyCustomSvgAccentColor(normalized));
+    }
+
+    // Normalizes icon input: converts raw SVG code → data URL, passes URLs through
+    function processIconInput(raw) {
+        const trimmed = raw.trim();
+        if (!trimmed) return { value: "", error: null };
+
+        if (/<svg[\s>]/i.test(trimmed)) {
+            const dataUrl = sanitizeSvg(trimmed);
+            return { value: dataUrl ?? "", error: null };
+        }
+
+        return { value: trimmed, error: null };
+    }
+
+    // Validates the icon input field on blur
+    function validateIconInput(input) {
+        const raw = input.value.trim();
+        if (!raw) return;
+
+        if (/<svg[\s>]/i.test(raw)) {
+            const { value } = processIconInput(raw);
+            if (!value) {
+                alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
+                input.value = "";
+            } else {
+                input.value = value;
+            }
+        } else {
+            if (!isValidCustomIconUrl(raw)) {
+                alertPrompt(translations[currentLanguage]?.invalidIconUrlMessage || translations["en"]?.invalidIconUrlMessage);
+                input.value = "";
+            }
+        }
+    }
+
+    // Reads an uploaded icon file, returns a data URL or null (after alerting the user) if unusable
+    async function readIconFile(file) {
+        if (!file.type.startsWith("image/")) {
+            const invalidFileTypeMessage = translations[currentLanguage]?.invalidFileTypeMessage || translations["en"]?.invalidFileTypeMessage;
+            alertPrompt(invalidFileTypeMessage);
+            return null;
+        }
+
+        const maxIconBytes = 100 * 1024;
+        if (file.size > maxIconBytes) {
+            const iconFileTooLargeMessage = translations[currentLanguage]?.iconFileTooLargeMessage || translations["en"].iconFileTooLargeMessage;
+            const fileSizeKB = localizeNumbers((file.size / 1024).toFixed(1), currentLanguage);
+            const maxSizeKB = localizeNumbers((maxIconBytes / 1024).toFixed(0), currentLanguage);
+
+            const message = iconFileTooLargeMessage
+                .replace("{size}", fileSizeKB)
+                .replace("{max}", maxSizeKB);
+            alertPrompt(message);
+            return null;
+        }
+
+        try {
+            if (file.type === "image/svg+xml") {
+                const sanitized = sanitizeSvg(await file.text());
+                if (!sanitized) {
+                    alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
+                    return null;
+                }
+                return sanitized;
+            }
+
+            return await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error);
+                reader.readAsDataURL(file);
+            });
+        } catch (error) {
+            console.error("Failed to read selected file:", error);
+            return null;
+        }
+    }
+
+    function setIconType(element, type) {
+        element.setAttribute("data-icon-type", type);
+        return element;
+    }
+
+    // Gets the appropriate logo element for a given URL.
+    // getPresetLogo(hostname) can return a custom element for known sites, or null.
+    function getLogoHtml(name, url, customIcon = "", getPresetLogo = null) {
+        let hostname;
+
+        function createLetterFallback() {
+            let letter = "?";
+
+            if (name.trim()) {
+                letter = name.trim().charAt(0).toUpperCase();
+            } else {
+                try {
+                    hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
+                    letter = hostname.charAt(0).toUpperCase() || "?";
+                } catch {
+                    letter = (url.trim()?.charAt(0) || "?").toUpperCase();
+                }
+            }
+
+            // TODO: MutationObserver to update colors when theme changes
+            const selectedTheme = localStorage.getItem("selectedTheme");
+            const color = selectedTheme === "dark"
+                ? "#bfbfbf"
+                : localStorage.getItem("accentLightTintColor") || "#ffffff";
+            const svg = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                    <text x="50%" y="58%" text-anchor="middle" dominant-baseline="middle"
+                        font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700"
+                        fill="${color}">
+                        ${letter.replace(/&/g, "&amp;").replace(/</g, "&lt;")}
+                    </text>
+                </svg>
+            `;
+
+            const img = document.createElement("img");
+            img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+            img.alt = "";
+            return img;
+        }
+
+        if (customIcon && isValidCustomIconUrl(customIcon)) {
+            const customIconImg = document.createElement("img");
+            customIconImg.src = customIcon.trim();
+            customIconImg.alt = "";
+            customIconImg.referrerPolicy = "no-referrer";
+            setIconType(customIconImg, "custom");
+            customIconImg.addEventListener("error", () => {
+                customIconImg.src = createLetterFallback().src;
+                setIconType(customIconImg, "letter");
+            }, { once: true });
+
+            return customIconImg;
+        }
+
+        try {
+            hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
+        } catch (error) {
+            return createLetterFallback();
+        }
+
+        const presetLogo = getPresetLogo?.(hostname);
+        if (presetLogo) return presetLogo;
+
+        // Fetch favicon from Google
+        const img = document.createElement("img");
+
+        img.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256`;
+        img.alt = "";
+        img.referrerPolicy = "no-referrer";
+        setIconType(img, "default");
+        img.addEventListener("error", () => {
+            img.src = createLetterFallback().src;
+            setIconType(img, "letter");
+        }, { once: true });
+
+        return img;
+    }
+
+    return { normalizeUrl, validateIconInput, readIconFile, setIconType, getLogoHtml };
+})();
+
 document.addEventListener("DOMContentLoaded", function () {
     // Constants
     const MAX_SHORTCUTS = 50;
@@ -16,6 +237,8 @@ document.addEventListener("DOMContentLoaded", function () {
         get inputUrl() { return translations[currentLanguage]?.shortcutInputUrl || translations["en"].shortcutInputUrl; },
         get inputIcon() { return translations[currentLanguage]?.shortcutInputIcon || translations["en"].shortcutInputIcon; },
     };
+
+    const { normalizeUrl, validateIconInput, getLogoHtml, setIconType, readIconFile } = iconUtils;
 
     // DOM Elements
     const dom = {
@@ -193,14 +416,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             </div>
             <div class="shortcutActions">
-                <button type="button" class="uploadCustomIconButton">
+                <button type="button" class="uploadCustomIconButton has-tooltip">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path d="M12 3.5a.89.89 0 0 0-.641.27l-3.57 3.571a.895.895 0 0 0 1.265 1.265l2.051-2.051v8.577a.895.895 0 1 0 1.79 0V6.555l2.051 2.051a.895.895 0 0 0 1.266-1.265l-3.57-3.57A.91.91 0 0 0 12 3.5m-6.263 9.842c-.494 0-.895.4-.895.895v3.579A2.7 2.7 0 0 0 7.526 20.5h8.948a2.7 2.7 0 0 0 2.684-2.684v-3.58a.895.895 0 1 0-1.79 0v3.58c0 .505-.39.895-.894.895H7.526a.88.88 0 0 1-.894-.895v-3.58c0-.493-.401-.894-.895-.894"/>
                     </svg>
                 </button>
                 <input type="file" class="iconFileInput" accept="image/*" hidden>
                 <div class="shortcutDelete">
-                    <button class="${deleteInactive ? 'inactive' : ''}">
+                    <button class="has-tooltip ${deleteInactive ? 'inactive' : ''}">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                             <path d="M7.8 20.4q-.742 0-1.271-.529Q6 19.343 6 18.6v-12h-.3q-.383 0-.641-.257-.259-.258-.259-.638t.259-.643Q5.317 4.8 5.7 4.8h3.9v-.3q0-.383.259-.641.258-.259.641-.259h3q.383 0 .641.259.259.258.259.641v.3h3.9q.383 0 .641.257.259.257.259.638 0 .38-.259.643-.258.262-.641.262H18v11.99q0 .76-.529 1.285-.529.525-1.271.525Zm8.4-13.8H7.8v12h8.4zm-5.705 10.2q.38 0 .643-.259.262-.259.262-.641V9.3q0-.383-.257-.641-.258-.259-.638-.259t-.643.259Q9.6 8.917 9.6 9.3v6.6q0 .383.257.641.258.259.638.259Zm3 0q.38 0 .643-.259.262-.259.262-.641V9.3q0-.383-.257-.641-.258-.259-.638-.259t-.643.259q-.262.258-.262.641v6.6q0 .383.257.641.258.259.638.259ZM7.8 6.6v12z"/>
                         </svg>
@@ -217,75 +440,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
         attachInputListeners(inputs, entry);
 
+        // Tooltip and accessible name
+        [[uploadButton, "uploadIcon"], [deleteBtn, "deleteShortcut"]].forEach(([button, key]) => {
+            const text = getTranslation(key);
+            button.dataset.tooltip = text;
+            button.setAttribute("aria-label", text);
+        });
+
         uploadButton.addEventListener("click", () => fileInput.click());
         fileInput.addEventListener("change", async e => {
             const selectedFile = e.target.files?.[0];
             if (!selectedFile) return;
-            if (!selectedFile.type.startsWith("image/")) {
-                const invalidFileTypeMessage = translations[currentLanguage]?.invalidFileTypeMessage || translations["en"]?.invalidFileTypeMessage;
-                alertPrompt(invalidFileTypeMessage);
-                fileInput.value = "";
-                return;
-            }
 
-            const maxIconBytes = 100 * 1024;
-            if (selectedFile.size > maxIconBytes) {
-                const iconFileTooLargeMessage = translations[currentLanguage]?.iconFileTooLargeMessage || translations["en"].iconFileTooLargeMessage;
-                const fileSizeKB = localizeNumbers((selectedFile.size / 1024).toFixed(1), currentLanguage);
-                const maxSizeKB = localizeNumbers((maxIconBytes / 1024).toFixed(0), currentLanguage);
+            const iconValue = await readIconFile(selectedFile);
+            fileInput.value = "";
+            if (iconValue === null) return;
 
-                const message = iconFileTooLargeMessage
-                    .replace("{size}", fileSizeKB)
-                    .replace("{max}", maxSizeKB);
-                alertPrompt(message);
-                fileInput.value = "";
-                return;
-            }
-
-            function applyIcon(iconValue) {
-                iconInput.value = iconValue;
-                try {
-                    saveShortcut(entry);
-                    renderShortcut(
-                        entry.querySelector(".shortcutName").value,
-                        entry.querySelector(".URL").value,
-                        iconInput.value,
-                        entry._index
-                    );
-                } catch (err) {
-                    console.error("Failed to save icon:", err);
-                    iconInput.value = "";
-                } finally {
-                    fileInput.value = "";
-                }
-            }
-
-            const isSvgFile = selectedFile.type === "image/svg+xml";
-
-            if (isSvgFile) {
-                const textReader = new FileReader();
-                textReader.onload = () => {
-                    const sanitized = sanitizeSvg(textReader.result);
-                    if (!sanitized) {
-                        alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
-                        fileInput.value = "";
-                        return;
-                    }
-                    applyIcon(sanitized);
-                };
-                textReader.onerror = () => {
-                    console.error("Failed to read SVG file:", textReader.error);
-                    fileInput.value = "";
-                };
-                textReader.readAsText(selectedFile);
-            } else {
-                const reader = new FileReader();
-                reader.onload = () => applyIcon(reader.result);
-                reader.onerror = () => {
-                    console.error("Failed to read selected file:", reader.error);
-                    fileInput.value = "";
-                };
-                reader.readAsDataURL(selectedFile);
+            iconInput.value = iconValue;
+            try {
+                saveShortcut(entry);
+                renderShortcut(
+                    entry.querySelector(".shortcutName").value,
+                    entry.querySelector(".URL").value,
+                    iconInput.value,
+                    entry._index
+                );
+            } catch (err) {
+                console.error("Failed to save icon:", err);
+                iconInput.value = "";
             }
         });
 
@@ -311,7 +493,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const logoContainer = document.createElement("div");
         logoContainer.className = "shortcutLogoContainer";
 
-        const logo = getLogoHtml(name, normalizedUrl, icon);
+        const logo = getLogoHtml(name, normalizedUrl, icon, getPresetLogo);
         if (logo) logoContainer.appendChild(logo);
 
         const span = document.createElement("span");
@@ -347,137 +529,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }[match]));
     }
 
-    // Validates custom icon URL
-    function isValidCustomIconUrl(url) {
-        if (typeof url !== "string") return false;
-        const trimmedUrl = url.trim();
-        if (trimmedUrl.includes(" ")) return false;
-        const lowercaseUrl = trimmedUrl.toLowerCase();
-        return (
-            lowercaseUrl.startsWith("data:image/") ||
-            lowercaseUrl.startsWith("https://") ||
-            lowercaseUrl.startsWith("http://")
-        );
-    }
-
-    function applyCustomSvgAccentColor(svg) {
-        const color = localStorage.getItem("selectedTheme") === "dark"
-            ? "#bfbfbf"
-            : localStorage.getItem("accentLightTintColor") || "#e2eeff";
-
-        return svg.replace(/\bcurrentColor\b/g, color);
-    }
-
-    // Sanitizes raw SVG code, returns data URL or null if unsafe
-    function sanitizeSvg(raw) {
-        const trimmed = raw.trim();
-        const normalized = trimmed
-            .replace(/^<\?xml[\s\S]*?\?>\s*/i, "")
-            .replace(/^<!doctype[\s\S]*?>\s*/i, "")
-            .replace(/^<!--[\s\S]*?-->\s*/i, "");
-        if (!normalized.toLowerCase().startsWith("<svg")) return null;
-
-        const forbidden = [
-            /<script[\s>]/i,                // <script> tags
-            /\bon\w+\s*=/i,                 // event handlers: onload=, onclick=, onerror=, …
-            /<iframe[\s>]/i,                // iframes
-            /<foreignObject[\s>]/i,         // foreignObject (can embed HTML)
-            /javascript\s*:/i,              // javascript: URIs
-            /data:(?!image\/[a-z]+;base64,)[^"'\s]*/i, // non-image data URIs
-        ];
-
-        for (const pattern of forbidden) {
-            if (pattern.test(normalized)) return null;
-        }
-
-        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(applyCustomSvgAccentColor(normalized));
-    }
-
-    // Normalizes icon input: converts raw SVG code → data URL, passes URLs through
-    function processIconInput(raw) {
-        const trimmed = raw.trim();
-        if (!trimmed) return { value: "", error: null };
-
-        if (/<svg[\s>]/i.test(trimmed)) {
-            const dataUrl = sanitizeSvg(trimmed);
-            return { value: dataUrl ?? "", error: null };
-        }
-
-        return { value: trimmed, error: null };
-    }
-
-    // Normalizes URLs to ensure they're valid
-    function normalizeUrl(url) {
-        url = url.trim();
-        return encodeURI(
-            url.startsWith("https://") || url.startsWith("http://") ? url : `https://${url}`
-        );
-    }
-
-    // Gets the appropriate logo HTML for a given URL
-    function getLogoHtml(name, url, customIcon = "") {
-        let hostname;
-
-        function setIconType(element, type) {
-            element.setAttribute("data-icon-type", type);
-            return element;
-        }
-
-        function createLetterFallback() {
-            let letter = "?";
-
-            if (name.trim()) {
-                letter = name.trim().charAt(0).toUpperCase();
-            } else {
-                try {
-                    hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
-                    letter = hostname.charAt(0).toUpperCase() || "?";
-                } catch {
-                    letter = (url.trim()?.charAt(0) || "?").toUpperCase();
-                }
-            }
-
-            // TODO: MutationObserver to update colors when theme changes
-            const selectedTheme = localStorage.getItem("selectedTheme");
-            const color = selectedTheme === "dark"
-                ? "#bfbfbf"
-                : localStorage.getItem("accentLightTintColor") || "#ffffff";
-            const svg = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-                    <text x="50%" y="58%" text-anchor="middle" dominant-baseline="middle"
-                        font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700"
-                        fill="${color}">
-                        ${letter}
-                    </text>
-                </svg>
-            `;
-
-            const img = document.createElement("img");
-            img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
-            img.alt = "";
-            return img;
-        }
-
-        if (customIcon && isValidCustomIconUrl(customIcon)) {
-            const customIconImg = document.createElement("img");
-            customIconImg.src = customIcon.trim();
-            customIconImg.alt = "";
-            customIconImg.referrerPolicy = "no-referrer";
-            setIconType(customIconImg, "custom");
-            customIconImg.addEventListener("error", () => {
-                customIconImg.src = createLetterFallback().src;
-                setIconType(customIconImg, "letter");
-            }, { once: true });
-
-            return customIconImg;
-        }
-
-        try {
-            hostname = new URL(normalizeUrl(url)).hostname.replace(/^www\./, "");
-        } catch (error) {
-            return createLetterFallback();
-        }
-
+    // Shortcut-specific logos (GitHub and presets), used by getLogoHtml
+    function getPresetLogo(hostname) {
         // GitHub shortcut
         if (hostname === "github.com") {
             const img = document.createElement("img");
@@ -497,40 +550,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return svgElement;
         }
 
-        // Fetch favicon from Google
-        const img = document.createElement("img");
-
-        img.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=https://${hostname}&sz=256`;
-        img.alt = "";
-        img.referrerPolicy = "no-referrer";
-        setIconType(img, "default");
-        img.addEventListener("error", () => {
-            img.src = createLetterFallback().src;
-            setIconType(img, "letter");
-        }, { once: true });
-
-        return img;
-    }
-
-    // Validates the icon input field on blur
-    function validateIconInput(input) {
-        const raw = input.value.trim();
-        if (!raw) return;
-
-        if (/<svg[\s>]/i.test(raw)) {
-            const { value } = processIconInput(raw);
-            if (!value) {
-                alertPrompt(translations[currentLanguage]?.invalidSvgMessage || translations["en"]?.invalidSvgMessage);
-                input.value = "";
-            } else {
-                input.value = value;
-            }
-        } else {
-            if (!isValidCustomIconUrl(raw)) {
-                alertPrompt(translations[currentLanguage]?.invalidIconUrlMessage || translations["en"]?.invalidIconUrlMessage);
-                input.value = "";
-            }
-        }
+        return null;
     }
 
     // Attaches event listeners to shortcut input fields
@@ -899,9 +919,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Adds a new shortcut
-    function addNewShortcut() {
+    function addNewShortcut(name = PLACEHOLDER.name, url = PLACEHOLDER.url) {
         const currentAmount = parseInt(localStorage.getItem("shortcutAmount")) || shortcutsCache.length;
-        if (currentAmount >= MAX_SHORTCUTS) return;
+        if (currentAmount >= MAX_SHORTCUTS) {
+            alertPrompt(getTranslation("shortcutLimitReached").replace("{max}", localizeNumbers(String(MAX_SHORTCUTS), currentLanguage)));
+            return;
+        }
 
         const newAmount = currentAmount + 1;
         localStorage.setItem("shortcutAmount", newAmount.toString());
@@ -916,11 +939,11 @@ document.addEventListener("DOMContentLoaded", function () {
             dom.newShortcutButton.classList.add("inactive");
         }
 
-        const entry = createShortcutEntry(PLACEHOLDER.name, PLACEHOLDER.url, "", false, currentAmount);
+        const entry = createShortcutEntry(name, url, "", false, currentAmount);
         dom.shortcutSettingsContainer.appendChild(entry);
 
         saveShortcut(entry);
-        renderShortcut(PLACEHOLDER.name, PLACEHOLDER.url, "", currentAmount);
+        renderShortcut(name, url, "", currentAmount);
     }
 
     // Deletes a shortcut
@@ -1057,4 +1080,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("blur", hideShortcutNumbers);
 
     setupKeyboardShortcuts();
+
+    // Used by "Add to shortcuts" in bookmarks.js
+    globalThis.addNewShortcut = addNewShortcut;
 });

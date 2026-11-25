@@ -73,9 +73,18 @@ async function validateAndRestoreData(event) {
     reader.readAsText(file);
 }
 
+// True only for plain objects (rejects null, arrays, and other non-plain types)
+function isPlainObject(value) {
+    if (value === null || typeof value !== "object" || Array.isArray(value)) return false;
+    const proto = Object.getPrototypeOf(value);
+    return proto === Object.prototype || proto === null;
+}
+
 function isValidBackupFile(backup) {
-    // Check if localStorage and indexedDB exist and are objects
-    return !(typeof backup.localStorage !== "object" || typeof backup.indexedDB !== "object");
+    // The backup itself and both sections must be plain objects
+    return isPlainObject(backup) &&
+        isPlainObject(backup.localStorage) &&
+        isPlainObject(backup.indexedDB);
 }
 
 // Backup IndexedDB: Extract data from ImageDB -> backgroundImages
@@ -158,7 +167,10 @@ async function restoreData(backup) {
     // Restore localStorage from backup
     if (backup.localStorage) {
         Object.keys(backup.localStorage).forEach(key => {
-            localStorage.setItem(key, backup.localStorage[key]);
+            const value = backup.localStorage[key];
+            // Skip non-string values (setItem would coerce them to "null", "[object Object]", etc.)
+            if (typeof value !== "string") return;
+            localStorage.setItem(key, value);
         });
     }
 
@@ -192,4 +204,3 @@ resetbtn.addEventListener("click", async () => {
         location.reload();
     }
 });
-
