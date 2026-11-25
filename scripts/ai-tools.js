@@ -313,28 +313,55 @@ function toggleAITools(event) {
             shortcuts.style.display = "none";
         }
 
+        const isM3Expressive = document.documentElement.classList.contains("m3-expressive");
+        const isRtl = document.documentElement.dir === "rtl";
+
+        aiToolName.classList.remove("ai-tools-open");
         aiToolName.style.opacity = "0";
         aiToolName.style.gap = "0";
-        aiToolName.style.transform = "translateX(-100%)";
+        aiToolName.style.transform = isM3Expressive
+            ? `translateX(${isRtl ? "36px" : "-36px"}) scale(0.96)`
+            : "translateX(-100%)";
 
         setTimeout(() => {
             aiToolName.style.display = "none";
             isAIToolsTransitioning = false;
-        }, 500);
+        }, isM3Expressive ? 560 : 500);
     } else {
         // Show AI Tool panel
+        const isM3Expressive = document.documentElement.classList.contains("m3-expressive");
+        const isRtl = document.documentElement.dir === "rtl";
+
         shortcuts.style.display = "none";
+        aiToolName.classList.remove("ai-tools-open");
+
+        if (isM3Expressive) {
+            aiToolName.style.opacity = "0";
+            aiToolName.style.gap = "0";
+            aiToolName.style.transform = `translateX(${isRtl ? "36px" : "-36px"}) scale(0.96)`;
+        }
+
         aiToolName.style.display = "flex";
+        // Force layout commit so initial collapsed state paints before transitioning
+        void aiToolName.offsetWidth;
 
         requestAnimationFrame(() => {
-            aiToolName.style.opacity = "1";
-            aiToolName.style.transform = "translateX(0)";
+            requestAnimationFrame(() => {
+                aiToolName.classList.add("ai-tools-open");
+                aiToolName.style.opacity = "1";
+                aiToolName.style.transform = isM3Expressive ? "translateX(0) scale(1)" : "translateX(0)";
+                if (isM3Expressive) {
+                    aiToolName.style.gap = "12px";
+                }
+            });
         });
 
         setTimeout(() => {
-            aiToolName.style.gap = "12px";
+            if (!isM3Expressive) {
+                aiToolName.style.gap = "12px";
+            }
             isAIToolsTransitioning = false;
-        }, 300);
+        }, isM3Expressive ? 640 : 300);
     }
 }
 
