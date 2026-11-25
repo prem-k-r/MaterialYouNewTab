@@ -219,7 +219,7 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 
 | Language                                                                                     | Code  | Translator(s)                                                                         |
 | -------------------------------------------------------------------------------------------- | :---: | ------------------------------------------------------------------------------------- |
-| <img src='https://flagcdn.com/us.svg' width=20> &nbsp; **English**                           |  en   | [XengShi](https://t.me/XengShi), [Prem](https://github.com/prem-k-r/)          |
+| <img src='https://flagcdn.com/us.svg' width=20> &nbsp; **English**                           |  en   | [XengShi](https://github.com/XengShi/), [Prem](https://github.com/prem-k-r/)          |
 | <img src='https://flagcdn.com/sa.svg' width=20> &nbsp; **Arabic** - العربية                     | ar-SA | [Mazen](https://github.com/Mazen3Alharbi)                                             |
 | <img src='https://flagcdn.com/am.svg' width=20> &nbsp; **Armenian** - Հայերեն              |  hy   | [Robert Levonyan](https://github.com/robertlevonyan)                                  |
 | <img src='https://flagcdn.com/az.svg' width=20> &nbsp; **Azerbaijani** - Azərbaycanca        |  az   | [Hasan Bakhtiar](https://github.com/hasanbakhtiar/)                                   |
@@ -230,7 +230,7 @@ For a step-by-step walkthrough, watch this [installation guide video](https://yo
 | <img src='https://flagcdn.com/fr.svg' width=20> &nbsp; **French** - Français                 |  fr   | [422.io](https://github.com/iamwinner422)                                             |
 | <img src='https://flagcdn.com/de.svg' width=20> &nbsp; **German** - Deutsch                  |  de   | [Prem](https://github.com/prem-k-r/)                                                  |
 | <img src='https://flagcdn.com/gr.svg' width=20> &nbsp; **Greek** - Ελληνικά                  |  el   | [Lefteris T.](https://github.com/trlef19)                                             |
-| <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Hindi** - हिंदी                       |  hi   | [XengShi](https://t.me/XengShi), [Prem](https://github.com/prem-k-r/)          |
+| <img src='https://flagcdn.com/in.svg' width=20> &nbsp; **Hindi** - हिंदी                       |  hi   | [XengShi](https://github.com/XengShi/), [Prem](https://github.com/prem-k-r/)          |
 | <img src='https://flagcdn.com/hu.svg' width=20> &nbsp; **Hungarian** - Magyar                |  hu   | [Zan1456](https://github.com/Zan1456/), [smurf11k](https://github.com/smurf11k/)      |
 | <img src='https://flagcdn.com/id.svg' width=20> &nbsp; **Indonesian** - Bahasa Indonesia     |  idn  | [Ayyas-RF](https://github.com/Ayyas-RF/)                                              |
 | <img src='https://flagcdn.com/it.svg' width=20> &nbsp; **Italian** - Italiano                |  it   | [Claudio Di Maio](https://github.com/ZiClaud/)                                        |
