@@ -7634,11 +7634,13 @@ html.m3-expressive {
 	--m3-elevation-overlay: 0 10px 28px -6px rgba(0, 0, 0, 0.14), 0 2px 8px -2px rgba(0, 0, 0, 0.06);
 }
 
-/* Restrain shadows in inverted Dark Mode so filter: invert(1) never creates white fog halos */
+/* Restrain shadows & prevent pure-black inverted surfaces in Dark Mode (color & wallpaper) */
 html.m3-expressive[data-preferred-theme="dark"]:not(:has(#darkTheme:checked)),
 html.m3-expressive[data-preferred-theme="system"][data-system-dark="true"]:not(:has(#darkTheme:checked)),
 html.m3-expressive:has(.menuBar .themeSegment[data-active="dark"]):not(:has(#darkTheme:checked)),
 html.m3-expressive:has(body[sysTheme="systemDark"] .menuBar .themeSegment[data-active="system"]):not(:has(#darkTheme:checked)) {
+	--m3-surface-lowest: color-mix(in srgb, var(--accentLightTint-blue) 52%, #f0f0f0);
+	--m3-surface-low: color-mix(in srgb, var(--accentLightTint-blue) 76%, #f0f0f0);
 	--m3-elevation-overlay: 0 2px 10px rgba(0, 0, 0, 0.08);
 	--m3-outline-variant: color-mix(in srgb, var(--darkerColor-blue) 22%, transparent);
 }
@@ -7672,8 +7674,8 @@ html.black-theme.m3-expressive {
 	--md-motion-decelerate: var(--m3-spring-fast-spatial);
 }
 
-/* Accessible keyboard focus indicators (WCAG 2.2 AA) */
-.m3-expressive :is(button, a, input, select, [role="button"], [tabindex]):focus-visible {
+/* Accessible keyboard focus indicators (WCAG 2.2 AA; text inputs use crisp border focus) */
+.m3-expressive :is(button, a, input:is([type="checkbox"], [type="radio"]), select, [role="button"], [tabindex]):focus-visible {
 	outline: 2px solid var(--m3-primary);
 	outline-offset: 2px;
 }
@@ -7721,7 +7723,8 @@ html.black-theme.m3-expressive {
 	border-radius: var(--m3-corner-large);
 	background-color: var(--m3-primary);
 	border-color: var(--m3-primary);
-	inset-inline-end: 440px;
+	/* 450px sidebar + 30px inverted corner (.bookmark-sidebar::before) + 10px gap (margin is 0) */
+	inset-inline-end: 490px;
 }
 
 .m3-expressive #bookmarkButton.bookmark-button.rotate svg {
@@ -8470,11 +8473,13 @@ html.black-theme.m3-expressive .rightDiv .topDiv .rAndakar .bgLightTint {
 }
 
 .m3-expressive .aiToolsCont .hangno {
+	width: 50px;
 	height: 50px;
+	flex-shrink: 0;
 	background-color: var(--m3-surface-low);
 	border: 1px solid var(--m3-outline-variant);
 	border-radius: 25px;
-	padding: 0 18px;
+	padding: 0;
 	transition:
 		border-radius 320ms var(--m3-spring-default-spatial),
 		background-color 200ms var(--m3-spring-default-effects),
@@ -8799,11 +8804,11 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 
 /* --- M3 Expressive Bookmarks Side Sheet & Controls --- */
 .m3-expressive .bookmark-sidebar {
-	/* Flush top-start corner so .topOutRoundCorner merges seamlessly; 32px bottom corner */
+	/* Flush top-start corner so .bookmark-sidebar::before merges seamlessly; 32px bottom corner */
 	border-start-start-radius: 0;
 	border-end-start-radius: var(--m3-corner-extra-large-increased);
 	background-color: var(--m3-surface-container);
-	box-shadow: var(--m3-elevation-overlay);
+	box-shadow: none;
 	transition: inset-inline-end 420ms var(--m3-spring-default-spatial);
 }
 
@@ -8813,7 +8818,7 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 }
 
 .m3-expressive #bookmarkSearch {
-	border-radius: var(--m3-corner-full);
+	border-radius: 22px;
 	background-color: var(--m3-surface-lowest);
 	border: 1px solid var(--m3-outline-variant) !important;
 	padding-block: 11px;
@@ -8826,11 +8831,38 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 	box-shadow: none;
 }
 
+/* Three-dots menu button next to bookmark search */
+.m3-expressive .bookmark-icon-button {
+	border-radius: 21px;
+	background-color: var(--m3-surface-lowest);
+	border: 1px solid var(--m3-outline-variant);
+	color: var(--m3-primary);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		color 200ms var(--m3-spring-default-effects),
+		scale 250ms var(--m3-spring-default-spatial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .bookmark-icon-button:hover,
+	.m3-expressive .bookmark-icon-button[aria-expanded="true"] {
+		border-radius: 14px;
+		background-color: var(--m3-primary);
+		border-color: var(--m3-primary);
+		color: var(--m3-on-primary);
+	}
+}
+
+.m3-expressive .bookmark-icon-button:active {
+	border-radius: var(--m3-corner-medium);
+}
+
 /* Connected Button Groups for Sort By & View As (supports sliding ::before pill) */
 .m3-expressive .button-group {
 	border: 1px solid var(--m3-outline-variant);
 	background-color: var(--m3-surface-lowest);
-	border-radius: var(--m3-corner-full);
+	border-radius: 20px;
 	padding: 2px;
 }
 
@@ -8860,23 +8892,160 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 
 .m3-expressive .bookmark-menu {
 	border-radius: var(--m3-corner-large-increased);
+	background-color: var(--m3-surface-low);
+	color: var(--m3-on-surface);
 	border: 1px solid var(--m3-outline-variant);
 	box-shadow: var(--m3-elevation-overlay);
 }
 
+.m3-expressive .bookmark-menu-item:hover {
+	background-color: var(--m3-state-hover);
+}
+
+.m3-expressive .bookmark-menu-divider {
+	background-color: var(--m3-outline-variant);
+}
+
+/* Compact M3 Expressive switches inside #bookmarkMenu (46x26; 42px inner width) */
+.m3-expressive .bookmark-menu .switch:has(input) {
+	min-width: 46px;
+	width: 46px;
+	height: 26px;
+}
+
+.m3-expressive .bookmark-menu .toggle:before {
+	height: 12px;
+	width: 12px;
+	top: 50%;
+	bottom: auto;
+	inset-inline-start: 5px;
+	transform: translate(0, -50%);
+}
+
+.m3-expressive .bookmark-menu .toggle:after {
+	width: 11px;
+	height: 11px;
+	top: 50%;
+	inset-inline-start: 5.5px;
+	transform: translate(20px, -50%) scale(0.4);
+}
+
+.m3-expressive .bookmark-menu input:checked + .toggle:before {
+	height: 18px;
+	width: 18px;
+	top: 50%;
+	bottom: auto;
+	inset-inline-start: 2px;
+	transform: translate(20px, -50%);
+}
+
+.m3-expressive .bookmark-menu input:checked + .toggle:after {
+	opacity: 1;
+	transform: translate(20px, -50%) scale(1);
+}
+
+:dir(rtl) .m3-expressive .bookmark-menu input:checked + .toggle:before,
+html[dir="rtl"].m3-expressive .bookmark-menu input:checked + .toggle:before {
+	transform: translate(-20px, -50%);
+}
+
+:dir(rtl) .m3-expressive .bookmark-menu input:checked + .toggle:after,
+html[dir="rtl"].m3-expressive .bookmark-menu input:checked + .toggle:after {
+	transform: translate(-20px, -50%) scale(1);
+}
+
+.m3-expressive .bookmark-menu .switch:has(input):active .toggle:before {
+	width: 16px;
+	height: 16px;
+	inset-inline-start: 3px;
+}
+
+.m3-expressive .bookmark-menu .switch:has(input):active input:checked + .toggle:before {
+	width: 20px;
+	height: 20px;
+	inset-inline-start: 1px;
+	transform: translate(19px, -50%);
+}
+
+:dir(rtl) .m3-expressive .bookmark-menu .switch:has(input):active input:checked + .toggle:before,
+html[dir="rtl"].m3-expressive .bookmark-menu .switch:has(input):active input:checked + .toggle:before {
+	transform: translate(-19px, -50%);
+}
+
+.m3-expressive .bookmark-stepper button {
+	border-radius: 13px;
+	background-color: var(--m3-secondary-container);
+	color: var(--m3-on-primary-container);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		background-color 180ms var(--m3-spring-default-effects),
+		transform 250ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .bookmark-stepper button:active {
+	border-radius: var(--m3-corner-small);
+	transform: scale(0.9);
+}
+
 .m3-expressive .cs-menu {
+	--cs-bg: var(--m3-surface-low);
+	--cs-border: var(--m3-outline-variant);
+	--cs-text: var(--m3-on-surface);
+	--cs-hover: var(--m3-state-hover);
+	--cs-selected: var(--m3-primary-container);
 	border-radius: var(--m3-corner-large-increased);
 	border: 1px solid var(--m3-outline-variant);
 	box-shadow: var(--m3-elevation-overlay);
 }
 
+.m3-expressive .cs-check,
+.m3-expressive .cs-chevron {
+	fill: var(--m3-primary);
+}
+
+/* Preserve upstream's exact list (46px end space for 3-dots) & grid (icon centering) paddings! */
+.m3-expressive #bookmarkList {
+	--bm-sticky-bg: var(--m3-surface-container);
+	--bm-hover-bg: var(--m3-state-hover);
+	--bm-sticky-hover-bg: color-mix(in srgb, var(--m3-primary) 10%, var(--m3-surface-container));
+	border-end-start-radius: var(--m3-corner-extra-large-increased);
+}
+
+.m3-expressive .bookmark-more-button,
+.m3-expressive .bm-chevron-btn {
+	border-radius: 16px;
+	transition:
+		opacity 160ms var(--m3-spring-fast-effects),
+		background-color 180ms var(--m3-spring-default-effects),
+		border-radius 280ms var(--m3-spring-default-spatial),
+		scale 240ms var(--m3-spring-default-spatial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .bookmark-more-button:hover,
+	.m3-expressive .bookmark-more-button.active,
+	.m3-expressive .bm-chevron-btn:hover {
+		border-radius: 10px;
+		background-color: var(--m3-secondary-container);
+	}
+}
+
+.m3-expressive :is(.bm-icon-btn, .bm-folder-action, .has-tooltip)::after {
+	border-radius: 10px;
+	background: var(--m3-primary-strong);
+	color: var(--m3-on-primary);
+	font-weight: 500;
+}
+
+.m3-expressive .folder-row {
+	border-radius: 16px;
+}
+
 .m3-expressive #bookmarkList li a {
-	border-radius: 14px;
-	padding: 9px 10px;
+	border-radius: 16px;
 	transition:
 		background-color 180ms var(--m3-spring-default-effects),
-		border-radius 350ms var(--m3-spring-fast-spatial),
-		transform 350ms var(--m3-spring-fast-spatial);
+		border-radius 320ms var(--m3-spring-default-spatial);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -8885,16 +9054,39 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 	}
 }
 
-.m3-expressive #bookmarkList:is(.grid-view) li a {
-	border-radius: 18px;
-}
-
-.m3-expressive #bookmarkList:is(.grid-view) li a:has(.favicon)::after {
-	border-radius: 18px;
-}
-
-.m3-expressive #bookmarkList:is(.grid-view) li a:has(.favicon)::before {
+.m3-expressive #bookmarkList:not(.grid-view) li a::after {
 	border-radius: 14px;
+}
+
+.m3-expressive #bookmarkList:not(.grid-view) li a::before {
+	border-radius: 11px;
+}
+
+.m3-expressive #bookmarkList.grid-view li a {
+	border-radius: 18px;
+}
+
+.m3-expressive #bookmarkList.grid-view li a::after {
+	border-radius: 18px;
+}
+
+.m3-expressive #bookmarkList.grid-view li a::before {
+	border-radius: 14px;
+}
+
+.m3-expressive .bm-badge {
+	background-color: var(--m3-secondary-container);
+	color: var(--m3-on-primary-container);
+}
+
+.m3-expressive .bm-folder-tile {
+	border-radius: 14px;
+	background-color: var(--m3-primary-container);
+	color: var(--m3-on-primary-container);
+}
+
+.m3-expressive .bm-folder-tile svg {
+	fill: var(--m3-primary);
 }
 
 /* --- M3 Expressive Settings Drawer (#menuCont) --- */
@@ -8903,7 +9095,7 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 	border-start-start-radius: 0;
 	border-end-start-radius: var(--m3-corner-extra-large-increased);
 	background-color: var(--m3-surface-container);
-	box-shadow: var(--m3-elevation-overlay);
+	box-shadow: none;
 	transition: transform 420ms var(--m3-spring-default-spatial);
 }
 
@@ -9123,18 +9315,19 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 
 /* Language Selector & Settings Action Buttons */
 .m3-expressive .languageSelector {
-	border-radius: var(--m3-corner-full);
+	border-radius: 22px;
 	background-color: var(--m3-surface-low);
 	border: 1px solid var(--m3-outline-variant);
 	box-shadow: none;
 	font-weight: 500;
 	transition:
 		border-color 200ms var(--m3-spring-default-effects),
-		border-radius 350ms var(--m3-spring-fast-spatial);
+		border-radius 320ms var(--m3-spring-default-spatial);
 }
 
 .m3-expressive .languageSelector:hover,
-.m3-expressive .languageSelector:focus {
+.m3-expressive .languageSelector:focus,
+.m3-expressive .languageSelector.cs-open {
 	border: 1.5px solid var(--m3-primary);
 }
 
@@ -9244,6 +9437,14 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 	border-radius: var(--m3-corner-large);
 	background-color: var(--m3-surface-lowest);
 	border: 1px solid var(--m3-outline-variant);
+	color: var(--m3-on-surface);
+	transition: border-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .floating-label-field input:focus,
+.m3-expressive .floating-label-field .cs-trigger:focus,
+.m3-expressive .floating-label-field .cs-trigger.cs-open {
+	border-color: var(--m3-primary);
 }
 
 .m3-expressive .floating-label-field input:focus+label,
@@ -9252,8 +9453,34 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 	background-color: transparent;
 }
 
+/* Folder picker action icon buttons (+ / ✓ / ✕) inside Edit Bookmark Modal */
+.m3-expressive #editBookmarkModal .bm-folder-action {
+	padding: 0;
+	border-radius: var(--m3-corner-large);
+	background-color: var(--m3-secondary-container);
+	color: var(--m3-on-primary-container);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		color 200ms var(--m3-spring-default-effects);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive #editBookmarkModal .bm-folder-action:hover {
+		border-radius: var(--m3-corner-medium);
+		background-color: var(--m3-primary);
+		color: var(--m3-on-primary);
+	}
+}
+
+.m3-expressive #editBookmarkModal .bm-folder-action:active {
+	border-radius: var(--m3-corner-small);
+	transform: scale(0.93);
+}
+
 /* Dialog button emphasis hierarchy: Filled Primary vs Tonal Secondary + press shape morph */
-.m3-expressive #editBookmarkModal button,
+.m3-expressive #editBookmarkModal .modal-buttons button,
 .m3-expressive .ai-settings-modal .ai-save-button,
 .m3-expressive .ai-settings-modal .ai-reset-button,
 .m3-expressive .prompt-modal-button {
@@ -9281,7 +9508,25 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 	color: var(--m3-on-primary-container);
 }
 
-.m3-expressive #editBookmarkModal button:active,
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive #saveBookmarkChanges:hover,
+	.m3-expressive .ai-settings-modal .ai-save-button:hover,
+	.m3-expressive .ai-settings-modal #aiToolEditorSaveBtn:hover,
+	.m3-expressive .prompt-modal-ok:hover {
+		background-color: var(--m3-primary-strong);
+		color: var(--m3-on-primary);
+	}
+
+	.m3-expressive #cancelBookmarkEdit:hover,
+	.m3-expressive .ai-settings-modal .ai-reset-button:hover,
+	.m3-expressive .ai-settings-modal #aiToolEditorCancelBtn:hover,
+	.m3-expressive .prompt-modal-cancel:hover {
+		background-color: var(--m3-primary-container);
+		color: var(--m3-on-primary-container);
+	}
+}
+
+.m3-expressive #editBookmarkModal .modal-buttons button:active,
 .m3-expressive .ai-settings-modal .ai-save-button:active,
 .m3-expressive .ai-settings-modal .ai-reset-button:active,
 .m3-expressive .prompt-modal-button:active {
@@ -9408,6 +9653,35 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 	border-bottom-right-radius: 16px;
 }
 
+.m3-expressive #aiToolsForm .ai-tool-reorder button {
+	border-radius: var(--m3-corner-small);
+	background-color: var(--m3-secondary-container);
+	border: 1px solid var(--m3-outline-variant);
+	color: var(--m3-on-primary-container);
+	opacity: 1;
+	transition:
+		border-radius 280ms var(--m3-spring-default-spatial),
+		background-color 180ms var(--m3-spring-default-effects),
+		transform 250ms var(--m3-spring-default-spatial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive #aiToolsForm .ai-tool-reorder button:not(:disabled):hover {
+		background-color: var(--m3-primary-container);
+		border-color: var(--m3-primary);
+		color: var(--m3-primary-strong);
+	}
+}
+
+.m3-expressive #aiToolsForm .ai-tool-reorder button:not(:disabled):active {
+	border-radius: 6px;
+	transform: scale(0.92);
+}
+
+.m3-expressive .aiToolsTooltip {
+	bottom: calc(var(--gap) + 60px);
+}
+
 /* --- OLED Black Theme Overrides for M3 Expressive --- */
 html.black-theme.m3-expressive .tilesContainer .tiles {
 	background-color: var(--m3-surface-high) !important;
@@ -9471,9 +9745,152 @@ html.black-theme.m3-expressive .bookmark-view-as-button.active {
 	color: var(--m3-on-primary) !important;
 }
 
+html.black-theme.m3-expressive .bookmark-search-container,
+html.black-theme.m3-expressive .menuCont .topDiv::after {
+	background-color: var(--m3-surface-container);
+}
+
 html.black-theme.m3-expressive #bookmarkSearch {
 	background-color: var(--m3-surface-lowest) !important;
 	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .bookmark-icon-button {
+	background-color: var(--m3-surface-lowest);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .bookmark-icon-button:hover,
+html.black-theme.m3-expressive .bookmark-icon-button[aria-expanded="true"] {
+	background-color: var(--m3-primary);
+	border-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+}
+
+html.black-theme.m3-expressive .bookmark-menu {
+	background-color: var(--m3-surface-low);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .bookmark-menu-item:hover {
+	background-color: var(--m3-state-hover);
+}
+
+html.black-theme.m3-expressive .bookmark-stepper button {
+	background-color: var(--m3-surface-high);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .bookmark-more-button:hover,
+html.black-theme.m3-expressive .bookmark-more-button.active,
+html.black-theme.m3-expressive .bm-chevron-btn:hover {
+	background-color: var(--m3-surface-high);
+}
+
+html.black-theme.m3-expressive :is(.bm-icon-btn, .bm-folder-action, .has-tooltip)::after {
+	background: rgba(25, 25, 25, 0.94);
+	color: #f2f2f2;
+}
+
+html.black-theme.m3-expressive .bm-folder-tile,
+html.black-theme.m3-expressive .bm-badge {
+	background-color: var(--m3-surface-high);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .bm-folder-tile svg {
+	fill: var(--m3-primary);
+}
+
+html.black-theme.m3-expressive #bookmarkList {
+	--bm-sticky-bg: var(--m3-surface-container);
+	--bm-hover-bg: var(--m3-state-hover);
+	--bm-sticky-hover-bg: #2e2e2e;
+}
+
+html.black-theme.m3-expressive #bookmarkList.grid-view li a::before,
+html.black-theme.m3-expressive #bookmarkList.grid-view li a::after,
+html.black-theme.m3-expressive #bookmarkList:not(.grid-view) li a::before,
+html.black-theme.m3-expressive #bookmarkList:not(.grid-view) li a::after {
+	background-color: var(--m3-surface-highest);
+}
+
+html.black-theme.m3-expressive .floating-label-field input,
+html.black-theme.m3-expressive .floating-label-field .cs-trigger {
+	background-color: var(--m3-surface-lowest);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .cs-menu {
+	--cs-bg: var(--m3-surface-low);
+	--cs-border: var(--m3-outline-variant);
+	--cs-text: var(--m3-on-surface);
+	--cs-hover: var(--m3-state-hover);
+	--cs-selected: var(--m3-primary-container);
+}
+
+html.black-theme.m3-expressive .cs-check,
+html.black-theme.m3-expressive .cs-chevron {
+	fill: var(--m3-primary);
+}
+
+html.black-theme.m3-expressive #saveBookmarkChanges,
+html.black-theme.m3-expressive .ai-settings-modal .ai-save-button,
+html.black-theme.m3-expressive .ai-settings-modal #aiToolEditorSaveBtn,
+html.black-theme.m3-expressive .prompt-modal-ok {
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+}
+
+html.black-theme.m3-expressive #saveBookmarkChanges:hover,
+html.black-theme.m3-expressive .ai-settings-modal .ai-save-button:hover,
+html.black-theme.m3-expressive .ai-settings-modal #aiToolEditorSaveBtn:hover,
+html.black-theme.m3-expressive .prompt-modal-ok:hover {
+	background-color: var(--m3-primary-strong);
+	color: var(--m3-on-primary);
+}
+
+html.black-theme.m3-expressive #cancelBookmarkEdit,
+html.black-theme.m3-expressive .ai-settings-modal .ai-reset-button,
+html.black-theme.m3-expressive .ai-settings-modal #aiToolEditorCancelBtn,
+html.black-theme.m3-expressive .prompt-modal-cancel {
+	background-color: var(--m3-secondary-container);
+	color: var(--m3-on-primary-container);
+}
+
+html.black-theme.m3-expressive #cancelBookmarkEdit:hover,
+html.black-theme.m3-expressive .ai-settings-modal .ai-reset-button:hover,
+html.black-theme.m3-expressive .ai-settings-modal #aiToolEditorCancelBtn:hover,
+html.black-theme.m3-expressive .prompt-modal-cancel:hover {
+	background-color: var(--m3-surface-highest);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-add-button {
+	color: var(--m3-on-surface);
+	border-color: var(--m3-outline);
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-add-button:hover {
+	background-color: var(--m3-primary-container);
+	border-color: var(--m3-primary);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input:focus {
+	border-color: var(--m3-primary);
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input:focus + label {
+	color: var(--m3-primary-strong);
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-tool-preview.customToolIcon {
+	background-color: var(--m3-surface-high);
+}
+
+html.black-theme.m3-expressive .aiToolsCont .toolsCont a:hover {
+	box-shadow: none;
 }
 
 html.black-theme.m3-expressive .sectionOuter {
@@ -9528,18 +9945,18 @@ html.black-theme.m3-expressive .languageSelector {
 	color: #ececec;
 }
 
-/* --- Wallpaper Mode Scoped Translucency (Only on Surface Panels, Never Layout Wrappers) --- */
-html.m3-expressive body[data-bg="wallpaper"] #todoListCont,
-html.m3-expressive body[data-bg="wallpaper"] #bookmarkButton,
-html.m3-expressive body[data-bg="wallpaper"] #googleAppsCont,
+/* --- Wallpaper Mode Scoped Translucency (Only on Surface Panels, Never Clobbering Interactive States) --- */
+html.m3-expressive body[data-bg="wallpaper"] #todoListCont:not(:hover),
+html.m3-expressive body[data-bg="wallpaper"] #bookmarkButton:not(:hover):not(.rotate),
+html.m3-expressive body[data-bg="wallpaper"] #googleAppsCont:not(:hover),
 html.m3-expressive body[data-bg="wallpaper"] .searchbar,
 html.m3-expressive body[data-bg="wallpaper"] .rightDiv .topDiv .lrectangle,
-html.m3-expressive body[data-bg="wallpaper"] .searchWithCont .hint,
-html.m3-expressive body[data-bg="wallpaper"] .searchEnginesContainer .search-engine,
+html.m3-expressive body[data-bg="wallpaper"] .searchWithCont .hint:not(:hover),
+html.m3-expressive body[data-bg="wallpaper"] .searchEnginesContainer .search-engine:not(:hover):not(:has(input:checked)),
 html.m3-expressive body[data-bg="wallpaper"] .quotesContainer,
 html.m3-expressive body[data-bg="wallpaper"] .shortcutsContainer,
-html.m3-expressive body[data-bg="wallpaper"] .aiToolsCont .hangno,
-html.m3-expressive body[data-bg="wallpaper"] .aiToolsCont .toolsCont a,
+html.m3-expressive body[data-bg="wallpaper"] .aiToolsCont .hangno:not(:hover),
+html.m3-expressive body[data-bg="wallpaper"] .aiToolsCont .toolsCont a:not(:hover),
 html.m3-expressive body[data-bg="wallpaper"] #resultBox,
 html.m3-expressive body[data-bg="wallpaper"] #iconContainer,
 html.m3-expressive body[data-bg="wallpaper"] #todoContainer,
@@ -9550,9 +9967,16 @@ html.m3-expressive body[data-bg="wallpaper"] .dropdown-content {
 	border: 1px solid rgba(255, 255, 255, 0.24);
 }
 
+html.m3-expressive body[data-bg="wallpaper"] .searchbar.active,
+html.m3-expressive body[data-bg="wallpaper"] .searchbar:focus-within {
+	border-color: var(--m3-primary);
+}
+
 html.m3-expressive body[data-bg="wallpaper"] .searchEnginesContainer .search-engine:has(input:checked) {
 	background-color: color-mix(in srgb, var(--m3-primary-container) 92%, transparent);
 	border-color: var(--m3-primary);
+	backdrop-filter: blur(18px) saturate(150%);
+	-webkit-backdrop-filter: blur(18px) saturate(150%);
 }
 
 html.m3-expressive body[data-bg="wallpaper"] #userText,
