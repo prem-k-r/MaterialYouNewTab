@@ -164,19 +164,19 @@ const cs = {
     "perplexity": "Perplexity",
     "deepseek": "DeepSeek",
     "metaAI": "Meta AI",
-    "aiSettingsIntro": "Vyberte, jaké AI nástroje budou zobrazeny",
-    "resetAISettingsBtn": "Resetovat",
+    "aiSettingsIntro": "Výběr zobrazených AI nástrojů",
+    "resetAISettingsBtn": "Obnovit výchozí",
 
     // AI Tools - Custom tools
-    "aiToolAddButton": "Add tool",
-    "aiToolAddTitle": "Add a custom AI tool",
-    "aiToolEditTitle": "Edit custom AI tool",
-    "aiToolAddConfirm": "Add",
-    "aiToolName": "Name",
+    "aiToolAddButton": "Přidat nástroj",
+    "aiToolAddTitle": "Přidání vlastního AI nástroje",
+    "aiToolEditTitle": "Úprava vlastního AI nástroje",
+    "aiToolAddConfirm": "Přidat",
+    "aiToolName": "Název",
     "aiToolUrl": "URL",
-    "aiToolIcon": "Icon URL or SVG (optional)",
-    "aiToolEditLabel": "Edit {name}",    // Do not translate {name}
-    "aiToolDeleteLabel": "Delete {name}",    // Do not translate {name}
+    "aiToolIcon": "Ikona: URL nebo SVG (nepovinné)",
+    "aiToolEditLabel": "Upravit nástroj {name}",    // Do not translate {name}
+    "aiToolDeleteLabel": "Odstranit nástroj {name}",    // Do not translate {name}
 
     // To-do List
     "todoListHover": "Seznam úkolů",    // Keep this short
