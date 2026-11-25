@@ -157,8 +157,18 @@ async function getWeatherData() {
     // Determine which API key to use
     const apiKey = savedApiKey || defaultApiKey;
 
+    // Selected weather provider ("weatherapi" or "openmeteo")
+    const weatherProvider = localStorage.getItem("weatherProviderSelect") === "openmeteo" ? "openmeteo" : "weatherapi";
+
+    // Open-Meteo and Nominatim take plain ISO 639-1 codes (e.g. "zh_TW" -> "zh", "ar_SA" -> "ar")
+    const isoLangOverrides = { idn: "id" };
+    const baseLang = currentLanguage.split("_")[0].toLowerCase();
+    const openMeteoLang = isoLangOverrides[baseLang] || baseLang;
+
     let activeIndex = -1; // Track keyboard navigation index
     let suggestions = []; // Store fetched location suggestions
+    let suggestionTimer = 0; // Debounce timer for typing
+    let suggestionRequestId = 0; // Ignore responses that arrive after a newer query
 
     // Hide/show browser autocomplete based on suggestion state
     function toggleAutocomplete() {
@@ -171,38 +181,44 @@ async function getWeatherData() {
 
     // Fetch location suggestions from weatherAPI or Open-Meteo
     async function fetchLocationSuggestions(query) {
-        if (query.length < 3) {
+        query = query.trim();
+        const requestId = ++suggestionRequestId;
+
+        // WeatherAPI suggestions need the user's own key, so typing doesn't use up the shared default keys
+        if (query.length < 3 || (weatherProvider !== "openmeteo" && !savedApiKey)) {
             suggestions = [];
             locationSuggestions.style.display = "none";
             toggleAutocomplete();
             return;
         }
 
-        const weatherProvider = localStorage.getItem("weatherProviderSelect") || "weatherapi";
-
         try {
+            let results;
             if (weatherProvider === "openmeteo") {
-                const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${query}&count=5&language=en&format=json`);
+                const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5&language=${openMeteoLang}&format=json`);
                 const data = await response.json();
-                suggestions = data.results ? data.results.map(r => ({
+                results = (data.results || []).map(r => ({
                     name: r.name,
                     region: r.admin1 || "",
                     country: r.country || ""
-                })) : [];
+                }));
             } else {
-                // If weatherapi, use the active apiKey
-                const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${query}`);
-                suggestions = await response.json();
+                const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${savedApiKey}&q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                results = Array.isArray(data) ? data : [];
             }
 
+            if (requestId !== suggestionRequestId) return; // A newer query is in flight
+
+            suggestions = results;
             if (suggestions.length > 0) {
                 displaySuggestions(suggestions);
-                toggleAutocomplete();
             } else {
                 locationSuggestions.style.display = "none";
-                toggleAutocomplete();
             }
+            toggleAutocomplete();
         } catch (error) {
+            if (requestId !== suggestionRequestId) return;
             console.warn("Unable to fetch location suggestions:", error);
             suggestions = [];
             toggleAutocomplete();
@@ -276,7 +292,9 @@ async function getWeatherData() {
 
     // Handle user input (fetch locations on change)
     userLocInput.addEventListener("input", () => {
-        fetchLocationSuggestions(userLocInput.value)
+        // Debounce so a request isn't sent on every keystroke
+        clearTimeout(suggestionTimer);
+        suggestionTimer = setTimeout(() => fetchLocationSuggestions(userLocInput.value), 300);
     });
 
     // Display suggestions when input is focused
@@ -351,6 +369,126 @@ async function getWeatherData() {
         }
     }
 
+    // WMO weather code (Open-Meteo) -> [translation key in "weatherConditions", WeatherAPI icon code]
+    const openMeteoConditions = {
+        0: ["clear", 113], 1: ["mainlyClear", 116], 2: ["partlyCloudy", 116], 3: ["overcast", 122],
+        45: ["fog", 248], 48: ["freezingFog", 260],
+        51: ["lightDrizzle", 263], 53: ["drizzle", 266], 55: ["heavyDrizzle", 266],
+        56: ["lightFreezingDrizzle", 281], 57: ["heavyFreezingDrizzle", 284],
+        61: ["lightRain", 296], 63: ["rain", 302], 65: ["heavyRain", 308],
+        66: ["lightFreezingRain", 311], 67: ["heavyFreezingRain", 314],
+        71: ["lightSnow", 326], 73: ["snow", 332], 75: ["heavySnow", 338], 77: ["snowGrains", 350],
+        80: ["lightRainShowers", 353], 81: ["rainShowers", 356], 82: ["violentRainShowers", 359],
+        85: ["lightSnowShowers", 368], 86: ["heavySnowShowers", 371],
+        95: ["thunderstorm", 386], 96: ["thunderstormHail", 389], 99: ["thunderstormHeavyHail", 389]
+    };
+
+    // Fallback place name, the same localized label the tile shows before weather loads
+    const defaultPlaceName = () => translations[currentLanguage]?.location || translations["en"].location;
+
+    // Convert °C to °F, rounded to one decimal to avoid floating-point noise (e.g. 78.25999999999999)
+    const toFahrenheit = (celsius) => Math.round((celsius * 9 / 5 + 32) * 10) / 10;
+
+    // Turn coordinates into a place name via Nominatim, cached on a ~1 km grid.
+    // Nominatim's usage policy forbids heavy use, so a refresh or small GPS drift must not trigger a new request.
+    async function reverseGeocode(lat, lon) {
+        const roundedLat = Number(lat).toFixed(2);
+        const roundedLon = Number(lon).toFixed(2);
+        const cacheKey = `${roundedLat},${roundedLon},${openMeteoLang}`;
+
+        let cache = {};
+        try {
+            cache = JSON.parse(localStorage.getItem("weatherPlaceNameCache")) || {};
+        } catch { /* corrupted cache, start over */ }
+        if (cache[cacheKey]) return cache[cacheKey];
+
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${roundedLat}&lon=${roundedLon}&zoom=10&accept-language=${openMeteoLang}`);
+        if (!response.ok) return null;
+        const data = await response.json();
+        const name = data.name || data.address?.city || data.address?.town || data.address?.village || data.address?.county;
+
+        if (name) {
+            // Keep only the 20 most recent places
+            const entries = Object.entries(cache).filter(([key]) => key !== cacheKey).slice(-19);
+            entries.push([cacheKey, name]);
+            localStorage.setItem("weatherPlaceNameCache", JSON.stringify(Object.fromEntries(entries)));
+        }
+        return name || null;
+    }
+
+    // Fetch weather from Open-Meteo and convert it to the same shape as the WeatherAPI data
+    async function fetchOpenMeteoWeather() {
+        let lat, lon, placeName;
+
+        if (currentUserLocation === "auto:ip") {
+            const ipGeoResponse = await fetch("https://get.geojs.io/v1/ip/geo.json");
+            if (!ipGeoResponse.ok) throw new Error(`GeoJS request failed (${ipGeoResponse.status})`);
+            const ipGeoData = await ipGeoResponse.json();
+            lat = ipGeoData.latitude;
+            lon = ipGeoData.longitude;
+            placeName = ipGeoData.city || ipGeoData.region;
+        } else if (/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(currentUserLocation)) {
+            [lat, lon] = currentUserLocation.replace(/\s/g, "").split(",");
+            try {
+                placeName = await reverseGeocode(lat, lon);
+            } catch (e) {
+                console.warn("Unable to get the place name from Nominatim:", e);
+            }
+        } else {
+            const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(currentUserLocation)}&count=1&language=${openMeteoLang}&format=json`);
+            const geoData = await geoResponse.json();
+            if (!geoResponse.ok || !geoData.results?.length) {
+                throw new Error(geoData.reason || "Location not found via Open-Meteo");
+            }
+            ({ latitude: lat, longitude: lon, name: placeName } = geoData.results[0]);
+        }
+
+        if (lat == null || lon == null) throw new Error("No coordinates for Open-Meteo");
+
+        const forecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`;
+        const forecastResponse = await fetch(forecastUrl);
+        const oData = await forecastResponse.json();
+        if (!forecastResponse.ok || oData.error || !oData.current || !oData.daily) {
+            throw new Error(oData.reason || `Open-Meteo request failed (${forecastResponse.status})`);
+        }
+
+        const [conditionKey, iconCode] = openMeteoConditions[oData.current.weather_code] || ["unknown", 113];
+        const conditionText = translations[currentLanguage]?.weatherConditions?.[conditionKey]
+            || translations["en"].weatherConditions?.[conditionKey]
+            || translations["en"].conditionText;
+        const timeOfDay = oData.current.is_day ? "day" : "night";
+
+        const tempC = oData.current.temperature_2m;
+        const feelsC = oData.current.apparent_temperature;
+        const minC = oData.daily.temperature_2m_min[0];
+        const maxC = oData.daily.temperature_2m_max[0];
+
+        return {
+            location: { name: placeName || defaultPlaceName() },
+            current: {
+                condition: {
+                    text: conditionText,
+                    icon: `https://cdn.weatherapi.com/weather/128x128/${timeOfDay}/${iconCode}.png`
+                },
+                temp_c: tempC,
+                temp_f: toFahrenheit(tempC),
+                humidity: oData.current.relative_humidity_2m,
+                feelslike_c: feelsC,
+                feelslike_f: toFahrenheit(feelsC),
+            },
+            forecast: {
+                forecastday: [{
+                    day: {
+                        mintemp_c: minC,
+                        maxtemp_c: maxC,
+                        mintemp_f: toFahrenheit(minC),
+                        maxtemp_f: toFahrenheit(maxC)
+                    }
+                }]
+            }
+        };
+    }
+
     // Fetch location based on user preference
     await (async function initializeLocation() {
         try {
@@ -381,7 +519,8 @@ async function getWeatherData() {
             const weatherParsedLocation = localStorage.getItem("weatherParsedLocation");
             const weatherParsedLang = localStorage.getItem("weatherParsedLang");
 
-            const retentionTime = savedApiKey ? 435000 : 960000; // 7.25 min for user-entered API key, 16 min otherwise
+            // 7.25 min for a user-entered WeatherAPI key, 16 min otherwise (Open-Meteo refreshes current data every 15 min)
+            const retentionTime = (savedApiKey && weatherProvider !== "openmeteo") ? 435000 : 960000;
 
             if (!parsedData ||
                 ((Date.now() - weatherParsedTime) > retentionTime) ||
@@ -391,80 +530,14 @@ async function getWeatherData() {
                 // Language code for Weather API
                 let lang = currentLanguage === "zh_TW" ? currentLanguage : currentLanguage.split("_")[0];
 
-                const weatherProvider = localStorage.getItem("weatherProviderSelect") || "weatherapi";
                 let filteredData = null;
-
                 let useWeatherApiFallback = false;
 
                 if (weatherProvider === "openmeteo") {
                     try {
-                        let lat, lon, nameValue;
-                        nameValue = currentUserLocation;
-                        if (currentUserLocation === "auto:ip") {
-                            const ipGeoRes = await fetch("https://get.geojs.io/v1/ip/geo.json");
-                            const ipGeoData = await ipGeoRes.json();
-                            lat = ipGeoData.latitude;
-                            lon = ipGeoData.longitude;
-                            nameValue = ipGeoData.city || ipGeoData.region || "Current Location";
-                        } else if (/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(currentUserLocation)) {
-                            [lat, lon] = currentUserLocation.replace(/\s/g, '').split(",");
-                            try {
-                                const revGeoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10&accept-language=${lang}`);
-                                const revGeoData = await revGeoResponse.json();
-                                nameValue = revGeoData.name || revGeoData.address?.city || revGeoData.address?.town || revGeoData.address?.village || revGeoData.address?.county || "Current Location";
-                            } catch (e) {
-                                nameValue = "Current Location";
-                            }
-                        } else {
-                            const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(currentUserLocation)}&count=1&language=${lang}&format=json`);
-                            const geoData = await geoResponse.json();
-                            if (geoData.results && geoData.results.length > 0) {
-                                lat = geoData.results[0].latitude;
-                                lon = geoData.results[0].longitude;
-                                nameValue = geoData.results[0].name;
-                            } else {
-                                throw new Error("Location not found via Open-Meteo");
-                            }
-                        }
-
-                        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
-                        const fApi = await fetch(url);
-                        const oData = await fApi.json();
-
-                        const map = {
-                            0: { text: "Clear", icon: "113" }, 1: { text: "Mainly Clear", icon: "116" }, 2: { text: "Partly Cloudy", icon: "116" }, 3: { text: "Overcast", icon: "122" },
-                            45: { text: "Fog", icon: "248" }, 48: { text: "Depositing rime fog", icon: "248" }, 51: { text: "Drizzle Light", icon: "266" }, 53: { text: "Drizzle Moderate", icon: "266" },
-                            55: { text: "Drizzle Dense", icon: "266" }, 56: { text: "Freezing Drizzle Light", icon: "281" }, 57: { text: "Freezing Drizzle Dense", icon: "281" },
-                            61: { text: "Rain Slight", icon: "296" }, 63: { text: "Rain Moderate", icon: "302" }, 65: { text: "Rain Heavy", icon: "308" }, 66: { text: "Freezing Rain Light", icon: "311" },
-                            67: { text: "Freezing Rain Heavy", icon: "314" }, 71: { text: "Snow Slight", icon: "326" }, 73: { text: "Snow Moderate", icon: "329" }, 75: { text: "Snow Heavy", icon: "332" },
-                            77: { text: "Snow Grains", icon: "338" }, 80: { text: "Rain Showers Slight", icon: "353" }, 81: { text: "Rain Showers Moderate", icon: "356" },
-                            82: { text: "Rain Showers Violent", icon: "359" }, 85: { text: "Snow Showers Slight", icon: "368" }, 86: { text: "Snow Showers Heavy", icon: "371" },
-                            95: { text: "Thunderstorm", icon: "386" }, 96: { text: "Thunderstorm Slight Hail", icon: "389" }, 99: { text: "Thunderstorm Heavy Hail", icon: "392" },
-                        };
-                        const c = map[oData.current.weather_code] || { text: "Unknown", icon: "113" };
-                        const timeOfDay = oData.current.is_day ? "day" : "night";
-                        const mappedCode = { text: c.text, icon: `https://cdn.weatherapi.com/weather/128x128/${timeOfDay}/${c.icon}.png` };
-
-                        const tempC = oData.current.temperature_2m;
-                        const feelsC = oData.current.apparent_temperature;
-                        const minC = oData.daily.temperature_2m_min[0];
-                        const maxC = oData.daily.temperature_2m_max[0];
-
-                        filteredData = {
-                            location: { name: nameValue },
-                            current: {
-                                condition: { text: mappedCode.text, icon: mappedCode.icon },
-                                temp_c: tempC, temp_f: tempC * 9 / 5 + 32,
-                                humidity: oData.current.relative_humidity_2m,
-                                feelslike_c: feelsC, feelslike_f: feelsC * 9 / 5 + 32,
-                            },
-                            forecast: {
-                                forecastday: [{
-                                    day: { mintemp_c: minC, maxtemp_c: maxC, mintemp_f: minC * 9 / 5 + 32, maxtemp_f: maxC * 9 / 5 + 32 }
-                                }]
-                            }
-                        };
+                        filteredData = await fetchOpenMeteoWeather();
                     } catch (e) {
+                        // Documented in the privacy policy: WeatherAPI is used as a backup if Open-Meteo fails
                         console.warn("Open-Meteo failed, falling back to WeatherAPI:", e);
                         useWeatherApiFallback = true;
                     }

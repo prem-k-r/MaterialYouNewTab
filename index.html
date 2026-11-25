@@ -1919,12 +1919,13 @@
 
                                         <div class="ttcont">
                                             <div class="texts">
-                                                <div class="bigText" id="weatherProviderText">Weather Provider</div>
+                                                <label class="bigText" id="weatherProviderText"
+                                                    for="weatherProviderSelect">Weather Provider</label>
                                                 <div class="infoText" id="weatherProviderSubtext">Select the weather
                                                     service</div>
                                             </div>
-                                            <select id="weatherProviderSelect" class="dropdown"
-                                                style="background: var(--surface); color: var(--on-surface); border: 1px solid var(--outline); border-radius: 8px; padding: 4px 8px;">
+                                            <select id="weatherProviderSelect" class="weatherProviderSelect"
+                                                data-custom-select>
                                                 <option value="weatherapi">WeatherAPI</option>
                                                 <option value="openmeteo">Open-Meteo</option>
                                             </select>

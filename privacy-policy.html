@@ -220,13 +220,18 @@
                             <li><code>https://api.open-meteo.com/v1/forecast</code> – alternative provider for
                                 retrieving forecasts.</li>
                             <li><code>https://geocoding-api.open-meteo.com/v1/search</code> – alternative source for
-                                finding location coordinates.</li>
+                                finding location coordinates and location suggestions.</li>
                         </ul>
+                        <p>If Open-Meteo is selected but cannot return weather (for example, it is unreachable or
+                            does not recognize the entered location), the extension falls back to WeatherAPI for
+                            that update, which sends your location to WeatherAPI as described above.</p>
                     </li>
                     <li><a href="https://nominatim.org/" target="_blank">Nominatim (OpenStreetMap)</a>
                         <ul>
-                            <li><code>https://nominatim.openstreetmap.org/reverse</code> – converts GPS coordinates to
-                                readable area names when Open-Meteo and Auto Location are enabled.</li>
+                            <li><code>https://nominatim.openstreetmap.org/reverse</code> – converts coordinates
+                                (rounded to about 1 km) into a readable area name when Open-Meteo is selected and the
+                                location comes from GPS or IP detection. Results are cached in your browser so the
+                                same area is not looked up again.</li>
                         </ul>
                     </li>
                 </ul>

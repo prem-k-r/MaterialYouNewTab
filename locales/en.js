@@ -265,6 +265,43 @@ const en = {
     "userAPI": "Your weatherAPI key",
     "LearnMoreButton": "Learn more",
 
+    // Weather provider
+    "weatherProviderText": "Weather Provider",
+    "weatherProviderSubtext": "Select the weather service",
+
+    // Weather conditions (shown when Open-Meteo is the provider)
+    "weatherConditions": {
+        "clear": "Clear",
+        "mainlyClear": "Mostly clear",
+        "partlyCloudy": "Partly cloudy",
+        "overcast": "Overcast",
+        "fog": "Fog",
+        "freezingFog": "Freezing fog",
+        "lightDrizzle": "Light drizzle",
+        "drizzle": "Drizzle",
+        "heavyDrizzle": "Heavy drizzle",
+        "lightFreezingDrizzle": "Light freezing drizzle",
+        "heavyFreezingDrizzle": "Heavy freezing drizzle",
+        "lightRain": "Light rain",
+        "rain": "Rain",
+        "heavyRain": "Heavy rain",
+        "lightFreezingRain": "Light freezing rain",
+        "heavyFreezingRain": "Heavy freezing rain",
+        "lightSnow": "Light snow",
+        "snow": "Snow",
+        "heavySnow": "Heavy snow",
+        "snowGrains": "Snow grains",
+        "lightRainShowers": "Light rain showers",
+        "rainShowers": "Rain showers",
+        "violentRainShowers": "Heavy rain showers",
+        "lightSnowShowers": "Light snow showers",
+        "heavySnowShowers": "Heavy snow showers",
+        "thunderstorm": "Thunderstorm",
+        "thunderstormHail": "Thunderstorm with hail",
+        "thunderstormHeavyHail": "Thunderstorm with heavy hail",
+        "unknown": "Unknown"
+    },
+
     // Appearance
     "appearanceSectionTitle": "Appearance",
 

@@ -7407,6 +7407,35 @@ body[data-bg="wallpaper"] .dropdown-content {
 	border: 2px solid var(--darkColor-blue);
 }
 
+/* Weather provider dropdown (Settings > Weather) */
+.ttcont .bigText[for] {
+	display: block;
+}
+
+.weatherProviderSelect.cs-trigger {
+	flex: none;
+	min-width: 150px;
+	margin-inline-start: 12px;
+	padding: 8px 12px;
+	padding-inline-start: 16px;
+	font-size: 0.9rem;
+	border: 2px solid transparent;
+	border-radius: 26px;
+	background-color: var(--whitishColor-blue);
+	color: var(--textColorDark-blue);
+	transition: border-color 0.25s var(--md-motion-ease);
+}
+
+.weatherProviderSelect.cs-trigger:hover,
+.weatherProviderSelect.cs-trigger:focus-visible,
+.weatherProviderSelect.cs-trigger.cs-open {
+	border-color: var(--darkColor-blue);
+}
+
+.black-theme .weatherProviderSelect.cs-trigger {
+	background-color: var(--darkColor-dark);
+}
+
 /* The popup lives on <body> (position: fixed) so no modal or panel can clip it */
 .cs-menu {
 	--cs-bg: var(--accentLightTint-blue);
