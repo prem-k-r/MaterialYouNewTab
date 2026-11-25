@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
@@ -29,7 +29,7 @@ function handleDrag(e) {
         ? rect.right - clientX  // distance from right edge
         : clientX - rect.left;  // distance from left edge
     newPos = Math.max(0, Math.min(rect.width, newPos));
-    const percentage = +((newPos / rect.width) * 100).toFixed(2);
+    const percentage = +((newPos / rect.width) * 100).toFixed(1);
     setSliderPosition(percentage);
 }
 

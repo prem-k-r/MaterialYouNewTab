@@ -20,6 +20,12 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
 - Added support for custom shortcut icons via upload, URL, or pasted SVG ([@smurf11k](https://github.com/smurf11k)), ([@prem-k-r](https://github.com/prem-k-r)) ([#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/)), ([#199](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/))
 - Added Daily Quote option to show one quote per day instead of refreshing on every new tab ([@KomeshBathula](https://github.com/KomeshBathula)) ([#141](https://github.com/prem-k-r/MaterialYouNewTab/pull/141))
+- Added keyboard shortcuts (`Alt + 1`–`9`) to quickly open the first nine shortcuts ([@smurf11k](https://github.com/smurf11k)) ([#237](https://github.com/prem-k-r/MaterialYouNewTab/pull/237))
+- Added Google AI Mode search button to the search bar when using Google as the search engine ([@KomeshBathula](https://github.com/KomeshBathula))
+- Updated the search bar to bypass search engines and navigate directly to webpages when the input contains no spaces and begins strictly with `http://`, `https://`, or `www.` ([@prem-k-r](https://github.com/prem-k-r)) ([#255](https://github.com/prem-k-r/MaterialYouNewTab/pull/255))
+- Added option to favorites the bookmarks ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
+- Added option to add custom AI tool shortcuts ([@prem-k-r](https://github.com/prem-k-r)) ([#276](https://github.com/prem-k-r/MaterialYouNewTab/pull/276))
+- Added option to add bookmarks to shortcuts ([@prem-k-r](https://github.com/prem-k-r)) ([#280](https://github.com/prem-k-r/MaterialYouNewTab/pull/280))
 
 ### Improved
 
@@ -30,19 +36,23 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Improved fallback behavior of shortcut icons to first-letter icons when custom icons fail to load or when offline ([@prem-k-r](https://github.com/prem-k-r)) ([#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/))
 - Disabled dragging for weather and location icons ([@anndiy](https://github.com/anndiy)) ([#183](https://github.com/prem-k-r/MaterialYouNewTab/pull/183))
 - Added support for right-click to access AI Tools settings ([@prem-k-r](https://github.com/prem-k-r)) ([#210](https://github.com/prem-k-r/MaterialYouNewTab/pull/210/))
+- Added `Alt` + `B` shortcut (customizable) to open the bookmarks sidebar ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
+- Redesigned the bookmarks UI with an improved layout, new options, and additional sort modes (`Browser order`, `Z-A`, and `New-Old`) ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
+- Added the ability to create new bookmarks and choose a folder when adding or editing them ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
 
 ### Fixed
 
 - Fixed an issue where rapid clicks on the AI Tools icon caused race conditions, leading to inconsistent shortcuts panel visibility. ([@prem-k-r](https://github.com/prem-k-r)) ([#118](https://github.com/prem-k-r/MaterialYouNewTab/pull/118))
 - Fixed shortcut name and URLs hover behavior by replacing ellipsis with clipped text for improved readability ([@prem-k-r](https://github.com/prem-k-r)) ([283f78d](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/changes/283f78d6e4b202a075ca3d670c1b30cbc701c3a4))
 - Fixed wallpaper disappearing on load due to blob URL being revoked too early ([@prem-k-r](https://github.com/prem-k-r)) ([#209](https://github.com/prem-k-r/MaterialYouNewTab/pull/209))
+- Fixed the page briefly flashing blue (FOUC) when opening a new tab by applying saved themes before the page renders ([@itz-rj-here](https://github.com/itz-rj-here)) ([#238](https://github.com/prem-k-r/MaterialYouNewTab/pull/238))
 
 ### Localized
 
 - Translation updated for:
   - Japanese ([@kons10](https://github.com/kons10))
   - Arabic ([@heshamoomar](https://github.com/heshamoomar))
-  - Spanish ([@palacios22c](https://github.com/palacios22c))
+  - Spanish ([@palacios22c](https://github.com/palacios22c)), ([@deeferentleeg](https://github.com/deeferentleeg))
   - Russian ([@C0dwiz](https://github.com/C0dwiz), [@giwih](https://github.com/giwih)), ([@smurf11k](https://github.com/smurf11k))
   - Czech ([@ceskyDJ](https://github.com/ceskyDJ))
   - Hindi ([@prem-k-r](https://github.com/prem-k-r))
@@ -52,15 +62,22 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
   - Ukrainian ([@smurf11k](https://github.com/smurf11k))
   - Hungarian ([@smurf11k](https://github.com/smurf11k))
   - Marathi ([@anndiy](https://github.com/anndiy))
-  - French ([@iamwinner422](https://github.com/iamwinner422))
+  - French ([@iamwinner422](https://github.com/iamwinner422)), ([@deeferentleeg](https://github.com/deeferentleeg))
+  - Simplified Chinese ([@HdShare](https://github.com/HdShare))
+  - Traditional Chinese ([@Eddie40802](https://github.com/Eddie40802))
+  - Korean ([@channel101](https://github.com/channel101))
+  - Persian ([@AMIRHOSSEIN-AHMADI-IRAN](https://github.com/AMIRHOSSEIN-AHMADI-IRAN))
+  - Portuguese (Brazil) ([@arthurhguedes](https://github.com/arthurhguedes))
 - Corrected abbreviations for months and days of the week in Russian ([@Ayyas-RF](https://github.com/Ayyas-RF)) ([#105](https://github.com/prem-k-r/MaterialYouNewTab/pull/105))
 - Added support for Ukrainian ([@lozik4](https://github.com/lozik4)) ([#106](https://github.com/prem-k-r/MaterialYouNewTab/pull/106))
 - Added support for Swedish ([@empohello-imamempogitub](https://github.com/empohello-imamempogitub)) ([#179](https://github.com/prem-k-r/MaterialYouNewTab/pull/179))
+- Added support for Armenian ([@robertlevonyan](https://github.com/robertlevonyan))
 - Localized New Tab title ([@prem-k-r](https://github.com/prem-k-r))
 
 ### Other
 
 - Miscellaneous improvements ([@prem-k-r](https://github.com/prem-k-r))
+- Docs: Fixed broken star history chart link in README ([@FaintFlower](https://github.com/FaintFlower)) ([#248](https://github.com/prem-k-r/MaterialYouNewTab/pull/248))
 
 ## [v3.3](https://github.com/prem-k-r/MaterialYouNewTab/compare/v3.2...v3.3) - Nov 23, 2025
 
@@ -199,7 +216,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Added support for Traditional Chinese ([@shmps40802](https://github.com/shmps40802)) ([#499](https://github.com/XengShi/materialYouNewTab/pull/499))
 - Added support for Urdu ([@prem-k-r](https://github.com/prem-k-r)), ([@asfand-dev](https://github.com/asfand-dev)) ([#548](https://github.com/XengShi/materialYouNewTab/pull/548))
 - Added support for German ([@prem-k-r](https://github.com/prem-k-r)) ([#641](https://github.com/XengShi/materialYouNewTab/pull/641))
-- Added support for Persian ([@AMIRHOSSEIN-AHMADI-IR](https://github.com/AMIRHOSSEIN-AHMADI-IR)) ([#645](https://github.com/XengShi/materialYouNewTab/pull/645))
+- Added support for Persian ([@AMIRHOSSEIN-AHMADI-IRAN](https://github.com/AMIRHOSSEIN-AHMADI-IRAN)) ([#645](https://github.com/XengShi/materialYouNewTab/pull/645))
 - Added support for Arabic ([@Mazen3Alharbi](https://github.com/Mazen3Alharbi)) ([#659](https://github.com/XengShi/materialYouNewTab/pull/659))
 - Added support for Greek ([@trlef19](https://github.com/trlef19)) ([#674](https://github.com/XengShi/materialYouNewTab/pull/674))
 - Added support for Tamil ([@TamilNeram](https://github.com/TamilNeram)) ([#682](https://github.com/XengShi/materialYouNewTab/pull/682))

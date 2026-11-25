@@ -147,10 +147,6 @@ const th = {
     "aiSettingsIntro": "เลือกเครื่องมือ AI ที่ต้องการแสดง",
     "resetAISettingsBtn": "รีเซ็ต",
 
-    // Theme
-    "enableDarkMode": "โหมดมืด (ทดลอง)",
-    "enableDarkModeInfo": "เปิดใช้งานธีมโหมดมืด",
-
     // Wallpaper and settings
     "uploadWallpaperText": "อัปโหลดวอลเปเปอร์",
     "rangColor": "เลือกสี",

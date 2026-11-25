@@ -148,10 +148,6 @@ const pl = {
     "aiSettingsIntro": "Wybierz, które narzędzia AI wyświetlać",
     "resetAISettingsBtn": "Resetuj",
 
-    // Theme
-    "enableDarkMode": "Tryb ciemny (eksperymentalny)",
-    "enableDarkModeInfo": "Włącz motywy ciemne",
-
     // Wallpaper and settings
     "uploadWallpaperText": "Prześlij tapetę",
     "rangColor": "Wybierz kolor",

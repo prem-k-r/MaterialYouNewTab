@@ -1,5 +1,6 @@
 // Spanish
 const es = {
+    "newTabTitle": "Nueva Pestaña",
     // Menu Items
     "github": "GitHub",
     "feedback": "Comentarios",
@@ -30,6 +31,12 @@ const es = {
     "googleAppsMenuText": "Aplicaciones de Google",
     "googleAppsMenuInfo": "Mostrar accesos directos a las apps de Google",
     "googleAppsHover": "Aplicaciones de Google",
+
+    "shortcutDefaultName": "Nuevo Acceso Directo",
+    "shortcutInputName": "Nombre del Acceso Directo",
+    "shortcutInputUrl": "URL del Acceso Directo",
+    "shortcutInputIcon": "Icono personalizado: URL o SVG (opcional)",
+    "recentlyAddedBookmarks": "Añadidos recientemente",
 
     // To-do List
     "todoListText": "Lista de tareas",
@@ -66,6 +73,8 @@ const es = {
     "hideSearchWithInfo": "Cambiar entre motores de búsqueda haciendo click en \"Buscar con\"",
     "motivationalQuotesText": "Citas motivacionales",
     "motivationalQuotesInfo": "Mostrar citas debajo de barra de búsqueda",
+    "newQuoteOnRefreshText": "Cita del día",
+    "newQuoteOnRefreshInfo": "Mostrar una cita por día en lugar de cambiar cada vez",
     "search_suggestions_button": "Sugerencias de búsqueda",
     "search_suggestions_text": "Habilitar sugerencias de búsqueda",
 
@@ -208,4 +217,9 @@ const es = {
     "deleteBookmark": "¿Estás seguro de que deseas eliminar el marcador \"{title}\"?",
     "UnsupportedBrowser": "Los marcadores no son compatibles con tu navegador",
     "resetShortcutsPrompt": "Todos los marcadores guardados serán eliminados y restablecidos ¿Deseas continuar?",
+    "invalidFileTypeMessage": "Por favor, selecciona un archivo de imagen válido.",
+    "invalidSvgMessage": "El SVG insertado no es válido o contiene contenido no seguro y no puede usarse como icono.",
+    "invalidIconUrlMessage": "Por favor, introduce una URL de imagen válida (debe comenzar con https://, http://, o data:image/).",
+    "iconFileTooLargeMessage": "El archivo seleccionado es demasiado grande: {size} KB. Por favor, usa un archivo inferior a {max} KB.",
+    "iconStorageQuotaMessage": "No se pudo guardar el icono porque se ha alcanzado el límite de almacenamiento. Elimina algunos iconos personalizados o usa una imagen más pequeña."
 };

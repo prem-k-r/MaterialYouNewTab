@@ -40,6 +40,7 @@ const translations = {
     pl: pl, // Polish
     uk: uk, // Ukrainian
     sv: sv, // Swedish
+    hy: hy, // Armenian
 };
 
 // Define the width of the menu container for each language
@@ -72,6 +73,7 @@ const menuWidths = {
     th: "497px",
     pl: "497px",
     uk: "497px",
+    hy: "512px",
     // Add more languages and widths as needed
 };
 
@@ -87,11 +89,21 @@ const numberMappings = {
 
 const LRM = "\u200E"; // Left-to-Right Mark
 
+/**
+ * Localizes numbers in a string for the given language.
+ * Replaces the decimal point with a comma for languages that use a decimal comma,
+ * maps Western digits to native numerals when a mapping exists, and wraps the
+ * result in Left-to-Right Marks for RTL languages that need it.
+ *
+ * @param {string} text - Text containing the number(s) to localize.
+ * @param {string} language - Language code (e.g. "en", "hy", "ar_SA").
+ * @returns {string} The localized text.
+ */
 function localizeNumbers(text, language) {
     const map = numberMappings[language]; // Get the numeral map for the current language
 
     // Define languages that use a comma as the decimal separator instead of a dot
-    const specialDecimalLanguages = ["cs", "it", "pt", "ru", "tr", "vi", "uz", "es", "ko", "idn", "fr", "az", "sl", "hu", "de", "fa", "el", "uk", "sv"]; // Add more languages here as needed
+    const specialDecimalLanguages = ["cs", "it", "pt", "ru", "tr", "vi", "uz", "es", "ko", "idn", "fr", "az", "sl", "hu", "de", "fa", "el", "uk", "sv", "hy"]; // Add more languages here as needed
 
     if (specialDecimalLanguages.includes(language)) {
         // Replace decimal point with a comma for specific languages
@@ -114,7 +126,15 @@ function localizeNumbers(text, language) {
 // Right-to-left languages
 const rtlLanguages = ["ur", "fa", "ar_SA"];
 
-// Function to apply the language to the page
+/**
+ * Applies the selected language to the page.
+ * Translates all text, placeholders and hover titles, loads a language-specific
+ * font when needed, sets the text direction for RTL languages, and saves the
+ * choice to localStorage.
+ *
+ * @param {string} lang - Language code to apply (a key of `translations`).
+ * @returns {void}
+ */
 function applyLanguage(lang) {
     document.title = translations[lang]?.newTabTitle || translations["en"].newTabTitle;
 
@@ -148,6 +168,8 @@ function applyLanguage(lang) {
         "hideWeatherBoxInfo",
         "micIconTitle",
         "micIconInfo",
+        "aiModeIconTitle",
+        "aiModeIconInfo",
         "hideSearchWith",
         "hideSearchWithInfo",
         "motivationalQuotesText",
@@ -197,11 +219,9 @@ function applyLanguage(lang) {
         "copilot",
         "claude",
         "grok",
-        "qwen",
         "perplexity",
         "deepseek",
         "metaAI",
-        'firefly',
         "github",
         "googleAppsHover",
         "todoListHover",
@@ -215,10 +235,30 @@ function applyLanguage(lang) {
         "bookmarkSortBy",
         "sortAlphabetical",
         "sortTimeAdded",
+        "sortDefault",
+        "sortAlphabeticalDesc",
+        "sortTimeAddedDesc",
         "bookmarkViewAs",
         "bookmarkViewGrid",
         "bookmarkViewList",
         "editBookmarkHeading",
+        "bookmarkDisplay",
+        "showRecent",
+        "showFavorites",
+        "hideFavorites",
+        "hideRecent",
+        "moveFavoriteUp",
+        "moveFavoriteDown",
+        "addToShortcuts",
+        "editBookmarkLabel",
+        "deleteBookmarkLabel",
+        "deleteBookmarkFolderLabel",
+        "bookmarkFolder",
+        "newFolderName",
+        "newFolderButton",
+        "createFolderButton",
+        "addBookmark",
+        "recentCount",
         "lightThemed",
         "darkThemed",
         "systemThemed",
@@ -275,13 +315,28 @@ function applyLanguage(lang) {
         { id: "cancelBookmarkEdit", key: "cancelText" },
         { id: "aiSettingsHeader", key: "aiToolsSettingsText" },
         { id: "saveAISettingsBtn", key: "saveAPI" },
+        { id: "aiToolAddBtnText", key: "aiToolAddButton" },
+        { id: "aiToolNameLabel", key: "aiToolName" },
+        { id: "aiToolUrlLabel", key: "aiToolUrl" },
+        { id: "aiToolIconLabel", key: "aiToolIcon" },
+        { id: "aiToolEditorCancelBtn", key: "cancelText" },
         { id: "editBookmarkNameLabel", key: "editBookmarkName" },
         { id: "editBookmarkURLLabel", key: "editBookmarkURL" },
         { id: "shortcutsSectionTitle", key: "shortcutsText" },
+        { id: "cancelBookmarkFolderLabel", key: "cancelText" },
+        { id: "bookmarkAddHereLabel", key: "addBookmark" },
+        { id: "bookmarkRecentMenuCountLabel", key: "recentCount" },
+    ];
+
+    // Tooltips of icon-only buttons (also used as their accessible name)
+    const tooltipMap = [
+        { id: "newShortcutButton", key: "addShortcut" },
+        { id: "resetButton", key: "resetShortcuts" },
+        { id: "aiToolIconUploadBtn", key: "uploadIcon" }
     ];
 
     // Function to apply translations
-    function applyTranslations(items, isPlaceholder) {
+    function applyTranslations(items, isPlaceholder, isTooltip) {
         items.forEach(item => {
             // Get the element by its ID
             const element = document.getElementById(item.id || item);
@@ -291,9 +346,12 @@ function applyLanguage(lang) {
                 // Get the translation, fallback to English if not found in the current language
                 const translation = translations[lang]?.[key] || translations["en"]?.[key];
 
-                // Apply the translation to either placeholder or innerText
+                // Apply the translation to either placeholder, tooltip or innerText
                 if (isPlaceholder) {
                     element.placeholder = translation;
+                } else if (isTooltip) {
+                    element.dataset.tooltip = translation;
+                    element.setAttribute("aria-label", translation);
                 } else {
                     element.innerText = translation;
                 }
@@ -303,6 +361,7 @@ function applyLanguage(lang) {
 
     // Apply the translations
     applyTranslations(placeholderMap, true);   // For placeholders
+    applyTranslations(tooltipMap, false, true); // For tooltips
     applyTranslations(elementsMap, false);     // For innerTexts with different IDs and keys
     applyTranslations(translationMap, false);  // For innerTexts with same ID and keys
 
@@ -319,11 +378,11 @@ function applyLanguage(lang) {
 
     // Update placeholders on already-rendered shortcut inputs
     document.querySelectorAll(".shortcutSettingsEntry .shortcutName")
-        .forEach(el => el.placeholder = translations[lang]?.shortcutInputName  || translations["en"].shortcutInputName);
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputName || translations["en"].shortcutInputName);
     document.querySelectorAll(".shortcutSettingsEntry .URL")
-        .forEach(el => el.placeholder = translations[lang]?.shortcutInputUrl   || translations["en"].shortcutInputUrl);
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputUrl || translations["en"].shortcutInputUrl);
     document.querySelectorAll(".shortcutSettingsEntry .iconURL")
-        .forEach(el => el.placeholder = translations[lang]?.shortcutInputIcon  || translations["en"].shortcutInputIcon);
+        .forEach(el => el.placeholder = translations[lang]?.shortcutInputIcon || translations["en"].shortcutInputIcon);
 
     // Update hover text for #menuCloseButton
     const menuCloseButton = document.getElementById("menuCloseButton");
@@ -373,6 +432,9 @@ function applyLanguage(lang) {
     } else if (lang === "fa") {
         loadFont("https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap"); // Using Vazirmatn for Farsi
         root.style.setProperty("--main-font-family", `"Vazirmatn", ${commonFontStack}`);
+    } else if (lang === "hy") {
+        loadFont("https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian&display=swap"); // Poppins has no Armenian glyphs; Latin text keeps Poppins
+        root.style.setProperty("--main-font-family", "'poppins', 'Poppins', 'Noto Sans Armenian', sans-serif");
     } else {
         root.style.setProperty("--main-font-family", commonFontStack);
     }
@@ -426,4 +488,9 @@ function saveLanguageStatus(key, languageStatus) {
 // Function to get the language status from localStorage
 function getLanguageStatus(key) {
     return localStorage.getItem(key);
+}
+
+// Function to get the translation for a given key
+function getTranslation(key, fallback = "") {
+    return translations?.[currentLanguage]?.[key] || translations?.["en"]?.[key] || fallback;
 }

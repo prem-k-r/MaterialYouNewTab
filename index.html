@@ -76,9 +76,10 @@
     <script src="locales/pl.js"></script>
     <script src="locales/uk.js"></script>
     <script src="locales/sv.js"></script>
+    <script src="locales/hy.js"></script>
 </head>
 
-<body>
+<body data-bg="color">
     <!-- --------------------- Loading Screen Starting --------------------- -->
     <img src="./images/Loading.png" id="LoadingScreen" fetchpriority="high" />
 
@@ -108,13 +109,85 @@
         </ul>
     </div>
 
-    <!-- --------------------- Bookmark System --------------------- -->
-    <div style="display: none;">
-        <svg id="folderIconTemplate" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M3 6v10.8c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874c.427.218.987.218 2.105.218h11.606c1.118 0 1.677 0 2.104-.218c.377-.192.683-.498.875-.874C21 18.48 21 17.92 21 16.8V9.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C19.48 6 18.92 6 17.8 6H12M3 6h9M3 6a2 2 0 0 1 2-2h3.675c.489 0 .734 0 .964.055q.308.075.578.24c.202.124.375.297.72.643L12 6" />
-        </svg>
-    </div>
+    <!-- --------------------- Bookmarks --------------------- -->
+    <svg id="bookmarkIconSprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+        style="position: absolute; width: 0; height: 0; overflow: hidden;">
+        <symbol id="bmi-dots" viewBox="0 0 52 52">
+            <circle cx="26" cy="10.4" r="5.2" />
+            <circle cx="26" cy="26" r="5.2" />
+            <circle cx="26" cy="41.6" r="5.2" />
+        </symbol>
+        <symbol id="bmi-add" viewBox="0 0 520 520">
+            <path
+                d="M260 40a23.34 23.34 0 0 0-23.342 23.342v173.316H63.342A23.34 23.34 0 0 0 40 260a23.34 23.34 0 0 0 23.342 23.342h173.316v173.316A23.34 23.34 0 0 0 260 480a23.34 23.34 0 0 0 23.342-23.342V283.342h173.316A23.34 23.34 0 0 0 480 260a23.34 23.34 0 0 0-23.342-23.342H283.342V63.342A23.34 23.34 0 0 0 260 40" />
+        </symbol>
+        <symbol id="bmi-chevrondown" viewBox="0 0 520 520">
+            <path
+                d="M476 178 271 385c-6 6-16 6-22 0L44 178c-6-6-6-16 0-22l22-22c6-6 16-6 22 0l161 163c6 6 16 6 22 0l161-162c6-6 16-6 22 0l22 22c5 6 5 15 0 21z" />
+        </symbol>
+        <symbol id="bmi-star" viewBox="0 0 52 52">
+            <path
+                d="M26.0 5.5 L31.6 19.7 L46.9 20.7 L35.1 30.5 L38.9 45.3 L26.0 37.1 L13.1 45.3 L16.9 30.5 L5.1 20.7 L20.4 19.7Z" />
+        </symbol>
+        <symbol id="bmi-folder" viewBox="0 0 52 52">
+            <path d="M4 14q0-5 5-5h11l5 5h18q5 0 5 5v21q0 5-5 5H9q-5 0-5-5z" />
+        </symbol>
+        <symbol id="bmi-arrowup" viewBox="0 0 52 52">
+            <path d="M26 44V9M10 25l16-16 16 16" fill="none" stroke="currentColor" stroke-width="5"
+                stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="bmi-arrowdown" viewBox="0 0 52 52">
+            <path d="M26 8v35M10 27l16 16 16-16" fill="none" stroke="currentColor" stroke-width="5"
+                stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="bmi-sort" viewBox="0 0 52 52">
+            <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 14h20m10 0h10M6 26h6m10 0h24M6 38h24m10 0h6" />
+                <circle cx="31" cy="14" r="5" />
+                <circle cx="17" cy="26" r="5" />
+                <circle cx="35" cy="38" r="5" />
+            </g>
+        </symbol>
+        <symbol id="bmi-clock" viewBox="0 0 52 52">
+            <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="26" cy="26" r="19" />
+                <path d="M26 14v12l8 5" />
+            </g>
+        </symbol>
+        <symbol id="bmi-hide" viewBox="0 0 52 52">
+            <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 26s9-15 22-15 22 15 22 15-9 15-22 15S4 26 4 26z" />
+                <circle cx="26" cy="26" r="6" />
+                <path d="M8 44L44 8" />
+            </g>
+        </symbol>
+        <symbol id="bmi-shortcut" viewBox="0 0 52 52">
+            <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="6" y="6" width="40" height="40" rx="9" />
+                <path d="M26 17v18M17 26h18" />
+            </g>
+        </symbol>
+        <symbol id="bmi-check" viewBox="0 0 52 52">
+            <path d="M10 27l11 11 21-23" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </symbol>
+        <symbol id="bmi-close" viewBox="0 0 52 52">
+            <path d="M12 12l28 28M40 12L12 40" fill="none" stroke="currentColor" stroke-width="5"
+                stroke-linecap="round" />
+        </symbol>
+        <symbol id="bmi-edit" viewBox="0 0 520 520">
+            <path
+                d="m95 334 89 89c4 4 10 4 14 0l222-223c4-4 4-10 0-14l-88-88a10 10 0 0 0-14 0L95 321c-4 4-4 10 0 13zM361 57a10 10 0 0 0 0 14l88 88c4 4 10 4 14 0l25-25a38 38 0 0 0 0-55l-47-47a40 40 0 0 0-57 0zM21 482c-2 10 7 19 17 17l109-26c4-1 7-3 9-5l2-2c2-2 3-9-1-13l-90-90c-4-4-11-3-13-1l-2 2a20 20 0 0 0-5 9z" />
+        </symbol>
+        <symbol id="bmi-delete" viewBox="0 0 52 52">
+            <path
+                d="M45.5 10H33V6a4 4 0 0 0-4-4h-6a4 4 0 0 0-4 4v4H6.5c-.8 0-1.5.7-1.5 1.5v3c0 .8.7 1.5 1.5 1.5h39c.8 0 1.5-.7 1.5-1.5v-3c0-.8-.7-1.5-1.5-1.5zM23 7c0-.6.4-1 1-1h4c.6 0 1 .4 1 1v3h-6zm18.5 13h-31c-.8 0-1.5.7-1.5 1.5V45a5 5 0 0 0 5 5h24a5 5 0 0 0 5-5V21.5c0-.8-.7-1.5-1.5-1.5zM23 42c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1V28c0-.6.4-1 1-1h2c.6 0 1 .4 1 1zm10 0c0 .6-.4 1-1 1h-2c-.6 0-1-.4-1-1V28c0-.6.4-1 1-1h2c.6 0 1 .4 1 1z" />
+        </symbol>
+        <symbol id="bmi-search" viewBox="0 0 520 520">
+            <path
+                d="M496 453 362 320a189 189 0 1 0-340-92 190 190 0 0 0 298 135l133 133a14 14 0 0 0 21 0l21-21a17 17 0 0 0 1-22ZM210 338a129 129 0 1 1 130-130 129 129 0 0 1-130 130Z" />
+        </symbol>
+    </svg>
 
     <div class="bookmark-button" id="bookmarkButton">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -128,39 +201,199 @@
     <div id="bookmarksContainer">
         <div id="bookmarkSidebar" class="bookmark-sidebar">
 
-            <div class="topOutRoundCorner">
-                <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                    <path class="lessDark" d="M30 0L0 0C16.5685 0 30 13.4315 30 30L30 0Z" />
-                </svg>
-            </div>
-
             <div class="bookmark-sidebar-header">
                 <h2 id="bookmarksHeading">Bookmarks</h2>
             </div>
             <div class="bookmark-search-container">
-                <input type="text" id="bookmarkSearch" placeholder="Search bookmark" />
-                <button id="clearSearchButton">✖</button>
-            </div>
-            <!-- Adding Sorting buttons along with View Container -->
-            <div class="bookmark-controls-container">
-                <div class="bookmark-control-group">
-                    <h3 id="bookmarkSortBy">Sort by</h3>
-                    <div class="button-group">
-                        <button id="sortAlphabetical" class="bookmark-sort-button active">A-Z</button>
-                        <button id="sortTimeAdded" class="bookmark-sort-button">Old-New</button>
-                    </div>
+                <div class="bookmark-search-field">
+                    <input type="text" id="bookmarkSearch" placeholder="Search bookmark" />
+                    <svg class="bm-search-icon" viewBox="0 0 520 520" width="16" height="16" aria-hidden="true">
+                        <use href="#bmi-search"></use>
+                    </svg>
+                    <button id="clearSearchButton" type="button" aria-label="Clear search">
+                        <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-close"></use>
+                        </svg>
+                    </button>
                 </div>
+                <button id="bookmarkMenuButton" class="bookmark-icon-button" type="button" aria-label="More options"
+                    aria-haspopup="true" aria-expanded="false">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-dots"></use>
+                    </svg>
+                </button>
 
-                <div class="bookmark-control-group">
-                    <h3 id="bookmarkViewAs">View as</h3>
-                    <div class="button-group">
-                        <input type="checkbox" id="bookmarkGridCheckbox" hidden />
-                        <button id="bookmarkViewGrid" class="bookmark-view-as-button">Grid</button>
-                        <button id="bookmarkViewList" class="bookmark-view-as-button">List</button>
+                <!-- Options menu (three dots next to the search bar) -->
+                <div id="bookmarkMenu" class="bookmark-menu" role="menu">
+                    <button id="bookmarkMenuDisplay" class="bookmark-menu-item" type="button" role="menuitem"
+                        aria-expanded="false">
+                        <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-sort"></use>
+                        </svg>
+                        <span id="bookmarkDisplay">Display</span>
+                        <svg class="bm-icon bookmark-menu-chevron" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-chevrondown"></use>
+                        </svg>
+                    </button>
+                    <div id="bookmarkDisplaySub" class="bookmark-menu-sub">
+                        <div class="bookmark-menu-sub-inner">
+                            <div class="bookmark-control-group">
+                                <h3 id="bookmarkSortBy">Sort by</h3>
+                                <div class="button-group" id="bookmarkSortGroup" role="group"
+                                    aria-labelledby="bookmarkSortBy">
+                                    <button id="sortDefault" class="bookmark-sort-button active bm-icon-btn"
+                                        data-icon="default" data-sort="default">Browser order</button>
+                                    <button id="sortAlphabetical" class="bookmark-sort-button bm-icon-btn"
+                                        data-icon="az" data-sort="title">A-Z</button>
+                                    <button id="sortAlphabeticalDesc" class="bookmark-sort-button bm-icon-btn"
+                                        data-icon="za" data-sort="title-desc">Z-A</button>
+                                    <button id="sortTimeAdded" class="bookmark-sort-button bm-icon-btn"
+                                        data-icon="old-new" data-sort="date">Old-New</button>
+                                    <button id="sortTimeAddedDesc" class="bookmark-sort-button bm-icon-btn"
+                                        data-icon="new-old" data-sort="date-desc">New-Old</button>
+                                </div>
+                            </div>
+                            <div class="bookmark-control-group">
+                                <h3 id="bookmarkViewAs">View as</h3>
+                                <div class="button-group" id="bookmarkViewGroup" role="group"
+                                    aria-labelledby="bookmarkViewAs">
+                                    <input type="checkbox" id="bookmarkGridCheckbox" hidden />
+                                    <button id="bookmarkViewGrid" class="bookmark-view-as-button bm-icon-btn"
+                                        data-icon="grid">Grid</button>
+                                    <button id="bookmarkViewList" class="bookmark-view-as-button bm-icon-btn"
+                                        data-icon="list">List</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <button id="bookmarkMenuAdd" class="bookmark-menu-item" type="button" role="menuitem">
+                        <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-add"></use>
+                        </svg>
+                        <span id="addBookmark">Add bookmark</span>
+                    </button>
+
+                    <div class="bookmark-menu-divider"></div>
+
+                    <label class="bookmark-menu-item bookmark-menu-toggle">
+                        <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-clock"></use>
+                        </svg>
+                        <span id="showRecent">Show recent</span>
+                        <span class="switch">
+                            <input type="checkbox" id="bookmarkShowRecent" role="menuitemcheckbox" />
+                            <span class="toggle"></span>
+                        </span>
+                    </label>
+                    <div id="bookmarkRecentCountRow" class="bookmark-menu-item bookmark-menu-row">
+                        <span class="bm-icon-spacer"></span>
+                        <span id="recentCount">Recent count</span>
+                        <div class="bookmark-stepper">
+                            <button class="bm-recent-minus" type="button" role="menuitem"
+                                aria-label="Decrease">−</button>
+                            <span class="bm-recent-count">8</span>
+                            <button class="bm-recent-plus" type="button" role="menuitem"
+                                aria-label="Increase">+</button>
+                        </div>
+                    </div>
+                    <label class="bookmark-menu-item bookmark-menu-toggle">
+                        <svg class="bm-icon bm-star" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-star"></use>
+                        </svg>
+                        <span id="showFavorites">Show favorite</span>
+                        <span class="switch">
+                            <input type="checkbox" id="bookmarkShowFavorites" role="menuitemcheckbox" />
+                            <span class="toggle"></span>
+                        </span>
+                    </label>
                 </div>
             </div>
             <ul id="bookmarkList"></ul>
+
+            <!-- Per-bookmark / per-folder options menu -->
+            <div id="bookmarkItemMenu" class="bookmark-menu bookmark-item-menu" role="menu">
+                <button class="bookmark-menu-item" type="button" role="menuitem" data-action="favorite">
+                    <svg class="bm-icon bm-star" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-star"></use>
+                    </svg>
+                    <span id="bookmarkFavoriteActionLabel">Add to favorite</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-move" type="button" role="menuitem" data-action="moveUp">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-arrowup"></use>
+                    </svg>
+                    <span id="moveFavoriteUp">Move up</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-move" type="button" role="menuitem" data-action="moveDown">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-arrowdown"></use>
+                    </svg>
+                    <span id="moveFavoriteDown">Move down</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-bookmark" type="button" role="menuitem"
+                    data-action="shortcut">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-shortcut"></use>
+                    </svg>
+                    <span id="addToShortcuts">Add to shortcuts</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-bookmark" type="button" role="menuitem" data-action="edit">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-edit"></use>
+                    </svg>
+                    <span id="editBookmarkLabel">Edit bookmark</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-bookmark danger" type="button" role="menuitem"
+                    data-action="delete">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-delete"></use>
+                    </svg>
+                    <span id="deleteBookmarkLabel">Delete bookmark</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-folder" type="button" role="menuitem" data-action="addHere">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-add"></use>
+                    </svg>
+                    <span id="bookmarkAddHereLabel">Add bookmark</span>
+                </button>
+                <button class="bookmark-menu-item bm-action-folder danger" type="button" role="menuitem"
+                    data-action="deleteFolder">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-delete"></use>
+                    </svg>
+                    <span id="deleteBookmarkFolderLabel">Delete folder and bookmarks</span>
+                </button>
+            </div>
+
+            <!-- Options menu of the "Favorites" section header -->
+            <div id="bookmarkFavoritesMenu" class="bookmark-menu bookmark-item-menu" role="menu">
+                <button class="bookmark-menu-item" type="button" role="menuitem" data-action="hideFavorites">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-hide"></use>
+                    </svg>
+                    <span id="hideFavorites">Hide favorites</span>
+                </button>
+            </div>
+
+            <!-- Options menu of the "Recent" section header -->
+            <div id="bookmarkRecentMenu" class="bookmark-menu bookmark-item-menu" role="menu">
+                <button class="bookmark-menu-item" type="button" role="menuitem" data-action="hideRecent">
+                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                        <use href="#bmi-hide"></use>
+                    </svg>
+                    <span id="hideRecent">Hide recent</span>
+                </button>
+                <div class="bookmark-menu-item bookmark-menu-row">
+                    <span class="bm-icon-spacer"></span>
+                    <span id="bookmarkRecentMenuCountLabel">Recent count</span>
+                    <div class="bookmark-stepper">
+                        <button class="bm-recent-minus" type="button" role="menuitem" aria-label="Decrease">−</button>
+                        <span class="bm-recent-count">8</span>
+                        <button class="bm-recent-plus" type="button" role="menuitem" aria-label="Increase">+</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -172,13 +405,57 @@
             <img id="editBookmarkFavicon" src="" alt="Favicon">
 
             <div class="floating-label-field">
-                <input type="text" id="editBookmarkName" autocomplete="off" />
+                <input type="text" id="editBookmarkName" autocomplete="off" placeholder=" " />
                 <label for="editBookmarkName" id="editBookmarkNameLabel">Bookmark Name</label>
             </div>
 
             <div class="floating-label-field">
-                <input type="url" id="editBookmarkURL" autocomplete="off" />
+                <input type="url" id="editBookmarkURL" autocomplete="off" placeholder=" " />
                 <label for="editBookmarkURL" id="editBookmarkURLLabel">Bookmark URL</label>
+            </div>
+
+            <div class="folder-block">
+                <div class="folder-field-row">
+                    <div class="floating-label-field">
+                        <select id="editBookmarkFolder" autocomplete="off" data-custom-select></select>
+                        <label for="editBookmarkFolder" id="bookmarkFolder">Folder</label>
+                    </div>
+                    <button id="newBookmarkFolderButton" class="bm-folder-action" type="button" aria-expanded="false"
+                        aria-controls="newBookmarkFolderRow">
+                        <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                            <use href="#bmi-add"></use>
+                        </svg>
+                        <span id="newFolderButton">New folder</span>
+                    </button>
+                </div>
+
+                <!-- Collapsed until "+" is clicked -->
+                <div id="newBookmarkFolderRow" class="new-folder">
+                    <div class="new-folder-inner">
+                        <div class="new-folder-content">
+                            <div class="new-folder-controls">
+                                <div class="floating-label-field">
+                                    <input type="text" id="newBookmarkFolderName" autocomplete="off" placeholder=" " />
+                                    <label for="newBookmarkFolderName" id="newFolderName">New folder
+                                        name</label>
+                                </div>
+                                <button id="createBookmarkFolder" class="bm-folder-action" type="button">
+                                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                                        <use href="#bmi-check"></use>
+                                    </svg>
+                                    <span id="createFolderButton">Create folder</span>
+                                </button>
+                                <button id="cancelBookmarkFolder" class="bm-folder-action" type="button">
+                                    <svg class="bm-icon" viewBox="0 0 52 52" aria-hidden="true">
+                                        <use href="#bmi-close"></use>
+                                    </svg>
+                                    <span id="cancelBookmarkFolderLabel">Cancel</span>
+                                </button>
+                            </div>
+                            <div id="newBookmarkFolderHint" class="new-folder-hint"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="modal-buttons">
@@ -188,7 +465,7 @@
         </div>
     </div>
 
-    <!----------------------- End of Bookmark System ----------------------->
+    <!----------------------- End of Bookmarks ----------------------->
 
     <!----------------------- Google App Menu Setup Starting ----------------------->
     <!-- 9 Dot Icon -->
@@ -779,12 +1056,19 @@
 
                     <div class="searchControls">
                         <!-- Mic Icon -->
-                        <div class="micIcon" id="micIcon">
+                        <button class="micIcon" id="micIcon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -1 24 24" height="100%" width="100%">
                                 <path id="micIconPath" class="accentColor"
                                     d="M12 14q-1.25 0-2.125-.875T9 11V5q0-1.25.875-2.125T12 2t2.125.875T15 5v6q0 1.25-.875 2.125T12 14m-1 7v-3.075q-2.6-.35-4.3-2.325T5 11h2q0 2.075 1.463 3.538T12 16t3.538-1.463T17 11h2q0 2.625-1.7 4.6T13 17.925V21z" />
                             </svg>
-                        </div>
+                        </button>
+                        <!-- AI Mode Icon -->
+                        <button class="aiModeIcon" id="aiModeIcon" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="100%" width="100%">
+                                <path class="accentColor"
+                                    d="M17.518 1a.254.254 0 0 0-.245.201 5.75 5.75 0 0 1-1.56 2.86 5.75 5.75 0 0 1-2.902 1.57.24.24 0 0 0-.196.236.246.246 0 0 0 .196.237 5.75 5.75 0 0 1 2.902 1.568 5.75 5.75 0 0 1 1.568 2.902.246.246 0 0 0 .237.196.246.246 0 0 0 .236-.196 5.75 5.75 0 0 1 1.57-2.902 5.75 5.75 0 0 1 2.86-1.56.254.254 0 0 0 .2-.245.254.254 0 0 0-.2-.246 5.75 5.75 0 0 1-2.862-1.56 5.75 5.75 0 0 1-1.558-2.86.25.25 0 0 0-.246-.201M9.5 2.8c-3.754 0-6.7 2.946-6.7 6.7s2.946 6.7 6.7 6.7c.556 0 2.22-.081 3.771-1.249l6.188 6.19a.2.2 0 0 0 .281 0l1.4-1.4a.2.2 0 0 0 0-.282l-6.185-6.184a6.2 6.2 0 0 0 .883-1.627 6.1 6.1 0 0 0 .322-1.634.2.2 0 0 0-.2-.213h-2a.2.2 0 0 0-.198.18 4.06 4.06 0 0 1-1.213 2.566c-.847.837-1.846 1.254-3.049 1.254-2.366 0-4.3-1.836-4.3-4.301 0-2.366 1.835-4.3 4.3-4.3.437 0 .848.075 1.244.19a.2.2 0 0 0 .197-.05L12.5 3.78a.2.2 0 0 0-.053-.32A6.6 6.6 0 0 0 9.5 2.8" />
+                            </svg>
+                        </button>
                         <!-- Search Button -->
                         <button id="enterBtn">Search</button>
                     </div>
@@ -991,14 +1275,13 @@
     <!-- -----------AI-Tools------------------ -->
     <div class="aiToolsCont" id="aiToolsCont">
 
-        <div class="hangno" id="aiToolsIcon">
+        <div class="hangno" id="aiToolsIcon" aria-labelledby="ai_tools">
             <div class="icon">
                 <svg height="100%" viewBox="0 0 280 280" width="100%" xmlns="http://www.w3.org/2000/svg">
                     <path id="aiIcon" class="accentColor"
                         d="M152 178c0-14.359 11.641-26 26-26h76c14.359 0 26.275 11.76 23.393 25.827-10.238 49.97-49.596 89.328-99.566 99.566C163.76 280.275 152 268.359 152 254v-76Zm-24 5.26c0 23.163-28.006 34.764-44.385 18.385L8.782 126.811c-5.35-5.35-8.252-12.794-6.994-20.255 8.778-52.04 48.96-93.412 100.382-103.949C116.237-.275 128 11.641 128 26v157.26ZM0 214.74c0-23.163 28.006-34.764 44.385-18.385l83.609 83.609c.004.004.006.01.006.015a.02.02 0 0 1-.021.021H26c-14.36 0-26-11.641-26-26v-39.26ZM152 26c0-14.36 11.641-26 26-26h76c14.359 0 26 11.64 26 26v76c0 14.359-11.641 26-26 26h-76c-14.359 0-26-11.641-26-26V26Z" />
                 </svg>
             </div>
-            <div class="label" id="ai_tools">AI Tools</div>
         </div>
         <!-- --------tools-------- -->
 
@@ -1026,6 +1309,17 @@
                 <div class="tLabel" id="gemini">Gemini</div>
             </a>
             <!-- ---------------- -->
+            <a href="https://claude.ai/new/">
+                <div class="tIcon">
+                    <svg height="100%" width="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <rect class="accentColor aiDarkIcons" height="100%" rx="50%" width="100%" />
+                        <path class="bgLightTint notTargeted" style="transform: scale(0.8); transform-origin: center;"
+                            d="m5.92 15.3 3.94-2.2.06-.2-.06-.1h-.2L9 12.76l-2.24-.06-1.96-.1-1.9-.1-.48-.1-.42-.6.04-.3.4-.26.58.04 1.26.1 1.9.12 1.38.08 2.04.24h.32l.04-.14-.1-.08-.08-.08L7.8 10.2 5.68 8.8l-1.12-.82-.6-.4-.3-.4-.12-.84.54-.6.74.06.18.04.74.58 1.6 1.22L9.4 9.2l.3.24.12-.08.02-.06-.14-.22L8.6 7 7.4 4.92l-.54-.86-.14-.52c-.06-.2-.08-.4-.08-.6l.6-.84.36-.1.84.12.32.28.52 1.2.82 1.86 1.3 2.52.4.76.2.68.06.2h.14v-.1l.1-1.44.2-1.74.2-2.24.06-.64.32-.76.6-.4.52.22.4.58-.06.36L14.32 5l-.52 2.42-.3 1.64h.18l.2-.22.82-1.08 1.38-1.72.6-.7.72-.74.46-.36h.86l.62.94-.28.98-.88 1.12-.74.94-1.06 1.42-.64 1.14.06.08h.14l2.4-.52 1.28-.22 1.52-.26.7.32.08.32-.28.68-1.64.4-1.92.4-2.86.66-.04.02.04.06 1.28.12.56.04h1.36l2.52.2.66.4.38.54-.06.4-1.02.52-1.36-.32-3.2-.76-1.08-.26h-.16v.08l.92.9 1.66 1.5 2.12 1.94.1.48-.26.4-.28-.04-1.84-1.4-.72-.6-1.6-1.36h-.1v.14l.36.54 1.96 2.94.1.9-.14.28-.52.2-.54-.12-1.16-1.6-1.2-1.8-.94-1.64-.1.08-.58 6.04-.26.3-.6.24-.5-.4-.28-.6.28-1.24.32-1.6.26-1.28.24-1.58.14-.52v-.04h-.14l-1.2 1.66-1.8 2.46-1.44 1.52-.34.14-.6-.3.06-.56.32-.46 2-2.56 1.2-1.58.8-.92-.02-.1h-.06l-5.28 3.44-.94.12-.4-.4.04-.6.2-.2 1.6-1.1z" />
+                    </svg>
+                </div>
+                <div class="tLabel" id="claude">Claude</div>
+            </a>
+            <!-- ---------------- -->
             <a href="https://copilot.microsoft.com/">
                 <div class="tIcon">
                     <svg height="100%" width="100%" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
@@ -1039,15 +1333,26 @@
                 <div class="tLabel" id="copilot">Copilot</div>
             </a>
             <!-- ---------------- -->
-            <a href="https://claude.ai/new/">
+            <a href="https://chat.deepseek.com/">
                 <div class="tIcon">
                     <svg height="100%" width="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <rect class="accentColor aiDarkIcons" height="100%" rx="50%" width="100%" />
-                        <path class="bgLightTint notTargeted" style="transform: scale(0.8); transform-origin: center;"
-                            d="m5.92 15.3 3.94-2.2.06-.2-.06-.1h-.2L9 12.76l-2.24-.06-1.96-.1-1.9-.1-.48-.1-.42-.6.04-.3.4-.26.58.04 1.26.1 1.9.12 1.38.08 2.04.24h.32l.04-.14-.1-.08-.08-.08L7.8 10.2 5.68 8.8l-1.12-.82-.6-.4-.3-.4-.12-.84.54-.6.74.06.18.04.74.58 1.6 1.22L9.4 9.2l.3.24.12-.08.02-.06-.14-.22L8.6 7 7.4 4.92l-.54-.86-.14-.52c-.06-.2-.08-.4-.08-.6l.6-.84.36-.1.84.12.32.28.52 1.2.82 1.86 1.3 2.52.4.76.2.68.06.2h.14v-.1l.1-1.44.2-1.74.2-2.24.06-.64.32-.76.6-.4.52.22.4.58-.06.36L14.32 5l-.52 2.42-.3 1.64h.18l.2-.22.82-1.08 1.38-1.72.6-.7.72-.74.46-.36h.86l.62.94-.28.98-.88 1.12-.74.94-1.06 1.42-.64 1.14.06.08h.14l2.4-.52 1.28-.22 1.52-.26.7.32.08.32-.28.68-1.64.4-1.92.4-2.86.66-.04.02.04.06 1.28.12.56.04h1.36l2.52.2.66.4.38.54-.06.4-1.02.52-1.36-.32-3.2-.76-1.08-.26h-.16v.08l.92.9 1.66 1.5 2.12 1.94.1.48-.26.4-.28-.04-1.84-1.4-.72-.6-1.6-1.36h-.1v.14l.36.54 1.96 2.94.1.9-.14.28-.52.2-.54-.12-1.16-1.6-1.2-1.8-.94-1.64-.1.08-.58 6.04-.26.3-.6.24-.5-.4-.28-.6.28-1.24.32-1.6.26-1.28.24-1.58.14-.52v-.04h-.14l-1.2 1.66-1.8 2.46-1.44 1.52-.34.14-.6-.3.06-.56.32-.46 2-2.56 1.2-1.58.8-.92-.02-.1h-.06l-5.28 3.44-.94.12-.4-.4.04-.6.2-.2 1.6-1.1z" />
+                        <rect class="accentColor aiDarkIcons" width="100%" height="100%" rx="50%" />
+                        <path class="bgLightTint notTargeted" style="transform: scale(0.7); transform-origin: center;"
+                            d="M23.748 4.482c-.254-.124-.364.113-.512.234-.051.039-.094.09-.137.136-.372.397-.806.657-1.373.626-.829-.046-1.537.214-2.163.848-.133-.782-.575-1.248-1.247-1.548-.352-.156-.708-.311-.955-.65-.172-.241-.219-.51-.305-.774-.055-.16-.11-.323-.293-.35-.2-.031-.278.136-.356.276-.313.572-.434 1.202-.422 1.84.027 1.436.633 2.58 1.838 3.393.137.093.172.187.129.323-.082.28-.18.552-.266.833-.055.179-.137.217-.329.14a5.526 5.526 0 01-1.736-1.18c-.857-.828-1.631-1.742-2.597-2.458a11.365 11.365 0 00-.689-.471c-.985-.957.13-1.743.388-1.836.27-.098.093-.432-.779-.428-.872.004-1.67.295-2.687.684a3.055 3.055 0 01-.465.137 9.597 9.597 0 00-2.883-.102c-1.885.21-3.39 1.102-4.497 2.623C.082 8.606-.231 10.684.152 12.85c.403 2.284 1.569 4.175 3.36 5.653 1.858 1.533 3.997 2.284 6.438 2.14 1.482-.085 3.133-.284 4.994-1.86.47.234.962.327 1.78.397.63.059 1.236-.03 1.705-.128.735-.156.684-.837.419-.961-2.155-1.004-1.682-.595-2.113-.926 1.096-1.296 2.746-2.642 3.392-7.003.05-.347.007-.565 0-.845-.004-.17.035-.237.23-.256a4.173 4.173 0 001.545-.475c1.396-.763 1.96-2.015 2.093-3.517.02-.23-.004-.467-.247-.588zM11.581 18c-2.089-1.642-3.102-2.183-3.52-2.16-.392.024-.321.471-.235.763.09.288.207.486.371.739.114.167.192.416-.113.603-.673.416-1.842-.14-1.897-.167-1.361-.802-2.5-1.86-3.301-3.307-.774-1.393-1.224-2.887-1.298-4.482-.02-.386.093-.522.477-.592a4.696 4.696 0 011.529-.039c2.132.312 3.946 1.265 5.468 2.774.868.86 1.525 1.887 2.202 2.891.72 1.066 1.494 2.082 2.48 2.914.348.292.625.514.891.677-.802.09-2.14.11-3.054-.614zm1-6.44a.306.306 0 01.415-.287.302.302 0 01.2.288.306.306 0 01-.31.307.303.303 0 01-.304-.308zm3.11 1.596c-.2.081-.399.151-.59.16a1.245 1.245 0 01-.798-.254c-.274-.23-.47-.358-.552-.758a1.73 1.73 0 01.016-.588c.07-.327-.008-.537-.239-.727-.187-.156-.426-.199-.688-.199a.559.559 0 01-.254-.078c-.11-.054-.2-.19-.114-.358.028-.054.16-.186.192-.21.356-.202.767-.136 1.146.016.352.144.618.408 1.001.782.391.451.462.576.685.914.176.265.336.537.445.848.067.195-.019.354-.25.452z" />
                     </svg>
                 </div>
-                <div class="tLabel" id="claude">Claude</div>
+                <div class="tLabel" id="deepseek">DeepSeek</div>
+            </a>
+            <!-- ---------------- -->
+            <a href="https://www.perplexity.ai/">
+                <div class="tIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" viewBox="0 0 24 24">
+                        <circle class="accentColor aiDarkIcons" cx="50%" cy="50%" r="50%" />
+                        <path class="bgLightTint notTargeted" style="transform: scale(0.8); transform-origin: center;"
+                            d="m5.735 2l5.695 5.247V2.012h1.109v5.259L18.259 2v5.983h2.349v8.629h-2.342v5.327l-5.727-5.032v5.09h-1.11V16.99L5.742 22v-5.388H3.393v-8.63h2.342zm4.86 7.078H4.5v6.439h1.24v-2.031zM6.85 13.972v5.585l4.58-4.034V9.81zm5.72 1.497l4.588 4.03v-2.887h-.006v-2.646l-4.582-4.16zm5.696.048H19.5v-6.44h-6.047l4.814 4.363zm-1.115-7.534V4.519l-3.76 3.464zm-6.548 0l-3.76-3.464v3.464z" />
+                    </svg>
+                </div>
+                <div class="tLabel" id="perplexity">Perplexity</div>
             </a>
             <!-- ---------------- -->
             <a href="https://grok.com/">
@@ -1071,52 +1376,9 @@
                 </div>
                 <div class="tLabel" id="metaAI">Meta AI</div>
             </a>
-            <!-- ---------------- -->
-            <a href="https://chat.deepseek.com/">
-                <div class="tIcon">
-                    <svg height="100%" width="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <rect class="accentColor aiDarkIcons" width="100%" height="100%" rx="50%" />
-                        <path class="bgLightTint notTargeted" style="transform: scale(0.7); transform-origin: center;"
-                            d="M23.748 4.482c-.254-.124-.364.113-.512.234-.051.039-.094.09-.137.136-.372.397-.806.657-1.373.626-.829-.046-1.537.214-2.163.848-.133-.782-.575-1.248-1.247-1.548-.352-.156-.708-.311-.955-.65-.172-.241-.219-.51-.305-.774-.055-.16-.11-.323-.293-.35-.2-.031-.278.136-.356.276-.313.572-.434 1.202-.422 1.84.027 1.436.633 2.58 1.838 3.393.137.093.172.187.129.323-.082.28-.18.552-.266.833-.055.179-.137.217-.329.14a5.526 5.526 0 01-1.736-1.18c-.857-.828-1.631-1.742-2.597-2.458a11.365 11.365 0 00-.689-.471c-.985-.957.13-1.743.388-1.836.27-.098.093-.432-.779-.428-.872.004-1.67.295-2.687.684a3.055 3.055 0 01-.465.137 9.597 9.597 0 00-2.883-.102c-1.885.21-3.39 1.102-4.497 2.623C.082 8.606-.231 10.684.152 12.85c.403 2.284 1.569 4.175 3.36 5.653 1.858 1.533 3.997 2.284 6.438 2.14 1.482-.085 3.133-.284 4.994-1.86.47.234.962.327 1.78.397.63.059 1.236-.03 1.705-.128.735-.156.684-.837.419-.961-2.155-1.004-1.682-.595-2.113-.926 1.096-1.296 2.746-2.642 3.392-7.003.05-.347.007-.565 0-.845-.004-.17.035-.237.23-.256a4.173 4.173 0 001.545-.475c1.396-.763 1.96-2.015 2.093-3.517.02-.23-.004-.467-.247-.588zM11.581 18c-2.089-1.642-3.102-2.183-3.52-2.16-.392.024-.321.471-.235.763.09.288.207.486.371.739.114.167.192.416-.113.603-.673.416-1.842-.14-1.897-.167-1.361-.802-2.5-1.86-3.301-3.307-.774-1.393-1.224-2.887-1.298-4.482-.02-.386.093-.522.477-.592a4.696 4.696 0 011.529-.039c2.132.312 3.946 1.265 5.468 2.774.868.86 1.525 1.887 2.202 2.891.72 1.066 1.494 2.082 2.48 2.914.348.292.625.514.891.677-.802.09-2.14.11-3.054-.614zm1-6.44a.306.306 0 01.415-.287.302.302 0 01.2.288.306.306 0 01-.31.307.303.303 0 01-.304-.308zm3.11 1.596c-.2.081-.399.151-.59.16a1.245 1.245 0 01-.798-.254c-.274-.23-.47-.358-.552-.758a1.73 1.73 0 01.016-.588c.07-.327-.008-.537-.239-.727-.187-.156-.426-.199-.688-.199a.559.559 0 01-.254-.078c-.11-.054-.2-.19-.114-.358.028-.054.16-.186.192-.21.356-.202.767-.136 1.146.016.352.144.618.408 1.001.782.391.451.462.576.685.914.176.265.336.537.445.848.067.195-.019.354-.25.452z" />
-                    </svg>
-                </div>
-                <div class="tLabel" id="deepseek">DeepSeek</div>
-            </a>
-            <!-- ---------------- -->
-            <a href="https://chat.qwen.ai/">
-                <div class="tIcon">
-                    <svg height="100%" width="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <rect class="accentColor aiDarkIcons" width="100%" height="100%" rx="50%" />
-                        <path class="bgLightTint notTargeted" style="transform: scale(0.72); transform-origin: center;"
-                            d="M12.604 1.34c.393.69.784 1.382 1.174 2.075a.18.18 0 00.157.091h5.552c.174 0 .322.11.446.327l1.454 2.57c.19.337.24.478.024.837-.26.43-.513.864-.76 1.3l-.367.658c-.106.196-.223.28-.04.512l2.652 4.637c.172.301.111.494-.043.77-.437.785-.882 1.564-1.335 2.34-.159.272-.352.375-.68.37-.777-.016-1.552-.01-2.327.016a.099.099 0 00-.081.05 575.097 575.097 0 01-2.705 4.74c-.169.293-.38.363-.725.364-.997.003-2.002.004-3.017.002a.537.537 0 01-.465-.271l-1.335-2.323a.09.09 0 00-.083-.049H4.982c-.285.03-.553-.001-.805-.092l-1.603-2.77a.543.543 0 01-.002-.54l1.207-2.12a.198.198 0 000-.197 550.951 550.951 0 01-1.875-3.272l-.79-1.395c-.16-.31-.173-.496.095-.965.465-.813.927-1.625 1.387-2.436.132-.234.304-.334.584-.335a338.3 338.3 0 012.589-.001.124.124 0 00.107-.063l2.806-4.895a.488.488 0 01.422-.246c.524-.001 1.053 0 1.583-.006L11.704 1c.341-.003.724.032.9.34zm-3.432.403a.06.06 0 00-.052.03L6.254 6.788a.157.157 0 01-.135.078H3.253c-.056 0-.07.025-.041.074l5.81 10.156c.025.042.013.062-.034.063l-2.795.015a.218.218 0 00-.2.116l-1.32 2.31c-.044.078-.021.118.068.118l5.716.008c.046 0 .08.02.104.061l1.403 2.454c.046.081.092.082.139 0l5.006-8.76.783-1.382a.055.055 0 01.096 0l1.424 2.53a.122.122 0 00.107.062l2.763-.02a.04.04 0 00.035-.02.041.041 0 000-.04l-2.9-5.086a.108.108 0 010-.113l.293-.507 1.12-1.977c.024-.041.012-.062-.035-.062H9.2c-.059 0-.073-.026-.043-.077l1.434-2.505a.107.107 0 000-.114L9.225 1.774a.06.06 0 00-.053-.031zm6.29 8.02c.046 0 .058.02.034.06l-.832 1.465-2.613 4.585a.056.056 0 01-.05.029.058.058 0 01-.05-.029L8.498 9.841c-.02-.034-.01-.052.028-.054l.216-.012 6.722-.012z" />
-                    </svg>
-                </div>
-                <div class="tLabel" id="qwen">Qwen</div>
-            </a>
-            <!-- ---------------- -->
-            <a href="https://www.perplexity.ai/">
-                <div class="tIcon">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" viewBox="0 0 24 24">
-                        <circle class="accentColor aiDarkIcons" cx="50%" cy="50%" r="50%" />
-                        <path class="bgLightTint notTargeted" style="transform: scale(0.8); transform-origin: center;"
-                            d="m5.735 2l5.695 5.247V2.012h1.109v5.259L18.259 2v5.983h2.349v8.629h-2.342v5.327l-5.727-5.032v5.09h-1.11V16.99L5.742 22v-5.388H3.393v-8.63h2.342zm4.86 7.078H4.5v6.439h1.24v-2.031zM6.85 13.972v5.585l4.58-4.034V9.81zm5.72 1.497l4.588 4.03v-2.887h-.006v-2.646l-4.582-4.16zm5.696.048H19.5v-6.44h-6.047l4.814 4.363zm-1.115-7.534V4.519l-3.76 3.464zm-6.548 0l-3.76-3.464v3.464z" />
-                    </svg>
-                </div>
-                <div class="tLabel" id="perplexity">Perplexity</div>
-            </a>
-            <!-- ---------------- -->
-            <a href="https://firefly.adobe.com/">
-                <div class="tIcon">
-                    <svg height="100%" viewBox="0 0 24 24" width="100%" xmlns="http://www.w3.org/2000/svg">
-                        <rect class="accentColor aiDarkIcons" width="100%" height="100%" rx="50%" />
-                        <path class="bgLightTint notTargeted" style="transform: scale(0.55); transform-origin: center;"
-                            d="m21.512 6.098-1.849-.417a.741.741 0 0 0-.68.18l-1.39 1.285c-.548.507-1.424.008-1.26-.72l.417-1.85a.735.735 0 0 0-.18-.679l-1.285-1.391c-.507-.548 0-1.416.729-1.252l1.849.417c.237.058.499-.008.68-.18l1.39-1.284c.548-.508 1.424-.009 1.26.72l-.417 1.849c-.057.245.008.5.18.68l1.285 1.39c.507.548 0 1.416-.729 1.252zM5.76 23.738c0 .18-.081.262-.262.262h-3.74c-.146 0-.204-.106-.204-.262V4.402c0-.172.058-.237.23-.237H13.77c.205 0 .254.057.287.253l.335 3.265c.033.18-.057.262-.253.262H5.76v4.599h7.553c.172 0 .254.057.254.237v3.306c0 .18-.09.237-.237.237H5.76ZM16.635 9.207c0-.172.082-.254.254-.254h3.723c.197 0 .254.05.254.246v14.516c0 .197-.057.278-.278.278h-3.65c-.204 0-.303-.09-.303-.286z" />
-                    </svg>
-                </div>
-                <div class="tLabel" id="firefly">Adobe Firefly</div>
-            </a>
         </div>
     </div>
+    <span class="tooltip-text aiToolsTooltip" id="ai_tools">AI Tools</span>
 
     <!-- Settings Modal (hidden by default) -->
     <div id="aiToolsSettingsModal" class="ai-settings-modal" style="display: none;">
@@ -1137,6 +1399,42 @@
                     <!-- These checkboxes will be populated/managed by JavaScript -->
                 </form>
             </div>
+            <div class="ai-tool-editor" id="aiToolEditor">
+                <h4 id="aiToolEditorTitle">Add a custom AI tool</h4>
+                <div class="ai-field">
+                    <input type="text" id="aiToolNameInput" maxlength="30" placeholder=" " autocomplete="off"
+                        spellcheck="false">
+                    <label for="aiToolNameInput" id="aiToolNameLabel">Name</label>
+                </div>
+                <div class="ai-field">
+                    <input type="text" id="aiToolUrlInput" placeholder=" " autocomplete="off" spellcheck="false">
+                    <label for="aiToolUrlInput" id="aiToolUrlLabel">URL</label>
+                </div>
+                <div class="ai-tool-icon-row">
+                    <div class="ai-tool-preview customToolIcon" id="aiToolIconPreview"></div>
+                    <div class="ai-field">
+                        <input type="text" id="aiToolIconInput" placeholder=" " autocomplete="off" spellcheck="false">
+                        <label for="aiToolIconInput" id="aiToolIconLabel">Icon URL or SVG (optional)</label>
+                    </div>
+                    <button type="button" class="ai-icon-upload has-tooltip" id="aiToolIconUploadBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path
+                                d="M12 3.5a.89.89 0 0 0-.641.27l-3.57 3.571a.895.895 0 0 0 1.265 1.265l2.051-2.051v8.577a.895.895 0 1 0 1.79 0V6.555l2.051 2.051a.895.895 0 0 0 1.266-1.265l-3.57-3.57A.91.91 0 0 0 12 3.5m-6.263 9.842c-.494 0-.895.4-.895.895v3.579A2.7 2.7 0 0 0 7.526 20.5h8.948a2.7 2.7 0 0 0 2.684-2.684v-3.58a.895.895 0 1 0-1.79 0v3.58c0 .505-.39.895-.894.895H7.526a.88.88 0 0 1-.894-.895v-3.58c0-.493-.401-.894-.895-.894" />
+                        </svg>
+                    </button>
+                    <input type="file" id="aiToolIconFileInput" accept="image/*" hidden>
+                </div>
+                <div class="ai-tool-editor-actions">
+                    <button type="button" id="aiToolEditorCancelBtn" class="ai-editor-button">Cancel</button>
+                    <button type="button" id="aiToolEditorSaveBtn" class="ai-editor-button">Add</button>
+                </div>
+            </div>
+            <button type="button" id="aiToolAddBtn" class="ai-add-button">
+                <svg viewBox="0 0 520 520" aria-hidden="true">
+                    <use href="#bmi-add"></use>
+                </svg>
+                <span id="aiToolAddBtnText">Add tool</span>
+            </button>
             <div class="ai-modal-footer">
                 <button id="resetAISettingsBtn" class="ai-reset-button">Reset</button>
                 <button id="saveAISettingsBtn" class="ai-save-button">Save</button>
@@ -1456,11 +1754,23 @@
                                 <div class="sectionInner">
                                     <div class="ttcont">
                                         <div class="texts">
-                                            <div class="bigText" id="micIconTitle">Hide Microphone Icon</div>
+                                            <div class="bigText" id="micIconTitle">Hide Microphone Button</div>
                                             <div class="infoText" id="micIconInfo">If voice typing is not working</div>
                                         </div>
                                         <label class="switch">
                                             <input id="micIconCheckbox" type="checkbox">
+                                            <span class="toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="ttcont">
+                                        <div class="texts">
+                                            <div class="bigText" id="aiModeIconTitle">Hide AI Mode Button</div>
+                                            <div class="infoText" id="aiModeIconInfo">Hide Google AI Mode search button
+                                            </div>
+                                        </div>
+                                        <label class="switch">
+                                            <input id="aiModeIconCheckbox" type="checkbox">
                                             <span class="toggle"></span>
                                         </label>
                                     </div>
@@ -1817,14 +2127,16 @@
                                     </div>
 
                                     <!-- LANGUAGE SELECTION OPTIONS -->
-                                    <select class="languageSelector" id="languageSelector">
+                                    <select class="languageSelector" id="languageSelector" aria-label="Language"
+                                        data-custom-select>
                                         <option value="ar_SA">Arabic (العربية)</option>
+                                        <option value="hy">Armenian (Հայերեն)</option>
                                         <option value="az">Azerbaijani (Azərbaycanca)</option>
                                         <option value="bn">Bangla (বাংলা)</option>
                                         <option value="zh">Chinese (Simplified) (简体中文)</option>
                                         <option value="zh_TW">Chinese (Traditional) (繁體中文)</option>
                                         <option value="cs">Czech (Čeština)</option>
-                                        <option value="en">English (ENGLISH)</option>
+                                        <option value="en" class="cs-option-bold">English (ENGLISH)</option>
                                         <option value="fr">French (Français)</option>
                                         <option value="de">German (Deutsch)</option>
                                         <option value="el">Greek (Ελληνικά)</option>
@@ -1952,12 +2264,12 @@
                             </svg>
                         </button>
                         <div class="rightButtons">
-                            <button id="newShortcutButton">
+                            <button id="newShortcutButton" class="has-tooltip">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path d="M3 13h8v8h2v-8h8v-2h-8V3h-2v8H3z" />
                                 </svg>
                             </button>
-                            <button id="resetButton">
+                            <button id="resetButton" class="has-tooltip">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path
                                         d="M13 15.75v-1.5h4v1.5zM14.5 21v-1.25H13v-1.5h1.5V17H16v4zm2.5-1.25v-1.5h4v1.5zM18 17v-4h1.5v1.25H21v1.5h-1.5V17zm2.775-7H18.7q-.65-2.2-2.475-3.6T12 5Q9.075 5 7.037 7.038T5 12q0 1.8.813 3.3T8 17.75V15h2v6H4v-2h2.35Q4.8 17.75 3.9 15.938T3 12q0-1.875.713-3.512t1.924-2.85t2.85-1.925T12 3q3.225 0 5.663 1.988T20.775 10" />
