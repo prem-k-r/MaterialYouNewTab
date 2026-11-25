@@ -63,7 +63,7 @@ const cs = {
     "editShortcutsText": "Upravit zkratky",
     "shortcutsInfoText": "Vyberte, které zkratky se mají zobrazit",
     "editShortcutsList": "Uložené zkratky",
-    "editShortcutsListInfo": "Nové zkratky můžete přidat klepnutím na ikonku „+“. Upravit existující můžete klepnutím na název nebo URL adresu zkratky.\nVlastní ikonu resetujete jednoduše smazáním URL adresy obrázku.",
+    "editShortcutsListInfo": "Nové zkratky můžete přidat klepnutím na ikonu „+“. Upravit existující můžete klepnutím na název nebo URL adresu zkratky.\nVýchozí ikonu obnovíte jednoduše smazáním URL adresy obrázku.",
     "adaptiveIconText": "Adaptivní ikony",
     "adaptiveIconInfoText": "Ikony zkratek se adaptují vzhledem k motivu",
 
@@ -74,10 +74,10 @@ const cs = {
     "shortcutInputIcon": "Vlastní ikona: URL nebo SVG (nepovinné)",
 
     // Shortcuts Tooltips
-    "addShortcut": "Add shortcut",
-    "resetShortcuts": "Reset shortcuts",
-    "deleteShortcut": "Delete shortcut",
-    "uploadIcon": "Upload icon",
+    "addShortcut": "Přidat zkratku",
+    "resetShortcuts": "Obnovit výchozí zkratky",
+    "deleteShortcut": "Odstranit zkratku",
+    "uploadIcon": "Nahrát ikonu",
 
     // Shortcuts Alerts
     "resetShortcutsPrompt": "Budou odstraněny všechny uložené zkratky a následně se obnoví výchozí sada zkratek. Přejete si pokračovat?",
