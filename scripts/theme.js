@@ -317,11 +317,13 @@ colorPicker.addEventListener("input", throttle(handleColorPickerChange, 10));
     }
 
     window.addEventListener("storage", function (event) {
-        if (event.storageArea && event.storageArea !== localStorage) return;
-        if (event.key === m3ExpressiveKey) {
-            applyM3Expressive(event.newValue === "checked");
-        } else if (event.key === null) {
-            applyM3Expressive(false);
+        if (event.key !== m3ExpressiveKey && event.key !== null) return;
+        try {
+            if (event.storageArea && event.storageArea !== localStorage) return;
+            const currentState = localStorage.getItem(m3ExpressiveKey);
+            applyM3Expressive(currentState === "checked");
+        } catch (error) {
+            console.error("Failed to read Material 3 Expressive setting:", error);
         }
     });
 
