@@ -73,6 +73,12 @@ const en = {
     "shortcutInputUrl": "Shortcut URL",
     "shortcutInputIcon": "Custom Icon: URL or SVG (optional)",
 
+    // Shortcuts Tooltips
+    "addShortcut": "Add shortcut",
+    "resetShortcuts": "Reset shortcuts",
+    "deleteShortcut": "Delete shortcut",
+    "uploadIcon": "Upload icon",
+
     // Shortcuts Alerts
     "resetShortcutsPrompt": "All saved shortcuts will be deleted and reset to default. Do you want to continue?",
     "invalidFileTypeMessage": "Please select a valid image file.",
@@ -120,6 +126,7 @@ const en = {
     "moveFavoriteUp": "Move up",
     "moveFavoriteDown": "Move down",
     "addToShortcuts": "Add to shortcuts",
+    "shortcutLimitReached": "Couldn't add to shortcuts. You've reached the limit of {max} shortcuts.",
     "editBookmarkLabel": "Edit bookmark",
     "deleteBookmarkLabel": "Delete bookmark",
     "deleteBookmarkFolderLabel": "Delete folder and bookmarks",
@@ -142,7 +149,7 @@ const en = {
     "createFolderButton": "Create folder",
 
     // AI Tools
-    "ai_tools": "AI Tools", // Visible in the new tab
+    "ai_tools": "AI Tools", // Tooltip in the new tab
     "ai_tools_button": "AI Tools",
     "enable_ai_tools": "Show shortcuts for AI tools",
     "aiToolsSettingsText": "AI Tools Settings",
@@ -154,13 +161,22 @@ const en = {
     "copilot": "Copilot",
     "claude": "Claude",
     "grok": "Grok",
-    "qwen": "Qwen",
     "perplexity": "Perplexity",
     "deepseek": "DeepSeek",
     "metaAI": "Meta AI",
-    "firefly": "Adobe Firefly",
     "aiSettingsIntro": "Select which AI tools to display",
     "resetAISettingsBtn": "Reset",
+
+    // AI Tools - Custom tools
+    "aiToolAddButton": "Add tool",
+    "aiToolAddTitle": "Add a custom AI tool",
+    "aiToolEditTitle": "Edit custom AI tool",
+    "aiToolAddConfirm": "Add",
+    "aiToolName": "Name",
+    "aiToolUrl": "URL",
+    "aiToolIcon": "Icon URL or SVG (optional)",
+    "aiToolEditLabel": "Edit {name}",    // Do not translate {name}
+    "aiToolDeleteLabel": "Delete {name}",    // Do not translate {name}
 
     // To-do List
     "todoListHover": "ToDo List",    // Keep this short

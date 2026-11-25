@@ -6,7 +6,8 @@
 
 // Open "What's New" page on update
 chrome.runtime.onInstalled.addListener((details) => {
-    if (details.reason === "update") {
+    const currentVersion = chrome.runtime.getManifest().version;
+    if (details.reason === "update" && details.previousVersion !== currentVersion) {
         chrome.tabs.create({
             url: chrome.runtime.getURL("/docs/whats-new.html")
         });

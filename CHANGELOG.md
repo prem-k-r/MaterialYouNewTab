@@ -24,6 +24,8 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Added Google AI Mode search button to the search bar when using Google as the search engine ([@KomeshBathula](https://github.com/KomeshBathula))
 - Updated the search bar to bypass search engines and navigate directly to webpages when the input contains no spaces and begins strictly with `http://`, `https://`, or `www.` ([@prem-k-r](https://github.com/prem-k-r)) ([#255](https://github.com/prem-k-r/MaterialYouNewTab/pull/255))
 - Added option to favorites the bookmarks ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
+- Added option to add custom AI tool shortcuts ([@prem-k-r](https://github.com/prem-k-r)) ([#276](https://github.com/prem-k-r/MaterialYouNewTab/pull/276))
+- Added option to add bookmarks to shortcuts ([@prem-k-r](https://github.com/prem-k-r)) ([#280](https://github.com/prem-k-r/MaterialYouNewTab/pull/280))
 
 ### Improved
 
@@ -36,7 +38,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Disabled dragging for weather and location icons ([@anndiy](https://github.com/anndiy)) ([#183](https://github.com/prem-k-r/MaterialYouNewTab/pull/183))
 - Added support for right-click to access AI Tools settings ([@prem-k-r](https://github.com/prem-k-r)) ([#210](https://github.com/prem-k-r/MaterialYouNewTab/pull/210/))
 - Added `Alt` + `B` shortcut (customizable) to open the bookmarks sidebar ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
-- Redesigned the bookmarks UI with an improved layout and new options ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
+- Redesigned the bookmarks UI with an improved layout, new options, and additional sort modes (`Browser order`, `Z-A`, and `New-Old`) ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
 - Added the ability to create new bookmarks and choose a folder when adding or editing them ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
 
 ### Fixed

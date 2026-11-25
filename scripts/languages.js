@@ -219,11 +219,9 @@ function applyLanguage(lang) {
         "copilot",
         "claude",
         "grok",
-        "qwen",
         "perplexity",
         "deepseek",
         "metaAI",
-        'firefly',
         "github",
         "googleAppsHover",
         "todoListHover",
@@ -317,6 +315,11 @@ function applyLanguage(lang) {
         { id: "cancelBookmarkEdit", key: "cancelText" },
         { id: "aiSettingsHeader", key: "aiToolsSettingsText" },
         { id: "saveAISettingsBtn", key: "saveAPI" },
+        { id: "aiToolAddBtnText", key: "aiToolAddButton" },
+        { id: "aiToolNameLabel", key: "aiToolName" },
+        { id: "aiToolUrlLabel", key: "aiToolUrl" },
+        { id: "aiToolIconLabel", key: "aiToolIcon" },
+        { id: "aiToolEditorCancelBtn", key: "cancelText" },
         { id: "editBookmarkNameLabel", key: "editBookmarkName" },
         { id: "editBookmarkURLLabel", key: "editBookmarkURL" },
         { id: "shortcutsSectionTitle", key: "shortcutsText" },
@@ -325,8 +328,15 @@ function applyLanguage(lang) {
         { id: "bookmarkRecentMenuCountLabel", key: "recentCount" },
     ];
 
+    // Tooltips of icon-only buttons (also used as their accessible name)
+    const tooltipMap = [
+        { id: "newShortcutButton", key: "addShortcut" },
+        { id: "resetButton", key: "resetShortcuts" },
+        { id: "aiToolIconUploadBtn", key: "uploadIcon" }
+    ];
+
     // Function to apply translations
-    function applyTranslations(items, isPlaceholder) {
+    function applyTranslations(items, isPlaceholder, isTooltip) {
         items.forEach(item => {
             // Get the element by its ID
             const element = document.getElementById(item.id || item);
@@ -336,9 +346,12 @@ function applyLanguage(lang) {
                 // Get the translation, fallback to English if not found in the current language
                 const translation = translations[lang]?.[key] || translations["en"]?.[key];
 
-                // Apply the translation to either placeholder or innerText
+                // Apply the translation to either placeholder, tooltip or innerText
                 if (isPlaceholder) {
                     element.placeholder = translation;
+                } else if (isTooltip) {
+                    element.dataset.tooltip = translation;
+                    element.setAttribute("aria-label", translation);
                 } else {
                     element.innerText = translation;
                 }
@@ -348,6 +361,7 @@ function applyLanguage(lang) {
 
     // Apply the translations
     applyTranslations(placeholderMap, true);   // For placeholders
+    applyTranslations(tooltipMap, false, true); // For tooltips
     applyTranslations(elementsMap, false);     // For innerTexts with different IDs and keys
     applyTranslations(translationMap, false);  // For innerTexts with same ID and keys
 

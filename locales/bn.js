@@ -75,6 +75,12 @@ const bn = {
     "shortcutInputUrl": "শর্টকাটের URL",
     "shortcutInputIcon": "কাস্টম আইকন: URL অথবা SVG (ঐচ্ছিক)",
 
+    // Shortcuts Tooltips
+    "addShortcut": "শর্টকাট যোগ করুন",
+    "resetShortcuts": "শর্টকাট রিসেট করুন",
+    "deleteShortcut": "শর্টকাট মুছুন",
+    "uploadIcon": "আইকন আপলোড করুন",
+
     // Shortcuts Alerts
     "resetShortcutsPrompt": "সব সংরক্ষিত শর্টকাট মুছে ফেলা হবে এবং ডিফল্ট অবস্থায় পুনরায় সেট করা হবে। আপনি কি চালিয়ে যেতে চান?",
     "invalidFileTypeMessage": "একটি বৈধ ইমেজ ফাইল নির্বাচন করুন।",
@@ -122,6 +128,7 @@ const bn = {
     "moveFavoriteUp": "উপরে সরান",
     "moveFavoriteDown": "নিচে সরান",
     "addToShortcuts": "শর্টকাটে যোগ করুন",
+    "shortcutLimitReached": "শর্টকাটে যোগ করা যায়নি। আপনি সর্বোচ্চ {max}টি শর্টকাটের সীমায় পৌঁছে গেছেন।",
     "editBookmarkLabel": "বুকমার্ক সম্পাদনা করুন",
     "deleteBookmarkLabel": "বুকমার্ক মুছুন",
     "deleteBookmarkFolderLabel": "ফোল্ডার ও বুকমার্ক মুছুন",
@@ -156,13 +163,22 @@ const bn = {
     "copilot": "কোপাইলট",
     "claude": "ক্লড",
     "grok": "গ্রোক",
-    "qwen": "ক্বেন",
     "perplexity": "পারপ্লেক্সিটি",
     "deepseek": "ডিপসিক",
     "metaAI": "মেটা এআই",
-    "firefly": "অ্যাডোবি ফায়ারফ্লাই",
     "aiSettingsIntro": "যে এআই টুলগুলো দেখাতে চান তা নির্বাচন করুন",
     "resetAISettingsBtn": "রিসেট করুন",
+
+    // AI Tools - Custom tools
+    "aiToolAddButton": "টুল যোগ করুন",
+    "aiToolAddTitle": "কাস্টম এআই টুল যোগ করুন",
+    "aiToolEditTitle": "কাস্টম এআই টুল সম্পাদনা করুন",
+    "aiToolAddConfirm": "যোগ করুন",
+    "aiToolName": "নাম",
+    "aiToolUrl": "URL",
+    "aiToolIcon": "আইকন URL অথবা SVG (ঐচ্ছিক)",
+    "aiToolEditLabel": "{name} সম্পাদনা করুন",
+    "aiToolDeleteLabel": "{name} মুছুন",
 
     // To-do List
     "todoListHover": "টু ডু লিস্ট",
