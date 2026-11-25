@@ -1111,7 +1111,7 @@ body #bookmarkButton.bookmark-button.rotate {
 #bookmarkList {
 	--bm-tile-bg: var(--whitishColor-blue);
 	--bm-hover-bg: color-mix(in srgb, var(--bg-color-blue) 55%, transparent);
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 }
 
 #bookmarkList ul {
@@ -1300,13 +1300,13 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 .bm-title {
-	font-size: 0.95rem;
+	font-size: 0.9rem;
 	font-weight: 400;
 	line-height: 1.25;
 }
 
 .bm-url {
-	font-size: 0.78rem;
+	font-size: 0.76rem;
 	line-height: 1.25;
 	opacity: 0.65;
 }
@@ -1554,10 +1554,10 @@ body #bookmarkButton.bookmark-button.rotate {
 
 #bookmarkList.grid-view li[data-url] {
 	display: block;
-	/* 94px = measured grid cell: a padding-top 2 + favicon margin-top 20 + 24px icon + margin-bottom 24
+	/* 92px = measured grid cell: a padding-top 2 + favicon margin-top 18 + 24px icon + margin-bottom 24
 	   + ~16px title line + padding-bottom 8. Update if the grid favicon size/margins, title font-size or
 	   `li a` padding change. */
-	contain-intrinsic-size: auto 94px;
+	contain-intrinsic-size: auto 92px;
 }
 
 #bookmarkList.grid-view li a {
@@ -1586,17 +1586,17 @@ body #bookmarkButton.bookmark-button.rotate {
 	transform: translateX(50%);
 }
 
-/* Circle tops centre them on the 24px icon: icon centre = a padding-top 2 + favicon margin-top 20 + 12
-   = 34px; outer top = 34 - 48/2 = 10px, inner top = 34 - 36/2 = 16px. Change them with the favicon margins. */
+/* Circle tops centre them on the 24px icon: icon centre = a padding-top 2 + favicon margin-top 18 + 12
+   = 32px; outer top = 32 - 48/2 = 8px, inner top = 32 - 36/2 = 14px. Change them with the favicon margins. */
 #bookmarkList.grid-view li a::after {
-	top: 10px;
+	top: 8px;
 	width: 48px;
 	height: 48px;
 	opacity: 0.35;
 }
 
 #bookmarkList.grid-view li a::before {
-	top: 16px;
+	top: 14px;
 	width: 36px;
 	height: 36px;
 }
@@ -1604,8 +1604,8 @@ body #bookmarkButton.bookmark-button.rotate {
 #bookmarkList.grid-view .favicon {
 	width: 24px;
 	height: 24px;
-	/* 20px / 24px margins and the 24px size feed the circle tops (10px / 16px) and the 94px grid height estimate */
-	margin: 20px auto 24px;
+	/* 18px / 24px margins and the 24px size feed the circle tops (8px / 14px) and the 92px grid height estimate */
+	margin: 18px auto 24px;
 	padding: 0;
 	border-radius: 0;
 	background: none;
@@ -1620,8 +1620,9 @@ body #bookmarkButton.bookmark-button.rotate {
 
 #bookmarkList.grid-view li[data-url] .bm-title {
 	max-width: 100%;
-	font-size: 0.78rem;
+	font-size: 0.74rem;
 	font-weight: 400;
+	padding-inline: 4px;
 }
 
 #bookmarkList.grid-view .bm-url {

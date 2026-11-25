@@ -1398,7 +1398,7 @@ function createBookmarkItem(node) {
 
     const favicon = document.createElement("img");
     // Lazy-load icons near the viewport and decode them off the main thread (set before src).
-    // Rows use content-visibility with fixed height estimates in style.css (56px list / 94px grid);
+    // Rows use content-visibility with fixed height estimates in style.css (56px list / 92px grid);
     // update those if the icon size changes.
     favicon.loading = "lazy";
     favicon.decoding = "async";
