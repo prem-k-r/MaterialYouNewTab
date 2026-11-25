@@ -7580,6 +7580,37 @@ body[data-bg="wallpaper"] .dropdown-content {
 	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+#m3ExpressiveText {
+	display: block;
+	cursor: pointer;
+}
+
+.switch input#m3ExpressiveCheckbox {
+	display: block;
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.switch input#m3ExpressiveCheckbox:focus-visible + .toggle {
+	outline: 2px solid var(--darkColor-blue);
+	outline-offset: 2px;
+}
+
+.black-theme .switch input#m3ExpressiveCheckbox:focus-visible + .toggle {
+	outline-color: var(--darkerColor-dark);
+}
+
+.m3-expressive .switch input#m3ExpressiveCheckbox:focus-visible + .toggle {
+	outline: 2px solid var(--m3-primary);
+	outline-offset: 2px;
+}
+
 /* --- M3 Expressive Design Tokens --- */
 :root {
 	/* Motion Physics — Official Web Spring Conversions (m3.material.io) */
@@ -7786,6 +7817,7 @@ html.black-theme.m3-expressive {
 }
 
 .m3-expressive .toggle {
+	direction: inherit;
 	border-radius: var(--m3-corner-full);
 	border: 2px solid var(--m3-outline);
 	background-color: var(--m3-surface-highest);
@@ -7865,18 +7897,19 @@ html.black-theme.m3-expressive {
 }
 
 /* RTL mirror for checked handle & checkmark */
-:dir(rtl) .m3-expressive input:checked+.toggle:before,
-html[dir="rtl"].m3-expressive input:checked+.toggle:before {
+.m3-expressive .toggle:dir(rtl):after {
+	transform: translate(-20px, -50%) scale(0.4);
+}
+
+.m3-expressive input:checked+.toggle:dir(rtl):before {
 	transform: translate(-20px, -50%);
 }
 
-:dir(rtl) .m3-expressive input:checked+.toggle:after,
-html[dir="rtl"].m3-expressive input:checked+.toggle:after {
+.m3-expressive input:checked+.toggle:dir(rtl):after {
 	transform: translate(-20px, -50%) scale(1);
 }
 
-:dir(rtl) .m3-expressive .switch:has(input):active input:checked+.toggle:before,
-html[dir="rtl"].m3-expressive .switch:has(input):active input:checked+.toggle:before {
+.m3-expressive .switch:dir(rtl):has(input):active input:checked+.toggle:before {
 	transform: translate(-19px, -50%);
 }
 
@@ -8399,16 +8432,15 @@ html.black-theme.m3-expressive .rightDiv .topDiv .rAndakar .bgLightTint {
 
 /* --- M3 Expressive Shortcuts Floating Dock (Floating Toolbar Pattern) --- */
 .m3-expressive .shortcutsContainer {
-	border-radius: var(--m3-corner-extra-large-increased);
 	padding: 10px 20px;
 	gap: 1.5rem;
-	background-color: var(--m3-surface-low);
-	border: 1px solid var(--m3-outline-variant);
-	box-shadow: none;
 }
 
 .m3-expressive .shortcutsContainer::before {
-	display: none;
+	border-radius: var(--m3-corner-extra-large-increased);
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	box-shadow: none;
 }
 
 .m3-expressive .shortcutsContainer .shortcuts {
@@ -8538,8 +8570,7 @@ html.black-theme.m3-expressive .rightDiv .topDiv .rAndakar .bgLightTint {
 		opacity 480ms var(--m3-spring-slow-effects);
 }
 
-:dir(rtl) .m3-expressive .aiToolsCont .toolsCont,
-html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont {
+.m3-expressive .aiToolsCont .toolsCont:dir(rtl) {
 	transform: translateX(36px) scale(0.96);
 }
 
@@ -8569,8 +8600,7 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont {
 	animation: m3AiToolSoftReveal 520ms var(--m3-spring-slow-spatial) backwards;
 }
 
-:dir(rtl) .m3-expressive .aiToolsCont .toolsCont.ai-tools-open a,
-html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
+.m3-expressive .aiToolsCont .toolsCont.ai-tools-open:dir(rtl) a {
 	animation-name: m3AiToolSoftRevealRtl;
 }
 
@@ -8944,13 +8974,15 @@ html[dir="rtl"].m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
 	transform: translate(20px, -50%) scale(1);
 }
 
-:dir(rtl) .m3-expressive .bookmark-menu input:checked + .toggle:before,
-html[dir="rtl"].m3-expressive .bookmark-menu input:checked + .toggle:before {
+.m3-expressive .bookmark-menu .toggle:dir(rtl):after {
+	transform: translate(-20px, -50%) scale(0.4);
+}
+
+.m3-expressive .bookmark-menu input:checked + .toggle:dir(rtl):before {
 	transform: translate(-20px, -50%);
 }
 
-:dir(rtl) .m3-expressive .bookmark-menu input:checked + .toggle:after,
-html[dir="rtl"].m3-expressive .bookmark-menu input:checked + .toggle:after {
+.m3-expressive .bookmark-menu input:checked + .toggle:dir(rtl):after {
 	transform: translate(-20px, -50%) scale(1);
 }
 
@@ -8967,8 +8999,7 @@ html[dir="rtl"].m3-expressive .bookmark-menu input:checked + .toggle:after {
 	transform: translate(19px, -50%);
 }
 
-:dir(rtl) .m3-expressive .bookmark-menu .switch:has(input):active input:checked + .toggle:before,
-html[dir="rtl"].m3-expressive .bookmark-menu .switch:has(input):active input:checked + .toggle:before {
+.m3-expressive .bookmark-menu .switch:dir(rtl):has(input):active input:checked + .toggle:before {
 	transform: translate(-19px, -50%);
 }
 
@@ -9226,7 +9257,7 @@ html[dir="rtl"].m3-expressive .bookmark-menu .switch:has(input):active input:che
 .m3-expressive .themeSegment[data-active="dark"] .themeSegBtn[data-theme="dark"],
 .m3-expressive .themeSegment[data-active="system"] .themeSegBtn[data-theme="system"] {
 	font-weight: 700;
-	color: var(--m3-primary-strong);
+	color: var(--m3-on-surface);
 }
 
 /* Expressive Color Swatches: Circle -> Squircle morph when selected (no neighbor overlap) */
@@ -9586,6 +9617,17 @@ html[dir="rtl"].m3-expressive .bookmark-menu .switch:has(input):active input:che
 	color: var(--m3-primary-strong);
 }
 
+.m3-expressive .ai-settings-modal .ai-field input.invalid,
+.m3-expressive .ai-settings-modal .ai-field input.invalid:focus {
+	border-color: #d93025;
+}
+
+.m3-expressive .ai-settings-modal .ai-field input.invalid + label,
+.m3-expressive .ai-settings-modal .ai-field input.invalid:focus + label {
+	color: #d93025;
+	opacity: 1;
+}
+
 .m3-expressive .ai-settings-modal .ai-icon-upload {
 	border-radius: var(--m3-corner-large);
 	background-color: var(--m3-secondary-container);
@@ -9658,11 +9700,14 @@ html[dir="rtl"].m3-expressive .bookmark-menu .switch:has(input):active input:che
 	background-color: var(--m3-secondary-container);
 	border: 1px solid var(--m3-outline-variant);
 	color: var(--m3-on-primary-container);
-	opacity: 1;
 	transition:
 		border-radius 280ms var(--m3-spring-default-spatial),
 		background-color 180ms var(--m3-spring-default-effects),
 		transform 250ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive #aiToolsForm .ai-tool-reorder button:not(:disabled) {
+	opacity: 1;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -9885,6 +9930,17 @@ html.black-theme.m3-expressive .ai-settings-modal .ai-field input:focus + label 
 	color: var(--m3-primary-strong);
 }
 
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input.invalid,
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input.invalid:focus {
+	border-color: #f28b82;
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input.invalid + label,
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input.invalid:focus + label {
+	color: #f28b82;
+	opacity: 1;
+}
+
 html.black-theme.m3-expressive .ai-settings-modal .ai-tool-preview.customToolIcon {
 	background-color: var(--m3-surface-high);
 }
@@ -9954,7 +10010,7 @@ html.m3-expressive body[data-bg="wallpaper"] .rightDiv .topDiv .lrectangle,
 html.m3-expressive body[data-bg="wallpaper"] .searchWithCont .hint:not(:hover),
 html.m3-expressive body[data-bg="wallpaper"] .searchEnginesContainer .search-engine:not(:hover):not(:has(input:checked)),
 html.m3-expressive body[data-bg="wallpaper"] .quotesContainer,
-html.m3-expressive body[data-bg="wallpaper"] .shortcutsContainer,
+html.m3-expressive body[data-bg="wallpaper"] .shortcutsContainer::before,
 html.m3-expressive body[data-bg="wallpaper"] .aiToolsCont .hangno:not(:hover),
 html.m3-expressive body[data-bg="wallpaper"] .aiToolsCont .toolsCont a:not(:hover),
 html.m3-expressive body[data-bg="wallpaper"] #resultBox,

@@ -295,7 +295,20 @@ colorPicker.addEventListener("input", throttle(handleColorPickerChange, 10));
 
     function handleM3ExpressiveChange() {
         const isChecked = this.checked;
-        localStorage.setItem(m3ExpressiveKey, isChecked ? "checked" : "unchecked");
+        try {
+            localStorage.setItem(m3ExpressiveKey, isChecked ? "checked" : "unchecked");
+        } catch (error) {
+            console.error("Failed to save Material 3 Expressive setting:", error);
+            const activeMode = document.documentElement.classList.contains("m3-expressive");
+            if (m3ExpressiveCheckbox) m3ExpressiveCheckbox.checked = activeMode;
+            const message = "Unable to save Material 3 Expressive setting.";
+            if (typeof alertPrompt === "function") {
+                alertPrompt(message);
+            } else {
+                alert(message);
+            }
+            return;
+        }
         applyM3Expressive(isChecked);
     }
 
@@ -303,9 +316,23 @@ colorPicker.addEventListener("input", throttle(handleColorPickerChange, 10));
         m3ExpressiveCheckbox.addEventListener("change", handleM3ExpressiveChange);
     }
 
+    window.addEventListener("storage", function (event) {
+        if (event.storageArea && event.storageArea !== localStorage) return;
+        if (event.key === m3ExpressiveKey) {
+            applyM3Expressive(event.newValue === "checked");
+        } else if (event.key === null) {
+            applyM3Expressive(false);
+        }
+    });
+
     // Initialize toggle state from localStorage
     function initM3Expressive() {
-        const savedState = localStorage.getItem(m3ExpressiveKey);
+        let savedState = null;
+        try {
+            savedState = localStorage.getItem(m3ExpressiveKey);
+        } catch (error) {
+            console.error("Failed to read Material 3 Expressive setting:", error);
+        }
         applyM3Expressive(savedState === "checked");
     }
 

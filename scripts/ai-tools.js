@@ -521,6 +521,10 @@ function toggleAITools(event) {
     // Prevent outside click handler from triggering
     if (event) event.stopPropagation();
 
+    const isM3Expressive = document.documentElement.classList.contains("m3-expressive");
+    const isRtl = getComputedStyle(aiToolName).direction === "rtl";
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
     if (isAIToolVisible) {
         // Hide AI Tool panel
         if (shortcutsCheckbox.checked) {
@@ -528,9 +532,6 @@ function toggleAITools(event) {
         } else {
             shortcuts.style.display = "none";
         }
-
-        const isM3Expressive = document.documentElement.classList.contains("m3-expressive");
-        const isRtl = document.documentElement.dir === "rtl";
 
         aiToolName.classList.remove("ai-tools-open");
         delete aiToolsCont.dataset.open;
@@ -540,17 +541,30 @@ function toggleAITools(event) {
             ? `translateX(${isRtl ? "36px" : "-36px"}) scale(0.96)`
             : "translateX(-100%)";
 
-        setTimeout(() => {
+        if (prefersReducedMotion) {
             aiToolName.style.display = "none";
             isAIToolsTransitioning = false;
-        }, isM3Expressive ? 560 : 500);
+        } else {
+            setTimeout(() => {
+                aiToolName.style.display = "none";
+                isAIToolsTransitioning = false;
+            }, isM3Expressive ? 560 : 500);
+        }
     } else {
         // Show AI Tool panel
-        const isM3Expressive = document.documentElement.classList.contains("m3-expressive");
-        const isRtl = document.documentElement.dir === "rtl";
-
         shortcuts.style.display = "none";
         aiToolName.classList.remove("ai-tools-open");
+
+        if (prefersReducedMotion) {
+            aiToolName.style.display = "flex";
+            aiToolsCont.dataset.open = "true";
+            aiToolName.classList.add("ai-tools-open");
+            aiToolName.style.opacity = "1";
+            aiToolName.style.transform = isM3Expressive ? "translateX(0) scale(1)" : "translateX(0)";
+            aiToolName.style.gap = "12px";
+            isAIToolsTransitioning = false;
+            return;
+        }
 
         if (isM3Expressive) {
             aiToolName.style.opacity = "0";
@@ -564,7 +578,9 @@ function toggleAITools(event) {
         void aiToolName.offsetWidth;
 
         requestAnimationFrame(() => {
+            if (aiToolsCont.dataset.open !== "true") return;
             requestAnimationFrame(() => {
+                if (aiToolsCont.dataset.open !== "true") return;
                 aiToolName.classList.add("ai-tools-open");
                 aiToolName.style.opacity = "1";
                 aiToolName.style.transform = isM3Expressive ? "translateX(0) scale(1)" : "translateX(0)";
@@ -575,7 +591,7 @@ function toggleAITools(event) {
         });
 
         setTimeout(() => {
-            if (!isM3Expressive) {
+            if (!isM3Expressive && aiToolsCont.dataset.open === "true") {
                 aiToolName.style.gap = "12px";
             }
             isAIToolsTransitioning = false;
