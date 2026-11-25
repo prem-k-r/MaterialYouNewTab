@@ -43,7 +43,7 @@ const ja = {
 
     // Footer Toast
     "footerToastTitle": "下部にバナーが表示されていますか？",
-    "footerToastMessage": "非表示にするには、右クリックして「新しいタブページにフッターを表示する」を無効にしてください。",
+    "footerToastMessage": "非表示にするには、バナーを右クリックして「新しいタブページのフッターを非表示にする」をクリックしてください。",
 
     // Prompts and Alerts
     "okText": "OK",
