@@ -595,3 +595,22 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+// ------------------------------- What's New -------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const whatsNewCheckbox = document.getElementById("whatsNewCheckbox");
+
+    // The background script can't read localStorage, so mirror the setting to extension storage
+    function syncWhatsNewSetting() {
+        if (typeof chrome === "undefined" || !chrome.storage?.local) return; // Website and live preview
+        chrome.storage.local.set({ showWhatsNew: whatsNewCheckbox.checked });
+    }
+
+    whatsNewCheckbox.addEventListener("change", function () {
+        saveCheckboxState("whatsNewCheckboxState", whatsNewCheckbox);
+        syncWhatsNewSetting();
+    });
+
+    loadCheckboxState("whatsNewCheckboxState", whatsNewCheckbox, true);
+    syncWhatsNewSetting(); // Also picks up reset and restored settings
+});

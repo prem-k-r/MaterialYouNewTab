@@ -8,8 +8,12 @@
 chrome.runtime.onInstalled.addListener((details) => {
     const currentVersion = chrome.runtime.getManifest().version;
     if (details.reason === "update" && details.previousVersion !== currentVersion) {
-        chrome.tabs.create({
-            url: chrome.runtime.getURL("/docs/whats-new.html")
+        // Set by the "What's New" toggle in the settings menu
+        chrome.storage.local.get("showWhatsNew", (result) => {
+            if (result.showWhatsNew === false) return;
+            chrome.tabs.create({
+                url: chrome.runtime.getURL("/docs/whats-new.html")
+            });
         });
     }
 });

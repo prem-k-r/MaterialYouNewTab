@@ -290,6 +290,8 @@ const en = {
     "restoreText": "Restore",
     "resetsettings": "Reset Settings",
     "menuCloseText": "Close",
+    "whatsNewText": "What's New",
+    "whatsNewInfo": "Open the changelog after an update",
 
     // Backup and Restore Alerts
     "failedbackup": "Backup failed: ",
