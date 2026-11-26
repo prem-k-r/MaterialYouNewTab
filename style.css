@@ -4399,6 +4399,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	color: var(--whitishColor-blue);
 	border: none;
 	cursor: pointer;
+	transition: 0.2s;
 }
 
 .ai-settings-modal .ai-add-button {
@@ -4461,11 +4462,26 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 	color: var(--whitishColor-blue);
 	border: none;
 	cursor: pointer;
+	transition: 0.2s;
 }
 
 .ai-settings-modal .ai-reset-button:hover,
 .ai-settings-modal .ai-save-button:hover {
 	background: var(--darkerColor-blue);
+}
+
+#editBookmarkModal #cancelBookmarkEdit,
+.ai-settings-modal .ai-reset-button,
+.ai-settings-modal #aiToolEditorCancelBtn {
+	background: var(--accentLightTint-blue);
+	color: var(--textColorDark-blue);
+}
+
+#editBookmarkModal #cancelBookmarkEdit:hover,
+.ai-settings-modal .ai-reset-button:hover,
+.ai-settings-modal #aiToolEditorCancelBtn:hover {
+	background: var(--darkColor-blue);
+	color: var(--whitishColor-blue);
 }
 
 #aiToolsForm .ai-tool-reorder {
@@ -6887,9 +6903,33 @@ body[data-bg="wallpaper"] .dropdown-content {
 	filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
 }
 
-.black-theme .ai-settings-modal .ai-reset-button:hover,
+.black-theme #editBookmarkModal button,
+.black-theme .ai-settings-modal .ai-save-button,
+.black-theme .ai-settings-modal #aiToolEditorSaveBtn {
+	background: var(--accentLightTint-dark);
+	color: var(--textColorDark-dark);
+}
+
+.black-theme #editBookmarkModal button:hover,
 .black-theme .ai-settings-modal .ai-save-button:hover,
-.black-theme .ai-settings-modal .ai-editor-button:hover,
+.black-theme .ai-settings-modal #aiToolEditorSaveBtn:hover {
+	background: #4e4e4e;
+}
+
+.black-theme #editBookmarkModal #cancelBookmarkEdit,
+.black-theme .ai-settings-modal .ai-reset-button,
+.black-theme .ai-settings-modal #aiToolEditorCancelBtn {
+	background: var(--darkColor-dark);
+	color: var(--textColorDark-dark);
+}
+
+.black-theme #editBookmarkModal #cancelBookmarkEdit:hover,
+.black-theme .ai-settings-modal .ai-reset-button:hover,
+.black-theme .ai-settings-modal #aiToolEditorCancelBtn:hover {
+	background: var(--accentLightTint-dark);
+	color: var(--textColorDark-dark);
+}
+
 .black-theme .ai-settings-modal .ai-icon-upload:hover,
 .black-theme .ai-settings-modal .ai-add-button:hover,
 .black-theme .ai-settings-modal .ai-add-button:active,
@@ -6965,14 +7005,6 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme .floating-label-field input:not(:placeholder-shown) + label,
 .black-theme .floating-label-field select + label {
 	color: var(--textColorDark-dark);
-}
-
-.black-theme #editBookmarkModal button {
-	background-color: var(--accentLightTint-dark);
-}
-
-.black-theme #editBookmarkModal button:hover {
-	background-color: #353535;
 }
 
 .black-theme #minute,
