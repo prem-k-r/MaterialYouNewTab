@@ -450,37 +450,31 @@ document.addEventListener("DOMContentLoaded", function () {
         "open-bookmarks": {
             action: "toggle-bookmarks",
             el: bookmarkButton,
-            fallbackKey: "B",
             isEnabled: () => bookmarksCheckbox?.checked
         },
         "toggle-ai-tools": {
             action: "toggle-ai-tools",
             el: aiToolsIcon,
-            fallbackKey: "A",
             isEnabled: () => aiToolsCheckbox?.checked
         },
         "toggle-todo": {
             action: "toggle-todo",
             el: todoListCont,
-            fallbackKey: "T",
             isEnabled: () => todoListCheckbox?.checked
         },
         "toggle-settings": {
             action: "toggle-settings",
             el: menuButton,
-            fallbackKey: "O",
             isEnabled: () => true
         },
         "toggle-google-apps": {
             action: "toggle-google-apps",
             el: googleAppsCont,
-            fallbackKey: null,
             isEnabled: () => googleAppsCheckbox?.checked
         },
         "voice-search": {
             action: "voice-search",
             el: micIcon,
-            fallbackKey: null,
             isEnabled: () => !micIconCheckbox?.checked && micIcon?.style.display !== "none"
         }
     };
@@ -497,16 +491,17 @@ document.addEventListener("DOMContentLoaded", function () {
         else delete el.dataset.shortcut;
     }
 
-    if (globalThis.chrome?.commands?.getAll) {
+    function syncCommandBadges() {
+        if (!globalThis.chrome?.commands?.getAll) return;
         chrome.commands.getAll((commands) => {
             const byName = Object.fromEntries(commands.map(c => [c.name, c.shortcut]));
             Object.entries(COMMAND_TARGETS).forEach(([name, target]) => {
                 applyCommandBadge(target.el, getAltCommandKey(byName[name]));
             });
         });
-    } else {
-        Object.values(COMMAND_TARGETS).forEach(({ el, fallbackKey }) => applyCommandBadge(el, fallbackKey));
     }
+
+    syncCommandBadges();
 
     function getActiveShortcutContainer() {
         if (aiToolsCheckbox?.checked && aiToolsCont?.dataset.open === "true") return toolsCont;
@@ -561,10 +556,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.addEventListener("keydown", (e) => {
         if (!isAltModifierKey(e) || e.repeat) return;
-        const targets = getAltBadgeTargets();
-        if (!targets.length) return;
+        syncCommandBadges();
         altHoldTimer = setTimeout(() => {
-            targets.forEach(el => el.classList.add("show-shortcut-numbers"));
+            getAltBadgeTargets().forEach(el => el.classList.add("show-shortcut-numbers"));
         }, 300);
     });
 
