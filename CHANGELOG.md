@@ -46,6 +46,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Fixed shortcut name and URLs hover behavior by replacing ellipsis with clipped text for improved readability ([@prem-k-r](https://github.com/prem-k-r)) ([283f78d](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/changes/283f78d6e4b202a075ca3d670c1b30cbc701c3a4))
 - Fixed wallpaper disappearing on load due to blob URL being revoked too early ([@prem-k-r](https://github.com/prem-k-r)) ([#209](https://github.com/prem-k-r/MaterialYouNewTab/pull/209))
 - Fixed the page briefly flashing blue (FOUC) when opening a new tab by applying saved themes before the page renders ([@itz-rj-here](https://github.com/itz-rj-here)) ([#238](https://github.com/prem-k-r/MaterialYouNewTab/pull/238))
+- Fixed `Alt + 1`–`9` shortcuts opening when shortcuts are disabled or hidden, and added support for `Alt + Shift + 1`–`9`, Right `Alt` (`AltGraph`), and macOS `Option` keys ([@prem-k-r](https://github.com/prem-k-r))
 
 ### Localized
 
