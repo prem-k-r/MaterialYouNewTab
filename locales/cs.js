@@ -20,11 +20,11 @@ const cs = {
     // Search Engines
     "defaultEngine": "Výchozí",
     "googleEngine": "Google",
-    "duckEngine": "Duck",    // DuckDuckGo
+    "duckEngine": "Duck",
     "bingEngine": "Bing",
     "braveEngine": "Brave",
     "youtubeEngine": "YouTube",
-    "gImagesEngine": "Obrázky",  // Google Images, https://www.google.com/search?q=check&hl=bn
+    "gImagesEngine": "Obrázky",
     "redditEngine": "Reddit",
     "wikipediaEngine": "Wikipedie",
     "quoraEngine": "Quora",
@@ -135,7 +135,7 @@ const cs = {
     "editBookmarkHeading": "Upravit záložku",
     "editBookmarkName": "Název záložky",
     "editBookmarkURL": "URL adresa záložky",
-    "deleteBookmark": "Opravdu si přejete odstranit záložku „{title}“?",  // Do not translate {title}
+    "deleteBookmark": "Opravdu si přejete odstranit záložku „{title}“?",
 
     // Bookmarks - Folder picker
     "addBookmarkHeading": "Přidání záložky",
@@ -149,7 +149,7 @@ const cs = {
     "createFolderButton": "Vytvořit novou složku",
 
     // AI Tools
-    "ai_tools": "AI nástroje", // Tooltip in the new tab
+    "ai_tools": "AI nástroje",
     "ai_tools_button": "AI nástroje",
     "enable_ai_tools": "Zobrazí zkratky AI nástrojů",
     "aiToolsSettingsText": "Nastavení AI nástrojů",
@@ -175,17 +175,17 @@ const cs = {
     "aiToolName": "Název",
     "aiToolUrl": "URL",
     "aiToolIcon": "Ikona: URL nebo SVG (nepovinné)",
-    "aiToolEditLabel": "Upravit nástroj {name}",    // Do not translate {name}
-    "aiToolDeleteLabel": "Odstranit nástroj {name}",    // Do not translate {name}
+    "aiToolEditLabel": "Upravit nástroj {name}",
+    "aiToolDeleteLabel": "Odstranit nástroj {name}",
 
     // To-do List
-    "todoListHover": "Seznam úkolů",    // Keep this short
+    "todoListHover": "Seznam úkolů",
     "todoPlaceholder": "Přidat úkol…",
     "todoListText": "Seznam úkolů",
     "todoListInfo": "Zobrazí denní seznam úkolů",
 
     // Google Apps
-    "googleAppsHover": "Google aplikace",    // Keep this shorter
+    "googleAppsHover": "Google aplikace",
     "googleAppsMenuText": "Google aplikace",
     "googleAppsMenuInfo": "Zobrazí zkratky Google aplikací",
 
@@ -238,7 +238,7 @@ const cs = {
     "weatherSectionTitle": "Počasí",
     "hideWeatherTitle": "Skrýt počasí",
     "hideWeatherInfo": "Vypne widgety s počasím",
-    "hideWeatherBox": "Skrýt kartu s počasím",    // Toggle for mobile devices only
+    "hideWeatherBox": "Skrýt kartu s počasím",
     "hideWeatherBoxInfo": "Zobrazí pouze pilulku s teplotou",
     "minMaxTempText": "Teplota daná rozsahem",
     "minMaxTempSubText": "Nahradí pocitovou teplotu rozsahem minimální a maximální teploty",
@@ -260,7 +260,7 @@ const cs = {
 
 
     // WeatherAPI
-    "WeatherApiText": "Zadejte svůj klíč k WeatherAPI",    // For 'WeatherAPI' string, only transliterate
+    "WeatherApiText": "Zadejte svůj klíč k WeatherAPI",
     "WeatherApiSubtext": "Pokud nefunguje funkce počasí",
     "userAPI": "Váš klíč k WeatherAPI",
     "LearnMoreButton": "Zjistit více",
@@ -272,10 +272,10 @@ const cs = {
     "lightThemed": "Světlý",
     "darkThemed": "Temný",
     "systemThemed": "Podle systému",
-    "rangColor": "Vybrat barvu",    // Keep this short
+    "rangColor": "Vybrat barvu",
 
     // Wallpaper
-    "uploadWallpaperText": "Nahrát tapetu",    // Keep this short
+    "uploadWallpaperText": "Nahrát tapetu",
     "opacityTitle": "Průhlednost",
     "adjustOpacityDesc": "Upraví průhlednost uživatelského rozhraní",
 
