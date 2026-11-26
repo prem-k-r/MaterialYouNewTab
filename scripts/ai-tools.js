@@ -245,6 +245,20 @@ function applyAIToolsSettings() {
             aiToolName.appendChild(toolElement);
         }
     });
+
+    updateAIToolShortcutBadges();
+}
+
+// Assigns 1-9 shortcut badge indices to visible AI tool links in rendered order
+function updateAIToolShortcutBadges() {
+    let visibleIndex = 0;
+    aiToolName.querySelectorAll("a").forEach(link => {
+        if (link.style.display !== "none" && visibleIndex < 9) {
+            link.dataset.shortcut = String(++visibleIndex);
+        } else {
+            delete link.dataset.shortcut;
+        }
+    });
 }
 
 function getToolLabel(toolId) {
@@ -530,6 +544,7 @@ function toggleAITools(event) {
         }
 
         delete aiToolsCont.dataset.open;
+        aiToolName.classList.remove("show-shortcut-numbers");
         aiToolName.style.opacity = "0";
         aiToolName.style.gap = "0";
         aiToolName.style.transform = "translateX(-100%)";

@@ -25,9 +25,21 @@ async function getCommandShortcut(name) {
     return commands.find(command => command.name === name)?.shortcut || "unassigned";
 }
 
+const COMMAND_ACTIONS = {
+    "open-bookmarks": "toggle-bookmarks",
+    "toggle-ai-tools": "toggle-ai-tools",
+    "toggle-todo": "toggle-todo",
+    "toggle-settings": "toggle-settings",
+    "toggle-google-apps": "toggle-google-apps",
+    "voice-search": "voice-search"
+};
+
 // Keyboard shortcuts
 chrome.commands.onCommand.addListener(async (command, tab) => {
     try {
+        const action = COMMAND_ACTIONS[command];
+        if (!action) return;
+
         if (!tab?.id) {
             [tab] = await chrome.tabs.query({
                 active: true,
@@ -35,18 +47,11 @@ chrome.commands.onCommand.addListener(async (command, tab) => {
             });
         }
         if (!tab?.id) return;
-        let message;
-        switch (command) {
-            case "open-bookmarks":
-                message = {
-                    action: "toggle-bookmarks",
-                    tabId: tab.id
-                };
-                break;
-            default:
-                return;
-        }
-        await chrome.runtime.sendMessage(message);
+
+        await chrome.runtime.sendMessage({
+            action,
+            tabId: tab.id
+        });
     } catch (error) {
         const shortcut = await getCommandShortcut(command).catch(() => "unknown");
         console.debug(`Could not execute command "${command}" (${shortcut}):`, error);

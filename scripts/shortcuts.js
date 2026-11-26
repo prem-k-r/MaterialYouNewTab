@@ -1035,65 +1035,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function areShortcutsEnabled() {
-        return dom.shortcutsCheckbox.checked && dom.shortcuts.style.display !== "none";
-    }
-
-    // Keyboard shortcuts: Alt + 1-9 (or Alt + Shift + 1-9) to open corresponding shortcut
-    function setupKeyboardShortcuts() {
-        document.addEventListener("keydown", (e) => {
-            if (!areShortcutsEnabled()) return;
-
-            const isAltGraph = e.getModifierState?.("AltGraph");
-            if ((!e.altKey && !isAltGraph) || (e.ctrlKey && !isAltGraph) || e.metaKey || (isAltGraph && e.shiftKey)) return;
-
-            let num = parseInt(e.key);
-            if (isNaN(num) || num < 1 || num > 9) {
-                const match = /^Digit([1-9])$/.exec(e.code);
-                if (match) num = Number(match[1]);
-            }
-            if (isNaN(num) || num < 1 || num > 9) return;
-
-            // Get the shortcuts in their current rendered order
-            const shortcutLinks = dom.shortcutsContainer.querySelectorAll(".shortcuts a");
-            const targetIndex = num - 1;
-
-            if (targetIndex < shortcutLinks.length) {
-                const link = shortcutLinks[targetIndex];
-                if (link && link.href) {
-                    e.preventDefault();
-                    window.location.href = link.href;
-                }
-            }
-        });
-    }
-
-    let altHoldTimer;
-    function isAltModifierKey(e) {
-        return e.key === "Alt" || e.key === "AltGraph";
-    }
-
-    function hideShortcutNumbers() {
-        clearTimeout(altHoldTimer);
-        dom.shortcutsContainer.classList.remove("show-shortcut-numbers");
-    }
-
-    document.addEventListener("keydown", (e) => {
-        if (!areShortcutsEnabled() || !isAltModifierKey(e) || e.repeat) return;
-        altHoldTimer = setTimeout(() => {
-            dom.shortcutsContainer.classList.add("show-shortcut-numbers");
-        }, 300);
-    });
-
-    document.addEventListener("keyup", (e) => {
-        if (!isAltModifierKey(e)) return;
-        hideShortcutNumbers();
-    });
-
-    window.addEventListener("blur", hideShortcutNumbers);
-
-    setupKeyboardShortcuts();
-
     // Used by "Add to shortcuts" in bookmarks.js
     globalThis.addNewShortcut = addNewShortcut;
 });

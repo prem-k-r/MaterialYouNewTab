@@ -20,6 +20,30 @@
 				"default": "Alt+B"
 			},
 			"description": "Open bookmarks"
+		},
+		"toggle-ai-tools": {
+			"suggested_key": {
+				"default": "Alt+A"
+			},
+			"description": "Toggle AI tools"
+		},
+		"toggle-todo": {
+			"suggested_key": {
+				"default": "Alt+T"
+			},
+			"description": "Toggle to-do list"
+		},
+		"toggle-settings": {
+			"suggested_key": {
+				"default": "Alt+O"
+			},
+			"description": "Open settings"
+		},
+		"toggle-google-apps": {
+			"description": "Toggle Google apps"
+		},
+		"voice-search": {
+			"description": "Start voice search"
 		}
 	},
 	"icons": {
