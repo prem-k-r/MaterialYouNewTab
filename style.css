@@ -4312,7 +4312,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 
 .ai-settings-modal .ai-tool-editor-actions {
 	display: flex;
-	gap: 12px;
+	gap: 20px;
 	margin-top: 24px;
 }
 
@@ -4373,12 +4373,13 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 .ai-settings-modal .ai-modal-footer {
 	display: flex;
 	justify-content: space-between;
+	gap: 20px;
 	margin-top: 16px;
 }
 
 .ai-settings-modal .ai-reset-button,
 .ai-settings-modal .ai-save-button {
-	width: 140px;
+	flex: 1;
 	padding: 10px 15px;
 	font-size: 0.9rem;
 	border-radius: 20px;
