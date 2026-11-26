@@ -425,3 +425,173 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.readyState === "complete") initCustomSelects();
     else document.addEventListener("DOMContentLoaded", () => initCustomSelects());
 })();
+
+
+// ----------------------- Alt Shortcut Keys & Badges -----------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const shortcutsSection = document.getElementById("shortcuts-section");
+    const shortcutsCheckbox = document.getElementById("shortcutsCheckbox");
+    const shortcutsContainer = document.getElementById("shortcutsContainer");
+    const aiToolsCont = document.getElementById("aiToolsCont");
+    const toolsCont = document.getElementById("toolsCont");
+    const aiToolsCheckbox = document.getElementById("aiToolsCheckbox");
+    const aiToolsIcon = document.getElementById("aiToolsIcon");
+    const bookmarkButton = document.getElementById("bookmarkButton");
+    const bookmarksCheckbox = document.getElementById("bookmarksCheckbox");
+    const todoListCont = document.getElementById("todoListCont");
+    const todoListCheckbox = document.getElementById("todoListCheckbox");
+    const menuButton = document.getElementById("menuButton");
+    const googleAppsCont = document.getElementById("googleAppsCont");
+    const googleAppsCheckbox = document.getElementById("googleAppsCheckbox");
+    const micIcon = document.getElementById("micIcon");
+    const micIconCheckbox = document.getElementById("micIconCheckbox");
+
+    const COMMAND_TARGETS = {
+        "open-bookmarks": {
+            action: "toggle-bookmarks",
+            el: bookmarkButton,
+            isEnabled: () => bookmarksCheckbox?.checked
+        },
+        "toggle-ai-tools": {
+            action: "toggle-ai-tools",
+            el: aiToolsIcon,
+            isEnabled: () => aiToolsCheckbox?.checked
+        },
+        "toggle-todo": {
+            action: "toggle-todo",
+            el: todoListCont,
+            isEnabled: () => todoListCheckbox?.checked
+        },
+        "toggle-settings": {
+            action: "toggle-settings",
+            el: menuButton,
+            isEnabled: () => true
+        },
+        "toggle-google-apps": {
+            action: "toggle-google-apps",
+            el: googleAppsCont,
+            isEnabled: () => googleAppsCheckbox?.checked
+        },
+        "voice-search": {
+            action: "voice-search",
+            el: micIcon,
+            isEnabled: () => !micIconCheckbox?.checked && micIcon?.style.display !== "none"
+        }
+    };
+
+    function getAltCommandKey(shortcut) {
+        if (!shortcut || (!shortcut.includes("Alt+") && !shortcut.includes("⌥"))) return null;
+        const key = shortcut.split("+").pop().replace(/^[⌥⇧⌘⌃]+/, "").toUpperCase();
+        return key.length === 1 ? key : null;
+    }
+
+    function applyCommandBadge(el, key) {
+        if (!el) return;
+        if (key) el.dataset.shortcut = key;
+        else delete el.dataset.shortcut;
+    }
+
+    function syncCommandBadges() {
+        if (!globalThis.chrome?.commands?.getAll) return;
+        chrome.commands.getAll((commands) => {
+            const byName = Object.fromEntries(commands.map(c => [c.name, c.shortcut]));
+            Object.entries(COMMAND_TARGETS).forEach(([name, target]) => {
+                applyCommandBadge(target.el, getAltCommandKey(byName[name]));
+            });
+        });
+    }
+
+    syncCommandBadges();
+
+    function getActiveShortcutContainer() {
+        if (aiToolsCheckbox?.checked && aiToolsCont?.dataset.open === "true") return toolsCont;
+        if (shortcutsCheckbox?.checked && shortcutsSection?.style.display !== "none") return shortcutsContainer;
+        return null;
+    }
+
+    // Alt + 1-9 (or Alt + Shift + 1-9) to open corresponding shortcut or AI tool
+    document.addEventListener("keydown", (e) => {
+        const isAltGraph = e.getModifierState?.("AltGraph");
+        if ((!e.altKey && !isAltGraph) || (e.ctrlKey && !isAltGraph) || e.metaKey || (isAltGraph && e.shiftKey)) return;
+
+        let num = parseInt(e.key);
+        if (isNaN(num) || num < 1 || num > 9) {
+            const match = /^Digit([1-9])$/.exec(e.code);
+            if (match) num = Number(match[1]);
+        }
+        if (isNaN(num) || num < 1 || num > 9) return;
+
+        const container = getActiveShortcutContainer();
+        if (!container) return;
+
+        const links = container === toolsCont
+            ? [...toolsCont.querySelectorAll("a")].filter(link => link.style.display !== "none")
+            : shortcutsContainer.querySelectorAll(".shortcuts a");
+        const link = links[num - 1];
+
+        if (link?.href) {
+            e.preventDefault();
+            window.location.href = link.href;
+        }
+    });
+
+    let altHoldTimer;
+    const isAltModifierKey = (e) => e.key === "Alt" || e.key === "AltGraph";
+
+    function getAltBadgeTargets() {
+        const targets = [];
+        const activeContainer = getActiveShortcutContainer();
+        if (activeContainer) targets.push(activeContainer);
+        Object.values(COMMAND_TARGETS).forEach(({ el, isEnabled }) => {
+            if (el?.dataset.shortcut && isEnabled()) targets.push(el);
+        });
+        return targets;
+    }
+
+    function hideShortcutNumbers() {
+        clearTimeout(altHoldTimer);
+        [shortcutsContainer, toolsCont, ...Object.values(COMMAND_TARGETS).map(t => t.el)]
+            .forEach(el => el?.classList.remove("show-shortcut-numbers"));
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if (!isAltModifierKey(e) || e.repeat) return;
+        syncCommandBadges();
+        altHoldTimer = setTimeout(() => {
+            getAltBadgeTargets().forEach(el => el.classList.add("show-shortcut-numbers"));
+        }, 300);
+    });
+
+    document.addEventListener("keyup", (e) => {
+        if (isAltModifierKey(e)) hideShortcutNumbers();
+    });
+
+    window.addEventListener("blur", hideShortcutNumbers);
+
+    // Handle extension commands routed to the active New Tab page
+    const commandByAction = Object.fromEntries(
+        Object.values(COMMAND_TARGETS).map(target => [target.action, target])
+    );
+
+    globalThis.chrome?.runtime?.onMessage?.addListener((message) => {
+        const target = commandByAction[message.action];
+        if (!target) return;
+
+        chrome.tabs?.getCurrent?.((tab) => {
+            if (tab?.id !== message.tabId || !target.isEnabled()) return;
+
+            const promptModal = document.getElementById("prompt-modal-container");
+            const aiModal = document.getElementById("aiToolsSettingsModal");
+            const bookmarkModal = document.getElementById("editBookmarkModal");
+            const isSubModalOpen =
+                promptModal?.style.display === "flex" ||
+                aiModal?.style.display === "block" ||
+                bookmarkModal?.style.display === "block";
+
+            if (isSubModalOpen) return;
+            if (message.action !== "toggle-settings" && menuBar.style.display !== "none") return;
+
+            target.el?.click();
+        });
+    });
+});

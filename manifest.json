@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "MYNT: Material You New Tab",
-	"version": "3.3.1125",
+	"version": "3.3.1126",
 	"description": "A Simple New Tab (browser's home page) inspired by Google's 'Material You' design.",
 	"permissions": ["search"],
 	"optional_permissions": ["bookmarks", "favicon"],
@@ -31,6 +31,30 @@
 				"default": "Alt+B"
 			},
 			"description": "Open bookmarks"
+		},
+		"toggle-ai-tools": {
+			"suggested_key": {
+				"default": "Alt+A"
+			},
+			"description": "Toggle AI tools"
+		},
+		"toggle-todo": {
+			"suggested_key": {
+				"default": "Alt+T"
+			},
+			"description": "Toggle to-do list"
+		},
+		"toggle-settings": {
+			"suggested_key": {
+				"default": "Alt+O"
+			},
+			"description": "Open settings"
+		},
+		"toggle-google-apps": {
+			"description": "Toggle Google apps"
+		},
+		"voice-search": {
+			"description": "Start voice search"
 		}
 	},
 	"incognito": "split"

@@ -1626,13 +1626,3 @@ document.addEventListener("keydown", function (event) {
         bookmarkButton.click();
     }
 });
-
-// Keyboard shortcut for opening bookmarks
-globalThis.chrome?.runtime?.onMessage?.addListener((message) => {
-    if (message.action !== "toggle-bookmarks") return;
-
-    chrome.tabs?.getCurrent?.((tab) => {
-        if (tab?.id !== message.tabId || !bookmarksCheckbox.checked) return;
-        bookmarkButton.click();
-    });
-});

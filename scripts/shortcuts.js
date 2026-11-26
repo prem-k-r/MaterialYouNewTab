@@ -1035,50 +1035,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Keyboard shortcuts: Alt + 1-9 to open corresponding shortcut
-    function setupKeyboardShortcuts() {
-        document.addEventListener("keydown", (e) => {
-            if (!e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
-
-            const num = parseInt(e.key);
-            if (isNaN(num) || num < 1 || num > 9) return;
-
-            // Get the shortcuts in their current rendered order
-            const shortcutLinks = dom.shortcutsContainer.querySelectorAll(".shortcuts a");
-            const targetIndex = num - 1;
-
-            if (targetIndex < shortcutLinks.length) {
-                const link = shortcutLinks[targetIndex];
-                if (link && link.href) {
-                    e.preventDefault();
-                    window.location.href = link.href;
-                }
-            }
-        });
-    }
-
-    let altHoldTimer;
-    function hideShortcutNumbers() {
-        clearTimeout(altHoldTimer);
-        dom.shortcutsContainer.classList.remove("show-shortcut-numbers");
-    }
-
-    document.addEventListener("keydown", (e) => {
-        if (e.key !== "Alt" || e.repeat) return;
-        altHoldTimer = setTimeout(() => {
-            dom.shortcutsContainer.classList.add("show-shortcut-numbers");
-        }, 300);
-    });
-
-    document.addEventListener("keyup", (e) => {
-        if (e.key !== "Alt") return;
-        hideShortcutNumbers();
-    });
-
-    window.addEventListener("blur", hideShortcutNumbers);
-
-    setupKeyboardShortcuts();
-
     // Used by "Add to shortcuts" in bookmarks.js
     globalThis.addNewShortcut = addNewShortcut;
 });
