@@ -20,6 +20,9 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Added support for touch-swipe and mouse-wheel gestures on the search engine icon to switch search engines when they are hidden ([@prem-k-r](https://github.com/prem-k-r)) ([#145](https://github.com/prem-k-r/MaterialYouNewTab/pull/145))
 - Added support for custom shortcut icons via upload, URL, or pasted SVG ([@smurf11k](https://github.com/smurf11k)), ([@prem-k-r](https://github.com/prem-k-r)) ([#187](https://github.com/prem-k-r/MaterialYouNewTab/pull/187/)), ([#199](https://github.com/prem-k-r/MaterialYouNewTab/pull/199/))
 - Added Daily Quote option to show one quote per day instead of refreshing on every new tab ([@KomeshBathula](https://github.com/KomeshBathula)) ([#141](https://github.com/prem-k-r/MaterialYouNewTab/pull/141))
+- Added a "Download Wallpaper" button that downloads the original high-resolution Unsplash image after resolving the wallpaper's source metadata
+- Added a sleek glassmorphic attribution pill at the bottom-right corner (next to the menu button) referencing the photographer and linking to the source Unsplash page of the active random wallpaper
+- Added localized hover tooltips to settings control buttons (Random Wallpaper, Clear Wallpaper, and Download Wallpaper)
 - Added keyboard shortcuts (`Alt + 1`–`9`) to quickly open the first nine shortcuts ([@smurf11k](https://github.com/smurf11k)) ([#237](https://github.com/prem-k-r/MaterialYouNewTab/pull/237))
 - Added Google AI Mode search button to the search bar when using Google as the search engine ([@KomeshBathula](https://github.com/KomeshBathula))
 - Updated the search bar to bypass search engines and navigate directly to webpages when the input contains no spaces and begins strictly with `http://`, `https://`, or `www.` ([@prem-k-r](https://github.com/prem-k-r)) ([#255](https://github.com/prem-k-r/MaterialYouNewTab/pull/255))
@@ -39,6 +42,8 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Added `Alt` + `B` shortcut (customizable) to open the bookmarks sidebar ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
 - Redesigned the bookmarks UI with an improved layout, new options, and additional sort modes (`Browser order`, `Z-A`, and `New-Old`) ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
 - Added the ability to create new bookmarks and choose a folder when adding or editing them ([@prem-k-r](https://github.com/prem-k-r)) ([#275](https://github.com/prem-k-r/MaterialYouNewTab/pull/275))
+- Added smooth show/hide transitions for wallpaper action buttons (download and clear) matching the Google AI Mode motion curve
+- Restricted wallpaper downloading to random wallpapers only, dynamically showing the download button only when a random wallpaper is active
 
 ### Fixed
 
@@ -62,6 +67,8 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
   - Ukrainian ([@smurf11k](https://github.com/smurf11k))
   - Hungarian ([@smurf11k](https://github.com/smurf11k))
   - Marathi ([@anndiy](https://github.com/anndiy))
+  - French ([@iamwinner422](https://github.com/iamwinner422))
+  - Urdu ([@mian196](https://github.com/mian196))
   - French ([@iamwinner422](https://github.com/iamwinner422)), ([@deeferentleeg](https://github.com/deeferentleeg))
   - Simplified Chinese ([@HdShare](https://github.com/HdShare))
   - Traditional Chinese ([@Eddie40802](https://github.com/Eddie40802))

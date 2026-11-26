@@ -275,13 +275,18 @@ const en = {
     "rangColor": "Pick color",    // Keep this short
 
     // Wallpaper
-    "uploadWallpaperText": "Upload Wallpaper",    // Keep this short
+    "uploadWallpaperText": "Upload",    // Keep this short
+    "downloadWallpaperText": "Download Wallpaper",
+    "randomWallpaperText": "Random Wallpaper",
+    "clearWallpaperText": "Clear Wallpaper",
+    "photoBy": "Photo by",
     "opacityTitle": "Opacity",
     "adjustOpacityDesc": "Adjust interface transparency",
 
     // Wallpaper Alerts
     "confirmWallpaper": "Would you like to set a new image as your wallpaper for the day?",
     "Nobackgroundset": "No background image is currently set.",
+    "downloadOnlyRandomWallpaper": "This feature only works with {randomWallpaper}.",
     "clearbackgroundimage": "Are you sure you want to clear the background image?",
 
     // Settings
