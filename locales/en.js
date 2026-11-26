@@ -149,13 +149,12 @@ const en = {
     "createFolderButton": "Create folder",
 
     // AI Tools
-    "ai_tools": "AI Tools", // Tooltip in the new tab
     "ai_tools_button": "AI Tools",
     "enable_ai_tools": "Show shortcuts for AI tools",
     "aiToolsSettingsText": "AI Tools Settings",
     "aiToolsSettingsInfo": "Manage AI tools shortcuts",
 
-    // AI Tools - Modal
+    // AI Tools - Pills
     "chatGPT": "ChatGPT",
     "gemini": "Gemini",
     "copilot": "Copilot",
@@ -164,10 +163,10 @@ const en = {
     "perplexity": "Perplexity",
     "deepseek": "DeepSeek",
     "metaAI": "Meta AI",
-    "aiSettingsIntro": "Select which AI tools to display",
-    "resetAISettingsBtn": "Reset",
 
-    // AI Tools - Custom tools
+    // AI Tools - Modal
+    "ai_tools": "AI Tools", // Tooltip in the new tab
+    "aiSettingsIntro": "Select which AI tools to display",
     "aiToolAddButton": "Add tool",
     "aiToolAddTitle": "Add a custom AI tool",
     "aiToolEditTitle": "Edit custom AI tool",
@@ -177,6 +176,7 @@ const en = {
     "aiToolIcon": "Icon URL or SVG (optional)",
     "aiToolEditLabel": "Edit {name}",    // Do not translate {name}
     "aiToolDeleteLabel": "Delete {name}",    // Do not translate {name}
+    "resetAISettingsBtn": "Reset",
 
     // To-do List
     "todoListHover": "ToDo List",    // Keep this short

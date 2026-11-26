@@ -38,7 +38,7 @@ const hi = {
     },
 
     // Calendar
-    "days": ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'],   // Truncated for display
+    "days": ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'],    // Truncated for display
     // "days": ['रविवार', 'सोमवार', 'मंगलवार', 'बुधवार', 'गुरुवार', 'शुक्रवार', 'शनिवार'],  // Full
     "months": ['जनवरी', 'फ़रवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितम्बर', 'अक्टूबर', 'नवंबर', 'दिसंबर'],
     // "months": ['जन', 'फर', 'मार्च', 'अप्र', 'मई', 'जून', 'जुला', 'अग', 'सित', 'अक्टू', 'नव', 'दिस'],   // Truncated
@@ -151,13 +151,12 @@ const hi = {
     "createFolderButton": "फ़ोल्डर बनाएँ",
 
     // AI Tools
-    "ai_tools": "AI उपकरण",
     "ai_tools_button": "AI उपकरण",
     "enable_ai_tools": "AI उपकरणों के शॉर्टकट्स प्रदर्शित करें",
     "aiToolsSettingsText": "AI उपकरण सेटिंग्स",
     "aiToolsSettingsInfo": "AI उपकरणों के शॉर्टकट्स प्रबंधित करें",
 
-    // AI Tools - Modal
+    // AI Tools - Pills
     "chatGPT": "चैटGPT",
     "gemini": "जेमिनी",
     "copilot": "कोपायलट",
@@ -166,10 +165,10 @@ const hi = {
     "perplexity": "पर्प्लेक्सिटी",
     "deepseek": "डीपसीक",
     "metaAI": "मेटा AI",
-    "aiSettingsIntro": "चुनें की कौन से AI शॉर्टकट्स रखने हैं",
-    "resetAISettingsBtn": "रीसेट करें",
 
-    // AI Tools - Custom tools
+    // AI Tools - Modal
+    "ai_tools": "AI उपकरण",
+    "aiSettingsIntro": "चुनें की कौन से AI शॉर्टकट्स रखने हैं",
     "aiToolAddButton": "टूल जोड़ें",
     "aiToolAddTitle": "कस्टम AI टूल जोड़ें",
     "aiToolEditTitle": "कस्टम AI टूल संपादित करें",
@@ -179,6 +178,7 @@ const hi = {
     "aiToolIcon": "आइकन URL या SVG (वैकल्पिक)",
     "aiToolEditLabel": "{name} संपादित करें",
     "aiToolDeleteLabel": "{name} डिलीट करें",
+    "resetAISettingsBtn": "रीसेट करें",
 
     // To-do List
     "todoListHover": "कार्य सूची",
@@ -260,7 +260,6 @@ const hi = {
     "useGPSInfo": "लाइव स्थान अपडेट के लिए GPS सक्षम करें",
     "GPSDisclaimer": "आपका स्थान का डेटा केवल सटीक मौसम अपडेट प्रदान करने के लिए उपयोग किया जाता है। इसे अस्थायी रूप से ब्राउज़र में संग्रहीत किया जाता है और न तो किसी तृतीय-पक्ष सेवा के साथ साझा किया जाता है और न ही हमारे लिए सुलभ है।\n\nGPS सक्षम करके, आप एक्सटेंशन के साथ स्थानीय रूप से अपना स्थान साझा करने की सहमति देते हैं।",
 
-
     // WeatherAPI
     "WeatherApiText": "अपनी WeatherAPI कुंजी दर्ज करें",
     "WeatherApiSubtext": "यदि मौसम की सुविधा काम नहीं कर रही है",
@@ -299,7 +298,6 @@ const hi = {
     "restorefailed": "पुनर्स्थापना विफल: ",
     "invalidBackup": "अमान्य बैकअप फ़ाइल चयनित है।",
     "confirmRestore": "क्या आप अपनी सेटिंग्स रीसेट करना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।",
-
 
     // Tips
     "switchSearchModes": "खोज मोड बदलें",

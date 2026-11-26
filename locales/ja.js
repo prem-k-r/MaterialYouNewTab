@@ -149,13 +149,12 @@ const ja = {
     "createFolderButton": "フォルダを作成",
 
     // AI Tools
-    "ai_tools": "AIツール",
     "ai_tools_button": "AIツール",
     "enable_ai_tools": "AIツールのショートカットを表示",
     "aiToolsSettingsText": "AIツール設定",
     "aiToolsSettingsInfo": "AIツールのショートカットを管理",
 
-    // AI Tools - Modal
+    // AI Tools - Pills
     "chatGPT": "ChatGPT",
     "gemini": "Gemini",
     "copilot": "Copilot",
@@ -164,10 +163,10 @@ const ja = {
     "perplexity": "Perplexity",
     "deepseek": "DeepSeek",
     "metaAI": "Meta AI",
-    "aiSettingsIntro": "表示するAIツールを選択",
-    "resetAISettingsBtn": "リセット",
 
-    // AI Tools - Custom tools
+    // AI Tools - Modal
+    "ai_tools": "AIツール",
+    "aiSettingsIntro": "表示するAIツールを選択",
     "aiToolAddButton": "AIツールを追加",
     "aiToolAddTitle": "AIツールを追加します",
     "aiToolEditTitle": "AIツールを編集",
@@ -177,6 +176,7 @@ const ja = {
     "aiToolIcon": "アイコンのURLまたはSVG（任意）",
     "aiToolEditLabel": "{name}を編集",
     "aiToolDeleteLabel": "{name}を削除",
+    "resetAISettingsBtn": "リセット",
 
     // To-do List
     "todoListHover": "To Doリスト",

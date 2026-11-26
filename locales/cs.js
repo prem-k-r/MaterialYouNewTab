@@ -149,13 +149,12 @@ const cs = {
     "createFolderButton": "Vytvořit novou složku",
 
     // AI Tools
-    "ai_tools": "AI nástroje",
     "ai_tools_button": "AI nástroje",
     "enable_ai_tools": "Zobrazí zkratky AI nástrojů",
     "aiToolsSettingsText": "Nastavení AI nástrojů",
     "aiToolsSettingsInfo": "Nastavte si zkratky AI nástrojů",
 
-    // AI Tools - Modal
+    // AI Tools - Pills
     "chatGPT": "ChatGPT",
     "gemini": "Gemini",
     "copilot": "Copilot",
@@ -164,10 +163,10 @@ const cs = {
     "perplexity": "Perplexity",
     "deepseek": "DeepSeek",
     "metaAI": "Meta AI",
-    "aiSettingsIntro": "Výběr zobrazených AI nástrojů",
-    "resetAISettingsBtn": "Obnovit výchozí",
 
-    // AI Tools - Custom tools
+    // AI Tools - Modal
+    "ai_tools": "AI nástroje",
+    "aiSettingsIntro": "Výběr zobrazených AI nástrojů",
     "aiToolAddButton": "Přidat nástroj",
     "aiToolAddTitle": "Přidání vlastního AI nástroje",
     "aiToolEditTitle": "Úprava vlastního AI nástroje",
@@ -177,6 +176,7 @@ const cs = {
     "aiToolIcon": "Ikona: URL nebo SVG (nepovinné)",
     "aiToolEditLabel": "Upravit nástroj {name}",
     "aiToolDeleteLabel": "Odstranit nástroj {name}",
+    "resetAISettingsBtn": "Obnovit výchozí",
 
     // To-do List
     "todoListHover": "Seznam úkolů",
@@ -258,7 +258,6 @@ const cs = {
     "useGPSInfo": "Zapne GPS pro průběžnou aktualizaci polohy",
     "GPSDisclaimer": "Data o poloze jsou využívána pouze pro poskytování odpovídajících aktualizací počasí. Jsou dočasně uložena v prohlížeči, přičemž nejsou ani sdílena se třetími stranami, ani přístupná pro nás.\n\nPovolením GPS souhlasíte s tím, že bude poloha lokálně využita tímto rozšířením.",
 
-
     // WeatherAPI
     "WeatherApiText": "Zadejte svůj klíč k WeatherAPI",
     "WeatherApiSubtext": "Pokud nefunguje funkce počasí",
@@ -297,7 +296,6 @@ const cs = {
     "restorefailed": "Obnova ze zálohy selhala: ",
     "invalidBackup": "Vybrali jste neplatný soubor se zálohou.",
     "confirmRestore": "Opravdu si přejete obnovit výchozí nastavení? Tato akce je nevratná.",
-
 
     // Tips
     "switchSearchModes": "Změna způsobu vyhledávání",
