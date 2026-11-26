@@ -45,35 +45,35 @@ const translations = {
 
 // Define the width of the menu container for each language
 const menuWidths = {
-    en: "443px",
-    ta: "522px",
-    pt: "512px",
-    sv: "472px",
-    bn: "458px",
-    uz: "497px",
-    vi: "487px",
-    cs: "494px",
-    es: "488px",
-    hi: "450px",
-    mr: "460px",
-    hu: "487px",
-    ja: "486px",
-    ru: "442px",
-    it: "479px",
-    idn: "477px",
-    tr: "472px",
-    fr: "517px",
-    az: "460px",
-    sl: "512px",
-    ne: "472px",
-    de: "502px",
-    fa: "502px",
-    ar_SA: "482px",
-    el: "497px",
-    th: "497px",
-    pl: "497px",
-    uk: "497px",
-    hy: "512px",
+    en: "444px",
+    ta: "523px",
+    pt: "513px",
+    sv: "473px",
+    bn: "459px",
+    uz: "498px",
+    vi: "488px",
+    cs: "495px",
+    es: "489px",
+    hi: "451px",
+    mr: "461px",
+    hu: "488px",
+    ja: "487px",
+    ru: "443px",
+    it: "480px",
+    idn: "478px",
+    tr: "473px",
+    fr: "518px",
+    az: "461px",
+    sl: "513px",
+    ne: "473px",
+    de: "503px",
+    fa: "503px",
+    ar_SA: "483px",
+    el: "498px",
+    th: "498px",
+    pl: "498px",
+    uk: "498px",
+    hy: "513px",
     // Add more languages and widths as needed
 };
 
@@ -396,7 +396,7 @@ function applyLanguage(lang) {
     if (menuCont) {
         menuCont.style.width = menuWidths[lang] || menuWidths["en"];
         let widthh = window.innerWidth / parseInt(menuWidths[lang] || menuWidths["en"]);
-        if (window.innerWidth < 522) {
+        if (window.innerWidth < 523) {
             let menuStyle = document.getElementById("menuStyle") || document.createElement("style");
             menuStyle.id = "menuStyle";
             menuStyle.innerHTML = `

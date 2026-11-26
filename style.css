@@ -590,7 +590,7 @@ body[data-bg="wallpaper"] .tooltip-text {
 /* Customize scrollbar to appear on the border */
 /* For Chrome, Edge, Safari */
 .icon-container::-webkit-scrollbar {
-	width: 5px;
+	width: 6px;
 }
 
 .icon-container::-webkit-scrollbar-track {
@@ -600,12 +600,15 @@ body[data-bg="wallpaper"] .tooltip-text {
 
 .icon-container::-webkit-scrollbar-thumb {
 	background-color: var(--darkColor-blue);
-	border-radius: 3px;
+	border-radius: 10px;
+	border: 0 solid transparent;
+	border-left-width: 1px;
+	background-clip: content-box;
 }
 
 .icon-container::-webkit-scrollbar-thumb:hover {
 	background-color: var(--darkerColor-blue);
-	border-radius: 3px;
+	border-left-width: 0;
 }
 
 /* For Firefox */
@@ -876,7 +879,7 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 #bookmarkList::-webkit-scrollbar {
-	width: 6px;
+	width: 8px;
 }
 
 #bookmarkList::-webkit-scrollbar-track {
@@ -885,12 +888,14 @@ body #bookmarkButton.bookmark-button.rotate {
 
 #bookmarkList::-webkit-scrollbar-thumb {
 	background-color: var(--darkColor-blue);
-	border-radius: 3px;
+	border-radius: 10px;
+	border: 1px solid transparent;
+	background-clip: content-box;
 }
 
 #bookmarkList::-webkit-scrollbar-thumb:hover {
 	background-color: var(--darkerColor-blue);
-	border-radius: 3px;
+	border-width: 0;
 }
 
 @-moz-document url-prefix() {
@@ -2334,7 +2339,7 @@ body #bookmarkButton.bookmark-button.rotate {
 }
 
 .todo-container::-webkit-scrollbar {
-	width: 5px;
+	width: 6px;
 }
 
 .todo-container::-webkit-scrollbar-track {
@@ -2345,12 +2350,15 @@ body #bookmarkButton.bookmark-button.rotate {
 
 .todo-container::-webkit-scrollbar-thumb {
 	background-color: var(--darkColor-blue);
-	border-radius: 3px;
+	border-radius: 10px;
+	border: 0 solid transparent;
+	border-left-width: 1px;
+	background-clip: content-box;
 }
 
 .todo-container::-webkit-scrollbar-thumb:hover {
 	background-color: var(--darkerColor-blue);
-	border-radius: 3px;
+	border-left-width: 0;
 }
 
 /* For Firefox */
@@ -4114,7 +4122,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 }
 
 .ai-settings-modal .ai-tools-list::-webkit-scrollbar {
-	width: 5px;
+	width: 6px;
 }
 
 .ai-settings-modal .ai-tools-list::-webkit-scrollbar-track {
@@ -4123,12 +4131,15 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 
 .ai-settings-modal .ai-tools-list::-webkit-scrollbar-thumb {
 	background-color: var(--darkColor-blue);
-	border-radius: 3px;
+	border-radius: 10px;
+	border: 0 solid transparent;
+	border-left-width: 1px;
+	background-clip: content-box;
 }
 
 .ai-settings-modal .ai-tools-list::-webkit-scrollbar-thumb:hover {
 	background-color: var(--darkerColor-blue);
-	border-radius: 3px;
+	border-left-width: 0;
 }
 
 @-moz-document url-prefix() {
@@ -4576,7 +4587,7 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 /* -----------Scrollbar for menu---------------- */
 /* For WebKit browsers (Chrome, Safari) */
 .menuCont .optCont::-webkit-scrollbar {
-	width: 6px;
+	width: 7px;
 	/* Width of the scrollbar */
 }
 
@@ -4590,13 +4601,16 @@ body[data-bg="wallpaper"] .aiToolsCont .toolsCont a {
 .menuCont .optCont::-webkit-scrollbar-thumb {
 	background: var(--darkColor-blue);
 	/* Color of the scrollbar handle */
-	border-radius: 3px;
+	border-radius: 10px;
 	/* Rounded corners for the scrollbar handle */
+	border: 0 solid transparent;
+	border-left-width: 1px;
+	background-clip: content-box;
 }
 
 .menuCont .optCont::-webkit-scrollbar-thumb:hover {
 	background: var(--darkerColor-blue);
-	border-radius: 3px;
+	border-left-width: 0;
 }
 
 /* For Firefox */
@@ -4811,7 +4825,7 @@ input:checked + .toggle:before {
 }
 
 .location-suggestion-box::-webkit-scrollbar {
-	width: 4px;
+	width: 5px;
 }
 
 .location-suggestion-box::-webkit-scrollbar-track {
@@ -4821,12 +4835,15 @@ input:checked + .toggle:before {
 
 .location-suggestion-box::-webkit-scrollbar-thumb {
 	background-color: var(--darkColor-blue);
-	border-radius: 2px;
+	border-radius: 10px;
+	border: 0 solid transparent;
+	border-left-width: 1px;
+	background-clip: content-box;
 }
 
 .location-suggestion-box::-webkit-scrollbar-thumb:hover {
 	background-color: var(--darkerColor-blue);
-	border-radius: 2px;
+	border-left-width: 0;
 }
 
 @-moz-document url-prefix() {
@@ -5390,7 +5407,7 @@ option:checked {
 
 /* Scrollbar styles for Chrome, Edge, Safari */
 .languageSelector::-webkit-scrollbar {
-	width: 6px;
+	width: 7px;
 }
 
 .languageSelector::-webkit-scrollbar-track {
@@ -5399,7 +5416,15 @@ option:checked {
 
 .languageSelector::-webkit-scrollbar-thumb {
 	background-color: var(--darkColor-blue);
-	border-radius: 3px;
+	border-radius: 10px;
+	border: 0 solid transparent;
+	border-left-width: 1px;
+	background-clip: content-box;
+}
+
+.languageSelector::-webkit-scrollbar-thumb:hover {
+	background-color: var(--darkerColor-blue);
+	border-left-width: 0;
 }
 
 .languageSelector:hover,
@@ -5890,7 +5915,7 @@ option:checked {
 }
 
 .dropdown-content::-webkit-scrollbar {
-	width: 4px;
+	width: 5px;
 }
 
 .dropdown-content::-webkit-scrollbar-track {
@@ -5900,12 +5925,15 @@ option:checked {
 
 .dropdown-content::-webkit-scrollbar-thumb {
 	background-color: var(--darkColor-blue);
-	border-radius: 2px;
+	border-radius: 10px;
+	border: 0 solid transparent;
+	border-left-width: 1px;
+	background-clip: content-box;
 }
 
 .dropdown-content::-webkit-scrollbar-thumb:hover {
 	background-color: var(--darkerColor-blue);
-	border-radius: 2px;
+	border-left-width: 0;
 }
 
 /* For Firefox */
@@ -6494,7 +6522,12 @@ body[data-bg="wallpaper"] .dropdown-content {
 .black-theme .languageIcon,
 .black-theme .languageSelector {
 	background-color: var(--darkColor-dark);
-	scrollbar-color: var(--darkerColor-blue) transparent;
+}
+
+@-moz-document url-prefix() {
+	.black-theme .languageSelector {
+		scrollbar-color: var(--darkerColor-blue) transparent;
+	}
 }
 
 .black-theme .languageSelector::-webkit-scrollbar-thumb,
