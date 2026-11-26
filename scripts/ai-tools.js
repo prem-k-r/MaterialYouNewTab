@@ -10,19 +10,17 @@
 const aiToolsRaw = [
     { id: "chatGPT", visible: true, order: 0 },
     { id: "gemini", visible: true, order: 1 },
-    { id: "copilot", visible: true, order: 2 },
-    { id: "claude", visible: true, order: 3 },
-    { id: "deepseek", visible: true, order: 4 },
+    { id: "claude", visible: true, order: 2 },
+    { id: "deepseek", visible: true, order: 3 },
+    { id: "copilot", visible: true, order: 4 },
     { id: "perplexity", visible: false, order: 5 },
     { id: "grok", visible: false, order: 6 },
-    { id: "metaAI", visible: false, order: 7 },
-    { id: "qwen", visible: false, order: 8 },
-    { id: "firefly", visible: false, order: 9 }
+    { id: "metaAI", visible: false, order: 7 }
 ];
 // Translations for AI tools
 const aiTools = aiToolsRaw.map(tool => ({
     ...tool,
-    label: translations[currentLanguage]?.[tool.id] || translations["en"][tool.id]
+    label: getTranslation(tool.id, tool.id)
 }));
 
 // DOM Elements

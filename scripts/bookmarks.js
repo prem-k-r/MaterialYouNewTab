@@ -387,6 +387,9 @@ function openBookmarkItemMenu(button, node, context = {}) {
     bookmarkItemMenu.querySelector('[data-action="moveDown"]').disabled =
         !context.inFavorites || context.index >= context.total - 1;
 
+    // Shortcuts are plain links, which can't open chrome://, mailto:, javascript: etc. (only http / https)
+    bookmarkItemMenu.querySelector('[data-action="shortcut"]').disabled = !/^https?:\/\//i.test(node.url || "");
+
     // Folder actions: new bookmarks can't go into read-only folders, and top folders can't be deleted
     bookmarkItemMenu.querySelector('[data-action="addHere"]').disabled = Boolean(node.unmodifiable);
     bookmarkItemMenu.querySelector('[data-action="deleteFolder"]').disabled = !node.url && !canDeleteBookmarkFolder(node);
@@ -496,9 +499,8 @@ bookmarkFavoritesMenu.addEventListener("click", function (event) {
     }
 });
 
-// Placeholder: to be connected to the shortcuts feature later
 function addBookmarkToShortcuts(node) {
-    console.info("Add to shortcuts (not connected yet):", { id: node.id, title: node.title, url: node.url });
+    globalThis.addNewShortcut(node.title || bmHost(node.url), node.url);
 }
 
 // ---- Bookmarks API wrapper (Firefox: promises, Chromium: callbacks) ----
@@ -1396,7 +1398,7 @@ function createBookmarkItem(node) {
 
     const favicon = document.createElement("img");
     // Lazy-load icons near the viewport and decode them off the main thread (set before src).
-    // Rows use content-visibility with fixed height estimates in style.css (56px list / 94px grid);
+    // Rows use content-visibility with fixed height estimates in style.css (56px list / 92px grid);
     // update those if the icon size changes.
     favicon.loading = "lazy";
     favicon.decoding = "async";
