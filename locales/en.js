@@ -188,6 +188,9 @@ const en = {
     "googleAppsHover": "Google Apps",    // Keep this shorter
     "googleAppsMenuText": "Google Apps",
     "googleAppsMenuInfo": "Show shortcuts for Google Apps",
+    "gappsHeaderTitle": "Your favorites",
+    "gappsCancelBtn": "Cancel",
+    "gappsDoneBtn": "Done",
 
     // Clock
     "clockSectionTitle": "Clock",
