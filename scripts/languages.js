@@ -228,6 +228,8 @@ function applyLanguage(lang) {
         "uploadWallpaperText",
         "backupText",
         "restoreText",
+        "whatsNewText",
+        "whatsNewInfo",
         "rangColor",
         "bookmarksText",
         "bookmarksInfo",

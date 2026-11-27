@@ -204,6 +204,8 @@ const de = {
     "restoreText": "Wiederherstellen",
     "resetsettings": "Einstellungen zurücksetzen",
     "menuCloseText": "Schließen",
+    "whatsNewText": "Neuigkeiten",
+    "whatsNewInfo": "Nach einem Update die Änderungen anzeigen",
 
     // Backup and Restore Alerts
     "failedbackup": "Sicherung fehlgeschlagen: ",
