@@ -48,6 +48,7 @@ and this project partially follows [Semantic Versioning](https://semver.org/spec
 - Fixed wallpaper disappearing on load due to blob URL being revoked too early ([@prem-k-r](https://github.com/prem-k-r)) ([#209](https://github.com/prem-k-r/MaterialYouNewTab/pull/209))
 - Fixed the page briefly flashing blue (FOUC) when opening a new tab by applying saved themes before the page renders ([@itz-rj-here](https://github.com/itz-rj-here)) ([#238](https://github.com/prem-k-r/MaterialYouNewTab/pull/238))
 - Fixed `Alt + 1`–`9` shortcuts opening when shortcuts are disabled or hidden, and added support for `Alt + Shift + 1`–`9`, Right `Alt` (`AltGraph`), and macOS `Option` keys ([@prem-k-r](https://github.com/prem-k-r)) ([#287](https://github.com/prem-k-r/MaterialYouNewTab/pull/287))
+- Fixed hairline gaps and overlap seams on the quote author badge corners ([@devansh-jagtap](https://github.com/devansh-jagtap)) ([#258](https://github.com/prem-k-r/MaterialYouNewTab/pull/258))
 
 ### Localized
 

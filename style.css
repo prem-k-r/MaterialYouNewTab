@@ -182,14 +182,6 @@ body[data-bg="wallpaper"] .bgLightTint:not(.notTargeted) {
 	fill: var(--accentLightTint-blue) !important;
 }
 
-body[data-bg="wallpaper"] .lessDark.targeted {
-	fill: color-mix(
-		in srgb,
-		var(--bg-color-blue) calc(var(--transparency) * 1.5),
-		transparent
-	);
-}
-
 /* ⚫🟣🟡🔵🔴🟠⚪🟢 */
 
 html {
@@ -3521,34 +3513,84 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 }
 
 /* ----------- Quotes ------------ */
+/* Children overhang --overhang past this clip to prevent sub-pixel edge fringing;
+   overflow: clip avoids creating a scroll container. */
 .quotesCont {
+	--overhang: 4px;
 	margin-top: var(--gap);
 	position: relative;
 	display: flex;
 	font-size: 1rem;
-	direction: ltr; /* Remove when multilingual quote is supported */
 	unicode-bidi: isolate;
+	border-radius: 20px;
+	overflow: clip;
 }
 
 .quotesContainer {
 	position: relative;
 	background-color: var(--accentLightTint-blue);
-	height: 100px;
-	width: 100%;
-	border-radius: 20px;
-	padding: 20px;
+	margin: calc(var(--overhang) * -1);
+	width: calc(100% + var(--overhang) * 2);
+	height: calc(100px + var(--overhang) * 2);
+	padding: calc(20px + var(--overhang));
 	line-height: 28px;
 }
 
+body:not([data-bg="wallpaper"]) .quotesContainer {
+	border-end-end-radius: 44px;
+}
+
+/* Single masked element (pill + 20px concave fillets) so semi-transparent
+   wallpaper backgrounds have no overlapping seam lines. */
 .authorWrapper {
+	--inline-start: left;
+	--inline-end: right;
+	--fillet-x: 0%;
+	--corner-x: 40px;
 	position: absolute;
-	bottom: 0;
-	inset-inline-end: 0;
+	bottom: calc(var(--overhang) * -1);
+	inset-inline-end: calc(var(--overhang) * -1);
 	display: flex;
 	align-items: flex-end;
+	justify-content: flex-end;
+	box-sizing: content-box;
+	padding-block: 20px var(--overhang);
+	padding-inline: 20px var(--overhang);
 	background: var(--bg-color-blue);
-	border-start-start-radius: 20px;
-	border-end-end-radius: 20px;
+	--notch-mask:
+		linear-gradient(#fff, #fff) var(--inline-start) 40px top 20px /
+			calc(100% - 40px) calc(100% - 20px),
+		linear-gradient(#fff, #fff) var(--inline-start) 20px top 40px /
+			calc(100% - 20px) calc(100% - 40px),
+		radial-gradient(
+				circle 20px at var(--corner-x) 40px,
+				#fff 0 20px,
+				transparent 20px
+			)
+			0 0 / 100% 100%,
+		radial-gradient(
+				circle 20px at var(--fillet-x) 0,
+				transparent 0 20px,
+				#fff 20px
+			)
+			var(--inline-start) 0 top 40px / 60px calc(100% - 40px),
+		radial-gradient(
+				circle 20px at var(--fillet-x) 0,
+				transparent 0 20px,
+				#fff 20px
+			)
+			var(--inline-end) 0 top 0 / calc(20px + var(--overhang)) 40px;
+	-webkit-mask: var(--notch-mask);
+	mask: var(--notch-mask);
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+}
+
+.quotesCont[dir="rtl"] .authorWrapper {
+	--inline-start: right;
+	--inline-end: left;
+	--fillet-x: 100%;
+	--corner-x: calc(100% - 40px);
 }
 
 .authorName {
@@ -3559,8 +3601,6 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 	justify-content: center;
 	height: 40px;
 	width: 40px;
-	border-start-start-radius: 20px;
-	border-end-end-radius: 20px;
 	white-space: nowrap;
 	overflow: hidden;
 	transition: width 0.4s var(--md-motion-ease);
@@ -3570,23 +3610,6 @@ body[data-bg="wallpaper"] .searchWithCont .hint:hover {
 .authorName span {
 	display: inline-block;
 	padding: 0;
-}
-
-.qtRounder {
-	position: absolute;
-	width: 20px;
-	height: 20px;
-	inset-inline-start: -20px;
-	transform: rotate(90deg);
-}
-
-.qtRounder2 {
-	position: absolute;
-	width: 20px;
-	height: 20px;
-	inset-inline-end: 0;
-	top: -20px;
-	transform: rotate(90deg);
 }
 
 body[data-bg="wallpaper"] .quotesContainer {
@@ -3608,14 +3631,6 @@ body[data-bg="wallpaper"] .authorWrapper {
 		var(--bg-color-blue) calc(var(--transparency) * 1.5),
 		transparent
 	);
-}
-
-html[lang="ur"] .qtRounder {
-	left: -18.5px;
-}
-
-html[lang="ur"] .qtRounder2 {
-	right: -1.5px;
 }
 
 /* ----------Shortcuts----------------- */
@@ -7601,9 +7616,9 @@ body[data-bg="wallpaper"] .dropdown-content {
 	align-items: center;
 	justify-content: space-between;
 	gap: 12px;
-	padding: 10px 14px;
+	padding: 8px 14px;
 	border-radius: 12px;
-	line-height: 1.3;
+	line-height: 1.5;
 	cursor: pointer;
 }
 
