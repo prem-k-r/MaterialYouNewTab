@@ -291,6 +291,15 @@ const en = {
     "resetsettings": "Reset Settings",
     "menuCloseText": "Close",
 
+    // Cloud Sync
+    "cloudSyncTitle": "Sync Settings Across Devices",
+    "cloudSyncInfo": "Syncs through your browser account. Wallpaper images stay on this device.",
+
+    // Cloud Sync Alerts
+    "cloudSyncPullConfirm": "Synced settings from another device were found. Load them on this device? This will replace your current settings here.",
+    "cloudSyncQuotaError": "Sync failed: your settings are too large to sync.",
+    "cloudSyncReadError": "Couldn't read synced settings, so sync was not turned on. Please try again.",
+
     // Backup and Restore Alerts
     "failedbackup": "Backup failed: ",
     "restorecompleted": "Restore completed successfully!",
