@@ -1,6 +1,6 @@
 /*
- * Material You NewTab
- * Copyright (c) 2023-2025 XengShi
+ * Material You New Tab
+ * Copyright (c) 2024-2026 Prem, 2023-2025 XengShi
  * Licensed under the GNU General Public License v3.0 (GPL-3.0)
  * You should have received a copy of the GNU General Public License along with this program.
  * If not, see <https://www.gnu.org/licenses/>.
@@ -157,8 +157,18 @@ async function getWeatherData() {
     // Determine which API key to use
     const apiKey = savedApiKey || defaultApiKey;
 
+    // Selected weather provider ("weatherapi" or "openmeteo")
+    const weatherProvider = localStorage.getItem("weatherProviderSelect") === "openmeteo" ? "openmeteo" : "weatherapi";
+
+    // Open-Meteo and Nominatim take plain ISO 639-1 codes (e.g. "zh_TW" -> "zh", "ar_SA" -> "ar")
+    const isoLangOverrides = { idn: "id" };
+    const baseLang = currentLanguage.split("_")[0].toLowerCase();
+    const openMeteoLang = isoLangOverrides[baseLang] || baseLang;
+
     let activeIndex = -1; // Track keyboard navigation index
     let suggestions = []; // Store fetched location suggestions
+    let suggestionTimer = 0; // Debounce timer for typing
+    let suggestionRequestId = 0; // Ignore responses that arrive after a newer query
 
     // Hide/show browser autocomplete based on suggestion state
     function toggleAutocomplete() {
@@ -169,9 +179,13 @@ async function getWeatherData() {
         }
     }
 
-    // Fetch location suggestions from weatherAPI
+    // Fetch location suggestions from weatherAPI or Open-Meteo
     async function fetchLocationSuggestions(query) {
-        if (!savedApiKey || query.length < 3) {
+        query = query.trim();
+        const requestId = ++suggestionRequestId;
+
+        // WeatherAPI suggestions need the user's own key, so typing doesn't use up the shared default keys
+        if (query.length < 3 || (weatherProvider !== "openmeteo" && !savedApiKey)) {
             suggestions = [];
             locationSuggestions.style.display = "none";
             toggleAutocomplete();
@@ -179,17 +193,32 @@ async function getWeatherData() {
         }
 
         try {
-            const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${savedApiKey}&q=${query}`);
-            suggestions = await response.json();
+            let results;
+            if (weatherProvider === "openmeteo") {
+                const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5&language=${openMeteoLang}&format=json`);
+                const data = await response.json();
+                results = (data.results || []).map(r => ({
+                    name: r.name,
+                    region: r.admin1 || "",
+                    country: r.country || ""
+                }));
+            } else {
+                const response = await fetch(`https://api.weatherapi.com/v1/search.json?key=${savedApiKey}&q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                results = Array.isArray(data) ? data : [];
+            }
 
+            if (requestId !== suggestionRequestId) return; // A newer query is in flight
+
+            suggestions = results;
             if (suggestions.length > 0) {
                 displaySuggestions(suggestions);
-                toggleAutocomplete();
             } else {
                 locationSuggestions.style.display = "none";
-                toggleAutocomplete();
             }
+            toggleAutocomplete();
         } catch (error) {
+            if (requestId !== suggestionRequestId) return;
             console.warn("Unable to fetch location suggestions:", error);
             suggestions = [];
             toggleAutocomplete();
@@ -263,7 +292,9 @@ async function getWeatherData() {
 
     // Handle user input (fetch locations on change)
     userLocInput.addEventListener("input", () => {
-        fetchLocationSuggestions(userLocInput.value)
+        // Debounce so a request isn't sent on every keystroke
+        clearTimeout(suggestionTimer);
+        suggestionTimer = setTimeout(() => fetchLocationSuggestions(userLocInput.value), 300);
     });
 
     // Display suggestions when input is focused
@@ -338,6 +369,126 @@ async function getWeatherData() {
         }
     }
 
+    // WMO weather code (Open-Meteo) -> [translation key in "weatherConditions", WeatherAPI icon code]
+    const openMeteoConditions = {
+        0: ["clear", 113], 1: ["mainlyClear", 116], 2: ["partlyCloudy", 116], 3: ["overcast", 122],
+        45: ["fog", 248], 48: ["freezingFog", 260],
+        51: ["lightDrizzle", 263], 53: ["drizzle", 266], 55: ["heavyDrizzle", 266],
+        56: ["lightFreezingDrizzle", 281], 57: ["heavyFreezingDrizzle", 284],
+        61: ["lightRain", 296], 63: ["rain", 302], 65: ["heavyRain", 308],
+        66: ["lightFreezingRain", 311], 67: ["heavyFreezingRain", 314],
+        71: ["lightSnow", 326], 73: ["snow", 332], 75: ["heavySnow", 338], 77: ["snowGrains", 350],
+        80: ["lightRainShowers", 353], 81: ["rainShowers", 356], 82: ["violentRainShowers", 359],
+        85: ["lightSnowShowers", 368], 86: ["heavySnowShowers", 371],
+        95: ["thunderstorm", 386], 96: ["thunderstormHail", 389], 99: ["thunderstormHeavyHail", 389]
+    };
+
+    // Fallback place name, the same localized label the tile shows before weather loads
+    const defaultPlaceName = () => translations[currentLanguage]?.location || translations["en"].location;
+
+    // Convert °C to °F, rounded to one decimal to avoid floating-point noise (e.g. 78.25999999999999)
+    const toFahrenheit = (celsius) => Math.round((celsius * 9 / 5 + 32) * 10) / 10;
+
+    // Turn coordinates into a place name via Nominatim, cached on a ~1 km grid.
+    // Nominatim's usage policy forbids heavy use, so a refresh or small GPS drift must not trigger a new request.
+    async function reverseGeocode(lat, lon) {
+        const roundedLat = Number(lat).toFixed(2);
+        const roundedLon = Number(lon).toFixed(2);
+        const cacheKey = `${roundedLat},${roundedLon},${openMeteoLang}`;
+
+        let cache = {};
+        try {
+            cache = JSON.parse(localStorage.getItem("weatherPlaceNameCache")) || {};
+        } catch { /* corrupted cache, start over */ }
+        if (cache[cacheKey]) return cache[cacheKey];
+
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${roundedLat}&lon=${roundedLon}&zoom=10&accept-language=${openMeteoLang}`);
+        if (!response.ok) return null;
+        const data = await response.json();
+        const name = data.name || data.address?.city || data.address?.town || data.address?.village || data.address?.county;
+
+        if (name) {
+            // Keep only the 20 most recent places
+            const entries = Object.entries(cache).filter(([key]) => key !== cacheKey).slice(-19);
+            entries.push([cacheKey, name]);
+            localStorage.setItem("weatherPlaceNameCache", JSON.stringify(Object.fromEntries(entries)));
+        }
+        return name || null;
+    }
+
+    // Fetch weather from Open-Meteo and convert it to the same shape as the WeatherAPI data
+    async function fetchOpenMeteoWeather() {
+        let lat, lon, placeName;
+
+        if (currentUserLocation === "auto:ip") {
+            const ipGeoResponse = await fetch("https://get.geojs.io/v1/ip/geo.json");
+            if (!ipGeoResponse.ok) throw new Error(`GeoJS request failed (${ipGeoResponse.status})`);
+            const ipGeoData = await ipGeoResponse.json();
+            lat = ipGeoData.latitude;
+            lon = ipGeoData.longitude;
+            placeName = ipGeoData.city || ipGeoData.region;
+        } else if (/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(currentUserLocation)) {
+            [lat, lon] = currentUserLocation.replace(/\s/g, "").split(",");
+            try {
+                placeName = await reverseGeocode(lat, lon);
+            } catch (e) {
+                console.warn("Unable to get the place name from Nominatim:", e);
+            }
+        } else {
+            const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(currentUserLocation)}&count=1&language=${openMeteoLang}&format=json`);
+            const geoData = await geoResponse.json();
+            if (!geoResponse.ok || !geoData.results?.length) {
+                throw new Error(geoData.reason || "Location not found via Open-Meteo");
+            }
+            ({ latitude: lat, longitude: lon, name: placeName } = geoData.results[0]);
+        }
+
+        if (lat == null || lon == null) throw new Error("No coordinates for Open-Meteo");
+
+        const forecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`;
+        const forecastResponse = await fetch(forecastUrl);
+        const oData = await forecastResponse.json();
+        if (!forecastResponse.ok || oData.error || !oData.current || !oData.daily) {
+            throw new Error(oData.reason || `Open-Meteo request failed (${forecastResponse.status})`);
+        }
+
+        const [conditionKey, iconCode] = openMeteoConditions[oData.current.weather_code] || ["unknown", 113];
+        const conditionText = translations[currentLanguage]?.weatherConditions?.[conditionKey]
+            || translations["en"].weatherConditions?.[conditionKey]
+            || translations["en"].conditionText;
+        const timeOfDay = oData.current.is_day ? "day" : "night";
+
+        const tempC = oData.current.temperature_2m;
+        const feelsC = oData.current.apparent_temperature;
+        const minC = oData.daily.temperature_2m_min[0];
+        const maxC = oData.daily.temperature_2m_max[0];
+
+        return {
+            location: { name: placeName || defaultPlaceName() },
+            current: {
+                condition: {
+                    text: conditionText,
+                    icon: `https://cdn.weatherapi.com/weather/128x128/${timeOfDay}/${iconCode}.png`
+                },
+                temp_c: tempC,
+                temp_f: toFahrenheit(tempC),
+                humidity: oData.current.relative_humidity_2m,
+                feelslike_c: feelsC,
+                feelslike_f: toFahrenheit(feelsC),
+            },
+            forecast: {
+                forecastday: [{
+                    day: {
+                        mintemp_c: minC,
+                        maxtemp_c: maxC,
+                        mintemp_f: toFahrenheit(minC),
+                        maxtemp_f: toFahrenheit(maxC)
+                    }
+                }]
+            }
+        };
+    }
+
     // Fetch location based on user preference
     await (async function initializeLocation() {
         try {
@@ -368,7 +519,8 @@ async function getWeatherData() {
             const weatherParsedLocation = localStorage.getItem("weatherParsedLocation");
             const weatherParsedLang = localStorage.getItem("weatherParsedLang");
 
-            const retentionTime = savedApiKey ? 435000 : 960000; // 7.25 min for user-entered API key, 16 min otherwise
+            // 7.25 min for a user-entered WeatherAPI key, 16 min otherwise (Open-Meteo refreshes current data every 15 min)
+            const retentionTime = (savedApiKey && weatherProvider !== "openmeteo") ? 435000 : 960000;
 
             if (!parsedData ||
                 ((Date.now() - weatherParsedTime) > retentionTime) ||
@@ -378,42 +530,59 @@ async function getWeatherData() {
                 // Language code for Weather API
                 let lang = currentLanguage === "zh_TW" ? currentLanguage : currentLanguage.split("_")[0];
 
-                // Fetch weather data using Weather API
-                let weatherApi = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${currentUserLocation}&days=1&aqi=no&alerts=no&lang=${lang}`;
+                let filteredData = null;
+                let useWeatherApiFallback = false;
 
-                let data = await fetch(weatherApi);
-                parsedData = await data.json();
-                if (!parsedData.error) {
-                    // Extract only the necessary fields before saving
-                    const filteredData = {
-                        location: {
-                            name: parsedData.location.name,
-                        },
-                        current: {
-                            condition: {
-                                text: parsedData.current.condition.text,
-                                icon: parsedData.current.condition.icon,
+                if (weatherProvider === "openmeteo") {
+                    try {
+                        filteredData = await fetchOpenMeteoWeather();
+                    } catch (e) {
+                        // Documented in the privacy policy: WeatherAPI is used as a backup if Open-Meteo fails
+                        console.warn("Open-Meteo failed, falling back to WeatherAPI:", e);
+                        useWeatherApiFallback = true;
+                    }
+                }
+
+                if (weatherProvider !== "openmeteo" || useWeatherApiFallback) {
+                    // Fetch weather data using Weather API
+                    let weatherApi = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${currentUserLocation}&days=1&aqi=no&alerts=no&lang=${lang}`;
+
+                    let data = await fetch(weatherApi);
+                    let rawData = await data.json();
+                    if (!rawData.error) {
+                        filteredData = {
+                            location: {
+                                name: rawData.location.name,
                             },
-                            temp_c: parsedData.current.temp_c,
-                            temp_f: parsedData.current.temp_f,
-                            humidity: parsedData.current.humidity,
-                            feelslike_c: parsedData.current.feelslike_c,
-                            feelslike_f: parsedData.current.feelslike_f,
-                        },
-                        forecast: {
-                            forecastday: [
-                                {
-                                    day: {
-                                        mintemp_c: parsedData.forecast.forecastday[0].day.mintemp_c,
-                                        maxtemp_c: parsedData.forecast.forecastday[0].day.maxtemp_c,
-                                        mintemp_f: parsedData.forecast.forecastday[0].day.mintemp_f,
-                                        maxtemp_f: parsedData.forecast.forecastday[0].day.maxtemp_f
+                            current: {
+                                condition: {
+                                    text: rawData.current.condition.text,
+                                    icon: rawData.current.condition.icon,
+                                },
+                                temp_c: rawData.current.temp_c,
+                                temp_f: rawData.current.temp_f,
+                                humidity: rawData.current.humidity,
+                                feelslike_c: rawData.current.feelslike_c,
+                                feelslike_f: rawData.current.feelslike_f,
+                            },
+                            forecast: {
+                                forecastday: [
+                                    {
+                                        day: {
+                                            mintemp_c: rawData.forecast.forecastday[0].day.mintemp_c,
+                                            maxtemp_c: rawData.forecast.forecastday[0].day.maxtemp_c,
+                                            mintemp_f: rawData.forecast.forecastday[0].day.mintemp_f,
+                                            maxtemp_f: rawData.forecast.forecastday[0].day.maxtemp_f
+                                        }
                                     }
-                                }
-                            ]
-                        }
-                    };
+                                ]
+                            }
+                        };
+                    }
+                }
 
+                if (filteredData) {
+                    parsedData = filteredData;
                     // Save filtered weather data to localStorage
                     localStorage.setItem("weatherParsedData", JSON.stringify(filteredData));
                     localStorage.setItem("weatherParsedTime", Date.now()); // Save time of last fetching
@@ -625,3 +794,24 @@ minMaxTempCheckbox.addEventListener("change", () => {
     localStorage.setItem("minMaxTempEnabled", isChecked);
     location.reload();
 });
+
+const weatherProviderSelect = document.getElementById("weatherProviderSelect");
+if (weatherProviderSelect) {
+    const weatherApiKeyField = document.getElementById("weatherApiKeyField");
+    weatherProviderSelect.value = localStorage.getItem("weatherProviderSelect") || "weatherapi";
+
+    function applyWeatherApiKeyFieldState() {
+        if (weatherApiKeyField) {
+            weatherApiKeyField.classList.toggle("inactive", weatherProviderSelect.value === "openmeteo");
+        }
+    }
+
+    applyWeatherApiKeyFieldState();
+
+    weatherProviderSelect.addEventListener("change", (e) => {
+        localStorage.setItem("weatherProviderSelect", e.target.value);
+        localStorage.setItem("weatherParsedTime", "0");
+        applyWeatherApiKeyFieldState();
+        location.reload();
+    });
+}

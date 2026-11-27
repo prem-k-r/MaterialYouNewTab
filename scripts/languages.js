@@ -200,6 +200,8 @@ function applyLanguage(lang) {
         "PrivacyPolicy",
         "WeatherApiText",
         "WeatherApiSubtext",
+        "weatherProviderText",
+        "weatherProviderSubtext",
         "LearnMoreButton",
         "saveAPI",
         "enterBtn",
