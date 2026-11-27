@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="shortcut icon" href="../favicon/icon48.png" type="image/png">
+    <title>MYNT Translation Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* ── Override global style.css html/body viewport-lock rules ── */
+        html {
+            height: auto;
+            min-height: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: #7BAFD0 transparent;
+        }
+
+        html::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        html::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        html::-webkit-scrollbar-thumb {
+            background: #7BAFD0;
+            border-radius: 4px;
+        }
+
+        html::-webkit-scrollbar-thumb:hover {
+            background: #5B97BD;
+        }
+
+        /* ── Base (Soothing Pastel — Sky Dream & Mint Frost) ── */
+        .mynt-lka {
+            --mynt-round: 20px;
+            --mynt-gap: 16px;
+            --ctp-bg: color-mix(in srgb, #A6CCE3 42%, #E0F7FA); /* Sky Dream + Mint Frost */
+            --ctp-card: #F7FBFD;
+            --ctp-surface: #EAF4FA;
+            --ctp-surface-alt: #DCECF6;
+            --ctp-border: rgba(91, 151, 189, 0.22);
+            --ctp-text: #2F3E4E;
+            --ctp-subtext: #62758A;
+            --ctp-blue: #4E8BB3;       /* Deepened Sky Dream (#A6CCE3) */
+            --ctp-sapphire: #48978E;   /* Deepened Mint Breeze (#B9E3DD) */
+            --ctp-green: #3E8A72;      /* Deepened Sage/Mint */
+            --ctp-yellow: #B87B3E;     /* Deepened Vanilla Cream (#FDEBDD) */
+            --ctp-red: #C45C7A;        /* Deepened Soft Pink (#F7C7D9) */
+            --ctp-lilac: #7E68A3;      /* Deepened Lilac Mist (#D9CDE4) */
+            --ctp-on-accent: #F7FBFD;
+            --mynt-shadow: 0 4px 14px rgba(78, 139, 179, 0.1);
+            --mynt-surface: var(--ctp-surface);
+            --mynt-border: var(--ctp-border);
+            --mynt-warn-bg: color-mix(in srgb, #FDEBDD 55%, #FFFFFF);
+            --mynt-warn-border: var(--ctp-yellow);
+            --mynt-warn-text: #8C5623;
+            --mynt-err-accent: var(--ctp-red);
+            --mynt-err-text: #A84461;
+            --mynt-err-bg: color-mix(in srgb, #F7C7D9 28%, #FFFFFF);
+            --mynt-err-banner-bg: color-mix(in srgb, #FFD1DC 38%, #FFFFFF);
+            --mynt-err-border: rgba(196, 92, 122, 0.32);
+            --mynt-ok-bg: color-mix(in srgb, #B9E3DD 45%, #FFFFFF);
+            --mynt-header-bg: linear-gradient(135deg, #5B97BD 0%, #68A8A2 100%);
+            font-family: var(--main-font-family);
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 100vh;
+            overflow: visible;
+            background: var(--ctp-bg);
+            color: var(--ctp-text);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            scroll-behavior: smooth;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* ── Dark Mode (Soothing Twilight Pastel) ── */
+        .mynt-lka.dark-mode {
+            --ctp-bg: #161E2B;
+            --ctp-card: #1D2738;
+            --ctp-surface: #253247;
+            --ctp-surface-alt: #2E3E57;
+            --ctp-border: rgba(166, 204, 227, 0.16);
+            --ctp-text: #E4EEF5;
+            --ctp-subtext: #9FB4C7;
+            --ctp-blue: #A6CCE3;       /* Sky Dream */
+            --ctp-sapphire: #B9E3DD;   /* Mint Breeze */
+            --ctp-green: #B9E3DD;      /* Mint Breeze */
+            --ctp-yellow: #FDEBDD;     /* Vanilla Cream */
+            --ctp-red: #F7C7D9;        /* Soft Pink */
+            --ctp-lilac: #D9CDE4;      /* Lilac Mist */
+            --ctp-on-accent: #161E2B;
+            --mynt-shadow: 0 4px 14px rgba(10, 15, 24, 0.38);
+            --mynt-warn-bg: rgba(253, 235, 221, 0.1);
+            --mynt-warn-text: #FDEBDD;
+            --mynt-err-bg: rgba(247, 199, 217, 0.1);
+            --mynt-err-banner-bg: rgba(247, 199, 217, 0.14);
+            --mynt-err-border: rgba(247, 199, 217, 0.32);
+            --mynt-ok-bg: rgba(185, 227, 221, 0.14);
+            --mynt-header-bg: linear-gradient(135deg, #1D2738 0%, #24364C 100%);
+        }
+
+        .mynt-lka *,
+        .mynt-lka *::before,
+        .mynt-lka *::after {
+            box-sizing: border-box;
+        }
+
+        .mynt-lka input,
+        .mynt-lka textarea,
+        .mynt-lka select {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        /* ── Scrollbar ── */
+        .mynt-lka ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .mynt-lka ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .mynt-lka ::-webkit-scrollbar-thumb {
+            background: var(--darkColor-blue);
+            border-radius: 4px;
+        }
+
+        .mynt-lka ::-webkit-scrollbar-thumb:hover {
+            background: var(--darkerColor-blue);
+        }
+
+        .mynt-lka.dark-mode ::-webkit-scrollbar-thumb {
+            background: rgba(96, 150, 240, 0.35);
+        }
+
+        .mynt-lka.dark-mode ::-webkit-scrollbar-thumb:hover {
+            background: rgba(96, 150, 240, 0.55);
+        }
+
+        /* ── Header ── */
+        .mynt-lka .tool-header {
+            background: var(--mynt-header-bg);
+            color: #eff1f5;
+            padding: 0.85rem 2rem;
+            box-shadow: var(--mynt-shadow);
+            border-bottom: 1px solid var(--mynt-border);
+            position: relative;
+            z-index: 20;
+            animation: mynt-slideDown 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes mynt-slideDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .mynt-lka .tool-header-inner {
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--mynt-gap);
+            flex-wrap: wrap;
+        }
+
+        .mynt-lka .tool-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .mynt-lka .tool-brand-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            object-fit: contain;
+            padding: 4px;
+        }
+
+        .mynt-lka .tool-brand h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .mynt-lka .tool-brand span {
+            font-size: 0.78rem;
+            opacity: 0.88;
+            display: block;
+        }
+
+        /* ── Theme Cycle Button ── */
+        .mynt-lka .theme-cycle-btn {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.18);
+            color: rgba(255, 255, 255, 0.95);
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.15s ease;
+            flex-shrink: 0;
+        }
+
+        .mynt-lka .theme-cycle-btn:hover {
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        .mynt-lka .theme-cycle-btn:active {
+            transform: scale(0.93);
+        }
+
+        .mynt-lka .theme-cycle-btn .t-icon {
+            display: none;
+        }
+
+        .mynt-lka .theme-cycle-btn[data-mode="light"] .icon-sun {
+            display: block;
+        }
+
+        .mynt-lka .theme-cycle-btn[data-mode="dark"] .icon-moon {
+            display: block;
+        }
+
+        .mynt-lka .theme-cycle-btn[data-mode="system"] .icon-monitor {
+            display: block;
+        }
+
+        /* ── Layout ── */
+        .mynt-lka main {
+            flex: 1;
+            padding: 1.5rem;
+            max-width: 1120px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* ── Cards ── */
+        .mynt-lka .card {
+            background: var(--ctp-card);
+            border-radius: var(--mynt-round);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow: var(--mynt-shadow);
+            border: 1px solid var(--mynt-border);
+        }
+
+        .mynt-lka .card-title {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--ctp-text);
+            margin: 0 0 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+        }
+
+        .mynt-lka .card-title::before {
+            content: "";
+            width: 4px;
+            height: 1.1rem;
+            background: var(--ctp-blue);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ── Stats Grid ── */
+        .mynt-lka .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+            gap: 0.65rem;
+            margin-bottom: 1rem;
+        }
+
+        .mynt-lka .stat-box {
+            background: var(--mynt-surface);
+            border: 1px solid var(--mynt-border);
+            border-radius: 14px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.22rem;
+        }
+
+        .mynt-lka .stat-value {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .mynt-lka .stat-label {
+            display: block;
+            font-size: 0.76rem;
+            opacity: 0.76;
+        }
+
+        /* ── Buttons & Inputs ── */
+        .mynt-lka .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.46rem 0.85rem;
+            border-radius: 10px;
+            border: 1px solid var(--mynt-border);
+            background: var(--mynt-surface);
+            color: inherit;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+        }
+
+        .mynt-lka .btn:hover {
+            border-color: var(--ctp-blue);
+        }
+
+        .mynt-lka .btn:active {
+            transform: scale(0.97);
+        }
+
+        .mynt-lka .btn-primary {
+            background: var(--ctp-blue);
+            border-color: var(--ctp-blue);
+            color: var(--ctp-on-accent);
+        }
+
+        .mynt-lka .btn-primary:hover {
+            background: var(--ctp-sapphire);
+            border-color: var(--ctp-sapphire);
+        }
+
+        .mynt-lka .btn-danger {
+            color: var(--mynt-err-text);
+            border-color: var(--mynt-err-border);
+        }
+
+        .mynt-lka .input-field {
+            padding: 0.46rem 0.72rem;
+            border-radius: 10px;
+            border: 1px solid var(--mynt-border);
+            background: var(--mynt-surface);
+            color: inherit;
+            font-family: inherit;
+            font-size: 0.84rem;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .mynt-lka .input-field::placeholder,
+        .mynt-lka .trans-input::placeholder {
+            color: var(--ctp-subtext);
+            opacity: 0.72;
+        }
+
+        .mynt-lka .input-field:focus {
+            border-color: var(--ctp-blue);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--ctp-blue) 18%, transparent);
+        }
+
+        /* ── Dropzone & New-Lang ── */
+        .mynt-lka .loader-row {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 0.9rem;
+        }
+
+        @media (max-width: 780px) {
+            .mynt-lka .loader-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mynt-lka .dropzone {
+            border: 2px dashed var(--ctp-blue);
+            border-radius: 14px;
+            padding: 0.9rem 1rem;
+            background: var(--mynt-surface);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .mynt-lka .dropzone.drag-over {
+            background: color-mix(in srgb, var(--ctp-blue) 14%, var(--mynt-surface));
+            border-color: var(--ctp-sapphire);
+        }
+
+        .mynt-lka .dropzone-text {
+            font-size: 0.84rem;
+            line-height: 1.45;
+        }
+
+        .mynt-lka .dropzone-text strong {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .mynt-lka .new-lang-box {
+            border: 1px solid var(--mynt-border);
+            border-radius: 14px;
+            padding: 0.9rem 1rem;
+            background: var(--mynt-surface);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .mynt-lka .new-lang-box strong {
+            font-size: 0.88rem;
+        }
+
+        .mynt-lka .new-lang-inputs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .mynt-lka .new-lang-inputs .code-input {
+            width: 142px;
+        }
+
+        .mynt-lka .new-lang-inputs .name-input {
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .mynt-lka .status-banner {
+            margin-top: 0.75rem;
+            padding: 0.6rem 0.85rem;
+            border-radius: 10px;
+            font-size: 0.84rem;
+            display: none;
+        }
+
+        .mynt-lka .status-banner.show {
+            display: block;
+        }
+
+        .mynt-lka .status-banner.ok {
+            background: var(--mynt-ok-bg);
+            color: var(--ctp-green);
+            border-left: 4px solid var(--ctp-green);
+        }
+
+        .mynt-lka .status-banner.err {
+            background: var(--mynt-err-banner-bg);
+            color: var(--mynt-err-text);
+            border-left: 4px solid var(--mynt-err-accent);
+        }
+
+        /* ── Checklist ── */
+        .mynt-lka details.checklist-box {
+            margin-top: 0.85rem;
+            background: var(--mynt-surface);
+            border: 1px solid var(--mynt-border);
+            border-radius: 12px;
+            padding: 0.65rem 0.95rem;
+            font-size: 0.83rem;
+        }
+
+        .mynt-lka details.checklist-box summary {
+            cursor: pointer;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .mynt-lka details.checklist-box ol {
+            margin: 0.5rem 0 0.2rem 1.2rem;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .mynt-lka details.checklist-box code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            background: rgba(67, 130, 236, 0.12);
+            padding: 0.08rem 0.32rem;
+            border-radius: 5px;
+            font-size: 0.78rem;
+        }
+
+        /* ── Toolbar ── */
+        .mynt-lka .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .mynt-lka .search-input {
+            flex: 1;
+            min-width: 210px;
+        }
+
+        .mynt-lka .filter-pills {
+            display: flex;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+
+        .mynt-lka .pill-btn {
+            padding: 0.38rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid var(--mynt-border);
+            background: var(--mynt-surface);
+            color: inherit;
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .mynt-lka .pill-btn.active {
+            background: var(--ctp-blue);
+            border-color: var(--ctp-blue);
+            color: var(--ctp-on-accent);
+        }
+
+        /* ── Language Groups ── */
+        .mynt-lka .language-group {
+            margin-bottom: 0.85rem;
+            border-radius: 14px;
+            border: 1px solid var(--mynt-border);
+            background: var(--mynt-surface);
+            overflow: hidden;
+        }
+
+        .mynt-lka .language-group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--ctp-surface);
+            border: none;
+            cursor: pointer;
+            user-select: none;
+            font-family: inherit;
+            text-align: left;
+            transition: background 0.2s ease;
+        }
+
+        .mynt-lka .language-group-header:hover {
+            background: var(--ctp-surface-alt);
+        }
+
+        .mynt-lka .language-group-header:focus-visible {
+            outline: 2px solid var(--ctp-blue);
+            outline-offset: -2px;
+        }
+
+        .mynt-lka .lang-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            min-width: 190px;
+        }
+
+        .mynt-lka .chevron-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mynt-lka .chevron-icon {
+            display: block;
+            color: var(--ctp-blue);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+        }
+
+        .mynt-lka .language-group.collapsed .chevron-icon {
+            transform: rotate(-90deg);
+        }
+
+        .mynt-lka .language-group-header-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ctp-text);
+        }
+
+        .mynt-lka .lang-code-pill {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.74rem;
+            padding: 0.1rem 0.42rem;
+            border-radius: 6px;
+            background: var(--ctp-surface-alt);
+            color: var(--ctp-text);
+        }
+
+        .mynt-lka .tag-pill {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.1rem 0.45rem;
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--ctp-lilac) 16%, transparent);
+            color: var(--ctp-lilac);
+        }
+
+        .mynt-lka .header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+        }
+
+        .mynt-lka .progress-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .mynt-lka .progress-bar {
+            width: 68px;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .mynt-lka.dark-mode .progress-bar {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .mynt-lka .progress-fill {
+            height: 100%;
+            background: var(--ctp-green);
+            border-radius: 999px;
+            transition: width 0.3s ease;
+        }
+
+        .mynt-lka .key-counts {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            font-size: 0.74rem;
+            font-weight: 600;
+        }
+
+        .mynt-lka .count-pill {
+            padding: 0.14rem 0.5rem;
+            border-radius: 999px;
+            border: 1px solid currentColor;
+        }
+
+        .mynt-lka .missing-count { color: var(--mynt-err-text); }
+        .mynt-lka .warn-count    { color: var(--mynt-warn-border); }
+        .mynt-lka .extra-count   { color: var(--ctp-blue); }
+        .mynt-lka .ok-count      { color: var(--ctp-green); }
+
+        /* ── Expanded Body ── */
+        .mynt-lka .language-group-body {
+            padding: 1rem;
+            border-top: 1px solid var(--mynt-border);
+        }
+
+        .mynt-lka .language-group.collapsed .language-group-body {
+            display: none;
+        }
+
+        .mynt-lka .lang-actions-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            padding-bottom: 0.8rem;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px dashed var(--mynt-border);
+        }
+
+        .mynt-lka .lang-actions-group {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .mynt-lka .checkbox-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.78rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .mynt-lka .section-subhead {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin: 0.85rem 0 0.45rem;
+            opacity: 0.82;
+        }
+
+        .mynt-lka .section-subhead:first-child {
+            margin-top: 0;
+        }
+
+        /* ── Key Items ── */
+        .mynt-lka ul.key-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mynt-lka .key-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            padding: 0.8rem 0.95rem;
+            margin-bottom: 0.55rem;
+            border-radius: 12px;
+            background: var(--ctp-card);
+            border: 1px solid var(--mynt-border);
+            border-left-width: 3px;
+            font-size: 0.86rem;
+            transition: opacity 0.2s ease, border-color 0.15s ease;
+        }
+
+        .mynt-lka .key-item.missing {
+            border-left-color: var(--ctp-red);
+        }
+
+        .mynt-lka .key-item.warning {
+            border-left-color: var(--ctp-yellow);
+        }
+
+        .mynt-lka .key-item.extra {
+            border-left-color: var(--ctp-blue);
+        }
+
+        .mynt-lka .key-item.same {
+            border-left-color: var(--ctp-subtext);
+        }
+
+        .mynt-lka .key-item.checked {
+            opacity: 0.48;
+        }
+
+        .mynt-lka .key-item.checked .key-code {
+            text-decoration: line-through;
+        }
+
+        .mynt-lka .key-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .mynt-lka .key-id-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mynt-lka .key-code {
+            background: var(--ctp-surface);
+            color: var(--ctp-text);
+            padding: 0.18rem 0.48rem;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.82rem;
+            user-select: text;
+            -webkit-user-select: text;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .mynt-lka .key-code:hover {
+            background: var(--ctp-surface-alt);
+        }
+
+        .mynt-lka .copied-badge {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--ctp-green);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .mynt-lka .copied-badge.show {
+            opacity: 1;
+        }
+
+        .mynt-lka .hint-badges {
+            display: flex;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+
+        .mynt-lka .hint-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.12rem 0.45rem;
+            border-radius: 6px;
+            background: color-mix(in srgb, var(--ctp-blue) 12%, transparent);
+            color: var(--ctp-blue);
+        }
+
+        /* ── Reference Row (English value) ── */
+        .mynt-lka .ref-box {
+            font-size: 0.84rem;
+            padding: 0.1rem 0;
+            color: var(--ctp-text);
+            word-break: break-word;
+            user-select: text;
+            -webkit-user-select: text;
+            line-height: 1.5;
+        }
+
+        .mynt-lka .ref-label {
+            font-weight: 600;
+            font-size: 0.72rem;
+            color: var(--ctp-blue);
+            margin-right: 0.35rem;
+        }
+
+        .mynt-lka .nl-marker {
+            color: var(--ctp-blue);
+            opacity: 0.55;
+            font-size: 0.75em;
+            font-family: 'Monaco', 'Menlo', monospace;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* ── Editor ── */
+        .mynt-lka .editor-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .mynt-lka .trans-input {
+            width: 100%;
+            padding: 0.48rem 0.7rem;
+            border-radius: 8px;
+            border: 1px solid var(--mynt-border);
+            background: var(--ctp-surface);
+            color: var(--ctp-text);
+            font-family: inherit;
+            font-size: 0.84rem;
+            resize: vertical;
+            transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .mynt-lka .trans-input:focus {
+            outline: none;
+            border-color: var(--ctp-blue);
+            background: var(--ctp-card);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--ctp-blue) 16%, transparent);
+        }
+
+        .mynt-lka .array-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.4rem;
+        }
+
+        .mynt-lka .array-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 0.12rem;
+        }
+
+        .mynt-lka .array-cell span {
+            font-size: 0.7rem;
+            opacity: 0.72;
+        }
+
+        .mynt-lka .live-issue {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--mynt-err-text);
+        }
+
+        /* ── Checkbox ── */
+        .mynt-lka input.row-check[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--mynt-err-accent);
+            border-radius: 5px;
+            cursor: pointer;
+            flex-shrink: 0;
+            background: transparent;
+            transition: background 0.15s ease;
+        }
+
+        .mynt-lka input.row-check[type="checkbox"]:checked {
+            background: var(--mynt-err-accent);
+            border-color: var(--mynt-err-accent);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23fff"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
+            background-size: 12px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* ── Complete Section ── */
+        .mynt-lka .completed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .mynt-lka .complete-chip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            padding: 0.6rem 0.85rem;
+            border-radius: 12px;
+            background: var(--mynt-ok-bg);
+            border-left: 4px solid var(--ctp-green);
+            color: var(--ctp-text);
+            fill: var(--ctp-green);
+            font-size: 0.84rem;
+        }
+
+        .mynt-lka .complete-chip-left {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .mynt-lka .complete-chip-left > span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mynt-lka .complete-chip-left svg {
+            display: block;
+        }
+
+        .mynt-lka .empty-state {
+            padding: 1rem;
+            text-align: center;
+            opacity: 0.72;
+            font-size: 0.88rem;
+        }
+
+        /* ── Toast & Back to Top ── */
+        .mynt-lka .back-to-top {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--mynt-border);
+            background: var(--ctp-blue);
+            color: var(--ctp-on-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease, background 0.15s ease;
+            z-index: 45;
+        }
+
+        .mynt-lka .back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .mynt-lka .back-to-top:hover {
+            background: var(--ctp-sapphire);
+        }
+
+        .mynt-lka .toast {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 4.5rem;
+            background: var(--ctp-blue);
+            color: var(--ctp-on-accent);
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+            opacity: 0;
+            transform: translateY(8px);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 50;
+        }
+
+        .mynt-lka .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script src="../locales/pt.js"></script>
+    <script src="../locales/en.js"></script>
+    <script src="../locales/es.js"></script>
+    <script src="../locales/hi.js"></script>
+    <script src="../locales/hu.js"></script>
+    <script src="../locales/zh.js"></script>
+    <script src="../locales/cs.js"></script>
+    <script src="../locales/it.js"></script>
+    <script src="../locales/tr.js"></script>
+    <script src="../locales/bn.js"></script>
+    <script src="../locales/vi.js"></script>
+    <script src="../locales/ru.js"></script>
+    <script src="../locales/uz.js"></script>
+    <script src="../locales/ja.js"></script>
+    <script src="../locales/ko.js"></script>
+    <script src="../locales/idn.js"></script>
+    <script src="../locales/mr.js"></script>
+    <script src="../locales/fr.js"></script>
+    <script src="../locales/az.js"></script>
+    <script src="../locales/sl.js"></script>
+    <script src="../locales/ne.js"></script>
+    <script src="../locales/zh_TW.js"></script>
+    <script src="../locales/ur.js"></script>
+    <script src="../locales/de.js"></script>
+    <script src="../locales/fa.js"></script>
+    <script src="../locales/ar_SA.js"></script>
+    <script src="../locales/el.js"></script>
+    <script src="../locales/ta.js"></script>
+    <script src="../locales/th.js"></script>
+    <script src="../locales/pl.js"></script>
+    <script src="../locales/uk.js"></script>
+    <script src="../locales/sv.js"></script>
+    <script src="../locales/hy.js"></script>
+</head>
+
+<body id="mynt-lka" class="mynt-lka">
+    <header class="tool-header">
+        <div class="tool-header-inner">
+            <div class="tool-brand">
+                <img class="tool-brand-icon" src="../favicon/icon128.png" alt="MYNT" width="40" height="40">
+                <div>
+                    <h1>MYNT Translation Tool</h1>
+                    <span>Analyze, translate inline, and export locale files</span>
+                </div>
+            </div>
+            <button type="button" class="theme-cycle-btn" id="theme-cycle" data-mode="light" aria-label="Cycle theme: Light / Dark / System" title="Cycle theme">
+                <!-- Sun -->
+                <svg class="t-icon icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <!-- Moon -->
+                <svg class="t-icon icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                </svg>
+                <!-- Monitor / System -->
+                <svg class="t-icon icon-monitor" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2 class="card-title">Overview &amp; Local Locale Tester</h2>
+            <div id="stats-grid" class="stats-grid"></div>
+
+            <div class="loader-row">
+                <div id="dropzone" class="dropzone">
+                    <div class="dropzone-text">
+                        <strong>Test an edited or new <code>locales/*.js</code> file</strong>
+                        Drop a <code>.js</code> file here or browse to validate it without modifying this page.
+                    </div>
+                    <input type="file" id="locale-file-input" accept=".js,text/javascript,application/javascript" hidden>
+                    <button type="button" class="btn btn-primary" id="browse-file-btn">Load .js File</button>
+                </div>
+
+                <div class="new-lang-box">
+                    <strong>Start a brand-new language</strong>
+                    <div class="new-lang-inputs">
+                        <input type="text" id="new-lang-code" class="input-field code-input" placeholder="Code (e.g. nl)" aria-label="New language code">
+                        <input type="text" id="new-lang-name" class="input-field name-input" placeholder="Name (e.g. Dutch)" aria-label="New language name">
+                        <button type="button" class="btn btn-primary" id="create-new-lang-btn">Start</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loader-status" class="status-banner" role="status"></div>
+
+            <details class="checklist-box">
+                <summary>Contributor checklist when adding or updating a language</summary>
+                <ol>
+                    <li>Keep <code>{placeholders}</code> (such as <code>{title}</code>, <code>{size}</code>, <code>{max}</code>, <code>{count}</code>, <code>{name}</code>) and <code>&lt;a&gt;</code> links intact.</li>
+                    <li>Save your file under <code>locales/&lt;code&gt;.js</code> with <code>const &lt;code&gt; = { ... };</code>.</li>
+                    <li>For a <strong>new language</strong>, register it in <code>index.html</code>, <code>scripts/languages.js</code>, <code>scripts/clock.js</code>, <code>README.md</code>, and <code>tools/translationTool.html</code>.</li>
+                    <li>Test visually in Chrome &amp; Firefox. Verify humidity/menu widths don't wrap.</li>
+                </ol>
+            </details>
+        </section>
+
+        <section class="card">
+            <h2 class="card-title">Completed Languages</h2>
+            <div id="complete" class="completed-grid"></div>
+        </section>
+
+        <section class="card">
+            <h2 class="card-title">Language Key Analysis &amp; Inline Editor</h2>
+            <div class="toolbar">
+                <input type="search" id="search-input" class="input-field search-input" placeholder="Filter by language or key name..." aria-label="Filter languages or keys">
+                <div class="filter-pills" role="group" aria-label="Filter by status">
+                    <button type="button" class="pill-btn active" data-filter="all">All</button>
+                    <button type="button" class="pill-btn" data-filter="missing">Missing</button>
+                    <button type="button" class="pill-btn" data-filter="warnings">Warnings</button>
+                    <button type="button" class="pill-btn" data-filter="extra">Extra</button>
+                    <button type="button" class="pill-btn" data-filter="custom">Loaded / New</button>
+                </div>
+                <div class="lang-actions-group">
+                    <button type="button" class="btn" id="expand-all-btn">Expand All</button>
+                    <button type="button" class="btn" id="collapse-all-btn">Collapse All</button>
+                </div>
+            </div>
+            <div id="results"></div>
+        </section>
+    </main>
+
+    <button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════════
+        //  CONFIGURATION
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        const builtinLanguages = {
+            ar_SA, az, bn, cs, de, el, en, es, fa, fr, hi, hu, hy, idn, it, ja, ko,
+            mr, ne, pl, pt, ru, sl, sv, ta, th, tr, uk, ur, uz, vi, zh, zh_TW
+        };
+
+        const LANGUAGE_NAMES = {
+            ar_SA: "Arabic (العربية)", hy: "Armenian (Հայերեն)", az: "Azerbaijani (Azərbaycanca)",
+            bn: "Bangla (বাংলা)", zh: "Chinese Simplified (简体中文)", zh_TW: "Chinese Traditional (繁體中文)",
+            cs: "Czech (Čeština)", en: "English", fr: "French (Français)", de: "German (Deutsch)",
+            el: "Greek (Ελληνικά)", hi: "Hindi (हिन्दी)", hu: "Hungarian (Magyar)",
+            idn: "Indonesian (Bahasa Indonesia)", it: "Italian (Italiano)", ja: "Japanese (日本語)",
+            ko: "Korean (한국어)", mr: "Marathi (मराठी)", ne: "Nepali (नेपाली)",
+            fa: "Persian (فارسی)", pl: "Polish (Polski)", pt: "Portuguese Brazil (Português)",
+            ru: "Russian (Русский)", sl: "Slovenian (Slovenščina)", es: "Spanish (Español)",
+            sv: "Swedish (Svenska)", ta: "Tamil (தமிழ்)", th: "Thai (ภาษาไทย)",
+            tr: "Turkish (Türkçe)", uk: "Ukrainian (Українська)", ur: "Urdu (اردو)",
+            uz: "Uzbek (O'zbek)", vi: "Vietnamese (Tiếng Việt)"
+        };
+
+        // Keys that are brand/proper nouns and legitimately match English
+        const ALLOW_SAME_AS_EN = new Set([
+            "googleEngine", "bingEngine", "braveEngine", "youtubeEngine", "redditEngine",
+            "wikipediaEngine", "quoraEngine", "github", "okText", "sortAlphabetical",
+            "sortAlphabeticalDesc", "chatGPT", "gemini", "copilot", "claude", "grok",
+            "perplexity", "deepseek", "metaAI"
+        ]);
+
+        // Translator notes extracted from en.js comments
+        const KEY_HINTS = {
+            duckEngine: "DuckDuckGo short label",
+            gImagesEngine: "Google Images short label",
+            deleteBookmark: "Do not translate {title}",
+            deleteBookmarkFolder: "Do not translate {title} and {count}",
+            aiToolEditLabel: "Do not translate {name}",
+            aiToolDeleteLabel: "Do not translate {name}",
+            todoListHover: "Keep this short",
+            googleAppsHover: "Keep this shorter",
+            hideWeatherBox: "Toggle for mobile devices only",
+            WeatherApiText: "For 'WeatherAPI' string, only transliterate",
+            rangColor: "Keep this short",
+            uploadWallpaperText: "Keep this short",
+            failedbackup: "Keep trailing space",
+            restorefailed: "Keep trailing space"
+        };
+
+        const DRAFTS_KEY = "mynt-lka-drafts-v1";
+        const CUSTOM_KEY = "mynt-lka-custom-locales-v1";
+
+        // SVG icons used throughout
+        const ICONS = {
+            check: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="15" height="15"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></svg>`,
+            chevron: `<svg class="chevron-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>`
+        };
+
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        //  STATE
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        const state = {
+            filter: "all",
+            search: "",
+            expanded: new Set(),
+            showSameAsEn: new Set(),
+            includeTodos: true,
+            drafts: loadJson(DRAFTS_KEY, {}),
+            customLocales: loadJson(CUSTOM_KEY, {})
+        };
+
+        function loadJson(key, fallback) {
+            try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : fallback; }
+            catch { return fallback; }
+        }
+        function saveDrafts()       { try { localStorage.setItem(DRAFTS_KEY, JSON.stringify(state.drafts)); } catch {} }
+        function saveCustomLocales() { try { localStorage.setItem(CUSTOM_KEY, JSON.stringify(state.customLocales)); } catch {} }
+
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        //  ANALYSIS HELPERS
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        function isPlainObj(v) { return Boolean(v) && typeof v === "object" && !Array.isArray(v); }
+
+        /** Flattens nested plain objects to dot-notation keys, keeping strings and arrays as leaves. */
+        function flattenLocale(obj, prefix = "", out = {}) {
+            if (!isPlainObj(obj)) return out;
+            for (const [k, v] of Object.entries(obj)) {
+                const path = prefix ? `${prefix}.${k}` : k;
+                isPlainObj(v) ? flattenLocale(v, path, out) : (out[path] = v);
+            }
+            return out;
+        }
+
+        function extractPlaceholders(s) { return typeof s === "string" ? (s.match(/\{[a-zA-Z0-9_]+\}/g) || []) : []; }
+
+        function countAnchors(s) {
+            if (typeof s !== "string") return { open: 0, close: 0 };
+            return { open: (s.match(/<a\b[^>]*>/gi) || []).length, close: (s.match(/<\/a>/gi) || []).length };
+        }
+
+        /** Validates a single key's translated value against its English reference. */
+        function validateValue(path, refVal, val) {
+            const issues = [];
+
+            if (Array.isArray(refVal)) {
+                if (!Array.isArray(val)) { issues.push(`Expected array (${refVal.length} items)`); return issues; }
+                if (val.length !== refVal.length) issues.push(`Expected ${refVal.length} items, found ${val.length}`);
+                if (val.some(x => typeof x !== "string" || !x.trim())) issues.push("Contains empty item");
+                return issues;
+            }
+
+            if (typeof val !== "string") { issues.push("Expected string"); return issues; }
+            if (!val.trim()) { issues.push("Empty translation"); return issues; }
+
+            const refPh = extractPlaceholders(refVal), valPh = extractPlaceholders(val);
+            const missingPh = refPh.filter(p => !valPh.includes(p));
+            const extraPh = valPh.filter(p => !refPh.includes(p));
+            if (missingPh.length) issues.push(`Missing: ${missingPh.join(", ")}`);
+            if (extraPh.length) issues.push(`Unexpected: ${extraPh.join(", ")}`);
+
+            const refA = countAnchors(refVal);
+            if (refA.open > 0) {
+                const valA = countAnchors(val);
+                if (valA.open !== refA.open || valA.close !== refA.close) issues.push("Mismatched <a> link tag");
+            }
+
+            if (typeof refVal === "string" && refVal.endsWith(" ") && !/\s$/.test(val)) issues.push("Missing trailing space");
+
+            return issues;
+        }
+
+        // Pre-compute English reference
+        const refFlat = flattenLocale(en);
+        const refKeys = Object.keys(refFlat);
+        const refKeySet = new Set(refKeys);
+
+        /** Returns the draft value if present, otherwise the base locale value. */
+        function getMergedValue(lang, path, baseFlat) {
+            const d = state.drafts[lang];
+            return (d && Object.prototype.hasOwnProperty.call(d, path)) ? d[path] : baseFlat[path];
+        }
+
+        /** Full analysis of a locale against English. */
+        function analyseLanguage(lang, data) {
+            const baseFlat = flattenLocale(data);
+            const missing = [], warnings = [], sameAsEn = [], extra = [];
+
+            for (const path of refKeys) {
+                const refVal = refFlat[path];
+                const val = getMergedValue(lang, path, baseFlat);
+                if (val === undefined) { missing.push(path); continue; }
+                const issues = validateValue(path, refVal, val);
+                if (issues.length) { warnings.push({ path, issues, val }); }
+                else if (typeof refVal === "string" && typeof val === "string" && val === refVal && !ALLOW_SAME_AS_EN.has(path)) {
+                    sameAsEn.push(path);
+                }
+            }
+
+            for (const path of Object.keys(baseFlat)) {
+                if (!refKeySet.has(path)) extra.push({ path, val: baseFlat[path] });
+            }
+
+            const translatedCount = refKeys.length - missing.length;
+            const draftCount = state.drafts[lang] ? Object.keys(state.drafts[lang]).length : 0;
+
+            return {
+                lang, baseFlat, missing, warnings, extra, sameAsEn,
+                translatedCount, totalCount: refKeys.length,
+                percent: Math.round((translatedCount / refKeys.length) * 100),
+                draftCount,
+                isComplete: !missing.length && !extra.length && !warnings.length
+            };
+        }
+
+        function getAllEntries() {
+            const entries = [], seen = new Set();
+            for (const [code, custom] of Object.entries(state.customLocales)) {
+                if (code === "en") continue;
+                seen.add(code);
+                entries.push({ code, name: custom.name || LANGUAGE_NAMES[code] || code, data: custom.data, isCustom: true });
+            }
+            for (const [code, data] of Object.entries(builtinLanguages)) {
+                if (code === "en" || seen.has(code)) continue;
+                entries.push({ code, name: LANGUAGE_NAMES[code] || code, data, isCustom: false });
+            }
+            return entries;
+        }
+
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        //  EXPORT
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        function setNestedPath(obj, path, val) {
+            const parts = path.split(".");
+            let curr = obj;
+            for (let i = 0; i < parts.length - 1; i++) {
+                if (!isPlainObj(curr[parts[i]])) curr[parts[i]] = {};
+                curr = curr[parts[i]];
+            }
+            curr[parts[parts.length - 1]] = val;
+        }
+
+        function fmtJsValue(val, indent = "    ") {
+            if (Array.isArray(val)) return `[${val.map(v => JSON.stringify(v)).join(", ")}]`;
+            if (isPlainObj(val)) {
+                const lines = Object.entries(val).map(([k, v]) => `${indent}    ${JSON.stringify(k)}: ${JSON.stringify(v)}`);
+                return `{\n${lines.join(",\n")}\n${indent}}`;
+            }
+            return JSON.stringify(val);
+        }
+
+        function buildMissingSnippets(lang, baseFlat) {
+            const draft = state.drafts[lang];
+            if (!draft || !Object.keys(draft).length) return "";
+            const grouped = {};
+            for (const path of refKeys) {
+                if (Object.prototype.hasOwnProperty.call(draft, path)) setNestedPath(grouped, path, draft[path]);
+            }
+            return Object.entries(grouped).map(([k, v]) => `    ${JSON.stringify(k)}: ${fmtJsValue(v)},`).join("\n");
+        }
+
+        function buildFullLocaleFile(lang, displayName, baseFlat, includeTodos) {
+            const lines = [`// ${displayName}`, `const ${lang} = {`];
+            const topEntries = Object.entries(en);
+
+            topEntries.forEach(([topKey, refVal], idx) => {
+                const comma = idx < topEntries.length - 1 ? "," : "";
+                if (isPlainObj(refVal)) {
+                    const sub = [];
+                    for (const [sk, sr] of Object.entries(refVal)) {
+                        const val = getMergedValue(lang, `${topKey}.${sk}`, baseFlat);
+                        if (val !== undefined) sub.push(`        ${JSON.stringify(sk)}: ${JSON.stringify(val)}`);
+                        else if (includeTodos) sub.push(`        // TODO: ${JSON.stringify(sk)}: ${JSON.stringify(sr)}`);
+                    }
+                    lines.push(`    ${topKey}: {\n${sub.join(",\n")}\n    }${comma}`);
+                } else {
+                    const val = getMergedValue(lang, topKey, baseFlat);
+                    if (val !== undefined) lines.push(`    ${JSON.stringify(topKey)}: ${fmtJsValue(val)}${comma}`);
+                    else if (includeTodos) lines.push(`    // TODO: ${JSON.stringify(topKey)}: ${fmtJsValue(refVal)}${comma}`);
+                }
+            });
+
+            lines.push("};");
+            return lines.join("\n") + "\n";
+        }
+
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        //  FILE PARSING
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        function parseLocaleJs(codeText, filename = "") {
+            const varMatch = codeText.match(/^\s*(?:\/\/[^\n]*\n|\s|\/\*[\s\S]*?\*\/)*(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=/);
+            let parsed, detectedCode = "";
+
+            if (varMatch) {
+                detectedCode = varMatch[1];
+                parsed = new Function(`"use strict";\n${codeText}\nreturn ${detectedCode};`)();
+            } else {
+                parsed = new Function(`"use strict"; return (${codeText});`)();
+                detectedCode = filename.replace(/\.js$/i, "").replace(/[^a-zA-Z0-9_]/g, "_");
+            }
+
+            if (!isPlainObj(parsed)) throw new Error("Could not find a translation object.");
+            if (!detectedCode) throw new Error("Could not detect language code.");
+            return { code: detectedCode, data: parsed };
+        }
+
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        //  DOM HELPERS
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        const $ = (id) => document.getElementById(id);
+        const statsGrid   = $("stats-grid");
+        const completeDiv = $("complete");
+        const resultsDiv  = $("results");
+        const searchInput = $("search-input");
+        const loaderStatus = $("loader-status");
+        const toastEl     = $("toast");
+
+        let toastTimer;
+        function showToast(msg) {
+            toastEl.textContent = msg;
+            toastEl.classList.add("show");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2000);
+        }
+
+        function setLoaderStatus(msg, isErr = false) {
+            loaderStatus.textContent = msg;
+            loaderStatus.className = `status-banner show ${isErr ? "err" : "ok"}`;
+        }
+
+        function mkEl(tag, opts = {}) {
+            const e = document.createElement(tag);
+            if (opts.className) e.className = opts.className;
+            if (opts.textContent !== undefined) e.textContent = opts.textContent;
+            if (opts.attrs) for (const [k, v] of Object.entries(opts.attrs)) e.setAttribute(k, v);
+            return e;
+        }
+
+        function copyText(text, msg = "Copied!") {
+            navigator.clipboard.writeText(text).then(() => showToast(msg));
+        }
+
+        function downloadFile(filename, content) {
+            const blob = new Blob([content], { type: "application/javascript;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = Object.assign(document.createElement("a"), { href: url, download: filename });
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        /**
+         * Creates a document fragment that shows newlines visibly.
+         * "line1\nline2" → line1 ↵<br>line2
+         */
+        function renderMultiline(str) {
+            const frag = document.createDocumentFragment();
+            const parts = String(str).split("\n");
+            parts.forEach((part, i) => {
+                frag.appendChild(document.createTextNode(part));
+                if (i < parts.length - 1) {
+                    const marker = mkEl("span", { className: "nl-marker", textContent: " ↵" });
+                    frag.appendChild(marker);
+                    frag.appendChild(document.createElement("br"));
+                }
+            });
+            return frag;
+        }
+
+        function setDraftValue(lang, path, value) {
+            if (!state.drafts[lang]) state.drafts[lang] = {};
+            state.drafts[lang][path] = value;
+            saveDrafts();
+        }
+
+        // Debounce helper
+        function debounce(fn, ms) {
+            let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+        }
+
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        //  RENDERING
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        function renderStats(analyzed) {
+            statsGrid.innerHTML = "";
+            const totLangs   = analyzed.length;
+            const complete   = analyzed.filter(a => a.analysis.isComplete).length;
+            const totMissing = analyzed.reduce((s, a) => s + a.analysis.missing.length, 0);
+            const totWarns   = analyzed.reduce((s, a) => s + a.analysis.warnings.length, 0);
+            const totDrafts  = analyzed.reduce((s, a) => s + a.analysis.draftCount, 0);
+
+            [
+                { v: String(totLangs), l: "Languages" },
+                { v: `${complete} / ${totLangs}`, l: "100% Synced" },
+                { v: String(refKeys.length), l: "English Leaf Keys" },
+                { v: String(totMissing), l: "Total Missing" },
+                { v: String(totWarns), l: "Warnings" },
+                { v: String(totDrafts), l: "Local Drafts" }
+            ].forEach(({ v, l }) => {
+                const box = mkEl("div", { className: "stat-box" });
+                box.appendChild(mkEl("span", { className: "stat-value", textContent: v }));
+                box.appendChild(mkEl("span", { className: "stat-label", textContent: l }));
+                statsGrid.appendChild(box);
+            });
+        }
+
+        function renderCompleteSection(analyzed) {
+            completeDiv.innerHTML = "";
+            const list = analyzed.filter(a => a.analysis.isComplete);
+            if (!list.length) {
+                completeDiv.appendChild(mkEl("div", { className: "empty-state", textContent: "No languages are fully aligned with English yet." }));
+                return;
+            }
+            for (const { code, name, isCustom } of list) {
+                const chip = mkEl("div", { className: "complete-chip" });
+                const left = mkEl("div", { className: "complete-chip-left" });
+                const iconSpan = mkEl("span"); iconSpan.innerHTML = ICONS.check;
+                left.appendChild(iconSpan);
+                left.appendChild(mkEl("strong", { textContent: name }));
+                chip.appendChild(left);
+                chip.appendChild(mkEl("span", { className: "lang-code-pill", textContent: isCustom ? `${code} (loaded)` : code }));
+                completeDiv.appendChild(chip);
+            }
+        }
+
+        function createHintBadges(path, refVal) {
+            const wrap = mkEl("div", { className: "hint-badges" });
+            const ph = extractPlaceholders(refVal);
+            if (ph.length) wrap.appendChild(mkEl("span", { className: "hint-badge", textContent: `Keep ${ph.join(" ")}` }));
+            if (typeof refVal === "string" && refVal.includes("<a ")) wrap.appendChild(mkEl("span", { className: "hint-badge", textContent: "Contains <a> link" }));
+            if (typeof refVal === "string" && refVal.includes("\n")) wrap.appendChild(mkEl("span", { className: "hint-badge", textContent: "Multiline (↵)" }));
+            if (KEY_HINTS[path]) wrap.appendChild(mkEl("span", { className: "hint-badge", textContent: KEY_HINTS[path] }));
+            return wrap;
+        }
+
+        function createEditor(lang, path, refVal, currentVal, onSync) {
+            const wrap = mkEl("div", { className: "editor-wrap" });
+            const issue = mkEl("div", { className: "live-issue" });
+
+            const refreshIssue = (val) => {
+                issue.textContent = val === undefined ? "" : (() => {
+                    const is = validateValue(path, refVal, val);
+                    return is.length ? `⚠ ${is.join(" · ")}` : "";
+                })();
+            };
+
+            if (Array.isArray(refVal)) {
+                const grid = mkEl("div", { className: "array-grid" });
+                const working = Array.isArray(currentVal) ? [...currentVal] : refVal.map(() => "");
+                while (working.length < refVal.length) working.push("");
+
+                refVal.forEach((enItem, i) => {
+                    const cell = mkEl("label", { className: "array-cell" });
+                    cell.appendChild(mkEl("span", { textContent: `${i + 1}. ${enItem}` }));
+                    const inp = mkEl("input", { className: "trans-input", attrs: { type: "text", value: working[i] || "", placeholder: enItem } });
+                    inp.addEventListener("input", () => {
+                        working[i] = inp.value;
+                        setDraftValue(lang, path, [...working]);
+                        refreshIssue(working);
+                        onSync();
+                    });
+                    cell.appendChild(inp);
+                    grid.appendChild(cell);
+                });
+                wrap.appendChild(grid);
+            } else {
+                const isLong = typeof refVal === "string" && (refVal.length > 65 || refVal.includes("\n"));
+                const inp = mkEl(isLong ? "textarea" : "input", {
+                    className: "trans-input",
+                    attrs: isLong
+                        ? { rows: refVal.includes("\n") ? "4" : "2", placeholder: `Translate: ${refVal.replace(/\n/g, "↵")}` }
+                        : { type: "text", placeholder: `Translate: ${refVal}` }
+                });
+                if (typeof currentVal === "string") inp.value = currentVal;
+                inp.addEventListener("input", () => {
+                    setDraftValue(lang, path, inp.value);
+                    refreshIssue(inp.value);
+                    onSync();
+                });
+                wrap.appendChild(inp);
+            }
+
+            refreshIssue(currentVal);
+            wrap.appendChild(issue);
+            return wrap;
+        }
+
+        function createKeyRow({ kind, lang, path, refVal, currentVal, issues = [], showCb = false, onSync }) {
+            const li = mkEl("li", { className: `key-item ${kind}` });
+
+            // Top row: checkbox + key code + hints
+            const top = mkEl("div", { className: "key-top-row" });
+            const idGrp = mkEl("div", { className: "key-id-group" });
+
+            if (showCb) {
+                const cb = mkEl("input", { className: "row-check", attrs: { type: "checkbox", title: "Mark handled" } });
+                cb.addEventListener("change", () => li.classList.toggle("checked", cb.checked));
+                idGrp.appendChild(cb);
+            }
+
+            const code = mkEl("code", { className: "key-code", textContent: path, attrs: { title: "Click to copy" } });
+            const badge = mkEl("span", { className: "copied-badge", textContent: "Copied!" });
+            code.addEventListener("click", () => {
+                navigator.clipboard.writeText(path).then(() => {
+                    clearTimeout(badge._t);
+                    badge.classList.add("show");
+                    badge._t = setTimeout(() => badge.classList.remove("show"), 900);
+                });
+            });
+            idGrp.appendChild(code);
+            idGrp.appendChild(badge);
+            top.appendChild(idGrp);
+            top.appendChild(createHintBadges(path, refVal));
+            li.appendChild(top);
+
+            // Validation issues
+            if (issues.length) li.appendChild(mkEl("div", { className: "live-issue", textContent: `⚠ ${issues.join(" · ")}` }));
+
+            // English reference
+            if (refVal !== undefined) {
+                const ref = mkEl("div", { className: "ref-box" });
+                ref.appendChild(mkEl("span", { className: "ref-label", textContent: "EN:" }));
+                if (Array.isArray(refVal)) {
+                    ref.appendChild(document.createTextNode(refVal.join(" | ")));
+                } else {
+                    ref.appendChild(renderMultiline(String(refVal)));
+                }
+                li.appendChild(ref);
+            }
+
+            // Extra key → show current value
+            if (kind === "extra") {
+                const cur = mkEl("div", { className: "ref-box" });
+                cur.appendChild(mkEl("span", { className: "ref-label", textContent: "CURRENT:" }));
+                cur.appendChild(document.createTextNode(Array.isArray(currentVal) ? JSON.stringify(currentVal) : String(currentVal)));
+                li.appendChild(cur);
+                return li;
+            }
+
+            // Inline editor
+            li.appendChild(createEditor(lang, path, refVal, currentVal, onSync));
+            return li;
+        }
+
+        function renderLanguageCard(entry) {
+            const { code, name, data, isCustom } = entry;
+            const analysis = analyseLanguage(code, data);
+
+            const group = mkEl("div", { className: `language-group${state.expanded.has(code) ? "" : " collapsed"}` });
+
+            // ── Header ──
+            const hdr = mkEl("button", { className: "language-group-header", attrs: { type: "button" } });
+            const titleWrap = mkEl("div", { className: "lang-title-wrap" });
+            const chevSpan = mkEl("span", { className: "chevron-wrap" }); chevSpan.innerHTML = ICONS.chevron;
+            titleWrap.appendChild(chevSpan);
+            titleWrap.appendChild(mkEl("span", { className: "language-group-header-text", textContent: name }));
+            titleWrap.appendChild(mkEl("span", { className: "lang-code-pill", textContent: code }));
+            if (new Set(["ur", "fa", "ar_SA"]).has(code)) titleWrap.appendChild(mkEl("span", { className: "tag-pill", textContent: "RTL" }));
+            if (isCustom) titleWrap.appendChild(mkEl("span", { className: "tag-pill", textContent: "Loaded" }));
+
+            const right = mkEl("div", { className: "header-right" });
+            const progWrap = mkEl("div", { className: "progress-wrap" });
+            const bar = mkEl("div", { className: "progress-bar" });
+            const fill = mkEl("div", { className: "progress-fill" });
+            fill.style.width = `${analysis.percent}%`;
+            bar.appendChild(fill);
+            const pctTxt = mkEl("span", { textContent: `${analysis.translatedCount}/${analysis.totalCount} (${analysis.percent}%)` });
+            progWrap.appendChild(bar);
+            progWrap.appendChild(pctTxt);
+            right.appendChild(progWrap);
+
+            const counts = mkEl("div", { className: "key-counts" });
+
+            const syncBadges = () => {
+                const fresh = analyseLanguage(code, data);
+                fill.style.width = `${fresh.percent}%`;
+                pctTxt.textContent = `${fresh.translatedCount}/${fresh.totalCount} (${fresh.percent}%)`;
+                counts.innerHTML = "";
+                if (fresh.missing.length)  counts.appendChild(mkEl("span", { className: "count-pill missing-count", textContent: `−${fresh.missing.length} missing` }));
+                if (fresh.warnings.length) counts.appendChild(mkEl("span", { className: "count-pill warn-count", textContent: `⚠ ${fresh.warnings.length} warn` }));
+                if (fresh.extra.length)    counts.appendChild(mkEl("span", { className: "count-pill extra-count", textContent: `+${fresh.extra.length} extra` }));
+                if (fresh.draftCount)      counts.appendChild(mkEl("span", { className: "count-pill ok-count", textContent: `✎ ${fresh.draftCount} edited` }));
+                if (fresh.isComplete && !fresh.draftCount) counts.appendChild(mkEl("span", { className: "count-pill ok-count", textContent: "Synced" }));
+            };
+            syncBadges();
+            right.appendChild(counts);
+
+            hdr.appendChild(titleWrap);
+            hdr.appendChild(right);
+            hdr.addEventListener("click", () => {
+                group.classList.toggle("collapsed") ? state.expanded.delete(code) : state.expanded.add(code);
+            });
+            group.appendChild(hdr);
+
+            // ── Body ──
+            const body = mkEl("div", { className: "language-group-body" });
+
+            // Actions bar
+            const actBar = mkEl("div", { className: "lang-actions-bar" });
+            const btnGrp = mkEl("div", { className: "lang-actions-group" });
+
+            const copySnipBtn = mkEl("button", { className: "btn btn-primary", textContent: "Copy Edited Snippets", attrs: { type: "button" } });
+            copySnipBtn.addEventListener("click", () => {
+                const snip = buildMissingSnippets(code, analysis.baseFlat);
+                if (!snip) { showToast("Type at least one translation first."); return; }
+                copyText(snip, `Copied edited entries for ${code}!`);
+            });
+
+            const copyFullBtn = mkEl("button", { className: "btn", textContent: `Copy Full ${code}.js`, attrs: { type: "button" } });
+            copyFullBtn.addEventListener("click", () => copyText(buildFullLocaleFile(code, name, analysis.baseFlat, state.includeTodos), `Copied full ${code}.js!`));
+
+            const dlBtn = mkEl("button", { className: "btn", textContent: `Download ${code}.js`, attrs: { type: "button" } });
+            dlBtn.addEventListener("click", () => { downloadFile(`${code}.js`, buildFullLocaleFile(code, name, analysis.baseFlat, state.includeTodos)); showToast(`Downloaded ${code}.js`); });
+
+            btnGrp.appendChild(copySnipBtn);
+            btnGrp.appendChild(copyFullBtn);
+            btnGrp.appendChild(dlBtn);
+
+            if (analysis.draftCount) {
+                const clr = mkEl("button", { className: "btn btn-danger", textContent: "Clear Drafts", attrs: { type: "button" } });
+                clr.addEventListener("click", () => { delete state.drafts[code]; saveDrafts(); renderAll(); showToast(`Cleared drafts for ${code}`); });
+                btnGrp.appendChild(clr);
+            }
+            if (isCustom) {
+                const rm = mkEl("button", { className: "btn btn-danger", textContent: "Unload", attrs: { type: "button" } });
+                rm.addEventListener("click", () => { delete state.customLocales[code]; saveCustomLocales(); renderAll(); showToast(`Removed ${code}`); });
+                btnGrp.appendChild(rm);
+            }
+
+            const toggleGrp = mkEl("div", { className: "lang-actions-group" });
+            const todoLbl = mkEl("label", { className: "checkbox-label" });
+            const todoCb = mkEl("input", { attrs: { type: "checkbox" } });
+            todoCb.checked = state.includeTodos;
+            todoCb.addEventListener("change", () => { state.includeTodos = todoCb.checked; });
+            todoLbl.appendChild(todoCb);
+            todoLbl.appendChild(document.createTextNode(" Include // TODO in export"));
+            toggleGrp.appendChild(todoLbl);
+
+            if (analysis.sameAsEn.length) {
+                const sameLbl = mkEl("label", { className: "checkbox-label" });
+                const sameCb = mkEl("input", { attrs: { type: "checkbox" } });
+                sameCb.checked = state.showSameAsEn.has(code);
+                sameCb.addEventListener("change", () => { sameCb.checked ? state.showSameAsEn.add(code) : state.showSameAsEn.delete(code); renderAll(); });
+                sameLbl.appendChild(sameCb);
+                sameLbl.appendChild(document.createTextNode(` Show same-as-EN (${analysis.sameAsEn.length})`));
+                toggleGrp.appendChild(sameLbl);
+            }
+
+            actBar.appendChild(btnGrp);
+            actBar.appendChild(toggleGrp);
+            body.appendChild(actBar);
+
+            // Filter helper
+            const q = state.search.trim().toLowerCase();
+            const matchKey = (k) => !q || code.toLowerCase().includes(q) || name.toLowerCase().includes(q) || k.toLowerCase().includes(q);
+
+            // Missing
+            const fMissing = analysis.missing.filter(matchKey);
+            if (fMissing.length) {
+                body.appendChild(mkEl("div", { className: "section-subhead", textContent: `Missing Keys (${fMissing.length})` }));
+                const ul = mkEl("ul", { className: "key-list" });
+                fMissing.forEach(path => ul.appendChild(createKeyRow({
+                    kind: "missing", lang: code, path, refVal: refFlat[path],
+                    currentVal: state.drafts[code]?.[path], showCb: true, onSync: syncBadges
+                })));
+                body.appendChild(ul);
+            }
+
+            // Warnings
+            const fWarns = analysis.warnings.filter(w => matchKey(w.path));
+            if (fWarns.length) {
+                body.appendChild(mkEl("div", { className: "section-subhead", textContent: `Warnings (${fWarns.length})` }));
+                const ul = mkEl("ul", { className: "key-list" });
+                fWarns.forEach(({ path, issues, val }) => ul.appendChild(createKeyRow({
+                    kind: "warning", lang: code, path, refVal: refFlat[path], currentVal: val, issues, onSync: syncBadges
+                })));
+                body.appendChild(ul);
+            }
+
+            // Extra
+            const fExtra = analysis.extra.filter(e => matchKey(e.path));
+            if (fExtra.length) {
+                body.appendChild(mkEl("div", { className: "section-subhead", textContent: `Extra Keys (${fExtra.length})` }));
+                const ul = mkEl("ul", { className: "key-list" });
+                fExtra.forEach(({ path, val }) => ul.appendChild(createKeyRow({ kind: "extra", lang: code, path, currentVal: val })));
+                body.appendChild(ul);
+            }
+
+            // Same-as-English
+            if (state.showSameAsEn.has(code)) {
+                const fSame = analysis.sameAsEn.filter(matchKey);
+                if (fSame.length) {
+                    body.appendChild(mkEl("div", { className: "section-subhead", textContent: `Identical to English (${fSame.length})` }));
+                    const ul = mkEl("ul", { className: "key-list" });
+                    fSame.forEach(path => ul.appendChild(createKeyRow({
+                        kind: "same", lang: code, path, refVal: refFlat[path],
+                        currentVal: getMergedValue(code, path, analysis.baseFlat), onSync: syncBadges
+                    })));
+                    body.appendChild(ul);
+                }
+            }
+
+            if (analysis.isComplete && !state.showSameAsEn.has(code)) {
+                body.appendChild(mkEl("div", { className: "empty-state", textContent: "All keys match — no missing, extra, or invalid entries." }));
+            }
+
+            group.appendChild(body);
+            return group;
+        }
+
+        function renderAll() {
+            const entries = getAllEntries();
+            const analyzed = entries.map(e => ({ ...e, analysis: analyseLanguage(e.code, e.data) }));
+
+            renderStats(analyzed);
+            renderCompleteSection(analyzed);
+
+            const q = state.search.trim().toLowerCase();
+            const visible = analyzed.filter(({ code, name, isCustom, analysis }) => {
+                if (state.filter === "missing"  && !analysis.missing.length)  return false;
+                if (state.filter === "warnings" && !analysis.warnings.length) return false;
+                if (state.filter === "extra"    && !analysis.extra.length)    return false;
+                if (state.filter === "custom"   && !isCustom)                 return false;
+                if (state.filter === "all" && !isCustom && analysis.isComplete && !q && !analysis.draftCount) return false;
+                if (!q) return true;
+                return code.toLowerCase().includes(q) || name.toLowerCase().includes(q) ||
+                    analysis.missing.some(k => k.toLowerCase().includes(q)) ||
+                    analysis.warnings.some(w => w.path.toLowerCase().includes(q)) ||
+                    analysis.extra.some(e => e.path.toLowerCase().includes(q));
+            });
+
+            resultsDiv.innerHTML = "";
+            if (!visible.length) {
+                resultsDiv.appendChild(mkEl("div", { className: "empty-state", textContent: "No languages match the current filter." }));
+                return;
+            }
+            visible.forEach(e => resultsDiv.appendChild(renderLanguageCard(e)));
+        }
+
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        //  EVENT WIRING
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        searchInput.addEventListener("input", debounce(() => { state.search = searchInput.value; renderAll(); }, 220));
+
+        document.querySelectorAll(".pill-btn[data-filter]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".pill-btn[data-filter]").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                state.filter = btn.dataset.filter;
+                renderAll();
+            });
+        });
+
+        $("expand-all-btn").addEventListener("click", () => {
+            document.querySelectorAll(".language-group").forEach(g => g.classList.remove("collapsed"));
+            getAllEntries().forEach(e => state.expanded.add(e.code));
+        });
+
+        $("collapse-all-btn").addEventListener("click", () => {
+            document.querySelectorAll(".language-group").forEach(g => g.classList.add("collapsed"));
+            state.expanded.clear();
+        });
+
+        // File loader
+        const fileInput = $("locale-file-input");
+        const dropzone  = $("dropzone");
+
+        function handleLocaleFile(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const { code, data } = parseLocaleJs(e.target.result, file.name);
+                    state.customLocales[code] = { name: LANGUAGE_NAMES[code] || code, data };
+                    saveCustomLocales();
+                    state.expanded.add(code);
+                    setLoaderStatus(`Loaded "${file.name}" as "${code}". Expanded below.`);
+                    renderAll();
+                } catch (err) {
+                    setLoaderStatus(`Failed: ${err.message}`, true);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        $("browse-file-btn").addEventListener("click", () => fileInput.click());
+        fileInput.addEventListener("change", (e) => { handleLocaleFile(e.target.files[0]); fileInput.value = ""; });
+
+        dropzone.addEventListener("dragover", (e) => { e.preventDefault(); dropzone.classList.add("drag-over"); });
+        dropzone.addEventListener("dragleave", () => dropzone.classList.remove("drag-over"));
+        dropzone.addEventListener("drop", (e) => { e.preventDefault(); dropzone.classList.remove("drag-over"); handleLocaleFile(e.dataTransfer.files[0]); });
+
+        // New language
+        $("create-new-lang-btn").addEventListener("click", () => {
+            const rawCode = $("new-lang-code").value.trim();
+            const rawName = $("new-lang-name").value.trim();
+            if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(rawCode)) { setLoaderStatus("Enter a valid JS identifier (e.g. nl, pt_PT).", true); return; }
+            if (rawCode === "en") { setLoaderStatus("Cannot override English reference.", true); return; }
+            state.customLocales[rawCode] = { name: rawName || rawCode, data: {} };
+            saveCustomLocales();
+            state.expanded.add(rawCode);
+            setLoaderStatus(`Started "${rawName || rawCode}" (${rawCode}). Fill keys below.`);
+            renderAll();
+        });
+
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        //  THEME — Cycles: light → dark → system → light
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        const bodyEl     = $("mynt-lka");
+        const cycleBtn   = $("theme-cycle");
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        const THEME_KEY  = "mynt-theme-mode";
+        const MODES      = ["light", "dark", "system"];
+
+        function applyDark(isDark) {
+            bodyEl.classList.toggle("dark-mode", isDark);
+        }
+
+        function setThemeMode(mode, save = true) {
+            cycleBtn.dataset.mode = mode;
+            if (mode === "system") {
+                applyDark(mediaQuery.matches);
+            } else {
+                applyDark(mode === "dark");
+            }
+            if (save) localStorage.setItem(THEME_KEY, mode);
+        }
+
+        cycleBtn.addEventListener("click", () => {
+            const cur = cycleBtn.dataset.mode;
+            setThemeMode(MODES[(MODES.indexOf(cur) + 1) % MODES.length]);
+        });
+
+        mediaQuery.addEventListener("change", () => {
+            if (cycleBtn.dataset.mode === "system") applyDark(mediaQuery.matches);
+        });
+
+        // Init theme
+        setThemeMode(localStorage.getItem(THEME_KEY) || (mediaQuery.matches ? "dark" : "light"), false);
+
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        //  INIT
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        const backToTopBtn = $("back-to-top");
+        window.addEventListener("scroll", () => {
+            backToTopBtn.classList.toggle("show", window.scrollY > 300);
+        }, { passive: true });
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        renderAll();
+    </script>
+</body>
+
+</html>
