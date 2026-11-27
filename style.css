@@ -90,6 +90,14 @@
 	--textColorDark-purple: #2d1b3e;
 	--whitishColor-purple: #ffffff;
 
+	/* 💜 Material 3 Expressive Purple */
+	--bg-color-m3purple: #d0bcff;
+	--accentLightTint-m3purple: #f3edf7;
+	--darkerColor-m3purple: #4f378b;
+	--darkColor-m3purple: #6750a4;
+	--textColorDark-m3purple: #21005d;
+	--whitishColor-m3purple: #fef7ff;
+
 	/* ⚪ Silver */
 	--bg-color-silver: #c6c6c6;
 	--accentLightTint-silver: #e5e5e5;
@@ -5252,7 +5260,7 @@ input:checked + .toggle:before {
 	padding: 9px 10px 10px;
 	padding-inline-start: 6px;
 	position: relative;
-	transition: transform 0.3s var(--md-motion-ease) opacity 0.2s ease;
+	transition: transform 0.3s var(--md-motion-ease), opacity 0.2s ease;
 	/* Enable hardware acceleration */
 	will-change: transform, opacity;
 }
@@ -5664,6 +5672,10 @@ option:checked {
 	background-color: #9563b5;
 }
 
+.colorsContainer input[value="m3purple"] {
+	background-color: #6750a4;
+}
+
 .colorsContainer input[value="pink"] {
 	background-color: #ec5e78;
 }
@@ -5844,16 +5856,21 @@ option:checked {
 }
 
 .colorPickerLabel {
-	grid-column: span 3;
+	grid-column: span 2;
 	width: 100%;
 	background: var(--accentLightTint-blue);
 	height: 100%;
 	border-radius: 100px;
 	display: flex;
+	align-items: center;
 	text-align: center;
 	justify-content: center;
-	font-size: 0.8rem;
+	padding: 0 8px;
+	font-size: 0.78rem;
 	line-height: 35px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	cursor: pointer;
 	border: 2px solid transparent;
 	transition: background-color 0.3s ease;
@@ -7669,3 +7686,2520 @@ body[data-bg="wallpaper"] .dropdown-content {
 	}
 }
 /* ----------------- End of Custom select ----------------- */
+
+/* ==========================================================================
+   Material 3 Expressive Design System
+   Authentic Google M3 Expressive Tokens, Motion Physics, Shape Morphing &
+   Tonal Surface Hierarchy
+   ========================================================================== */
+
+/* Settings row styling for M3 Expressive toggle inside Appearance
+   (kept outside .m3-expressive so the switch is properly aligned even when off) */
+#m3ExpressiveField {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	padding: 2px 4px 16px 4px;
+	margin-bottom: 16px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.black-theme #m3ExpressiveField {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#m3ExpressiveText {
+	display: block;
+	cursor: pointer;
+}
+
+.switch input#m3ExpressiveCheckbox {
+	display: block;
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.switch input#m3ExpressiveCheckbox:focus-visible + .toggle {
+	outline: 2px solid var(--darkColor-blue);
+	outline-offset: 2px;
+}
+
+.black-theme .switch input#m3ExpressiveCheckbox:focus-visible + .toggle {
+	outline-color: var(--darkerColor-dark);
+}
+
+.m3-expressive .switch input#m3ExpressiveCheckbox:focus-visible + .toggle {
+	outline: 2px solid var(--m3-primary);
+	outline-offset: 2px;
+}
+
+/* --- M3 Expressive Design Tokens --- */
+:root {
+	/* Motion Physics — Official Web Spring Conversions (m3.material.io) */
+	--m3-spring-fast-spatial: cubic-bezier(0.42, 1.67, 0.21, 0.9);
+	--m3-spring-default-spatial: cubic-bezier(0.38, 1.21, 0.22, 1);
+	--m3-spring-slow-spatial: cubic-bezier(0.39, 1.29, 0.35, 0.98);
+	--m3-spring-fast-effects: cubic-bezier(0.31, 0.94, 0.34, 1);
+	--m3-spring-default-effects: cubic-bezier(0.34, 0.8, 0.34, 1);
+	--m3-spring-slow-effects: cubic-bezier(0.34, 0.88, 0.34, 1);
+
+	/* 10-Step Corner Radius Scale (May 2025 M3 Expressive) */
+	--m3-corner-none: 0px;
+	--m3-corner-extra-small: 4px;
+	--m3-corner-small: 8px;
+	--m3-corner-medium: 12px;
+	--m3-corner-large: 16px;
+	--m3-corner-large-increased: 20px;
+	--m3-corner-extra-large: 28px;
+	--m3-corner-extra-large-increased: 32px;
+	--m3-corner-extra-extra-large: 48px;
+	--m3-corner-full: 9999px;
+}
+
+/* ==========================================================================
+   Active M3 Expressive Scoped Semantic Roles (html.m3-expressive)
+   Scoped to html so body.m3-expressive never overrides html.black-theme or
+   dark-mode token overrides via inheritance.
+   ========================================================================== */
+
+html.m3-expressive {
+	/* Dynamic M3 Surface Container Hierarchy (adapts to all 12 themes + custom color) */
+	--m3-surface-lowest: var(--whitishColor-blue);
+	--m3-surface-low: color-mix(in srgb, var(--accentLightTint-blue) 68%, var(--whitishColor-blue));
+	--m3-surface-container: var(--accentLightTint-blue);
+	--m3-surface-high: color-mix(in srgb, var(--accentLightTint-blue) 58%, var(--bg-color-blue));
+	--m3-surface-highest: color-mix(in srgb, var(--accentLightTint-blue) 28%, var(--bg-color-blue));
+
+	--m3-primary: var(--darkColor-blue);
+	--m3-primary-strong: var(--darkerColor-blue);
+	--m3-on-primary: #ffffff;
+	--m3-primary-container: color-mix(in srgb, var(--darkColor-blue) 18%, var(--whitishColor-blue));
+	--m3-on-primary-container: var(--textColorDark-blue);
+	--m3-secondary-container: color-mix(in srgb, var(--darkColor-blue) 14%, var(--accentLightTint-blue));
+
+	--m3-on-surface: var(--textColorDark-blue);
+	--m3-on-surface-variant: color-mix(in srgb, var(--textColorDark-blue) 76%, transparent);
+	--m3-outline: color-mix(in srgb, var(--darkerColor-blue) 58%, transparent);
+	--m3-outline-variant: color-mix(in srgb, var(--darkerColor-blue) 16%, transparent);
+	--m3-state-hover: color-mix(in srgb, var(--darkColor-blue) 10%, transparent);
+
+	/* Modal / Popover elevation (kept restrained so stationary content relies on tonal hierarchy) */
+	--m3-elevation-overlay: 0 10px 28px -6px rgba(0, 0, 0, 0.14), 0 2px 8px -2px rgba(0, 0, 0, 0.06);
+}
+
+/* Restrain shadows & prevent pure-black inverted surfaces in Dark Mode (color & wallpaper) */
+html.m3-expressive[data-preferred-theme="dark"]:not(:has(#darkTheme:checked)),
+html.m3-expressive[data-preferred-theme="system"][data-system-dark="true"]:not(:has(#darkTheme:checked)),
+html.m3-expressive:has(.menuBar .themeSegment[data-active="dark"]):not(:has(#darkTheme:checked)),
+html.m3-expressive:has(body[sysTheme="systemDark"] .menuBar .themeSegment[data-active="system"]):not(:has(#darkTheme:checked)) {
+	--m3-surface-lowest: color-mix(in srgb, var(--accentLightTint-blue) 52%, #f0f0f0);
+	--m3-surface-low: color-mix(in srgb, var(--accentLightTint-blue) 76%, #f0f0f0);
+	--m3-elevation-overlay: 0 2px 10px rgba(0, 0, 0, 0.08);
+	--m3-outline-variant: color-mix(in srgb, var(--darkerColor-blue) 22%, transparent);
+}
+
+/* Explicit OLED Dark Theme (html.black-theme) M3 Surface Hierarchy */
+html.black-theme.m3-expressive {
+	--m3-surface-lowest: #121212;
+	--m3-surface-low: #1c1c1c;
+	--m3-surface-container: #242424;
+	--m3-surface-high: #2e2e2e;
+	--m3-surface-highest: #3c3c3c;
+
+	--m3-primary: #dcdcdc;
+	--m3-primary-strong: #ffffff;
+	--m3-on-primary: #121212;
+	--m3-primary-container: #383838;
+	--m3-on-primary-container: #f2f2f2;
+	--m3-secondary-container: #2f2f2f;
+
+	--m3-on-surface: #eeeeee;
+	--m3-on-surface-variant: #b3b3b3;
+	--m3-outline: #8a8a8a;
+	--m3-outline-variant: rgba(255, 255, 255, 0.14);
+	--m3-state-hover: rgba(255, 255, 255, 0.09);
+	--m3-elevation-overlay: 0 14px 36px rgba(0, 0, 0, 0.68);
+}
+
+.m3-expressive,
+.m3-expressive * {
+	--md-motion-ease: var(--m3-spring-default-spatial);
+	--md-motion-decelerate: var(--m3-spring-fast-spatial);
+}
+
+/* Accessible keyboard focus indicators (WCAG 2.2 AA; text inputs use crisp border focus) */
+.m3-expressive :is(button, a, input:is([type="checkbox"], [type="radio"]), select, [role="button"], [tabindex]):focus-visible {
+	outline: 2px solid var(--m3-primary);
+	outline-offset: 2px;
+}
+
+/* --- M3 Expressive Top Corner Icon Buttons (Unified 44x44 Tonal Family) --- */
+.m3-expressive #todoListCont,
+.m3-expressive #bookmarkButton,
+.m3-expressive #googleAppsCont {
+	width: 44px;
+	height: 44px;
+	margin: 0;
+	padding: 0;
+	top: var(--gap);
+	align-items: center;
+	justify-content: center;
+	background-color: var(--m3-surface-low);
+	border-radius: 22px;
+	border: 1px solid var(--m3-outline-variant);
+	box-shadow: none;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		inset-inline-end 350ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive #todoListCont {
+	inset-inline-start: var(--gap);
+}
+
+.m3-expressive #googleAppsCont {
+	inset-inline-end: var(--gap);
+}
+
+.m3-expressive #bookmarkButton {
+	inset-inline-end: var(--gap);
+}
+
+.m3-expressive #bookmarkButton:has(~ .googleAppsCont[style*="flex"]) {
+	inset-inline-end: calc(var(--gap) + 56px);
+}
+
+.m3-expressive body #bookmarkButton.bookmark-button.rotate,
+.m3-expressive #bookmarkButton.bookmark-button.rotate {
+	border-radius: var(--m3-corner-large);
+	background-color: var(--m3-primary);
+	border-color: var(--m3-primary);
+	/* 450px sidebar + 30px inverted corner (.bookmark-sidebar::before) + 10px gap (margin is 0) */
+	inset-inline-end: 490px;
+}
+
+.m3-expressive #bookmarkButton.bookmark-button.rotate svg {
+	fill: var(--m3-on-primary);
+}
+
+.m3-expressive .dot-icon {
+	background-color: transparent;
+	border-radius: 0;
+	padding: 0;
+	width: 22px;
+	height: 22px;
+	display: block;
+}
+
+.m3-expressive #bookmarkButton svg {
+	width: 21px;
+	height: 21px;
+	display: block;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.m3-expressive #todoListCont:hover,
+	.m3-expressive #bookmarkButton:hover,
+	.m3-expressive #googleAppsCont:hover {
+		border-radius: 14px;
+		background-color: var(--m3-primary-container);
+		transform: scale(1.05);
+	}
+
+	.m3-expressive #bookmarkButton.bookmark-button.rotate:hover {
+		background-color: var(--m3-primary-strong);
+	}
+}
+
+.m3-expressive #todoListCont:active,
+.m3-expressive #bookmarkButton:active,
+.m3-expressive #googleAppsCont:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.93);
+}
+
+.m3-expressive .tooltip-text {
+	border-radius: 10px;
+	padding: 5px 10px;
+	font-weight: 500;
+	letter-spacing: 0.01em;
+	background-color: var(--m3-primary-strong);
+	color: var(--m3-on-primary);
+}
+
+/* --- M3 Expressive Selection Controls: Switch (Exact 52x32 Geometry + Checkmark) --- */
+.m3-expressive .switch:has(input) {
+	min-width: 52px;
+	width: 52px;
+	height: 32px;
+	flex-shrink: 0;
+}
+
+.m3-expressive .toggle {
+	direction: inherit;
+	border-radius: var(--m3-corner-full);
+	border: 2px solid var(--m3-outline);
+	background-color: var(--m3-surface-highest);
+	box-sizing: border-box;
+	transition:
+		background-color 200ms var(--m3-spring-default-effects),
+		border-color 200ms var(--m3-spring-default-effects);
+}
+
+/* Handle: dead-center vertically via top: 50% + translateY(-50%) */
+.m3-expressive .toggle:before {
+	height: 16px;
+	width: 16px;
+	top: 50%;
+	bottom: auto;
+	inset-inline-start: 6px;
+	border-radius: var(--m3-corner-full);
+	background-color: var(--m3-outline);
+	transform: translate(0, -50%);
+	transition:
+		transform 350ms var(--m3-spring-fast-spatial),
+		width 250ms var(--m3-spring-fast-spatial),
+		height 250ms var(--m3-spring-fast-spatial),
+		inset-inline-start 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+/* Checkmark icon inside selected handle */
+.m3-expressive .toggle:after {
+	content: "";
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	top: 50%;
+	inset-inline-start: 7px;
+	transform: translate(20px, -50%) scale(0.4);
+	opacity: 0;
+	pointer-events: none;
+	background-color: var(--m3-primary);
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M9.55 18L3.85 12.3l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M9.55 18L3.85 12.3l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4z'/%3E%3C/svg%3E") center / contain no-repeat;
+	transition:
+		opacity 150ms var(--m3-spring-fast-effects),
+		transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive input:checked+.toggle {
+	background-color: var(--m3-primary);
+	border-color: var(--m3-primary);
+}
+
+.m3-expressive input:checked+.toggle:before {
+	height: 24px;
+	width: 24px;
+	inset-inline-start: 2px;
+	background-color: var(--m3-on-primary);
+	transform: translate(20px, -50%);
+}
+
+.m3-expressive input:checked+.toggle:after {
+	opacity: 1;
+	transform: translate(20px, -50%) scale(1);
+}
+
+/* Pressed handle squish (M3 Expressive tactile response) */
+.m3-expressive .switch:has(input):active .toggle:before {
+	width: 24px;
+	height: 24px;
+	inset-inline-start: 2px;
+}
+
+.m3-expressive .switch:has(input):active input:checked+.toggle:before {
+	width: 26px;
+	height: 26px;
+	inset-inline-start: 1px;
+	transform: translate(19px, -50%);
+}
+
+/* RTL mirror for checked handle & checkmark */
+.m3-expressive .toggle:dir(rtl):after {
+	transform: translate(-20px, -50%) scale(0.4);
+}
+
+.m3-expressive input:checked+.toggle:dir(rtl):before {
+	transform: translate(-20px, -50%);
+}
+
+.m3-expressive input:checked+.toggle:dir(rtl):after {
+	transform: translate(-20px, -50%) scale(1);
+}
+
+.m3-expressive .switch:dir(rtl):has(input):active input:checked+.toggle:before {
+	transform: translate(-19px, -50%);
+}
+
+/* Edit icon buttons wrapped inside <label class="switch"> in Settings */
+.m3-expressive .switch:has(button) {
+	min-width: 40px;
+	width: 40px;
+	height: 40px;
+}
+
+.m3-expressive #shortcutEditButton,
+.m3-expressive #aiToolsEditButton {
+	background-color: var(--m3-secondary-container);
+	border-radius: 20px;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		transform 320ms var(--m3-spring-default-spatial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.m3-expressive #shortcutEditButton:hover,
+	.m3-expressive #aiToolsEditButton:hover {
+		border-radius: var(--m3-corner-medium);
+		background-color: var(--m3-primary-container);
+	}
+}
+
+.m3-expressive #shortcutEditButton:active,
+.m3-expressive #aiToolsEditButton:active {
+	border-radius: var(--m3-corner-small);
+	transform: scale(0.92);
+}
+
+/* --- M3 Expressive Clock & Editorial Greeting (Hero Moment 1) --- */
+.m3-expressive #digitalClock,
+.m3-expressive #analogClock {
+	transition: transform 500ms var(--m3-spring-default-spatial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.m3-expressive #digitalClock:hover,
+	.m3-expressive #analogClock:hover {
+		transform: scale(1.02);
+	}
+}
+
+.m3-expressive #digitalClock .bgLightTint,
+.m3-expressive #analogClock .bgLightTint {
+	fill: var(--m3-surface-low);
+}
+
+.m3-expressive .digiclock {
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	font-variant-numeric: tabular-nums;
+}
+
+@keyframes m3ColonBreathe {
+
+	0%,
+	100% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.3;
+	}
+}
+
+.m3-expressive #digicolon {
+	animation: m3ColonBreathe 2s var(--m3-spring-default-effects) infinite;
+}
+
+.m3-expressive .digidate,
+.m3-expressive .amPm {
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	opacity: 0.85;
+}
+
+.m3-expressive #userText {
+	font-weight: 700;
+	font-size: 1.5rem;
+	letter-spacing: -0.02em;
+	background-color: transparent;
+	border-radius: 14px;
+	padding: 4px 12px;
+	transition: background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive #date {
+	font-weight: 500;
+	font-size: 1.12rem;
+	letter-spacing: -0.01em;
+	background-color: transparent;
+	opacity: 0.88;
+	border-radius: 12px;
+	padding: 3px 12px;
+}
+
+/* --- M3 Expressive Weather Widget --- */
+.m3-expressive .rightDiv .topDiv .lrectangle {
+	background-color: var(--m3-surface-low);
+	border-radius: var(--m3-corner-extra-large-increased);
+	border: 1px solid var(--m3-outline-variant);
+	box-shadow: none;
+	transition:
+		transform 450ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive #conditionText {
+	font-weight: 700;
+	font-size: 1.24rem;
+	letter-spacing: -0.02em;
+}
+
+/* Expressive Humidity Track with subtle trailing end-stop dot */
+.m3-expressive .humidityBar .thinLine {
+	height: 8px;
+	border-radius: var(--m3-corner-full);
+	background-color: var(--m3-surface-highest);
+}
+
+.m3-expressive .humidityBar .thinLine::after {
+	content: "";
+	position: absolute;
+	inset-inline-end: 3px;
+	top: 50%;
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background-color: var(--m3-primary);
+	opacity: 0.7;
+	transform: translateY(-50%);
+}
+
+.m3-expressive .humidityBar .slider {
+	border-radius: var(--m3-corner-full);
+	background-color: var(--m3-primary);
+	transition: width 600ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive #humidityLevel {
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+	color: var(--m3-on-primary);
+}
+
+.m3-expressive .humidityBar::after {
+	background-color: var(--m3-primary);
+}
+
+/* Optical Inner Radius (32px outer - 16px visual inset = 16px inner) */
+.m3-expressive .tilesContainer .tiles {
+	border-radius: var(--m3-corner-large);
+	background-color: var(--m3-surface-lowest);
+	transition:
+		border-radius 350ms var(--m3-spring-fast-spatial),
+		transform 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+/* Preserve high-contrast filled Primary role for Location tile (white icon & text) */
+.m3-expressive .tilesContainer .tiles.location {
+	background-color: var(--darkColor-blue);
+}
+
+.m3-expressive .tilesContainer .tiles.location .location_spn {
+	color: #ffffff;
+	font-weight: 600;
+}
+
+.m3-expressive .tilesContainer #feelsLike {
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+	color: var(--m3-on-surface);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .tilesContainer .tiles:hover {
+		transform: translateY(-2px);
+		border-radius: var(--m3-corner-large-increased);
+	}
+}
+
+.m3-expressive .rightDiv .topDiv .rAndakar {
+	transition: transform 500ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .rightDiv .topDiv .rAndakar .bgLightTint {
+	fill: var(--m3-surface-high);
+}
+
+html.black-theme.m3-expressive .rightDiv .topDiv .rAndakar .bgLightTint {
+	fill: var(--m3-surface-low);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .rightDiv .topDiv .rAndakar:hover {
+		transform: translateY(-3px) scale(1.03);
+	}
+}
+
+.m3-expressive #temp {
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	font-variant-numeric: tabular-nums;
+}
+
+/* --- M3 Expressive Search Bar (Hero Moment 2 — Brightest Surface Focus) --- */
+.m3-expressive .searchbar {
+	height: 64px;
+	border-radius: var(--m3-corner-full);
+	background-color: var(--m3-surface-lowest);
+	border: 1px solid var(--m3-outline-variant);
+	outline: 2px solid transparent;
+	outline-offset: 2px;
+	box-shadow: none;
+	transition:
+		border-color 200ms var(--m3-spring-default-effects),
+		outline-color 200ms var(--m3-spring-default-effects),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .searchbar.active,
+.m3-expressive .searchbar:focus-within {
+	border-color: var(--m3-primary);
+	outline: 2px solid color-mix(in srgb, var(--m3-primary) 35%, transparent);
+	outline-offset: 2px;
+}
+
+.m3-expressive .searchbar .searchIcon {
+	margin-top: 17px;
+}
+
+.m3-expressive #searchQ {
+	font-weight: 500;
+	font-size: 1.04rem;
+	color: var(--m3-on-surface);
+}
+
+.m3-expressive #searchQ::placeholder {
+	color: var(--m3-on-surface-variant);
+}
+
+/* Filled Primary Search Button with M3 Expressive Press Shape Morph (Pill -> Squircle) */
+.m3-expressive #enterBtn {
+	border-radius: 22px;
+	font-weight: 600;
+	font-size: 0.98rem;
+	padding: 0 24px;
+	height: 44px;
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+	border: none;
+	cursor: pointer;
+	letter-spacing: 0.01em;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive #enterBtn:hover {
+		background-color: var(--m3-primary-strong);
+		transform: scale(1.03);
+	}
+}
+
+.m3-expressive #enterBtn:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.95);
+}
+
+.m3-expressive .micIcon,
+.m3-expressive .aiModeIcon {
+	border-radius: 21px;
+	width: 42px;
+	height: 42px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--m3-surface-container);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .aiModeIcon {
+	background-color: transparent;
+	transition:
+		width 380ms var(--m3-spring-default-effects),
+		margin-inline-end 380ms var(--m3-spring-default-effects),
+		padding 380ms var(--m3-spring-default-effects),
+		opacity 240ms var(--m3-spring-default-effects) 60ms,
+		transform 360ms var(--m3-spring-default-spatial),
+		border-radius 320ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .aiModeIcon.hidden {
+	width: 0;
+	min-width: 0;
+	margin-inline-end: 0;
+	padding: 0;
+	opacity: 0;
+	transform: scale(0.5);
+	pointer-events: none;
+	overflow: hidden;
+	transition:
+		opacity 160ms var(--m3-spring-fast-effects),
+		transform 220ms var(--m3-spring-fast-effects),
+		width 360ms var(--m3-spring-default-effects) 60ms,
+		margin-inline-end 360ms var(--m3-spring-default-effects) 60ms,
+		padding 360ms var(--m3-spring-default-effects) 60ms,
+		border-radius 240ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .aiModeIcon::before {
+	background-color: var(--m3-surface-container);
+	border-radius: 21px;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.m3-expressive .micIcon:hover,
+	.m3-expressive .aiModeIcon:not(.hidden):hover {
+		border-radius: 14px;
+		transform: scale(1.06);
+	}
+
+	.m3-expressive .micIcon:hover {
+		background-color: var(--m3-primary-container);
+	}
+
+	.m3-expressive .aiModeIcon:not(.hidden):hover::before {
+		border-radius: 14px;
+		background-color: var(--m3-primary-container);
+	}
+}
+
+.m3-expressive .micIcon:active,
+.m3-expressive .aiModeIcon:not(.hidden):active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.93);
+}
+
+.m3-expressive .aiModeIcon:not(.hidden):active::before {
+	border-radius: var(--m3-corner-medium);
+}
+
+/* Search Engine Dropdown Menu (Expressive Vertical Menu) */
+.m3-expressive .dropdown-content {
+	border-radius: var(--m3-corner-large-increased);
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	box-shadow: var(--m3-elevation-overlay);
+	padding: 6px;
+}
+
+.m3-expressive .dropdown-content .dropdown-item {
+	border-radius: var(--m3-corner-medium);
+	padding: 8px 12px;
+	transition: background-color 150ms var(--m3-spring-fast-effects);
+}
+
+.m3-expressive .dropdown-content .dropdown-item:hover {
+	background-color: var(--m3-state-hover);
+}
+
+.m3-expressive .dropdown-item.selected:not(*[data-default]):before {
+	border-radius: var(--m3-corner-medium);
+	background-color: var(--m3-primary-container);
+	opacity: 1;
+}
+
+/* --- M3 Expressive Search Suggestions (.resultBox / .resultItem) --- */
+.m3-expressive #resultBox {
+	border-radius: 24px;
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	box-shadow: var(--m3-elevation-overlay);
+	padding: 8px;
+	transition:
+		opacity 200ms var(--m3-spring-fast-effects),
+		transform 350ms var(--m3-spring-fast-spatial),
+		visibility 200ms var(--m3-spring-fast-effects);
+}
+
+.m3-expressive #resultBox .resultItem {
+	border-radius: 14px;
+	padding: 10px 16px;
+	font-size: 0.98rem;
+	font-weight: 500;
+	transition:
+		background-color 150ms var(--m3-spring-fast-effects),
+		color 150ms var(--m3-spring-fast-effects);
+}
+
+.m3-expressive #resultBox .resultItem.active,
+.m3-expressive #resultBox .resultItem:hover {
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+	border-radius: 14px;
+}
+
+/* --- M3 Expressive Search With (Shape-Morphing Toggle Filter Chips) --- */
+.m3-expressive .searchWithCont {
+	border-radius: 0;
+	border: none;
+	box-shadow: none;
+	overflow: visible;
+	align-items: center;
+}
+
+.m3-expressive .searchWithCont .hint {
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	border-radius: 24px;
+	font-weight: 600;
+	font-size: 0.94rem;
+	letter-spacing: -0.01em;
+	transition:
+		border-radius 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		color 200ms var(--m3-spring-default-effects),
+		transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive .searchWithCont .hint:hover {
+	background-color: var(--m3-primary);
+	border-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+}
+
+.m3-expressive .searchWithCont .hint:active {
+	border-radius: var(--m3-corner-large);
+	margin-inline-start: 0;
+	transform: scale(0.96);
+}
+
+.m3-expressive .searchEnginesContainer {
+	gap: 10px 12px;
+	padding-inline-start: 14px;
+}
+
+/* Authentic M3 Expressive Toggle Chip: Full Pill unselected -> Squircle (12px) selected! */
+.m3-expressive .searchEnginesContainer .search-engine {
+	height: 42px;
+	border-radius: 21px;
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	padding-inline: 4px 6px;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		border-color 200ms var(--m3-spring-default-effects),
+		transform 320ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .searchEnginesContainer .search-engine:has(input:checked) {
+	border-radius: var(--m3-corner-medium);
+	background-color: var(--m3-primary-container);
+	border-color: var(--m3-primary);
+}
+
+.m3-expressive .searchEnginesContainer .search-engine:has(input:checked) label {
+	font-weight: 700;
+	color: var(--m3-on-primary-container);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .searchEnginesContainer .search-engine:hover {
+		background-color: var(--m3-secondary-container);
+		transform: translateY(-2px);
+	}
+
+	.m3-expressive .searchEnginesContainer .search-engine:has(input:checked):hover {
+		background-color: var(--m3-primary-container);
+	}
+}
+
+.m3-expressive .searchEnginesContainer .search-engine:active {
+	border-radius: var(--m3-corner-small);
+	transform: scale(0.95);
+}
+
+.m3-expressive .searchEnginesContainer .search-engine svg {
+	transition: border-radius 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive .searchEnginesContainer .search-engine:has(input:checked) svg {
+	border-radius: var(--m3-corner-small);
+}
+
+/* --- M3 Expressive Motivational Quotes --- */
+.m3-expressive .quotesContainer {
+	background-color: var(--m3-surface-low);
+	border-radius: 24px;
+	border-end-end-radius: 20px;
+	font-weight: 500;
+	line-height: 1.5;
+	padding: 20px 24px;
+}
+
+.m3-expressive .authorName {
+	font-weight: 600;
+	font-size: 0.9rem;
+	transition: width 400ms var(--m3-spring-default-spatial);
+}
+
+/* --- M3 Expressive Shortcuts Floating Dock (Floating Toolbar Pattern) --- */
+.m3-expressive .shortcutsContainer {
+	padding: 10px 20px;
+	gap: 1.5rem;
+}
+
+.m3-expressive .shortcutsContainer::before {
+	border-radius: var(--m3-corner-extra-large-increased);
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	box-shadow: none;
+}
+
+.m3-expressive .shortcutsContainer .shortcuts {
+	border-radius: calc(var(--shortcut-size) / 2);
+	transition:
+		transform 320ms var(--m3-spring-default-spatial),
+		border-radius 320ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .shortcutsContainer .shortcuts a,
+.m3-expressive .shortcuts .shortcutLogoContainer,
+.m3-expressive .shortcuts .shortcutLogoContainer img {
+	border-radius: calc(var(--shortcut-size) / 2);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .shortcutsContainer .shortcuts:hover {
+		transform: translateY(-7px) scale(1.1);
+		border-radius: var(--m3-corner-large);
+	}
+
+	.m3-expressive .shortcutsContainer .shortcuts:hover a,
+	.m3-expressive .shortcutsContainer .shortcuts:hover .shortcutLogoContainer,
+	.m3-expressive .shortcutsContainer .shortcuts:hover .shortcutLogoContainer img {
+		border-radius: var(--m3-corner-large);
+	}
+}
+
+.m3-expressive .shortcutsContainer .shortcuts:active {
+	transform: translateY(-2px) scale(0.93);
+}
+
+.m3-expressive .shortcutsContainer .shortcuts:active a,
+.m3-expressive .shortcutsContainer .shortcuts:active .shortcutLogoContainer,
+.m3-expressive .shortcutsContainer .shortcuts:active .shortcutLogoContainer img {
+	border-radius: var(--m3-corner-medium);
+}
+
+.m3-expressive .shortcuts .shortcut-name {
+	border-radius: 10px;
+	font-weight: 600;
+	font-size: 0.78rem;
+	padding: 4px 10px;
+	bottom: -34px;
+	background-color: var(--m3-primary-strong);
+	color: var(--m3-on-primary);
+}
+
+/* --- M3 Expressive AI Tools Floating Pill & Toolbar --- */
+.m3-expressive .aiToolsCont {
+	height: 58px;
+	padding: 4px 2px;
+	border: none;
+	box-shadow: none;
+	border-radius: 0;
+	overflow-x: auto;
+	overflow-y: hidden;
+	align-items: center;
+}
+
+.m3-expressive .aiToolsCont .hangno {
+	width: 50px;
+	height: 50px;
+	flex-shrink: 0;
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	border-radius: 25px;
+	padding: 0;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		transform 320ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .aiToolsCont .hangno .label {
+	font-weight: 600;
+	font-size: 0.94rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .aiToolsCont .hangno:hover {
+		border-radius: var(--m3-corner-large);
+		background-color: var(--m3-primary-container);
+		transform: translateY(-2px);
+	}
+}
+
+.m3-expressive .aiToolsCont .hangno:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.95);
+}
+
+@keyframes m3AiToolSoftReveal {
+	from {
+		opacity: 0;
+		transform: translateX(-16px) scale(0.94);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+	}
+}
+
+@keyframes m3AiToolSoftRevealRtl {
+	from {
+		opacity: 0;
+		transform: translateX(16px) scale(0.94);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+	}
+}
+
+.m3-expressive .aiToolsCont .toolsCont {
+	height: 50px;
+	opacity: 0;
+	transform: translateX(-36px) scale(0.96);
+	transition:
+		transform 640ms var(--m3-spring-slow-spatial),
+		gap 640ms var(--m3-spring-slow-spatial),
+		opacity 480ms var(--m3-spring-slow-effects);
+}
+
+.m3-expressive .aiToolsCont .toolsCont:dir(rtl) {
+	transform: translateX(36px) scale(0.96);
+}
+
+.m3-expressive .aiToolsCont .toolsCont::before {
+	width: 4px;
+	height: 60%;
+	top: 20%;
+	border-radius: 4px;
+	background-color: var(--m3-outline);
+	opacity: 0.45;
+}
+
+.m3-expressive .aiToolsCont .toolsCont a {
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	border-radius: 25px;
+	font-weight: 600;
+	font-size: 0.92rem;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		border-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
+	animation: m3AiToolSoftReveal 520ms var(--m3-spring-slow-spatial) backwards;
+}
+
+.m3-expressive .aiToolsCont .toolsCont.ai-tools-open:dir(rtl) a {
+	animation-name: m3AiToolSoftRevealRtl;
+}
+
+.m3-expressive .aiToolsCont .toolsCont.ai-tools-open a:nth-child(1) {
+	animation-delay: 40ms;
+}
+
+.m3-expressive .aiToolsCont .toolsCont.ai-tools-open a:nth-child(2) {
+	animation-delay: 90ms;
+}
+
+.m3-expressive .aiToolsCont .toolsCont.ai-tools-open a:nth-child(3) {
+	animation-delay: 140ms;
+}
+
+.m3-expressive .aiToolsCont .toolsCont.ai-tools-open a:nth-child(4) {
+	animation-delay: 190ms;
+}
+
+.m3-expressive .aiToolsCont .toolsCont.ai-tools-open a:nth-child(5) {
+	animation-delay: 240ms;
+}
+
+.m3-expressive .aiToolsCont .toolsCont.ai-tools-open a:nth-child(6) {
+	animation-delay: 290ms;
+}
+
+.m3-expressive .aiToolsCont .toolsCont.ai-tools-open a:nth-child(n+7) {
+	animation-delay: 330ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .aiToolsCont .toolsCont a:hover {
+		border-radius: 14px;
+		background-color: var(--m3-primary-container);
+		border-color: var(--m3-primary);
+		box-shadow: none;
+		transform: translateY(-2px);
+	}
+}
+
+.m3-expressive .aiToolsCont .toolsCont a:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.95);
+}
+
+/* --- M3 Expressive Menu FAB (#menuButton) — Preserves Concentric Rings! --- */
+.m3-expressive #menuButton {
+	width: 54px;
+	height: 54px;
+	border-radius: 18px;
+	background-color: var(--m3-surface-low);
+	border: 6px solid var(--m3-surface-low);
+	box-shadow:
+		inset 0 0 0 4px var(--darkColor-blue),
+		inset 0 0 0 10px var(--m3-surface-low),
+		inset 0 0 0 40px var(--darkColor-blue);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial);
+}
+
+.black-theme.m3-expressive #menuButton {
+	background-color: var(--m3-surface-high);
+	border: 6px solid var(--m3-surface-high);
+	box-shadow:
+		inset 0 0 0 4px #8c8c8c,
+		inset 0 0 0 10px var(--m3-surface-high),
+		inset 0 0 0 40px #d4d4d4;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive #menuButton:hover {
+		border-radius: 26px;
+		transform: scale(1.08) rotate(24deg);
+	}
+}
+
+.m3-expressive #menuButton:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.92);
+}
+
+/* --- M3 Expressive Google Apps Floating Sheet (#iconContainer) --- */
+.m3-expressive #iconContainer.icon-container {
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	border-radius: var(--m3-corner-extra-large);
+	box-shadow: var(--m3-elevation-overlay);
+	padding: 16px 14px;
+	gap: 8px;
+	top: calc(var(--gap) + 54px);
+	inset-inline-end: var(--gap);
+	backdrop-filter: none;
+}
+
+.m3-expressive #iconContainer .icon-item {
+	border-radius: 18px;
+	padding: 10px 8px;
+	transition:
+		border-radius 350ms var(--m3-spring-fast-spatial),
+		transform 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive #iconContainer .label {
+	font-weight: 500;
+	font-size: 0.84rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive #iconContainer .icon-item:hover {
+		background-color: var(--m3-primary-container);
+		border-radius: var(--m3-corner-large-increased);
+		transform: translateY(-2px);
+	}
+}
+
+.m3-expressive #iconContainer .icon-item:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.95);
+}
+
+.m3-expressive #iconContainer .separator {
+	background-color: var(--m3-outline-variant);
+	margin: 6px 8px;
+	width: calc(100% - 16px);
+}
+
+/* --- M3 Expressive ToDo List Floating Sheet (#todoContainer) + Segmented List --- */
+.m3-expressive #todoContainer.todo-container {
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	border-radius: var(--m3-corner-extra-large);
+	box-shadow: var(--m3-elevation-overlay);
+	padding: 16px 14px 14px;
+	top: calc(var(--gap) + 54px);
+	left: auto;
+	right: auto;
+	inset-inline-start: var(--gap);
+	backdrop-filter: none;
+}
+
+.m3-expressive #todoListHeading {
+	font-weight: 700;
+	font-size: 1.25rem;
+	letter-spacing: -0.02em;
+	color: var(--m3-on-surface);
+}
+
+.m3-expressive .todo-container .addTaskCont {
+	border-radius: var(--m3-corner-full);
+	height: 46px;
+	background-color: var(--m3-surface-lowest);
+	border: 1px solid var(--m3-outline-variant);
+	padding-inline-end: 4px;
+	transition: border-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .todo-container .addTaskCont:focus-within {
+	outline: none;
+	border-color: var(--m3-primary);
+}
+
+.m3-expressive #todoAdd {
+	border-radius: 18px;
+	height: 36px;
+	width: 36px;
+	padding: 0;
+	scale: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.4rem;
+	line-height: 1;
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive #todoAdd:active {
+	border-radius: var(--m3-corner-small);
+	transform: scale(0.92);
+}
+
+/* Segmented Expressive List for Tasks */
+.m3-expressive .todolist {
+	gap: 4px;
+}
+
+.m3-expressive .todolistitem {
+	border-radius: 6px;
+	padding-block: 12px;
+	background-color: var(--darkColor-blue);
+	color: #ffffff;
+	font-weight: 500;
+	font-size: 0.94rem;
+	transition:
+		border-radius 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		opacity 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .todolistitem:first-child {
+	border-top-left-radius: 18px;
+	border-top-right-radius: 18px;
+}
+
+.m3-expressive .todolistitem:last-child {
+	border-bottom-left-radius: 18px;
+	border-bottom-right-radius: 18px;
+}
+
+.m3-expressive .todolistitem.checked {
+	background-color: color-mix(in srgb, var(--darkColor-blue) 75%, var(--darkerColor-blue));
+	color: rgba(255, 255, 255, 0.82);
+}
+
+.black-theme.m3-expressive .todolistitem {
+	background-color: #2c2c2c;
+	color: #f0f0f0;
+}
+
+.black-theme.m3-expressive .todolistitem.checked {
+	background-color: #202020;
+	color: #9e9e9e;
+}
+
+/* --- M3 Expressive Bookmarks Side Sheet & Controls --- */
+.m3-expressive .bookmark-sidebar {
+	/* Flush top-start corner so .bookmark-sidebar::before merges seamlessly; 32px bottom corner */
+	border-start-start-radius: 0;
+	border-end-start-radius: var(--m3-corner-extra-large-increased);
+	background-color: var(--m3-surface-container);
+	box-shadow: none;
+	transition: inset-inline-end 420ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .bookmark-sidebar-header h2 {
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.m3-expressive #bookmarkSearch {
+	border-radius: 22px;
+	background-color: var(--m3-surface-lowest);
+	border: 1px solid var(--m3-outline-variant) !important;
+	padding-block: 11px;
+	font-size: 0.96rem;
+	transition: border-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive #bookmarkSearch:focus {
+	border-color: var(--m3-primary) !important;
+	box-shadow: none;
+}
+
+/* Three-dots menu button next to bookmark search */
+.m3-expressive .bookmark-icon-button {
+	border-radius: 21px;
+	background-color: var(--m3-surface-lowest);
+	border: 1px solid var(--m3-outline-variant);
+	color: var(--m3-primary);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		color 200ms var(--m3-spring-default-effects),
+		scale 250ms var(--m3-spring-default-spatial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .bookmark-icon-button:hover,
+	.m3-expressive .bookmark-icon-button[aria-expanded="true"] {
+		border-radius: 14px;
+		background-color: var(--m3-primary);
+		border-color: var(--m3-primary);
+		color: var(--m3-on-primary);
+	}
+}
+
+.m3-expressive .bookmark-icon-button:active {
+	border-radius: var(--m3-corner-medium);
+}
+
+/* Connected Button Groups for Sort By & View As (supports sliding ::before pill) */
+.m3-expressive .button-group {
+	border: 1px solid var(--m3-outline-variant);
+	background-color: var(--m3-surface-lowest);
+	border-radius: 20px;
+	padding: 2px;
+}
+
+.m3-expressive .button-group::before {
+	background-color: var(--m3-primary);
+	transition: transform 380ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .bookmark-sort-button,
+.m3-expressive .bookmark-view-as-button {
+	border-radius: 16px;
+	background: transparent;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .bookmark-sort-button:active,
+.m3-expressive .bookmark-view-as-button:active {
+	border-radius: var(--m3-corner-small);
+}
+
+.m3-expressive .bookmark-sort-button.active,
+.m3-expressive .bookmark-view-as-button.active {
+	color: var(--m3-on-primary);
+}
+
+.m3-expressive .bookmark-menu {
+	border-radius: var(--m3-corner-large-increased);
+	background-color: var(--m3-surface-low);
+	color: var(--m3-on-surface);
+	border: 1px solid var(--m3-outline-variant);
+	box-shadow: var(--m3-elevation-overlay);
+}
+
+.m3-expressive .bookmark-menu-item:hover {
+	background-color: var(--m3-state-hover);
+}
+
+.m3-expressive .bookmark-menu-divider {
+	background-color: var(--m3-outline-variant);
+}
+
+/* Compact M3 Expressive switches inside #bookmarkMenu (46x26; 42px inner width) */
+.m3-expressive .bookmark-menu .switch:has(input) {
+	min-width: 46px;
+	width: 46px;
+	height: 26px;
+}
+
+.m3-expressive .bookmark-menu .toggle:before {
+	height: 12px;
+	width: 12px;
+	top: 50%;
+	bottom: auto;
+	inset-inline-start: 5px;
+	transform: translate(0, -50%);
+}
+
+.m3-expressive .bookmark-menu .toggle:after {
+	width: 11px;
+	height: 11px;
+	top: 50%;
+	inset-inline-start: 5.5px;
+	transform: translate(20px, -50%) scale(0.4);
+}
+
+.m3-expressive .bookmark-menu input:checked + .toggle:before {
+	height: 18px;
+	width: 18px;
+	top: 50%;
+	bottom: auto;
+	inset-inline-start: 2px;
+	transform: translate(20px, -50%);
+}
+
+.m3-expressive .bookmark-menu input:checked + .toggle:after {
+	opacity: 1;
+	transform: translate(20px, -50%) scale(1);
+}
+
+.m3-expressive .bookmark-menu .toggle:dir(rtl):after {
+	transform: translate(-20px, -50%) scale(0.4);
+}
+
+.m3-expressive .bookmark-menu input:checked + .toggle:dir(rtl):before {
+	transform: translate(-20px, -50%);
+}
+
+.m3-expressive .bookmark-menu input:checked + .toggle:dir(rtl):after {
+	transform: translate(-20px, -50%) scale(1);
+}
+
+.m3-expressive .bookmark-menu .switch:has(input):active .toggle:before {
+	width: 16px;
+	height: 16px;
+	inset-inline-start: 3px;
+}
+
+.m3-expressive .bookmark-menu .switch:has(input):active input:checked + .toggle:before {
+	width: 20px;
+	height: 20px;
+	inset-inline-start: 1px;
+	transform: translate(19px, -50%);
+}
+
+.m3-expressive .bookmark-menu .switch:dir(rtl):has(input):active input:checked + .toggle:before {
+	transform: translate(-19px, -50%);
+}
+
+.m3-expressive .bookmark-stepper button {
+	border-radius: 13px;
+	background-color: var(--m3-secondary-container);
+	color: var(--m3-on-primary-container);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		background-color 180ms var(--m3-spring-default-effects),
+		transform 250ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .bookmark-stepper button:active {
+	border-radius: var(--m3-corner-small);
+	transform: scale(0.9);
+}
+
+.m3-expressive .cs-menu {
+	--cs-bg: var(--m3-surface-low);
+	--cs-border: var(--m3-outline-variant);
+	--cs-text: var(--m3-on-surface);
+	--cs-hover: var(--m3-state-hover);
+	--cs-selected: var(--m3-primary-container);
+	border-radius: var(--m3-corner-large-increased);
+	border: 1px solid var(--m3-outline-variant);
+	box-shadow: var(--m3-elevation-overlay);
+}
+
+.m3-expressive .cs-check,
+.m3-expressive .cs-chevron {
+	fill: var(--m3-primary);
+}
+
+/* Preserve upstream's exact list (46px end space for 3-dots) & grid (icon centering) paddings! */
+.m3-expressive #bookmarkList {
+	--bm-sticky-bg: var(--m3-surface-container);
+	--bm-hover-bg: var(--m3-state-hover);
+	--bm-sticky-hover-bg: color-mix(in srgb, var(--m3-primary) 10%, var(--m3-surface-container));
+	border-end-start-radius: var(--m3-corner-extra-large-increased);
+}
+
+.m3-expressive .bookmark-more-button,
+.m3-expressive .bm-chevron-btn {
+	border-radius: 16px;
+	transition:
+		opacity 160ms var(--m3-spring-fast-effects),
+		background-color 180ms var(--m3-spring-default-effects),
+		border-radius 280ms var(--m3-spring-default-spatial),
+		scale 240ms var(--m3-spring-default-spatial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .bookmark-more-button:hover,
+	.m3-expressive .bookmark-more-button.active,
+	.m3-expressive .bm-chevron-btn:hover {
+		border-radius: 10px;
+		background-color: var(--m3-secondary-container);
+	}
+}
+
+.m3-expressive :is(.bm-icon-btn, .bm-folder-action, .has-tooltip)::after {
+	border-radius: 10px;
+	background: var(--m3-primary-strong);
+	color: var(--m3-on-primary);
+	font-weight: 500;
+}
+
+.m3-expressive .folder-row {
+	border-radius: 16px;
+}
+
+.m3-expressive #bookmarkList li a {
+	border-radius: 16px;
+	transition:
+		background-color 180ms var(--m3-spring-default-effects),
+		border-radius 320ms var(--m3-spring-default-spatial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive #bookmarkList li a:hover {
+		background-color: var(--m3-state-hover);
+	}
+}
+
+.m3-expressive #bookmarkList:not(.grid-view) li a::after {
+	border-radius: 14px;
+}
+
+.m3-expressive #bookmarkList:not(.grid-view) li a::before {
+	border-radius: 11px;
+}
+
+.m3-expressive #bookmarkList.grid-view li a {
+	border-radius: 18px;
+}
+
+.m3-expressive #bookmarkList.grid-view li a::after {
+	border-radius: 18px;
+}
+
+.m3-expressive #bookmarkList.grid-view li a::before {
+	border-radius: 14px;
+}
+
+.m3-expressive .bm-badge {
+	background-color: var(--m3-secondary-container);
+	color: var(--m3-on-primary-container);
+}
+
+.m3-expressive .bm-folder-tile {
+	border-radius: 14px;
+	background-color: var(--m3-primary-container);
+	color: var(--m3-on-primary-container);
+}
+
+.m3-expressive .bm-folder-tile svg {
+	fill: var(--m3-primary);
+}
+
+/* --- M3 Expressive Settings Drawer (#menuCont) --- */
+.m3-expressive .menuBar .menuCont {
+	/* Flush top-start corner so .topRounder merges cleanly; 32px bottom corner */
+	border-start-start-radius: 0;
+	border-end-start-radius: var(--m3-corner-extra-large-increased);
+	background-color: var(--m3-surface-container);
+	box-shadow: none;
+	transition: transform 420ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .menuCont .topDiv h1 {
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+/* Top GitHub / Feedback Pill Tiles */
+.m3-expressive .tilesCont .tiles {
+	border-radius: 22px;
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+	font-weight: 600;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		transform 320ms var(--m3-spring-default-spatial);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .tilesCont .tiles:hover {
+		background-color: var(--m3-primary-strong);
+		transform: translateY(-2px);
+	}
+}
+
+.m3-expressive .tilesCont .tiles:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.96);
+}
+
+/* Segmented Accordion Sections (Optical Roundness: 28px outer - 6px pad = 22px inner) */
+.m3-expressive .sectionOuter {
+	border-radius: var(--m3-corner-extra-large);
+	padding: 6px;
+	background-color: var(--m3-surface-high);
+	transition:
+		border-radius 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .sectionHeader {
+	border-radius: var(--m3-corner-large-increased);
+	padding: 10px 16px;
+}
+
+.m3-expressive .sectionTitle {
+	font-weight: 700;
+	font-size: 0.94rem;
+	letter-spacing: -0.01em;
+}
+
+.m3-expressive .sectionChevron {
+	transition: transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive .sectionInner {
+	border-radius: 22px;
+	background-color: var(--m3-surface-lowest);
+	margin-top: 6px;
+}
+
+.m3-expressive .sectionInner .ttcont:not(:last-child) {
+	border-bottom: 1px solid var(--m3-outline-variant);
+}
+
+.m3-expressive .ttcont .texts .bigText {
+	font-weight: 600;
+	font-size: 1.06rem;
+	letter-spacing: -0.01em;
+}
+
+.m3-expressive .ttcont .texts .infoText {
+	font-size: 0.84rem;
+	color: var(--m3-on-surface-variant);
+	opacity: 1;
+	margin-top: 2px;
+}
+
+.m3-expressive .ttcont input:not([type="checkbox"]):not([type="radio"]) {
+	border-radius: var(--m3-corner-medium);
+	height: 38px;
+	border: 1px solid var(--m3-outline-variant);
+	background-color: var(--m3-surface-low);
+	padding: 0 14px;
+	transition: border-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .ttcont input:not([type="checkbox"]):not([type="radio"]):focus {
+	border-color: var(--m3-primary);
+	box-shadow: none;
+}
+
+.m3-expressive .appearanceSection .sectionInner {
+	background-color: transparent;
+}
+
+.m3-expressive .appearanceSection .innerSurface {
+	border-radius: 22px;
+	background-color: var(--m3-surface-lowest);
+	border: none;
+	box-shadow: none;
+}
+
+/* Connected Theme Segmented Control (Light / Dark / System) */
+.m3-expressive .themeSegment {
+	border-radius: var(--m3-corner-full);
+	padding: 4px;
+	background-color: var(--m3-surface-high);
+}
+
+.m3-expressive .themeIndicator {
+	border-radius: var(--m3-corner-full);
+	background-color: var(--m3-surface-lowest);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+	transition: transform 380ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .themeSegBtn {
+	border-radius: var(--m3-corner-full);
+	font-weight: 600;
+	height: 36px;
+	transition: color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .themeSegment[data-active="light"] .themeSegBtn[data-theme="light"],
+.m3-expressive .themeSegment[data-active="dark"] .themeSegBtn[data-theme="dark"],
+.m3-expressive .themeSegment[data-active="system"] .themeSegBtn[data-theme="system"] {
+	font-weight: 700;
+	color: var(--m3-on-surface);
+}
+
+/* Expressive Color Swatches: Circle -> Squircle morph when selected (no neighbor overlap) */
+.m3-expressive .colorsContainer {
+	background-color: var(--m3-surface-low);
+	border-radius: 22px;
+	padding: 12px;
+	gap: 10px;
+}
+
+.m3-expressive .colorsContainer input[type="radio"].colorPlate {
+	border-radius: 18px;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		box-shadow 200ms var(--m3-spring-default-effects);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .colorsContainer input[type="radio"].colorPlate:hover {
+		transform: scale(1.08);
+	}
+}
+
+.m3-expressive .colorsContainer input[type="radio"].colorPlate:checked {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(1.06);
+	box-shadow: 0 0 0 2px var(--m3-surface-low), 0 0 0 4px var(--m3-primary);
+}
+
+.m3-expressive .colorPickerLabel {
+	border-radius: 18px;
+	font-weight: 600;
+	background-color: var(--m3-secondary-container);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .colorPickerLabel:active {
+	border-radius: var(--m3-corner-medium);
+}
+
+/* Wallpaper Controls & Opacity Slider */
+.m3-expressive .uploadButton,
+.m3-expressive .randomButton,
+.m3-expressive .clearButton {
+	border-radius: 21px;
+	font-weight: 600;
+	box-shadow: none;
+	border: 1px solid var(--m3-outline-variant);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .clearButton {
+	border-color: transparent;
+}
+
+.m3-expressive .uploadButton:active,
+.m3-expressive .randomButton:active,
+.m3-expressive .clearButton:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.95);
+}
+
+.m3-expressive .opacityBar .thinLine {
+	height: 8px;
+	border-radius: var(--m3-corner-full);
+	background-color: var(--m3-surface-highest);
+}
+
+.m3-expressive .opacityBar .opacitySlider {
+	background-color: var(--m3-primary);
+	border-radius: var(--m3-corner-full);
+}
+
+.m3-expressive #opacityLevel {
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+	color: var(--m3-on-primary);
+}
+
+/* Language Selector & Settings Action Buttons */
+.m3-expressive .languageSelector {
+	border-radius: 22px;
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	box-shadow: none;
+	font-weight: 500;
+	transition:
+		border-color 200ms var(--m3-spring-default-effects),
+		border-radius 320ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive .languageSelector:hover,
+.m3-expressive .languageSelector:focus,
+.m3-expressive .languageSelector.cs-open {
+	border: 1.5px solid var(--m3-primary);
+}
+
+.m3-expressive .languageIcon,
+.m3-expressive .themingStuff .btn {
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+}
+
+.m3-expressive .backupRestoreContainer {
+	height: 42px;
+	gap: 10px;
+}
+
+.m3-expressive .backupRestoreBtn,
+.m3-expressive .resetbtn,
+.m3-expressive .savebtn,
+.m3-expressive #dontShowTips {
+	border-radius: 21px;
+	font-weight: 600;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .resetbtn {
+	padding: 10px 20px;
+}
+
+.m3-expressive #dontShowTips {
+	padding: 10px 18px;
+}
+
+.m3-expressive .backupRestoreBtn:active,
+.m3-expressive .resetbtn:active,
+.m3-expressive .savebtn:active,
+.m3-expressive #dontShowTips:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.96);
+}
+
+.m3-expressive .tips {
+	border-radius: var(--m3-corner-extra-large);
+	background-color: var(--m3-surface-high);
+}
+
+.m3-expressive #menuCloseButton {
+	border-radius: 22px;
+	font-weight: 600;
+	transition:
+		width 350ms var(--m3-spring-default-spatial),
+		border-radius 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive #menuCloseButton:active {
+	border-radius: var(--m3-corner-medium);
+}
+
+/* Shortcut Edit Page Expressive Cards */
+.m3-expressive .shortcutSettingsEntry {
+	border-radius: var(--m3-corner-large-increased);
+	background-color: var(--m3-surface-high);
+}
+
+.m3-expressive #resetButton,
+.m3-expressive #newShortcutButton,
+.m3-expressive .shortcutDelete button,
+.m3-expressive .uploadCustomIconButton {
+	border-radius: var(--m3-corner-medium);
+	transition:
+		border-radius 350ms var(--m3-spring-fast-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		fill 200ms var(--m3-spring-default-effects),
+		transform 350ms var(--m3-spring-fast-spatial);
+}
+
+.m3-expressive #resetButton:active,
+.m3-expressive #newShortcutButton:active,
+.m3-expressive .shortcutDelete button:active,
+.m3-expressive .uploadCustomIconButton:active {
+	border-radius: var(--m3-corner-small);
+	transform: scale(0.93);
+}
+
+/* --- M3 Expressive Dialogs (Edit Bookmark, AI Tools Settings, Alert/Confirm) --- */
+.m3-expressive #editBookmarkModal,
+.m3-expressive .ai-settings-modal,
+.m3-expressive #prompt-modal-container {
+	border-radius: var(--m3-corner-extra-large);
+	background-color: var(--m3-surface-low);
+	border: 1px solid var(--m3-outline-variant);
+	box-shadow: var(--m3-elevation-overlay);
+	filter: none;
+}
+
+.m3-expressive #editBookmarkModal h2,
+.m3-expressive .ai-settings-modal h3 {
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.m3-expressive .floating-label-field input,
+.m3-expressive .floating-label-field .cs-trigger {
+	border-radius: var(--m3-corner-large);
+	background-color: var(--m3-surface-lowest);
+	border: 1px solid var(--m3-outline-variant);
+	color: var(--m3-on-surface);
+	transition: border-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .floating-label-field input:focus,
+.m3-expressive .floating-label-field .cs-trigger:focus,
+.m3-expressive .floating-label-field .cs-trigger.cs-open {
+	border-color: var(--m3-primary);
+}
+
+.m3-expressive .floating-label-field input:focus+label,
+.m3-expressive .floating-label-field input:not(:placeholder-shown)+label,
+.m3-expressive .floating-label-field select+label {
+	background-color: transparent;
+}
+
+/* Folder picker action icon buttons (+ / ✓ / ✕) inside Edit Bookmark Modal */
+.m3-expressive #editBookmarkModal .bm-folder-action {
+	padding: 0;
+	border-radius: var(--m3-corner-large);
+	background-color: var(--m3-secondary-container);
+	color: var(--m3-on-primary-container);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		color 200ms var(--m3-spring-default-effects);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive #editBookmarkModal .bm-folder-action:hover {
+		border-radius: var(--m3-corner-medium);
+		background-color: var(--m3-primary);
+		color: var(--m3-on-primary);
+	}
+}
+
+.m3-expressive #editBookmarkModal .bm-folder-action:active {
+	border-radius: var(--m3-corner-small);
+	transform: scale(0.93);
+}
+
+/* Dialog button emphasis hierarchy: Filled Primary vs Tonal Secondary + press shape morph */
+.m3-expressive #editBookmarkModal .modal-buttons button,
+.m3-expressive .ai-settings-modal .ai-save-button,
+.m3-expressive .ai-settings-modal .ai-reset-button,
+.m3-expressive .prompt-modal-button {
+	border-radius: 21px;
+	font-weight: 600;
+	padding: 10px 20px;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive #saveBookmarkChanges,
+.m3-expressive .ai-settings-modal .ai-save-button,
+.m3-expressive .prompt-modal-ok {
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+}
+
+.m3-expressive #cancelBookmarkEdit,
+.m3-expressive .ai-settings-modal .ai-reset-button,
+.m3-expressive .prompt-modal-cancel {
+	background-color: var(--m3-secondary-container);
+	color: var(--m3-on-primary-container);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive #saveBookmarkChanges:hover,
+	.m3-expressive .ai-settings-modal .ai-save-button:hover,
+	.m3-expressive .ai-settings-modal #aiToolEditorSaveBtn:hover,
+	.m3-expressive .prompt-modal-ok:hover {
+		background-color: var(--m3-primary-strong);
+		color: var(--m3-on-primary);
+	}
+
+	.m3-expressive #cancelBookmarkEdit:hover,
+	.m3-expressive .ai-settings-modal .ai-reset-button:hover,
+	.m3-expressive .ai-settings-modal #aiToolEditorCancelBtn:hover,
+	.m3-expressive .prompt-modal-cancel:hover {
+		background-color: var(--m3-primary-container);
+		color: var(--m3-on-primary-container);
+	}
+}
+
+.m3-expressive #editBookmarkModal .modal-buttons button:active,
+.m3-expressive .ai-settings-modal .ai-save-button:active,
+.m3-expressive .ai-settings-modal .ai-reset-button:active,
+.m3-expressive .prompt-modal-button:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.95);
+}
+
+/* M3 Expressive Custom AI Tool Editor & Add Button inside AI Tools Settings Modal */
+.m3-expressive .ai-settings-modal .ai-add-button {
+	border-radius: 21px;
+	font-weight: 600;
+	border: 1.5px dashed var(--m3-outline);
+	color: var(--m3-primary-strong);
+	background-color: transparent;
+	padding: 10px 16px;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		border-color 200ms var(--m3-spring-default-effects),
+		color 200ms var(--m3-spring-default-effects);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .ai-settings-modal .ai-add-button:hover {
+		background-color: var(--m3-primary-container);
+		border-color: var(--m3-primary);
+		border-style: solid;
+		color: var(--m3-on-primary-container);
+	}
+}
+
+.m3-expressive .ai-settings-modal .ai-add-button:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.97);
+}
+
+.m3-expressive .ai-settings-modal .ai-tool-editor h4 {
+	font-weight: 700;
+	letter-spacing: -0.01em;
+	color: var(--m3-on-surface);
+}
+
+.m3-expressive .ai-settings-modal .ai-field input {
+	border-radius: var(--m3-corner-large);
+	background-color: var(--m3-surface-lowest);
+	border: 1px solid var(--m3-outline-variant);
+	color: var(--m3-on-surface);
+	transition: border-color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .ai-settings-modal .ai-field input:focus {
+	border-color: var(--m3-primary);
+}
+
+.m3-expressive .ai-settings-modal .ai-field input:focus + label {
+	color: var(--m3-primary-strong);
+}
+
+.m3-expressive .ai-settings-modal .ai-field input.invalid,
+.m3-expressive .ai-settings-modal .ai-field input.invalid:focus {
+	border-color: #d93025;
+}
+
+.m3-expressive .ai-settings-modal .ai-field input.invalid + label,
+.m3-expressive .ai-settings-modal .ai-field input.invalid:focus + label {
+	color: #d93025;
+	opacity: 1;
+}
+
+.m3-expressive .ai-settings-modal .ai-icon-upload {
+	border-radius: var(--m3-corner-large);
+	background-color: var(--m3-secondary-container);
+	fill: var(--m3-on-primary-container);
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		fill 200ms var(--m3-spring-default-effects);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive .ai-settings-modal .ai-icon-upload:hover {
+		border-radius: var(--m3-corner-medium);
+		background-color: var(--m3-primary);
+		fill: var(--m3-on-primary);
+	}
+}
+
+.m3-expressive .ai-settings-modal .ai-icon-upload:active {
+	border-radius: var(--m3-corner-small);
+	transform: scale(0.93);
+}
+
+.m3-expressive .ai-settings-modal .ai-editor-button {
+	border-radius: 21px;
+	font-weight: 600;
+	padding: 10px 20px;
+	transition:
+		border-radius 320ms var(--m3-spring-default-spatial),
+		transform 320ms var(--m3-spring-default-spatial),
+		background-color 200ms var(--m3-spring-default-effects),
+		color 200ms var(--m3-spring-default-effects);
+}
+
+.m3-expressive .ai-settings-modal #aiToolEditorSaveBtn {
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+}
+
+.m3-expressive .ai-settings-modal #aiToolEditorCancelBtn {
+	background-color: var(--m3-secondary-container);
+	color: var(--m3-on-primary-container);
+}
+
+.m3-expressive .ai-settings-modal .ai-editor-button:active {
+	border-radius: var(--m3-corner-medium);
+	transform: scale(0.95);
+}
+
+/* Segmented List inside AI Tools Settings Modal */
+.m3-expressive .ai-settings-modal .ai-tools-list #aiToolsForm .ai-tool-option {
+	margin-bottom: 4px;
+	border-radius: 6px;
+	background-color: var(--m3-surface-lowest);
+}
+
+.m3-expressive .ai-settings-modal .ai-tools-list #aiToolsForm .ai-tool-option:first-child {
+	border-top-left-radius: 16px;
+	border-top-right-radius: 16px;
+}
+
+.m3-expressive .ai-settings-modal .ai-tools-list #aiToolsForm .ai-tool-option:last-child {
+	border-bottom-left-radius: 16px;
+	border-bottom-right-radius: 16px;
+}
+
+.m3-expressive #aiToolsForm .ai-tool-reorder button {
+	border-radius: var(--m3-corner-small);
+	background-color: var(--m3-secondary-container);
+	border: 1px solid var(--m3-outline-variant);
+	color: var(--m3-on-primary-container);
+	transition:
+		border-radius 280ms var(--m3-spring-default-spatial),
+		background-color 180ms var(--m3-spring-default-effects),
+		transform 250ms var(--m3-spring-default-spatial);
+}
+
+.m3-expressive #aiToolsForm .ai-tool-reorder button:not(:disabled) {
+	opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.m3-expressive #aiToolsForm .ai-tool-reorder button:not(:disabled):hover {
+		background-color: var(--m3-primary-container);
+		border-color: var(--m3-primary);
+		color: var(--m3-primary-strong);
+	}
+}
+
+.m3-expressive #aiToolsForm .ai-tool-reorder button:not(:disabled):active {
+	border-radius: 6px;
+	transform: scale(0.92);
+}
+
+.m3-expressive .aiToolsTooltip {
+	bottom: calc(var(--gap) + 60px);
+}
+
+/* --- OLED Black Theme Overrides for M3 Expressive --- */
+html.black-theme.m3-expressive .tilesContainer .tiles {
+	background-color: var(--m3-surface-high) !important;
+}
+
+html.black-theme.m3-expressive .tilesContainer .tiles.location {
+	background-color: #3a3a3a !important;
+}
+
+html.black-theme.m3-expressive .humidityBar .slider {
+	background-color: var(--m3-primary) !important;
+}
+
+html.black-theme.m3-expressive .humidityBar::after {
+	background-color: #3a3a3a;
+}
+
+html.black-theme.m3-expressive #enterBtn {
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+}
+
+html.black-theme.m3-expressive #enterBtn:hover {
+	background-color: var(--m3-primary-strong) !important;
+	color: var(--m3-on-primary) !important;
+}
+
+html.black-theme.m3-expressive .searchbar {
+	background-color: var(--m3-surface-low);
+}
+
+html.black-theme.m3-expressive .micIcon,
+html.black-theme.m3-expressive .aiModeIcon::before {
+	background-color: var(--m3-surface-highest);
+}
+
+html.black-theme.m3-expressive #micIconPath,
+html.black-theme.m3-expressive .micIcon svg path,
+html.black-theme.m3-expressive .aiModeIcon svg path {
+	fill: #ececec;
+}
+
+html.black-theme.m3-expressive .todo-container .addTaskCont input {
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .todo-container .addTaskCont input::placeholder {
+	color: var(--m3-on-surface-variant);
+}
+
+html.black-theme.m3-expressive .button-group {
+	background-color: var(--m3-surface-lowest);
+}
+
+html.black-theme.m3-expressive .button-group::before {
+	background-color: var(--m3-primary);
+}
+
+html.black-theme.m3-expressive .bookmark-sort-button.active,
+html.black-theme.m3-expressive .bookmark-view-as-button.active {
+	color: var(--m3-on-primary) !important;
+}
+
+html.black-theme.m3-expressive .bookmark-search-container,
+html.black-theme.m3-expressive .menuCont .topDiv::after {
+	background-color: var(--m3-surface-container);
+}
+
+html.black-theme.m3-expressive #bookmarkSearch {
+	background-color: var(--m3-surface-lowest) !important;
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .bookmark-icon-button {
+	background-color: var(--m3-surface-lowest);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .bookmark-icon-button:hover,
+html.black-theme.m3-expressive .bookmark-icon-button[aria-expanded="true"] {
+	background-color: var(--m3-primary);
+	border-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+}
+
+html.black-theme.m3-expressive .bookmark-menu {
+	background-color: var(--m3-surface-low);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .bookmark-menu-item:hover {
+	background-color: var(--m3-state-hover);
+}
+
+html.black-theme.m3-expressive .bookmark-stepper button {
+	background-color: var(--m3-surface-high);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .bookmark-more-button:hover,
+html.black-theme.m3-expressive .bookmark-more-button.active,
+html.black-theme.m3-expressive .bm-chevron-btn:hover {
+	background-color: var(--m3-surface-high);
+}
+
+html.black-theme.m3-expressive :is(.bm-icon-btn, .bm-folder-action, .has-tooltip)::after {
+	background: rgba(25, 25, 25, 0.94);
+	color: #f2f2f2;
+}
+
+html.black-theme.m3-expressive .bm-folder-tile,
+html.black-theme.m3-expressive .bm-badge {
+	background-color: var(--m3-surface-high);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .bm-folder-tile svg {
+	fill: var(--m3-primary);
+}
+
+html.black-theme.m3-expressive #bookmarkList {
+	--bm-sticky-bg: var(--m3-surface-container);
+	--bm-hover-bg: var(--m3-state-hover);
+	--bm-sticky-hover-bg: #2e2e2e;
+}
+
+html.black-theme.m3-expressive #bookmarkList.grid-view li a::before,
+html.black-theme.m3-expressive #bookmarkList.grid-view li a::after,
+html.black-theme.m3-expressive #bookmarkList:not(.grid-view) li a::before,
+html.black-theme.m3-expressive #bookmarkList:not(.grid-view) li a::after {
+	background-color: var(--m3-surface-highest);
+}
+
+html.black-theme.m3-expressive .floating-label-field input,
+html.black-theme.m3-expressive .floating-label-field .cs-trigger {
+	background-color: var(--m3-surface-lowest);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .cs-menu {
+	--cs-bg: var(--m3-surface-low);
+	--cs-border: var(--m3-outline-variant);
+	--cs-text: var(--m3-on-surface);
+	--cs-hover: var(--m3-state-hover);
+	--cs-selected: var(--m3-primary-container);
+}
+
+html.black-theme.m3-expressive .cs-check,
+html.black-theme.m3-expressive .cs-chevron {
+	fill: var(--m3-primary);
+}
+
+html.black-theme.m3-expressive #saveBookmarkChanges,
+html.black-theme.m3-expressive .ai-settings-modal .ai-save-button,
+html.black-theme.m3-expressive .ai-settings-modal #aiToolEditorSaveBtn,
+html.black-theme.m3-expressive .prompt-modal-ok {
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+}
+
+html.black-theme.m3-expressive #saveBookmarkChanges:hover,
+html.black-theme.m3-expressive .ai-settings-modal .ai-save-button:hover,
+html.black-theme.m3-expressive .ai-settings-modal #aiToolEditorSaveBtn:hover,
+html.black-theme.m3-expressive .prompt-modal-ok:hover {
+	background-color: var(--m3-primary-strong);
+	color: var(--m3-on-primary);
+}
+
+html.black-theme.m3-expressive #cancelBookmarkEdit,
+html.black-theme.m3-expressive .ai-settings-modal .ai-reset-button,
+html.black-theme.m3-expressive .ai-settings-modal #aiToolEditorCancelBtn,
+html.black-theme.m3-expressive .prompt-modal-cancel {
+	background-color: var(--m3-secondary-container);
+	color: var(--m3-on-primary-container);
+}
+
+html.black-theme.m3-expressive #cancelBookmarkEdit:hover,
+html.black-theme.m3-expressive .ai-settings-modal .ai-reset-button:hover,
+html.black-theme.m3-expressive .ai-settings-modal #aiToolEditorCancelBtn:hover,
+html.black-theme.m3-expressive .prompt-modal-cancel:hover {
+	background-color: var(--m3-surface-highest);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-add-button {
+	color: var(--m3-on-surface);
+	border-color: var(--m3-outline);
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-add-button:hover {
+	background-color: var(--m3-primary-container);
+	border-color: var(--m3-primary);
+	color: var(--m3-on-surface);
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input:focus {
+	border-color: var(--m3-primary);
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input:focus + label {
+	color: var(--m3-primary-strong);
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input.invalid,
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input.invalid:focus {
+	border-color: #f28b82;
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input.invalid + label,
+html.black-theme.m3-expressive .ai-settings-modal .ai-field input.invalid:focus + label {
+	color: #f28b82;
+	opacity: 1;
+}
+
+html.black-theme.m3-expressive .ai-settings-modal .ai-tool-preview.customToolIcon {
+	background-color: var(--m3-surface-high);
+}
+
+html.black-theme.m3-expressive .aiToolsCont .toolsCont a:hover {
+	box-shadow: none;
+}
+
+html.black-theme.m3-expressive .sectionOuter {
+	background-color: #1c1c1c;
+}
+
+html.black-theme.m3-expressive .sectionInner,
+html.black-theme.m3-expressive .appearanceSection .innerSurface {
+	background-color: #282828;
+}
+
+html.black-theme.m3-expressive .themeSegment {
+	background-color: #1a1a1a;
+}
+
+html.black-theme.m3-expressive .themeIndicator {
+	background-color: #363636;
+}
+
+html.black-theme.m3-expressive .colorsContainer {
+	background-color: #1c1c1c;
+}
+
+html.black-theme.m3-expressive .uploadButton,
+html.black-theme.m3-expressive .randomButton {
+	background-color: #323232;
+	color: #f0f0f0;
+}
+
+html.black-theme.m3-expressive .clearButton {
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+}
+
+html.black-theme.m3-expressive .backupRestoreBtn {
+	background-color: #323232;
+	color: #ececec;
+}
+
+html.black-theme.m3-expressive .resetbtn {
+	background-color: var(--m3-primary);
+	color: var(--m3-on-primary);
+}
+
+html.black-theme.m3-expressive .tilesCont .tiles {
+	background-color: #323232;
+	color: #f0f0f0;
+}
+
+html.black-theme.m3-expressive .languageSelector {
+	background-color: #1c1c1c;
+	color: #ececec;
+}
+
+/* --- Wallpaper Mode Scoped Translucency (Only on Surface Panels, Never Clobbering Interactive States) --- */
+html.m3-expressive body[data-bg="wallpaper"] #todoListCont:not(:hover),
+html.m3-expressive body[data-bg="wallpaper"] #bookmarkButton:not(:hover):not(.rotate),
+html.m3-expressive body[data-bg="wallpaper"] #googleAppsCont:not(:hover),
+html.m3-expressive body[data-bg="wallpaper"] .searchbar,
+html.m3-expressive body[data-bg="wallpaper"] .rightDiv .topDiv .lrectangle,
+html.m3-expressive body[data-bg="wallpaper"] .searchWithCont .hint:not(:hover),
+html.m3-expressive body[data-bg="wallpaper"] .searchEnginesContainer .search-engine:not(:hover):not(:has(input:checked)),
+html.m3-expressive body[data-bg="wallpaper"] .quotesContainer,
+html.m3-expressive body[data-bg="wallpaper"] .shortcutsContainer::before,
+html.m3-expressive body[data-bg="wallpaper"] .aiToolsCont .hangno:not(:hover),
+html.m3-expressive body[data-bg="wallpaper"] .aiToolsCont .toolsCont a:not(:hover),
+html.m3-expressive body[data-bg="wallpaper"] #resultBox,
+html.m3-expressive body[data-bg="wallpaper"] #iconContainer,
+html.m3-expressive body[data-bg="wallpaper"] #todoContainer,
+html.m3-expressive body[data-bg="wallpaper"] .dropdown-content {
+	background-color: color-mix(in srgb, var(--m3-surface-low) max(var(--transparency), 72%), transparent);
+	backdrop-filter: blur(18px) saturate(150%);
+	-webkit-backdrop-filter: blur(18px) saturate(150%);
+	border: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+html.m3-expressive body[data-bg="wallpaper"] .searchbar.active,
+html.m3-expressive body[data-bg="wallpaper"] .searchbar:focus-within {
+	border-color: var(--m3-primary);
+}
+
+html.m3-expressive body[data-bg="wallpaper"] .searchEnginesContainer .search-engine:has(input:checked) {
+	background-color: color-mix(in srgb, var(--m3-primary-container) 92%, transparent);
+	border-color: var(--m3-primary);
+	backdrop-filter: blur(18px) saturate(150%);
+	-webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+html.m3-expressive body[data-bg="wallpaper"] #userText,
+html.m3-expressive body[data-bg="wallpaper"] #date {
+	background-color: color-mix(in srgb, var(--m3-surface-low) max(var(--transparency), 72%), transparent);
+	backdrop-filter: blur(14px) saturate(140%);
+	-webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+html.m3-expressive body[data-bg="wallpaper"] .authorWrapper {
+	border-start-start-radius: 20px;
+	border-end-end-radius: 20px;
+	backdrop-filter: blur(14px) saturate(140%);
+	-webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* --- Accessibility: Respect Reduced Motion (WCAG 2.3.3 & Material 3 Guideline) --- */
+@media (prefers-reduced-motion: reduce) {
+
+	.m3-expressive,
+	.m3-expressive *,
+	.m3-expressive *::before,
+	.m3-expressive *::after {
+		--m3-spring-fast-spatial: linear !important;
+		--m3-spring-default-spatial: linear !important;
+		--m3-spring-slow-spatial: linear !important;
+		--m3-spring-fast-effects: linear !important;
+		--m3-spring-default-effects: linear !important;
+		--m3-spring-slow-effects: linear !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+
+	.m3-expressive #digicolon,
+	.m3-expressive .micActive::after,
+	.m3-expressive .micIcon:hover::after,
+	.m3-expressive .aiToolsCont .toolsCont.ai-tools-open a {
+		animation: none !important;
+	}
+}

@@ -272,6 +272,10 @@ const en = {
     "lightThemed": "Light",
     "darkThemed": "Dark",
     "systemThemed": "System",
+
+    // M3 Expressive
+    "m3ExpressiveText": "Material 3 Expressive",
+    "m3ExpressiveInfo": "Enable M3 Expressive design with spring physics and expressive shapes",
     "rangColor": "Pick color",    // Keep this short
 
     // Wallpaper

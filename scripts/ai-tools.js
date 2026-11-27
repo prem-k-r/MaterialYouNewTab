@@ -535,6 +535,10 @@ function toggleAITools(event) {
     // Prevent outside click handler from triggering
     if (event) event.stopPropagation();
 
+    const isM3Expressive = document.documentElement.classList.contains("m3-expressive");
+    const isRtl = getComputedStyle(aiToolName).direction === "rtl";
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
     if (isAIToolVisible) {
         // Hide AI Tool panel
         if (shortcutsCheckbox.checked) {
@@ -543,31 +547,70 @@ function toggleAITools(event) {
             shortcuts.style.display = "none";
         }
 
+        aiToolName.classList.remove("ai-tools-open");
         delete aiToolsCont.dataset.open;
         aiToolName.classList.remove("show-shortcut-numbers");
         aiToolName.style.opacity = "0";
         aiToolName.style.gap = "0";
-        aiToolName.style.transform = "translateX(-100%)";
+        aiToolName.style.transform = isM3Expressive
+            ? `translateX(${isRtl ? "36px" : "-36px"}) scale(0.96)`
+            : "translateX(-100%)";
 
-        setTimeout(() => {
+        if (prefersReducedMotion) {
             aiToolName.style.display = "none";
             isAIToolsTransitioning = false;
-        }, 500);
+        } else {
+            setTimeout(() => {
+                aiToolName.style.display = "none";
+                isAIToolsTransitioning = false;
+            }, isM3Expressive ? 560 : 500);
+        }
     } else {
         // Show AI Tool panel
         shortcuts.style.display = "none";
+        aiToolName.classList.remove("ai-tools-open");
+
+        if (prefersReducedMotion) {
+            aiToolName.style.display = "flex";
+            aiToolsCont.dataset.open = "true";
+            aiToolName.classList.add("ai-tools-open");
+            aiToolName.style.opacity = "1";
+            aiToolName.style.transform = isM3Expressive ? "translateX(0) scale(1)" : "translateX(0)";
+            aiToolName.style.gap = "12px";
+            isAIToolsTransitioning = false;
+            return;
+        }
+
+        if (isM3Expressive) {
+            aiToolName.style.opacity = "0";
+            aiToolName.style.gap = "0";
+            aiToolName.style.transform = `translateX(${isRtl ? "36px" : "-36px"}) scale(0.96)`;
+        }
+
         aiToolName.style.display = "flex";
         aiToolsCont.dataset.open = "true";
+        // Force layout commit so initial collapsed state paints before transitioning
+        void aiToolName.offsetWidth;
 
         requestAnimationFrame(() => {
-            aiToolName.style.opacity = "1";
-            aiToolName.style.transform = "translateX(0)";
+            if (aiToolsCont.dataset.open !== "true") return;
+            requestAnimationFrame(() => {
+                if (aiToolsCont.dataset.open !== "true") return;
+                aiToolName.classList.add("ai-tools-open");
+                aiToolName.style.opacity = "1";
+                aiToolName.style.transform = isM3Expressive ? "translateX(0) scale(1)" : "translateX(0)";
+                if (isM3Expressive) {
+                    aiToolName.style.gap = "12px";
+                }
+            });
         });
 
         setTimeout(() => {
-            aiToolName.style.gap = "12px";
+            if (!isM3Expressive && aiToolsCont.dataset.open === "true") {
+                aiToolName.style.gap = "12px";
+            }
             isAIToolsTransitioning = false;
-        }, 300);
+        }, isM3Expressive ? 640 : 300);
     }
 }
 
