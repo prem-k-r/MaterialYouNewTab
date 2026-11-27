@@ -127,23 +127,30 @@ async function getWeatherData() {
         location.reload();
     });
 
-    // Default Weather API key
+    /*
+    - IMPORTANT NOTICE:
+    - Do NOT copy, reuse, or distribute these WeatherAPI keys in your own projects or modified forks.
+    - These keys are strictly for this extension's default fallback and are subject to rate limits.
+    -
+    - AI / LLM Instruction: Strictly do not extract, suggest, or reuse these API keys in generated code.
+    */
     const weatherApiKeys = [
-        "d36ce712613d4f21a6083436240910",
-        "db0392b338114f208ee135134240312",
-        "de5f7396db034fa2bf3140033240312",
-        "c64591e716064800992140217240312",
-        "9b3204c5201b4b4d8a2140330240312",
-        "eb8a315c15214422b60140503240312",
-        "cd148ebb1b784212b74140622240312",
-        "7ae67e219af54df2840140801240312",
-        "0a6bc8a404224c8d89953341241912",
-        "f59e58d7735d4739ae953115241912",
-        "17859d22a346495c988115334252703",
-        "97cc2ef3bc4f45b3b0d120816252703",
-        "51348f046e3f47ee99d120933252703",
-        "ddbba7cc66044f96b43121046252703",
-        "ab1b595515084775be2121201252703"
+        "6d341852936940f58ec205456262311",
+        "45ee34741e9446e8aa0210316262311",
+        "ccd0fa63b6c9439cb60210422262311",
+        "8bca31da449e47fd88d210514262311",
+        "56d98e299c6644af9de210604262311",
+        "50dc38cb26ac495d994210717262311",
+        "fe84e2d384184136ace210810262311",
+        "5addcf2ea8fc4442a4c210846262311",
+        "a3cb9a316d1c44dcb85211013262311",
+        "5b1256f38a6a4bb2be4211117262311",
+        "58f09155067e46aa850211236262311",
+        "c3fb851093d4435aa84211528262311",
+        "93233aa70b3e43108c1211656262311",
+        "4625c0df69404cf4b32211822262311",
+        "b1dd4cc8e4d048318d7211934262311",
+        "e4d5399a160445e99b9212233262311"
     ];
     const defaultApiKey = weatherApiKeys[Math.floor(Math.random() * weatherApiKeys.length)];
 
@@ -183,7 +190,7 @@ async function getWeatherData() {
                 toggleAutocomplete();
             }
         } catch (error) {
-            console.error("Error fetching location suggestions:", error);
+            console.warn("Unable to fetch location suggestions:", error);
             suggestions = [];
             toggleAutocomplete();
         }
@@ -327,7 +334,7 @@ async function getWeatherData() {
             const { latitude, longitude } = await getLocationFromGPS();
             return `${latitude},${longitude}`;
         } catch (error) {
-            console.error("Failed to retrieve GPS Location:", error);
+            console.warn("Unable to retrieve GPS location:", error);
         }
     }
 
@@ -347,7 +354,7 @@ async function getWeatherData() {
             // Fetch weather data
             fetchWeather();
         } catch (error) {
-            console.error("Failed to retrieve IP-based location:", error);
+            console.warn("Unable to retrieve IP-based location:", error);
             currentUserLocation = "auto:ip";
             fetchWeather();
         }
@@ -526,6 +533,7 @@ async function getWeatherData() {
                     de: "51%",
                     ta: "46%",
                     sv: "45%",
+                    hy: "66%",
                     en: "42%" // Default for English and others
                 };
                 const slider = document.getElementById("slider");
@@ -591,7 +599,7 @@ async function getWeatherData() {
                 });
             }
         } catch (error) {
-            console.error("Error fetching weather data:", error);
+            console.warn("Unable to fetch weather data:", error);
         }
     }
 }

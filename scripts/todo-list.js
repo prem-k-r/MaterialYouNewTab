@@ -198,7 +198,7 @@ function ShowToDoList() {
 
         todoulList.appendChild(fragment); // Append all `li` to the `ul` at once
     } catch (error) {
-        console.error("Error loading from localStorage:", error);
+        console.warn("Unable to load saved to-do items; resetting stored data:", error);
         localStorage.setItem("todoList", "{}"); // Reset corrupted data
     }
 }
